@@ -237,8 +237,6 @@ class DViewExtensions extends JDialog
         getContentPane().add(m_jpExtensions, BorderLayout.CENTER);
         getContentPane().add(m_jpOK, BorderLayout.SOUTH);
 
-        setResizable(false);
-
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 closeDialog();
