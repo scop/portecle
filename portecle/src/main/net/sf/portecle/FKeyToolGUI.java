@@ -5195,10 +5195,13 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         try
         {
             // Update KeyStore entries table
-            ((KeyStoreTableModel)m_jtKeyStore.getModel()).load(m_keyStoreWrap.getKeyStore());
+            ((KeyStoreTableModel)m_jtKeyStore.getModel()).load(
+                m_keyStoreWrap.getKeyStore());
         }
-        catch (KeyStoreException ex)
-        {
+        catch (CryptoException ex) {
+            displayException(ex);
+        }
+        catch (KeyStoreException ex) {
             displayException(ex);
         }
 
