@@ -124,7 +124,7 @@ public final class X509CertUtil
      * @return The certificates
      * @throws CryptoException Problem encountered while loading the
      * certificate(s)
-     * @throws FileNotFoundException If the certificate file does not
+     * @throws java.io.FileNotFoundException If the certificate file does not
      * exist, is a directory rather than a regular file, or for some
      * other reason cannot be opened for reading
      * @throws IOException An I/O error occurred
@@ -208,7 +208,7 @@ public final class X509CertUtil
      * @param fCRLFile The file to load CRL from
      * @return The CRL
      * @throws CryptoException Problem encountered while loading the CRL
-     * @throws FileNotFoundException If the CRL file does not exist,
+     * @throws java.io.FileNotFoundException If the CRL file does not exist,
      *                               is a directory rather than a regular
      *                               file, or for some other reason cannot
      *                               be opened for reading
@@ -245,7 +245,7 @@ public final class X509CertUtil
      * @param fCSRFile The file to load CSR from
      * @return The CSR
      * @throws CryptoException Problem encountered while loading the CSR
-     * @throws FileNotFoundException If the CSR file does not exist,
+     * @throws java.io.FileNotFoundException If the CSR file does not exist,
      *                               is a directory rather than a regular
      *                               file, or for some other reason cannot
      *                               be opened for reading
