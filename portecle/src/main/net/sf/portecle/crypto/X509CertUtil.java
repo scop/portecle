@@ -90,7 +90,7 @@ public final class X509CertUtil extends Object
      * @throws IOException An I/O error occurred
      */
     public static X509Certificate[] loadCertificates(File fCertFile, String encoding)
-        throws CryptoException, FileNotFoundException, IOException
+        throws CryptoException, IOException
     {
         Vector vCerts = new Vector();
 
@@ -153,7 +153,7 @@ public final class X509CertUtil extends Object
      * @throws IOException An I/O error occurred
      */
     public static X509CRL loadCRL(File fCRLFile)
-        throws CryptoException, FileNotFoundException, IOException
+        throws CryptoException, IOException
     {
         FileInputStream fis = null;
 
@@ -191,7 +191,7 @@ public final class X509CertUtil extends Object
      * @throws IOException An I/O error occurred
      */
     public static PKCS10CertificationRequest loadCSR(File fCSRFile)
-        throws CryptoException, FileNotFoundException, IOException
+        throws CryptoException, IOException
     {
         InputStreamReader isr = null;
         StringWriter sw = null;
