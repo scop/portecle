@@ -219,6 +219,10 @@ public class X509Ext
     private static final String AUTHORITY_INFORMATION_ACCESS_OID =
         "1.3.6.1.5.5.7.1.1";
 
+    /** Logotype OID */
+    private static final String LOGOTYPE_OID =
+        "1.3.6.1.5.5.7.1.12";
+
     /** Novell Security Attributes OID */
     private static final String NOVELL_SECURITY_ATTRIBUTES_OID =
         "2.16.840.1.113719.1.9.4.1";
@@ -445,6 +449,10 @@ public class X509Ext
         else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID))
         {
             return getAuthorityInformationAccessStringValue(bOctets);
+        }
+        else if (m_sOid.equals(LOGOTYPE_OID))
+        {
+            return getLogotypeStringValue(bOctets);
         }
         else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID))
         {
@@ -1422,6 +1430,21 @@ public class X509Ext
         }
 
         return sb.toString();
+    }
+
+
+    /**
+     * Get Logotype (1.3.6.1.5.5.7.1.12) extension value as a string.
+     *
+     * @see <a href="http://www.ietf.org/rfc/rfc3709">RFC 3709</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getLogotypeStringValue(byte[] bValue)
+        throws IOException
+    {
+        return getUnknownOidStringValue(bValue);
     }
 
 
