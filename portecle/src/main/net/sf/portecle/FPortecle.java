@@ -2132,7 +2132,7 @@ public class FPortecle extends JFrame implements StatusBar
      *
      * @return True if the KeyStore is saved to disk, false otherwise
      */
-    boolean saveKeyStore() // Deliberately package private
+    /* package private */ boolean saveKeyStore()
     {
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
@@ -2314,9 +2314,10 @@ public class FPortecle extends JFrame implements StatusBar
     /**
      * Check if the currently opened KeyStore requires to be saved.
      *
-     * @return True if the KeyStore has been changed since the last open/save, false otherwise
+     * @return True if the KeyStore has been changed since the last open/save,
+     * false otherwise
      */
-    boolean needSave()  // Deliberately package private
+    /* package private */ boolean needSave()
     {
         boolean bNeedSave = false;
 
@@ -2333,9 +2334,10 @@ public class FPortecle extends JFrame implements StatusBar
     /**
      * Ask the user if they want to save the current KeyStore file.
      *
-     * @return JOptionPane.YES_OPTION, JOptionPane.NO_OPTION or JOptionPane.CANCEL_OPTION
+     * @return JOptionPane.YES_OPTION, JOptionPane.NO_OPTION or
+     * JOptionPane.CANCEL_OPTION
      */
-    int wantSave() // Deliberately package private
+    /* package private */ int wantSave()
     {
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
