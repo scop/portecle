@@ -90,6 +90,15 @@ public class DProviderInfo extends JDialog
         // Buttons
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        m_jbOK = new JButton(m_res.getString("DProviderInfo.m_jbOK.text"));
+        m_jbOK.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                okPressed();
+            }
+        });
+
+        m_jpButtons.add(m_jbOK);
+
         m_jbCopy = new JButton(m_res.getString("DProviderInfo.m_jbCopy.text"));
         m_jbCopy.setMnemonic(m_res.getString("DProviderInfo.m_jbCopy.mnemonic").charAt(0));
         m_jbCopy.setToolTipText(m_res.getString("DProviderInfo.m_jbCopy.tooltip"));
@@ -100,15 +109,6 @@ public class DProviderInfo extends JDialog
         });
 
         m_jpButtons.add(m_jbCopy);
-
-        m_jbOK = new JButton(m_res.getString("DProviderInfo.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                okPressed();
-            }
-        });
-
-        m_jpButtons.add(m_jbOK);
 
         m_jpProviders = new JPanel(new BorderLayout());
         m_jpProviders.setBorder(new EmptyBorder(5, 5, 5, 5));

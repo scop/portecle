@@ -131,6 +131,15 @@ class DKeyStoreReport extends JDialog
         // Buttons
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        m_jbOK = new JButton(m_res.getString("DKeyStoreReport.m_jbOK.text"));
+        m_jbOK.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                okPressed();
+            }
+        });
+
+        m_jpButtons.add(m_jbOK);
+
         m_jbCopy = new JButton(m_res.getString("DKeyStoreReport.m_jbCopy.text"));
         m_jbCopy.setMnemonic(m_res.getString("DKeyStoreReport.m_jbCopy.mnemonic").charAt(0));
         m_jbCopy.setToolTipText(m_res.getString("DKeyStoreReport.m_jbCopy.tooltip"));
@@ -152,15 +161,6 @@ class DKeyStoreReport extends JDialog
         });
 
         m_jpButtons.add(m_jbCopyXml);
-
-        m_jbOK = new JButton(m_res.getString("DKeyStoreReport.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                okPressed();
-            }
-        });
-
-        m_jpButtons.add(m_jbOK);
 
         // KeyStore Report
         m_jpReport = new JPanel(new BorderLayout());
