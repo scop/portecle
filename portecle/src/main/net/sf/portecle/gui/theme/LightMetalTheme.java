@@ -23,8 +23,8 @@ package net.sf.portecle.gui.theme;
 
 import java.awt.Font;
 
-import javax.swing.plaf.*;
-import javax.swing.plaf.metal.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.metal.DefaultMetalTheme;
 
 /**
  * Very simple Metal theme that simply gets rid of the bold used in the default

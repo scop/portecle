@@ -21,8 +21,9 @@
 
 package net.sf.portecle.gui.statusbar;
 
-import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.JMenuItem;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * Handles change events on a menu item that causes the status bar text

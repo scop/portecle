@@ -21,7 +21,7 @@
 
 package net.sf.portecle.version;
 
-import java.util.*;
+import java.util.StringTokenizer;
 
 /**
  * Immutable version class constructed from a Java version string (ir without
