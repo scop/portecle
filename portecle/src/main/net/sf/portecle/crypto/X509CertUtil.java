@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -64,9 +64,9 @@ import org.bouncycastle.asn1.DEROutputStream;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.X509Principal;
-import org.bouncycastle.jce.X509V1CertificateGenerator;
 import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.x509.X509V1CertificateGenerator;
 
 /**
  * Provides utility methods relating to X509 Certificates, CRLs and CSRs.

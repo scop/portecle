@@ -2,14 +2,18 @@ New in Portecle x.x (not yet released):
 ---------------------------------------
 
 New features:
-- Support for RSA certificates using the RIPEMD160withRSA signature algorithm.
+- Support for RSA certificates using the SHA224withRSA, SHA256withRSA,
+  SHA384withRSA, SHA512withRSA, and RIPEMD160withRSA signature algorithms.
 - Recognition of Elliptic Curve DSA keys.
 - Recognition and decoding support for some additional certificate
   extensions.
 
 Enhancements:
 - Minor user interface improvements here and there.
-- Bundled Bouncy Castle Provider jar upgraded to 1.27.
+
+Miscellaneous:
+- Bundled Bouncy Castle Provider jar upgraded to 1.27, version 1.26 or
+  later is now required.
 
 New in Portecle 0.9 (2004-11-03):
 --------------------------------

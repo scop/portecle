@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -674,7 +674,19 @@ class DViewCertificate extends JDialog
         // Signature Algorithm
         String sigAlgName = cert.getSigAlgName();
         // TODO: move this mapping someplace else
-        if ("1.3.36.3.3.1.2".equals(sigAlgName)) {
+        if ("1.2.840.113549.1.1.14".equals(sigAlgName)) {
+            sigAlgName = SignatureType.RSA_SHA224.toString();
+        }
+        else if ("1.2.840.113549.1.1.11".equals(sigAlgName)) {
+            sigAlgName = SignatureType.RSA_SHA256.toString();
+        }
+        else if ("1.2.840.113549.1.1.12".equals(sigAlgName)) {
+            sigAlgName = SignatureType.RSA_SHA384.toString();
+        }
+        else if ("1.2.840.113549.1.1.13".equals(sigAlgName)) {
+            sigAlgName = SignatureType.RSA_SHA512.toString();
+        }
+        else if ("1.3.36.3.3.1.2".equals(sigAlgName)) {
             sigAlgName = SignatureType.RSA_RIPEMD160.toString();
         }
         else if ("1.2.840.10045.4.1".equals(sigAlgName)) {

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -416,6 +416,10 @@ class DGenerateCertificate extends JDialog
                 SignatureType.RSA_MD2,
                 SignatureType.RSA_MD5,
                 SignatureType.RSA_SHA1,
+                SignatureType.RSA_SHA224,
+                SignatureType.RSA_SHA256,
+                SignatureType.RSA_SHA384,
+                SignatureType.RSA_SHA512,
                 SignatureType.RSA_RIPEMD160,
             };
             selectedIndex = 2;

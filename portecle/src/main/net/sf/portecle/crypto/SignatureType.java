@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,7 +45,23 @@ public class SignatureType
     /** SHA-1 with RSA Signature Type */
     public static final SignatureType RSA_SHA1 =
         new SignatureType("SHA1withRSA");
-    
+
+    /** SHA-224 with RSA Signature Type */
+    public static final SignatureType RSA_SHA224 =
+        new SignatureType("SHA224withRSA");
+
+    /** SHA-256 with RSA Signature Type */
+    public static final SignatureType RSA_SHA256 =
+        new SignatureType("SHA256withRSA");
+
+    /** SHA-384 with RSA Signature Type */
+    public static final SignatureType RSA_SHA384 =
+        new SignatureType("SHA384withRSA");
+
+    /** SHA-512 with RSA Signature Type */
+    public static final SignatureType RSA_SHA512 =
+        new SignatureType("SHA512withRSA");
+
     /** RIPEMD160 with RSA Signature Type */
     public static final SignatureType RSA_RIPEMD160 =
         new SignatureType("RIPEMD160withRSA");
@@ -64,6 +80,10 @@ public class SignatureType
         TYPE_MAP.put(RSA_MD2.toString(),       RSA_MD2);
         TYPE_MAP.put(RSA_MD5.toString(),       RSA_MD5);
         TYPE_MAP.put(RSA_SHA1.toString(),      RSA_SHA1);
+        TYPE_MAP.put(RSA_SHA224.toString(),    RSA_SHA1);
+        TYPE_MAP.put(RSA_SHA256.toString(),    RSA_SHA1);
+        TYPE_MAP.put(RSA_SHA384.toString(),    RSA_SHA1);
+        TYPE_MAP.put(RSA_SHA512.toString(),    RSA_SHA1);
         TYPE_MAP.put(RSA_RIPEMD160.toString(), RSA_RIPEMD160);
         TYPE_MAP.put(DSA_SHA1.toString(),      DSA_SHA1);
         TYPE_MAP.put(ECDSA_SHA1.toString(),    ECDSA_SHA1);
