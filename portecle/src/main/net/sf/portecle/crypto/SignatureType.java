@@ -40,11 +40,11 @@ public class SignatureType extends Object
     public static final SignatureType RSA_MD5 =
         new SignatureType("MD5withRSA");
 
-    /** SHA.1 with RSA Sigature Type */
+    /** SHA-1 with RSA Sigature Type */
     public static final SignatureType RSA_SHA1 =
         new SignatureType("SHA1withRSA");
 
-    /** SHA.1 with DSA Sigature Type */
+    /** SHA-1 with DSA Sigature Type */
     public static final SignatureType DSA_SHA1 =
         new SignatureType("SHA1withDSA");
 

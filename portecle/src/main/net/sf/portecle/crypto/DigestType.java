@@ -33,7 +33,7 @@ public class DigestType extends Object
     /** MD5 Digest Type */
     public static final DigestType MD5 = new DigestType("MD5");
 
-    /** SHA1 Digest Type */
+    /** SHA-1 Digest Type */
     public static final DigestType SHA1 = new DigestType("SHA1");
 
     /** Resource bundle */

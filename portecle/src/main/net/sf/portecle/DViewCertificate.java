@@ -117,10 +117,10 @@ class DViewCertificate extends JDialog
     /** Certificate MD5 Fingerprint text field */
     private JTextField m_jtfMD5Fingerprint;
 
-    /** Certificate SHA1 Fingerprint label */
+    /** Certificate SHA-1 Fingerprint label */
     private JLabel m_jlSHA1Fingerprint;
 
-    /** Certificate SHA1 Fingerprint text field */
+    /** Certificate SHA-1 Fingerprint text field */
     private JTextField m_jtfSHA1Fingerprint;
 
     /** Panel to hold "Extensions" and "PEM Encoding" buttons */
@@ -384,7 +384,7 @@ class DViewCertificate extends JDialog
             (GridBagConstraints) gbcTf.clone();
         gbc_jtfMD5Fingerprint.gridy = 8;
 
-        // SHA1 Fingerprint
+        // SHA-1 Fingerprint
         m_jlSHA1Fingerprint = new JLabel(
             m_res.getString("DViewCertificate.m_jlSHA1Fingerprint.text"));
         GridBagConstraints gbc_jlSHA1Fingerprint =

@@ -603,7 +603,7 @@ class DKeyStoreReport
                                                  bCert, DigestType.MD5)}));
                         sbReport.append("\n");
 
-                        // SHA1 Fingerprint
+                        // SHA-1 Fingerprint
                         sbReport.append(
                             MessageFormat.format(
                                 m_res.getString("DKeyStoreReport.report.sha1"),
@@ -1006,7 +1006,7 @@ class DKeyStoreReport
                                          DigestUtil.getMessageDigest(
                                              bCert, DigestType.MD5)));
 
-                        // SHA1 Fingerprint
+                        // SHA-1 Fingerprint
                         certNode.add(new DefaultMutableTreeNode(
                                          DigestUtil.getMessageDigest(
                                              bCert, DigestType.SHA1)));
