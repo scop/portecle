@@ -34,7 +34,7 @@
     <pathelement location="${bcprov.jar}" />
   </path>
 
-  <target name="build-classes">
+  <target name="build">
     <mkdir dir="${build}/classes" />
     <javac
       srcdir="${src}/main"
@@ -59,7 +59,7 @@
     </copy>
   </target>
 
-  <target name="jar" depends="build-classes">
+  <target name="jar" depends="build">
     <!-- Indexing breaks "java -jar" (Class-Path ignored). -->
     <jar jarfile="${build}/${jar}" index="false">
       <manifest>
@@ -159,7 +159,7 @@
     </exec>
   </target>
 
-  <target name="jlint" depends="build-classes">
+  <target name="jlint" depends="build">
     <exec executable="jlint" taskname="jlint">
       <arg value="-source" /><arg value="${src}/main" />
       <arg value="+all" />
@@ -167,7 +167,7 @@
     </exec>
   </target>
 
-  <target name="checkstyle" depends="build-classes">
+  <target name="checkstyle" depends="build">
     <mkdir dir="${build}/reports" />
     <checkstyle config="checkstyle.xml"
       classpath="${build.classpath}:${build}/classes">
