@@ -66,6 +66,16 @@
     </javadoc>
   </target>
 
+  <target name="run" depends="build">
+    <!-- TODO: command line args -->
+    <java fork="true" classname="${main.class}">
+      <sysproperty key="portecle.experimental" value="true" />
+      <classpath>
+        <fileset dir="${dist}" includes="*.jar" />
+      </classpath>
+    </java>
+  </target>
+
   <target name="all" depends="build,javadoc" />
 
   <target name="clean">
