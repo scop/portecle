@@ -41,7 +41,8 @@ import org.bouncycastle.util.encoders.Base64;
 public final class X509CertUtil extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Type name for X.509 certificates */
     private static final String X509_CERT_TYPE = "X.509";
@@ -62,10 +63,12 @@ public final class X509CertUtil extends Object
     private static final int CERT_LINE_LENGTH = 64;
 
     /** Begin certification request for PEM encoding */
-    private static final String BEGIN_CERT_REQ = "-----BEGIN CERTIFICATE REQUEST-----";
+    private static final String BEGIN_CERT_REQ =
+        "-----BEGIN CERTIFICATE REQUEST-----";
 
     /** End certification request for PEM encoding */
-    private static final String END_CERT_REQ = "-----END CERTIFICATE REQUEST-----";
+    private static final String END_CERT_REQ =
+        "-----END CERTIFICATE REQUEST-----";
 
     /** The maximum length of lines in certification requests */
     private static final int CERT_REQ_LINE_LENGTH = 76;
@@ -79,7 +82,8 @@ public final class X509CertUtil extends Object
      * Load one or more certificates from the specified file.
      *
      * @param fCertFile The file to load certificates from
-     * @param encoding The certification path encoding, if null, treat as a normal certificate, not certification path
+     * @param encoding The certification path encoding, if null, treat as a
+     * normal certificate, not certification path
      * @return The certificates
      * @throws CryptoException Problem encountered while loading the certificate(s)
      * @throws FileNotFoundException If the certificate file does not exist,
@@ -88,7 +92,8 @@ public final class X509CertUtil extends Object
      *                               be opened for reading
      * @throws IOException An I/O error occurred
      */
-    public static X509Certificate[] loadCertificates(File fCertFile, String encoding)
+    public static X509Certificate[] loadCertificates(File fCertFile,
+                                                     String encoding)
         throws CryptoException, IOException
     {
         Vector vCerts = new Vector();
@@ -99,7 +104,8 @@ public final class X509CertUtil extends Object
         {
             fis = new FileInputStream(fCertFile);
 
-            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
+            CertificateFactory cf =
+                CertificateFactory.getInstance(X509_CERT_TYPE);
 
             Collection coll = null;
             if (encoding != null)
@@ -109,6 +115,7 @@ public final class X509CertUtil extends Object
             }
             else
             {
+                // TODO: do we need to "rewind" here under some circumstances?
                 // "Normal" certificate(s)
                 coll = cf.generateCertificates(fis);
             }
@@ -129,14 +136,17 @@ public final class X509CertUtil extends Object
         // for example Sun's PKCS #7 parser tends to throw them... :P
         catch (Exception ex)
         {
-            throw new CryptoException(m_res.getString("NoLoadCertificate.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoLoadCertificate.exception.message"), ex);
         }
         finally
         {
-            if (fis != null) { try {fis.close();} catch(IOException ex) { /* Ignore */ }};
+            if (fis != null) {
+                try {fis.close();} catch(IOException ex) { /* Ignore */ }};
         }
 
-        return (X509Certificate[])vCerts.toArray(new X509Certificate[vCerts.size()]);
+        return (X509Certificate[])
+            vCerts.toArray(new X509Certificate[vCerts.size()]);
     }
 
     /**
@@ -159,21 +169,20 @@ public final class X509CertUtil extends Object
         try
         {
             fis = new FileInputStream(fCRLFile);
-            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
+            CertificateFactory cf =
+                CertificateFactory.getInstance(X509_CERT_TYPE);
             X509CRL crl = (X509CRL)cf.generateCRL(fis);
             return crl;
         }
-        catch (CertificateException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoLoadCrl.exception.message"), ex);
-        }
-        catch (CRLException ex)
-        {
-            throw new CryptoException(m_res.getString("NoLoadCrl.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoLoadCrl.exception.message"), ex);
         }
         finally
         {
-            if (fis != null) { try {fis.close();} catch(IOException ex) { /* Ignore */ }};
+            if (fis != null) {
+                try {fis.close();} catch(IOException ex) { /* Ignore */ }};
         }
     }
 
@@ -210,7 +219,8 @@ public final class X509CertUtil extends Object
                 sw.write(buff, 0, iRead);
             }
 
-            // Strip out extraneous content such as headers, footers, empty lines and line breaks
+            // Strip out extraneous content such as headers, footers, empty
+            // lines and line breaks
             StringBuffer strBuff = new StringBuffer();
 
             lnr = new LineNumberReader(new StringReader(sw.toString()));
@@ -222,7 +232,8 @@ public final class X509CertUtil extends Object
                 {
                     char c = sLine.charAt(0);
 
-                    // Not interested in lines that do not start with a Base 64 character
+                    // Not interested in lines that do not start with a
+                    // Base 64 character
                     if (((c > 'A') && (c <= 'Z')) ||
                         ((c > 'a') && (c <= 'z')) ||
                         ((c > '0') && (c <= '9')) ||
@@ -237,44 +248,39 @@ public final class X509CertUtil extends Object
             byte[] bDecodedReq = Base64.decode(strBuff.toString());
 
             // Create CSR from decoded byte array
-            PKCS10CertificationRequest csr = new PKCS10CertificationRequest(bDecodedReq);
+            PKCS10CertificationRequest csr =
+                new PKCS10CertificationRequest(bDecodedReq);
 
             // Verify CSR
             if (!csr.verify())
             {
-                throw new CryptoException(m_res.getString("NoVerifyCsr.exception.message"));
+                throw new CryptoException(
+                    m_res.getString("NoVerifyCsr.exception.message"));
             }
 
             // Return CSR
             return csr;
         }
-        catch (NoSuchAlgorithmException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoLoadCsr.exception.message"), ex);
-        }
-        catch (NoSuchProviderException ex)
-        {
-            throw new CryptoException(m_res.getString("NoLoadCsr.exception.message"), ex);
-        }
-        catch (InvalidKeyException ex)
-        {
-            throw new CryptoException(m_res.getString("NoLoadCsr.exception.message"), ex);
-        }
-        catch (SignatureException ex)
-        {
-            throw new CryptoException(m_res.getString("NoLoadCsr.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoLoadCsr.exception.message"), ex);
         }
 
         finally
         {
-            if (isr != null) { try {isr.close();} catch(IOException ex) { /* Ignore */ }};
-            if (sw != null) { try {sw.close();} catch(IOException ex) { /* Ignore */ }};
-            if (lnr != null) { try {lnr.close();} catch(IOException ex) { /* Ignore */ }};
+            if (isr != null) {
+                try { isr.close(); } catch(IOException ex) { /* Ignore */ }};
+            if (sw != null) {
+                try { sw.close();  } catch(IOException ex) { /* Ignore */ }};
+            if (lnr != null) {
+                try { lnr.close(); } catch(IOException ex) { /* Ignore */ }};
         }
     }
 
     /**
-     * Convert the supplied array of certificate objects into X509Certificate objects.
+     * Convert the supplied array of certificate objects into
+     * X509Certificate objects.
      *
      * @param certsIn The Certificate objects
      * @return The converted X509Certificate objects
@@ -305,13 +311,16 @@ public final class X509CertUtil extends Object
     {
         try
         {
-            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-            ByteArrayInputStream bais = new ByteArrayInputStream(certIn.getEncoded());
+            CertificateFactory cf =
+                CertificateFactory.getInstance(X509_CERT_TYPE);
+            ByteArrayInputStream bais =
+                new ByteArrayInputStream(certIn.getEncoded());
             return (X509Certificate)cf.generateCertificate(bais);
         }
         catch (CertificateException ex)
         {
-            throw new CryptoException(m_res.getString("NoConvertCertificate.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoConvertCertificate.exception.message"), ex);
         }
     }
 
@@ -330,7 +339,8 @@ public final class X509CertUtil extends Object
 
         X509Certificate issuerCert = null;
 
-        // Find the root issuer (ie certificate where issuer is the same as subject)
+        // Find the root issuer (ie certificate where issuer is the same
+        // as subject)
         for (int iCnt=0; iCnt < tmpCerts.length; iCnt++)
         {
             X509Certificate aCert = tmpCerts[iCnt];
@@ -358,7 +368,8 @@ public final class X509CertUtil extends Object
                 X509Certificate aCert = tmpCerts[iCnt];
 
                 // Is this certificate the next in the chain?
-                if ((aCert.getIssuerDN().equals(issuerCert.getSubjectDN())) && (aCert != issuerCert))
+                if (aCert.getIssuerDN().equals(issuerCert.getSubjectDN()) &&
+                    aCert != issuerCert)
                 {
                     // Yes
                     issuerCert = aCert;
@@ -396,7 +407,8 @@ public final class X509CertUtil extends Object
      * @param cert The certificate
      * @throws CryptoException If there was a problem encoding the certificate
      */
-    public static byte[] getCertEncodedDer(X509Certificate cert) throws CryptoException
+    public static byte[] getCertEncodedDer(X509Certificate cert)
+        throws CryptoException
     {
         try
         {
@@ -404,7 +416,8 @@ public final class X509CertUtil extends Object
         }
         catch (CertificateException ex)
         {
-            throw new CryptoException(m_res.getString("NoDerEncode.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoDerEncode.exception.message"), ex);
         }
     }
 
@@ -415,7 +428,8 @@ public final class X509CertUtil extends Object
      * @param cert The certificate
      * @throws CryptoException If there was a problem encoding the certificate
      */
-    public static String getCertEncodedPem(X509Certificate cert) throws CryptoException
+    public static String getCertEncodedPem(X509Certificate cert)
+        throws CryptoException
     {
         try
         {
@@ -449,7 +463,8 @@ public final class X509CertUtil extends Object
         }
         catch (CertificateException ex)
         {
-            throw new CryptoException(m_res.getString("NoPemEncode.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoPemEncode.exception.message"), ex);
         }
     }
 
@@ -476,7 +491,8 @@ public final class X509CertUtil extends Object
     public static byte[] getCertsEncodedPkcs7(X509Certificate[] certs)
         throws CryptoException
     {
-        return getCertsEncoded(certs, PKCS7_ENCODING, "NoPkcs7Encode.exception.message");
+        return getCertsEncoded(
+            certs, PKCS7_ENCODING, "NoPkcs7Encode.exception.message");
     }
 
     /**
@@ -502,7 +518,8 @@ public final class X509CertUtil extends Object
     public static byte[] getCertsEncodedPkiPath(X509Certificate[] certs)
         throws CryptoException
     {
-        return getCertsEncoded(certs, PKIPATH_ENCODING, "NoPkiPathEncode.exception.message");
+        return getCertsEncoded(
+            certs, PKIPATH_ENCODING, "NoPkiPathEncode.exception.message");
     }
 
     /**
@@ -514,13 +531,16 @@ public final class X509CertUtil extends Object
      * @param errkey The error message key to use in the possibly occurred exception
      * @throws CryptoException If there was a problem encoding the certificates
      */
-    private static byte[] getCertsEncoded(X509Certificate[] certs, String encoding, String errkey)
+    private static byte[] getCertsEncoded(X509Certificate[] certs,
+                                          String encoding, String errkey)
         throws CryptoException
     {
         try
         {
-            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-            return cf.generateCertPath(Arrays.asList(certs)).getEncoded(encoding);
+            CertificateFactory cf =
+                CertificateFactory.getInstance(X509_CERT_TYPE);
+            return cf.generateCertPath(
+                Arrays.asList(certs)).getEncoded(encoding);
         }
         catch (CertificateException ex)
         {
@@ -544,13 +564,20 @@ public final class X509CertUtil extends Object
      * @param publicKey Public part of key pair
      * @param privateKey Private part of key pair
      * @param signatureType Signature Type
-     * @throws CryptoException If there was a problem generating the certificate
+     * @throws CryptoException If there was a problem generating the
+     * certificate
      */
-    public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit,
-                                               String sOrganisation, String sLocality,
-                                               String sState, String sCountryCode, String sEmailAddress,
-                                               int iValidity, PublicKey publicKey,
-                                               PrivateKey privateKey, SignatureType signatureType)
+    public static X509Certificate generateCert(String sCommonName,
+                                               String sOrganisationUnit,
+                                               String sOrganisation,
+                                               String sLocality,
+                                               String sState,
+                                               String sCountryCode,
+                                               String sEmailAddress,
+                                               int iValidity,
+                                               PublicKey publicKey,
+                                               PrivateKey privateKey,
+                                               SignatureType signatureType)
         throws CryptoException
     {
         // Holds certificate attributes
@@ -610,7 +637,8 @@ public final class X509CertUtil extends Object
 
         // Valid before and after dates now to iValidity days in the future
         certGen.setNotBefore(new Date(System.currentTimeMillis()));
-        certGen.setNotAfter(new Date(System.currentTimeMillis() + ((long)iValidity * 24 * 60 * 60 * 1000)));
+        certGen.setNotAfter(new Date(System.currentTimeMillis() +
+                                     ((long)iValidity * 24 * 60 * 60 * 1000)));
 
         // Set the subject distinguished name (same as issuer for our purposes)
         certGen.setSubjectDN(new X509Principal(vOrder, attrs));
@@ -636,11 +664,13 @@ public final class X509CertUtil extends Object
         // Something went wrong
         catch (SignatureException ex)
         {
-            throw new CryptoException(m_res.getString("CertificateGenFailed.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("CertificateGenFailed.exception.message"), ex);
         }
         catch (InvalidKeyException ex)
         {
-            throw new CryptoException(m_res.getString("CertificateGenFailed.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("CertificateGenFailed.exception.message"), ex);
         }
     }
 
@@ -652,7 +682,8 @@ public final class X509CertUtil extends Object
     private static BigInteger generateX509SerialNumber()
     {
         // Time in seconds
-        return new BigInteger(Long.toString(System.currentTimeMillis() / 1000));
+        return new BigInteger(
+            Long.toString(System.currentTimeMillis() / 1000));
     }
 
     /**
@@ -664,7 +695,8 @@ public final class X509CertUtil extends Object
      * @throws CryptoException If there was a problem generating the CSR
      * @return The CSR
      */
-    public static String generatePKCS10CSR(X509Certificate cert, PrivateKey privateKey)
+    public static String generatePKCS10CSR(X509Certificate cert,
+                                           PrivateKey privateKey)
         throws CryptoException
     {
         X509Name subject = new X509Name(cert.getSubjectDN().toString());
@@ -679,7 +711,8 @@ public final class X509CertUtil extends Object
                                                privateKey);
             if (!csr.verify())
             {
-                throw new CryptoException(m_res.getString("NoVerifyGenCsr.exception.message"));
+                throw new CryptoException(
+                    m_res.getString("NoVerifyGenCsr.exception.message"));
             }
 
             // Get Base 64 encoding of CSR
@@ -692,7 +725,7 @@ public final class X509CertUtil extends Object
             String sCsr = BEGIN_CERT_REQ + "\n";
 
             // Limit line lengths between header and footer
-            for (int iCnt=0; iCnt < sTmp.length(); iCnt += CERT_REQ_LINE_LENGTH)
+            for (int iCnt=0; iCnt < sTmp.length(); iCnt +=CERT_REQ_LINE_LENGTH)
             {
                 int iLineLength;
 
@@ -713,25 +746,15 @@ public final class X509CertUtil extends Object
 
             return sCsr;
         }
-        catch (NoSuchProviderException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoGenerateCsr.exception.message"), ex);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(m_res.getString("NoGenerateCsr.exception.message"), ex);
-        }
-        catch (SignatureException ex)
-        {
-            throw new CryptoException(m_res.getString("NoGenerateCsr.exception.message"), ex);
-        }
-        catch (InvalidKeyException ex)
-        {
-            throw new CryptoException(m_res.getString("NoGenerateCsr.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoGenerateCsr.exception.message"), ex);
         }
         catch (IOException ex)
         {
-            throw new CryptoException(m_res.getString("NoGenerateCsr.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoGenerateCsr.exception.message"), ex);
         }
     }
 
@@ -745,7 +768,8 @@ public final class X509CertUtil extends Object
      * @param signingCert The signing certificate
      * @throws CryptoException If there was a problem verifying the signature.
      */
-    public static boolean verifyCertificate(X509Certificate signedCert, X509Certificate signingCert)
+    public static boolean verifyCertificate(X509Certificate signedCert,
+                                            X509Certificate signingCert)
         throws CryptoException
     {
         try
@@ -763,33 +787,28 @@ public final class X509CertUtil extends Object
             return false;
         }
         // Problem verifying
-        catch (NoSuchProviderException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoVerifyCertificate.exception.message"), ex);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(m_res.getString("NoVerifyCertificate.exception.message"), ex);
-        }
-        catch (CertificateException ex)
-        {
-            throw new CryptoException(m_res.getString("NoVerifyCertificate.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoVerifyCertificate.exception.message"), ex);
         }
         return true;
     }
 
     /**
-     * Check whether or not a trust path exists between the supplied X.509 certificate and
-     * and the supplied keystores based on the trusted certificates contained
-     * therein, ie that a chain of trust exists between the supplied certificate
-     * and a self-signed trusted certificate in the KeyStores.
+     * Check whether or not a trust path exists between the supplied
+     * X.509 certificate and and the supplied keystores based on the
+     * trusted certificates contained therein, ie that a chain of
+     * trust exists between the supplied certificate and a self-signed
+     * trusted certificate in the KeyStores.
      *
      * @return The trust chain, or null if trust could not be established
      * @param cert The certificate
      * @param keyStores The KeyStores
      * @throws CryptoException If there is a problem establishing trust
      */
-    public static X509Certificate[] establishTrust(KeyStore keyStores[], X509Certificate cert)
+    public static X509Certificate[] establishTrust(KeyStore keyStores[],
+                                                   X509Certificate cert)
         throws CryptoException
     {
         // Extract all certificates from the Keystores creating
@@ -804,17 +823,19 @@ public final class X509CertUtil extends Object
     }
 
     /**
-     * Check whether or not a trust path exists between the supplied X.509 certificate and
-     * and the supplied comparison certificates based on the trusted certificates contained
-     * therein, ie that a chain of trust exists between the supplied certificate
-     * and a self-signed trusted certificate in the comparison set.
+     * Check whether or not a trust path exists between the supplied
+     * X.509 certificate and and the supplied comparison certificates
+     * based on the trusted certificates contained therein, ie that a
+     * chain of trust exists between the supplied certificate and a
+     * self-signed trusted certificate in the comparison set.
      *
      * @return The trust chain, or null if trust could not be established
      * @param cert The certificate
      * @param vCompCerts The comparison set of certificates
      * @throws CryptoException If there is a problem establishing trust
      */
-    private static X509Certificate[] establishTrust(Vector vCompCerts, X509Certificate cert)
+    private static X509Certificate[] establishTrust(Vector vCompCerts,
+                                                    X509Certificate cert)
         throws CryptoException
     {
         // For each comparison certificate...
@@ -837,19 +858,22 @@ public final class X509CertUtil extends Object
                         return new X509Certificate[]{cert, compCert};
                     }
                     // Otherwise try and establish a chain of trust for
-                    // the comparison certificate against the other comparison certificates
+                    // the comparison certificate against the other comparison
+                    // certificates
                     else
                     {
-                        X509Certificate[] tmpChain = establishTrust(vCompCerts, compCert);
+                        X509Certificate[] tmpChain =
+                            establishTrust(vCompCerts, compCert);
                         if (tmpChain != null)
                         {
-                            X509Certificate[] trustChain = new X509Certificate[tmpChain.length + 1];
+                            X509Certificate[] trustChain =
+                                new X509Certificate[tmpChain.length + 1];
 
                             trustChain[0] = cert;
 
-                            for (int iCntInr=1; iCntInr <= tmpChain.length; iCntInr++)
+                            for (int j=1; j <= tmpChain.length; j++)
                             {
-                                trustChain[iCntInr] = tmpChain[iCntInr-1];
+                                trustChain[j] = tmpChain[j-1];
                             }
 
                             return trustChain;
@@ -864,13 +888,16 @@ public final class X509CertUtil extends Object
     }
 
     /**
-     * Extract a copy of all trusted certificates contained within the supplied KeyStore.
+     * Extract a copy of all trusted certificates contained within the
+     * supplied KeyStore.
      *
      * @param keyStore The KeyStore
      * @return The extracted certificates
-     * @throws CryptoException If a problem is encountered extracting the certificates
+     * @throws CryptoException If a problem is encountered extracting
+     * the certificates
      */
-    private static Vector extractCertificates(KeyStore keyStore) throws CryptoException
+    private static Vector extractCertificates(KeyStore keyStore)
+        throws CryptoException
     {
         try
         {
@@ -882,7 +909,8 @@ public final class X509CertUtil extends Object
 
                 if (keyStore.isCertificateEntry(sAlias))
                 {
-                    vCerts.add(X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias)));
+                    vCerts.add(X509CertUtil.convertCertificate(
+                                   keyStore.getCertificate(sAlias)));
                 }
             }
 
@@ -890,7 +918,8 @@ public final class X509CertUtil extends Object
         }
         catch (KeyStoreException ex)
         {
-            throw new CryptoException(m_res.getString("NoExtractCertificates.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoExtractCertificates.exception.message"),ex);
         }
     }
 
@@ -904,7 +933,8 @@ public final class X509CertUtil extends Object
      * @param keyStore The KeyStore
      * @throws CryptoException If there is a problem establishing trust
      */
-    public static String matchCertificate(KeyStore keyStore, X509Certificate cert)
+    public static String matchCertificate(KeyStore keyStore,
+                                          X509Certificate cert)
         throws CryptoException
     {
         try
@@ -914,7 +944,9 @@ public final class X509CertUtil extends Object
                 String sAlias = (String) en.nextElement();
                 if (keyStore.isCertificateEntry(sAlias))
                 {
-                    X509Certificate compCert = X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias));
+                    X509Certificate compCert =
+                        X509CertUtil.convertCertificate(
+                            keyStore.getCertificate(sAlias));
 
                     if (cert.equals(compCert))
                     {
@@ -926,16 +958,18 @@ public final class X509CertUtil extends Object
         }
         catch (KeyStoreException ex)
         {
-            throw new CryptoException(m_res.getString("NoMatchCertificate.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoMatchCertificate.exception.message"), ex);
         }
     }
 
     /**
-     * For a given X.509 certificate get a representative alias for it in a KeyStore.
-     * For a self-signed certificate this will be the subject's common name (if
-     * any).  For a non-self-signed certificate it will be the subject's common
-     * name followed by the issuer's common name in brackets.  Alaises will
-     * always be in lower case.
+     * For a given X.509 certificate get a representative alias for it
+     * in a KeyStore.  For a self-signed certificate this will be the
+     * subject's common name (if any).  For a non-self-signed
+     * certificate it will be the subject's common name followed by
+     * the issuer's common name in brackets.  Alaises will always be
+     * in lower case.
      *
      * @param cert The certificate
      * @return The alias or a blank string if none could be worked out
@@ -998,7 +1032,8 @@ public final class X509CertUtil extends Object
         else
         {
             // Alias is the subject CN followed by the issuer CN in brackets
-            return MessageFormat.format("{0} ({1})", new String[]{sSubjectCN, sIssuerCN});
+            return MessageFormat.format("{0} ({1})",
+                                        new String[]{sSubjectCN, sIssuerCN});
         }
     }
 
@@ -1020,33 +1055,42 @@ public final class X509CertUtil extends Object
             // Get the public key algorithm
             String sAlgorithm = pubKey.getAlgorithm();
 
-            /* If the algorithm is RSA then use a KeyFactory to create an RSA public
-               key spec and get the keysize from the modulus length in bits */
+            /* If the algorithm is RSA then use a KeyFactory to create
+               an RSA public key spec and get the keysize from the
+               modulus length in bits */
             if (sAlgorithm.equals(KeyPairType.RSA.toString()))
             {
                 KeyFactory keyFact = KeyFactory.getInstance(sAlgorithm);
-                RSAPublicKeySpec keySpec = (RSAPublicKeySpec)keyFact.getKeySpec(pubKey, RSAPublicKeySpec.class);
+                RSAPublicKeySpec keySpec = (RSAPublicKeySpec)
+                    keyFact.getKeySpec(pubKey, RSAPublicKeySpec.class);
                 BigInteger modulus = keySpec.getModulus();
                 return modulus.toString(2).length();
             }
-            /* If the algorithm is RSA then use a KeyFactory to cretae an DSA public
-               key spec and get the keysize from the prime length in bits */
+            /* If the algorithm is RSA then use a KeyFactory to create
+               a DSA public key spec and get the keysize from the
+               prime length in bits */
             else if (sAlgorithm.equals(KeyPairType.DSA.toString()))
             {
                 KeyFactory keyFact = KeyFactory.getInstance(sAlgorithm);
-                DSAPublicKeySpec keySpec = (DSAPublicKeySpec)keyFact.getKeySpec(pubKey, DSAPublicKeySpec.class);
+                DSAPublicKeySpec keySpec = (DSAPublicKeySpec)
+                    keyFact.getKeySpec(pubKey, DSAPublicKeySpec.class);
                 BigInteger prime = keySpec.getP();
                 return prime.toString(2).length();
             }
             // Otherwise cannot calculate keysize
             else
             {
-                throw new CryptoException(MessageFormat.format(m_res.getString("NoCertificatePublicKeysizeUnrecogAlg.exception.message"), new Object[]{sAlgorithm}));
+                throw new CryptoException(
+                    MessageFormat.format(
+                        m_res.getString("NoCertificatePublicKeysizeUnrecogAlg.exception.message"),
+                        new Object[]{sAlgorithm}));
             }
         }
         catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoCertificatePublicKeysize.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString(
+                    "NoCertificatePublicKeysize.exception.message"), ex);
         }
     }
 }
