@@ -51,6 +51,11 @@ portecle.jar with the name bcprov.jar, overwriting the existing one
 already there (if any).  The binary distribution also contains icons
 for use with Portecle (portecle.ico, portecle.png).
 
+Depending on your Portecle usage patterns, the BouncyCastle provider
+may require the JCE unlimited strength jurisdiction policy files
+installed to function properly.  See "IMPORTANT NOTES" at
+http://www.bouncycastle.org/documentation.html
+
 The default way of running Portecle uses the "java -jar" method, which
 means that the Class-Path defined in portecle.jar's MANIFEST.MF will
 be used to locate all classes.  You can also invoke Portecle by its
