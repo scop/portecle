@@ -33,6 +33,9 @@ import javax.swing.border.*;
  */
 public class DGetNewPassword extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
@@ -63,9 +66,6 @@ public class DGetNewPassword extends JDialog
 
     /** Stores new password entered */
     private char[] m_cPassword;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /**
      * Creates new DGetNewPassword dialog where the parent is a frame.

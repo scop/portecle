@@ -124,6 +124,9 @@ public class FPortecle extends JFrame implements StatusBar
                      "lib" + sep + "security" + sep + "cacerts").toString();
     }
 
+    /** The last directory accessed by the application */
+    LastDir m_lastDir = new LastDir(); // TODO: package private on purpose?
+
     /** Use CA Certs KeyStore file? */
     private boolean m_bUseCaCerts;
 
@@ -135,9 +138,6 @@ public class FPortecle extends JFrame implements StatusBar
 
     /** KeyStore Wrapper object containing the current KeyStore */
     private KeyStoreWrapper m_keyStoreWrap;
-
-    /** The last directory accessed by the application */
-    LastDir m_lastDir = new LastDir();
 
     /** The PRNG, cached for performance reasons */
     private SecureRandom m_rnd;

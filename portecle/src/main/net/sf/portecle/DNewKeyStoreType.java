@@ -35,9 +35,15 @@ import net.sf.portecle.crypto.KeyStoreType;
  */
 class DNewKeyStoreType extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
+
+    /** Stores the selected KeyStore type */
+    KeyStoreType m_keyStoreType; // TODO: package private on purpose?
 
     /** Panel containing KeyStore type controls */
     private JPanel m_jpKeyStoreType;
@@ -68,12 +74,6 @@ class DNewKeyStoreType extends JDialog
 
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
-
-    /** Stores the selected KeyStore type */
-    KeyStoreType m_keyStoreType;
 
     /**
      * Creates new form DNewKeyStoreType where the parent is a frame.

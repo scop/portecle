@@ -43,6 +43,9 @@ import net.sf.portecle.gui.error.DThrowable;
  */
 class DImportKeyPair extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -80,9 +83,6 @@ class DImportKeyPair extends JDialog
 
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** PKCS #12 KeyStore */
     private KeyStore m_pkcs12;

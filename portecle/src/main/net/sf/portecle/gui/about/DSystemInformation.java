@@ -37,6 +37,9 @@ import javax.swing.border.*;
 public class DSystemInformation
     extends JDialog
 {
+    /** Width of system information text fields */
+    private static final int VALUE_WIDTH = 25;
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
@@ -100,9 +103,6 @@ public class DSystemInformation
 
     /** Panel containing buttons */
     private JPanel m_jpButtons;
-
-    /** Width of system information text fields */
-    private static final int VALUE_WIDTH = 25;
 
     /**
      * Creates new DSystemInformation dialog where the parent is a dialog.

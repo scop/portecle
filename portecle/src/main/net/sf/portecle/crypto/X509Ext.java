@@ -44,18 +44,6 @@ public class X509Ext extends Object
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
-    /** Extension name or OID if unknown */
-    private final String m_sName;
-
-    /** Extension object identifier */
-    private final String m_sOid;
-
-    /** Extension value as a DER-encoded OCTET string */
-    private final byte[] m_bValue;
-
-    /** Critical extension? */
-    private final boolean m_bCritical;
-
     /////////////////////////////////////////////
     // Extension OIDs
     /////////////////////////////////////////////
@@ -242,6 +230,18 @@ public class X509Ext extends Object
     private static final String DNB_DUNS_NUMBER_OID =
         "2.16.840.1.113733.1.6.15";
 
+
+    /** Extension name or OID if unknown */
+    private final String m_sName;
+
+    /** Extension object identifier */
+    private final String m_sOid;
+
+    /** Extension value as a DER-encoded OCTET string */
+    private final byte[] m_bValue;
+
+    /** Critical extension? */
+    private final boolean m_bCritical;
 
     /**
      * Construct a new immutable X509Ext.

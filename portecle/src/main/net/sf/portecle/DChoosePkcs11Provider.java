@@ -57,6 +57,9 @@ import net.sf.portecle.crypto.ProviderUtil;
 public class DChoosePkcs11Provider
     extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -81,9 +84,6 @@ public class DChoosePkcs11Provider
 
     /** Stores the provider chosen by the user */
     private String m_sProvider;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
 
 
     /**

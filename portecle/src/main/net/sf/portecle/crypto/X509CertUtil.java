@@ -41,18 +41,18 @@ import org.bouncycastle.util.encoders.Base64;
  */
 public final class X509CertUtil extends Object
 {
+    /** PKCS #7 encoding name */
+    public static final String PKCS7_ENCODING = "PKCS7";
+
+    /** PkiPath encoding name */
+    public static final String PKIPATH_ENCODING = "PkiPath";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Type name for X.509 certificates */
     private static final String X509_CERT_TYPE = "X.509";
-
-    /** PKCS #7 encoding name */
-    public static final String PKCS7_ENCODING = "PKCS7";
-
-    /** PkiPath encoding name */
-    public static final String PKIPATH_ENCODING = "PkiPath";
 
     /** Begin certificate for PEM encoding */
     private static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";

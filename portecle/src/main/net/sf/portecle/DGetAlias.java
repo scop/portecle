@@ -33,6 +33,9 @@ import javax.swing.border.*;
  */
 class DGetAlias extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -57,9 +60,6 @@ class DGetAlias extends JDialog
 
     /** Stores the alias entered by the user */
     private String m_sAlias;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /**
      * Creates new DGetAlias dialog where the parent is a frame.

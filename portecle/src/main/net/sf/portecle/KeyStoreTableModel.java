@@ -38,23 +38,23 @@ class KeyStoreTableModel extends AbstractTableModel
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
 
+    /** Value to place in the type column for a key pair entry */
+    public static String KEY_PAIR_ENTRY =
+        m_res.getString("KeyStoreTableModel.KeyPairEntry");
+
+    /** Value to place in the type column for a trusted certificate entry */
+    public static String TRUST_CERT_ENTRY =
+        m_res.getString("KeyStoreTableModel.TrustCertEntry");
+
+    /** Value to place in the type column for a key entry */
+    public static String KEY_ENTRY =
+        m_res.getString("KeyStoreTableModel.KeyEntry");
+
     /** Holds the column names */
     private String[] m_columnNames;
 
     /** Holds the table data */
     private Object[][] m_data;
-
-    /** Value to place in the type column for a key pair entry */
-    public static final String KEY_PAIR_ENTRY =
-        m_res.getString("KeyStoreTableModel.KeyPairEntry");
-
-    /** Value to place in the type column for a trusted certificate entry */
-    public static final String TRUST_CERT_ENTRY =
-        m_res.getString("KeyStoreTableModel.TrustCertEntry");
-
-    /** Value to place in the type column for a key entry */
-    public static final String KEY_ENTRY =
-        m_res.getString("KeyStoreTableModel.KeyEntry");
 
     /**
      * Construct a new KeyStoreTableModel.

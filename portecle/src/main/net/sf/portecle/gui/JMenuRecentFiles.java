@@ -36,6 +36,9 @@ import javax.swing.*;
  */
 public class JMenuRecentFiles extends JMenu
 {
+    /** Maximum length of list */
+    public static final int MAX_LENGTH = 9;
+
     /** Recent file list menu items */
     private JMenuItemRecentFile[] m_jmirf;
 
@@ -44,9 +47,6 @@ public class JMenuRecentFiles extends JMenu
 
     /** Length of list */
     private int m_iLength;
-
-    /** Maximum length of list */
-    public static final int MAX_LENGTH = 9;
 
     /**
      * Construct a JMenuRecentFiles.

@@ -40,6 +40,13 @@ import net.sf.portecle.gui.LastDir;
  */
 class DExport extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
+    /** Dummy password to use for PKCS #12 KeyStore entries (passwords
+     * are not applicable for these) */
+    private static final char[] PKCS12_DUMMY_PASSWORD = "dummy".toCharArray();
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -92,18 +99,11 @@ class DExport extends JDialog
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
 
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
-
     /** Records whether or not the an export is selected */
     private boolean m_bExportSelected;
 
     /** The last directory accessed by a FileChooser dialog */
     private LastDir m_lastDir;
-
-    /** Dummy password to use for PKCS #12 KeyStore entries (passwords
-     * are not applicable for these) */
-    private static final char[] PKCS12_DUMMY_PASSWORD = "dummy".toCharArray();
 
     /**
      * Creates new form DExport where the parent is a frame.

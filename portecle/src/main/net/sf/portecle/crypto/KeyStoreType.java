@@ -34,6 +34,35 @@ import java.util.ResourceBundle;
  */
 public class KeyStoreType extends Object
 {
+    /** JCEKS KeyStore Type */
+    public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true);
+
+    /** JKS KeyStore Type */
+    public static final KeyStoreType JKS = new KeyStoreType("JKS", true);
+
+    /** PKCS #11 KeyStore Type */
+    public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",false);
+
+    /** PKCS #12 KeyStore Type */
+    public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",false);
+
+    /** BKS KeyStore Type */
+    public static final KeyStoreType BKS = new KeyStoreType("BKS", true);
+
+    /** UBER KeyStore Type */
+    public static final KeyStoreType UBER = new KeyStoreType("UBER", true);
+
+    /** String-to-type map */
+    private static final HashMap TYPE_MAP = new HashMap();
+    static {
+        TYPE_MAP.put(JKS.toString(),    JKS);
+        TYPE_MAP.put(JCEKS.toString(),  JCEKS);
+        TYPE_MAP.put(PKCS11.toString(), PKCS11);
+        TYPE_MAP.put(PKCS12.toString(), PKCS12);
+        TYPE_MAP.put(BKS.toString(),    BKS);
+        TYPE_MAP.put(UBER.toString(),   UBER);
+    }
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
@@ -43,58 +72,6 @@ public class KeyStoreType extends Object
 
     /** Whether the keystore type supports creation dates */
     private final boolean m_bCreationDate;
-
-    /** JCEKS KeyStore Type JCE String */
-    private static final String JCEKS_STR = "JCEKS";
-
-    /** JKS KeyStore Type JCE String */
-    private static final String JKS_STR = "JKS";
-
-    /** PKCS #11 KeyStore Type JCE String */
-    private static final String PKCS11_STR = "PKCS11";
-
-    /** PKCS #12 KeyStore Type JCE String */
-    private static final String PKCS12_STR = "PKCS12";
-
-    /** BKS KeyStore Type JCE String */
-    private static final String BKS_STR = "BKS";
-
-    /** UBER KeyStore Type JCE String */
-    private static final String UBER_STR = "UBER";
-
-    /** JCEKS KeyStore Type */
-    public static final KeyStoreType JCEKS =
-        new KeyStoreType(JCEKS_STR, true);
-
-    /** JKS KeyStore Type */
-    public static final KeyStoreType JKS =
-        new KeyStoreType(JKS_STR, true);
-
-    /** PKCS #11 KeyStore Type */
-    public static final KeyStoreType PKCS11 =
-        new KeyStoreType(PKCS11_STR, false);
-
-    /** PKCS #12 KeyStore Type */
-    public static final KeyStoreType PKCS12 =
-        new KeyStoreType(PKCS12_STR, false);
-
-    /** BKS KeyStore Type */
-    public static final KeyStoreType BKS =
-        new KeyStoreType(BKS_STR, true);
-
-    /** UBER KeyStore Type */
-    public static final KeyStoreType UBER =
-        new KeyStoreType(UBER_STR, true);
-
-    private static final HashMap TYPE_MAP = new HashMap();
-    static {
-        TYPE_MAP.put(JKS_STR, JKS);
-        TYPE_MAP.put(JCEKS_STR, JCEKS);
-        TYPE_MAP.put(PKCS11_STR, PKCS11);
-        TYPE_MAP.put(PKCS12_STR, PKCS12);
-        TYPE_MAP.put(BKS_STR, BKS);
-        TYPE_MAP.put(UBER_STR, UBER);
-    }
 
     /**
      * Construct a KeyStoreType.

@@ -272,12 +272,6 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
      */
     static class Entry extends Object
     {
-        /** Entry type */
-        private int m_iType;
-
-        /** Entry alias */
-        private String m_sAlias;
-
         /** Key entry type */
         private static final int KEY = 0;
 
@@ -286,6 +280,12 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
 
         /** Trusted certificate entry type */
         private static final int TRUSTED_CERTIFICATE = 2;
+
+        /** Entry type */
+        private int m_iType;
+
+        /** Entry alias */
+        private String m_sAlias;
 
         /**
          * Construct an entry.

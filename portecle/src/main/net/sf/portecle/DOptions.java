@@ -36,6 +36,9 @@ import javax.swing.border.*;
  */
 class DOptions extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -99,9 +102,6 @@ class DOptions extends JDialog
 
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Use CA Certs KeyStore file? */
     private boolean m_bUseCaCerts;

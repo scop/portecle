@@ -30,24 +30,18 @@ import java.util.ResourceBundle;
  */
 public class DigestType extends Object
 {
+    /** MD5 Digest Type */
+    public static final DigestType MD5 = new DigestType("MD5");
+
+    /** SHA1 Digest Type */
+    public static final DigestType SHA1 = new DigestType("SHA1");
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores Digest Type name */
     private final String m_sType;
-
-    /** MD5 Digest Type JCE String */
-    private static final String MD5_STR = "MD5";
-
-    /** SHA1 Digest Type JCE String */
-    private static final String SHA1_STR = "SHA1";
-
-    /** MD5 Digest Type */
-    public static final DigestType MD5 = new DigestType(MD5_STR);
-
-    /** SHA1 Digest Type */
-    public static final DigestType SHA1 = new DigestType(SHA1_STR);
 
     /**
      * Construct a DigestType.  Private to prevent construction from outside
@@ -68,11 +62,11 @@ public class DigestType extends Object
      */
     private Object readResolve () throws ObjectStreamException
     {
-        if (m_sType.equals(MD5_STR))
+        if (m_sType.equals(MD5.toString()))
         {
             return MD5;
         }
-        else if (m_sType.equals(SHA1_STR))
+        else if (m_sType.equals(SHA1.toString()))
         {
             return SHA1;
         }

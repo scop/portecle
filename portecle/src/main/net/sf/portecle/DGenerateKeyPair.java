@@ -37,9 +37,19 @@ import net.sf.portecle.crypto.KeyPairType;
  */
 class DGenerateKeyPair extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
+    /** Indicator for an invalid keysize */
+    private static final int BAD_KEYSIZE = -1;
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
+
+    /** Default keysize for the dialog */
+    private static String DEFAULT_KEYSIZE =
+        m_res.getString("DGenerateKeyPair.DefaultKeySize");
 
     /** Panel for key algorithm controls */
     private JPanel m_jpKeyAlg;
@@ -73,16 +83,6 @@ class DGenerateKeyPair extends JDialog
 
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
-
-    /** Indicator for an invalid keysize */
-    private static final int BAD_KEYSIZE = -1;
-
-    /** Default keysize for the dialog */
-    private static final String DEFAULT_KEYSIZE =
-        m_res.getString("DGenerateKeyPair.DefaultKeySize");
 
     /** Key pair type chosen for generation */
     private KeyPairType m_keyPairType;

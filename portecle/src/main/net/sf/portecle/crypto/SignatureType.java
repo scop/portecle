@@ -23,6 +23,7 @@ package net.sf.portecle.crypto;
 
 import java.io.*;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
@@ -31,38 +32,37 @@ import java.util.ResourceBundle;
  */
 public class SignatureType extends Object
 {
+    /** MD2 with RSA Sigature Type */
+    public static final SignatureType RSA_MD2 =
+        new SignatureType("MD2withRSA");
+
+    /** MD5 with RSA Sigature Type */
+    public static final SignatureType RSA_MD5 =
+        new SignatureType("MD5withRSA");
+
+    /** SHA.1 with RSA Sigature Type */
+    public static final SignatureType RSA_SHA1 =
+        new SignatureType("SHA1withRSA");
+
+    /** SHA.1 with DSA Sigature Type */
+    public static final SignatureType DSA_SHA1 =
+        new SignatureType("SHA1withDSA");
+
+    /** String-to-type map */
+    private static final HashMap TYPE_MAP = new HashMap();
+    static {
+        TYPE_MAP.put(RSA_MD2.toString(),  RSA_MD2);
+        TYPE_MAP.put(RSA_MD5.toString(),  RSA_MD5);
+        TYPE_MAP.put(RSA_SHA1.toString(), RSA_SHA1);
+        TYPE_MAP.put(DSA_SHA1.toString(), DSA_SHA1);
+    }
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores Signature Type name */
     private final String m_sType;
-
-    /** MD2 with RSA Sigature Type JCE String */
-    private static final String RSA_MD2_STR = "MD2withRSA";
-
-    /** MD5 with RSA Sigature Type JCE String */
-    private static final String RSA_MD5_STR = "MD5withRSA";
-
-    /** SHA.1 with RSA Sigature Type JCE String */
-    private static final String RSA_SHA1_STR = "SHA1withRSA";
-
-    /** SHA.1 with DSA Sigature Type JCE String */
-    private static final String DSA_SHA1_STR = "SHA1withDSA";
-
-    /** MD2 with RSA Sigature Type */
-    public static final SignatureType RSA_MD2 = new SignatureType(RSA_MD2_STR);
-
-    /** MD5 with RSA Sigature Type */
-    public static final SignatureType RSA_MD5 = new SignatureType(RSA_MD5_STR);
-
-    /** SHA.1 with RSA Sigature Type */
-    public static final SignatureType RSA_SHA1 =
-        new SignatureType(RSA_SHA1_STR);
-
-    /** SHA.1 with DSA Sigature Type */
-    public static final SignatureType DSA_SHA1 =
-        new SignatureType(DSA_SHA1_STR);
 
     /**
      * Construct a SignatureType.  Private to prevent construction
@@ -76,35 +76,40 @@ public class SignatureType extends Object
     }
 
     /**
+     * Gets a SignatureType corresponding to the given type String.
+     *
+     * @param sType the signature type name
+     * @return the corresponding SignatureType
+     * @throws CryptoException if the type is not known
+     */
+    public static SignatureType getInstance(String sType)
+        throws CryptoException
+    {
+        SignatureType st = (SignatureType) TYPE_MAP.get(sType);
+        if (st == null) {
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString(
+                        "NoResolveSignaturetype.exception.message"),
+                    new String[]{sType}));
+        }
+        return st;
+    }
+
+    /**
      * Resolve the SignatureType Object.
      *
      * @return The resolved SignatureType object
      * @throws ObjectStreamException if the SignatureType could not be resolved
      */
-    private Object readResolve () throws ObjectStreamException
+    private Object readResolve()
+        throws ObjectStreamException
     {
-        if (m_sType.equals(RSA_MD2_STR))
-        {
-            return RSA_MD2;
+        try {
+            return getInstance(m_sType);
         }
-        else if (m_sType.equals(RSA_MD5_STR))
-        {
-            return RSA_MD5;
-        }
-        else if (m_sType.equals(RSA_SHA1_STR))
-        {
-            return RSA_SHA1;
-        }
-        else if (m_sType.equals(DSA_SHA1_STR))
-        {
-            return DSA_SHA1;
-        }
-        else
-        {
-            throw new InvalidObjectException(
-                MessageFormat.format(
-                    "NoResolveSignaturetype.exception.message",
-                    new Object[]{m_sType}));
+        catch (CryptoException e) {
+            throw new InvalidObjectException(e.getMessage());
         }
     }
 

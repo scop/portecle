@@ -83,16 +83,6 @@ import org.w3c.dom.Element;
 class DKeyStoreReport
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
-
-    /** KeyStore report */
-    private String m_sReport;
-
-    /** KeyStore report in XML form */
-    private String m_sReportXML;
-
     /** Transformer factory for XML output */
     private static final TransformerFactory TF_FACTORY =
         TransformerFactory.newInstance();
@@ -117,6 +107,16 @@ class DKeyStoreReport
             throw new ExceptionInInitializerError(e);
         }
     }
+
+    /** Resource bundle */
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
+
+    /** KeyStore report */
+    private String m_sReport;
+
+    /** KeyStore report in XML form */
+    private String m_sReportXML;
 
     /** Panel to hold option controls */
     private JPanel m_jpOptions;

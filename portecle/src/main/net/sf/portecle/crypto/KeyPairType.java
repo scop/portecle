@@ -30,24 +30,18 @@ import java.util.ResourceBundle;
  */
 public class KeyPairType extends Object
 {
+    /** RSA KeyPairType */
+    public static final KeyPairType RSA = new KeyPairType("RSA");
+
+    /** DSA KeyPairType */
+    public static final KeyPairType DSA = new KeyPairType("DSA");
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores KeyPairType name */
     private final String m_sType;
-
-    /** RSA KeyPairType JCE String */
-    private static final String RSA_STR = "RSA";
-
-    /** DSA KeyPairType JCE String */
-    private static final String DSA_STR = "DSA";
-
-    /** RSA KeyPairType */
-    public static final KeyPairType RSA = new KeyPairType(RSA_STR);
-
-    /** DSA KeyPairType */
-    public static final KeyPairType DSA = new KeyPairType(DSA_STR);
 
     /**
      * Construct a KeyPairType.  Private to prevent construction from outside
@@ -68,11 +62,11 @@ public class KeyPairType extends Object
      */
     private Object readResolve () throws ObjectStreamException
     {
-        if (m_sType.equals(RSA_STR))
+        if (m_sType.equals(RSA.toString()))
         {
             return RSA;
         }
-        else if (m_sType.equals(DSA_STR))
+        else if (m_sType.equals(DSA.toString()))
         {
             return DSA;
         }

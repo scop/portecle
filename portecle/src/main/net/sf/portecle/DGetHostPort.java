@@ -37,6 +37,9 @@ import net.sf.portecle.gui.error.DThrowable;
 class DGetHostPort
     extends JDialog
 {
+    /** Key from input map to action map for the cancel button */
+    private static final String CANCEL_KEY = "CANCEL_KEY";
+
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -67,9 +70,6 @@ class DGetHostPort
 
     /** Stores the alias entered by the user */
     private InetSocketAddress m_iAddress;
-
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /**
      * Creates new DGetHostPort dialog where the parent is a frame.
