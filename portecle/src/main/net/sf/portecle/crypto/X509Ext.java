@@ -238,37 +238,6 @@ public class X509Ext extends Object
     /** Hold Instruction Code None OID */
     private static final String HOLD_INSTRUCTION_CODE_REJECT_OID = "1.2.840.10040.2.3";
 
-    /////////////////////////////////////////////
-    // Extended Key Usage OIDs (2.5.29.37)
-    /////////////////////////////////////////////
-
-    /** TLS Web Server Authentication Extended Key Usage OID */
-    private static final String SERVERAUTH_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.1";
-
-    /** TLS Web Client Authentication Extended Key Usage OID */
-    private static final String CLIENTAUTH_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.2";
-
-    /** Code Signing Extended Key Usage OID */
-    private static final String CODESIGNING_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.3";
-
-    /** E-mail Protection Extended Key Usage OID */
-    private static final String EMAILPROTECTION_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.4";
-
-    /** IP Security End System Extended Key Usage OID */
-    private static final String IPSECENDSYSTEM_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.5";
-
-    /** IP Security Tunnel termination Extended Key Usage OID */
-    private static final String IPSECENDTUNNEL_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.6";
-
-    /** IP Security User Extended Key Usage OID */
-    private static final String IPSECUSER_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.7";
-
-    /** Time Stamping Extended Key Usage OID */
-    private static final String TIMESTAMPING_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.8";
-
-    /** OCSP Stamping Extended Key Usage OID */
-    private static final String OCSPSIGNING_EXT_KEY_USAGE_OID = "1.3.6.1.5.5.7.3.9";
-
     /**
      * Construct a new immutable X509Ext.
      *
@@ -1437,8 +1406,13 @@ public class X509Ext extends Object
         }
     }
 
+
     /**
      * Get Extended Key Usage (2.5.29.37) extension value as a string.
+     * <pre>
+     * ExtendedKeyUsage ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+     * KeyPurposeId ::= OBJECT IDENTIFIER
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1446,79 +1420,23 @@ public class X509Ext extends Object
      */
     private String getExtendedKeyUsageStringValue(byte[] bValue) throws IOException
     {
-        /* ExtendedKeyUsage ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
+        // Get sequence of OIDs and return approriate strings
+        ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
 
-           KeyPurposeId ::= OBJECT IDENTIFIER */
+        StringBuffer strBuff = new StringBuffer();
 
-        DERInputStream dis = null;
-
-        try
+        for (int i = 0, len = asn1Seq.size(); i < len; i++)
         {
-            // Get sequence of OIDs and return approriate strings
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence asn1Seq = (ASN1Sequence)dis.readObject();
-
-            StringBuffer strBuff = new StringBuffer();
-
-            for (int iCnt=0; iCnt < asn1Seq.size(); iCnt++)
-            {
-                DERObjectIdentifier derOid = (DERObjectIdentifier)asn1Seq.getObjectAt(iCnt);
-                String sOid = derOid.getId();
-                String sExtKeyUsage = null;
-
-                if (sOid.equals(SERVERAUTH_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("ServerAuthExtKeyUsageString");
-                }
-                else if (sOid.equals(CLIENTAUTH_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("ClientAuthExtKeyUsageString");
-                }
-                else if (sOid.equals(CODESIGNING_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("CodeSigningExtKeyUsageString");
-                }
-                else if (sOid.equals(EMAILPROTECTION_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("EmailProtectionExtKeyUsageString");
-                }
-                else if (sOid.equals(IPSECENDSYSTEM_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("IpsecEndSystemExtKeyUsageString");
-                }
-                else if (sOid.equals(IPSECENDTUNNEL_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("IpsecTunnelExtKeyUsageString");
-                }
-                else if (sOid.equals(IPSECUSER_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("IpsecUserExtKeyUsageString");
-                }
-                else if (sOid.equals(TIMESTAMPING_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("TimeStampingExtKeyUsageString");
-                }
-                else if (sOid.equals(OCSPSIGNING_EXT_KEY_USAGE_OID))
-                {
-                    sExtKeyUsage = m_res.getString("OcspSigningExtKeyUsageString");
-                }
-                else
-                {
-                    sExtKeyUsage = m_res.getString("UnrecognisedExtKeyUsageString");
-                }
-
-                // Place OID in string
-                strBuff.append(MessageFormat.format(sExtKeyUsage, new String[]{sOid}));
-                strBuff.append('\n');
-            }
-
-            return strBuff.toString();
+            String sOid =
+                ((DERObjectIdentifier) asn1Seq.getObjectAt(i)).getId();
+            String sEku = getRes(sOid, "UnrecognisedExtKeyUsageString");
+            strBuff.append(MessageFormat.format(sEku, new String[]{sOid}));
+            strBuff.append('\n');
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+
+        return strBuff.toString();
     }
+
 
     /**
      * Get Inhibit Any Policy (2.5.29.54) extension value as a string.
