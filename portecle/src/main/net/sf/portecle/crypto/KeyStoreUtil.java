@@ -57,8 +57,9 @@ public final class KeyStoreUtil extends Object
         // Create a new keystore by using load with null parameters
         try
         {
-            if ((keyStoreType == KeyStoreType.PKCS12) || (keyStoreType == KeyStoreType.BKS) ||
-                (keyStoreType == KeyStoreType.UBER))
+            if (keyStoreType == KeyStoreType.PKCS12 ||
+                keyStoreType == KeyStoreType.BKS ||
+                keyStoreType == KeyStoreType.UBER)
             {
                 // Need BC provider for PKCS #12, BKS and UBER
                 if (Security.getProvider("BC") == null)
@@ -107,8 +108,9 @@ public final class KeyStoreUtil extends Object
         KeyStore keyStore = null;
         try
         {
-            if ((keyStoreType == KeyStoreType.PKCS12) || (keyStoreType == KeyStoreType.BKS) ||
-                (keyStoreType == KeyStoreType.UBER))
+            if (keyStoreType == KeyStoreType.PKCS12 ||
+                keyStoreType == KeyStoreType.BKS ||
+                keyStoreType == KeyStoreType.UBER)
             {
                 // Need BC provider for PKCS #12, BKS and UBER
                 if (Security.getProvider("BC") == null)
