@@ -185,7 +185,7 @@ public final class KeyStoreUtil extends Object
      * @throws IOException An I/O error occurred
      */
     public static void saveKeyStore(KeyStore keyStore, File fKeyStoreFile, char[] cPassword)
-        throws CryptoException, FileNotFoundException, IOException
+        throws CryptoException, IOException
     {
         FileOutputStream fos = null;
 

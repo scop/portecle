@@ -263,7 +263,7 @@ public class JavaVersion extends Object implements Comparable
      * @return 0 if the equal, -1 if less, 1 if more
      * @throws ClassCastException if the specified object's type prevents it from being compared to this Object
      */
-    public int compareTo(Object object) throws ClassCastException
+    public int compareTo(Object object)
     {
         JavaVersion cmpJavaVersion = (JavaVersion)object;
 

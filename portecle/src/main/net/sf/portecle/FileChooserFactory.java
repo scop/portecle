@@ -94,7 +94,7 @@ public class FileChooserFactory extends Object
                              new String[]{CRL_EXT});
 
     /** Private to prevent construction */
-    private FileChooserFactory() {};
+    private FileChooserFactory() {}
 
     /**
      * Get a JFileChooser filtered for KeyStore files.
