@@ -3512,7 +3512,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 											  JOptionPane.INFORMATION_MESSAGE);
 
                 m_lookFeelOptions = lookFeelInfo;
-                m_bLookFeelDecorationOptions = new Boolean(bLookFeelDecoration);
+                m_bLookFeelDecorationOptions =
+                    Boolean.valueOf(bLookFeelDecoration);
 
                 exitApplication();
             }
