@@ -2,3 +2,4 @@
 - Move "Save as" next to "Save" like the rest of the world has.
 - Extended key usage: 1.3.6.1.5.5.8.2.2 == IP Security IKE Intermediate
 - http://www.microsoft.com/technet/prodtechnol/windowsserver2003/technologies/security/ws03qswp.mspx
+- Add "Close keystore" functionality
