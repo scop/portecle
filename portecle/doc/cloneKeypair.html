@@ -1,54 +1,56 @@
 <html>
-    <head>
-        <title>How to clone a KeyStore Key Pair entry</title>
-        <link rel=stylesheet href="help.css" type="text/css">
-    </head>
+  <head>
+    <title>How to clone a KeyStore Key Pair entry</title>
+    <link rel=stylesheet href="help.css" type="text/css">
+  </head>
 
-    <body>
+  <body>
 
-        <h1>How to clone a KeyStore Key Pair entry</h1>
-        <hr>
+    <h1>How to clone a KeyStore Key Pair entry</h1>
+    <hr>
 
+    To clone (make an exact copy of) a KeyStore Key Pair entry:
 
+    <ol>
+      <li>Right-click on the Key Pair KeyStore entry in the
+        KeyStore Entries table.  Select the <b>Clone</b> item from
+        the resulting pop-up menu.</li>
 
-        To clone (make an exact copy of) a KeyStore Key Pair entry:
+      <li>If you have yet to supply the password for the entry and the current
+        KeyStore type is not <b>PKCS #12</b>:</li>
 
-        <ol>
-            <li>Right-click on the Key Pair KeyStore entry in the
-                KeyStore Entries table.  Select the <b>Clone</b> item from
-                the resulting pop-up menu.</li>
+        <ul>
 
-            <li>If you have yet to supply the password for the entry and the current
-                KeyStore type is not <b>PKCS #12</b>:</li>
+          <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
 
-            <ul>
+          <li>Enter the Key Pair entry's password and press the <b>OK</b>
+            button.</li>
 
-                <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
+        </ul>
 
-                <li>Enter the Key Pair entry's password and press the <b>OK</b> button.</li>
+      <li>The <b>Cloned Key Pair Entry Alias</b> dialog will be
+        displayed.</li>
 
-            </ul>
+      <li>Enter the alias for the new key pair and press the <b>OK</b>
+        button.</li>
 
-            <li>The <b>Cloned Key Pair Entry Alias</b> dialog will be displayed.</li>
+      <li>If the current KeyStore type is not <b>PKCS #12</b>:</li>
 
-            <li>Enter the alias for the new key pair and press the <b>OK</b> button.</li>
+        <ul>
 
-            <li>If the current KeyStore type is not <b>PKCS #12</b>:</li>
+          <li>The <b>Cloned Key Pair Entry Password</b> dialog will be
+            displayed.</li>
 
-            <ul>
+          <li>Enter the password to protect the key pair with, confirm it and
+            press the <b>OK</b> button.</li>
 
-                <li>The <b>Cloned Key Pair Entry Password</b> dialog will be displayed.</li>
+        </ul>
 
-                <li>Enter the password to protect the key pair with, confirm it and
-                    press the <b>OK</b> button.</li>
+      <li>The cloned key pair entry will appear in the KeyStore Entries
+        table.</li>
+    </ol>
 
-            </ul>
+    <hr>
 
-            <li>The cloned key pair entry will appear in the KeyStore Entries
-                table.</li>
-        </ol>
-
-        <hr>
-
-    </body>
+  </body>
 </html>

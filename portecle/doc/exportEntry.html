@@ -1,76 +1,78 @@
 <html>
-    <head>
-        <title>How to export a KeyStore entry</title>
-        <link rel=stylesheet href="help.css" type="text/css">
-    </head>
+  <head>
+    <title>How to export a KeyStore entry</title>
+    <link rel=stylesheet href="help.css" type="text/css">
+  </head>
 
-    <body>
+  <body>
 
-        <h1>How to export a KeyStore entry</h1>
-        <hr>
+    <h1>How to export a KeyStore entry</h1>
+    <hr>
 
-        To export a KeyStore entry:
+    To export a KeyStore entry:
 
-        <ol>
-            <li>Right-click on the KeyStore entry in the
-                KeyStore Entries table.  Select the <b>Export</b>
-                item from the resultant pop-up menu.</li>
+    <ol>
+      <li>Right-click on the KeyStore entry in the
+        KeyStore Entries table.  Select the <b>Export</b>
+        item from the resultant pop-up menu.</li>
 
-            <li>The <b>Export KeyStore Entry</b> dialog is displayed.  The options
-                available depend on the type of entry you chose to export and are
-                detailed below:</li>
+      <li>The <b>Export KeyStore Entry</b> dialog is displayed.  The options
+        available depend on the type of entry you chose to export and are
+        detailed below:</li>
 
-            <ul>
-                <li>Key Pair Export Types
-                    <ul>
-                        <li>Head Certificate (Export Formats: DER, PEM, PKCS #7 or PkiPath)</li>
-                        <li>Certificate Chain (Export Formats: PKCS #7 or PkiPath)</li>
-                        <li>Private Key and Certificates (Export Formats: PKCS #12)</li>
-                    </ul>
+    <ul>
+      <li>Key Pair Export Types
+        <ul>
+          <li>Head Certificate (Export Formats: DER, PEM, PKCS #7 or
+            PkiPath)</li>
+          <li>Certificate Chain (Export Formats: PKCS #7 or PkiPath)</li>
+          <li>Private Key and Certificates (Export Formats: PKCS #12)</li>
+        </ul>
 
-                <li>Trusted Certificate Export Types
-                    <ul>
-                        <li>Head Certificate (Export Formats: DER, PEM, PKCS #7 or PkiPath)</li>
-                    </ul>
-            </ul>
+      <li>Trusted Certificate Export Types
+        <ul>
+          <li>Head Certificate (Export Formats: DER, PEM, PKCS #7 or
+            PkiPath)</li>
+        </ul>
+    </ul>
 
-            <li>Choose your preferred <b>Export Type</b> and <b>Export Format</b>
-                and press the <b>OK</b> button.</li>
+    <li>Choose your preferred <b>Export Type</b> and <b>Export Format</b>
+      and press the <b>OK</b> button.</li>
 
+    <li>If the current KeyStore type is not <b>PKCS #12</b>, the export is for
+      <b>Private Key and Certificates</b> and you have yet to supply the
+      password for the entry:
 
-            <li>If the current KeyStore type is not <b>PKCS #12</b>, the export is for
-                <b>Private Key and Certificates</b> and you have yet to supply the password
-                for the entry:
+      <ul>
 
-            <ul>
+        <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
 
-                <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
+        <li>Enter the key pair entry's password and acknowledge the dialog
+          by pressing <b>OK</b>.</li>
 
-                <li>Enter the key pair entry's password and acknowledge the dialog
-                    by pressing <b>OK</b>.</li>
+      </ul>
 
-            </ul>
+      <li>If the export is for a <b>Private Key and Certificates</b>:</li>
 
-            <li>If the export is for a <b>Private Key and Certificates</b>:</li>
+      <ul>
+        <li>The <b>PKCS #12 KeyStore Password</b> dialog will be
+          displayed.</li>
 
-                <ul>
-                    <li>The <b>PKCS #12 KeyStore Password</b> dialog will be displayed.</li>
+        <li>Enter the password to protect the KeyStore with, confirm it and
+          press the <b>OK</b> button.</li>
+      </ul>
 
-                    <li>Enter the password to protect the KeyStore with, confirm it and
-                        press the <b>OK</b> button.</li>
-                </ul>
+      <li>The <b>Export</b> dialog is displayed.</li>
 
-            <li>The <b>Export</b> dialog is displayed.</li>
+      <li>Select the drive and folder to export to.</li>
 
-            <li>Select the drive and folder to export to.</li>
+      <li>Type the filename into the <b>File Name</b> text box.</li>
 
-            <li>Type the filename into the <b>File Name</b> text box.</li>
+      <li>Click on the <b>Export</b> button.</li>
 
-            <li>Click on the <b>Export</b> button.</li>
+    </ol>
 
-        </ol>
+    <hr>
 
-        <hr>
-
-    </body>
+  </body>
 </html>

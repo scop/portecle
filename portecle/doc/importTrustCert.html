@@ -1,58 +1,61 @@
 <html>
-    <head>
-        <title>How to import a Trusted Certificate</title>
-        <link rel=stylesheet href="help.css" type="text/css">
-    </head>
+  <head>
+    <title>How to import a Trusted Certificate</title>
+    <link rel=stylesheet href="help.css" type="text/css">
+  </head>
 
-    <body>
+  <body>
 
-        <h1>How to import a Trusted Certificate</h1>
-        <hr>
+    <h1>How to import a Trusted Certificate</h1>
+    <hr>
 
-        To import a Trusted Certificate into a KeyStore from file:
+    To import a Trusted Certificate into a KeyStore from file:
 
-        <ol>
-            <li>From the <b>Tools</b> menu, choose <b>Import Trusted Certificate</b>.
-                Alternatively click on the <b>Import Trusted Certificate</b> toolbar
-                button:<br><img src="importcert.gif"></li>
+    <ol>
+      <li>From the <b>Tools</b> menu, choose <b>Import Trusted Certificate</b>.
+        Alternatively click on the <b>Import Trusted Certificate</b> toolbar
+        button:<br><img src="importcert.gif"></li>
 
-            <li>The <b>Import Trusted Certificate</b> dialog will appear.</li>
+      <li>The <b>Import Trusted Certificate</b> dialog will appear.</li>
 
-            <li>Select the drive and folder where the certificate file is stored.</li>
+      <li>Select the drive and folder where the certificate file is
+        stored.</li>
 
-            <li>Click on the required certificate file or type the filename
-                into the <b>File Name</b> text box.</li>
+      <li>Click on the required certificate file or type the filename
+        into the <b>File Name</b> text box.</li>
 
-            <li>Click on the <b>Import</b> button.</li>
+      <li>Click on the <b>Import</b> button.</li>
 
-            <li>If Portecle cannot establish a trust path from the certificate in
-                the file to an existing self-signed Trusted Certificate in your KeyStore
-                (or the CA Certs KeyStore if it is enabled):
+      <li>If Portecle cannot establish a trust path from the certificate in
+        the file to an existing self-signed Trusted Certificate in your
+        KeyStore (or the CA Certs KeyStore if it is enabled):
 
-            <ul>
-                <li>The <b>Certificate Details</b> dialog will be displayed.</li>
+        <ul>
+          <li>The <b>Certificate Details</b> dialog will be displayed.</li>
 
-                <li>After viewing the details acknowledge the dialog by
-                    pressing the <b>OK</b> button.</li>
+          <li>After viewing the details acknowledge the dialog by
+            pressing the <b>OK</b> button.</li>
 
-                <li>A further dialog will appear asking if you wish accept the certificate.</li>
+          <li>A further dialog will appear asking if you wish accept the
+            certificate.</li>
 
-                <li>Press the <b>Yes</b> button if you wish to trust the certificate and
-                    import it and <b>No</b> if you do not.  If you answer <b>No</b> the
-                    import will abort.</li>
-            </ul>
+          <li>Press the <b>Yes</b> button if you wish to trust the
+            certificate and import it and <b>No</b> if you do not.  If you
+            answer <b>No</b> the import will abort.</li>
+        </ul>
 
-            <li>The <b>Trusted Certificate Alias</b> dialog will appear.</li>
+      <li>The <b>Trusted Certificate Alias</b> dialog will appear.</li>
 
-            <li>Enter the alias of the new Trusted Certificate and press <b>OK</b>.</li>
+      <li>Enter the alias of the new Trusted Certificate and press
+        <b>OK</b>.</li>
 
-            <li>The new Trusted Certificate entry will appear in the KeyStore Entries table
-                with the chosen alias.</li>
-        </ol>
+      <li>The new Trusted Certificate entry will appear in the KeyStore
+        Entries table with the chosen alias.</li>
+    </ol>
 
-        <b>Short-cut key:</b> Ctrl-T.
+    <b>Short-cut key:</b> Ctrl-T.
 
-        <hr>
+    <hr>
 
-    </body>
+  </body>
 </html>

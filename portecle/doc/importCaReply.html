@@ -1,82 +1,88 @@
 <html>
-    <head>
-        <title>How to import a CA reply for a Key Pair entry</title>
-        <link rel=stylesheet href="help.css" type="text/css">
-    </head>
+  <head>
+    <title>How to import a CA reply for a Key Pair entry</title>
+    <link rel=stylesheet href="help.css" type="text/css">
+  </head>
 
-    <body>
+  <body>
 
-        <h1>How to import a CA reply into a KeyStore Key Pair entry</h1>
-        <hr>
+    <h1>How to import a CA reply into a KeyStore Key Pair entry</h1>
+    <hr>
 
-        To import a CA reply into a KeyStore Key Pair entry:
+    To import a CA reply into a KeyStore Key Pair entry:
 
-        <ol>
-            <li>Right-click on the Key Pair KeyStore entry in the KeyStore Entries
-                table.  Select the <b>Import CA Reply</b> item from the
-                resultant pop-up menu.</li>
+    <ol>
+      <li>Right-click on the Key Pair KeyStore entry in the KeyStore Entries
+        table.  Select the <b>Import CA Reply</b> item from the
+        resultant pop-up menu.</li>
 
-            <li>The <b>Import CA Reply</b> dialog will appear.</li>
+      <li>The <b>Import CA Reply</b> dialog will appear.</li>
 
-            <li>Select the drive and folder where the CA reply certificate file is stored.</li>
+      <li>Select the drive and folder where the CA reply certificate file is
+        stored.</li>
 
-            <li>Click on the required CA reply certificate file or type the filename
-                into the <b>File Name</b> text box.</li>
+      <li>Click on the required CA reply certificate file or type the filename
+        into the <b>File Name</b> text box.</li>
 
-            <li>Click on the <b>Import</b> button.</li>
+      <li>Click on the <b>Import</b> button.</li>
 
-            <li>What happens next depends on whether the CA reply certificate file
-                contains a single certificate or a chain or certificates:</li>
+      <li>What happens next depends on whether the CA reply certificate file
+        contains a single certificate or a chain or certificates:</li>
+
+        <ul>
+          <li>If the CA reply file contains a single certificate:</li>
 
             <ul>
-                <li>If the CA reply file contains a single certificate:</li>
+              <li>If <b>Portecle</b> can establish a trust path between
+                the certificate and an existing self-signed Trusted
+                Certificate in your KeyStore (or the CA Certs KeyStore
+                if it is enabled) then the import will continue.
+                Otherwise it will fail at this point.</li>
+            </ul>
 
-                <ul>
-                    <li>If <b>Portecle</b> can establish a trust path between
-                        the certificate and an existing self-signed Trusted
-                        Certificate in your KeyStore (or the CA Certs KeyStore
-                        if it is enabled) then the import will continue.
-                        Otherwise it will fail at this point.</li>
-                </ul>
+            <li>Alternatively the CA reply file may contain a chain of
+              certificates:</li>
 
-                <li>Alternatively the CA reply file may contain a chain of certificates:</li>
+              <ul>
+                <li><b>Portecle</b> will attempt to match the reply's root CA
+                  to an existing Trusted Certificate in your KeyStore (or the
+                  CA Certs KeyStore if it is enabled).</li>
 
-                    <ul>
-                        <li><b>Portecle</b> will attempt to match the reply's root CA
-                            to an existing Trusted Certificate in your KeyStore (or the CA
-                            Certs KeyStore if it is enabled).</li>
+                <li>If it cannot then the <b>Certificate Details</b> dialog
+                  will appear displaying the details of the reply's root CA
+                  certificate for you to verify.</li>
 
-                        <li>If it cannot then the <b>Certificate Details</b> dialog will appear
-                            displaying the details of the reply's root CA certificate for you to
-                            verify.</li>
+                <li>After viewing the details acknowledge the dialog by
+                  pressing the <b>OK</b> button.</li>
 
-                        <li>After viewing the details acknowledge the dialog by pressing the
-                            <b>OK</b> button.</li>
+                <li>A further dialog will appear asking if you wish accept the
+                  certificate.</li>
 
-                        <li>A further dialog will appear asking if you wish accept the
-                            certificate.</li>
-
-                        <li>Press the <b>Yes</b> button if you wish to trust the certificate
-                            and import the CA reply and <b>No</b> if you do not.  If you reply
-                            <b>No</b> the import will fail at this point.</li>
-                    </ul>
+                <li>Press the <b>Yes</b> button if you wish to trust the
+                  certificate and import the CA reply and <b>No</b> if you do
+                  not.  If you reply <b>No</b> the import will fail at this
+                  point.</li>
+              </ul>
             </ul>
 
             <li>If the current KeyStore type is not <b>PKCS #12</b>:</li>
 
             <ul>
 
-                <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
+              <li>The <b>Key Pair Entry Password</b> dialog will be
+                displayed.</li>
 
-                <li>Enter the key entry's password into the dialog and press <b>OK</b>.</li>
+              <li>Enter the key entry's password into the dialog and
+                press <b>OK</b>.</li>
 
             </ul>
 
-            <li>The KeyStore Key Pair entry will be updated to reflect the content of the CA reply.</li>
+          <li>The KeyStore Key Pair entry will be updated to reflect the
+           content of the CA reply.</li>
 
-        </ol>
+    </ol>
 
-        <hr>
+    <hr>
 
-    </body>
+  </body>
 </html>
