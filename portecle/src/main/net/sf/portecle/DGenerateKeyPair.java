@@ -206,14 +206,8 @@ class DGenerateKeyPair extends JDialog
         m_iKeySize = iKeySize;
 
         // Get key pair generation algorithm
-        if (m_jrbDSA.isSelected())
-        {
-            m_keyPairType = KeyPairType.DSA;
-        }
-        else
-        {
-            m_keyPairType = KeyPairType.RSA;
-        }
+        m_keyPairType =
+            m_jrbDSA.isSelected() ? KeyPairType.DSA : KeyPairType.RSA;
 
         m_bSuccess = true;
 

@@ -63,7 +63,8 @@ import net.sf.portecle.version.*;
 public class FKeyToolGUI extends JFrame implements StatusBar
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";

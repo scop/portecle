@@ -123,7 +123,8 @@ public final class KeyStoreUtil extends Object
                 // Need BC provider for PKCS #12, BKS and UBER
                 if (Security.getProvider("BC") == null)
                 {
-                    throw new CryptoException(m_res.getString("NoBcProvider.exception.message"));
+                    throw new CryptoException(
+                        m_res.getString("NoBcProvider.exception.message"));
                 }
 
                 keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");

@@ -48,7 +48,8 @@ import net.sf.portecle.xml.*;
 class DKeyStoreReport extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** KeyStore report */
     private String m_sReport;

@@ -36,7 +36,8 @@ import org.bouncycastle.asn1.x509.*;
 public class X509Ext extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Extension name or OID if unknown */
     private String m_sName;

@@ -31,7 +31,8 @@ import java.util.ResourceBundle;
 public class KeyStoreType extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores KeyStore Type name */
     private final String m_sType;
