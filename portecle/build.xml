@@ -172,8 +172,11 @@
 
   <target name="checkstyle" depends="build">
     <mkdir dir="${build}/reports" />
-    <checkstyle config="checkstyle.xml"
-      classpath="${build.classpath}:${build}/classes">
+    <checkstyle config="checkstyle.xml">
+      <classpath>
+        <path refid="build.classpath" />
+        <pathelement location="${build}/classes" />
+      </classpath>
       <fileset dir="${src}/main" includes="net/sf/portecle/**/*.java" />
       <formatter type="plain" tofile="${build}/reports/checkstyle.txt" />
     </checkstyle>
