@@ -34,7 +34,7 @@
 
     <!-- Whitespace -->
     <module name="TabCharacter" />
-    <module name="WhitespaceAround" />
+    <!--module name="WhitespaceAround" /-->
 
     <!-- Modifiers -->
     <module name="ModifierOrder" />
