@@ -1,6 +1,6 @@
-=-=-=-=-=-=-=-=-=-=-=-=-=
- Portecle 0.1 README
-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=
+ Portecle README
+=-=-=-=-=-=-=-=-=
 
 Getting up and running with Portecle is quick and easy.  Everything you
 need to know is detailed below.  Being written in Java, Portecle will run
@@ -12,7 +12,7 @@ Portecle is installed you will be able to access its online help.
 1 Installing
 ------------
 
-Place the Portecle JAR file (portecle-0.9.jar) on your filesystem.  Next get
+Place the Portecle JAR file (portecle.jar) on your filesystem.  Next get
 Bouncy Castle Provider version 1.20 for JDK 1.4 (bcprov-jdk14-120.jar).  This
 is available for free from www.bouncycastle.org.  Note that only version 1.20
 will work.  Place it in the *same* directory as portecle.jar.  You now have
@@ -25,12 +25,12 @@ The examples assume that the Java bin directory has been added to your path.
 ------------------------
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
-Portecle and BouncyCastle Provider JAR files into a directory c:\portecle you can
-run Portecle like so:
+Portecle and BouncyCastle Provider JAR files into a directory c:\portecle you
+can run Portecle like so:
 
-java -jar c:\portecle\portecle.jar
+  java -jar c:\portecle\portecle.jar
 
-The portecle-17.jar contains an Icon file for use with Portecle.
+The portecle.jar contains an Icon file for use with Portecle.
 
 1.2 UNIX Command-Line
 ---------------------
@@ -39,8 +39,7 @@ Assuming you have an appropriate JRE/JDK installed and have placed the
 Portecle and BouncyCastle Provider JAR files into a directory /portecle you
 can run Portecle like so:
 
-
-java -jar /portecle/portecle.jar
+  java -jar /portecle/portecle.jar
 
 2 License
 ---------
