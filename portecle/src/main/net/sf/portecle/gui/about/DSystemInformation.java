@@ -314,6 +314,7 @@ public class DSystemInformation extends JDialog
         getContentPane().add(m_jpSystemInformation, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
+        // Annoying, but resizing wreaks havoc here
         setResizable(false);
 
         addWindowListener(new WindowAdapter() {

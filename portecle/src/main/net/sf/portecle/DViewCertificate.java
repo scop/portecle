@@ -432,6 +432,7 @@ class DViewCertificate extends JDialog
         getContentPane().add(m_jpCertificate, BorderLayout.CENTER);
         getContentPane().add(m_jpOK, BorderLayout.SOUTH);
 
+        // Annoying, but resizing wreaks havoc here
         setResizable(false);
 
         addWindowListener(new WindowAdapter() {
