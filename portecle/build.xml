@@ -23,20 +23,17 @@
     </fileset>
   </path>
 
-  <target name="init">
-    <mkdir dir="${build}" />
-    <mkdir dir="${dist}" />
-  </target>
-
-  <target name="build-classes" depends="init">
-    <javac srcdir="${src}/main" destdir="${build}" source="1.4">
+  <target name="build-classes">
+    <mkdir dir="${build}/classes" />
+    <javac srcdir="${src}/main" destdir="${build}/classes" source="1.4">
       <classpath refid="build.path" />
     </javac>
   </target>
 
   <target name="build" depends="build-classes">
+    <mkdir dir="${dist}" />
     <jar jarfile="${dist}/${jar}" manifest="${conf}/MANIFEST.MF">
-      <fileset dir="${build}" includes="*/**" />
+      <fileset dir="${build}/classes" includes="*/**" />
       <fileset dir="${src}/main" includes="**/*.properties" />
       <fileset dir="${src}/main" includes="**/*.gif" />
       <fileset dir="${root}" includes="doc/**" />
