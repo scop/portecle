@@ -66,6 +66,9 @@ public class FPortecle extends JFrame implements StatusBar
     private static Preferences m_appPrefs =
         Preferences.userNodeForPackage(FPortecle.class);
 
+    /** Whether to show the splash screen */
+    private static boolean m_bSplashScreen;
+
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";
 
@@ -6300,6 +6303,11 @@ public class FPortecle extends JFrame implements StatusBar
                 m_res.getString("AppProps.Property.CaCertsFile"),
                 m_fCaCertsFile.toString());
 
+            // Show splash screen?
+            m_appPrefs.putBoolean(
+                m_res.getString("AppProps.Property.SplashScreen"),
+                m_bSplashScreen);
+
             // Recent files
             File[] fRecentFiles = m_jmrfFile.getRecentFiles();
             for (int iCnt=0; iCnt < fRecentFiles.length; iCnt++)
@@ -7357,22 +7365,23 @@ public class FPortecle extends JFrame implements StatusBar
             System.exit(1);
         }
 
-        // Create and display a splash screen
-        WSplash wSplash = new WSplash(
-            Toolkit.getDefaultToolkit().createImage(
-                ClassLoader.getSystemResource(
-                    m_res.getString("FPortecle.Splash.image"))), 3000);
+        m_bSplashScreen = m_appPrefs.getBoolean(
+            m_res.getString("AppProps.Property.SplashScreen"), true);
 
-        // Wait for the splash screen to disappear
-        while (wSplash.isVisible())
-        {
-            try
-            {
-                Thread.sleep(500);
-            }
-            catch (InterruptedException ex)
-            {
-                // Do nothing
+        if (m_bSplashScreen) {
+            // Create and display a splash screen
+            WSplash wSplash = new WSplash(
+                Toolkit.getDefaultToolkit().createImage(
+                    ClassLoader.getSystemResource(
+                        m_res.getString("FPortecle.Splash.image"))), 3000);
+            // Wait for the splash screen to disappear
+            while (wSplash.isVisible()) {
+                try {
+                    Thread.sleep(500);
+                }
+                catch (InterruptedException ex) {
+                    // Do nothing
+                }
             }
         }
 

@@ -6,3 +6,4 @@
   - icon for menu item, doc update
   - check "save", "save as" and "change keystore type"
   - logout, login from java.security.AuthProvider (from J2SE 5)
+- UI + docs for setting the "show splash screen" option
