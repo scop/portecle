@@ -22,17 +22,46 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
-import java.text.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.text.MessageFormat;
-import java.util.*;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
-import org.bouncycastle.asn1.*;
+import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.ASN1TaggedObject;
+import org.bouncycastle.asn1.DERBitString;
+import org.bouncycastle.asn1.DERBMPString;
+import org.bouncycastle.asn1.DERBoolean;
+import org.bouncycastle.asn1.DEREncodable;
+import org.bouncycastle.asn1.DEREnumerated;
+import org.bouncycastle.asn1.DERGeneralizedTime;
+import org.bouncycastle.asn1.DERGeneralString;
+import org.bouncycastle.asn1.DERIA5String;
+import org.bouncycastle.asn1.DERInteger;
+import org.bouncycastle.asn1.DERObject;
+import org.bouncycastle.asn1.DERObjectIdentifier;
+import org.bouncycastle.asn1.DEROctetString;
+import org.bouncycastle.asn1.DERSequence;
+import org.bouncycastle.asn1.DERString;
+import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.smime.SMIMECapabilities;
 import org.bouncycastle.asn1.smime.SMIMECapability;
-import org.bouncycastle.asn1.x509.*;
+import org.bouncycastle.asn1.x509.CRLDistPoint;
+import org.bouncycastle.asn1.x509.DistributionPoint;
+import org.bouncycastle.asn1.x509.DistributionPointName;
+import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.asn1.x509.PolicyInformation;
+import org.bouncycastle.asn1.x509.ReasonFlags;
+import org.bouncycastle.asn1.x509.X509Name;
 
 /**
  * Holds the information of an X.509 extension and provides the ability
@@ -2011,7 +2040,7 @@ public class X509Ext extends Object
         String sTime = time.getTime();
 
         // Setup date formatter with expected date format of string
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssz");
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssz");
 
         // Create date object from string using formatter
         Date date = dateFormat.parse(sTime);
