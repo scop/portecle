@@ -119,7 +119,7 @@ class ExtensionsTableModel extends AbstractTableModel
     private void loadRow(X509Ext extension, int iRow)
     {
         // Populate the Critical columnsExtname
-        m_data[iRow][0] = new Boolean(extension.isCriticalExtension());
+        m_data[iRow][0] = Boolean.valueOf(extension.isCriticalExtension());
 
         // Populate the Name column
         m_data[iRow][1] = extension.getName();
