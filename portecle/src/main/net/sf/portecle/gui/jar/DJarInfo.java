@@ -21,14 +21,15 @@
 
 package net.sf.portecle.gui.jar;
 
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.table.*;
 import java.io.*;
 import java.util.*;
 import java.util.jar.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.table.*;
 
 /**
  * A dialog that displays information about the JAR files on the classpath.

@@ -22,9 +22,10 @@
 package net.sf.portecle.gui.about;
 
 import java.awt.*;
+
 import javax.swing.*;
-import javax.swing.table.*;
 import javax.swing.border.*;
+import javax.swing.table.*;
 
 /**
  * Custom cell renderer for the cells of the System Properties table

@@ -23,9 +23,9 @@
 package net.sf.portecle.crypto;
 
 import java.io.*;
-import java.util.ResourceBundle;
-import java.text.MessageFormat;
 import java.security.*;
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 
 /**
  * Provides utility methods for loading/saving KeyStores.  The

@@ -22,9 +22,11 @@
 
 package net.sf.portecle;
 
-import java.util.ResourceBundle;
 import java.text.MessageFormat;
+import java.util.ResourceBundle;
+
 import javax.swing.*;
+
 import net.sf.portecle.gui.FileExtFilter;
 
 /**

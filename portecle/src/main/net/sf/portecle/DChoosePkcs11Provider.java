@@ -34,10 +34,11 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
+
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

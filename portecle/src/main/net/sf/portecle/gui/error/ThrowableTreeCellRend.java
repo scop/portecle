@@ -21,8 +21,9 @@
 
 package net.sf.portecle.gui.error;
 
-import java.util.ResourceBundle;
 import java.awt.Component;
+import java.util.ResourceBundle;
+
 import javax.swing.*;
 import javax.swing.tree.*;
 

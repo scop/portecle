@@ -21,12 +21,13 @@
 
 package net.sf.portecle.gui.about;
 
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.text.MessageFormat;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
 
 /**
  * A dialog which displays general system information:

@@ -21,9 +21,10 @@
 
 package net.sf.portecle.gui;
 
-import java.io.*;
-import javax.swing.*;
 import java.awt.event.*;
+import java.io.*;
+
+import javax.swing.*;
 
 /**
  * A recent file menu item.  Used in recent file menus (JMenuRecentFiles)

@@ -25,9 +25,10 @@ package net.sf.portecle.crypto;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.text.*;
 import java.text.MessageFormat;
 import java.util.*;
-import java.text.*;
+
 import org.bouncycastle.asn1.*;
 import org.bouncycastle.asn1.smime.SMIMECapabilities;
 import org.bouncycastle.asn1.smime.SMIMECapability;

@@ -21,13 +21,14 @@
 
 package net.sf.portecle;
 
-import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
 import java.security.*;
 import java.security.cert.X509Certificate;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;

@@ -22,29 +22,30 @@
 
 package net.sf.portecle;
 
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.prefs.Preferences;
-import java.text.MessageFormat;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.lang.reflect.*;
+import java.net.*;
+import java.security.*;
+import java.security.cert.*;
+import java.security.cert.Certificate;
+import java.text.MessageFormat;
+import java.util.*;
+import java.util.prefs.Preferences;
+
+import javax.net.ssl.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.table.*;
-import java.security.*;
-import java.security.cert.*;
-import java.security.cert.Certificate;
-import java.net.*;
-import javax.net.ssl.*;
 
 import edu.stanford.ejalbert.BrowserLauncher;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
-import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.crypto.KeyStoreType;
+import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.crypto.ProviderUtil;
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.JMenuItemRecentFile;

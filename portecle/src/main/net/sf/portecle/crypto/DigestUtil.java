@@ -21,9 +21,9 @@
 
 package net.sf.portecle.crypto;
 
-import java.util.ResourceBundle;
 import java.math.*;
 import java.security.*;
+import java.util.ResourceBundle;
 
 /**
  * Provides utility methods for the creation of message digests.

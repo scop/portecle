@@ -21,12 +21,13 @@
 
 package net.sf.portecle.gui.about;
 
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.table.*;
 import java.util.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.table.*;
 
 /**
  * A dialog that displays the Java System Properties.

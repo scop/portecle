@@ -23,9 +23,10 @@ package net.sf.portecle.gui.password;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
-import java.util.*;
 
 /**
  * Dialog used for entering and confirming a password and checking it against

@@ -21,11 +21,12 @@
 
 package net.sf.portecle.gui.error;
 
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
 
 /**
  * Displays an throwable message with the option to display the stack trace.

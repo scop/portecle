@@ -21,9 +21,11 @@
 
 package net.sf.portecle;
 
-import java.util.*;
 import java.security.cert.X509Extension;
+import java.util.*;
+
 import javax.swing.table.*;
+
 import net.sf.portecle.crypto.X509Ext;
 
 /**

@@ -21,11 +21,12 @@
 
 package net.sf.portecle;
 
-import java.util.*;
 import java.awt.*;
+import java.util.*;
+
 import javax.swing.*;
-import javax.swing.table.*;
 import javax.swing.border.*;
+import javax.swing.table.*;
 
 /**
  * Custom cell renderer for the headers of the KeyStore table of FPortecle.

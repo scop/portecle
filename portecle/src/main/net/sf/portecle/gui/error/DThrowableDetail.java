@@ -21,13 +21,14 @@
 
 package net.sf.portecle.gui.error;
 
+import java.awt.*;
+import java.awt.datatransfer.*;
+import java.awt.event.*;
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.tree.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.datatransfer.*;
-import java.util.*;
 
 /**
  * Displays a throwable's stack trace.  Cause throwable's stack trace will be

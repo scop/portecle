@@ -22,8 +22,8 @@
 package net.sf.portecle.crypto;
 
 import java.io.*;
-import java.util.ResourceBundle;
 import java.text.MessageFormat;
+import java.util.ResourceBundle;
 
 /**
  * Type safe enumeration of Signature Types supported by the

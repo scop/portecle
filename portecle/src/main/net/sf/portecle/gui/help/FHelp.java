@@ -21,12 +21,13 @@
 
 package net.sf.portecle.gui.help;
 
-import java.util.*;
-import java.io.*;
-import java.text.MessageFormat;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.net.URL;
+import java.text.MessageFormat;
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;

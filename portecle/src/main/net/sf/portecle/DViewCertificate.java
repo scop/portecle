@@ -21,14 +21,15 @@
 
 package net.sf.portecle;
 
-import java.util.*;
-import java.text.*;
-import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigInteger;
 import java.security.cert.*;
+import java.text.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.DigestType;

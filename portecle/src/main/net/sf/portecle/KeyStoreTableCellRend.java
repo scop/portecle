@@ -21,12 +21,13 @@
 
 package net.sf.portecle;
 
-import java.util.*;
-import java.text.DateFormat;
 import java.awt.*;
+import java.text.DateFormat;
+import java.util.*;
+
 import javax.swing.*;
-import javax.swing.table.*;
 import javax.swing.border.*;
+import javax.swing.table.*;
 
 /**
  * Custom cell renderer for the cells of the KeyStore table of FKewyToolGUI.

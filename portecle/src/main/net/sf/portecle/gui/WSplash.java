@@ -23,8 +23,9 @@ package net.sf.portecle.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
+
+import javax.swing.*;
 
 /**
  * Splash window that displays a supplied image for the requested time or

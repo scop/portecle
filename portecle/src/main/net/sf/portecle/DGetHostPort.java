@@ -24,9 +24,10 @@ package net.sf.portecle;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.InetSocketAddress;
+import java.util.ResourceBundle;
+
 import javax.swing.*;
 import javax.swing.border.*;
-import java.util.ResourceBundle;
 
 import net.sf.portecle.gui.error.DThrowable;
 

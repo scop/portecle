@@ -21,8 +21,9 @@
 
 package net.sf.portecle;
 
-import java.io.*;
 import java.awt.event.*;
+import java.io.*;
+
 import javax.swing.*;
 
 /**

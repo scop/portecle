@@ -21,9 +21,9 @@
 
 package net.sf.portecle.crypto;
 
+import java.security.*;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
-import java.security.*;
 
 /**
  * Provides utility methods for the generation of keys.

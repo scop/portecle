@@ -22,13 +22,14 @@
 
 package net.sf.portecle;
 
-import java.util.*;
-import java.text.MessageFormat;
 import java.awt.*;
 import java.awt.event.*;
+import java.security.*;
+import java.text.MessageFormat;
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
-import java.security.*;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.LastDir;
