@@ -2201,7 +2201,7 @@ public class X509Ext extends Object
      * @param bytes bytes
      * @return a DER object
      */
-    private static final DERObject toDER(byte[] bytes)
+    private static DERObject toDER(byte[] bytes)
         throws IOException
     {
         ASN1InputStream in =
@@ -2224,7 +2224,7 @@ public class X509Ext extends Object
      * @param fallback the fallback key
      * @return a resource string
      */
-    private final String getRes(String key, String fallback)
+    private static String getRes(String key, String fallback)
     {
         try {
             return m_res.getString(key);
