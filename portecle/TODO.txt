@@ -1,5 +1,5 @@
 TODO for website:
-- Smaller (in bytes) screenshot for keytool.
+- Smaller (in bytes) screenshot for portecle.
 
 TODO for later:
 - UI + docs for setting the "show splash screen" option
