@@ -24,6 +24,8 @@
   <property name="doc" value="${root}/doc" />
 
   <property name="bcprov.jar" value="${lib}/bcprov.jar" />
+  <property name="checkstyle.jar" value="${lib}/checkstyle-all.jar" />
+  <taskdef resource="checkstyletask.properties" classpath="${checkstyle.jar}"/>
 
   <property name="build.debug" value="false" />
   <property name="build.srcver" value="1.4" />
@@ -132,7 +134,7 @@
     <zip destfile="${dist}/portecle-${version}-src.zip">
       <zipfileset dir="${root}" prefix="portecle-${version}-src">
         <include name="*.txt" />
-        <include name="build.xml" />
+        <include name="*.xml" />
         <include name="prj.el" />
         <include name=".classpath" />
         <include name=".project" />
@@ -165,7 +167,16 @@
     </exec>
   </target>
 
-  <target name="check" depends="antic,jlint"
+  <target name="checkstyle" depends="build-classes">
+    <mkdir dir="${build}/reports" />
+    <checkstyle config="checkstyle.xml"
+      classpath="${build.classpath}:${build}/classes">
+      <fileset dir="${src}/main" includes="net/sf/portecle/**/*.java" />
+      <formatter type="plain" tofile="${build}/reports/checkstyle.txt" />
+    </checkstyle>
+  </target>
+
+  <target name="check" depends="antic,jlint,checkstyle"
     description="Runs static checks" />
 
   <target name="clean">

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+  "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
+  "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
+
+<module name="Checker">
+  <module name="TreeWalker">
+    <module name="TabCharacter" />
+    <module name="AvoidStarImport" />
+    <module name="RedundantImport" />
+    <module name="EmptyStatement" />
+    <module name="HiddenField" />
+    <module name="IllegalInstantiation">
+      <property name="classes" value="java.lang.Boolean" />
+    </module>
+    <module name="MissingSwitchDefault" />
+    <module name="DefaultComesLast" />
+    <module name="SimplifyBooleanReturn" />
+    <module name="ParameterAssignment" />
+    <module name="ExplicitInitialization" />
+    <module name="UnnecessaryParentheses" />
+    <module name="UnusedImports" />
+    <module name="RedundantThrows" />
+    <module name="LineLength">
+      <property name="max" value="79" />
+    </module>
+  </module>
+</module>
