@@ -77,14 +77,7 @@ class ExtensionsTableModel extends AbstractTableModel
 
             X509Ext ext = new X509Ext(sExtOid, bValue, true);
 
-            // Name may be null if extension unrecognised
-            String sExtName = ext.getName();
-            if (sExtName == null)
-            {
-                sExtName = "";
-            }
-
-            sortedExts.put(sExtName, ext);
+            sortedExts.put(ext.getName(), ext);
         }
 
         // ...then the critical extensions
@@ -95,14 +88,7 @@ class ExtensionsTableModel extends AbstractTableModel
 
             X509Ext ext = new X509Ext(sExtOid, bValue, false);
 
-            // Name may be null if extension unrecognised
-            String sExtName = ext.getName();
-            if (sExtName == null)
-            {
-                sExtName = "";
-            }
-
-            sortedExts.put(sExtName, ext);
+            sortedExts.put(ext.getName(), ext);
         }
 
         // Create one table row for each extension
@@ -132,16 +118,7 @@ class ExtensionsTableModel extends AbstractTableModel
         m_data[iRow][0] = new Boolean(extension.isCriticalExtension());
 
         // Populate the Name column
-        String sName = extension.getName();
-
-        if (sName == null)
-        {
-            m_data[iRow][1] = "-";
-        }
-        else
-        {
-            m_data[iRow][1] = sName;
-        }
+        m_data[iRow][1] = extension.getName();
 
         // Populate the OID column
         m_data[iRow][2] = extension.getOid();
