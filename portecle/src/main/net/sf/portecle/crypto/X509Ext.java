@@ -1981,7 +1981,7 @@ public class X509Ext extends Object
      * @param derInt DER Integer
      * @return Hex string
      */
-    private String convertToHexString(DERInteger derInt)
+    private static String convertToHexString(DERInteger derInt)
     {
         // Convert number to hex string - divide string with a space every four characters
         String sHexCrlNumber = derInt.getValue().toString(16).toUpperCase();
@@ -2008,7 +2008,7 @@ public class X509Ext extends Object
      * @param bytes Byte array
      * @return Hex string
      */
-    private String convertToHexString(byte[] bytes)
+    private static String convertToHexString(byte[] bytes)
     {
         // Convert to hex
         StringBuffer strBuff = new StringBuffer(new BigInteger(1, bytes).toString(16).toUpperCase());
