@@ -1593,8 +1593,8 @@ public class X509Ext extends Object
 
     /**
      * Get extension value for any Netscape certificate extension that is
-     * *not* Certificate Type as a string. (2.16.840.1.113730.1.x, where x
-     * can be any of 2, 3, 4, 7, 8, 12 or 13).
+     * <em>not</em> Certificate Type as a string. (2.16.840.1.113730.1.x,
+     * where x can be any of 2, 3, 4, 7, 8, 12 or 13.)
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1701,7 +1701,7 @@ public class X509Ext extends Object
     /**
      * Get extension value for Certificate Policies as a string.
      *
-     * @see <a href="http://www.ietf.org/rfc/rfc3280">RFC 3280</a>, 4.2.1.5
+     * @see <a href="http://www.ietf.org/rfc/rfc3280">RFC 3280</a>
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
