@@ -46,7 +46,7 @@ public class XmlEncodingUtil extends Object
     /**
      * Private to prevent construction.
      */
-    private XmlEncodingUtil() {};
+    private XmlEncodingUtil() {}
 
     /**
      * Detect an XML file's encoding as either UTF-16BE, UTF-16LE, UTF-8, etc.
