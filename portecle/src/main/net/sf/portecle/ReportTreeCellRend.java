@@ -338,14 +338,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
          */
         public boolean isKey()
         {
-            if (m_iType == KEY)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return m_iType == KEY;
         }
 
         /**
@@ -355,14 +348,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
          */
         public boolean isKeyPair()
         {
-            if (m_iType == KEY_PAIR)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return m_iType == KEY_PAIR;
         }
 
         /**
@@ -372,14 +358,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
          */
         public boolean isTrustedCertificate()
         {
-            if (m_iType == TRUSTED_CERTIFICATE)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return m_iType == TRUSTED_CERTIFICATE;
         }
 
         /**

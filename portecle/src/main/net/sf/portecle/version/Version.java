@@ -172,14 +172,7 @@ public class Version extends Object implements Comparable, Serializable
             return false;
         }
 
-        if (compareTo(object) == 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return compareTo(object) == 0;
     }
 
     /**

@@ -2479,14 +2479,7 @@ public class FPortecle extends JFrame implements StatusBar
         // Not saved before - use Save As
         if (fSaveFile == null)
         {
-            if (!saveKeyStoreAs())
-            {
-                return false; // Successful Save As
-            }
-            else
-            {
-                return true; // Failed Save As
-            }
+            return saveKeyStoreAs();
         }
 
         // Get the password to protect the KeyStore with

@@ -345,14 +345,7 @@ public class JavaVersion extends Object implements Comparable
             return false;
         }
 
-        if (compareTo(object) == 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return compareTo(object) == 0;
     }
 
     /**
