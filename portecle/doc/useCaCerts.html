@@ -1,8 +1,10 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
   <head>
     <title>How to use CA Certs KeyStore when importing trusted
       certificates and CA replies</title>
-    <link rel=stylesheet href="help.css" type="text/css">
+    <link rel="stylesheet" href="help.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
 
   <body>
@@ -10,10 +12,12 @@
     <h1>How to use a CA Certs KeyStore</h1>
     <hr>
 
-    Extra certificates from a CA Certs Keystore can be considered when
-    forming trust paths and attempting to match root certificates.
-    This is relevant when importing trusted certifcates and CA
-    replies.  To use a CA Certs KeyStore:
+    <p>
+      Extra certificates from a CA Certs Keystore can be considered when
+      forming trust paths and attempting to match root certificates.
+      This is relevant when importing trusted certifcates and CA
+      replies.  To use a CA Certs KeyStore:
+    </p>
 
     <ol>
       <li>From the <b>Tools</b> menu, choose <b>Options</b>.</li>
@@ -24,20 +28,16 @@
       <li>Tick the <b>Use CA Certs KeyStore</b> check box.</li>
 
       <li>The default <b>CA Certs KeyStore</b> is the cacerts file
-        bundled with Java.  To change to another KeyStore:</li>
-
-      <ul>
-        <li>Press the <b>Browse</b> button.</li>
-
-        <li>The <b>Choose CA Certs KeyStore</b> dialog will appear.</li>
-
-        <li>Select the drive and folder where the KeyStore file is
-          located.</li>
-
-        <li>Type the filename into the <b>File Name</b> text box.</li>
-
-        <li>Click on the <b>Choose</b> button.</li>
-      </ul>
+        bundled with Java.  To change to another KeyStore:
+        <ul>
+          <li>Press the <b>Browse</b> button.</li>
+          <li>The <b>Choose CA Certs KeyStore</b> dialog will appear.</li>
+          <li>Select the drive and folder where the KeyStore file is
+            located.</li>
+          <li>Type the filename into the <b>File Name</b> text box.</li>
+          <li>Click on the <b>Choose</b> button.</li>
+        </ul>
+      </li>
 
       <li>Press the <b>OK</b> button to save your settings and dismiss
         the <b>Options</b> dialog.</li>
@@ -50,6 +50,5 @@
     </ol>
 
     <hr>
-
   </body>
 </html>

@@ -1,7 +1,9 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
   <head>
     <title>How to clone a KeyStore Key Pair entry</title>
-    <link rel=stylesheet href="help.css" type="text/css">
+    <link rel="stylesheet" href="help.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
 
   <body>
@@ -9,24 +11,24 @@
     <h1>How to clone a KeyStore Key Pair entry</h1>
     <hr>
 
-    To clone (make an exact copy of) a KeyStore Key Pair entry:
+    <p>
+      To clone (make an exact copy of) a KeyStore Key Pair entry:
+    </p>
 
     <ol>
+
       <li>Right-click on the Key Pair KeyStore entry in the
         KeyStore Entries table.  Select the <b>Clone</b> item from
         the resulting pop-up menu.</li>
 
       <li>If you have yet to supply the password for the entry and the current
-        KeyStore type is not <b>PKCS #12</b>:</li>
-
+        KeyStore type is not <b>PKCS #12</b>:
         <ul>
-
           <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
-
           <li>Enter the Key Pair entry's password and press the <b>OK</b>
             button.</li>
-
         </ul>
+      </li>
 
       <li>The <b>Cloned Key Pair Entry Alias</b> dialog will be
         displayed.</li>
@@ -34,23 +36,20 @@
       <li>Enter the alias for the new key pair and press the <b>OK</b>
         button.</li>
 
-      <li>If the current KeyStore type is not <b>PKCS #12</b>:</li>
-
+      <li>If the current KeyStore type is not <b>PKCS #12</b>:
         <ul>
-
           <li>The <b>Cloned Key Pair Entry Password</b> dialog will be
             displayed.</li>
-
           <li>Enter the password to protect the key pair with, confirm it and
             press the <b>OK</b> button.</li>
-
         </ul>
+      </li>
 
       <li>The cloned key pair entry will appear in the KeyStore Entries
         table.</li>
+
     </ol>
 
     <hr>
-
   </body>
 </html>

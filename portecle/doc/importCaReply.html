@@ -1,7 +1,9 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
   <head>
     <title>How to import a CA reply for a Key Pair entry</title>
-    <link rel=stylesheet href="help.css" type="text/css">
+    <link rel="stylesheet" href="help.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
 
   <body>
@@ -9,7 +11,9 @@
     <h1>How to import a CA reply into a KeyStore Key Pair entry</h1>
     <hr>
 
-    To import a CA reply into a KeyStore Key Pair entry:
+    <p>
+      To import a CA reply into a KeyStore Key Pair entry:
+    </p>
 
     <ol>
       <li>Right-click on the Key Pair KeyStore entry in the KeyStore Entries
@@ -27,11 +31,9 @@
       <li>Click on the <b>Import</b> button.</li>
 
       <li>What happens next depends on whether the CA reply certificate file
-        contains a single certificate or a chain or certificates:</li>
-
+        contains a single certificate or a chain or certificates:
         <ul>
-          <li>If the CA reply file contains a single certificate:</li>
-
+          <li>If the CA reply file contains a single certificate:
             <ul>
               <li>If <b>Portecle</b> can establish a trust path between
                 the certificate and an existing self-signed Trusted
@@ -39,50 +41,42 @@
                 if it is enabled) then the import will continue.
                 Otherwise it will fail at this point.</li>
             </ul>
-
-            <li>Alternatively the CA reply file may contain a chain of
-              certificates:</li>
-
-              <ul>
-                <li><b>Portecle</b> will attempt to match the reply's root CA
-                  to an existing Trusted Certificate in your KeyStore (or the
-                  CA Certs KeyStore if it is enabled).</li>
-
-                <li>If it cannot then the <b>Certificate Details</b> dialog
-                  will appear displaying the details of the reply's root CA
-                  certificate for you to verify.</li>
-
-                <li>After viewing the details acknowledge the dialog by
-                  pressing the <b>OK</b> button.</li>
-
-                <li>A further dialog will appear asking if you wish accept the
-                  certificate.</li>
-
-                <li>Press the <b>Yes</b> button if you wish to trust the
-                  certificate and import the CA reply and <b>No</b> if you do
-                  not.  If you reply <b>No</b> the import will fail at this
-                  point.</li>
-              </ul>
-            </ul>
-
-            <li>If the current KeyStore type is not <b>PKCS #12</b>:</li>
-
+          </li>
+          <li>Alternatively the CA reply file may contain a chain of
+            certificates:
             <ul>
-
-              <li>The <b>Key Pair Entry Password</b> dialog will be
-                displayed.</li>
-
-              <li>Enter the key entry's password into the dialog and
-                press <b>OK</b>.</li>
-
+              <li><b>Portecle</b> will attempt to match the reply's root CA
+                to an existing Trusted Certificate in your KeyStore (or the
+                CA Certs KeyStore if it is enabled).</li>
+              <li>If it cannot then the <b>Certificate Details</b> dialog
+                will appear displaying the details of the reply's root CA
+                certificate for you to verify.</li>
+              <li>After viewing the details acknowledge the dialog by
+                pressing the <b>OK</b> button.</li>
+              <li>A further dialog will appear asking if you wish accept the
+                certificate.</li>
+              <li>Press the <b>Yes</b> button if you wish to trust the
+                certificate and import the CA reply and <b>No</b> if you do
+                not.  If you reply <b>No</b> the import will fail at this
+                point.</li>
             </ul>
+          </li>
+        </ul>
+      </li>
 
-          <li>The KeyStore Key Pair entry will be updated to reflect the
-           content of the CA reply.</li>
+      <li>If the current KeyStore type is not <b>PKCS #12</b>:
+        <ul>
+          <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
+          <li>Enter the key entry's password into the dialog and
+            press <b>OK</b>.</li>
+        </ul>
+      </li>
+
+      <li>The KeyStore Key Pair entry will be updated to reflect the
+        content of the CA reply.</li>
 
     </ol>
 
     <hr>
-
   </body>
 </html>
