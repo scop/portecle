@@ -2412,7 +2412,7 @@ public class FPortecle extends JFrame implements StatusBar
         try
         {
             // If there are any display the view certificate dialog with them
-            if ((certs != null) && (certs.length > 0))
+            if (certs != null && certs.length != 0)
             {
                 DViewCertificate dViewCertificate =
                     new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
@@ -2506,7 +2506,7 @@ public class FPortecle extends JFrame implements StatusBar
         try
         {
             // If there are any display the view certificate dialog with them
-            if ((certs != null) && (certs.length > 0))
+            if (certs != null && certs.length != 0)
             {
                 DViewCertificate dViewCertificate =
                     new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsSSL.Title"), new String[]{ia.getHostName() + ":" + ia.getPort()}),
@@ -6434,7 +6434,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         /* If arguments have been supplied treat the first one as a KeyStore file */
         File fKeyStore = null;
-        if (args.length > 0)
+        if (args.length != 0)
         {
             fKeyStore = new File(args[0]);
         }

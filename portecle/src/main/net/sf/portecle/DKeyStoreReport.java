@@ -713,7 +713,7 @@ class DKeyStoreReport extends JDialog
                 }
 
                 // One or more certificates?
-                if ((certChain != null) && (certChain.length > 0))
+                if (certChain != null && certChain.length != 0)
                 {
                     DefaultMutableTreeNode certsNode = new DefaultMutableTreeNode(m_res.getString("DKeyStoreReport.Certificates"));
                     entryNode.add(certsNode);

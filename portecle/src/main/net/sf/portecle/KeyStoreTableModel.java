@@ -101,8 +101,9 @@ class KeyStoreTableModel extends AbstractTableModel
             {
                 m_data[iCnt][0] = new String(TRUST_CERT_ENTRY);
             }
-            else if ((keyStore.isKeyEntry(sAlias)) && (keyStore.getCertificateChain(sAlias) != null) &&
-                     (keyStore.getCertificateChain(sAlias).length > 0))
+            else if (keyStore.isKeyEntry(sAlias) &&
+                     keyStore.getCertificateChain(sAlias) != null &&
+                     keyStore.getCertificateChain(sAlias).length != 0)
             {
                 m_data[iCnt][0] = new String(KEY_PAIR_ENTRY);
             }

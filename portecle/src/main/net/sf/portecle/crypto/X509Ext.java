@@ -1529,7 +1529,7 @@ public class X509Ext extends Object
         StringBuffer strBuff = new StringBuffer();
         boolean bKeyAgreement = false;
 
-        if (bytes.length > 0)
+        if (bytes.length != 0)
         {
             boolean[] b = new boolean[8];
 

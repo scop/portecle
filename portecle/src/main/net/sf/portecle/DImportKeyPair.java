@@ -262,7 +262,7 @@ class DImportKeyPair extends JDialog
                     Key key = m_pkcs12.getKey(sAlias, new char[]{});
                     Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
-                    if ((certs != null) && (certs.length > 0))
+                    if (certs != null && certs.length != 0)
                     {
                         vKeyPairAliases.add(sAlias);
                     }
