@@ -306,8 +306,11 @@ class DKeyStoreReport extends JDialog
             // General KeyStore information...
 
             // KeyStore type
-            String sType = m_keystore.getType();
-            sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.type"), new String[]{sType}));
+            KeyStoreType ksType =
+                KeyStoreType.getInstance(m_keystore.getType());
+            sbReport.append(MessageFormat.format(
+                                m_res.getString("DKeyStoreReport.report.type"),
+                                new String[]{ksType.toString()}));
             sbReport.append("\n");
 
             // KeyStore provider
@@ -487,11 +490,12 @@ class DKeyStoreReport extends JDialog
             Document xmlDoc = docBuilder.newDocument();
 
             // General KeyStore information
-            String sType = m_keystore.getType();
+            KeyStoreType ksType =
+                KeyStoreType.getInstance(m_keystore.getType());
             String sProvider = m_keystore.getProvider().getName();
 
             Element keystoreElement = xmlDoc.createElement("keystore");
-            keystoreElement.setAttribute("type", sType);
+            keystoreElement.setAttribute("type", ksType.toString());
             keystoreElement.setAttribute("provider", sProvider);
             xmlDoc.appendChild(keystoreElement);
 
@@ -646,13 +650,17 @@ class DKeyStoreReport extends JDialog
         try
         {
             // KeyStore type
-            String sType = m_keystore.getType();
+            KeyStoreType ksType =
+                KeyStoreType.getInstance(m_keystore.getType());
 
             // KeyStore provider
             String sProvider = m_keystore.getProvider().getName();
 
             // Top node
-            DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(MessageFormat.format(m_res.getString("DKeyStoreReport.TopNodeName"), new String[]{sType, sProvider}));
+            DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(
+                MessageFormat.format(
+                    m_res.getString("DKeyStoreReport.TopNodeName"),
+                    new String[]{ksType.toString(), sProvider}));
 
             // One sub-node per entry
             Enumeration aliases = m_keystore.aliases();
