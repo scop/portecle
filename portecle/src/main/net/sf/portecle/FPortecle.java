@@ -32,18 +32,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.table.*;
-import javax.swing.text.*;
-import javax.swing.text.html.*;
 import java.security.*;
 import java.security.cert.*;
 import java.security.cert.Certificate;
 import java.net.*;
 import javax.net.ssl.*;
-
-import org.bouncycastle.jce.PKCS10CertificationRequest;
-import org.bouncycastle.asn1.*;
-import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
-import org.bouncycastle.asn1.x509.*;
 
 import edu.stanford.ejalbert.BrowserLauncher;
 

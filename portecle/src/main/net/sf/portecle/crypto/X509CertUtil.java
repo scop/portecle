@@ -29,7 +29,6 @@ import java.security.*;
 import java.security.spec.*;
 import java.security.cert.Certificate;
 import java.security.cert.*;
-import java.security.interfaces.*;
 
 import org.bouncycastle.jce.*;
 import org.bouncycastle.asn1.x509.*;

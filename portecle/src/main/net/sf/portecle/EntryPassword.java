@@ -21,9 +21,6 @@
 
 package net.sf.portecle;
 
-import java.security.Key;
-import java.security.cert.Certificate;
-
 /**
  * Holds an alias/password pair for a KeyStore entry.
  */

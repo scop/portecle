@@ -22,9 +22,7 @@
 package net.sf.portecle.xml;
 
 import java.util.StringTokenizer;
-import javax.xml.parsers.*;
 import org.w3c.dom.*;
-import org.xml.sax.*;
 
 /**
  * Format an XML Document using indentation.

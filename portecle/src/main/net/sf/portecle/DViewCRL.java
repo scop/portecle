@@ -29,9 +29,7 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.math.BigInteger;
-import java.security.*;
 import java.security.cert.*;
 
 import net.sf.portecle.crypto.*;

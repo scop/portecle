@@ -27,12 +27,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.math.BigInteger;
-import java.security.*;
 import java.security.cert.*;
-
-import org.bouncycastle.jce.provider.*;
 
 import net.sf.portecle.crypto.*;
 import net.sf.portecle.gui.error.DThrowable;

@@ -22,21 +22,15 @@
 package net.sf.portecle;
 
 import java.util.*;
-import java.io.*;
 import java.text.MessageFormat;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.security.*;
-import java.security.interfaces.*;
-import java.security.cert.Certificate;
-import java.security.cert.*;
 
 import net.sf.portecle.crypto.*;
 import net.sf.portecle.gui.LastDir;
-import net.sf.portecle.gui.password.*;
-import net.sf.portecle.gui.error.DThrowable;
 
 /**
  * Dialog used to export KeyStore entries.  A number of export types and formats are

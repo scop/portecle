@@ -21,7 +21,6 @@
 
 package net.sf.portecle.gui.crypto;
 
-import java.io.*;
 import java.util.*;
 import java.text.MessageFormat;
 import java.security.*;

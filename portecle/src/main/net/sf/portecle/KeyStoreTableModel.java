@@ -24,8 +24,6 @@ package net.sf.portecle;
 import java.util.*;
 import javax.swing.table.*;
 import java.security.*;
-import java.security.cert.*;
-import java.security.cert.Certificate;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyStoreType;
 

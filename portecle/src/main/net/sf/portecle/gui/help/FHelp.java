@@ -30,7 +30,6 @@ import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-import javax.swing.text.*;
 
 /**
  * Simple help system that displays two panes: a table of contents

@@ -26,7 +26,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.util.*;
-import java.text.MessageFormat;
 
 /**
  * Dialog used for entering and confirming a password.

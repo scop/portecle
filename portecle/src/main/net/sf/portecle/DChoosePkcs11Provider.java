@@ -45,9 +45,7 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
-import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.ProviderUtil;
-import net.sf.portecle.gui.error.DThrowable;
 
 /**
  * Dialog used for choosing a PKCS #11 provider.

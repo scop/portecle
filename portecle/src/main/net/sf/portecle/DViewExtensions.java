@@ -22,7 +22,6 @@
 package net.sf.portecle;
 
 import java.util.*;
-import java.text.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.border.*;

@@ -29,7 +29,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 import java.security.*;
-import java.security.interfaces.*;
 import java.security.cert.*;
 import java.security.cert.Certificate;
 

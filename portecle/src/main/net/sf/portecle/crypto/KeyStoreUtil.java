@@ -25,7 +25,6 @@ import java.io.*;
 import java.util.ResourceBundle;
 import java.text.MessageFormat;
 import java.security.*;
-import java.security.cert.CertificateException;
 
 /**
  * Provides utility methods for loading/saving KeyStores.  The BouncyCastle provider

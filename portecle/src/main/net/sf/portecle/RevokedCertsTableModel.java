@@ -22,11 +22,8 @@
 package net.sf.portecle;
 
 import java.util.*;
-import java.math.BigInteger;
 import javax.swing.table.*;
-import java.security.*;
 import java.security.cert.*;
-import java.security.cert.Certificate;
 
 /**
  * The table model used to display an array of X.509 CRL entries sorted by serial number.

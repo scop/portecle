@@ -22,17 +22,14 @@
 package net.sf.portecle;
 
 import java.util.*;
-import java.text.MessageFormat;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.security.*;
-import java.security.interfaces.*;
 import java.security.cert.X509Certificate;
 
 import net.sf.portecle.crypto.*;
-import net.sf.portecle.gui.password.*;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**

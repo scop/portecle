@@ -21,7 +21,6 @@
 
 package net.sf.portecle.gui.about;
 
-import java.io.*;
 import java.util.*;
 import javax.swing.table.*;
 

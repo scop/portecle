@@ -21,25 +21,9 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.*;
-import java.lang.*;
-import java.util.*;
-import java.math.*;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.security.*;
-import java.security.spec.*;
-import java.security.cert.Certificate;
-import java.security.cert.*;
-
-import java.security.interfaces.*;
-import javax.crypto.*;
-import javax.crypto.spec.*;
-
-import org.bouncycastle.jce.*;
-import org.bouncycastle.asn1.x509.*;
-import org.bouncycastle.util.encoders.*;
-import org.bouncycastle.asn1.*;
 
 /**
  * Provides utility methods for the generation of keys.

@@ -23,7 +23,6 @@ package net.sf.portecle.gui;
 
 import java.io.*;
 import java.util.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 /**

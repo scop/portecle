@@ -28,9 +28,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import net.sf.portecle.crypto.*;
-import net.sf.portecle.gui.error.DThrowable;
-
 /**
  * Dialog to allow the users to configure Portecle options CA Certs KeyStore
  * and Look & Feel.
