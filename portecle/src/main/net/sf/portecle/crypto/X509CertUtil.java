@@ -457,7 +457,7 @@ public final class X509CertUtil extends Object
     /**
      * PKCS #7 encode a certificate.
      *
-     * @return The encoding
+     * @return The PKCS #7 encoded certificate
      * @param cert The certificate
      * @throws CryptoException If there was a problem encoding the certificate
      */
