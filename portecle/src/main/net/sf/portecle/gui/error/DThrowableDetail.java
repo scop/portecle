@@ -127,8 +127,10 @@ public class DThrowableDetail extends JDialog
         m_jtrThrowable.setCellRenderer(new ThrowableTreeCellRend()); // Custom tree node renderer
 
         // Expand all nodes in tree
+        /* ...not.
         TreeNode topNode = (TreeNode)m_jtrThrowable.getModel().getRoot();
         expandTree(m_jtrThrowable, new TreePath(topNode));
+        */
 
         m_jspThrowable = new JScrollPane(m_jtrThrowable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                                          JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
