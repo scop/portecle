@@ -7,13 +7,25 @@
   <module name="TreeWalker">
 
     <module name="TabCharacter" />
-    <module name="AvoidStarImport" />
-    <module name="RedundantImport" />
-    <module name="UnusedImports" />
     <module name="LineLength">
       <property name="max" value="79" />
       <property name="ignorePattern" value="(f|ht)tps?://" />
     </module>
+
+    <!-- Imports -->
+    <module name="AvoidStarImport" />
+    <module name="IllegalImport" />
+    <module name="ImportOrder">
+      <property name="groups" value="java,javax" />
+      <property name="ordered" value="true" />
+      <property name="separated" value="true" />
+    </module>
+    <module name="RedundantImport" />
+    <module name="UnusedImports" />
+
+    <!-- Modifiers -->
+    <module name="ModifierOrder" />
+    <module name="RedundantModifier" />
 
     <!-- Coding problems -->
     <module name="ArrayTrailingComma" />
