@@ -86,9 +86,6 @@ class DOptions extends JDialog
     /** CA certs file text field */
     private JTextField m_jtfCaCertsFile;
 
-    /** Subpanel to hold use CA certs browse components */
-    private JPanel m_jpBrowseCaCertsFile;
-
     /** Browse button used to select the CA certs file */
     private JButton m_jbBrowseCaCertsFile;
 

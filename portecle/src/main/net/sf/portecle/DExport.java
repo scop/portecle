@@ -63,10 +63,6 @@ class DExport extends JDialog
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
-    /** Dummy password to use for PKCS #12 KeyStore entries (passwords
-     * are not applicable for these) */
-    private static final char[] PKCS12_DUMMY_PASSWORD = "dummy".toCharArray();
-
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");

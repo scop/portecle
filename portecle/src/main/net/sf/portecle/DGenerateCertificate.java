@@ -72,10 +72,6 @@ class DGenerateCertificate extends JDialog
     /** Indicator used for a bad validity period */
     private static final int BAD_VALIDITY = -1;
 
-    /** Dummy password to use for PKCS #12 KeyStore entries (passwords
-     * are not applicable for these) */
-    private static final char[] PKCS12_DUMMY_PASSWORD = "dummy".toCharArray();
-
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
