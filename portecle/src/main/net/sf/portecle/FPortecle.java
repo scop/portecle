@@ -5902,7 +5902,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to open a KeyStore file.
+     * Action to open a PKCS#11 KeyStore.
      */
     private class OpenKeyStorePkcs11Action extends AbstractAction
     {
