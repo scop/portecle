@@ -1368,7 +1368,7 @@ public class X509Ext
 
         StringBuffer sb = new StringBuffer();
 
-        for (Iterator i = caps.getCapabilities(null).iterator(); i.hasNext(); )
+        for (Iterator i = caps.getCapabilities(null).iterator(); i.hasNext();)
         {
             SMIMECapability cap = (SMIMECapability) i.next();
 

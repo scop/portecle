@@ -215,12 +215,11 @@ public class DProviderInfo extends JDialog
 
             // ...add property child nodes to it.
             // Use a TreeSet for sorting the properties.
-            for (Iterator i = new TreeSet(provider.keySet()).iterator();
-                 i.hasNext(); )
+            TreeSet ts = new TreeSet(provider.keySet());
+            for (Iterator i = ts.iterator(); i.hasNext();)
             {
                 String sKey = (String) i.next();
                 String sValue = provider.getProperty(sKey);
-
                 providerPropertiesNode.add(
                     new DefaultMutableTreeNode(
                         MessageFormat.format(
@@ -270,12 +269,11 @@ public class DProviderInfo extends JDialog
 
             // ...and it's properties
             // Use a TreeSet for sorting the properties.
-            for (Iterator i = new TreeSet(provider.keySet()).iterator();
-                 i.hasNext(); )
+            TreeSet ts = new TreeSet(provider.keySet());
+            for (Iterator i = ts.iterator(); i.hasNext();)
             {
                 String sKey = (String) i.next();
                 String sValue = provider.getProperty(sKey);
-
                 strBuff.append('\t');
                 strBuff.append(sKey);
                 strBuff.append('=');

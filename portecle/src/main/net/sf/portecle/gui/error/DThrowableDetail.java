@@ -237,7 +237,7 @@ public class DThrowableDetail extends JDialog
         TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0)
         {
-            for (Enumeration en = node.children(); en.hasMoreElements(); )
+            for (Enumeration en = node.children(); en.hasMoreElements();)
             {
                 TreeNode subNode = (TreeNode) en.nextElement();
                 TreePath path = parent.pathByAddingChild(subNode);

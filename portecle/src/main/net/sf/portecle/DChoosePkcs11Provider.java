@@ -149,7 +149,7 @@ public class DChoosePkcs11Provider
         boolean providersAvailable = !pSet.isEmpty();
 
         if (providersAvailable) {
-            for (Iterator i = pSet.iterator(); i.hasNext(); ) {
+            for (Iterator i = pSet.iterator(); i.hasNext();) {
                 String pName = ((Provider) i.next()).getName();
                 m_jcbProvider.addItem(pName);
                 if (pName.equals(sOldProvider)) {

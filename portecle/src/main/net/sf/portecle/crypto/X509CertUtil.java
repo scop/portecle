@@ -177,7 +177,7 @@ public final class X509CertUtil
             }
 
             if (coll != null) {
-                for (Iterator iter = coll.iterator(); iter.hasNext(); ) {
+                for (Iterator iter = coll.iterator(); iter.hasNext();) {
                     X509Certificate cert = (X509Certificate) iter.next();
                     if (cert != null) {
                         vCerts.add(cert);
@@ -195,7 +195,7 @@ public final class X509CertUtil
         }
         finally {
             if (fis != null) {
-                try {fis.close();} catch(IOException ex) { /* Ignore */ }}
+                try { fis.close(); } catch(IOException ex) { /* Ignore */ }}
         }
 
         return (X509Certificate[])
@@ -235,7 +235,7 @@ public final class X509CertUtil
         finally
         {
             if (fis != null) {
-                try {fis.close();} catch(IOException ex) { /* Ignore */ }}
+                try { fis.close(); } catch(IOException ex) { /* Ignore */ }}
         }
     }
 
@@ -945,7 +945,7 @@ public final class X509CertUtil
         {
             ArrayList vCerts = new ArrayList();
 
-            for (Enumeration en = keyStore.aliases(); en.hasMoreElements(); )
+            for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
             {
                 String sAlias = (String) en.nextElement();
 
@@ -981,7 +981,7 @@ public final class X509CertUtil
     {
         try
         {
-            for (Enumeration en = keyStore.aliases(); en.hasMoreElements(); )
+            for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
             {
                 String sAlias = (String) en.nextElement();
                 if (keyStore.isCertificateEntry(sAlias))

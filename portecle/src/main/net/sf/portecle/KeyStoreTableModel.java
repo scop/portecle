@@ -88,7 +88,7 @@ class KeyStoreTableModel extends AbstractTableModel
         // Place aliases in a tree map to sort them
         TreeMap sortedAliases = new TreeMap();
 
-        for (Enumeration en = keyStore.aliases(); en.hasMoreElements(); )
+        for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
         {
             String sAlias = (String) en.nextElement();
             sortedAliases.put(sAlias, sAlias);
