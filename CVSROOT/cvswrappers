@@ -18,7 +18,7 @@
 # For example:
 #*.gif -k 'b'
 
-*.gif -k '-b'
-*.png -k '-b'
-*.ico -k '-b'
-*.jar -k '-b'
+*.gif -k 'b'
+*.png -k 'b'
+*.ico -k 'b'
+*.jar -k 'b'
