@@ -178,10 +178,11 @@ public class DProviderInfo extends JDialog
             DefaultMutableTreeNode providerPropertiesNode = new DefaultMutableTreeNode(m_res.getString("DProviderInfo.ProviderProperties"));
             providerNode.add(providerPropertiesNode);
 
-            // ...add property child nodes to it
-            for (Enumeration enum = provider.propertyNames(); enum.hasMoreElements();)
+            // ...add property child nodes to it.
+            // Use a TreeSet for sorting the properties.
+            for (Iterator i = new TreeSet(provider.keySet()).iterator(); i.hasNext(); )
             {
-                String sKey = (String)enum.nextElement();
+                String sKey = (String) i.next();
                 String sValue = provider.getProperty(sKey);
 
                 providerPropertiesNode.add(new DefaultMutableTreeNode(MessageFormat.format(m_res.getString("DProviderInfo.ProviderProperty"), new String[]{sKey, sValue})));
