@@ -612,31 +612,10 @@ public class X509Ext extends Object
             return getNonNetscapeCertificateTypeStringValue(bOctets);
         }
 
-        // Don't know how to process the extension - just dump out hex and clear text
-        else
-        {
-            ByteArrayInputStream bais = null;
-
-            try
-            {
-                // Divide dump into 8 byte lines
-                StringBuffer strBuff = new StringBuffer();
-
-                bais = new ByteArrayInputStream(bOctets);
-                byte[] bLine = new byte[8];
-                int iRead = -1;
-
-                while ((iRead = bais.read(bLine)) != -1)
-                {
-                    strBuff.append(getHexClearDump(bLine, iRead));
-                }
-
-                return strBuff.toString();
-            }
-            finally
-            {
-                try { if (bais != null)  bais.close(); } catch (IOException ex) { /* Ignore */ }
-            }
+        // Don't know how to process the extension
+        // and clear text
+        else {
+            return getUnknownOidStringValue(bOctets);
         }
     }
 
