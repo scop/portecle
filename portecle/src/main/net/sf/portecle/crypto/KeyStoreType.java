@@ -29,27 +29,27 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
- * Type safe enumeration of KeyStore Types supported by the KeyStoreUtil
+ * Type safe enumeration of keystore types supported by the KeyStoreUtil
  * class.
  */
 public class KeyStoreType
 {
-    /** JCEKS KeyStore Type */
+    /** JCEKS keystore Type */
     public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true);
 
-    /** JKS KeyStore Type */
+    /** JKS keystore Type */
     public static final KeyStoreType JKS = new KeyStoreType("JKS", true);
 
-    /** PKCS #11 KeyStore Type */
+    /** PKCS #11 keystore Type */
     public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",false);
 
-    /** PKCS #12 KeyStore Type */
+    /** PKCS #12 keystore Type */
     public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",false);
 
-    /** BKS KeyStore Type */
+    /** BKS keystore Type */
     public static final KeyStoreType BKS = new KeyStoreType("BKS", true);
 
-    /** UBER KeyStore Type */
+    /** UBER keystore Type */
     public static final KeyStoreType UBER = new KeyStoreType("UBER", true);
 
     /** String-to-type map */
@@ -67,7 +67,7 @@ public class KeyStoreType
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
-    /** Stores KeyStore Type name */
+    /** Stores keystore type name */
     private final String m_sType;
 
     /** Whether the keystore type supports creation dates */
@@ -77,7 +77,7 @@ public class KeyStoreType
      * Construct a KeyStoreType.
      * Private to prevent construction from outside this class.
      *
-     * @param sType KeyStore type
+     * @param sType Keystore type
      * @param bCreationDate Whether the keystore supports creation dates
      */
     private KeyStoreType(String sType, boolean bCreationDate)
@@ -133,9 +133,9 @@ public class KeyStoreType
     }
 
     /**
-     * Return string representation of KeyStore Type compatible with the JCE.
+     * Return string representation of keystore type compatible with the JCE.
      *
-     * @return String representation of a KeyStore Type
+     * @return String representation of a keystore type
      */
     public String toString()
     {

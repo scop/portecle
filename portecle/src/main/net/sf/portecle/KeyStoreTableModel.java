@@ -35,7 +35,7 @@ import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyStoreType;
 
 /**
- * The table model used to display a KeyStore's entries sorted by alias name.
+ * The table model used to display a keystore's entries sorted by alias name.
  */
 class KeyStoreTableModel extends AbstractTableModel
 {
@@ -76,13 +76,13 @@ class KeyStoreTableModel extends AbstractTableModel
     }
 
     /**
-     * Load the KeyStoreTableModel with the entries from a KeyStore.
+     * Load the KeyStoreTableModel with the entries from a keystore.
      *
-     * @param keyStore The KeyStore
+     * @param keyStore The keystore
      * @throws KeyStoreException A problem is encountered accessing
-     * the KeyStore's entries
+     * the keystore's entries
      * @throws CryptoException A problem is encountered accessing
-     * the KeyStore's entries
+     * the keystore's entries
      */
     public void load(KeyStore keyStore)
         throws KeyStoreException, CryptoException
@@ -99,10 +99,10 @@ class KeyStoreTableModel extends AbstractTableModel
         boolean cdSupport = KeyStoreType.getInstance(
             keyStore.getType()).supportsCreationDate();
 
-        // Create one table row for each KeyStore entry
+        // Create one table row for each keystore entry
         m_data = new Object[sortedAliases.size()][3];
 
-        // Iterate through the sorted aliases, retrieving the KeyStore
+        // Iterate through the sorted aliases, retrieving the keystore
         // entries and populating the table model
         int iCnt=0;
         for (Iterator itr = sortedAliases.entrySet().iterator();

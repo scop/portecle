@@ -26,32 +26,32 @@ import java.security.KeyStore;
 import java.util.Vector;
 
 /**
- * Wrapper class for a KeyStore.  Used to keep a track of the KeyStore's
+ * Wrapper class for a keystore.  Used to keep a track of the keystore's
  * physical file, its password, the password's of its protected entries
- * and whether or not the KeyStore has been changed since it was last saved.
+ * and whether or not the keystore has been changed since it was last saved.
  */
 class KeyStoreWrapper
 {
-    /** The wrapped KeyStore */
+    /** The wrapped keystore */
     private KeyStore m_keyStore;
 
-    /** The KeyStore's password */
+    /** The keystore's password */
     private char[] m_cPassword;
 
-    /** KeyStore entry passwords as a Vector of EntryPassword objects */
+    /** Keystore entry passwords as a Vector of EntryPassword objects */
     private Vector m_vEntryPasswords;
 
-    /** File the KeyStore was loaded from/saved to */
+    /** File the keystore was loaded from/saved to */
     private File m_fKeyStore;
 
-    /** Indicator as to whether or not the KeyStore has been altered
+    /** Indicator as to whether or not the keystore has been altered
      * since its last save */
     private boolean m_bChanged;
 
     /**
-     * Construst a new KeyStoreWrapper for the supplied KeyStore.
+     * Construst a new KeyStoreWrapper for the supplied keystore.
      *
-     * @param keyStore The KeyStore
+     * @param keyStore The keystore
      */
     public KeyStoreWrapper(KeyStore keyStore)
     {
@@ -60,12 +60,12 @@ class KeyStoreWrapper
     }
 
     /**
-     * Construst a new KeyStoreWrapper for the supplied KeyStore, KeyStore file
-     * and KeyStore password.
+     * Construst a new KeyStoreWrapper for the supplied keystore, keystore file
+     * and keystore password.
      *
-     * @param keyStore The KeyStore
-     * @param fKeyStore The KeyStore file
-     * @param cPassword The KeyStore password
+     * @param keyStore The keystore
+     * @param fKeyStore The keystore file
+     * @param cPassword The keystore password
      */
     public KeyStoreWrapper(KeyStore keyStore, File fKeyStore, char[] cPassword)
     {
@@ -75,10 +75,10 @@ class KeyStoreWrapper
     }
 
     /**
-     * Set the password for a particular KeyStore entry in the wrapper.
+     * Set the password for a particular keystore entry in the wrapper.
      *
-     * @param sAlias The KeyStore entry's alias
-     * @param cPassword The KeyStore entry's password
+     * @param sAlias The keystore entry's alias
+     * @param cPassword The keystore entry's password
      */
     public void setEntryPassword(String sAlias, char[] cPassword)
     {
@@ -95,9 +95,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Remove a particular KeyStore entry from the wrapper.
+     * Remove a particular keystore entry from the wrapper.
      *
-     * @param sAlias The KeyStore entry's alias
+     * @param sAlias The keystore entry's alias
      */
     public void removeEntryPassword(String sAlias)
     {
@@ -113,10 +113,10 @@ class KeyStoreWrapper
     }
 
     /**
-     * Get the password for a particular KeyStore entry.
+     * Get the password for a particular keystore entry.
      *
-     * @param sAlias The KeyStore entry's alias
-     * @return The KeyStore entry's password or null if none is set
+     * @param sAlias The keystore entry's alias
+     * @return The keystore entry's password or null if none is set
      */
     public char[] getEntryPassword(String sAlias)
     {
@@ -132,9 +132,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Get the KeyStore's physical file.
+     * Get the keystore's physical file.
      *
-     * @return The KeyStore entry's physical file or null if none is set
+     * @return The keystore entry's physical file or null if none is set
      */
     public File getKeyStoreFile()
     {
@@ -142,9 +142,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Set the KeyStore's physical file in the wrapper.
+     * Set the keystore's physical file in the wrapper.
      *
-     * @param fKeyStore The KeyStore entry's physical file
+     * @param fKeyStore The keystore entry's physical file
      */
     public void setKeyStoreFile(File fKeyStore)
     {
@@ -152,9 +152,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Get the KeyStore.
+     * Get the keystore.
      *
-     * @return The KeyStore
+     * @return The keystore
      */
     public KeyStore getKeyStore()
     {
@@ -162,9 +162,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Set the KeyStore.
+     * Set the keystore.
      *
-     * @param keyStore The KeyStore
+     * @param keyStore The keystore
      */
     public void setKeyStore(KeyStore keyStore)
     {
@@ -172,9 +172,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Get the KeyStore password
+     * Get the keystore password
      *
-     * @return The KeyStore password
+     * @return The keystore password
      */
     public char[] getPassword()
     {
@@ -182,9 +182,9 @@ class KeyStoreWrapper
     }
 
     /**
-     * Set the KeyStore password in the wrapper.
+     * Set the keystore password in the wrapper.
      *
-     * @param cPassword The KeyStore password
+     * @param cPassword The keystore password
      */
     public void setPassword(char[] cPassword)
     {
@@ -192,10 +192,10 @@ class KeyStoreWrapper
     }
 
     /**
-     * Register with the wrapper whether the KeyStore has been changed since
+     * Register with the wrapper whether the keystore has been changed since
      * its last save.
      *
-     * @param bChanged Has the KeyStore been changed?
+     * @param bChanged Has the keystore been changed?
      */
     public void setChanged(boolean bChanged)
     {
@@ -203,7 +203,7 @@ class KeyStoreWrapper
     }
 
     /**
-     * Has the KeyStore been changed since its last save?
+     * Has the keystore been changed since its last save?
      *
      * @return True if it has been changed, false otherwise
      */

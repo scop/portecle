@@ -40,19 +40,19 @@ public class FileChooserFactory
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** File extension for KeyStore files */
+    /** File extension for keystore files */
     private static final String KEYSTORE_EXT = "ks";
 
-    /** File extension for Java KeyStore files */
+    /** File extension for Java keystore files */
     private static final String JAVA_KEYSTORE_EXT = "jks";
 
-    /** File extension for PKCS #12 KeyStore files */
+    /** File extension for PKCS #12 keystore files */
     private static final String PKCS12_KEYSTORE_EXT_1 = "pfx";
 
-    /** File extension for PKCS #12 KeyStore files */
+    /** File extension for PKCS #12 keystore files */
     private static final String PKCS12_KEYSTORE_EXT_2 = "p12";
 
-    /** Description for KeyStore files */
+    /** Description for keystore files */
     private static final String KEYSTORE_FILE_DESC =
         MessageFormat.format(
             m_res.getString("FileChooseFactory.KeyStoreFiles"),
@@ -87,7 +87,7 @@ public class FileChooserFactory
         MessageFormat.format(m_res.getString("FileChooseFactory.PkiPathFiles"),
                              new String[]{PKIPATH_EXT});
 
-    /** Description for PKCS #12 KeyStore files */
+    /** Description for PKCS #12 keystore files */
     private static final String PKCS12_FILE_DESC =
         MessageFormat.format(
             m_res.getString("FileChooseFactory.Pkcs12Files"),
@@ -116,7 +116,7 @@ public class FileChooserFactory
     private FileChooserFactory() {}
 
     /**
-     * Get a JFileChooser filtered for KeyStore files.
+     * Get a JFileChooser filtered for keystore files.
      *
      * @return JFileChooser object
      */

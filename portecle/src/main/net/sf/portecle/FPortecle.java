@@ -130,7 +130,7 @@ import net.sf.portecle.version.Version;
 import net.sf.portecle.version.VersionException;
 
 /**
- * Start class and main frame of the KeyStore GUI application.
+ * Start class and main frame of the keystore GUI application.
  */
 public class FPortecle extends JFrame implements StatusBar
 {
@@ -152,10 +152,10 @@ public class FPortecle extends JFrame implements StatusBar
     private static final boolean EXPERIMENTAL =
         Boolean.getBoolean("portecle.experimental");
 
-    /** Default KeyStore table width - dictates width of this frame */
+    /** Default keystore table width - dictates width of this frame */
     private static final int DEFAULT_TABLE_WIDTH = 600;
 
-    /** Default KeyStore table width - dictates height of this frame */
+    /** Default keystore table width - dictates height of this frame */
     private static final int DEFAULT_TABLE_HEIGHT = 400;
 
     /** Number of recent files to hold in the file menu */
@@ -172,12 +172,12 @@ public class FPortecle extends JFrame implements StatusBar
     /** Our light metal theme */
     private static final LightMetalTheme METAL_THEME = new LightMetalTheme();
 
-    /** Dummy password to use for PKCS #12 KeyStore entries
+    /** Dummy password to use for PKCS #12 keystore entries
      * (passwords are not applicable for these). */
     private static final char[] PKCS12_DUMMY_PASSWORD =
         "password".toCharArray();
 
-    /** Default CA Certs KeyStore file */
+    /** Default CA certs keystore file */
     private static final String DEFAULT_CA_CERTS_FILE;
     static {
         String sep = System.getProperty("file.separator");
@@ -189,16 +189,16 @@ public class FPortecle extends JFrame implements StatusBar
     /** The last directory accessed by the application */
     private LastDir m_lastDir = new LastDir();
 
-    /** Use CA Certs KeyStore file? */
+    /** Use CA certs keystore file? */
     private boolean m_bUseCaCerts;
 
-    /** CA Certs KeyStore file */
+    /** CA certs keystore file */
     private File m_fCaCertsFile;
 
-    /** CA Certs KeyStore */
+    /** CA certs keystore */
     private KeyStore m_caCertsKeyStore;
 
-    /** KeyStore Wrapper object containing the current KeyStore */
+    /** KeystoreWrapper object containing the current keystore */
     private KeyStoreWrapper m_keyStoreWrap;
 
     /** The PRNG, cached for performance reasons */
@@ -223,19 +223,19 @@ public class FPortecle extends JFrame implements StatusBar
     /** File menu */
     private JMenuRecentFiles m_jmrfFile;
 
-    /** New KeyStore menu item of File menu */
+    /** New keystore menu item of File menu */
     private JMenuItem m_jmiNewKeyStore;
 
-    /** Open KeyStore File menu item of File menu */
+    /** Open keystore File menu item of File menu */
     private JMenuItem m_jmiOpenKeyStoreFile;
 
-    /** Open PKCS #11 KeyStore menu item of File menu */
+    /** Open PKCS #11 keystore menu item of File menu */
     private JMenuItem m_jmiOpenKeyStorePkcs11;
 
-    /** Save KeyStore menu item of File menu */
+    /** Save keystore menu item of File menu */
     private JMenuItem m_jmiSaveKeyStore;
 
-    /** Save KeyStore As menu item of File menu */
+    /** Save keystore As menu item of File menu */
     private JMenuItem m_jmiSaveKeyStoreAs;
 
     /** Exit menu item of File menu */
@@ -253,28 +253,28 @@ public class FPortecle extends JFrame implements StatusBar
     /** Import Key Pair menu item of Tools menu */
     private JMenuItem m_jmiImportKeyPair;
 
-    /** Change KeyStore Type menu Tools menu */
+    /** Change keystore Type menu Tools menu */
     private JMenu m_jmChangeKeyStoreType;
 
-    /** JKS menu item in Change KeyStore Type menu */
+    /** JKS menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeJks;
 
-    /** JCEKS menu item in Change KeyStore Type menu */
+    /** JCEKS menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeJceks;
 
-    /** PKCS #12 menu item in Change KeyStore Type menu */
+    /** PKCS #12 menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypePkcs12;
 
-    /** BKS menu item in Change KeyStore Type menu */
+    /** BKS menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeBks;
 
-    /** UBER menu item in Change KeyStore Type menu */
+    /** UBER menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeUber;
 
-    /** Set KeyStore Password menu item of Tools menu */
+    /** Set Keystore Password menu item of Tools menu */
     private JMenuItem m_jmiSetKeyStorePass;
 
-    /** Set KeyStore Report menu item of Tools menu */
+    /** Keystore Report menu item of Tools menu */
     private JMenuItem m_jmiKeyStoreReport;
 
     /** Options menu item of Tools menu */
@@ -335,13 +335,13 @@ public class FPortecle extends JFrame implements StatusBar
     /** The Toolbar */
     private JToolBar m_jtbToolBar;
 
-    /** New KeyStore toolbar button */
+    /** New Keystore toolbar button */
     private JButton m_jbNewKeyStore;
 
-    /** Open KeyStore File toolbar button */
+    /** Open Keystore File toolbar button */
     private JButton m_jbOpenKeyStoreFile;
 
-    /** Save KeyStore toolbar button */
+    /** Save Keystore toolbar button */
     private JButton m_jbSaveKeyStore;
 
     /** Generate Key Pair toolbar button */
@@ -353,10 +353,10 @@ public class FPortecle extends JFrame implements StatusBar
     /** Import Key Pair toolbar button */
     private JButton m_jbImportKeyPair;
 
-    /** Set KeyStore Password toolbar button */
+    /** Set Keystore Password toolbar button */
     private JButton m_jbSetKeyStorePass;
 
-    /** Set KeyStore Report toolbar button */
+    /** Keystore Report toolbar button */
     private JButton m_jbKeyStoreReport;
 
     /** Examine Certificate toolbar button */
@@ -375,31 +375,31 @@ public class FPortecle extends JFrame implements StatusBar
     // Pop-up menu controls
     ////////////////////////////////////////////////////////////
 
-    /** Key Pair entry pop-up menu */
+    /** Key pair entry pop-up menu */
     private JPopupMenu m_jpmKeyPair;
 
-    /** Certificate details menu item of Key Pair entry pop-up menu */
+    /** Certificate details menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiKeyPairCertDetails;
 
     /** Export Key Pair entry menu item pop-up menu */
     private JMenuItem m_jmiKeyPairExport;
 
-    /** Generate CSR menu item of Key Pair entry pop-up menu */
+    /** Generate CSR menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiGenerateCSR;
 
-    /** Import menu item of Key Pair entry pop-up menu */
+    /** Import menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiImportCAReply;
 
-    /** Set Password menu item of Key Pair entry pop-up menu */
+    /** Set Password menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiSetKeyPairPass;
 
-    /** Delete menu item of Key Pair entry pop-up menu */
+    /** Delete menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiKeyPairDelete;
 
-    /** Clone menu item of Key Pair entry pop-up menu */
+    /** Clone menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiClone;
 
-    /** Rename menu item of Key Pair entry pop-up menu */
+    /** Rename menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiKeyPairRename;
 
     /** Trusted Certificate entry pop-up menu */
@@ -425,16 +425,16 @@ public class FPortecle extends JFrame implements StatusBar
     private JMenuItem m_jmiTrustCertRename;
 
     ////////////////////////////////////////////////////////////
-    // KeyStore table controls
+    // Keystore table controls
     ////////////////////////////////////////////////////////////
 
-    /** Panel to hold KeyStore entries table */
+    /** Panel to hold keystore entries table */
     private JPanel m_jpKeyStoreTable;
 
-    /** KeyStore entries table */
+    /** Keystore entries table */
     private JTable m_jtKeyStore;
 
-    /** Scroll Pane to view KeyStore entries table */
+    /** Scroll Pane to view keystore entries table */
     private JScrollPane m_jspKeyStoreTable;
 
     ////////////////////////////////////////////////////////////
@@ -448,19 +448,19 @@ public class FPortecle extends JFrame implements StatusBar
     // Actions - these are shared between the menu and toolbar
     ////////////////////////////////////////////////////////////
 
-    /** New KeyStore action */
+    /** New Keystore action */
     private final NewKeyStoreAction m_newKeyStoreAction =
         new NewKeyStoreAction();
 
-    /** Open KeyStore File action */
+    /** Open Keystore File action */
     private final OpenKeyStoreFileAction m_openKeyStoreFileAction =
         new OpenKeyStoreFileAction();
 
-    /** Open PKCS #11 KeyStore action */
+    /** Open PKCS #11 Keystore action */
     private final OpenKeyStorePkcs11Action m_openKeyStorePkcs11Action =
         new OpenKeyStorePkcs11Action();
 
-    /** Save KeyStore action */
+    /** Save Keystore action */
     private final SaveKeyStoreAction m_saveKeyStoreAction =
         new SaveKeyStoreAction();
 
@@ -486,11 +486,11 @@ public class FPortecle extends JFrame implements StatusBar
     private final ImportKeyPairAction m_importKeyPairAction =
         new ImportKeyPairAction();
 
-    /** Set KeyStore Password action */
+    /** Set Keystore Password action */
     private final SetKeyStorePassAction m_setKeyStorePassAction =
         new SetKeyStorePassAction();
 
-    /** KeyStore Report action */
+    /** Keystore Report action */
     private final KeyStoreReportAction m_keyStoreReportAction =
         new KeyStoreReportAction();
 
@@ -749,7 +749,7 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmChangeKeyStoreType.setEnabled(false);
         m_jmTools.add(m_jmChangeKeyStoreType);
 
-        // Add Change KeyStore Type sub-menu of Tools
+        // Add Change Keystore Type sub-menu of Tools
         m_jmiChangeKeyStoreTypeJks = new JMenuItem(
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.text"),
             m_res.getString(
@@ -1546,7 +1546,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Initialise FPortecle frame's KeyStore content table GUI components.
+     * Initialise FPortecle frame's keystore content table GUI components.
      */
     private void initTable()
     {
@@ -1604,7 +1604,7 @@ public class FPortecle extends JFrame implements StatusBar
         m_jspKeyStoreTable.getViewport().setBackground(
             m_jtKeyStore.getBackground());
 
-        // Get the size of the KeyStore table panel from the application
+        // Get the size of the keystore table panel from the application
         // preferences
         int iWidth = m_appPrefs.getInt(
             m_res.getString("AppPrefs.TableWidth"), 0);
@@ -1672,12 +1672,12 @@ public class FPortecle extends JFrame implements StatusBar
 
     /**
      * Initialise FPortecle frame's popup menu GUI components.  These are
-     * invoked when rows of specific types are clicked upon in the KeyStore
+     * invoked when rows of specific types are clicked upon in the keystore
      * table.
      */
     private void initPopupMenus()
     {
-        // Initialiase Key Pair entry pop-up menu including mnemonics
+        // Initialiase key pair entry pop-up menu including mnemonics
         // and listeners
         m_jpmKeyPair = new JPopupMenu();
 
@@ -2035,7 +2035,7 @@ public class FPortecle extends JFrame implements StatusBar
 
     /**
      * Show the appropriate pop-up menu if the originating mouse event
-     * indicates that the user clicked upon a KeyStore entry in the UI
+     * indicates that the user clicked upon a keystore entry in the UI
      * table and the entry is of type key pair or trusted certificate.
      *
      * @param evt The mouse event
@@ -2054,7 +2054,7 @@ public class FPortecle extends JFrame implements StatusBar
                 // Make the row that was clicked upon the selected one
                 m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
 
-                // Show one menu if the KeyStore entry is of type key pair...
+                // Show one menu if the keystore entry is of type key pair...
                 if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                         KeyStoreTableModel.KEY_PAIR_ENTRY))
                 {
@@ -2072,7 +2072,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Check if a double click occurred on the KeyStore table.  If it has
+     * Check if a double click occurred on the keystore table.  If it has
      * show the certificate details of the entry clicked upon.
      *
      * @param evt The mouse event
@@ -2113,7 +2113,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Generate a key pair (with certificate) in the currently opened KeyStore.
+     * Generate a key pair (with certificate) in the currently opened keystore.
      *
      * @return True if a key pair is generated, false otherwise
      */
@@ -2151,7 +2151,7 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         /* Now display the certificate generation dialog supplying the
-           key pair and signature algorithm - this will update the KeyStore
+           key pair and signature algorithm - this will update the keystore
            with the key pair for us */
         DGenerateCertificate dGenerateCertificate =
             new DGenerateCertificate(
@@ -2167,10 +2167,10 @@ public class FPortecle extends JFrame implements StatusBar
             return false; // user cancelled dialog or error occurred
         }
 
-        // Get the KeyStore
+        // Get the keystore
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
-        // Get an alias for the new KeyStore entry
+        // Get an alias for the new keystore entry
         String sAlias = null;
 
         // Get the alias
@@ -2189,7 +2189,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Check entry does not already exist in the KeyStore
+            // Check entry does not already exist in the keystore
             if (keyStore.containsAlias(sAlias))
             {
                 String sMessage = MessageFormat.format(
@@ -2220,8 +2220,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // Get a password for the new KeyStore entry (only relevant if
-        // the KeyStore is not PKCS #12)
+        // Get a password for the new keystore entry (only relevant if
+        // the keystore is not PKCS #12)
         char[] cPassword = PKCS12_DUMMY_PASSWORD;
 
         if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
@@ -2241,8 +2241,8 @@ public class FPortecle extends JFrame implements StatusBar
             }
         }
 
-        // Place the private key and certificate into the KeyStore and update
-        // the KeyStore wrapper
+        // Place the private key and certificate into the keystore and update
+        // the keystore wrapper
         try
         {
             keyStore.setKeyEntry(sAlias, keyPair.getPrivate(), cPassword,
@@ -2270,13 +2270,13 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Open a KeyStore File from disk.
+     * Open a keystore file from disk.
      *
-     * @return True if a KeyStore is opened, false otherwise
+     * @return True if a keystore is opened, false otherwise
      */
     private boolean openKeyStoreFile()
     {
-        // Does the current KeyStore contain unsaved changes?
+        // Does the current keystore contain unsaved changes?
         if (needSave())
         {
             // Yes - ask the user if it should be saved
@@ -2307,7 +2307,7 @@ public class FPortecle extends JFrame implements StatusBar
         {
             File fOpenFile = chooser.getSelectedFile();
 
-            // File chosen - open the KeyStore
+            // File chosen - open the keystore
             if (openKeyStoreFile(fOpenFile))
             {
                 return true;
@@ -2317,10 +2317,10 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Open the supplied KeyStore file from disk.
+     * Open the supplied keystore file from disk.
      *
-     * @param fKeyStore The KeyStore file
-     * @return True if a KeyStore is opened, false otherwise
+     * @param fKeyStore The keystore file
+     * @return True if a keystore is opened, false otherwise
      */
     /* package private */ boolean openKeyStoreFile(File fKeyStore)
     {
@@ -2335,7 +2335,7 @@ public class FPortecle extends JFrame implements StatusBar
                 JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        // The KeyStore file is not a file
+        // The keystore file is not a file
         else if (!fKeyStore.isFile())
         {
             JOptionPane.showMessageDialog(
@@ -2348,7 +2348,7 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // Get the user to enter the KeyStore's password
+        // Get the user to enter the keystore's password
         DGetPassword dGetPassword = new DGetPassword(
             this,
             MessageFormat.format(
@@ -2366,7 +2366,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Load the KeyStore - try to open as each of the allowed
+            // Load the keystore - try to open as each of the allowed
             // types in turn until successful
             KeyStore openedKeyStore = null;
 
@@ -2415,7 +2415,7 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // Create a KeyStore wrapper for the KeyStore
+            // Create a keystore wrapper for the keystore
             m_keyStoreWrap =
                 new KeyStoreWrapper(openedKeyStore, fKeyStore, cPassword);
 
@@ -2423,7 +2423,7 @@ public class FPortecle extends JFrame implements StatusBar
             updateControls();
             updateTitle();
 
-            // Add KeyStore file to recent files in file menu
+            // Add keystore file to recent files in file menu
             m_jmrfFile.add(createRecentFileMenuItem(fKeyStore));
 
             // Update last accessed directory
@@ -2451,13 +2451,13 @@ public class FPortecle extends JFrame implements StatusBar
 
 
     /**
-     * Open a PKCS #11 KeyStore.
+     * Open a PKCS #11 keystore.
      *
-     * @return True if a KeyStore is opened, false otherwise
+     * @return True if a keystore is opened, false otherwise
      */
     private boolean openKeyStorePkcs11()
     {
-        // Does the current KeyStore contain unsaved changes?
+        // Does the current keystore contain unsaved changes?
         if (needSave())
         {
             // Yes - ask the user if it should be saved
@@ -2484,14 +2484,14 @@ public class FPortecle extends JFrame implements StatusBar
 
 
     /**
-     * Open the supplied PKCS #11 KeyStore.
+     * Open the supplied PKCS #11 keystore.
      *
      * @param sPkcs11Provider The PKCS #11 provider
-     * @return True if a KeyStore is opened, false otherwise
+     * @return True if a keystore is opened, false otherwise
      */
     /* package private */ boolean openKeyStorePkcs11(String sPkcs11Provider)
     {
-        // Get the user to enter the KeyStore's password
+        // Get the user to enter the keystore's password
         DGetPassword dGetPassword = new DGetPassword(
             this,
             MessageFormat.format(
@@ -2506,7 +2506,7 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // Load the KeyStore
+        // Load the keystore
         KeyStore openedKeyStore = null;
 
         try {
@@ -2527,7 +2527,7 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // Create a KeyStore wrapper for the KeyStore
+        // Create a keystore wrapper for the keystore
         m_keyStoreWrap = new KeyStoreWrapper(openedKeyStore, null, cPassword);
 
         // Update the frame's components and title
@@ -2539,10 +2539,10 @@ public class FPortecle extends JFrame implements StatusBar
 
 
     /**
-     * Save the currently opened KeyStore back to the file it was originally
+     * Save the currently opened keystore back to the file it was originally
      * opened from.
      *
-     * @return True if the KeyStore is saved to disk, false otherwise
+     * @return True if the keystore is saved to disk, false otherwise
      */
     /* package private */ boolean saveKeyStore()
     {
@@ -2558,10 +2558,10 @@ public class FPortecle extends JFrame implements StatusBar
             return saveKeyStoreAs();
         }
 
-        // Get the password to protect the KeyStore with
+        // Get the password to protect the keystore with
         char[] cPassword = m_keyStoreWrap.getPassword();
 
-        // No password set for KeyStore - get one from the user
+        // No password set for keystore - get one from the user
         if (cPassword == null)
         {
             cPassword = getNewKeyStorePassword();
@@ -2579,7 +2579,7 @@ public class FPortecle extends JFrame implements StatusBar
             KeyStoreUtil.saveKeyStore(
                 m_keyStoreWrap.getKeyStore(), fSaveFile, cPassword);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setPassword(cPassword);
             m_keyStoreWrap.setKeyStoreFile(fSaveFile);
             m_keyStoreWrap.setChanged(false);
@@ -2609,9 +2609,9 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Get a new KeyStore password.
+     * Get a new keystore password.
      *
-     * @return The new KeyStore password
+     * @return The new keystore password
      */
     private char[] getNewKeyStorePassword()
     {
@@ -2633,21 +2633,21 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Save the currently opened KeyStore to disk to what may be a different
+     * Save the currently opened keystore to disk to what may be a different
      * file from the one it was opened from (if any).
      *
-     * @return True if the KeyStore is saved to disk, false otherwise
+     * @return True if the keystore is saved to disk, false otherwise
      */
     private boolean saveKeyStoreAs()
     {
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
 
-        // KeyStore's current password
+        // Keystore's current password
         char[] cPassword = m_keyStoreWrap.getPassword();
 
-        // Get a new password if this KeyStore exists in another file or is an
-        // unsaved KeyStore for which no password has been set yet
+        // Get a new password if this keystore exists in another file or is an
+        // unsaved keystore for which no password has been set yet
         if (m_keyStoreWrap.getKeyStoreFile() != null ||
             (m_keyStoreWrap.getKeyStoreFile() == null && cPassword == null))
         {
@@ -2697,11 +2697,11 @@ public class FPortecle extends JFrame implements StatusBar
                     }
                 }
 
-                // Save the KeyStore to file
+                // Save the keystore to file
                 KeyStoreUtil.saveKeyStore(
                     m_keyStoreWrap.getKeyStore(), fSaveFile, cPassword);
 
-                // Update the KeyStore wrapper
+                // Update the keystore wrapper
                 m_keyStoreWrap.setPassword(cPassword);
                 m_keyStoreWrap.setKeyStoreFile(fSaveFile);
                 m_keyStoreWrap.setChanged(false);
@@ -2710,7 +2710,7 @@ public class FPortecle extends JFrame implements StatusBar
                 updateControls();
                 updateTitle();
 
-                // Add KeyStore file to recent files in file menu
+                // Add keystore file to recent files in file menu
                 m_jmrfFile.add(createRecentFileMenuItem(fSaveFile));
 
                 m_lastDir.updateLastDir(fSaveFile);
@@ -2738,9 +2738,9 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Check if the currently opened KeyStore requires to be saved.
+     * Check if the currently opened keystore requires to be saved.
      *
-     * @return True if the KeyStore has been changed since the last open/save,
+     * @return True if the keystore has been changed since the last open/save,
      * false otherwise
      */
     /* package private */ boolean needSave()
@@ -2758,7 +2758,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Ask the user if they want to save the current KeyStore file.
+     * Ask the user if they want to save the current keystore file.
      *
      * @return JOptionPane.YES_OPTION, JOptionPane.NO_OPTION or
      * JOptionPane.CANCEL_OPTION
@@ -2793,13 +2793,13 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Create a new KeyStore file.
+     * Create a new keystore file.
      *
-     * @return True is a new KeyStore file is created, false otherwise
+     * @return True is a new keystore file is created, false otherwise
      */
     private boolean newKeyStore()
     {
-        // Does the current KeyStore contain unsaved changes?
+        // Does the current keystore contain unsaved changes?
         if (needSave())
         {
             // Yes - ask the user if it should be saved
@@ -2821,7 +2821,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Ask user for KeyStore type
+            // Ask user for keystore type
             DNewKeyStoreType dNewKeyStoreType =
                 new DNewKeyStoreType(this, true);
             dNewKeyStoreType.setLocationRelativeTo(this);
@@ -2829,16 +2829,16 @@ public class FPortecle extends JFrame implements StatusBar
 
             KeyStoreType keyStoreType = dNewKeyStoreType.getKeyStoreType();
 
-            // No keyStore type chosen
+            // No keystore type chosen
             if (keyStoreType == null)
             {
                 return false;
             }
 
-            // Create new KeyStore
+            // Create new keystore
             KeyStore newKeyStore = KeyStoreUtil.createKeyStore(keyStoreType);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap = new KeyStoreWrapper(newKeyStore);
             m_keyStoreWrap.setChanged(true);
 
@@ -3165,7 +3165,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Let the user choose a PKCS #12 KeyStore file to import from.
+     * Let the user choose a PKCS #12 keystore file to import from.
      *
      * @return The chosen file or null if none was chosen
      */
@@ -3348,7 +3348,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 
-        // Get the KeyStore
+        // Get the keystore
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         // Let the user choose a file for the trusted certificate
@@ -3387,14 +3387,14 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // If the CA Certs KeyStore is to be used and it has yet to
+            // If the CA certs keystore is to be used and it has yet to
             // be loaded then do so
             if (m_bUseCaCerts && m_caCertsKeyStore == null)
             {
                 m_caCertsKeyStore = openCaCertsKeyStore();
                 if (m_caCertsKeyStore == null)
                 {
-                    // Failed to load CA Certs KeyStore
+                    // Failed to load CA certs keystore
                     return false;
                 }
             }
@@ -3404,19 +3404,19 @@ public class FPortecle extends JFrame implements StatusBar
             X509Certificate[] newCertChain = null;
 
             /* PKCS #7 reply - try and match the self-signed root with any of
-               the certificates in the CA Certs or current KeyStore */
+               the certificates in the CA certs or current keystore */
             if (certs.length > 1)
             {
                 X509Certificate rootCert = certs[certs.length - 1];
                 String sMatchAlias = null;
 
-                if (m_bUseCaCerts) // Match against CA Certs KeyStore
+                if (m_bUseCaCerts) // Match against CA certs keystore
                 {
                     sMatchAlias = X509CertUtil.matchCertificate(
                         m_caCertsKeyStore, rootCert);
                 }
 
-                if (sMatchAlias == null) // Match against current KeyStore
+                if (sMatchAlias == null) // Match against current keystore
                 {
                     sMatchAlias =
                         X509CertUtil.matchCertificate(keyStore, rootCert);
@@ -3469,13 +3469,13 @@ public class FPortecle extends JFrame implements StatusBar
             {
                 KeyStore[] compKeyStores = null;
 
-                // Establish against CA Certs KeyStore and current KeyStore
+                // Establish against CA certs keystore and current keystore
                 if (m_bUseCaCerts) 
                 {
                     compKeyStores =
                         new KeyStore[]{m_caCertsKeyStore, keyStore};
                 }
-                else // Establish against current KeyStore only
+                else // Establish against current keystore only
                 {
                     compKeyStores = new KeyStore[]{keyStore};
                 }
@@ -3506,7 +3506,7 @@ public class FPortecle extends JFrame implements StatusBar
             {
                 cPassword = PKCS12_DUMMY_PASSWORD;
 
-                // Password is only relevant if the KeyStore is not PKCS #12
+                // Password is only relevant if the keystore is not PKCS #12
                 if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                 {
                     DGetPassword dGetPassword = new DGetPassword(
@@ -3529,7 +3529,7 @@ public class FPortecle extends JFrame implements StatusBar
             keyStore.deleteEntry(sAlias);
             keyStore.setKeyEntry(sAlias, privKey, cPassword, newCertChain);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setChanged(true);
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
@@ -3595,10 +3595,10 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Get the KeyStore
+            // Get the keystore
             KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
-            // Certificate already exists in the KeyStore
+            // Certificate already exists in the keystore
             String sMatchAlias =
                 X509CertUtil.matchCertificate(keyStore, trustCert);
             if (sMatchAlias != null)
@@ -3617,29 +3617,29 @@ public class FPortecle extends JFrame implements StatusBar
                 }
             }
 
-            // If the CA Certs KeyStore is to be used and it has yet to be
+            // If the CA certs keystore is to be used and it has yet to be
             // loaded then do so
             if (m_bUseCaCerts && m_caCertsKeyStore == null)
             {
                 m_caCertsKeyStore = openCaCertsKeyStore();
                 if (m_caCertsKeyStore == null)
                 {
-                    // Failed to load CA Certs KeyStore
+                    // Failed to load CA certs keystore
                     return false;
                 }
             }
 
             // If we cannot establish trust for the certificate against the
-            // CA Certs KeyStore or the current KeyStore then display the
+            // CA certs keystore or the current keystore then display the
             // certificate to the user for confirmation
             KeyStore[] compKeyStores = null;
 
-            // Establish against CA Certs KeyStore and current KeyStore
+            // Establish against CA certs keystore and current keystore
             if (m_bUseCaCerts)
             {
                 compKeyStores = new KeyStore[]{m_caCertsKeyStore, keyStore};
             }
-            else // Establish against current KeyStore only
+            else // Establish against current keystore only
             {
                 compKeyStores = new KeyStore[]{keyStore};
             }
@@ -3692,7 +3692,7 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // Check entry does not already exist in the KeyStore
+            // Check entry does not already exist in the keystore
             if (keyStore.containsAlias(sAlias))
             {
                 String sMessage = MessageFormat.format(
@@ -3715,7 +3715,7 @@ public class FPortecle extends JFrame implements StatusBar
             // Import the trusted certificate
             keyStore.setCertificateEntry(sAlias, trustCert);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setChanged(true);
 
             // Update the frame's components and title
@@ -3741,7 +3741,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Let the user import a key pair from a PKCS #12 KeyStore.
+     * Let the user import a key pair from a PKCS #12 keystore.
      *
      * @return True if the import is successful, false otherwise
      */
@@ -3752,7 +3752,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
-        // Let the user choose a a PKCS #12 KeyStore file
+        // Let the user choose a a PKCS #12 keystore file
         File fPkcs12 = chooseImportPkcs12File();
         if (fPkcs12 == null)
         {
@@ -3772,7 +3772,7 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // Get the user to enter the PKCS #12 KeyStore's password
+        // Get the user to enter the PKCS #12 keystore's password
         DGetPassword dGetPassword = new DGetPassword(
             this, m_res.getString("FPortecle.Pkcs12Password.Title"), true);
         dGetPassword.setLocationRelativeTo(this);
@@ -3786,14 +3786,14 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Load the PKCS #12 KeyStore
+            // Load the PKCS #12 keystore
             KeyStore pkcs12 = KeyStoreUtil.loadKeyStore(
                 fPkcs12, cPkcs12Password, KeyStoreType.PKCS12);
 
             m_lastDir.updateLastDir(fPkcs12);
 
             // Display the import key pair dialog supplying the PKCS #12
-            // KeyStore to it
+            // keystore to it
             DImportKeyPair dImportKeyPair = new DImportKeyPair(
                 this, true, pkcs12);
             dImportKeyPair.setLocationRelativeTo(this);
@@ -3809,7 +3809,7 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // Get an alias for the new KeyStore entry
+            // Get an alias for the new keystore entry
             String sAlias = null;
 
             // Get the alias for the new key pair entry
@@ -3829,7 +3829,7 @@ public class FPortecle extends JFrame implements StatusBar
             }
 
             // Check an entry with the selected does not already exist
-            // in the KeyStore
+            // in the keystore
             if (keyStore.containsAlias(sAlias))
             {
                 String sMessage = MessageFormat.format(
@@ -3853,8 +3853,8 @@ public class FPortecle extends JFrame implements StatusBar
                 keyStore.deleteEntry(sAlias);
             }
 
-            // Get a password for the new KeyStore entry (only relevant if
-            // the KeyStore is not PKCS #12)
+            // Get a password for the new keystore entry (only relevant if
+            // the keystore is not PKCS #12)
             char[] cPassword = PKCS12_DUMMY_PASSWORD;
 
             if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
@@ -3873,8 +3873,8 @@ public class FPortecle extends JFrame implements StatusBar
                 }
             }
 
-            // Place the private key and certificate chain into the KeyStore
-            // and update the KeyStore wrapper
+            // Place the private key and certificate chain into the keystore
+            // and update the keystore wrapper
             keyStore.setKeyEntry(sAlias, privateKey, cPassword, certs);
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
             m_keyStoreWrap.setChanged(true);
@@ -3899,13 +3899,13 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Open the CA Certs KeyStore from disk.
+     * Open the CA certs keystore from disk.
      *
-     * @return The KeyStore if it could be openend or null otherwise
+     * @return The keystore if it could be openend or null otherwise
      */
     private KeyStore openCaCertsKeyStore()
     {
-        // Get the user to enter the CA Certs KeyStore's password
+        // Get the user to enter the CA certs keystore's password
         DGetPassword dGetPassword = new DGetPassword(
             this,
             m_res.getString("FPortecle.CaCertsKeyStorePassword.Title"),
@@ -3921,7 +3921,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Load the CA Certs KeyStore - try to open as each of the
+            // Load the CA certs keystore - try to open as each of the
             // allowed types in turn until successful
             KeyStore caCertsKeyStore = null;
 
@@ -4311,19 +4311,19 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Store/apply the chosen options:
 
-        // CA Certs file
+        // CA certs file
         File fTmp = dOptions.getCaCertsFile();
 
         if (!fTmp.equals(m_fCaCertsFile))
         {
-            // CA Certs file changed - any stored CA Certs KeyStore is
+            // CA certs file changed - any stored CA certs keystore is
             // now invalid
             m_caCertsKeyStore = null;
         }
 
         m_fCaCertsFile = fTmp;
 
-        // Use CA Certs?
+        // Use CA certs?
         m_bUseCaCerts = dOptions.getUseCaCerts();
 
         // Look & feel
@@ -4386,10 +4386,10 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Convert the loaded KeyStore's type to that supplied.
+     * Convert the loaded keystore's type to that supplied.
      *
-     * @param keyStoreType New KeyStore type
-     * @return True if the KeyStore's type was changed, false otherwise
+     * @param keyStoreType New keystore type
+     * @return True if the keystore's type was changed, false otherwise
      */
     private boolean changeKeyStoreType(KeyStoreType keyStoreType)
     {
@@ -4400,22 +4400,22 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Get current KeyStore and type
+            // Get current keystore and type
             KeyStore currentKeyStore = m_keyStoreWrap.getKeyStore();
             String sCurrentType = m_keyStoreWrap.getKeyStore().getType();
 
-            // Create empty KeyStore of new type
+            // Create empty keystore of new type
             KeyStore newKeyStore = KeyStoreUtil.createKeyStore(keyStoreType);
 
             /* Flag used to tell if we have warned the user about default key
-               pair entry passwords for KeyStores changed to PKCS #12 */
+               pair entry passwords for keystores changed to PKCS #12 */
             boolean bWarnPkcs12Password = false;
 
             /* Flag used to tell if we have warned the user about key entries
                not being carried over by the change */
             boolean bWarnNoChangeKey = false;
 
-            /* For every entry in the current KeyStore transfer it to the new
+            /* For every entry in the current keystore transfer it to the new
                one - get key/key pair entry passwords from the wrapper and if
                not present there from the user */
             for (Enumeration aliases = currentKeyStore.aliases();
@@ -4427,7 +4427,7 @@ public class FPortecle extends JFrame implements StatusBar
                 // Trusted certificate entry
                 if (currentKeyStore.isCertificateEntry(sAlias))
                 {
-                    // Get trusted certificate and place it in the new KeyStore
+                    // Get trusted certificate and place it in the new keystore
                     Certificate trustedCertificate =
                         currentKeyStore.getCertificate(sAlias);
                     newKeyStore.setCertificateEntry(sAlias,
@@ -4472,7 +4472,7 @@ public class FPortecle extends JFrame implements StatusBar
                     {
                         cPassword = PKCS12_DUMMY_PASSWORD;
 
-                        // Password is only relevant if the current KeyStore
+                        // Password is only relevant if the current keystore
                         // type is not PKCS #12
                         if (!sCurrentType.equals(
                                 KeyStoreType.PKCS12.toString()))
@@ -4499,7 +4499,7 @@ public class FPortecle extends JFrame implements StatusBar
                     // Use password to get key pair
                     Key key = currentKeyStore.getKey(sAlias, cPassword);
 
-                    // The current KeyStore type is PKCS #12 so entry password
+                    // The current keystore type is PKCS #12 so entry password
                     // will be set to the PKCS #12 "dummy value" password
                     if (sCurrentType.equals(KeyStoreType.PKCS12.toString()))
                     {
@@ -4520,7 +4520,7 @@ public class FPortecle extends JFrame implements StatusBar
                                 JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
-                    // The new KeyStore type is PKCS #12 so use
+                    // The new keystore type is PKCS #12 so use
                     // "dummy value" password for entry
                     else if (keyStoreType == KeyStoreType.PKCS12)
                     {
@@ -4528,7 +4528,7 @@ public class FPortecle extends JFrame implements StatusBar
                     }
 
                     // Put key and (possibly null) certificate chain in
-                    // new KeyStore
+                    // new keystore
                     newKeyStore.setKeyEntry(
                         sAlias, key, cPassword, certificateChain);
 
@@ -4537,7 +4537,7 @@ public class FPortecle extends JFrame implements StatusBar
                 }
             }
 
-            // Successful change of type - put new KeyStore into wrapper
+            // Successful change of type - put new keystore into wrapper
             m_keyStoreWrap.setKeyStore(newKeyStore);
             m_keyStoreWrap.setChanged(true);
 
@@ -4562,7 +4562,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Let the user set the KeyStore's password.
+     * Let the user set the keystore's password.
      *
      * @return True if the password was set, false otherwise
      */
@@ -4579,7 +4579,7 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // Update the KeyStore wrapper
+        // Update the keystore wrapper
         m_keyStoreWrap.setPassword(cPassword);
         m_keyStoreWrap.setChanged(true);
 
@@ -4598,7 +4598,7 @@ public class FPortecle extends JFrame implements StatusBar
     private boolean setPasswordSelectedEntry()
     {
         assert m_keyStoreWrap.getKeyStore() != null;
-        // Not relevant for a PKCS #12 KeyStore
+        // Not relevant for a PKCS #12 keystore
         assert !m_keyStoreWrap.getKeyStore().getType().equals(
                    KeyStoreType.PKCS12.toString());
 
@@ -4658,7 +4658,7 @@ public class FPortecle extends JFrame implements StatusBar
             keyStore.deleteEntry(sAlias);
             keyStore.setKeyEntry(sAlias, key, cNewPassword, cert);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sAlias, cNewPassword);
             m_keyStoreWrap.setChanged(true);
         }
@@ -4782,7 +4782,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Export the head certificate of the KeyStore entry in a PEM encoding.
+     * Export the head certificate of the keystore entry in a PEM encoding.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -4848,7 +4848,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Export the head certificate of the KeyStore entry in a DER encoding.
+     * Export the head certificate of the keystore entry in a DER encoding.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -4913,7 +4913,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Export the head certificate of the KeyStore entry to a PKCS #7 file.
+     * Export the head certificate of the keystore entry to a PKCS #7 file.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -4978,7 +4978,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Export the head certificate of the KeyStore entry to a PkiPath file.
+     * Export the head certificate of the keystore entry to a PkiPath file.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -5043,7 +5043,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Export all of the certificates of the KeyStore entry to a PKCS #7 file.
+     * Export all of the certificates of the keystore entry to a PKCS #7 file.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -5115,7 +5115,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Export all of the certificates of the KeyStore entry to a PkiPath file.
+     * Export all of the certificates of the keystore entry to a PkiPath file.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -5187,10 +5187,10 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Get the KeyStore entry's head certificate.
+     * Get the keystore entry's head certificate.
      *
      * @param sEntryAlias Entry alias
-     * @return The KeyStore entry's head certificate
+     * @return The keystore entry's head certificate
      * @throws CryptoException Problem getting head certificate
      */
     private X509Certificate getHeadCert(String sEntryAlias)
@@ -5198,7 +5198,7 @@ public class FPortecle extends JFrame implements StatusBar
     {
         try
         {
-            // Get KeyStore
+            // Get keystore
             KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
             // Get the entry's head certificate
@@ -5228,8 +5228,8 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
    /**
-     * Export the private key and certificates of the KeyStore entry to
-     * a PKCS #12 KeyStore file.
+     * Export the private key and certificates of the keystore entry to
+     * a PKCS #12 keystore file.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
@@ -5245,7 +5245,7 @@ public class FPortecle extends JFrame implements StatusBar
         {
             cPassword = PKCS12_DUMMY_PASSWORD;
 
-            // Password is only relevant if the KeyStore is not PKCS #12
+            // Password is only relevant if the keystore is not PKCS #12
             if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
             {
                 DGetPassword dGetPassword = new DGetPassword(
@@ -5271,17 +5271,17 @@ public class FPortecle extends JFrame implements StatusBar
             Key privKey = keyStore.getKey(sEntryAlias, cPassword);
             Certificate[] certs = keyStore.getCertificateChain(sEntryAlias);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sEntryAlias, cPassword);
 
-            // Create a new PKCS #12 KeyStore
+            // Create a new PKCS #12 keystore
             KeyStore pkcs12 = KeyStoreUtil.createKeyStore(KeyStoreType.PKCS12);
 
             // Place the private key and certificate chain into the PKCS #12
-            // KeyStore under the same alias as it has in the loaded KeyStore
+            // keystore under the same alias as it has in the loaded keystore
             pkcs12.setKeyEntry(sEntryAlias, privKey, new char[0], certs);
 
-            // Get a new password for the PKCS #12 KeyStore
+            // Get a new password for the PKCS #12 keystore
             DGetNewPassword dGetNewPassword = new DGetNewPassword(
                 this, m_res.getString("FPortecle.Pkcs12Password.Title"), true);
             dGetNewPassword.setLocationRelativeTo(this);
@@ -5315,7 +5315,7 @@ public class FPortecle extends JFrame implements StatusBar
                 }
             }
 
-            // Store the KeyStore to disk
+            // Store the keystore to disk
             KeyStoreUtil.saveKeyStore(pkcs12, fExportFile, cPKCS12Password);
 
             m_lastDir.updateLastDir(fExportFile);
@@ -5506,7 +5506,7 @@ public class FPortecle extends JFrame implements StatusBar
             {
                 cPassword = PKCS12_DUMMY_PASSWORD;
 
-                // Password is only relevant if the KeyStore is not PKCS #12
+                // Password is only relevant if the keystore is not PKCS #12
                 if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                 {
                     DGetPassword dGetPassword = new DGetPassword(
@@ -5528,7 +5528,7 @@ public class FPortecle extends JFrame implements StatusBar
             PrivateKey privKey = (PrivateKey)
                 keyStore.getKey(sAlias, cPassword);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
             // Let the user choose the file to write the CSR to
@@ -5637,7 +5637,7 @@ public class FPortecle extends JFrame implements StatusBar
             {
                 cPassword = PKCS12_DUMMY_PASSWORD;
 
-                // Password is only relevant if the KeyStore is not PKCS #12
+                // Password is only relevant if the keystore is not PKCS #12
                 if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                 {
                     DGetPassword dGetPassword = new DGetPassword(
@@ -5660,7 +5660,7 @@ public class FPortecle extends JFrame implements StatusBar
                 keyStore.getKey(sAlias, cPassword);
             Certificate[] certs = keyStore.getCertificateChain(sAlias);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
             // Get the alias of the new entry
@@ -5696,7 +5696,7 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // Check entry does not already exist in the KeyStore
+            // Check entry does not already exist in the keystore
             if (keyStore.containsAlias(sNewAlias))
             {
                 String sMessage = MessageFormat.format(
@@ -5720,8 +5720,8 @@ public class FPortecle extends JFrame implements StatusBar
                 keyStore.deleteEntry(sNewAlias);
             }
 
-            // Get a password for the new KeyStore entry (only relevant if
-            // the KeyStore is not PKCS #12)
+            // Get a password for the new keystore entry (only relevant if
+            // the keystore is not PKCS #12)
             char[] cNewPassword = PKCS12_DUMMY_PASSWORD;
 
             if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
@@ -5744,7 +5744,7 @@ public class FPortecle extends JFrame implements StatusBar
             // Create new entry
             keyStore.setKeyEntry(sNewAlias, privKey, cNewPassword, certs);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sNewAlias, cNewPassword);
             m_keyStoreWrap.setChanged(true);
 
@@ -5769,9 +5769,9 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Display a report on the currently loaded KeyStore.
+     * Display a report on the currently loaded keystore.
      *
-     * @return True if the KeyStore report was displayed successfully,
+     * @return True if the keystore report was displayed successfully,
      * false otherwise
      */
     private boolean keyStoreReport()
@@ -5795,7 +5795,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Let the user see the certificate details of the selected KeyStore entry.
+     * Let the user see the certificate details of the selected keystore entry.
      *
      * @return True if the certificate details were viewed suceesfully,
      * false otherwise
@@ -5862,7 +5862,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Let the user delete the selected KeyStore entry.
+     * Let the user delete the selected keystore entry.
      *
      * @return True if the deletion is successful, false otherwise
      */
@@ -5894,7 +5894,7 @@ public class FPortecle extends JFrame implements StatusBar
             // Delete the entry
             keyStore.deleteEntry(sAlias);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.removeEntryPassword(sAlias);
             m_keyStoreWrap.setChanged(true);
         }
@@ -5912,7 +5912,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Let the user rename the selected KeyStore entry.
+     * Let the user rename the selected keystore entry.
      *
      * @return True if the rename is successful, false otherwise
      */
@@ -5968,7 +5968,7 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // Check entry does not already exist in the KeyStore
+            // Check entry does not already exist in the keystore
             if (keyStore.containsAlias(sNewAlias))
             {
                 String sMessage = MessageFormat.format(
@@ -5999,7 +5999,7 @@ public class FPortecle extends JFrame implements StatusBar
                 {
                     cPassword = PKCS12_DUMMY_PASSWORD;
 
-                    // Password is only relevant if the KeyStore is not
+                    // Password is only relevant if the keystore is not
                     // PKCS #12
                     if (!keyStore.getType().equals(
                             KeyStoreType.PKCS12.toString()))
@@ -6024,7 +6024,7 @@ public class FPortecle extends JFrame implements StatusBar
                 Certificate[] certs = keyStore.getCertificateChain(sAlias);
                 keyStore.setKeyEntry(sNewAlias, key, cPassword, certs);
 
-                // Update the KeyStore wrapper
+                // Update the keystore wrapper
                 m_keyStoreWrap.setEntryPassword(sNewAlias, cPassword);
             }
             // ...if the entry is a trusted certificate
@@ -6038,7 +6038,7 @@ public class FPortecle extends JFrame implements StatusBar
             // Delete the old entry
             keyStore.deleteEntry(sAlias);
 
-            // Update the KeyStore wrapper
+            // Update the keystore wrapper
             m_keyStoreWrap.removeEntryPassword(sAlias);
             m_keyStoreWrap.setChanged(true);
         }
@@ -6056,24 +6056,22 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Update the application's controls dependant on the state of its KeyStore
-     * (eg if changes to KeyStore are saved disable save toolbar button).
+     * Update the application's controls dependant on the state of its keystore
+     * (eg if changes to keystore are saved disable save toolbar button).
      */
     private void updateControls()
     {
-        // KeyStore must have been loaded
+        // keystore must have been loaded
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
 
-        // Has KeyStore been saved?
+        // Has keystore been saved?
         if (m_keyStoreWrap.isChanged())
         {
-            // No
             m_saveKeyStoreAction.setEnabled(true);
         }
         else
         {
-            // Yes
             m_saveKeyStoreAction.setEnabled(false);
         }
 
@@ -6088,12 +6086,12 @@ public class FPortecle extends JFrame implements StatusBar
         // Show default status bar display
         setDefaultStatusBarText();
 
-        // Get KeyStore
+        // Get keystore
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         try
         {
-            // Update KeyStore entries table
+            // Update keystore entries table
             ((KeyStoreTableModel) m_jtKeyStore.getModel()).load(
                 m_keyStoreWrap.getKeyStore());
         }
@@ -6104,7 +6102,7 @@ public class FPortecle extends JFrame implements StatusBar
             displayException(ex);
         }
 
-        // Passwords are not relevant for PKCS #12 KeyStores
+        // Passwords are not relevant for PKCS #12 keystores
         if (keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
         {
             m_jmiSetKeyPairPass.setEnabled(false);
@@ -6114,9 +6112,9 @@ public class FPortecle extends JFrame implements StatusBar
             m_jmiSetKeyPairPass.setEnabled(true);
         }
 
-        // Change KeyStore type menu items dependant on KeyStore type
+        // Change keystore type menu items dependant on keystore type
 
-        // Enable change KeyStore type menu
+        // Enable change keystore type menu
         m_jmChangeKeyStoreType.setEnabled(true);
 
         // Initially enable the menu items for all types
@@ -6126,7 +6124,7 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiChangeKeyStoreTypeBks.setEnabled(true);
         m_jmiChangeKeyStoreTypeUber.setEnabled(true);
 
-        // Disable the menu item matching current KeyStore type
+        // Disable the menu item matching current keystore type
         String sType = keyStore.getType();
 
         if (sType.equals(KeyStoreType.JKS.toString()))
@@ -6153,7 +6151,7 @@ public class FPortecle extends JFrame implements StatusBar
 
     /**
      * Update the application's controls dependant on the state of its
-     * KeyStore.
+     * keystore.
      */
     private void updateTitle()
     {
@@ -6181,7 +6179,7 @@ public class FPortecle extends JFrame implements StatusBar
             }
             else
             {
-                // Unsaved KeyStore loaded - display app name, keystore file
+                // Unsaved keystore loaded - display app name, keystore file
                 // path and '*'
                 if (m_keyStoreWrap.isChanged())
                 {
@@ -6190,7 +6188,7 @@ public class FPortecle extends JFrame implements StatusBar
                             "{0} - [{1} *]",
                             new Object[]{sAppName, fKeyStore}));
                 }
-                // Saved KeyStore loaded - display app name, keystore file path
+                // Saved keystore loaded - display app name, keystore file path
                 else
                 {
                     setTitle(
@@ -6214,20 +6212,20 @@ public class FPortecle extends JFrame implements StatusBar
 
     /**
      * Set the text in the staus bar to reflect the status of the currently
-     * loaded KeyStore.
+     * loaded keystore.
      */
     public void setDefaultStatusBarText()
     {
-        // No KeyStore loaded...
+        // No keystore loaded...
         if (m_keyStoreWrap == null)
         {
             setStatusBarText(
                 m_res.getString("FPortecle.noKeyStore.statusbar"));
         }
-        // KeyStore loaded...
+        // keystore loaded...
         else
         {
-            // Get the KeyStore and display information on its type and size
+            // Get the keystore and display information on its type and size
             KeyStore ksLoaded = m_keyStoreWrap.getKeyStore();
 
             int iSize;
@@ -6274,7 +6272,7 @@ public class FPortecle extends JFrame implements StatusBar
     {
         try
         {
-            // The size of the KeyStore table panel - determines the size
+            // The size of the keystore table panel - determines the size
             // of the main frame
             m_appPrefs.putInt(
                 m_res.getString("AppPrefs.TableWidth"),
@@ -6283,7 +6281,7 @@ public class FPortecle extends JFrame implements StatusBar
                 m_res.getString("AppPrefs.TableHeight"),
                 m_jpKeyStoreTable.getHeight());
 
-            // The size of the KeyStore table's alias column - determines
+            // The size of the keystore table's alias column - determines
             // the size of all of the table's columns
             m_appPrefs.putInt(
                 m_res.getString("AppPrefs.AliasWidth"),
@@ -6447,7 +6445,7 @@ public class FPortecle extends JFrame implements StatusBar
      */
     private void exitApplication()
     {
-        // Does the current KeyStore contain unsaved changes?
+        // Does the current keystore contain unsaved changes?
         if (needSave())
         {
             // Yes - ask the user if it should be saved
@@ -6593,7 +6591,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to create a new KeyStore.
+     * Action to create a new keystore.
      */
     private class NewKeyStoreAction extends AbstractAction
     {
@@ -6643,7 +6641,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to save a KeyStore.
+     * Action to save a keystore.
      */
     private class SaveKeyStoreAction extends AbstractAction
     {
@@ -6693,7 +6691,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to open a KeyStore file.
+     * Action to open a keystore file.
      */
     private class OpenKeyStoreFileAction extends AbstractAction
     {
@@ -6744,7 +6742,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to open a PKCS#11 KeyStore.
+     * Action to open a PKCS#11 keystore.
      */
     private class OpenKeyStorePkcs11Action extends AbstractAction
     {
@@ -6791,7 +6789,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to generate a Key Pair.
+     * Action to generate a key pair.
      */
     private class GenKeyPairAction extends AbstractAction
     {
@@ -6891,7 +6889,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to import a Key Pair.
+     * Action to import a key pair.
      */
     private class ImportKeyPairAction extends AbstractAction
     {
@@ -6941,7 +6939,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to set a KeyStore password.
+     * Action to set a keystore password.
      */
     private class SetKeyStorePassAction extends AbstractAction
     {
@@ -6993,7 +6991,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to show a KeyStore Report.
+     * Action to show a keystore report.
      */
     private class KeyStoreReportAction extends AbstractAction
     {
@@ -7296,13 +7294,13 @@ public class FPortecle extends JFrame implements StatusBar
     private static class CreateAndShowGui implements Runnable
     {
 
-        /** KeyStore file to open initially */
+        /** Keystore file to open initially */
         private File m_fKeyStore;
 
         /**
          * Construct CreateAndShowGui.
          *
-         * @param fKeyStore KeyStore file to open initially (supply null
+         * @param fKeyStore Keystore file to open initially (supply null
          * if none)
          */
         public CreateAndShowGui(File fKeyStore)
@@ -7327,7 +7325,7 @@ public class FPortecle extends JFrame implements StatusBar
 
     /**
      * Start the Portecle application.  Takes one optional argument -
-     * the location of a KeyStore file to open upon startup.
+     * the location of a keystore file to open upon startup.
      *
      * @param args the command line arguments
      */
@@ -7383,7 +7381,7 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         /* If arguments have been supplied treat the first one as a
-           KeyStore file */
+           keystore file */
         File fKeyStore = null;
         if (args.length != 0) {
             fKeyStore = new File(args[0]);

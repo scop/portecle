@@ -79,7 +79,7 @@ class DGeneratingKeyPair extends JDialog
     /** Stores the key pair size to generate */
     private int m_iKeySize;
 
-    /** Generated Key Pair */
+    /** Generated key pair */
     private KeyPair m_keyPair;
 
     /** Reference to the dialog for the GenerateKeyPair inner class to

@@ -130,7 +130,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
             }
             else if (iLevel == 2)
             {
-                // PKCS #12 KeyStores will not have a created node
+                // PKCS #12 keystores will not have a created node
                 if (iIndex == 0 && node.getChildCount() == 0)
                 {
                     icon = new ImageIcon(
@@ -269,7 +269,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
     }
 
     /**
-     * Simple class used to distinguish between KeyStore entry types
+     * Simple class used to distinguish between keystore entry types
      * passed to 1the cell renderer.  The renderer uses the type to
      * set the cell's icon and tool top text and the alais to display
      * as it's text.

@@ -850,11 +850,11 @@ public final class X509CertUtil
      * X.509 certificate and and the supplied keystores based on the
      * trusted certificates contained therein, ie that a chain of
      * trust exists between the supplied certificate and a self-signed
-     * trusted certificate in the KeyStores.
+     * trusted certificate in the keystores.
      *
      * @return The trust chain, or null if trust could not be established
      * @param cert The certificate
-     * @param keyStores The KeyStores
+     * @param keyStores The keystores
      * @throws CryptoException If there is a problem establishing trust
      */
     public static X509Certificate[] establishTrust(KeyStore[] keyStores,
@@ -901,7 +901,7 @@ public final class X509CertUtil
                 // private key was used to sign the certificate
                 if (X509CertUtil.verifyCertificate(cert, compCert))
                 {
-                    // If the KeyStore certificate is self-signed then a
+                    // If the keystore certificate is self-signed then a
                     // chain of trust exists
                     if (compCert.getSubjectDN().equals(compCert.getIssuerDN()))
                     {
@@ -931,9 +931,9 @@ public final class X509CertUtil
 
     /**
      * Extract a copy of all trusted certificates contained within the
-     * supplied KeyStore.
+     * supplied keystore.
      *
-     * @param keyStore The KeyStore
+     * @param keyStore The keystore
      * @return The extracted certificates
      * @throws CryptoException If a problem is encountered extracting
      * the certificates
@@ -966,13 +966,13 @@ public final class X509CertUtil
     }
 
     /**
-     * Check whether or not a trusted certificate in the supplied KeyStore
+     * Check whether or not a trusted certificate in the supplied keystore
      * matches the the supplied X.509 certificate.
      *
-     * @return The alias of the matching certificate in the KeyStore or null
+     * @return The alias of the matching certificate in the keystore or null
      *         if there is no match
      * @param cert The certificate
-     * @param keyStore The KeyStore
+     * @param keyStore The keystore
      * @throws CryptoException If there is a problem establishing trust
      */
     public static String matchCertificate(KeyStore keyStore,
@@ -1007,7 +1007,7 @@ public final class X509CertUtil
 
     /**
      * For a given X.509 certificate get a representative alias for it
-     * in a KeyStore.  For a self-signed certificate this will be the
+     * in a keystore.  For a self-signed certificate this will be the
      * subject's common name (if any).  For a non-self-signed
      * certificate it will be the subject's common name followed by
      * the issuer's common name in brackets.  Alaises will always be

@@ -33,7 +33,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the cells of the KeyStore table of FKewyToolGUI.
+ * Custom cell renderer for the cells of the keystore table of FKewyToolGUI.
  */
 class KeyStoreTableCellRend extends DefaultTableCellRenderer
 {

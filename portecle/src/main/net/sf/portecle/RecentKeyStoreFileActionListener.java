@@ -30,11 +30,11 @@ import javax.swing.JOptionPane;
 /**
  * ActionListener intended for use with the
  * net.sf.portecle.gui.JMenuItemRecentFile class.
- * The ActionListener is used to open a KeyStore file from the menu item.
+ * The ActionListener is used to open a keystore file from the menu item.
  */
 class RecentKeyStoreFileActionListener implements ActionListener
 {
-    /** Recent KeyStore file */
+    /** Recent keystore file */
     File m_fRecentFile;
 
     /** FPortecle object that contains the recent files menu */
@@ -42,9 +42,9 @@ class RecentKeyStoreFileActionListener implements ActionListener
 
     /**
      * Create an RecentKeyStoreFileActionListener for the supplied
-     * KeyStore file and fPortecle frame.
+     * keystore file and fPortecle frame.
      *
-     * @param fRecentFile Recent KeyStore file
+     * @param fRecentFile Recent keystore file
      * @param fPortecle FPortecle frame
      */
     public RecentKeyStoreFileActionListener(File fRecentFile,
@@ -55,7 +55,7 @@ class RecentKeyStoreFileActionListener implements ActionListener
     }
 
     /**
-     * Action to perform to open the KeyStore file in response to an
+     * Action to perform to open the keystore file in response to an
      * ActionEvent.
      *
      * @param evt Action event
@@ -64,7 +64,7 @@ class RecentKeyStoreFileActionListener implements ActionListener
     {
         m_fPortecle.setDefaultStatusBarText();
 
-        // Does the current KeyStore contain unsaved changes?
+        // Does the current keystore contain unsaved changes?
         if (m_fPortecle.needSave())
         {
             // Yes - ask the user if it should be saved

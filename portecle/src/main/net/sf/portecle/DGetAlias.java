@@ -43,7 +43,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Dialog used for entering a KeyStore alias.
+ * Dialog used for entering a keystore alias.
  */
 class DGetAlias extends JDialog
 {

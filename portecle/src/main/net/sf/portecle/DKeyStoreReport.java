@@ -78,7 +78,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Displays a report on the contents of a supplied KeyStore.
+ * Displays a report on the contents of a supplied keystore.
  */
 class DKeyStoreReport
     extends JDialog
@@ -112,10 +112,10 @@ class DKeyStoreReport
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** KeyStore report */
+    /** Keystore report */
     private String m_sReport;
 
-    /** KeyStore report in XML form */
+    /** Keystore report in XML form */
     private String m_sReportXML;
 
     /** Panel to hold option controls */
@@ -156,9 +156,9 @@ class DKeyStoreReport
      *
      * @param parent Parent frame
      * @param bModal Is dialog modal?
-     * @param keystore KeyStore to display report on
+     * @param keystore Keystore to display report on
      * @throws CryptoException A crypto related problem was encountered
-     * generating the KeyStore report
+     * generating the keystore report
      * @throws ParserConfigurationException There was a serious problem
      * creating the XML report
      */
@@ -175,9 +175,9 @@ class DKeyStoreReport
      *
      * @param parent Parent dialog
      * @param bModal Is dialog modal?
-     * @param keystore KeyStore to display report on
+     * @param keystore Keystore to display report on
      * @throws CryptoException A crypto related problem was encountered
-     * generating the KeyStore report
+     * generating the keystore report
      */
     public DKeyStoreReport(JDialog parent, boolean bModal, KeyStore keystore)
         throws CryptoException
@@ -191,7 +191,7 @@ class DKeyStoreReport
      * Initialise the dialog's GUI components.
      *
      * @throws CryptoException A crypto related problem was encountered
-     * generating the KeyStore report
+     * generating the keystore report
      */
     private void initComponents() throws CryptoException
     {
@@ -235,11 +235,11 @@ class DKeyStoreReport
 
         m_jpButtons.add(m_jbCopyXml);
 
-        // KeyStore Report
+        // Keystore report
         m_jpReport = new JPanel(new BorderLayout());
         m_jpReport.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        // Load tree with KeyStore report
+        // Load tree with keystore report
         m_jtrReport = new JTree(createReportNodes());
         // Top accomodate node icons with spare space (they are 16 pixels tall)
         m_jtrReport.setRowHeight(18);
@@ -308,7 +308,7 @@ class DKeyStoreReport
     }
 
     /**
-     * Copy the KeyStore report to the clipboard.
+     * Copy the keystore report to the clipboard.
      *
      * @param bXml Copy as XML?
      */
@@ -360,9 +360,9 @@ class DKeyStoreReport
     /**
      * Get the KeyStoreReport as XML.
      *
-     * @return KeyStore report
+     * @return Keystore report in XML
      * @throws CryptoException A crypto related problem was encountered
-     * generating the KeyStore report
+     * generating the keystore report
      * @throws ParserConfigurationException There was a serious problem
      * creating the XML report
      * @throws TransformerException There was a serious problem
@@ -383,9 +383,9 @@ class DKeyStoreReport
     /**
      * Get the KeyStoreReport as plain text.
      *
-     * @return KeyStore report
+     * @return Keystore report
      * @throws CryptoException A crypto related problem was encountered
-     * generating the KeyStore report
+     * generating the keystore report
      */
     private String getKeyStoreReport() throws CryptoException
     {
@@ -394,9 +394,9 @@ class DKeyStoreReport
             // Buffer to hold report
             StringBuffer sbReport = new StringBuffer(2000);
 
-            // General KeyStore information...
+            // General keystore information...
 
-            // KeyStore type
+            // Keystore type
             KeyStoreType ksType =
                 KeyStoreType.getInstance(m_keystore.getType());
             sbReport.append(MessageFormat.format(
@@ -404,14 +404,14 @@ class DKeyStoreReport
                                 new String[]{ksType.toString()}));
             sbReport.append("\n");
 
-            // KeyStore provider
+            // Keystore provider
             sbReport.append(
                 MessageFormat.format(
                     m_res.getString("DKeyStoreReport.report.provider"),
                     new String[]{m_keystore.getProvider().getName()}));
             sbReport.append("\n");
 
-            // KeyStore size (entries)
+            // Keystore size (entries)
             sbReport.append(
                 MessageFormat.format(
                     m_res.getString("DKeyStoreReport.report.entries"),
@@ -420,7 +420,7 @@ class DKeyStoreReport
 
             Enumeration aliases = m_keystore.aliases();
 
-            // Get information on each KeyStore entry
+            // Get information on each keystore entry
             while (aliases.hasMoreElements())
             {
                 // Alias
@@ -636,11 +636,11 @@ class DKeyStoreReport
     }
 
     /**
-     * Generate the KeyStore report as an XML Document.
+     * Generate the keystore report as an XML Document.
      *
      * @return The KeyStiore report as an XML Document
      * @throws CryptoException A crypto related problem was encountered
-     * generating the KeyStore report
+     * generating the keystore report
      * @throws ParserConfigurationException There was a serious problem
      * creating the XML report
      */
@@ -656,7 +656,7 @@ class DKeyStoreReport
                 docBuilderFactory.newDocumentBuilder();
             Document xmlDoc = docBuilder.newDocument();
 
-            // General KeyStore information
+            // General keystore information
             KeyStoreType ksType =
                 KeyStoreType.getInstance(m_keystore.getType());
             String sProvider = m_keystore.getProvider().getName();
@@ -668,7 +668,7 @@ class DKeyStoreReport
 
             Enumeration aliases = m_keystore.aliases();
 
-            // Get information on each KeyStore entry
+            // Get information on each keystore entry
             while (aliases.hasMoreElements())
             {
                 String sAlias = (String) aliases.nextElement();
@@ -848,7 +848,7 @@ class DKeyStoreReport
     }
 
     /**
-     * Create tree node with KeyStore report.
+     * Create tree node with keystore report.
      *
      * @throws CryptoException A crypto related problem was encountered
      * creating the tree node
@@ -858,11 +858,11 @@ class DKeyStoreReport
     {
         try
         {
-            // KeyStore type
+            // Keystore type
             KeyStoreType ksType =
                 KeyStoreType.getInstance(m_keystore.getType());
 
-            // KeyStore provider
+            // Keystore provider
             String sProvider = m_keystore.getProvider().getName();
 
             // Top node
@@ -874,7 +874,7 @@ class DKeyStoreReport
             // One sub-node per entry
             Enumeration aliases = m_keystore.aliases();
 
-            // Get information on each KeyStore entry
+            // Get information on each keystore entry
             while (aliases.hasMoreElements())
             {
                 // Entry alias

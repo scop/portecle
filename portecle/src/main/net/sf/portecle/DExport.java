@@ -55,7 +55,7 @@ import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.LastDir;
 
 /**
- * Dialog used to export KeyStore entries.  A number of export types
+ * Dialog used to export keystore entries.  A number of export types
  * and formats are available depending on the entries content.
  */
 class DExport extends JDialog
@@ -100,10 +100,10 @@ class DExport extends JDialog
     /** Panel containing all of the export option controls */
     private JPanel m_jpOptions;
 
-    /** The KeyStore to to export from */
+    /** The keystore to to export from */
     private KeyStoreWrapper m_keyStoreWrap;
 
-    /** The KeyStore entry to export */
+    /** The keystore entry to export */
     private String m_sEntryAlias;
 
     /** Panel for confirmation button controls */
@@ -126,10 +126,10 @@ class DExport extends JDialog
      *
      * @param parent The parent frame
      * @param bModal Is dialog modal?
-     * @param keyStore The KeyStore to export from
-     * @param sEntryAlias The KeyStore entry to export
+     * @param keyStore The keystore to export from
+     * @param sEntryAlias The keystore entry to export
      * @param lastDir The last directory accessed by a FileChooser dialog
-     * @throws CryptoException Problem accessing the KeyStore entry
+     * @throws CryptoException Problem accessing the keystore entry
      */
     public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore,
                    String sEntryAlias, LastDir lastDir)
@@ -145,7 +145,7 @@ class DExport extends JDialog
     /**
      * Initialise the dialog's GUI components.
      *
-     * @throws CryptoException Problem accessing the KeyStore entry
+     * @throws CryptoException Problem accessing the keystore entry
      */
     private void initComponents() throws CryptoException
     {

@@ -53,8 +53,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Dialog to allow the users to configure Portecle options CA Certs KeyStore
- * and Look & Feel.
+ * Dialog to allow the users to configure Portecle options, CA certs keystore,
+ * and look & feel.
  */
 class DOptions extends JDialog
 {
@@ -68,13 +68,13 @@ class DOptions extends JDialog
     /** Tabbed Pane to hold the oprions */
     private JTabbedPane m_jtpOptions;
 
-    /** Panel for CA Certs options components */
+    /** Panel for CA certs options components */
     private JPanel m_jpCaCerts;
 
     /** Subpanel to hold use CA certs components */
     private JPanel m_jpUseCaCerts;
 
-    /** Use CA Certs check box */
+    /** Use CA certs check box */
     private JCheckBox m_jcbUseCaCerts;
 
     /** Subpanel to hold use CA certs file components */
@@ -122,10 +122,10 @@ class DOptions extends JDialog
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
 
-    /** Use CA Certs KeyStore file? */
+    /** Use CA certs keystore file? */
     private boolean m_bUseCaCerts;
 
-    /** Chosen CA Certs KeyStore file */
+    /** Chosen CA certs keystore file */
     private File m_fCaCertsFile;
 
     /** Available Look and Feel information - reflects what is in choice box */
@@ -142,8 +142,8 @@ class DOptions extends JDialog
      *
      * @param parent The parent frame
      * @param bModal Is dialog modal?
-     * @param bUseCaCerts Use CA Certs keystore file?
-     * @param fCaCertsFile CA Certs keystore file
+     * @param bUseCaCerts Use CA certs keystore file?
+     * @param fCaCertsFile CA certs keystore file
      */
     public DOptions(JFrame parent, boolean bModal, boolean bUseCaCerts,
                     File fCaCertsFile)
@@ -161,7 +161,7 @@ class DOptions extends JDialog
     {
         // Setup tabbed panels of options
 
-        // CA Certs options tab panel
+        // CA certs options tab panel
         m_jcbUseCaCerts = new JCheckBox(
             m_res.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
         m_jcbUseCaCerts.setToolTipText(
@@ -353,10 +353,10 @@ class DOptions extends JDialog
      */
     private void storeOptions()
     {
-        // Store CA Certs file
+        // Store CA certs file
         m_fCaCertsFile = new File(m_jtfCaCertsFile.getText());
 
-        // Store whether or not to use CA Certs KeyStore
+        // Store whether or not to use CA certs keystore
         m_bUseCaCerts = m_jcbUseCaCerts.isSelected();
 
         // Store look & feel class name (look up in Vector by choice box index)
@@ -369,9 +369,9 @@ class DOptions extends JDialog
     }
 
     /**
-     * Get the chosen CA Certs KeyStore file.
+     * Get the chosen CA certs keystore file.
      *
-     * @return The chosen CA Certs KeyStore file
+     * @return The chosen CA certs keystore file
      */
     public File getCaCertsFile()
     {
@@ -379,7 +379,7 @@ class DOptions extends JDialog
     }
 
     /**
-     * Get whether or not the usage of CA Certs has been chosen.
+     * Get whether or not the usage of CA certs has been chosen.
      *
      * @return True if it has, false otherwise
      */
@@ -410,7 +410,7 @@ class DOptions extends JDialog
 
     /**
      * Browse button pressed or otherwise activated.  Allow the user to
-     * choose a CA Certs file.
+     * choose a CA certs file.
      */
     private void browsePressed()
     {

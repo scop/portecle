@@ -33,7 +33,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the headers of the KeyStore table of FPortecle.
+ * Custom cell renderer for the headers of the keystore table of FPortecle.
  */
 class KeyStoreTableHeadRend extends DefaultTableCellRenderer
 {

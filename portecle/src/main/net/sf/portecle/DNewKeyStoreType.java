@@ -48,7 +48,7 @@ import javax.swing.border.EtchedBorder;
 import net.sf.portecle.crypto.KeyStoreType;
 
 /**
- * Dialog used to retrieve the type to use in the creation of a new KeyStore.
+ * Dialog used to retrieve the type to use in the creation of a new keystore.
  */
 class DNewKeyStoreType extends JDialog
 {
@@ -59,28 +59,28 @@ class DNewKeyStoreType extends JDialog
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Stores the selected KeyStore type */
+    /** Stores the selected keystore type */
     private KeyStoreType m_keyStoreType;
 
-    /** Panel containing KeyStore type controls */
+    /** Panel containing keystore type controls */
     private JPanel m_jpKeyStoreType;
 
-    /** KeyStore type label */
+    /** Keystore type label */
     private JLabel m_jlKeyStoreType;
 
-    /** JKS KeyStore type radio button */
+    /** JKS keystore type radio button */
     private JRadioButton m_jrbJksKeyStore;
 
-    /** JCEKS KeyStore type radio button */
+    /** JCEKS keystore type radio button */
     private JRadioButton m_jrbJceksKeyStore;
 
-    /** PKCS #12 KeyStore type radio button */
+    /** PKCS #12 keystore type radio button */
     private JRadioButton m_jrbPkcs12KeyStore;
 
-    /** BKS KeyStore type radio button */
+    /** BKS keystore type radio button */
     private JRadioButton m_jrbBksKeyStore;
 
-    /** UBER KeyStore type radio button */
+    /** UBER keystore type radio button */
     private JRadioButton m_jrbUberKeyStore;
 
     /** Panel for confirmation button controls */
@@ -110,7 +110,7 @@ class DNewKeyStoreType extends JDialog
      */
     private void initComponents()
     {
-        // Create KeyStore type label and radio buttons and group them
+        // Create keystore type label and radio buttons and group them
         // in a panel
         m_jlKeyStoreType = new JLabel(
             m_res.getString("DNewKeyStoreType.m_jlKeyStoreType.text"));
@@ -222,9 +222,9 @@ class DNewKeyStoreType extends JDialog
     }
 
     /**
-     * Get the selected KeyStore type.
+     * Get the selected keystore type.
      *
-     * @return The selected KeyStore type or null if none was selected
+     * @return The selected keystore type or null if none was selected
      */
     public KeyStoreType getKeyStoreType()
     {
@@ -236,7 +236,7 @@ class DNewKeyStoreType extends JDialog
      */
     private void okPressed()
     {
-        // Store selected KeyStore type
+        // Store selected keystore type
         if (m_jrbJksKeyStore.isSelected())
         {
             m_keyStoreType = KeyStoreType.JKS;

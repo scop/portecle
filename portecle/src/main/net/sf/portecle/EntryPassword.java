@@ -22,14 +22,14 @@
 package net.sf.portecle;
 
 /**
- * Holds an alias/password pair for a KeyStore entry.
+ * Holds an alias/password pair for a keystore entry.
  */
 class EntryPassword
 {
-    /** KeyStore entry alias */
+    /** Keystore entry alias */
     private String m_sAlias;
 
-    /** KeyStore entry password */
+    /** Keystore entry password */
     private char[] m_cPassword;
 
     /**

@@ -67,7 +67,7 @@ import net.sf.portecle.gui.error.DThrowable;
 
 /**
  * Dialog that displays the details of all key pairs from a PKCS #12
- * KeyStore allowing the user to pick one for import.
+ * keystore allowing the user to pick one for import.
  */
 class DImportKeyPair extends JDialog
 {
@@ -112,7 +112,7 @@ class DImportKeyPair extends JDialog
     /** Cancel button to cancel dialog */
     private JButton m_jbCancel;
 
-    /** PKCS #12 KeyStore */
+    /** PKCS #12 keystore */
     private KeyStore m_pkcs12;
 
     /** Private key part of key pair chosen by the user for import */
@@ -126,7 +126,7 @@ class DImportKeyPair extends JDialog
      *
      * @param parent The parent frame
      * @param bModal Is dialog modal?
-     * @param pkcs12 The PKCS #12 KeyStore to list key pairs from
+     * @param pkcs12 The PKCS #12 keystore to list key pairs from
      * @throws CryptoException A problem was encountered importing a key pair.
      */
     public DImportKeyPair(JFrame parent, boolean bModal, KeyStore pkcs12)
@@ -148,7 +148,7 @@ class DImportKeyPair extends JDialog
         m_jlInstructions = new JLabel(
             m_res.getString("DImportKeyPair.m_jlInstructions.text"));
 
-        // List to hold KeyStore's key pair aliases
+        // List to hold keystore's key pair aliases
         m_jltKeyPairs = new JList();
         m_jltKeyPairs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         m_jltKeyPairs.addListSelectionListener(new ListSelectionListener() {
@@ -175,7 +175,7 @@ class DImportKeyPair extends JDialog
         m_jspKeyPairs.getViewport().setBackground(
             m_jltKeyPairs.getBackground());
 
-        // Key Pair details (algorithm and button to access
+        // Key pair details (algorithm and button to access
         // certificate details)
         m_jlAlgorithm = new JLabel(
             m_res.getString("DImportKeyPair.m_jlAlgorithm.text"));
@@ -289,10 +289,10 @@ class DImportKeyPair extends JDialog
     }
 
     /**
-     * Populate the key pair list with the PKCS #12 KeyStore's key
+     * Populate the key pair list with the PKCS #12 keystore's key
      * pair aliases.
      *
-     * @throws CryptoException Problem accessing the KeyStore's entries
+     * @throws CryptoException Problem accessing the keystore's entries
      */
     private void populateList() throws CryptoException
     {
@@ -300,7 +300,7 @@ class DImportKeyPair extends JDialog
         {
             Vector vKeyPairAliases = new Vector();
 
-            // For each entry in the KeyStore...
+            // For each entry in the keystore...
             for (Enumeration aliases = m_pkcs12.aliases();
                  aliases.hasMoreElements();)
             {

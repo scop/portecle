@@ -34,17 +34,17 @@ import javax.swing.JOptionPane;
  */
 class RecentFileActionListener implements ActionListener
 {
-    /** Recent KeyStore file */
+    /** Recent keystore file */
     File m_fRecentFile;
 
     /** FPortecle object that contains the recent files menu */
     FPortecle m_fPortecle;
 
     /**
-     * Create an RecentFileActionListener for the supplied KeyStore file
+     * Create an RecentFileActionListener for the supplied keystore file
      * and fPortecle frame.
      *
-     * @param fRecentFile Recent KeyStore file
+     * @param fRecentFile Recent keystore file
      * @param fPortecle FPortecle frame
      */
     public RecentFileActionListener(File fRecentFile, FPortecle fPortecle)
@@ -54,7 +54,7 @@ class RecentFileActionListener implements ActionListener
     }
 
     /**
-     * Action to perform to open the KeyStore file in response to an
+     * Action to perform to open the keystore file in response to an
      * ActionEvent.
      *
      * @param evt Action event
@@ -63,7 +63,7 @@ class RecentFileActionListener implements ActionListener
     {
         m_fPortecle.setDefaultStatusBarText();
 
-        // Does the current KeyStore contain unsaved changes?
+        // Does the current keystore contain unsaved changes?
         if (m_fPortecle.needSave())
         {
             // Yes - ask the user if it should be saved

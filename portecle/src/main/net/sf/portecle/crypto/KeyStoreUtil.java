@@ -34,9 +34,9 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
- * Provides utility methods for loading/saving KeyStores.  The
+ * Provides utility methods for loading/saving keystores.  The
  * BouncyCastle provider must be added before using this class to
- * create or load a PKCS12, BKS or UBER type KeyStores.
+ * create or load a PKCS12, BKS or UBER type keystores.
  */
 public final class KeyStoreUtil
 {
@@ -50,11 +50,11 @@ public final class KeyStoreUtil
     private KeyStoreUtil() {}
 
     /**
-     * Create a new, empty KeyStore.
+     * Create a new, empty keystore.
      *
-     * @param keyStoreType The KeyStore type to create
-     * @return The KeyStore
-     * @throws CryptoException Problem encountered creating the KeyStore
+     * @param keyStoreType The keystore type to create
+     * @return The keystore
+     * @throws CryptoException Problem encountered creating the keystore
      * @throws IOException An I/O error occurred
      */
     public static KeyStore createKeyStore(KeyStoreType keyStoreType)
@@ -96,15 +96,14 @@ public final class KeyStoreUtil
     /**
      * Load a Keystore from a file accessed by a password.
      *
-     * @param keyStoreType The type of the KeyStore to open
-     * @param fKeyStore File to load KeyStore from
-     * @param cPassword Password of the KeyStore
-     * @return The KeyStore
-     * @throws CryptoException Problem encountered loading the KeyStore
-     * @throws FileNotFoundException If the KeyStore file does not exist,
-     *                               is a directory rather than a regular
-     *                               file, or for some other reason cannot
-     *                               be opened for reading
+     * @param keyStoreType The type of the keystore to open
+     * @param fKeyStore File to load keystore from
+     * @param cPassword Password of the keystore
+     * @return The keystore
+     * @throws CryptoException Problem encountered loading the keystore
+     * @throws FileNotFoundException If the keystore file does not
+     * exist, is a directory rather than a regular file, or for some
+     * other reason cannot be opened for reading
      */
     public static KeyStore loadKeyStore(File fKeyStore, char[] cPassword,
                                         KeyStoreType keyStoreType)
@@ -177,9 +176,9 @@ public final class KeyStoreUtil
      * Load a PKCS #11 keystore accessed by a password.
      *
      * @param sPkcs11Provider The name of the PKCS #11 provider
-     * @param cPassword Password of the KeyStore
-     * @return The KeyStore
-     * @throws CryptoException Problem encountered loading the KeyStore
+     * @param cPassword Password of the keystore
+     * @return The keystore
+     * @throws CryptoException Problem encountered loading the keystore
      */
     public static KeyStore loadKeyStore(String sPkcs11Provider,
                                         char[] cPassword)
@@ -224,16 +223,15 @@ public final class KeyStoreUtil
 
 
     /**
-     * Save a KeyStore to a file protected by a password.
+     * Save a keystore to a file protected by a password.
      *
-     * @param keyStore The KeyStore
-     * @param fKeyStoreFile The file to save the KeyStore to
-     * @param cPassword The password to protect the KeyStore with
-     * @throws CryptoException Problem encountered saving the KeyStore
-     * @throws FileNotFoundException If the KeyStore file exists but is a
-     *                               directory rather than a regular file,
-     *                               does not exist but cannot be created,
-     *                               or cannot be opened for any other reason
+     * @param keyStore The keystore
+     * @param fKeyStoreFile The file to save the keystore to
+     * @param cPassword The password to protect the keystore with
+     * @throws CryptoException Problem encountered saving the keystore
+     * @throws FileNotFoundException If the keystore file exists but
+     * is a directory rather than a regular file, does not exist but
+     * cannot be created, or cannot be opened for any other reason
      * @throws IOException An I/O error occurred
      */
     public static void saveKeyStore(KeyStore keyStore, File fKeyStoreFile,
