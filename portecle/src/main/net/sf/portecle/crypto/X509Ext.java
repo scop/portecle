@@ -427,6 +427,9 @@ public class X509Ext extends Object
             return getCertificatePoliciesStringValue(bOctets);
         }
 
+        // TODO:
+        // - CERTIFICATE_POLICIES_OLD_OID
+
         // Don't know how to process the extension
         // and clear text
         else {
@@ -1754,22 +1757,46 @@ public class X509Ext extends Object
                                 DEREncodable de =
                                     (DEREncodable) un.getObjectAt(k);
 
-                                // TODO: don't do instanceof, be more smart
+                                // TODO: is it possible to use something
+                                // smarter than instanceof here?
 
                                 if (de instanceof DERString) {
                                     // explicitText
                                     sb.append("\t\t");
-                                    // TODO
-                                    sb.append("<DISPLAYTEXT>:")
-                                        .append(((DERString) de).getString());
+                                    sb.append(m_res.getString("ExplicitText"));
+                                    sb.append("\n\t\t\t");
+                                    sb.append(stringify(de));
                                     sb.append('\n');
                                 }
                                 else if (de instanceof ASN1Sequence) {
                                     // noticeRef
+                                    ASN1Sequence nr = (ASN1Sequence) de;
+                                    String orgstr =
+                                        stringify(nr.getObjectAt(0));
+                                    ASN1Sequence nrs =
+                                        (ASN1Sequence) nr.getObjectAt(1);
+                                    StringBuffer nrstr = new StringBuffer();
+                                    for (int m = 0, nlen = nrs.size();
+                                         m < nlen; m++)
+                                    {
+                                        nrstr.append(
+                                            stringify(nrs.getObjectAt(m)));
+                                        if (m != nlen - 1) {
+                                            nrstr.append(", ");
+                                        }
+                                    }
                                     sb.append("\t\t");
-                                    // TODO
-                                    sb.append("<NOTICEREF>:")
-                                        .append(stringify(de));
+                                    sb.append(m_res.getString("NoticeRef"));
+                                    sb.append("\n\t\t\t");
+                                    sb.append(MessageFormat.format(
+                                                  m_res.getString(
+                                                      "NoticeRefOrganization"),
+                                                  new String[]{orgstr}));
+                                    sb.append("\n\t\t\t");
+                                    sb.append(MessageFormat.format(
+                                                  m_res.getString(
+                                                      "NoticeRefNumber"),
+                                                  new Object[]{nrstr}));
                                     sb.append('\n');
                                 }
                                 else {
