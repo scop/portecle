@@ -49,12 +49,14 @@ import java.security.cert.X509CRL;
 import java.security.spec.DSAPublicKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -127,7 +129,7 @@ public final class X509CertUtil extends Object
                                                      String encoding)
         throws CryptoException, IOException
     {
-        Vector vCerts = new Vector();
+        ArrayList vCerts = new ArrayList();
 
         FileInputStream fis = null;
 
@@ -839,7 +841,7 @@ public final class X509CertUtil extends Object
         throws CryptoException
     {
         // Extract all certificates from the Keystores creating
-        Vector ksCerts = new Vector();
+        ArrayList ksCerts = new ArrayList();
         for (int iCnt=0; iCnt < keyStores.length; iCnt++)
         {
             ksCerts.addAll(extractCertificates(keyStores[iCnt]));
@@ -861,7 +863,7 @@ public final class X509CertUtil extends Object
      * @param vCompCerts The comparison set of certificates
      * @throws CryptoException If there is a problem establishing trust
      */
-    private static X509Certificate[] establishTrust(Vector vCompCerts,
+    private static X509Certificate[] establishTrust(List vCompCerts,
                                                     X509Certificate cert)
         throws CryptoException
     {
@@ -923,12 +925,12 @@ public final class X509CertUtil extends Object
      * @throws CryptoException If a problem is encountered extracting
      * the certificates
      */
-    private static Vector extractCertificates(KeyStore keyStore)
+    private static Collection extractCertificates(KeyStore keyStore)
         throws CryptoException
     {
         try
         {
-            Vector vCerts = new Vector();
+            ArrayList vCerts = new ArrayList();
 
             for (Enumeration en = keyStore.aliases(); en.hasMoreElements(); )
             {

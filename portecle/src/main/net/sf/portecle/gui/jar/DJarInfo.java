@@ -24,7 +24,9 @@ package net.sf.portecle.gui.jar;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.jar.*;
 
 import javax.swing.*;
@@ -170,7 +172,7 @@ public class DJarInfo extends JDialog
     private JarFile[] getClassPathJars() throws IOException
     {
         // Store JARs
-        Vector vJars = new Vector();
+        ArrayList vJars = new ArrayList();
 
         // Split classpath into it's components using the path separarator
         String sClassPath = System.getProperty("java.class.path");

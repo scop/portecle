@@ -22,7 +22,8 @@
 package net.sf.portecle.version;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Immutable version class constructed from a version string.  Used to compare
@@ -57,7 +58,7 @@ public class Version extends Object implements Comparable, Serializable
     {
         StringTokenizer strTok = new StringTokenizer(sVersion, sDelimiters);
 
-        Vector vSections = new Vector();
+        ArrayList vSections = new ArrayList();
 
         while (strTok.hasMoreTokens())
         {
