@@ -58,6 +58,9 @@ public class X509Ext extends Object
     // Extension OIDs
     /////////////////////////////////////////////
 
+    /** Common name OID */
+    private static final String COMMON_NAME_OID = "2.5.4.3";
+
     /** Authority Key Identifier (old) OID */
     private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1"; // Old - not to do?
 
@@ -65,10 +68,10 @@ public class X509Ext extends Object
     private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2"; // No info available
 
     /** Certificate Policies (old) OID */
-    private static final String CERTIFICATE_POLICIES_OLD_OID = "2.5.29.3"; // Old - not to do?
+    private static final String CERTIFICATE_POLICIES_OLD_OID = "2.5.29.3";
 
-    /** Primary Key Usage Restriction OID */
-    private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4"; // No info available
+    /** Primary Key Usage Restriction (old) OID */
+    private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4"; // Old - not to do?
 
     /** Subject Directory Attributes OID */
     private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9"; // Std todo
@@ -125,7 +128,7 @@ public class X509Ext extends Object
     private static final String NAME_CONSTRAINTS_OID = "2.5.29.30"; // Std todo
 
     /** CRL Distribution Points OID */
-    private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31"; // Std todo
+    private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31";
 
     /** Certificate Policies OID */
     private static final String CERTIFICATE_POLICIES_OID = "2.5.29.32"; // Std todo
@@ -174,6 +177,25 @@ public class X509Ext extends Object
 
     /** S/MIME capabilities OID */
     private static final String SMIME_CAPABILITIES_OID = "1.2.840.113549.1.9.15";
+
+    /** Microsoft certificate template name OID */
+    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID = "1.3.6.1.4.1.311.20.2";
+
+    /** Microsoft CA version OID */
+    private static final String MICROSOFT_CA_VERSION_OID = "1.3.6.1.4.1.311.21.1";
+
+    /** Microsoft certificate template (v2) OID */
+    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID = "1.3.6.1.4.1.311.21.7";
+
+    /** Microsoft application policies OID */
+    private static final String MICROSOFT_APPLICATION_POLICIES_OID = "1.3.6.1.4.1.311.21.10";
+
+    /** Authority Information Access OID */
+    private static final String AUTHORITY_INFORMATION_ACCESS_OID = "1.3.6.1.5.5.7.1.1";
+
+    /** Novell Security Attributes OID */
+    private static final String NOVELL_SECURITY_ATTRIBUTES_OID = "2.16.840.1.113719.1.9.4.1";
+
     /** Netscape Certificate Type OID */
     private static final String NETSCAPE_CERTIFICATE_TYPE_OID = "2.16.840.1.113730.1.1";
 
@@ -201,52 +223,6 @@ public class X509Ext extends Object
     /** D&B D-U-N-S number OID */
     private static final String DNB_DUNS_NUMBER_OID = "2.16.840.1.113733.1.6.15";
 
-    /////////////////////////////////////////////
-    // Reason codes (2.5.29.21)
-    /////////////////////////////////////////////
-
-    /** Unspecified Reason Code */
-    private static final int UNSPECIFIED_REASONCODE = 0;
-
-    /** Key Compromise Reason Code  */
-    private static final int KEY_COMPROMISE_REASONCODE = 1;
-
-    /** CA Compromise Reason Code  */
-    private static final int CA_COMPROMISE_REASONCODE = 2;
-
-    /** Affiliation Changed Reason Code */
-    private static final int AFFILIATION_CHANGED_REASONCODE = 3;
-
-    /** Superseded Reason Code */
-    private static final int SUPERSEDED_REASONCODE = 4;
-
-    /** Cessation of Operation Reason Code */
-    private static final int CESSATION_OF_OPERATION_REASONCODE = 5;
-
-    /** Certificate Hold Reason Code */
-    private static final int CERTIFICATE_HOLD_REASONCODE = 6;
-
-    /** Remove from CRL Reason Code */
-    private static final int REMOVE_FROM_CRL_REASONCODE = 8;
-
-    /** Privilege Withdrawn Reason Code */
-    private static final int PRIVILEGE_WITHDRAWN_REASONCODE = 9;
-
-    /** AA Compromise Reason Code */
-    private static final int AA_COMPROMISE_REASONCODE = 10;
-
-    /////////////////////////////////////////////
-    // Hold Instruction Code OIDs (2.5.29.23)
-    /////////////////////////////////////////////
-
-    /** Hold Instruction Code None OID */
-    private static final String HOLD_INSTRUCTION_CODE_NONE_OID = "1.2.840.10040.2.1";
-
-    /** Hold Instruction Code None OID */
-    private static final String HOLD_INSTRUCTION_CODE_CALL_ISSUER_OID = "1.2.840.10040.2.2";
-
-    /** Hold Instruction Code None OID */
-    private static final String HOLD_INSTRUCTION_CODE_REJECT_OID = "1.2.840.10040.2.3";
 
     /**
      * Construct a new immutable X509Ext.
@@ -264,202 +240,7 @@ public class X509Ext extends Object
 
         m_bCritical = bCritical;
 
-        m_sName = lookupName();
-    }
-
-    /**
-     * Lookup the extension's "friendly" name.
-     *
-     * @return Extension name or null if name is unknown
-     */
-    private String lookupName()
-    {
-        // Compare OID to known OIDs for which we have names - set name accordingly
-        if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OID))
-        {
-            return m_res.getString("AuthorityKeyIdentifierCertExtString");
-        }
-        else if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OLD_OID))
-        {
-            return m_res.getString("AuthorityKeyIdentifierOldCertExtString");
-        }
-        else if (m_sOid.equals(BASE_UPDATE_TIME_OID))
-        {
-            return m_res.getString("BaseUpdateTimeCertExtString");
-        }
-        else if (m_sOid.equals(BASIC_CONSTRAINTS_OID))
-        {
-            return m_res.getString("BasicConstraintsCertExtString");
-        }
-        else if (m_sOid.equals(BASIC_CONSTRAINTS_OLD_0_OID))
-        {
-            return m_res.getString("BasicConstraintsOld0CertExtString");
-        }
-        else if (m_sOid.equals(BASIC_CONSTRAINTS_OLD_1_OID))
-        {
-            return m_res.getString("BasicConstraintsOld1CertExtString");
-        }
-        else if (m_sOid.equals(CERTIFICATE_ISSUER_OID))
-        {
-            return m_res.getString("CertificateIssuerCertExtString");
-        }
-        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID))
-        {
-            return m_res.getString("CertificatePoliciesCertExtString");
-        }
-        else if (m_sOid.equals(CERTIFICATE_POLICIES_OLD_OID))
-        {
-            return m_res.getString("CertificatePoliciesOldCertExtString");
-        }
-        else if (m_sOid.equals(CRL_DISTRIBUTION_POINTS_OID))
-        {
-            return m_res.getString("CrlDistributionPointsCertExtString");
-        }
-        else if (m_sOid.equals(CRL_DISTRIBUTION_POINTS_OLD_OID))
-        {
-            return m_res.getString("CrlDistributionPointsOldCertExtString");
-        }
-        else if (m_sOid.equals(CRL_NUMBER_OID))
-        {
-            return m_res.getString("CrlNumberCertExtString");
-        }
-        else if (m_sOid.equals(CRL_SCOPE_OID))
-        {
-            return m_res.getString("CrlScopeCertExtString");
-        }
-        else if (m_sOid.equals(CRL_STREAM_IDENTIFIER_OID))
-        {
-            return m_res.getString("CrlStreamIdentifierCertExtString");
-        }
-        else if (m_sOid.equals(DELTA_CRL_INDICATOR_OID))
-        {
-            return m_res.getString("DeltaCrlIndicatorCertExtString");
-        }
-        else if (m_sOid.equals(DELTA_INFORMATION_OID))
-        {
-            return m_res.getString("DeltaInformationCertExtString");
-        }
-        else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID))
-        {
-            return m_res.getString("ExtendedKeyUsageCertExtString");
-        }
-        else if (m_sOid.equals(FRESHEST_CRL_OID))
-        {
-            return m_res.getString("FreshestCrlCertExtString");
-        }
-        else if (m_sOid.equals(HOLD_INSTRUCTION_CODE_OID))
-        {
-            return m_res.getString("HoldInstructionCodeCertExtString");
-        }
-        else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID))
-        {
-            return m_res.getString("InhibitAnyPolicyCertExtString");
-        }
-        else if (m_sOid.equals(INVALIDITY_DATE_OID))
-        {
-            return m_res.getString("InvalidityDateCertExtString");
-        }
-        else if (m_sOid.equals(ISSUER_ALTERNATIVE_NAME_OID))
-        {
-            return m_res.getString("IssuerAlternativeNameCertExtString");
-        }
-        else if (m_sOid.equals(ISSUING_DISTRIBUTION_POINT_OID))
-        {
-            return m_res.getString("IssuingDistributionPointCertExtString");
-        }
-        else if (m_sOid.equals(KEY_USAGE_OID))
-        {
-            return m_res.getString("KeyUsageCertExtString");
-        }
-        else if (m_sOid.equals(NAME_CONSTRAINTS_OID))
-        {
-            return m_res.getString("NameConstraintsCertExtString");
-        }
-        else if (m_sOid.equals(ORDERED_LIST_OID))
-        {
-            return m_res.getString("OrderedListCertExtString");
-        }
-        else if (m_sOid.equals(POLICY_CONSTRAINTS_OID))
-        {
-            return m_res.getString("PolicyConstraintsCertExtString");
-        }
-        else if (m_sOid.equals(POLICY_CONSTRAINTS_OLD_OID))
-        {
-            return m_res.getString("PolicyConstraintsOldCertExtString");
-        }
-        else if (m_sOid.equals(POLICY_MAPPINGS_OID))
-        {
-            return m_res.getString("PolicyMappingsCertExtString");
-        }
-        else if (m_sOid.equals(PRIMARY_KEY_ATTRIBUTES_OID))
-        {
-            return m_res.getString("PrimaryKeyAttributesCertExtString");
-        }
-        else if (m_sOid.equals(PRIMARY_KEY_USAGE_RESTRICTION_OID))
-        {
-            return m_res.getString("PrimaryKeyUsageRestrictionCertExtString");
-        }
-        else if (m_sOid.equals(PRIVATE_KEY_USAGE_PERIOD_OID))
-        {
-            return m_res.getString("PrivateKeyUsagePeriodCertExtString");
-        }
-        else if (m_sOid.equals(REASON_CODE_OID))
-        {
-            return m_res.getString("ReasonCodeCertExtString");
-        }
-        else if (m_sOid.equals(STATUS_REFERRALS_OID))
-        {
-            return m_res.getString("StatusReferralsCertExtString");
-        }
-        else if (m_sOid.equals(SUBJECT_ALTERNATIVE_NAME_OID))
-        {
-            return m_res.getString("SubjectAlternativeNameCertExtString");
-        }
-        else if (m_sOid.equals(SUBJECT_DIRECTORY_ATTRIBUTES_OID))
-        {
-            return m_res.getString("SubjectDirectoryAttributesCertExtString");
-        }
-        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID))
-        {
-            return m_res.getString("SubjectKeyIdentifierCertExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID))
-        {
-            return m_res.getString("NetscapeCertificateTypeExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_BASE_URL_OID))
-        {
-            return m_res.getString("NetscapeBaseUrlExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_REVOCATION_URL_OID))
-        {
-            return m_res.getString("NetscapeRevocationUrlExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_CA_REVOCATION_URL_OID))
-        {
-            return m_res.getString("NetscapeCaRevocationUrlExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID))
-        {
-            return m_res.getString("NetscapeCertificateRenewalUrlExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_CA_POLICY_URL_OID))
-        {
-            return m_res.getString("NetscapeCaPolicyUrlExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_SSL_SERVER_NAME_OID))
-        {
-            return m_res.getString("NetscapeSslServerNameExtString");
-        }
-        else if (m_sOid.equals(NETSCAPE_COMMENT_OID))
-        {
-            return m_res.getString("NetscapeCommentExtString");
-        }
-        else
-        {
-            // OID not known
-            return null;
-        }
+        m_sName = getRes(m_sOid, "UnrecognisedExtension");
     }
 
     /**
@@ -514,24 +295,14 @@ public class X509Ext extends Object
     public String getStringValue() throws IOException, ParseException
     {
         // Get octet string from extension
-        ASN1InputStream ais = null;
-        byte[] bOctets = null;
-
-        try
-        {
-            ais = new ASN1InputStream(new ByteArrayInputStream(m_bValue));
-
-            DEROctetString derOctStr = (DEROctetString)ais.readObject();
-
-            bOctets = derOctStr.getOctets();
-        }
-        finally
-        {
-            try { if (ais != null)  ais.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        byte[] bOctets = ((DEROctetString) toDER(m_bValue)).getOctets();
 
         // Octet string processed differently depending on extension type
-        if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID)) // 2.5.29.14
+        if (m_sOid.equals(COMMON_NAME_OID))
+        {
+            return getCommonNameStringValue(bOctets);
+        }
+        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID)) // 2.5.29.14
         {
             return getSubjectKeyIndentifierStringValue(bOctets);
         }
@@ -587,12 +358,10 @@ public class X509Ext extends Object
         {
             return getAuthorityKeyIdentifierStringValue(bOctets);
         }
-
         else if (m_sOid.equals(POLICY_CONSTRAINTS_OID)) // 2.5.29.36
         {
             return getPolicyConstraintsStringValue(bOctets);
         }
-
         else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID)) // 2.5.29.37
         {
             return getExtendedKeyUsageStringValue(bOctets);
@@ -609,6 +378,30 @@ public class X509Ext extends Object
         {
             return getSmimeCapabilitiesStringValue(bOctets);
         }
+        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID))
+        {
+            return getMicrosoftCertificateTemplateV1StringValue(bOctets);
+        }
+        else if (m_sOid.equals(MICROSOFT_CA_VERSION_OID))
+        {
+            return getMicrosoftCAVersionStringValue(bOctets);
+        }
+        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID)) // 1.3.6.1.4.1.311.21.7
+        {
+            return getMicrosoftCertificateTemplateV2StringValue(bOctets);
+        }
+        else if (m_sOid.equals(MICROSOFT_APPLICATION_POLICIES_OID)) // 1.3.6.1.4.1.311.21.10
+        {
+            return getUnknownOidStringValue(bOctets); // TODO
+        }
+        else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID)) // 1.3.6.1.5.5.7.1.1
+        {
+            return getAuthorityInformationAccessStringValue(bOctets);
+        }
+        else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) // 2.16.840.1.113719.1.9.4.1
+        {
+            return getNovellSecurityAttributesStringValue(bOctets);
+        }
         else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) // 2.16.840.1.113730.1.1
         {
             return getNetscapeCertificateTypeStringValue(bOctets);
@@ -624,6 +417,15 @@ public class X509Ext extends Object
         else if (m_sOid.equals(DNB_DUNS_NUMBER_OID))
         {
             return getDnBDUNSNumberStringValue(bOctets);
+        }
+        else if (m_sOid.equals(CRL_DISTRIBUTION_POINTS_OID))
+        {
+            return getCrlDistributionPointsStringValue(bOctets);
+        }
+        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID) ||
+                 m_sOid.equals(CERTIFICATE_POLICIES_OLD_OID))
+        {
+            return getCertificatePoliciesStringValue(bOctets);
         }
 
         // Don't know how to process the extension
@@ -669,6 +471,20 @@ public class X509Ext extends Object
 
 
     /**
+     * Get Common Name (2.5.4.3) extension value as a string.
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getCommonNameStringValue(byte[] bValue)
+        throws IOException
+    {
+        return stringify(toDER(bValue));
+    }
+
+
+    /**
      * Get Subject Key Indentifier (2.5.29.14) extension value as a string.
      *
      * @param bValue The octet string value
@@ -695,121 +511,104 @@ public class X509Ext extends Object
     /**
      * Get Key Usage (2.5.29.15) extension value as a string.
      *
+     * <pre>
+     * KeyUsage ::= BIT STRING {
+     *     digitalSignature        (0),
+     *     nonRepudiation          (1),
+     *     keyEncipherment         (2),
+     *     dataEncipherment        (3),
+     *     keyAgreement            (4),
+     *     keyCertSign             (5),
+     *     cRLSign                 (6),
+     *     encipherOnly            (7),
+     *     decipherOnly            (8) }
+     * </pre>
+     *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
     private String getKeyUsageStringValue(byte[] bValue) throws IOException
     {
-        /* KeyUsage ::= BIT STRING {
-               digitalSignature        (0),
-               nonRepudiation          (1),
-               keyEncipherment         (2),
-               dataEncipherment        (3),
-               keyAgreement            (4),
-               keyCertSign             (5),
-               cRLSign                 (6),
-               encipherOnly            (7),
-               decipherOnly            (8) } */
+        DERBitString derBitStr = (DERBitString) toDER(bValue);
+        StringBuffer strBuff = new StringBuffer();
 
-        DERInputStream dis = null;
+        byte[] bytes = derBitStr.getBytes();
 
-        try
+        boolean bKeyAgreement = false;
+
+        // Loop through bit string appending them to the returned string value as flags are found true
+        for (int iCnt=0; iCnt < bytes.length; iCnt++)
         {
-            // Get bit string
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERBitString derBitStr = (DERBitString)dis.readObject();
+            boolean[] b = new boolean[8];
 
-            StringBuffer strBuff = new StringBuffer();
+            b[7] = ((bytes[iCnt] & 0x80) == 0x80);
+            b[6] = ((bytes[iCnt] & 0x40) == 0x40);
+            b[5] = ((bytes[iCnt] & 0x20) == 0x20);
+            b[4] = ((bytes[iCnt] & 0x10) == 0x10);
+            b[3] = ((bytes[iCnt] & 0x8) == 0x8);
+            b[2] = ((bytes[iCnt] & 0x4) == 0x4);
+            b[1] = ((bytes[iCnt] & 0x2) == 0x2);
+            b[0] = ((bytes[iCnt] & 0x1) == 0x1);
 
-            byte[] bytes = derBitStr.getBytes();
-
-            boolean bKeyAgreement = false;
-
-            // Loop through bit string appending them to the returned string value as flags are found true
-            for (int iCnt=0; iCnt < bytes.length; iCnt++)
-            {
-                boolean[] b = new boolean[8];
-
-                b[7] = ((bytes[iCnt] & 0x80) == 0x80);
-                b[6] = ((bytes[iCnt] & 0x40) == 0x40);
-                b[5] = ((bytes[iCnt] & 0x20) == 0x20);
-                b[4] = ((bytes[iCnt] & 0x10) == 0x10);
-                b[3] = ((bytes[iCnt] & 0x8) == 0x8);
-                b[2] = ((bytes[iCnt] & 0x4) == 0x4);
-                b[1] = ((bytes[iCnt] & 0x2) == 0x2);
-                b[0] = ((bytes[iCnt] & 0x1) == 0x1);
-
-                // First byte
-                if (iCnt == 0)
-                {
-                    if (b[7] == true)
-                    {
-                        strBuff.append(m_res.getString("DigitalSignatureKeyUsageString"));
-                        strBuff.append('\n');
-                    }
-
-                    if (b[6] == true)
-                    {
-                        strBuff.append(m_res.getString("NonRepudiationKeyUsageString"));
-                        strBuff.append('\n');
-                    }
-
-                    if (b[5] == true)
-                    {
-                        strBuff.append(m_res.getString("KeyEnciphermentKeyUsageString"));
-                        strBuff.append('\n');
-                    }
-
-                    if (b[4] == true)
-                    {
-                        strBuff.append(m_res.getString("DataEnciphermentKeyUsageString"));
-                        strBuff.append('\n');
-                    }
-
-                    if (b[3] == true)
-                    {
-                        strBuff.append(m_res.getString("KeyAgreementKeyUsageString"));
-                        strBuff.append('\n');
-                        bKeyAgreement = true;
-                    }
-
-                    if (b[2] == true)
-                    {
-                        strBuff.append(m_res.getString("KeyCertSignKeyUsageString"));
-                        strBuff.append('\n');
-                    }
-
-                    if (b[1] == true)
-                    {
-                        strBuff.append(m_res.getString("CrlSignKeyUsageString"));
-                        strBuff.append('\n');
-                    }
-
-                    if ((b[0] == true) && bKeyAgreement) // Only has meaning if key agreement set
-                    {
-                        strBuff.append(m_res.getString("EncipherOnlyKeyUsageString"));
-                        strBuff.append('\n');
-                    }
+            // First byte
+            if (iCnt == 0) {
+                if (b[7]) {
+                    strBuff.append(
+                        m_res.getString("DigitalSignatureKeyUsageString"));
+                    strBuff.append('\n');
                 }
-                // Second byte
-                else if (iCnt == 1)
-                {
-                    if ((b[7] == true) && bKeyAgreement) // Only has meaning if key agreement set
-                    {
-                        strBuff.append(m_res.getString("DecipherOnlyKeyUsageString"));
-                        strBuff.append('\n');
-                    }
+                if (b[6]) {
+                    strBuff.append(
+                        m_res.getString("NonRepudiationKeyUsageString"));
+                    strBuff.append('\n');
+                }
+                if (b[5]) {
+                    strBuff.append(
+                        m_res.getString("KeyEnciphermentKeyUsageString"));
+                    strBuff.append('\n');
+                }
+                if (b[4]) {
+                    strBuff.append(
+                        m_res.getString("DataEnciphermentKeyUsageString"));
+                    strBuff.append('\n');
+                }
+                if (b[3]) {
+                    strBuff.append(
+                        m_res.getString("KeyAgreementKeyUsageString"));
+                    strBuff.append('\n');
+                    bKeyAgreement = true;
+                }
+                if (b[2]) {
+                    strBuff.append(
+                        m_res.getString("KeyCertSignKeyUsageString"));
+                    strBuff.append('\n');
+                }
+                if (b[1]) {
+                    strBuff.append(m_res.getString("CrlSignKeyUsageString"));
+                    strBuff.append('\n');
+                }
+                // Only has meaning if key agreement set
+                if (b[0] && bKeyAgreement) {
+                    strBuff.append(
+                        m_res.getString("EncipherOnlyKeyUsageString"));
+                    strBuff.append('\n');
                 }
             }
+            // Second byte
+            else if (iCnt == 1) {
+                // Only has meaning if key agreement set
+                if (b[7] && bKeyAgreement) {
+                    strBuff.append(
+                        m_res.getString("DecipherOnlyKeyUsageString"));
+                    strBuff.append('\n');
+                }
+            }
+        }
 
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        return strBuff.toString();
     }
+
 
     /**
      * Get Private Key Usage Period (2.5.29.16) extension value as a string.
@@ -848,8 +647,15 @@ public class X509Ext extends Object
         return strBuff.toString();
     }
 
+
     /**
      * Get Subject Alternative Name (2.5.29.17) extension value as a string.
+     *
+     * <pre>
+     * SubjectAltName ::= GeneralNames
+     *
+     * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -857,38 +663,25 @@ public class X509Ext extends Object
      */
     private String getSubjectAlternativeName(byte[] bValue) throws IOException
     {
-        /* SubjectAltName ::= GeneralNames
-
-           GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName */
-
-        DERInputStream dis = null;
-
-        try
-        {
-            // Get sequence of general names
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence generalNames = (ASN1Sequence)dis.readObject();
-
-            StringBuffer strBuff = new StringBuffer();
-
-            for (Enumeration enumGN = generalNames.getObjects(); enumGN.hasMoreElements();)
-            {
-                DERTaggedObject generalName = (DERTaggedObject)enumGN.nextElement();
-
-                strBuff.append(getGeneralNameString(generalName));
-                strBuff.append('\n');
-            }
-
-            return strBuff.toString();
+        ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
+        StringBuffer strBuff = new StringBuffer();
+        for (int i = 0, len = generalNames.size(); i < len; i++) {
+            strBuff.append(getGeneralNameString(
+                               (DERTaggedObject) generalNames.getObjectAt(i)));
+            strBuff.append('\n');
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        return strBuff.toString();
     }
+
 
     /**
      * Get Issuer Alternative Name (2.5.29.18) extension value as a string.
+     *
+     * <pre>
+     * SubjectAltName ::= GeneralNames
+     *
+     * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -896,107 +689,82 @@ public class X509Ext extends Object
      */
     private String getIssuerAlternativeName(byte[] bValue) throws IOException
     {
-        /* SubjectAltName ::= GeneralNames
-
-           GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName */
-
-        DERInputStream dis = null;
-
-        try
+        ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
+        StringBuffer strBuff = new StringBuffer();
+        for (int i = 0, len = generalNames.size(); i < len; i++)
         {
-            StringBuffer strBuff = new StringBuffer();
-
-            // Get sequence of general names
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence generalNames = (ASN1Sequence)dis.readObject();
-
-            for (Enumeration enumGN = generalNames.getObjects(); enumGN.hasMoreElements();)
-            {
-                DERTaggedObject generalName = (DERTaggedObject)enumGN.nextElement();
-                strBuff.append(getGeneralNameString(generalName));
-                strBuff.append('\n');
-            }
-
-            return strBuff.toString();
+            strBuff.append(getGeneralNameString(
+                               (DERTaggedObject) generalNames.getObjectAt(i)));
+            strBuff.append('\n');
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        return strBuff.toString();
     }
+
 
     /**
      * Get Basic Constraints (2.5.29.19) extension value as a string.
+     *
+     * <pre>
+     * BasicConstraints ::= SEQUENCE {
+     *     cA                      BOOLEAN DEFAULT FALSE,
+     *     pathLenConstraint       INTEGER (0..MAX) OPTIONAL }
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getBasicConstraintsStringValue(byte[] bValue) throws IOException
+    private String getBasicConstraintsStringValue(byte[] bValue)
+        throws IOException
     {
-        /* BasicConstraints ::= SEQUENCE {
-               cA                      BOOLEAN DEFAULT FALSE,
-               pathLenConstraint       INTEGER (0..MAX) OPTIONAL } */
+        // Get sequence
+        ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
+        int aLen = asn1Seq.size();
 
-        DERInputStream dis = null;
+        // Default values when none specified in sequence
+        boolean bCa = false;
+        int iPathLengthConstraint = -1;
 
-        try
-        {
-            // Get sequence
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence asn1Seq = (ASN1Sequence)dis.readObject();
-
-            // Default values when none specified in sequence
-            boolean bCa = false;
-            int iPathLengthConstraint = -1;
-
-            if (asn1Seq.size() > 0) // Read CA boolean if present in sequence
-            {
-                DERBoolean derBool = (DERBoolean)asn1Seq.getObjectAt(0);
-                bCa = derBool.isTrue();
-            }
-
-            if (asn1Seq.size() > 1) // Read Path Length Constraint boolean if present in sequence
-            {
-                DERInteger derInt = (DERInteger)asn1Seq.getObjectAt(1);
-                iPathLengthConstraint = derInt.getValue().intValue();
-            }
-
-            // Output information
-            StringBuffer strBuff = new StringBuffer();
-
-            // Subject is CA?
-            if (bCa)
-            {
-                strBuff.append(m_res.getString("SubjectIsCa"));
-            }
-            else
-            {
-                strBuff.append(m_res.getString("SubjectIsNotCa"));
-            }
-            strBuff.append('\n');
-
-            // Path length constraint (only has meaning when CA is true)
-            if ((iPathLengthConstraint != -1) && (bCa))
-            {
-                strBuff.append(MessageFormat.format(m_res.getString("PathLengthConstraint"), new String[]{""+iPathLengthConstraint}));
-            }
-            else
-            {
-                strBuff.append(m_res.getString("NoPathLengthConstraint"));
-            }
-            strBuff.append('\n');
-
-            return strBuff.toString();
+        // Read CA boolean if present in sequence
+        if (aLen > 0) {
+            DERBoolean derBool = (DERBoolean)asn1Seq.getObjectAt(0);
+            bCa = derBool.isTrue();
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
+
+        // Read Path Length Constraint boolean if present in sequence
+        if (aLen > 1) {
+            DERInteger derInt = (DERInteger)asn1Seq.getObjectAt(1);
+            iPathLengthConstraint = derInt.getValue().intValue();
         }
+
+        // Output information
+        StringBuffer strBuff = new StringBuffer();
+
+        // Subject is CA?
+        strBuff.append(m_res.getString(bCa ? "SubjectIsCa" :"SubjectIsNotCa"));
+        strBuff.append('\n');
+
+        // Path length constraint (only has meaning when CA is true)
+        if (iPathLengthConstraint != -1 && bCa) {
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("PathLengthConstraint"),
+                               new String[]{""+iPathLengthConstraint}));
+        }
+        else {
+            strBuff.append(m_res.getString("NoPathLengthConstraint"));
+        }
+        strBuff.append('\n');
+
+        return strBuff.toString();
     }
+
 
     /**
      * Get CRL Number (2.5.29.20) extension value as a string.
+     *
+     * <pre>
+     * CRLNumber ::= INTEGER (0..MAX)
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1004,8 +772,6 @@ public class X509Ext extends Object
      */
     private String getCrlNumberStringValue(byte[] bValue) throws IOException
     {
-        /* CRLNumber ::= INTEGER (0..MAX) */
-
         // Get CRL number
         DERInteger derInt = (DERInteger) toDER(bValue);
 
@@ -1016,8 +782,25 @@ public class X509Ext extends Object
         return strBuff.toString();
     }
 
+
     /**
      * Get Reason Code (2.5.29.21) extension value as a string.
+     *
+     * <pre>
+     * ReasonCode ::= { CRLReason }
+     *
+     * CRLReason ::= ENUMERATED {
+     *     unspecified             (0),
+     *     keyCompromise           (1),
+     *     cACompromise            (2),
+     *     affiliationChanged      (3),
+     *     superseded              (4),
+     *     cessationOfOperation    (5),
+     *     certificateHold         (6),
+     *     removeFromCRL           (8),
+     *     privilegeWithdrawn      (9),
+     *     aACompromise           (10) }
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1025,89 +808,9 @@ public class X509Ext extends Object
      */
     private String getReasonCodeStringValue(byte[] bValue) throws IOException
     {
-        /* ReasonCode ::= { CRLReason }
-
-           CRLReason ::= ENUMERATED {
-               unspecified             (0),
-               keyCompromise           (1),
-               cACompromise            (2),
-               affiliationChanged      (3),
-               superseded              (4),
-               cessationOfOperation    (5),
-               certificateHold         (6),
-               removeFromCRL           (8),
-               privilegeWithdrawn      (9),
-               aACompromise           (10) } */
-
-        DERInputStream dis = null;
-
-        try
-        {
-            // Get reason code enumeration and return appropriate string
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-
-            DEREnumerated derEnum = (DEREnumerated)dis.readObject();
-
-            BigInteger reasonCode = derEnum.getValue();
-
-            int iReasonCode = reasonCode.intValue();
-            String sReasonCodeString = null;
-
-            if (iReasonCode == UNSPECIFIED_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("UnspecifiedReasonCodeString");
-            }
-            else if (iReasonCode == KEY_COMPROMISE_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("KeyCompromiseReasonCodeString");
-            }
-            else if (iReasonCode == CA_COMPROMISE_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("CaCompromiseReasonCodeString");
-            }
-            else if (iReasonCode == AFFILIATION_CHANGED_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("AffiliationChangedReasonCodeString");
-            }
-            else if (iReasonCode == SUPERSEDED_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("SupersededReasonCodeString");
-            }
-            else if (iReasonCode == CESSATION_OF_OPERATION_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("CessationOfOperationReasonCodeString");
-            }
-            else if (iReasonCode == CERTIFICATE_HOLD_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("CertificateHoldReasonCodeString");
-            }
-            else if (iReasonCode == REMOVE_FROM_CRL_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("RemoveFromCrlReasonCodeString");
-            }
-            else if (iReasonCode == PRIVILEGE_WITHDRAWN_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("PrivilegeWithdrawnReasonCodeString");
-            }
-            else if (iReasonCode == AA_COMPROMISE_REASONCODE)
-            {
-                sReasonCodeString = m_res.getString("AaCompromiseReasonCodeString");
-            }
-            else
-            {
-                sReasonCodeString = m_res.getString("UnrecognisedReasonCodeString");
-            }
-
-            // Place Reason Code in string
-            StringBuffer strBuff = new StringBuffer();
-            strBuff.append(MessageFormat.format(sReasonCodeString, new String[]{""+iReasonCode}));
-            strBuff.append('\n');
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        int iRc = ((DEREnumerated) toDER(bValue)).getValue().intValue();
+        String sRc = getRes("CrlReason."+iRc, "UnrecognisedCrlReasonString");
+        return MessageFormat.format(sRc, new String[]{""+iRc}) + '\n';
     }
 
 
@@ -1134,15 +837,18 @@ public class X509Ext extends Object
     /**
      * Get Invalidity Date (2.5.29.24) extension value as a string.
      *
+     * <pre>
+     * InvalidityDate ::=  GeneralizedTime
+     * </pre>
+     *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      * @throws ParseException If a date formatting problem occurs
      */
-    private String getInvalidityDateStringValue(byte[] bValue) throws IOException, ParseException
+    private String getInvalidityDateStringValue(byte[] bValue)
+        throws IOException, ParseException
     {
-        /* InvalidityDate ::=  GeneralizedTime */
-
         // Get invalidity date
         DERGeneralizedTime invalidityDate = (DERGeneralizedTime) toDER(bValue);
 
@@ -1155,8 +861,15 @@ public class X509Ext extends Object
         return strBuff.toString();
     }
 
+
     /**
      * Get Delta CRL Indicator (2.5.29.27) extension value as a string.
+     *
+     * <pre>
+     * BaseCRLNumber ::= CRLNumber
+     *
+     * CRLNumber ::= INTEGER (0..MAX)
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1164,10 +877,6 @@ public class X509Ext extends Object
      */
     private String getDeltaCrlIndicatorStringValue(byte[] bValue) throws IOException
     {
-        /* BaseCRLNumber ::= CRLNumber
-
-           CRLNumber ::= INTEGER (0..MAX)  */
-
         // Get CRL number
         DERInteger derInt = (DERInteger) toDER(bValue);
 
@@ -1178,8 +887,15 @@ public class X509Ext extends Object
         return strBuff.toString();
     }
 
+
     /**
      * Get Certificate Issuer (2.5.29.29) extension value as a string.
+     *
+     * <pre>
+     * certificateIssuer ::= GeneralNames
+     *
+     * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1187,259 +903,219 @@ public class X509Ext extends Object
      */
     private String getCertificateIssuerStringValue(byte[] bValue) throws IOException
     {
-        /* certificateIssuer ::= GeneralNames
-
-           GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName */
-
-        DERInputStream dis = null;
-
-        try
+        ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
+        StringBuffer strBuff = new StringBuffer();
+        for (int i = 0, len = generalNames.size(); i < len; i++)
         {
-            StringBuffer strBuff = new StringBuffer();
-
-            // Get sequence of general names
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence generalNames = (ASN1Sequence)dis.readObject();
-
-            for (Enumeration enumGN = generalNames.getObjects(); enumGN.hasMoreElements();)
-            {
-                DERTaggedObject generalName = (DERTaggedObject)enumGN.nextElement();
-
-                strBuff.append(getGeneralNameString(generalName));
-                strBuff.append('\n');
-            }
-
-            return strBuff.toString();
+            strBuff.append(getGeneralNameString(
+                               (DERTaggedObject) generalNames.getObjectAt(i)));
+            strBuff.append('\n');
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        return strBuff.toString();
     }
+
 
     /**
      * Get Policy Mappings (2.5.29.33) extension value as a string.
      *
+     * <pre>
+     * PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
+     *     issuerDomainPolicy      CertPolicyId,
+     *      subjectDomainPolicy     CertPolicyId }
+     *
+     * CertPolicyId ::= OBJECT IDENTIFIER
+     * </pre>
+     *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getPolicyMappingsStringValue(byte[] bValue) throws IOException
+    private String getPolicyMappingsStringValue(byte[] bValue)
+        throws IOException
     {
-        /*  PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
-                issuerDomainPolicy      CertPolicyId,
-                subjectDomainPolicy     CertPolicyId }
+        // Get sequence of policy mappings
+        ASN1Sequence policyMappings = (ASN1Sequence) toDER(bValue);
 
-            CertPolicyId ::= OBJECT IDENTIFIER */
+        StringBuffer strBuff = new StringBuffer();
 
-        DERInputStream dis = null;
-
-        try
+        // Get each policy mapping
+        for (int i = 0, len = policyMappings.size(); i < len; i++)
         {
-            // Get sequence of policy mappings
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence policyMappings = (ASN1Sequence)dis.readObject();
+            ASN1Sequence policyMapping =
+                (ASN1Sequence) policyMappings.getObjectAt(i);
+            int pmLen = policyMapping.size();
 
-            StringBuffer strBuff = new StringBuffer();
-
-            // Get each policy mapping
-            int iCnt = 1;
-            for (Enumeration enumPM = policyMappings.getObjects(); enumPM.hasMoreElements();)
-            {
-                ASN1Sequence policyMapping = (ASN1Sequence)enumPM.nextElement();
-
-                strBuff.append(MessageFormat.format(m_res.getString("PolicyMapping"), new String[]{""+iCnt}));
-                strBuff.append('\n');
-
-                if (policyMapping.size() > 0) // Policy mapping issuer domain policy
-                {
-                    DERObjectIdentifier issuerDomainPolicy = (DERObjectIdentifier)policyMapping.getObjectAt(0);
-                    strBuff.append('\t');
-                    strBuff.append(MessageFormat.format(m_res.getString("IssuerDomainPolicy"), new String[]{issuerDomainPolicy.getId()}));
-                    strBuff.append('\n');
-                }
-
-                if (policyMapping.size() > 1) // Policy mapping subject domain policy
-                {
-                    DERObjectIdentifier subjectDomainPolicy = (DERObjectIdentifier)policyMapping.getObjectAt(1);
-                    strBuff.append('\t');
-                    strBuff.append(MessageFormat.format(m_res.getString("SubjectDomainPolicy"), new String[]{subjectDomainPolicy.getId()}));
-                    strBuff.append('\n');
-                }
-
-                iCnt++;
-            }
-
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("PolicyMapping"),
+                               new String[]{""+(i+1)}));
             strBuff.append('\n');
 
-            return strBuff.toString();
+            if (pmLen > 0) { // Policy mapping issuer domain policy
+                DERObjectIdentifier issuerDomainPolicy =
+                    (DERObjectIdentifier) policyMapping.getObjectAt(0);
+                strBuff.append('\t');
+                strBuff.append(MessageFormat.format(
+                                   m_res.getString("IssuerDomainPolicy"),
+                                   new String[]{issuerDomainPolicy.getId()}));
+                strBuff.append('\n');
+            }
+
+            if (pmLen > 1) { // Policy mapping subject domain policy
+                DERObjectIdentifier subjectDomainPolicy =
+                    (DERObjectIdentifier) policyMapping.getObjectAt(1);
+                strBuff.append('\t');
+                strBuff.append(MessageFormat.format(
+                                   m_res.getString("SubjectDomainPolicy"),
+                                   new String[]{subjectDomainPolicy.getId()}));
+                strBuff.append('\n');
+            }
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+
+        return strBuff.toString();
     }
+
 
     /**
      * Get Authority Key Identifier (2.5.29.35) extension value as a string.
      *
-     * @param bValue The octet string value
-     * @return Extension value as a string
-     * @throws IOException If an I/O problem occurs
-     */
-    private String getAuthorityKeyIdentifierStringValue(byte[] bValue) throws IOException
-    {
-        /*
-           AuthorityKeyIdentifier ::= SEQUENCE {
-               keyIdentifier             [0] KeyIdentifier           OPTIONAL,
-               authorityCertIssuer       [1] Names                   OPTIONAL,
-               authorityCertSerialNumber [2] CertificateSerialNumber OPTIONAL }
-
-           KeyIdentifier ::= OCTET STRING
-
-           GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
-
-           CertificateSerialNumber  ::=  INTEGER */
-
-        DERInputStream dis = null;
-
-        try
-        {
-            /* Get sequence of (all optional) a key identifier, an authority
-               cert issuer names and an authority cert serial number */
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-
-            ASN1Sequence asn1Seq = (ASN1Sequence)dis.readObject();
-
-            DEROctetString keyIdentifier = null;
-            ASN1Sequence authorityCertIssuer = null;
-            DEROctetString certificateSerialNumber = null;
-
-            for (int iCnt=0; iCnt < asn1Seq.size(); iCnt++)
-            {
-                DERTaggedObject derTagObj = (DERTaggedObject)asn1Seq.getObjectAt(iCnt);
-
-                int iTagNo = derTagObj.getTagNo();
-
-                DERObject derObj = (DERObject)derTagObj.getObject();
-
-                if (iTagNo == 0) // Key Identifier
-                {
-                    keyIdentifier = (DEROctetString)derObj;
-                }
-                else if (iTagNo == 1) // Authority Cert Issuer
-                {
-                    // Many general names
-                    if (derObj instanceof ASN1Sequence)
-                    {
-                        authorityCertIssuer = (ASN1Sequence)derObj;
-                    }
-                    // One general name
-                    else
-                    {
-                        authorityCertIssuer = new DERSequence(derObj);
-                    }
-                }
-                else if (iTagNo == 2) // Certificate Serial Number
-                {
-                    certificateSerialNumber = (DEROctetString)derObj;
-                }
-            }
-
-            StringBuffer strBuff = new StringBuffer();
-
-            if (keyIdentifier != null) // If present get Key Identifier as a string
-            {
-                // Get key identifier from octet string
-                byte[] bKeyIdent = keyIdentifier.getOctets();
-
-                // Output as a hex string
-                strBuff.append(MessageFormat.format(m_res.getString("KeyIdentifier"), new String[]{convertToHexString(bKeyIdent)}));
-                strBuff.append('\n');
-            }
-
-            if (authorityCertIssuer != null) // If present get Authority Cert Issuer as a string
-            {
-                strBuff.append(m_res.getString("CertificateIssuer"));
-                strBuff.append('\n');
-
-                for (Enumeration enumACI = authorityCertIssuer.getObjects(); enumACI.hasMoreElements();)
-                {
-                    DERTaggedObject generalName = (DERTaggedObject)enumACI.nextElement();
-                    strBuff.append('\t');
-                    strBuff.append(getGeneralNameString(generalName));
-                    strBuff.append('\n');
-                }
-            }
-
-            if (certificateSerialNumber != null) // If present get Certificate Serial Number as a string
-            {
-                // Get certificate serial number from octet string
-                byte[] bCertSerialNumber = certificateSerialNumber.getOctets();
-
-                // Output as a hex string
-                strBuff.append(MessageFormat.format(m_res.getString("CertificateSerialNumber"), new String[]{convertToHexString(bCertSerialNumber)}));
-                strBuff.append('\n');
-            }
-
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
-    }
-
-    /**
-     * Get Policy Constraints (2.5.29.36) extension value as a string.
+     * <pre>
+     * AuthorityKeyIdentifier ::= SEQUENCE {
+     *     keyIdentifier             [0] KeyIdentifier           OPTIONAL,
+     *     authorityCertIssuer       [1] Names                   OPTIONAL,
+     *     authorityCertSerialNumber [2] CertificateSerialNumber OPTIONAL }
+     *
+     * KeyIdentifier ::= OCTET STRING
+     *
+     * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+     *
+     * CertificateSerialNumber  ::=  INTEGER
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getPolicyConstraintsStringValue(byte[] bValue) throws IOException
+    private String getAuthorityKeyIdentifierStringValue(byte[] bValue)
+        throws IOException
     {
-        /*  PolicyConstraints ::= SEQUENCE {
-                requireExplicitPolicy           [0] SkipCerts OPTIONAL,
-                inhibitPolicyMapping            [1] SkipCerts OPTIONAL }
+        /* Get sequence of (all optional) a key identifier, an authority
+           cert issuer names and an authority cert serial number */
+        ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
 
-            SkipCerts ::= INTEGER (0..MAX) */
+        DEROctetString keyIdentifier = null;
+        ASN1Sequence authorityCertIssuer = null;
+        DEROctetString certificateSerialNumber = null;
 
-        DERInputStream dis = null;
-
-        try
+        for (int i = 0, len = asn1Seq.size(); i < len; i++)
         {
-            // Get sequence of policy constraint
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence policyConstraints = (ASN1Sequence)dis.readObject();
+            DERTaggedObject derTagObj =
+                (DERTaggedObject) asn1Seq.getObjectAt(i);
+            DERObject derObj = (DERObject)derTagObj.getObject();
 
-            StringBuffer strBuff = new StringBuffer();
-
-            for (Enumeration enumPC = policyConstraints.getObjects(); enumPC.hasMoreElements();)
-            {
-                // Get skip certs for policy constraint
-                DERTaggedObject policyConstraint = (DERTaggedObject)enumPC.nextElement();
-                DERInteger skipCerts = new DERInteger(((DEROctetString)policyConstraint.getObject()).getOctets());
-                int iSkipCerts = skipCerts.getValue().intValue();
-
-                if (policyConstraint.getTagNo() == 0) // Require Explicit Policy Skip Certs
-                {
-                    strBuff.append(MessageFormat.format(m_res.getString("RequireExplicitPolicy"), new String[]{""+iSkipCerts}));
-                    strBuff.append('\n');
+            switch (derTagObj.getTagNo()) {
+            case 0: // Key identifier
+                keyIdentifier = (DEROctetString)derObj;
+                break;
+            case 1: // Authority cert issuer
+                // Many general names
+                if (derObj instanceof ASN1Sequence) {
+                    authorityCertIssuer = (ASN1Sequence)derObj;
                 }
-                else if (policyConstraint.getTagNo() == 1) // Inhibit Policy Mapping Skip Certs
-                {
-                    strBuff.append(MessageFormat.format(m_res.getString("InhibitPolicyMapping"), new String[]{""+iSkipCerts}));
-                    strBuff.append('\n');
+                // One general name
+                else {
+                    authorityCertIssuer = new DERSequence(derObj);
                 }
+                break;
+            case 2: // Certificate serial number
+                certificateSerialNumber = (DEROctetString)derObj;
+                break;
             }
+        }
 
-            return strBuff.toString();
+        StringBuffer strBuff = new StringBuffer();
+
+        if (keyIdentifier != null) {
+            byte[] bKeyIdent = keyIdentifier.getOctets();
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("KeyIdentifier"),
+                               new String[]{convertToHexString(bKeyIdent)}));
+            strBuff.append('\n');
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
+
+        if (authorityCertIssuer != null) {
+            strBuff.append(m_res.getString("CertificateIssuer"));
+            strBuff.append('\n');
+            for (int i = 0, len = authorityCertIssuer.size(); i < len; i++) {
+                DERTaggedObject generalName =
+                    (DERTaggedObject) authorityCertIssuer.getObjectAt(i);
+                strBuff.append('\t');
+                strBuff.append(getGeneralNameString(generalName));
+                strBuff.append('\n');
+            }
         }
+
+        if (certificateSerialNumber != null) {
+            byte[] bCertSerialNumber = certificateSerialNumber.getOctets();
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("CertificateSerialNumber"),
+                               new String[]{convertToHexString(
+                                                bCertSerialNumber)}));
+            strBuff.append('\n');
+        }
+
+        return strBuff.toString();
+    }
+
+
+    /**
+     * Get Policy Constraints (2.5.29.36) extension value as a string.
+     *
+     * <pre>
+     * PolicyConstraints ::= SEQUENCE {
+     *     requireExplicitPolicy           [0] SkipCerts OPTIONAL,
+     *     inhibitPolicyMapping            [1] SkipCerts OPTIONAL }
+     *
+     * SkipCerts ::= INTEGER (0..MAX)
+     * </pre>
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getPolicyConstraintsStringValue(byte[] bValue)
+        throws IOException
+    {
+        // Get sequence of policy constraint
+        ASN1Sequence policyConstraints = (ASN1Sequence) toDER(bValue);
+
+        StringBuffer strBuff = new StringBuffer();
+
+        for (int i = 0, len = policyConstraints.size(); i < len; i++) {
+
+            DERTaggedObject policyConstraint =
+                (DERTaggedObject) policyConstraints.getObjectAt(i);
+            DERInteger skipCerts = new DERInteger(
+                ((DEROctetString)policyConstraint.getObject()).getOctets());
+            int iSkipCerts = skipCerts.getValue().intValue();
+
+            switch (policyConstraint.getTagNo()) {
+            case 0: // Require Explicit Policy Skip Certs
+                strBuff.append(MessageFormat.format(
+                                   m_res.getString("RequireExplicitPolicy"),
+                                   new String[]{""+iSkipCerts}));
+                strBuff.append('\n');
+                break;
+            case 1: // Inhibit Policy Mapping Skip Certs
+                strBuff.append(MessageFormat.format(
+                                   m_res.getString("InhibitPolicyMapping"),
+                                   new String[]{""+iSkipCerts}));
+                strBuff.append('\n');
+                break;
+            }
+        }
+
+        return strBuff.toString();
+
     }
 
 
@@ -1525,6 +1201,88 @@ public class X509Ext extends Object
 
 
     /**
+     * Get Microsoft certificate template name V1 (1.3.6.1.4.1.311.20.2)
+     * extension value as a string.
+     *
+     * @see <a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;291010">Microsoft KB article 291010</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If and I/O problem occurs
+     */
+    private String getMicrosoftCertificateTemplateV1StringValue(byte[] bValue)
+        throws IOException
+    {
+        return ((DERBMPString) toDER(bValue)).getString() + '\n';
+    }
+
+
+    /**
+     * Get Microsoft certificate template name V2 (1.3.6.1.4.1.311.20.7)
+     * extension value as a string.
+     * <pre>
+     * CertificateTemplate ::= SEQUENCE {
+     *   templateID OBJECT IDENTIFIER,
+     *   templateMajorVersion TemplateVersion,
+     *   templateMinorVersion TemplateVersion OPTIONAL
+     * }
+     * TemplateVersion ::= INTEGER (0..4294967295)
+     * </pre>
+     *
+     * @see <a href="http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If and I/O problem occurs
+     */
+    private String getMicrosoftCertificateTemplateV2StringValue(byte[] bValue)
+        throws IOException
+    {
+        ASN1Sequence seq = (ASN1Sequence) toDER(bValue);
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(MessageFormat.format(
+                      m_res.getString("MsftCertTemplateId"),
+                      new String[]{
+                          ((DERObjectIdentifier)seq.getObjectAt(0)).getId()}));
+        sb.append('\n');
+
+        DERInteger derInt = (DERInteger) seq.getObjectAt(1);
+        sb.append(MessageFormat.format(
+                      m_res.getString("MsftCertTemplateMajorVer"),
+                      new String[]{derInt.getValue().toString()}));
+        sb.append('\n');
+
+        if ((derInt = (DERInteger) seq.getObjectAt(2)) != null) {
+            sb.append(MessageFormat.format(
+                          m_res.getString("MsftCertTemplateMinorVer"),
+                          new String[]{derInt.getValue().toString()}));
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Get Microsoft CA Version (1.3.6.1.4.1.311.21.1) extension value as
+     * a string.
+     *
+     * @see <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/security/security/certification_authority_renewal.asp">MSDN</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If and I/O problem occurs
+     */
+    private String getMicrosoftCAVersionStringValue(byte[] bValue)
+        throws IOException
+    {
+        int ver = ((DERInteger) toDER(bValue)).getValue().intValue();
+        String certIx = String.valueOf(ver & 0xffff); // low 16 bits
+        String keyIx = String.valueOf(ver >> 16);     // high 16 bits
+        return MessageFormat.format(
+            m_res.getString("MsftCaVersion"),new String[]{certIx, keyIx})+'\n';
+    }
+
+
+    /**
      * Get S/MIME capabilities (1.2.840.113549.1.9.15) extension value as
      * a string.
      *
@@ -1573,91 +1331,214 @@ public class X509Ext extends Object
 
 
     /**
-     * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value as a string.
+     * Get Authority Information Access (1.3.6.1.5.5.7.1.1) extension
+     * value as a string.
      *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getNetscapeCertificateTypeStringValue(byte[] bValue) throws IOException
+    private String getAuthorityInformationAccessStringValue(byte[] bValue)
+        throws IOException
     {
-        DERInputStream dis = null;
+        ASN1Sequence accDescs = (ASN1Sequence) toDER(bValue);
 
-        try
+        StringBuffer sb = new StringBuffer();
+        String aia = m_res.getString("AuthorityInformationAccess");
+
+        for (int i = 0, adLen = accDescs.size(); i < adLen; i++) {
+            ASN1Sequence accDesc = (ASN1Sequence) accDescs.getObjectAt(i);
+            String accOid =
+                ((DERObjectIdentifier) accDesc.getObjectAt(0)).getId();
+            String accMeth = getRes(accOid, "UnrecognisedAccessMethod");
+            String accLoc = getGeneralNameString(
+                (DERTaggedObject) accDesc.getObjectAt(1));
+            sb.append(
+                MessageFormat.format(
+                    aia, new String[]{
+                        MessageFormat.format(accMeth, new String[]{accOid}),
+                        accLoc}));
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Get Novell Security Attributes (2.16.840.1.113719.1.9.4.1) extension
+     * value as a string.
+     *
+     * @see <a href="http://developer.novell.com/repository/attributes/">Novell
+ Certificate Extension Attributes</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getNovellSecurityAttributesStringValue(byte[] bValue)
+        throws IOException
+    {
+        // TODO...
+
+        ASN1Sequence attrs = (ASN1Sequence) toDER(bValue);
+        StringBuffer sb = new StringBuffer();
+
+        // "Novell Security Attribute(tm)"
+        String sTM = ((DERString) attrs.getObjectAt(2)).getString();
+        sb.append(sTM);
+        sb.append('\n');
+
+        // OCTET STRING of size 2, 1st is major version, 2nd is minor version
+        byte[] bVer = ((DEROctetString) attrs.getObjectAt(0)).getOctets();
+        sb.append("Major version: ").append(Byte.toString(bVer[0]));
+        sb.append(", minor version: ").append(Byte.toString(bVer[1]));
+        sb.append('\n');
+
+        // Nonverified Subscriber Information
+        boolean bNSI = ((DERBoolean) attrs.getObjectAt(1)).isTrue();
+        sb.append("Nonverified Subscriber Information: ").append(bNSI);
+        sb.append('\n');
+
+        // URI reference
+        String sUri = ((DERString) attrs.getObjectAt(3)).getString();
+        sb.append("URI: ").append(sUri);
+        sb.append('\n');
+
+        // GLB Extensions (GLB ~ "Greatest Lower Bound")
+        ASN1Sequence glbs = (ASN1Sequence) attrs.getObjectAt(4);
+        sb.append("GLB extensions:");
+        sb.append('\n');
+
+        /* TODO:
+         * verify that we can do getObjectAt(n) or if we need to examine
+         * tag numbers of the tagged objects
+         */
+
+        // Key quality
+        ASN1Sequence keyq = (ASN1Sequence)
+            ((ASN1TaggedObject) glbs.getObjectAt(0)).getObject();
+        sb.append('\t');
+        sb.append("Key quality: <TODO>");
+        // TODO
+        sb.append('\n');
+
+        // Crypto process quality
+        ASN1Sequence cpq = (ASN1Sequence)
+            ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
+        sb.append('\t');
+        sb.append("Crypto process quality: <TODO>");
+        // TODO
+        sb.append('\n');
+
+        // Certificate class
+        ASN1Sequence cclass = (ASN1Sequence)
+            ((ASN1TaggedObject) glbs.getObjectAt(2)).getObject();
+        sb.append('\t');
+        sb.append(m_res.getString("NovellCertClass"));
+        sb.append('\n');
+
+        sb.append("\t\t");
+        String sv = ((DERInteger) cclass.getObjectAt(0)).getValue().toString();
+        String sc = getRes("NovellCertClass." + sv,
+                           "UnregocnisedNovellCertClass");
+        sb.append(MessageFormat.format(sc, new String[]{sv}));
+        sb.append('\n');
+
+        boolean valid = true;
+        if (cclass.size() > 1) {
+            valid = ((DERBoolean) cclass.getObjectAt(1)).isTrue();
+        }
+        sb.append("\t\t");
+        sb.append(m_res.getString("NovellCertClassValid." + valid));
+        sb.append('\n');
+
+        // Enterprise ID
+        ASN1Sequence eid = (ASN1Sequence)
+            ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject();
+        sb.append('\t');
+        sb.append("Enterprise ID: <TODO>");
+        // TODO
+        sb.append('\n');
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value
+     * as a string.
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getNetscapeCertificateTypeStringValue(byte[] bValue)
+        throws IOException
+    {
+       // Get bits
+        byte[] bytes = ((DERBitString) toDER(bValue)).getBytes();
+
+        StringBuffer strBuff = new StringBuffer();
+        boolean bKeyAgreement = false;
+
+        if (bytes.length > 0)
         {
-            // Get bits
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERBitString derBitStr = (DERBitString)dis.readObject();
+            boolean[] b = new boolean[8];
 
-            StringBuffer strBuff = new StringBuffer();
+            b[7] = ((bytes[0] & 0x80) == 0x80);
+            b[6] = ((bytes[0] & 0x40) == 0x40);
+            b[5] = ((bytes[0] & 0x20) == 0x20);
+            b[4] = ((bytes[0] & 0x10) == 0x10);
+            b[3] = ((bytes[0] & 0x8) == 0x8);
+            b[2] = ((bytes[0] & 0x4) == 0x4);
+            b[1] = ((bytes[0] & 0x2) == 0x2);
+            b[0] = ((bytes[0] & 0x1) == 0x1);
 
-            byte[] bytes = derBitStr.getBytes();
-
-            boolean bKeyAgreement = false;
-
-            if (bytes.length > 0)
+            if (b[7])
             {
-                boolean[] b = new boolean[8];
-
-                b[7] = ((bytes[0] & 0x80) == 0x80);
-                b[6] = ((bytes[0] & 0x40) == 0x40);
-                b[5] = ((bytes[0] & 0x20) == 0x20);
-                b[4] = ((bytes[0] & 0x10) == 0x10);
-                b[3] = ((bytes[0] & 0x8) == 0x8);
-                b[2] = ((bytes[0] & 0x4) == 0x4);
-                b[1] = ((bytes[0] & 0x2) == 0x2);
-                b[0] = ((bytes[0] & 0x1) == 0x1);
-
-                if (b[7] == true)
-                {
-                    strBuff.append(m_res.getString("SslClientNetscapeCertificateType"));
-                    strBuff.append('\n');
-                }
-
-                if (b[6] == true)
-                {
-                    strBuff.append(m_res.getString("SslServerNetscapeCertificateType"));
-                    strBuff.append('\n');
-                }
-
-                if (b[5] == true)
-                {
-                    strBuff.append(m_res.getString("SmimeNetscapeCertificateType"));
-                    strBuff.append('\n');
-                }
-
-                if (b[4] == true)
-                {
-                    strBuff.append(m_res.getString("ObjectSigningNetscapeCertificateType"));
-                    strBuff.append('\n');
-                    bKeyAgreement = true;
-                }
-
-                if (b[2] == true)
-                {
-                    strBuff.append(m_res.getString("SslCaNetscapeCertificateType"));
-                    strBuff.append('\n');
-                }
-
-                if (b[1] == true)
-                {
-                    strBuff.append(m_res.getString("SmimeCaNetscapeCertificateType"));
-                    strBuff.append('\n');
-                }
-
-                if (b[0] == true)
-                {
-                    strBuff.append(m_res.getString("ObjectSigningCaNetscapeCertificateType"));
-                    strBuff.append('\n');
-                }
+                strBuff.append(m_res.getString("SslClientNetscapeCertificateType"));
+                strBuff.append('\n');
             }
 
-            return strBuff.toString();
+            if (b[6])
+            {
+                strBuff.append(m_res.getString("SslServerNetscapeCertificateType"));
+                strBuff.append('\n');
+            }
+
+            if (b[5])
+            {
+                strBuff.append(m_res.getString("SmimeNetscapeCertificateType"));
+                strBuff.append('\n');
+            }
+
+            if (b[4])
+            {
+                strBuff.append(m_res.getString("ObjectSigningNetscapeCertificateType"));
+                strBuff.append('\n');
+                bKeyAgreement = true;
+            }
+
+            if (b[2])
+            {
+                strBuff.append(m_res.getString("SslCaNetscapeCertificateType"));
+                strBuff.append('\n');
+            }
+
+            if (b[1])
+            {
+                strBuff.append(m_res.getString("SmimeCaNetscapeCertificateType"));
+                strBuff.append('\n');
+            }
+
+            if (b[0])
+            {
+                strBuff.append(m_res.getString("ObjectSigningCaNetscapeCertificateType"));
+                strBuff.append('\n');
+            }
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+
+        return strBuff.toString();
     }
 
 
@@ -1674,6 +1555,193 @@ public class X509Ext extends Object
         throws IOException
     {
         return ((DERIA5String) toDER(bValue)).getString() + '\n';
+    }
+
+
+    /**
+     * Get extension value for D&B D-U-N-S number as a string.
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getDnBDUNSNumberStringValue(byte[] bValue)
+        throws IOException
+    {
+        return ((DERIA5String) toDER(bValue)).getString() + '\n';
+    }
+
+
+    /**
+     * Get extension value for CRL Distribution Points as a string.
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getCrlDistributionPointsStringValue(byte[] bValue)
+        throws IOException
+    {
+
+        CRLDistPoint dps = CRLDistPoint.getInstance(toDER(bValue));
+        DistributionPoint[] points = dps.getDistributionPoints();
+
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0, len = points.length; i < len; i++)
+        {
+            DistributionPoint point = points[i];
+
+            DistributionPointName dpn;
+            if ((dpn = point.getDistributionPoint()) != null) {
+                ASN1TaggedObject tagObj =
+                    (ASN1TaggedObject) dpn.toASN1Object();
+                switch (tagObj.getTagNo()) {
+                case DistributionPointName.FULL_NAME:
+                    sb.append(m_res.getString("CrlDistributionPoint.0.0"));
+                    sb.append('\n');
+                    ASN1Sequence seq = (ASN1Sequence) tagObj.getObject();
+                    for (int j = 0, nLen = seq.size(); j < nLen; j++)
+                    {
+                        sb.append('\t');
+                        sb.append(getGeneralNameString(
+                                      (DERTaggedObject) seq.getObjectAt(j)));
+                        sb.append('\n');
+                    }
+                    break;
+                case DistributionPointName.NAME_RELATIVE_TO_CRL_ISSUER:
+                    sb.append(m_res.getString("CrlDistributionPoint.0.1"));
+                    // TODO
+                    sb.append('\t');
+                    sb.append(tagObj.getObject());
+                    sb.append('\n');
+                    break;
+                default:
+                    // TODO: unknown...
+                    break;
+                }
+            }
+
+            ReasonFlags flags;
+            if ((flags = point.getReasons()) != null) {
+                sb.append(m_res.getString("CrlDistributionPoint.1"));
+                // TODO
+                sb.append('\t');
+                sb.append(flags);
+                sb.append('\n');
+            }
+
+            GeneralNames issuer;
+            if ((issuer = point.getCRLIssuer()) != null) {
+                sb.append(m_res.getString("CrlDistributionPoint.2"));
+                sb.append('\n');
+                ASN1Sequence seq = (ASN1Sequence) issuer.getDERObject();
+                for (int j = 0, iLen = seq.size(); j < iLen; j++) {
+                    sb.append('\t');
+                    sb.append(getGeneralNameString(
+                                  (DERTaggedObject) seq.getObjectAt(j)));
+                    sb.append('\n');
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+
+    /**
+     * Get extension value for Certificate Policies as a string.
+     *
+     * @see <a href="http://www.ietf.org/rfc/rfc3280">RFC 3280</a>, 4.2.1.5
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getCertificatePoliciesStringValue(byte[] bValue)
+        throws IOException
+    {
+        ASN1Sequence pSeq = (ASN1Sequence) toDER(bValue);
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0, len = pSeq.size(); i < len; i++) {
+
+            PolicyInformation pi =
+                PolicyInformation.getInstance(pSeq.getObjectAt(i));
+
+            // TODO: 2.5.29.32.0 (any policy?)
+
+            sb.append(MessageFormat.format(
+                          m_res.getString("PolicyIdentifier"),
+                          new String[]{pi.getPolicyIdentifier().getId()}));
+            sb.append('\n');
+
+            ASN1Sequence pQuals;
+            if ((pQuals = (ASN1Sequence) pi.getPolicyQualifiers()) != null) {
+                for (int j = 0, plen = pQuals.size(); j < plen; j++) {
+
+                    ASN1Sequence pqi = (ASN1Sequence) pQuals.getObjectAt(j);
+                    DERObjectIdentifier pqId =
+                        (DERObjectIdentifier) pqi.getObjectAt(0);
+
+                    sb.append('\t');
+                    sb.append(pqId.getId());
+                    sb.append('\n');
+
+                    if (pQuals.size() > 0) {
+
+                        // TODO: don't do instanceof, use policy identifier
+
+                        DEREncodable d = pqi.getObjectAt(1);
+                        if (d instanceof DERString) {
+                            // cPSuri
+                            sb.append('\t');
+                            sb.append(MessageFormat.format(
+                                          m_res.getString("CpsUri"),
+                                          new String[]{
+                                              ((DERString) d).getString()}));
+                            sb.append('\n');
+                        }
+                        else if (d instanceof ASN1Sequence) {
+                            // userNotice
+                            ASN1Sequence un = (ASN1Sequence) d;
+
+                            for (int k = 0, dlen = un.size(); k < dlen; k++) {
+                                DEREncodable de =
+                                    (DEREncodable) un.getObjectAt(k);
+                                if (de instanceof DERString) {
+                                    // explicitText
+                                    sb.append('\t');
+                                    // TODO
+                                    sb.append("<DISPLAYTEXT>:")
+                                        .append(((DERString) de).getString());
+                                    sb.append('\n');
+                                }
+                                else if (de instanceof ASN1Sequence) {
+                                    // noticeRef
+                                    sb.append('\t');
+                                    // TODO
+                                    sb.append("<NOTICEREF>:")
+                                        .append(stringify(de));
+                                    sb.append('\n');
+                                }
+                                else {
+                                    // TODO: warn?
+                                }
+                            }
+                        }
+                        else {
+                            // TODO: warn?
+                        }
+                    }
+                }
+            }
+
+            if (i != len) {
+                sb.append('\n');
+            }
+        }
+
+        return sb.toString();
     }
 
 
@@ -1821,9 +1889,11 @@ public class X509Ext extends Object
      *
      * @param time Generalized time
      * @return Formatted string
-     * @throws ParseException If there is a problem formatting the generalized time
+     * @throws ParseException If there is a problem formatting the
+     * generalized time
      */
-    private String formatGeneralizedTime(DERGeneralizedTime time) throws ParseException
+    private String formatGeneralizedTime(DERGeneralizedTime time)
+        throws ParseException
     {
         // Get generalized time as a string
         String sTime = time.getTime();
@@ -1835,10 +1905,12 @@ public class X509Ext extends Object
         Date date = dateFormat.parse(sTime);
 
         // Re-format date - include timezone
-        sTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format((Date)date);
+        sTime = DateFormat.getDateTimeInstance(
+            DateFormat.MEDIUM, DateFormat.LONG).format((Date)date);
 
         return sTime;
     }
+
 
     /**
      * Get hex and clear text dump of byte array.
@@ -1882,11 +1954,13 @@ public class X509Ext extends Object
 
             // Get clear character
 
-            // Character to display if character not define din Unicode or is a contorl charcter
+            // Character to display if character not define din Unicode or
+            // is a control character
             char c = '.';
 
             // Not a control character and defined in Unicode
-            if ((!Character.isISOControl((char)i)) && (Character.isDefined((char)i)))
+            if (!Character.isISOControl((char)i) &&
+                Character.isDefined((char)i))
             {
                 Character cClr = new Character((char)i);
                 c = cClr.charValue();
@@ -1916,6 +1990,7 @@ public class X509Ext extends Object
         return strBuff.toString();
     }
 
+
     /**
      * Convert the supplied DER Integer to a hex string sub-divided by spaces
      * every four characters.
@@ -1925,7 +2000,8 @@ public class X509Ext extends Object
      */
     private static String convertToHexString(DERInteger derInt)
     {
-        // Convert number to hex string - divide string with a space every four characters
+        // Convert number to hex string - divide string with a space
+        // every four characters
         String sHexCrlNumber = derInt.getValue().toString(16).toUpperCase();
 
         StringBuffer strBuff = new StringBuffer();
@@ -1943,6 +2019,7 @@ public class X509Ext extends Object
         return strBuff.toString();
     }
 
+
     /**
      * Convert the supplied byte array to a hex string sub-divided by spaces
      * every four characters.
@@ -1953,11 +2030,11 @@ public class X509Ext extends Object
     private static String convertToHexString(byte[] bytes)
     {
         // Convert to hex
-        StringBuffer strBuff = new StringBuffer(new BigInteger(1, bytes).toString(16).toUpperCase());
+        StringBuffer strBuff = new StringBuffer(
+            new BigInteger(1, bytes).toString(16).toUpperCase());
 
         // Place spaces at every four hex characters
-        if (strBuff.length() > 4)
-        {
+        if (strBuff.length() > 4) {
             for (int iCnt=4; iCnt < strBuff.length(); iCnt+=5)
             {
                 strBuff.insert(iCnt, ' ');
