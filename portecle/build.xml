@@ -28,7 +28,7 @@
   <property name="build.debug" value="false" />
   <property name="build.srcver" value="1.4" />
 
-  <path id="build.path">
+  <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
   </path>
 
@@ -39,7 +39,7 @@
       destdir="${build}/classes"
       source="${build.srcver}"
       debug="${build.debug}">
-      <classpath refid="build.path" />
+      <classpath refid="build.classpath" />
       <compilerarg compiler="jikes" value="+P" />
       <!-- TODO: +Z2 sometime -->
       <compilerarg compiler="jikes" value="+Z" />
@@ -93,6 +93,7 @@
     <javadoc
       destdir="${build}/api"
       source="${build.srcver}"
+      classpathref="build.classpath"
       private="yes">
       <packageset dir="${src}/main" defaultexcludes="yes">
         <include name="net/sf/portecle/**" />
