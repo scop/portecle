@@ -58,6 +58,7 @@ import javax.swing.border.EtchedBorder;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.DigestType;
 import net.sf.portecle.crypto.DigestUtil;
+import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -671,7 +672,15 @@ class DViewCertificate extends JDialog
         m_jtfPublicKey.setCaretPosition(0);
 
         // Signature Algorithm
-        m_jtfSignatureAlgorithm.setText(cert.getSigAlgName());
+        String sigAlgName = cert.getSigAlgName();
+        // TODO: move this mapping someplace else
+        if ("1.3.36.3.3.1.2".equals(sigAlgName)) {
+            sigAlgName = SignatureType.RSA_RIPEMD160.toString();
+        }
+        else if ("1.2.840.10045.4.1".equals(sigAlgName)) {
+            sigAlgName = SignatureType.ECDSA_SHA1.toString();
+        }
+        m_jtfSignatureAlgorithm.setText(sigAlgName);
         m_jtfSignatureAlgorithm.setCaretPosition(0);
 
         // Fingerprints
