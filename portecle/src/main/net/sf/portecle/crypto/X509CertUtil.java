@@ -245,7 +245,7 @@ public final class X509CertUtil extends Object
             sw = new StringWriter();
 
             int iRead;
-            char buff[] = new char[1024];
+            char[] buff = new char[1024];
 
             while ((iRead = isr.read(buff, 0, buff.length)) != -1)
             {
@@ -364,7 +364,7 @@ public final class X509CertUtil extends Object
      * @param certs The X.509 certificates in order
      * @return The ordered X.509 certificates
      */
-    public static X509Certificate[] orderX509CertChain(X509Certificate certs[])
+    public static X509Certificate[] orderX509CertChain(X509Certificate[] certs)
     {
         int iOrdered = 0;
         X509Certificate[] tmpCerts = (X509Certificate[])certs.clone();
@@ -836,7 +836,7 @@ public final class X509CertUtil extends Object
      * @param keyStores The KeyStores
      * @throws CryptoException If there is a problem establishing trust
      */
-    public static X509Certificate[] establishTrust(KeyStore keyStores[],
+    public static X509Certificate[] establishTrust(KeyStore[] keyStores,
                                                    X509Certificate cert)
         throws CryptoException
     {

@@ -377,7 +377,7 @@ class DGenerateCertificate extends JDialog
      */
     private void populateSigAlgs()
     {
-        Object sigAlgs[];
+        Object[] sigAlgs;
 
         if (m_keyPairType == KeyPairType.DSA)
         {
