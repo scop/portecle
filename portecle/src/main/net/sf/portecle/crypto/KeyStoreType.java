@@ -109,7 +109,7 @@ public class KeyStoreType extends Object
     }
 
     /**
-     * Gets a KeyPairType corresponding to the given type String.
+     * Gets a KeyStoreType corresponding to the given type String.
      *
      * @param sType the keystore type name
      * @return the corresponding KeyStoreType
