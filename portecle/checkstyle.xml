@@ -4,13 +4,10 @@
   "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 
 <module name="Checker">
-  <module name="TreeWalker">
 
-    <module name="TabCharacter" />
-    <module name="LineLength">
-      <property name="max" value="79" />
-      <property name="ignorePattern" value="(f|ht)tps?://" />
-    </module>
+  <module name="NewlineAtEndOfFile" />
+
+  <module name="TreeWalker">
 
     <!-- Imports -->
     <module name="AvoidStarImport" />
@@ -22,6 +19,22 @@
     </module>
     <module name="RedundantImport" />
     <module name="UnusedImports" />
+
+    <!-- Sizes -->
+    <module name="FileLength">
+      <property name="max" value="3000" />
+    </module>
+    <module name="LineLength">
+      <property name="max" value="79" />
+      <property name="ignorePattern" value="(f|ht)tps?://" />
+    </module>
+    <module name="MethodLength" />
+    <module name="AnonInnerLength" />
+    <module name="ParameterNumber" />
+
+    <!-- Whitespace -->
+    <module name="TabCharacter" />
+    <module name="WhitespaceAround" />
 
     <!-- Modifiers -->
     <module name="ModifierOrder" />
@@ -52,6 +65,11 @@
     <module name="SuperClone" />
     <module name="SuperFinalize" />
     <module name="UnnecessaryParentheses" />
+
+    <!-- Misc -->
+    <module name="UncommentedMain" />
+    <module name="UpperEll" />
+    <module name="ArrayTypeStyle" />
 
   </module>
 </module>
