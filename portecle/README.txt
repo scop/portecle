@@ -2,6 +2,27 @@
  Portecle README
 =-=-=-=-=-=-=-=-=
 
+Portecle is a user friendly GUI application for creating, managing and
+examining keystores, keys, certificates, certificate requests,
+certificate revocation lists and more.
+
+Currently, Portecle can be used to, for example:
+
+* Create, load, save, and convert keystores.
+* Generate DSA and RSA key pair entries with self-signed version 1
+  X.509 certificates.
+* Import X.509 certificate files as trusted certificates.
+* Import key pairs from PKCS #12 files.
+* Clone and change the password of key pair entries and keystores.
+* View the details of certificates contained within keystore entries,
+  certificate files, and SSL/TLS connections.
+* Export keystore entries in a variety of formats.
+* Generate certification requests (CSRs).
+* Import Certificate Authority (CA) replies.
+* Change the password of key pair entries and keystores.
+* Delete, clone, and rename keystore entries.
+* View the details of certificate revocation list (CRL) files.
+
 Getting up and running with Portecle is quick and easy.  Everything
 you need to know is detailed below.  Being written in Java, Portecle
 will run on any machine that has a suitable JVM installed.  Note that
