@@ -1,0 +1,55 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=
+ Portecle 0.1 README
+=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Getting up and running with Portecle is quick and easy.  Everything you
+need to know is detailed below.  Being written in Java, Portecle will run
+on any machine that has a suitable JVM installed.  Note that a prerequisite is
+that you must have at least JRE/JDK v 1.4.0 on your machine.  The latest
+version of the JRE/JDK is available for free from java.sun.com.  Once
+Portecle is installed you will be able to access its online help.
+
+1 Installing
+------------
+
+Place the Portecle JAR file (portecle-0.9.jar) on your filesystem.  Next get
+Bouncy Castle Provider version 1.20 for JDK 1.4 (bcprov-jdk14-120.jar).  This
+is available for free from www.bouncycastle.org.  Note that only version 1.20
+will work.  Place it in the *same* directory as portecle.jar.  You now have
+everything you need to run Portecle from the command-line. Included below are
+example command-lines for Windows and UNIX systems.
+
+The examples assume that the Java bin directory has been added to your path.
+
+1.1 Windows Command-Line
+------------------------
+
+Assuming you have an appropriate JRE/JDK installed and have placed the
+Portecle and BouncyCastle Provider JAR files into a directory c:\portecle you can
+run Portecle like so:
+
+java -jar c:\portecle\portecle.jar
+
+The portecle-17.jar contains an Icon file for use with Portecle.
+
+1.2 UNIX Command-Line
+---------------------
+
+Assuming you have an appropriate JRE/JDK installed and have placed the
+Portecle and BouncyCastle Provider JAR files into a directory /portecle you
+can run Portecle like so:
+
+
+java -jar /portecle/portecle.jar
+
+2 License
+---------
+This software is available under the terms laid out in the GNU General Public
+License.  This makes it free for you to use and modify if you so wish.  As per
+the terms and conditions of the aforementioned license this program is
+supplied without warranty.
+
+3 Contact
+---------
+Please email bugs, comments, and suggestions regarding Portecle to
+mark@denlin.org or keith@frogcement.com.

@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Portecle: Quick Tour</title>
+        <link rel=stylesheet href="help.css" type="text/css">
+    </head>
+
+    <body>
+
+        <h1>Quick Tour</h1>
+        <hr>
+
+        <b>Portecle</b> has a simple interface which provides access to a KeyStore
+        either by loading it from a file or by creating it from scratch:
+
+        <p>
+
+        <img src="images/portecle.png">
+
+        <p>
+
+        KeyStore files can be created, opened and saved via the <b>File</b> menu.
+
+        <p>
+
+        The contents of Certificate and CRL files can be examined through use
+        of the options on the <b>Examine</b> menu.
+
+        <p>
+
+        General KeyStore maintenance operations are accessible through
+        the <b>Tools</b> menu.  These general operations include the capability to
+        examine the content of certificate files, to import trusted certificates,
+        to generate key pairs and change KeyStore type.
+
+        <p>
+
+        Most of the operations found in the <b>File</b>, <b>Examine</b> and
+        <b>Tools</b> menus are also available on the tool bar.  Most operations
+        also have short-cut keys.
+
+        <p>
+
+        The entries contained within a loaded KeyStore are displayed in the KeyStore
+        entry table which has columns for:
+
+        <ul>
+            <li>An entry's type (<b>Key</b>&nbsp;<img src="key_entry.gif">,
+                <b>Key Pair</b>&nbsp;<img src="keypair_entry.gif"> or
+                <b>Trusted Certificate</b>&nbsp;<img src="trustcert_entry.gif">).</li>
+            <li>Alias name.</li>
+            <li>Last modification date/time (Note: PKCS #12 KeyStores do not support this column).</li>
+        </ul>
+
+        Operations specific to a KeyStore entry can be accessed by
+        right-clicking on the particular entry in the table and selecting
+        the required operation from the resultant pop-up menu.  The options
+        available in the pop-up menu differ depending on the KeyStore entry type.
+        For example <b>Trusted Certificate</b> entries can be examined,
+        deleted or renamed.  <b>Key Pair</b> entries can additionally
+        have their passwords set, be used to generate CSRs, etc.  <b>Key</b>
+        entries, on the other hand, have no specific operations and therefore
+        no menu will appear for them.
+
+        <hr>
+
+    </body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>How to generate a Key Pair entry</title>
+        <link rel=stylesheet href="help.css" type="text/css">
+    </head>
+
+    <body>
+
+        <h1>How to generate a Key Pair</h1>
+        <hr>
+
+        To generate a Key Pair entry in a KeyStore:
+
+        <ol>
+            <li>From the <b>Tools</b> menu, choose <b>Generate Key Pair</b>.
+                Alternatively click on the <b>Generate Key Pair</b> toolbar
+                button:<br><img src="keypair.gif"></li>
+
+            <li>The <b>Generate Key Pair</b> dialog will be displayed.  Select a
+                <b>Key Algorithm</b> and <b>Key Size</b> and press the <b>OK</b> button.</li>
+
+            <li>The <b>Generating Key Pair</b> dialog will be displayed and will
+                remain visible until key pair generation has completed.
+                Depending on the key size chosen and the speed of your
+                computer it may take some time for this step to complete.
+                You therefore have the option to abort the key pair generation
+                by pressing the cancel button on this dialog.</li>
+
+            <li>The <b>Generate Certificate</b> dialog will be displayed.</li>
+
+            <li>Enter the certificate details and press the <b>OK</b> button.</li>
+
+            <li>The <b>Key Pair Entry Alias</b> dialog will be displayed.</li>
+
+            <li>Enter the alias for the new key pair entry and press the <b>OK</b> button.</li>
+
+            <li>If the current KeyStore type is not <b>PKCS #12</b>:</li>
+
+            <ul>
+
+                <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
+
+                <li>Enter the password to protect the new key pair entry with, confirm it and
+                    press the <b>OK</b> button.</li>
+
+            </ul>
+
+            <li>The new key pair entry will appear in the KeyStore Entries table.</li>
+        </ol>
+
+        <b>Short-cut key:</b> Ctrl-G.
+
+        <hr>
+
+    </body>
+</html>

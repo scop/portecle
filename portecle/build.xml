@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+
+<project name="portecle" basedir="." default="all">
+
+	<property name="root" value="." />
+	<property name="src" value="${root}/src" />
+	<property name="build" value="${root}/build" />
+	<property name="dist" value="${root}/dist" />
+	<property name="conf" value="${root}/conf" />
+	<property name="lib" value="${root}/lib" />
+
+	<property name="jar" value="portecle.jar" />
+	<property name="doc" value="${root}/doc" />
+
+<!--
+	<property name="javadocs" value="${docs}/api" />
+-->
+
+	<path id="build.path">
+		<pathelement path="${classpath}" />
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+	</target>
+
+	<target name="build-classes" depends="init">
+		<javac srcdir="${src}/main" destdir="${build}" source="1.4">
+			<classpath refid="build.path" />
+		</javac>
+	</target>
+
+	<target name="build" depends="build-classes">
+		<jar jarfile="${dist}/${jar}" manifest="${conf}/MANIFEST.MF">
+			<fileset dir="${build}" includes="*/**" />
+			<fileset dir="${src}/main" includes="**/*.properties" />
+			<fileset dir="${src}/main" includes="**/*.gif" />
+			<fileset dir="${root}" includes="doc/**" />
+		</jar>
+		<copy todir="${dist}">
+			<fileset dir="${lib}" includes="*.jar" />
+		</copy>
+	</target>
+
+	<target name="all" depends="build" />
+
+	<target name="clean">
+		<delete dir="${build}" />
+	</target>
+
+	<target name="distclean" depends="clean">
+		<delete dir="${dist}" />
+	</target>
+
+</project>
