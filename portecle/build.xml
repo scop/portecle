@@ -2,7 +2,7 @@
 
 <project name="portecle" basedir="." default="jar">
 
-  <property name="version" value="0.2" />
+  <property name="version" value="0.9" />
   <property name="main.class" value="net.sf.portecle.FPortecle" />
 
   <property file="build.properties" />
@@ -119,7 +119,7 @@
     <mkdir dir="${dist}" />
     <zip destfile="${dist}/portecle-${version}.zip">
       <zipfileset prefix="portecle-${version}"
-        dir="${root}" includes="README.txt,LICENSE.txt" />
+        dir="${root}" includes="README.txt,LICENSE.txt,NEWS.txt" />
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
       <zipfileset prefix="portecle-${version}"
         dir="${src}/icons" includes="portecle.*" />
