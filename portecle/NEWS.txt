@@ -5,6 +5,9 @@ New features:
 - Recognition and decoding support for some additional certificate
   extensions.
 
+Enhancements:
+- Minor user interface improvements here and there.
+
 New in Portecle 0.9 (2004-11-03):
 --------------------------------
 

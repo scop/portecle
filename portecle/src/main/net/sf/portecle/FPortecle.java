@@ -6167,34 +6167,38 @@ public class FPortecle extends JFrame implements StatusBar
         {
             File fKeyStore = m_keyStoreWrap.getKeyStoreFile();
 
-            // A newly created keystore is loaded - display app name
-            // and Untitled string
+            // A newly created keystore is loaded - display Untitled string 
+            // and app name
             if (fKeyStore == null)
             {
                  setTitle(
                      MessageFormat.format(
-                         "{0} - [{1}]",
-                         new Object[]{sAppName,
-                                      m_res.getString("FPortecle.Untitled")}));
+                         "[{0}] - {1}",
+                         new Object[]{
+                             m_res.getString("FPortecle.Untitled"),
+                             sAppName}));
             }
             else
             {
-                // Unsaved keystore loaded - display app name, keystore file
-                // path and '*'
+                // Modified keystore loaded - display keystore file path,
+                // "modified" indicator, and app name
                 if (m_keyStoreWrap.isChanged())
                 {
                     setTitle(
                         MessageFormat.format(
-                            "{0} - [{1} *]",
-                            new Object[]{sAppName, fKeyStore}));
+                            "{0}{1} - {2}",
+                            new Object[]{
+                                fKeyStore,
+                                m_res.getString("FPortecle.Modified"),
+                                sAppName}));
                 }
-                // Saved keystore loaded - display app name, keystore file path
+                // Saved keystore loaded - display keystore file path and app name
                 else
                 {
                     setTitle(
                         MessageFormat.format(
-                            "{0} - [{1}]",
-                            new Object[]{sAppName, fKeyStore}));
+                            "{0} - {1}",
+                            new Object[]{fKeyStore, sAppName}));
                 }
             }
         }
