@@ -172,7 +172,7 @@ class DViewExtensions extends JDialog
 
         // Put the scroll pane into a panel
         m_jpExtensionsTable = new JPanel(new BorderLayout(10, 10));
-        m_jpExtensionsTable.setPreferredSize(new Dimension(350, 200));
+        m_jpExtensionsTable.setPreferredSize(new Dimension(520, 200));
         m_jpExtensionsTable.add(m_jspExtensionsTable, BorderLayout.CENTER);
 
         // Panel to hold Extension Value controls
@@ -189,6 +189,7 @@ class DViewExtensions extends JDialog
         m_jtaExtensionValue.setFont(new Font("Monospaced", Font.PLAIN, m_jtaExtensionValue.getFont().getSize()));
         m_jtaExtensionValue.setEditable(false);
         m_jtaExtensionValue.setToolTipText(m_res.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
+        m_jtaExtensionValue.setTabSize(2);
 
         // Put the text area into a scroll pane
         m_jspExtensionValue = new JScrollPane(m_jtaExtensionValue,
@@ -197,14 +198,14 @@ class DViewExtensions extends JDialog
 
         // Put the scroll pane into a panel
         m_jpExtensionValueTextArea = new JPanel(new BorderLayout(10, 10));
-        m_jpExtensionValueTextArea.setPreferredSize(new Dimension(350, 200));
+        m_jpExtensionValueTextArea.setPreferredSize(new Dimension(520, 200));
         m_jpExtensionValueTextArea.add(m_jspExtensionValue, BorderLayout.CENTER);
 
         // Put text area panel into Extension Value controls panel
         m_jpExtensionValue.add(m_jpExtensionValueTextArea, BorderLayout.CENTER);
 
         // Put Extensions table and Extension Value text area together in extensions panel
-        m_jpExtensions = new JPanel(new GridLayout(1, 2, 5, 5));
+        m_jpExtensions = new JPanel(new GridLayout(2, 1, 5, 5));
         m_jpExtensions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
                                                     new CompoundBorder(new EtchedBorder(),
                                                                        new EmptyBorder(5, 5, 5, 5))));
