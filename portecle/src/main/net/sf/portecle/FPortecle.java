@@ -86,7 +86,8 @@ public class FPortecle extends JFrame implements StatusBar
     private static final int RECENT_FILES_INDEX = EXPERIMENTAL ? 6 : 5;
 
     /** Default look & feel class name */
-    private static final String DEFAULT_LOOK_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
+    private static final String DEFAULT_LOOK_FEEL =
+        UIManager.getCrossPlatformLookAndFeelClassName();
 
     /** Our light metal theme */
     private static final LightMetalTheme METAL_THEME = new LightMetalTheme();
