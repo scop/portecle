@@ -59,14 +59,9 @@ public class LastDir extends Object
      */
     public void updateLastDir(File file)
     {
-        if ((file != null) && (file.exists()))
+        if (file != null && file.exists())
         {
-            if (!file.isDirectory())
-            {
-                file = file.getParentFile();
-            }
-
-            m_fLastDir = file;
+            m_fLastDir = file.isDirectory() ? file : file.getParentFile();
         }
     }
 

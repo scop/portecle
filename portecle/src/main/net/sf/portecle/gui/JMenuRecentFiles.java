@@ -58,12 +58,8 @@ public class JMenuRecentFiles extends JMenu
     {
         super(sTitle);
 
-        if (iLength > MAX_LENGTH)
-        {
-            iLength = MAX_LENGTH;
-        }
-        m_iLength = iLength;
-        m_jmirf = new JMenuItemRecentFile[iLength];
+        m_iLength = iLength > MAX_LENGTH ? MAX_LENGTH : iLength;
+        m_jmirf = new JMenuItemRecentFile[m_iLength];
         m_iIndex = iIndex;
     }
 
