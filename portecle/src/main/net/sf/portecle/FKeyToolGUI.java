@@ -846,10 +846,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         });
         new StatusBarChangeHandler(m_jmiCheckUpdate, m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.statusbar"), this);
 
+        /* Donations disabled for now...
         m_jmiDonate = new JMenuItem(m_donateAction);
         m_jmiDonate.setToolTipText(null);
         new StatusBarChangeHandler(m_jmiDonate, (String)m_donateAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmHelp.add(m_jmiDonate);
+        */
 
         m_jmHelp.addSeparator();
 
@@ -1139,7 +1141,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
         });
 
-        // Create the "help" toolbar button
+        // Create the "donate" toolbar button
+        /* Donations disabled for now...
         m_jbDonate = new JButton();
         m_jbDonate.setAction(m_donateAction);
         m_jbDonate.setText(null); // Don't share text from action
@@ -1157,6 +1160,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 setDefaultStatusBarText();
             }
         });
+        */
 
         // Create the "help" toolbar button
         m_jbHelp = new JButton();
@@ -1209,7 +1213,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         separator3.setMaximumSize(new Dimension(3, 16));
         m_jtbToolBar.add(separator3);
 
+        /* Donations disabled for now...
         m_jtbToolBar.add(m_jbDonate);
+        */
         m_jtbToolBar.add(m_jbHelp);
 
         // Add the toolbar to the frame
