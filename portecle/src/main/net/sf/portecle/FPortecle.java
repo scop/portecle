@@ -5911,7 +5911,6 @@ public class FPortecle extends JFrame implements StatusBar
          */
         public OpenKeyStorePkcs11Action()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.OpenKeyStorePkcs11Action.accelerator").charAt(0), InputEvent.CTRL_MASK));
             putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStorePkcs11Action.statusbar"));
             putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.OpenKeyStorePkcs11Action.mnemonic").charAt(0)));
             putValue(NAME, m_res.getString("FPortecle.OpenKeyStorePkcs11Action.text"));
