@@ -3746,16 +3746,43 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                     UIManager.getLookAndFeel().getClass().getName()) ||
                 bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated())
             {
-                // Yes - save selections to be picked up by app properties save and exit application
-                JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.LookFeelChanged.message"),
-											  m_res.getString("FKeyToolGUI.LookFeelChanged.Title"),
-											  JOptionPane.INFORMATION_MESSAGE);
+                // TODO: offer a choice to keep working without making the
+                // change
 
+                // Yes - save selections to be picked up by app preferences,
                 m_lookFeelOptions = lookFeelInfo;
                 m_bLookFeelDecorationOptions =
                     Boolean.valueOf(bLookFeelDecoration);
 
-                exitApplication();
+                if (Boolean.getBoolean("portecle.experimental")) {
+                    saveAppPrefs();
+                    setVisible(false);
+                    MetalLookAndFeel.setCurrentTheme(METAL_THEME);
+                    /* Can't get these to apply on the fly ???
+                    JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
+                    JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
+                    */
+                    try {
+                        UIManager.setLookAndFeel(lookFeelInfo.getClassName());
+                        SwingUtilities.updateComponentTreeUI(getRootPane());
+                        pack();
+                    }
+                    catch (Exception e) {
+                        displayException(e);
+                    }
+                    finally {
+                        setVisible(true);
+                    }
+                }
+                else {
+                    // Save and exit application
+                    JOptionPane.showMessageDialog(
+                        this,
+                        m_res.getString("FKeyToolGUI.LookFeelChanged.message"),
+                        m_res.getString("FKeyToolGUI.LookFeelChanged.Title"),
+                        JOptionPane.INFORMATION_MESSAGE);
+                    exitApplication();
+                }
             }
         }
     }
