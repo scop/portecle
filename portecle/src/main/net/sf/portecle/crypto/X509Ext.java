@@ -198,6 +198,9 @@ public class X509Ext extends Object
     /** Netscape Comment OID */
     private static final String NETSCAPE_COMMENT_OID = "2.16.840.1.113730.1.13";
 
+    /** D&B D-U-N-S number OID */
+    private static final String DNB_DUNS_NUMBER_OID = "2.16.840.1.113733.1.6.15";
+
     /////////////////////////////////////////////
     // Reason codes (2.5.29.21)
     /////////////////////////////////////////////
@@ -617,6 +620,10 @@ public class X509Ext extends Object
                  (m_sOid.equals(NETSCAPE_COMMENT_OID)))
         {
             return getNonNetscapeCertificateTypeStringValue(bOctets);
+        }
+        else if (m_sOid.equals(DNB_DUNS_NUMBER_OID))
+        {
+            return getDnBDUNSNumberStringValue(bOctets);
         }
 
         // Don't know how to process the extension
