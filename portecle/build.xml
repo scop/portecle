@@ -4,9 +4,15 @@
 
   <property name="version" value="0.2" />
   <property name="main.class" value="net.sf.portecle.FPortecle" />
-  <property name="jar.classpath" value="bcprov.jar metouia.jar kunststoff.jar gtkswing.jar" />
 
   <property file="build.properties" />
+
+  <!--
+  To build portecle.jar with no Class-Path MANIFEST.MF attribute,
+  set jar.classpath to an empty value in build.properties or command line.
+  -->
+  <property name="jar.classpath"
+    value="bcprov.jar metouia.jar kunststoff.jar gtkswing.jar" />
 
   <property name="root" value="." />
   <property name="src" value="${root}/src" />
@@ -53,13 +59,12 @@
     </copy>
   </target>
 
-  <target name="build" depends="build-classes">
+  <target name="jar" depends="build-classes">
     <mkdir dir="${dist}" />
     <!-- Indexing breaks "java -jar" (Class-Path ignored). -->
     <jar jarfile="${dist}/${jar}" index="false">
       <manifest>
         <attribute name="Main-Class" value="${main.class}" />
-        <attribute name="Class-Path" value="${jar.classpath}" />
         <attribute name="Implementation-Title" value="Portecle" />
         <attribute name="Implementation-Version" value="${version}" />
         <attribute name="Implementation-Vendor" value="The Portecle Project" />
@@ -68,9 +73,25 @@
       </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
     </jar>
+    <condition property="jar.classpath.set">
+      <and>
+        <isset property="jar.classpath" />
+        <not><equals arg1="${jar.classpath}" arg2="" trim="true" /></not>
+      </and>
+    </condition>
+    <antcall target="jar-classpath" />
     <copy todir="${dist}">
       <fileset dir="${lib}" includes="*.jar" />
     </copy>
+  </target>
+
+  <!-- Internal: updates jar's Class-Path if jar.classpath is set. -->
+  <target name="jar-classpath" if="jar.classpath.set">
+    <jar jarfile="${dist}/${jar}" update="true">
+      <manifest>
+        <attribute name="Class-Path" value="${jar.classpath}" />
+      </manifest>
+    </jar>
   </target>
 
   <target name="javadoc">
@@ -85,7 +106,7 @@
     </javadoc>
   </target>
 
-  <target name="run" depends="build" description="Runs Portecle">
+  <target name="run" depends="jar" description="Runs Portecle">
     <!-- TODO: command line args -->
     <java fork="true" classname="${main.class}">
       <sysproperty key="portecle.experimental" value="true" />
@@ -95,7 +116,7 @@
     </java>
   </target>
 
-  <target name="all" depends="build,javadoc"
+  <target name="all" depends="jar,javadoc"
     description="Builds everything" />
 
   <target name="antic">
