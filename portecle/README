@@ -47,6 +47,16 @@ can run Portecle like so:
 
   java -jar /portecle/portecle.jar
 
+1.3 Experimental Features
+-------------------------
+
+Portecle releases may contain experimental features that are not enabled
+by default.  These have known limitations or incomplete implementations
+that make them unsuitable for production use, but they may be valuable for
+early adopters.  To enable these features, use "-Dportecle.experimental=true"
+in your Portecle invocation command line.  See the file NEWS for information
+about status of current experimental features.
+
 2 Copyright and License
 -----------------------
 Copyright © 2004 Wayne Grant

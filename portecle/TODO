@@ -1,8 +1,7 @@
 TODO for next version (0.2):
 - UI + docs for setting the "show splash screen" option
-- Mention portecle.experimental somewhere
 - Improve browserlauncher to work better on recent Linux/Unix.
-- Add ChangeLog/NEWS.
+- Add ChangeLog/NEWS (remember to include experimental stuff).
 - Add dist/srcdist targets.
 - Add option for building without Class-Path in MANIFEST.MF.
 - Parametrize location to bcprov.jar.
