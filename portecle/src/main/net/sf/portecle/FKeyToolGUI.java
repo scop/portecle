@@ -201,7 +201,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** KeyTool GUI Email menu item of Online Resources menu */
     private JMenuItem m_jmiEmail;
 
-    /** KeyTool GUI Mailing List menu item of Online Resources menu */
+    /** Portecle Mailing Lists menu item of Online Resources menu */
     private JMenuItem m_jmiMailList;
 
     /** Check for Update menu item of Online Resources menu */
@@ -3239,7 +3239,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Display Portecle mailing list signup page at SourceForge.net.
+     * Display Portecle mailing lists' signup page at SourceForge.net.
      */
     private void visitMailListSignup()
     {
