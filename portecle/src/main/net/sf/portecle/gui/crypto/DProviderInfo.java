@@ -251,10 +251,11 @@ public class DProviderInfo extends JDialog
             strBuff.append('\n');
 
             // ...and it's properties
-            for (Enumeration en = provider.propertyNames();
-                 en.hasMoreElements();)
+            // Use a TreeSet for sorting the properties.
+            for (Iterator i = new TreeSet(provider.keySet()).iterator();
+                 i.hasNext(); )
             {
-                String sKey = (String) en.nextElement();
+                String sKey = (String) i.next();
                 String sValue = provider.getProperty(sKey);
 
                 strBuff.append('\t');
