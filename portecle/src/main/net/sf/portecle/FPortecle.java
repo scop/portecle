@@ -493,9 +493,7 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Set its icon
-        setIconImage(Toolkit.getDefaultToolkit().createImage(
-                         getClass().getResource(
-                             m_res.getString("FPortecle.Icon.image"))));
+        setIconImage(getResImage("FPortecle.Icon.image"));
     }
 
     /**
@@ -563,11 +561,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString(
                 "FPortecle.m_jmiSaveKeyStoreAs.mnemonic").charAt(0));
         m_jmiSaveKeyStoreAs.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiSaveKeyStoreAs.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiSaveKeyStoreAs.image")));
         m_jmiSaveKeyStoreAs.setEnabled(false);
         m_jmrfFile.add(m_jmiSaveKeyStoreAs);
         m_jmiSaveKeyStoreAs.addActionListener(new ActionListener()
@@ -608,10 +602,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiExit.text"),
             m_res.getString("FPortecle.m_jmiExit.mnemonic").charAt(0));
         m_jmiExit.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiExit.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiExit.image")));
         m_jmrfFile.add(m_jmiExit);
         m_jmiExit.addActionListener(new ActionListener()
         {
@@ -674,10 +665,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmChangeKeyStoreType.text"));
         m_jmChangeKeyStoreType.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmChangeKeyStoreType.image")))));
+                getResImage("FPortecle.m_jmChangeKeyStoreType.image")));
         m_jmChangeKeyStoreType.setMnemonic(
             m_res.getString(
                 "FPortecle.m_jmChangeKeyStoreType.mnemonic").charAt(0));
@@ -836,10 +824,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiOptions.text"),
             m_res.getString("FPortecle.m_jmiOptions.mnemonic").charAt(0));
         m_jmiOptions.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiOptions.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiOptions.image")));
         m_jmTools.add(m_jmiOptions);
         m_jmiOptions.addActionListener(new ActionListener()
         {
@@ -907,11 +892,7 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmOnlineResources =
             new JMenu(m_res.getString("FPortecle.m_jmOnlineResources.text"));
         m_jmOnlineResources.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmOnlineResources.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmOnlineResources.image")));
         m_jmOnlineResources.setMnemonic(
             m_res.getString(
                 "FPortecle.m_jmOnlineResources.mnemonic").charAt(0));
@@ -921,10 +902,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiWebsite.text"),
             m_res.getString("FPortecle.m_jmiWebsite.mnemonic").charAt(0));
         m_jmiWebsite.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiWebsite.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiWebsite.image")));
         m_jmOnlineResources.add(m_jmiWebsite);
         m_jmiWebsite.addActionListener(new ActionListener()
         {
@@ -950,11 +928,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiSFNetProject.text"),
             m_res.getString("FPortecle.m_jmiSFNetProject.mnemonic").charAt(0));
         m_jmiSFNetProject.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiSFNetProject.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiSFNetProject.image")));
         m_jmOnlineResources.add(m_jmiSFNetProject);
         m_jmiSFNetProject.addActionListener(new ActionListener()
         {
@@ -981,10 +955,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiEmail.text"),
             m_res.getString("FPortecle.m_jmiEmail.mnemonic").charAt(0));
         m_jmiEmail.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiEmail.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiEmail.image")));
         m_jmOnlineResources.add(m_jmiEmail);
         m_jmiEmail.addActionListener(new ActionListener()
         {
@@ -1010,10 +981,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiMailList.text"),
             m_res.getString("FPortecle.m_jmiMailList.mnemonic").charAt(0));
         m_jmiMailList.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiMailList.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiMailList.image")));
         m_jmOnlineResources.add(m_jmiMailList);
         m_jmiMailList.addActionListener(new ActionListener()
         {
@@ -1041,11 +1009,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiCheckUpdate.text"),
             m_res.getString("FPortecle.m_jmiCheckUpdate.mnemonic").charAt(0));
         m_jmiCheckUpdate.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiCheckUpdate.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiCheckUpdate.image")));
         m_jmOnlineResources.add(m_jmiCheckUpdate);
         m_jmiCheckUpdate.addActionListener(new ActionListener()
         {
@@ -1086,10 +1050,7 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiSecurityProviders.mnemonic").charAt(0));
         m_jmiSecurityProviders.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiSecurityProviders.image")))));
+                getResImage("FPortecle.m_jmiSecurityProviders.image")));
         m_jmHelp.add(m_jmiSecurityProviders);
         m_jmiSecurityProviders.addActionListener(new ActionListener()
         {
@@ -1116,10 +1077,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiJars.text"),
             m_res.getString("FPortecle.m_jmiJars.mnemonic").charAt(0));
         m_jmiJars.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiJars.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiJars.image")));
         m_jmHelp.add(m_jmiJars);
         m_jmiJars.addActionListener(new ActionListener()
         {
@@ -1145,10 +1103,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiAbout.text"),
             m_res.getString("FPortecle.m_jmiAbout.mnemonic").charAt(0));
         m_jmiAbout.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiAbout.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiAbout.image")));
         m_jmHelp.add(m_jmiAbout);
         m_jmiAbout.addActionListener(new ActionListener()
         {
@@ -1190,10 +1145,7 @@ public class FPortecle extends JFrame implements StatusBar
     {
         JMenuItemRecentFile jmirfNew = new JMenuItemRecentFile(fRecentFile);
         jmirfNew.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.OpenRecent.image")))));
+            new ImageIcon(getResImage("FPortecle.OpenRecent.image")));
         jmirfNew.addActionListener(
             new RecentKeyStoreFileActionListener(fRecentFile, this));
 
@@ -1658,10 +1610,7 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiKeyPairCertDetails.mnemonic").charAt(0));
         m_jmiKeyPairCertDetails.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiKeyPairCertDetails.image")))));
+                getResImage("FPortecle.m_jmiKeyPairCertDetails.image")));
         m_jmiKeyPairCertDetails.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1688,11 +1637,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString(
                 "FPortecle.m_jmiKeyPairExport.mnemonic").charAt(0));
         m_jmiKeyPairExport.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiKeyPairExport.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiKeyPairExport.image")));
 
         m_jmiKeyPairExport.addActionListener(new ActionListener()
         {
@@ -1720,11 +1665,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiGenerateCSR.text"),
             m_res.getString("FPortecle.m_jmiGenerateCSR.mnemonic").charAt(0));
         m_jmiGenerateCSR.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiGenerateCSR.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiGenerateCSR.image")));
         m_jmiGenerateCSR.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1751,11 +1692,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString(
                 "FPortecle.m_jmiImportCAReply.mnemonic").charAt(0));
         m_jmiImportCAReply.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiImportCAReply.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiImportCAReply.image")));
         m_jmiImportCAReply.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1782,11 +1719,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString(
                 "FPortecle.m_jmiSetKeyPairPass.mnemonic").charAt(0));
         m_jmiSetKeyPairPass.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiSetKeyPairPass.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiSetKeyPairPass.image")));
         m_jmiSetKeyPairPass.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1813,11 +1746,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString(
                 "FPortecle.m_jmiKeyPairDelete.mnemonic").charAt(0));
         m_jmiKeyPairDelete.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiKeyPairDelete.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiKeyPairDelete.image")));
         m_jmiKeyPairDelete.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1843,10 +1772,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiClone.text"),
             m_res.getString("FPortecle.m_jmiClone.mnemonic").charAt(0));
         m_jmiClone.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FPortecle.m_jmiClone.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiClone.image")));
         m_jmiClone.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1873,11 +1799,7 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString(
                 "FPortecle.m_jmiKeyPairRename.mnemonic").charAt(0));
         m_jmiKeyPairRename.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiKeyPairRename.image")))));
+            new ImageIcon(getResImage("FPortecle.m_jmiKeyPairRename.image")));
         m_jmiKeyPairRename.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1920,10 +1842,7 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiTrustCertDetails.mnemonic").charAt(0));
         m_jmiTrustCertDetails.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiTrustCertDetails.image")))));
+                getResImage("FPortecle.m_jmiTrustCertDetails.image")));
         m_jmiTrustCertDetails.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1951,10 +1870,7 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmTrustCertExport.mnemonic").charAt(0));
         m_jmiTrustCertExport.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiTrustCertExport.image")))));
+                getResImage("FPortecle.m_jmiTrustCertExport.image")));
         m_jmiTrustCertExport.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1982,10 +1898,7 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiTrustCertDelete.mnemonic").charAt(0));
         m_jmiTrustCertDelete.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiTrustCertDelete.image")))));
+                getResImage("FPortecle.m_jmiTrustCertDelete.image")));
         m_jmiTrustCertDelete.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -2013,10 +1926,7 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiTrustCertRename.mnemonic").charAt(0));
         m_jmiTrustCertRename.setIcon(
             new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString(
-                            "FPortecle.m_jmiTrustCertRename.image")))));
+                getResImage("FPortecle.m_jmiTrustCertRename.image")));
         m_jmiTrustCertRename.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -6666,6 +6576,18 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
+     * Gets a resource image.
+     *
+     * @param key the image's key
+     * @return the Image corresponding to the key
+     */
+    private Image getResImage(String key)
+    {
+        return Toolkit.getDefaultToolkit().createImage(
+            getClass().getResource(m_res.getString(key)));
+    }
+
+    /**
      * Action to create a new KeyStore.
      */
     private class NewKeyStoreAction extends AbstractAction
@@ -6690,10 +6612,7 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION, m_res.getString(
                          "FPortecle.NewKeyStoreAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.NewKeyStoreAction.image")))));
+                         getResImage("FPortecle.NewKeyStoreAction.image")));
             setEnabled(true);
         }
 
@@ -6743,10 +6662,7 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION, m_res.getString(
                          "FPortecle.SaveKeyStoreAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.SaveKeyStoreAction.image")))));
+                         getResImage("FPortecle.SaveKeyStoreAction.image")));
             setEnabled(false);
         }
 
@@ -6796,11 +6712,8 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION, m_res.getString(
                          "FPortecle.OpenKeyStoreFileAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.OpenKeyStoreFileAction.image"
-                                     )))));
+                         getResImage(
+                             "FPortecle.OpenKeyStoreFileAction.image")));
             setEnabled(true);
         }
 
@@ -6846,11 +6759,8 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION, m_res.getString(
                          "FPortecle.OpenKeyStorePkcs11Action.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.OpenKeyStorePkcs11Action.image"
-                                     )))));
+                         getResImage(
+                             "FPortecle.OpenKeyStorePkcs11Action.image")));
             setEnabled(true);
         }
 
@@ -6899,10 +6809,7 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION,
                      m_res.getString("FPortecle.GenKeyPairAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.GenKeyPairAction.image")))));
+                         getResImage("FPortecle.GenKeyPairAction.image")));
             setEnabled(false);
         }
 
@@ -6952,11 +6859,8 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION, m_res.getString(
                          "FPortecle.ImportTrustCertAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.ImportTrustCertAction.image"
-                                     )))));
+                         getResImage(
+                             "FPortecle.ImportTrustCertAction.image")));
             setEnabled(false);
         }
 
@@ -7006,11 +6910,7 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION,
                      m_res.getString("FPortecle.ImportKeyPairAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.ImportKeyPairAction.image"
-                                     )))));
+                         getResImage("FPortecle.ImportKeyPairAction.image")));
             setEnabled(false);
         }
 
@@ -7061,11 +6961,8 @@ public class FPortecle extends JFrame implements StatusBar
                      m_res.getString(
                          "FPortecle.SetKeyStorePassAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.SetKeyStorePassAction.image"
-                                     )))));
+                         getResImage(
+                             "FPortecle.SetKeyStorePassAction.image")));
             setEnabled(false);
         }
 
@@ -7117,11 +7014,7 @@ public class FPortecle extends JFrame implements StatusBar
                      m_res.getString(
                          "FPortecle.KeyStoreReportAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.KeyStoreReportAction.image"
-                                     )))));
+                         getResImage("FPortecle.KeyStoreReportAction.image")));
             setEnabled(false);
         }
 
@@ -7171,10 +7064,7 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION,
                      m_res.getString("FPortecle.ExamineCertAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.ExamineCertAction.image")))));
+                         getResImage("FPortecle.ExamineCertAction.image")));
             setEnabled(true);
         }
 
@@ -7226,11 +7116,7 @@ public class FPortecle extends JFrame implements StatusBar
                      m_res.getString(
                          "FPortecle.ExamineCertSSLAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.ExamineCertSSLAction.image"
-                                     )))));
+                         getResImage("FPortecle.ExamineCertSSLAction.image")));
             setEnabled(true);
         }
 
@@ -7280,10 +7166,7 @@ public class FPortecle extends JFrame implements StatusBar
                      m_res.getString("FPortecle.ExamineCrlAction.tooltip"));
             putValue(SMALL_ICON,
                      new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.ExamineCrlAction.image")))));
+                         getResImage("FPortecle.ExamineCrlAction.image")));
             setEnabled(true);
         }
 
@@ -7328,10 +7211,7 @@ public class FPortecle extends JFrame implements StatusBar
             putValue(SHORT_DESCRIPTION,
                      m_res.getString("FPortecle.DonateAction.tooltip"));
             putValue(SMALL_ICON, new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.DonateAction.image")))));
+                         getResImage("FPortecle.DonateAction.image")));
             setEnabled(true);
         }
 
@@ -7379,10 +7259,7 @@ public class FPortecle extends JFrame implements StatusBar
                      m_res.getString("FPortecle.HelpAction.tooltip"));
             putValue(SMALL_ICON,
                      new ImageIcon(
-                         Toolkit.getDefaultToolkit().createImage(
-                             getClass().getResource(
-                                 m_res.getString(
-                                     "FPortecle.HelpAction.image")))));
+                         getResImage("FPortecle.HelpAction.image")));
             setEnabled(true);
         }
 
@@ -7481,7 +7358,10 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Create and display a splash screen
-        WSplash wSplash = new WSplash(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource(m_res.getString("FPortecle.Splash.image"))), 3000);
+        WSplash wSplash = new WSplash(
+            Toolkit.getDefaultToolkit().createImage(
+                ClassLoader.getSystemResource(
+                    m_res.getString("FPortecle.Splash.image"))), 3000);
 
         // Wait for the splash screen to disappear
         while (wSplash.isVisible())
