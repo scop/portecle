@@ -28,7 +28,6 @@
     <module name="RedundantModifier" />
 
     <!-- Coding problems -->
-    <module name="ArrayTrailingComma" />
     <module name="CovariantEquals" />
     <module name="DeclarationOrder" />
     <module name="DefaultComesLast" />
@@ -44,7 +43,6 @@
     <module name="InnerAssignment" />
     <module name="MissingCtor" />
     <module name="MissingSwitchDefault" />
-    <module name="MultipleVariableDeclarations" />
     <module name="PackageDeclaration" />
     <module name="ParameterAssignment" />
     <module name="RedundantThrows" />
