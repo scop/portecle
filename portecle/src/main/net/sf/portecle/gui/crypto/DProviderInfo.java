@@ -218,9 +218,9 @@ public class DProviderInfo extends JDialog
             strBuff.append('\n');
 
             // ...and it's properties
-            for (Enumeration enum = provider.propertyNames(); enum.hasMoreElements();)
+            for (Enumeration en = provider.propertyNames(); en.hasMoreElements();)
             {
-                String sKey = (String)enum.nextElement();
+                String sKey = (String) en.nextElement();
                 String sValue = provider.getProperty(sKey);
 
                 strBuff.append('\t');

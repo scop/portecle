@@ -825,14 +825,11 @@ public final class X509CertUtil extends Object
     {
         try
         {
-            // For each KeyStore certificate...
-            Enumeration enum = keyStore.aliases();
-
             Vector vCerts = new Vector();
 
-            while (enum.hasMoreElements())
+            for (Enumeration en = keyStore.aliases(); en.hasMoreElements(); )
             {
-                String sAlias = (String)enum.nextElement();
+                String sAlias = (String) en.nextElement();
 
                 if (keyStore.isCertificateEntry(sAlias))
                 {
@@ -863,11 +860,9 @@ public final class X509CertUtil extends Object
     {
         try
         {
-            Enumeration enum = keyStore.aliases();
-
-            while (enum.hasMoreElements())
+            for (Enumeration en = keyStore.aliases(); en.hasMoreElements(); )
             {
-                String sAlias = (String)enum.nextElement();
+                String sAlias = (String) en.nextElement();
                 if (keyStore.isCertificateEntry(sAlias))
                 {
                     X509Certificate compCert = X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias));

@@ -238,11 +238,10 @@ public class History
                 listenersCopy = (Vector)listeners.clone();
             }
 
-            Enumeration enum = listenersCopy.elements();
-
-            while (enum.hasMoreElements())
+            Enumeration en = listenersCopy.elements();
+            while (en.hasMoreElements())
             {
-                ((HistoryEventListener)enum.nextElement()).historyStatusChanged(evt);
+                ((HistoryEventListener) en.nextElement()).historyStatusChanged(evt);
             }
         }
     }
