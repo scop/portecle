@@ -25,7 +25,7 @@ package net.sf.portecle;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
 
 import net.sf.portecle.gui.FileExtFilter;
 

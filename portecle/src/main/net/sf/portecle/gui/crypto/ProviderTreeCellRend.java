@@ -24,8 +24,12 @@ package net.sf.portecle.gui.crypto;
 import java.awt.Component;
 import java.util.ResourceBundle;
 
-import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeNode;
 
 /**
  * Custom cell renderer for the cells of the DProviderInfo tree.

@@ -22,9 +22,13 @@
 package net.sf.portecle;
 
 import java.security.cert.X509Extension;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeMap;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 import net.sf.portecle.crypto.X509Ext;
 

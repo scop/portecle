@@ -21,9 +21,14 @@
 
 package net.sf.portecle.gui.about;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.TreeMap;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 /**
  * The table model used to System Properties.

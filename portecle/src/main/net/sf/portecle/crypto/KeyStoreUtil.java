@@ -22,8 +22,14 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.*;
-import java.security.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+import java.security.Security;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 

@@ -21,9 +21,9 @@
 
 package net.sf.portecle;
 
-import java.io.*;
-import java.security.*;
-import java.util.*;
+import java.io.File;
+import java.security.KeyStore;
+import java.util.Vector;
 
 /**
  * Wrapper class for a KeyStore.  Used to keep a track of the KeyStore's

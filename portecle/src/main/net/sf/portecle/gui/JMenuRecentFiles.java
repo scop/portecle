@@ -21,10 +21,10 @@
 
 package net.sf.portecle.gui;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JMenu;
 
 /**
  * Menu with Recent File List capability, ie a list of files where the

@@ -21,11 +21,14 @@
 
 package net.sf.portecle.gui.jar;
 
-import java.awt.*;
+import java.awt.Component;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  * Custom cell renderer for the headers of the JAR Information table

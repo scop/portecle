@@ -21,10 +21,11 @@
 
 package net.sf.portecle;
 
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
  * ActionListener intended for use with the

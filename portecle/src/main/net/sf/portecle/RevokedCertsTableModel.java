@@ -21,10 +21,13 @@
 
 package net.sf.portecle;
 
-import java.security.cert.*;
-import java.util.*;
+import java.security.cert.X509CRLEntry;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.TreeMap;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 /**
  * The table model used to display an array of X.509 CRL entries

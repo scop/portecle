@@ -21,12 +21,15 @@
 
 package net.sf.portecle.gui.jar;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.*;
-import java.util.jar.*;
+import java.util.ResourceBundle;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 /**
  * The table model used to display information about JAR files.

@@ -24,8 +24,11 @@ package net.sf.portecle.gui.error;
 import java.awt.Component;
 import java.util.ResourceBundle;
 
-import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**
  * Custom cell renderer for the cells of the DThrowableDetail tree.

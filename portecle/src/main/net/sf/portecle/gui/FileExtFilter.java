@@ -21,7 +21,7 @@
 
 package net.sf.portecle.gui;
 
-import java.io.*;
+import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 

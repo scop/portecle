@@ -21,7 +21,7 @@
 
 package net.sf.portecle.gui;
 
-import java.io.*;
+import java.io.File;
 
 /**
  * Simple class intended to store the last accessed directory for a file

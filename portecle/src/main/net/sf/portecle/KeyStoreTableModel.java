@@ -21,10 +21,15 @@
 
 package net.sf.portecle;
 
-import java.security.*;
-import java.util.*;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.TreeMap;
 
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyStoreType;
