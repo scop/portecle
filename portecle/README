@@ -47,8 +47,12 @@ can run Portecle like so:
 
   java -jar /portecle/portecle.jar
 
-2 License
----------
+2 Copyright and License
+-----------------------
+Copyright © 2004 Wayne Grant
+            2004 Mark Majczyk
+            2004 Ville Skyttä
+
 This software is available under the terms laid out in the GNU General Public
 License.  This makes it free for you to use and modify if you so wish.  As per
 the terms and conditions of the aforementioned license this program is
