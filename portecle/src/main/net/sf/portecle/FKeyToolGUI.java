@@ -5202,11 +5202,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
 
             String sType = ksLoaded.getType();
-
-            // If type is "PKCS12" use the more friendly type name "PKCS #12"
-            if (sType.equals(KeyStoreType.PKCS12.toString()))
-            {
-                sType = "PKCS #12";
+            try {
+                sType = KeyStoreType.getInstance(sType).toPrettyString();
+            }
+            catch (CryptoException e) {
+                // Ignore
             }
 
             if (iSize == 1)
