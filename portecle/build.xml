@@ -49,7 +49,7 @@
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.gif" />
       <fileset dir="${root}" includes="doc/**"
-        excludes="doc/index.html doc/**/keytool.png" />
+        excludes="doc/index.html doc/**/keytool.png doc/.htaccess doc/favicon.ico" />
     </copy>
   </target>
 
