@@ -5606,29 +5606,6 @@ public class FPortecle extends JFrame implements StatusBar
 
 
     /**
-     * Get the application's default properties.
-     *
-     * @return The application's default properties
-     */
-    private static Properties getDefaultAppProps()
-    {
-        Properties defaultAppProps = new Properties();
-
-        defaultAppProps.setProperty(m_res.getString("AppProps.Property.UseCaCerts"), Boolean.toString(false));
-
-        String sJavaInstallDir = System.getProperty("java.home");
-        String sFileSep = System.getProperty("file.separator");
-        defaultAppProps.setProperty(m_res.getString("AppProps.Property.CaCertsFile"),
-                                    new File(sJavaInstallDir, "lib" + sFileSep +
-                                             "security" + sFileSep + "cacerts").toString());
-
-        defaultAppProps.setProperty(m_res.getString("AppProps.Property.LookFeel"), FPortecle.DEFAULT_LOOK_FEEL);
-        defaultAppProps.setProperty(m_res.getString("AppProps.Property.LookFeelDecor"), Boolean.toString(false));
-
-        return defaultAppProps;
-    }
-
-    /**
      * Check that a JRE with at least version 1.4.0 is being used.
      *
      * @return True if this is the case, false otherwise
