@@ -640,6 +640,41 @@ public class X509Ext extends Object
         }
     }
 
+
+    /**
+     * Get unknown OID extension value as a string.
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string (hex/clear text dump)
+     * @throws IOException If an I/O error occurs
+     */
+    private String getUnknownOidStringValue(byte[] bValue) throws IOException
+    {
+        ByteArrayInputStream bais = null;
+        int nBytes = 16; // how many bytes to show per line
+
+        try {
+            // Divide dump into 16 byte lines
+            StringBuffer strBuff = new StringBuffer();
+
+            bais = new ByteArrayInputStream(bValue);
+            byte[] bLine = new byte[nBytes];
+            int iRead = -1;
+
+            while ((iRead = bais.read(bLine)) != -1)
+            {
+                strBuff.append(getHexClearDump(bLine, iRead));
+            }
+
+            return strBuff.toString();
+        }
+        finally {
+            try { if (bais != null)  bais.close(); }
+            catch (IOException ex) { /* Ignore */ }
+        }
+    }
+
+
     /**
      * Get Subject Key Indentifier (2.5.29.14) extension value as a string.
      *
