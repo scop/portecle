@@ -909,24 +909,16 @@ public final class X509CertUtil
                     // Otherwise try and establish a chain of trust for
                     // the comparison certificate against the other comparison
                     // certificates
-                    else
-                    {
-                        X509Certificate[] tmpChain =
-                            establishTrust(vCompCerts, compCert);
-                        if (tmpChain != null)
-                        {
-                            X509Certificate[] trustChain =
-                                new X509Certificate[tmpChain.length + 1];
-
-                            trustChain[0] = cert;
-
-                            for (int j=1; j <= tmpChain.length; j++)
-                            {
-                                trustChain[j] = tmpChain[j-1];
-                            }
-
-                            return trustChain;
+                    X509Certificate[] tmpChain =
+                        establishTrust(vCompCerts, compCert);
+                    if (tmpChain != null) {
+                        X509Certificate[] trustChain =
+                            new X509Certificate[tmpChain.length + 1];
+                        trustChain[0] = cert;
+                        for (int j = 1; j <= tmpChain.length; j++) {
+                            trustChain[j] = tmpChain[j-1];
                         }
+                        return trustChain;
                     }
                 }
             }
@@ -1072,20 +1064,17 @@ public final class X509CertUtil
         }
 
         // Self-signed certificate or could not get an issuer CN
-        if ((subject.equals(issuer)) || (sIssuerCN.length() == 0))
-        {
+        if (subject.equals(issuer) || sIssuerCN.length() == 0) {
             // Alias is the subject CN
             return sSubjectCN;
         }
-        // Non-self-signed certificate
-        else
-        {
-            // Alias is the subject CN followed by the issuer CN in brackets
-            return MessageFormat.format("{0} ({1})",
-                                        new String[]{sSubjectCN, sIssuerCN});
-        }
+        // else non-self-signed certificate
+        // Alias is the subject CN followed by the issuer CN in brackets
+        return MessageFormat.format("{0} ({1})",
+                new String[]{sSubjectCN, sIssuerCN});
     }
 
+    
     /**
      * For a given X.509 certificate get the keysize of its public key.
      *

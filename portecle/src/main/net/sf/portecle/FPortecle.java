@@ -2875,11 +2875,9 @@ public class FPortecle extends JFrame implements StatusBar
 
         m_lastDir.updateLastDir(fCertFile);
 
-        try
-        {
+        try {
             // If there are any display the view certificate dialog with them
-            if (certs != null && certs.length != 0)
-            {
+            if (certs != null && certs.length != 0) {
                 DViewCertificate dViewCertificate = new DViewCertificate(
                     this,
                     MessageFormat.format(
@@ -2891,13 +2889,9 @@ public class FPortecle extends JFrame implements StatusBar
                 dViewCertificate.setVisible(true);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
-        catch (CryptoException ex)
-        {
+        catch (CryptoException ex) {
             displayException(ex);
             return false;
         }
@@ -2977,8 +2971,7 @@ public class FPortecle extends JFrame implements StatusBar
         try
         {
             // If there are any display the view certificate dialog with them
-            if (certs != null && certs.length != 0)
-            {
+            if (certs != null && certs.length != 0) {
                 DViewCertificate dViewCertificate = new DViewCertificate(
                     this,
                     MessageFormat.format(
@@ -2990,10 +2983,7 @@ public class FPortecle extends JFrame implements StatusBar
                 dViewCertificate.setVisible(true);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         catch (CryptoException ex)
         {
@@ -3023,8 +3013,7 @@ public class FPortecle extends JFrame implements StatusBar
         m_lastDir.updateLastDir(fCRLFile);
 
         // If a CRL is available then diaply the view CRL dialog with it
-        if (crl != null)
-        {
+        if (crl != null) {
             DViewCRL dViewCRL = new DViewCRL(
                 this,
                 MessageFormat.format(
@@ -3036,10 +3025,7 @@ public class FPortecle extends JFrame implements StatusBar
             dViewCRL.setVisible(true);
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -6440,8 +6426,7 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // JRE version < 1.4.0
-        if (actualJreVersion.compareTo(reqJreVersion) < 0)
-        {
+        if (actualJreVersion.compareTo(reqJreVersion) < 0) {
             // It isn't - warn the user and exit
             String sMessage = MessageFormat.format(
                 m_res.getString("FPortecle.MinJreVersionReq.message"),
@@ -6452,13 +6437,11 @@ public class FPortecle extends JFrame implements StatusBar
                                           JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        else
-        {
-            // JRE version => 1.4.0
-            return true;
-        }
+        // else JRE version => 1.4.0
+        return true;
     }
 
+    
     /**
      * Exit the application.
      */

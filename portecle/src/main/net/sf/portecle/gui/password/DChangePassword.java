@@ -268,21 +268,17 @@ public class DChangePassword extends JDialog
         String sFirstPassword = new String(m_jpfFirst.getPassword());
         String sConfirmPassword = new String(m_jpfConfirm.getPassword());
 
-        if (sFirstPassword.equals(sConfirmPassword))
-        {
-            if (m_cOldPassword == null)
-            {
+        if (sFirstPassword.equals(sConfirmPassword)) {
+            if (m_cOldPassword == null) {
                 m_cOldPassword = sOldPassword.toCharArray();
             }
             m_cNewPassword = sFirstPassword.toCharArray();
             return true;
         }
-        else
-        {
-            JOptionPane.showMessageDialog(
-                this, m_res.getString("PasswordsNoMatch.message"),
-                getTitle(), JOptionPane.WARNING_MESSAGE);
-        }
+
+        JOptionPane.showMessageDialog(
+            this, m_res.getString("PasswordsNoMatch.message"),
+            getTitle(), JOptionPane.WARNING_MESSAGE);
 
         return false;
     }

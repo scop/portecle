@@ -219,17 +219,14 @@ public class DGetNewPassword extends JDialog
         String sFirstPassword = new String(m_jpfFirst.getPassword());
         String sConfirmPassword = new String(m_jpfConfirm.getPassword());
 
-        if (sFirstPassword.equals(sConfirmPassword))
-        {
+        if (sFirstPassword.equals(sConfirmPassword)) {
             m_cPassword = sFirstPassword.toCharArray();
             return true;
         }
-        else
-        {
-            JOptionPane.showMessageDialog(
-                this, m_res.getString("PasswordsNoMatch.message"),
-                getTitle(), JOptionPane.WARNING_MESSAGE);
-        }
+
+        JOptionPane.showMessageDialog(
+        	this, m_res.getString("PasswordsNoMatch.message"),
+			getTitle(), JOptionPane.WARNING_MESSAGE);
 
         return false;
     }

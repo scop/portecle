@@ -187,17 +187,14 @@ class DGetAlias extends JDialog
     {
         String sAlias = new String(m_jtfAlias.getText().trim().toLowerCase());
 
-        if (sAlias.length() > 0)
-        {
+        if (sAlias.length() > 0) {
             m_sAlias = m_jtfAlias.getText().trim();
             return true;
         }
-        else
-        {
-            JOptionPane.showMessageDialog(
-                this, m_res.getString("DGetAlias.AliasReq.message"),
-                getTitle(), JOptionPane.WARNING_MESSAGE);
-        }
+
+        JOptionPane.showMessageDialog(
+            this, m_res.getString("DGetAlias.AliasReq.message"),
+			getTitle(), JOptionPane.WARNING_MESSAGE);
         return false;
     }
 

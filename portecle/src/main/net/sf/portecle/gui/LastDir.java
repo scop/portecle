@@ -72,14 +72,9 @@ public class LastDir
      */
     public File getLastDir()
     {
-
-        if ((m_fLastDir != null) && (m_fLastDir.exists()))
-        {
+        if (m_fLastDir != null && m_fLastDir.exists()) {
             return new File(m_fLastDir.toString());
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 }
