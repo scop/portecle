@@ -86,12 +86,15 @@ public class FileChooserFactory extends Object
                              new String[]{PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
 
     /** File extension for PKCS #10 CSR files */
-    private static final String CSR_EXT = "csr";
+    private static final String CSR_EXT_1 = "p10";
+
+    /** File extension for PKCS #10 CSR files */
+    private static final String CSR_EXT_2 = "csr";
 
     /** Description for PKCS #10 CSR files */
     private static final String CSR_FILE_DESC =
         MessageFormat.format(m_res.getString("FileChooseFactory.CsrFiles"),
-                             new String[]{CSR_EXT});
+                             new String[]{CSR_EXT_1, CSR_EXT_2});
 
     /** File extension for CRL files */
     private static final String CRL_EXT = "crl";
@@ -187,7 +190,7 @@ public class FileChooserFactory extends Object
     public static JFileChooser getCsrFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(CSR_EXT, CSR_FILE_DESC));
+        chooser.addChoosableFileFilter(new FileExtFilter(new String[]{CSR_EXT_1, CSR_EXT_2}, CSR_FILE_DESC));
         return chooser;
     }
 
