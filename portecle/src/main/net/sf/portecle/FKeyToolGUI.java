@@ -24,6 +24,7 @@ package net.sf.portecle;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.prefs.Preferences;
 import java.text.MessageFormat;
 import java.awt.*;
 import java.awt.event.*;
@@ -67,6 +68,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
 
+    /** Application preferences */
+    private static Preferences m_appPrefs =
+        Preferences.userNodeForPackage(FKeyToolGUI.class);
+
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";
 
@@ -85,8 +90,20 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** Default look & feel class name */
     private static final String DEFAULT_LOOK_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-    /** Dummy password to use for PKCS #12 KeyStore entries (passwords are not applicable for these) */
-    private static final char[] PKCS12_DUMMY_PASSWORD = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
+    /** Our light metal theme */
+    private static final LightMetalTheme METAL_THEME = new LightMetalTheme();
+
+    /** Dummy password to use for PKCS #12 KeyStore entries
+     * (passwords are not applicable for these). */
+    private static final char[] PKCS12_DUMMY_PASSWORD = {
+        'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
+
+    /** Default CA Certs KeyStore file */
+    private static final String DEFAULT_CA_CERTS_FILE;
+    static {
+        String sFileSep = System.getProperty("file.separator");
+        DEFAULT_CA_CERTS_FILE = new File(System.getProperty("java.home"), "lib" + sFileSep + "security" + sFileSep + "cacerts").toString();
+    }
 
     /** Use CA Certs KeyStore file? */
     private boolean m_bUseCaCerts;
@@ -109,10 +126,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** Frame for Help System */
     private FHelp m_fHelp;
 
-	/** Look & Feel setting made in options (to be picked up by saveAppProps) */
+    /** Look & Feel setting made in options (picked up by saveAppPrefs) */
     private UIManager.LookAndFeelInfo m_lookFeelOptions;
 
-	/** Look & Feel setting made in options (to be picked up by saveAppProps) */
+    /** Look & Feel setting made in options (picked up by saveAppPrefs) */
     private Boolean m_bLookFeelDecorationOptions;
 
     ////////////////////////////////////////////////////////////
@@ -385,42 +402,34 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** Help action */
     private final HelpAction m_helpAction = new HelpAction();
 
+
     /**
      * Creates a new FKeyToolGUI frame.
-     *
-     * @param appProps Application properties
      */
-    public FKeyToolGUI(Properties appProps)
+    public FKeyToolGUI()
     {
         // Get and store non-GUI related application properties
-        m_bUseCaCerts = new Boolean(appProps.getProperty(m_res.getString("AppProps.Property.UseCaCerts"))).booleanValue();
-        m_fCaCertsFile = new File(appProps.getProperty(m_res.getString("AppProps.Property.CaCertsFile")));
+        m_bUseCaCerts = m_appPrefs.getBoolean(
+            m_res.getString("AppProps.Property.UseCaCerts"), false);
+        m_fCaCertsFile = new File(
+            m_appPrefs.get(m_res.getString("AppProps.Property.CaCertsFile"),
+                           DEFAULT_CA_CERTS_FILE));
 
         // Initialise GUI components
-        initComponents(appProps);
+        initComponents();
     }
+
 
     /**
      * Initialise FKeyToolGUI frame's GUI components.
-     *
-     * @param appProps Application properties
      */
-    private void initComponents(Properties appProps)
+    private void initComponents()
     {
-        // Initialise the application's status bar
         initStatusBar();
-
-        // Initialise the application's menu
-        initMenu(appProps);
-
-        // Initialise the application's toolbar
+        initMenu();
         initToolBar();
-
-        // Initialise the application's pop-up menus
         initPopupMenus();
-
-        // Initialise the application's KeyStore table
-        initTable(appProps);
+        initTable();
 
         // Handle application close
         addWindowListener(new WindowAdapter()
@@ -435,16 +444,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         updateTitle();
         pack();
 
-        /* Set application position according to application properties unless the
-           relevant properties are not present or are invalid */
-        int iXPos = 0;
-        int iYPos = 0;
-        try
-        {
-            iXPos = Integer.parseInt(appProps.getProperty(m_res.getString("AppProps.Property.XPos"), "0"));
-            iYPos = Integer.parseInt(appProps.getProperty(m_res.getString("AppProps.Property.YPos"), "0"));
-        }
-        catch (NumberFormatException nfex) { /* We can safely ignore this */ }
+        // Set application position according to application preferences
+        // unless the relevant preferences are not present or are invalid
+        int iXPos = m_appPrefs.getInt(m_res.getString("AppProps.Property.XPos"), 0);
+        int iYPos = m_appPrefs.getInt(m_res.getString("AppProps.Property.YPos"), 0);
 
         if ((iXPos <= 0) || (iYPos <= 0))
         {
@@ -470,10 +473,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
     /**
      * Initialise FKeyToolGUI frame's main menu GUI components.
-     *
-     * @param appProps Application properties
      */
-    private void initMenu(Properties appProps)
+    private void initMenu()
     {
         // The menu items that carry out the same function as toolbar buttons use actions
 
@@ -528,11 +529,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // Add recent files to file menu
         for (int iCnt = RECENT_FILES_LENGTH; iCnt > 0; iCnt--)
         {
-            String sRecentFile = appProps.getProperty(m_res.getString("AppProps.Property.RecentFile") + iCnt);
+            String sRecentFile = m_appPrefs.get(
+                m_res.getString("AppProps.Property.RecentFile") + iCnt, null);
 
-            if (sRecentFile != null)
-            {
-                m_jmrfFile.add(createRecentFileMenuItem(new File(sRecentFile)));
+            if (sRecentFile != null) {
+                m_jmrfFile.add(
+                    createRecentFileMenuItem(new File(sRecentFile)));
             }
         }
 
@@ -1242,10 +1244,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
     /**
      * Initialise FKeyToolGUI frame's KeyStore content table GUI components.
-     *
-     * @param appProps Application properties
      */
-    private void initTable(Properties appProps)
+    private void initTable()
     {
         // The table data model
         KeyStoreTableModel ksModel = new KeyStoreTableModel();
@@ -1276,25 +1276,19 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         typeCol.setMaxWidth(20);
         typeCol.setPreferredWidth(20);
 
-        /* Set alias columns width according to the relevant application property
-           unless the property is not present or is invalid */
-        int iAliasWidth = 0;
-        try
-        {
-            iAliasWidth = Integer.parseInt(appProps.getProperty(m_res.getString("AppProps.Property.AliasWidth"), "0"));
-        }
-        catch (NumberFormatException nfex) { /* We can safely ignore this */ }
+        // Set alias columns width according to the relevant application
+        // property unless the property is not present or is invalid.
+        int iAliasWidth = m_appPrefs.getInt(
+            m_res.getString("AppProps.Property.AliasWidth"), 0);
 
         TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(1);
         aliasCol.setMinWidth(20);
         aliasCol.setMaxWidth(10000);
 
-        if (iAliasWidth <= 0)
-        {
+        if (iAliasWidth <= 0) {
             aliasCol.setPreferredWidth(350);
         }
-        else
-        {
+        else {
             aliasCol.setPreferredWidth(iAliasWidth);
         }
 
@@ -1304,15 +1298,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                                              JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         m_jspKeyStoreTable.getViewport().setBackground(m_jtKeyStore.getBackground());
 
-        // Get the size of the KeyStore table panel from the application properties
-        int iWidth = 0;
-        int iHeight = 0;
-        try
-        {
-            iWidth = Integer.parseInt(appProps.getProperty(m_res.getString("AppProps.Property.TableWidth")));
-            iHeight = Integer.parseInt(appProps.getProperty(m_res.getString("AppProps.Property.TableHeight")));
-        }
-        catch (NumberFormatException nfex) { /* We can safely ignore this */ }
+        // Get the size of the KeyStore table panel from the application
+        // preferences
+        int iWidth = m_appPrefs.getInt(
+            m_res.getString("AppProps.Property.TableWidth"), 0);
+        int iHeight = m_appPrefs.getInt(
+            m_res.getString("AppProps.Property.TableHeight"), 0);
 
         // Put the scroll pane into a panel.  The preferred size of the panel
         // dictates the size of the entire frame
@@ -5348,121 +5339,108 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Save the application properties to file.
+     * Save the application preferences.
      */
-    private void saveAppProps()
+    private void saveAppPrefs()
     {
         try
         {
-            // Create properties
-            Properties applicationProps = new Properties();
+            // The size of the KeyStore table panel - determines the size
+            // of the main frame
+            m_appPrefs.putInt(
+                m_res.getString("AppProps.Property.TableWidth"),
+                m_jpKeyStoreTable.getWidth());
+            m_appPrefs.putInt(
+                m_res.getString("AppProps.Property.TableHeight"),
+                m_jpKeyStoreTable.getHeight());
 
-            // The size of the KeyStore table panel - determines the size of the main frame
-            applicationProps.setProperty(m_res.getString("AppProps.Property.TableWidth"), Integer.toString(m_jpKeyStoreTable.getWidth()));
-            applicationProps.setProperty(m_res.getString("AppProps.Property.TableHeight"), Integer.toString(m_jpKeyStoreTable.getHeight()));
-
-            // The size of the KeyStore table's alias column - determines the size of all of the table's columns
-            applicationProps.setProperty(m_res.getString("AppProps.Property.AliasWidth"), Integer.toString(m_jtKeyStore.getColumnModel().getColumn(1).getWidth()));
+            // The size of the KeyStore table's alias column - determines
+            // the size of all of the table's columns
+            m_appPrefs.putInt(
+                m_res.getString("AppProps.Property.AliasWidth"),
+                m_jtKeyStore.getColumnModel().getColumn(1).getWidth());
 
             // Application's position on the desktop
-            applicationProps.setProperty(m_res.getString("AppProps.Property.XPos"), Integer.toString(this.getX()));
-            applicationProps.setProperty(m_res.getString("AppProps.Property.YPos"), Integer.toString(this.getY()));
+            m_appPrefs.putInt(
+                m_res.getString("AppProps.Property.XPos"), this.getX());
+            m_appPrefs.putInt(
+                m_res.getString("AppProps.Property.YPos"), this.getY());
 
             // Use CA certificates file?
-            applicationProps.setProperty(m_res.getString("AppProps.Property.UseCaCerts"), Boolean.toString(m_bUseCaCerts));
+            m_appPrefs.putBoolean(
+                m_res.getString("AppProps.Property.UseCaCerts"),
+                m_bUseCaCerts);
 
             // CA Certificates file
-            applicationProps.setProperty(m_res.getString("AppProps.Property.CaCertsFile"), m_fCaCertsFile.toString());
+                m_appPrefs.put(
+                    m_res.getString("AppProps.Property.CaCertsFile"),
+                    m_fCaCertsFile.toString());
 
             // Recent files
             File[] fRecentFiles = m_jmrfFile.getRecentFiles();
             for (int iCnt=0; iCnt < fRecentFiles.length; iCnt++)
             {
-                applicationProps.setProperty(m_res.getString("AppProps.Property.RecentFile")+(iCnt+1), fRecentFiles[iCnt].toString());
+                m_appPrefs.put(
+                    m_res.getString("AppProps.Property.RecentFile")+(iCnt+1),
+                    fRecentFiles[iCnt].toString());
             }
 
             // Look & feel
             LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
 
-            if (m_lookFeelOptions != null)
-            {
-				// Setting made in options
-				applicationProps.setProperty(m_res.getString("AppProps.Property.LookFeel"), m_lookFeelOptions.getClassName());
-			}
-			else
-			{
-            	// Current setting
-				if (currentLookAndFeel != null)
-				{
-					UIManager.LookAndFeelInfo[] lookFeelInfos = UIManager.getInstalledLookAndFeels();
+            if (m_lookFeelOptions != null) {
+                // Setting made in options
+                m_appPrefs.put(
+                    m_res.getString("AppProps.Property.LookFeel"),
+                    m_lookFeelOptions.getClassName());
+            }
+            else {
+                // Current setting
+                if (currentLookAndFeel != null) {
+                    UIManager.LookAndFeelInfo[] lookFeelInfos =
+                        UIManager.getInstalledLookAndFeels();
 
-					for (int iCnt=0; iCnt < lookFeelInfos.length; iCnt++)
-					{
-						UIManager.LookAndFeelInfo lookFeelInfo = lookFeelInfos[iCnt];
+                    for (int iCnt = 0; iCnt < lookFeelInfos.length; iCnt++)
+                    {
+                        UIManager.LookAndFeelInfo lookFeelInfo =
+                            lookFeelInfos[iCnt];
 
-						// Store current look & feel class name
-						if ((currentLookAndFeel != null) && (currentLookAndFeel.getName().equals(lookFeelInfo.getName())))
-						{
-							applicationProps.setProperty(m_res.getString("AppProps.Property.LookFeel"), lookFeelInfo.getClassName());
-							break;
-						}
-					}
-				}
-			}
+                        // Store current look & feel class name
+                        if (currentLookAndFeel != null &&
+                            currentLookAndFeel.getName().equals(
+                                lookFeelInfo.getName()))
+                        {
+                            m_appPrefs.put(
+                                m_res.getString("AppProps.Property.LookFeel"),
+                                lookFeelInfo.getClassName());
+                            break;
+                        }
+                    }
+                }
+            }
 
 
             // Use Look & Feel's decoration?
-            if (m_bLookFeelDecorationOptions != null)
-            {
-				// Setting made in options
-				applicationProps.setProperty(m_res.getString("AppProps.Property.LookFeelDecor"), m_bLookFeelDecorationOptions.toString());
-			}
-			else
-			{
-				// Current setting
-            	applicationProps.setProperty(m_res.getString("AppProps.Property.LookFeelDecor"), Boolean.toString(JFrame.isDefaultLookAndFeelDecorated()));
-			}
+            if (m_bLookFeelDecorationOptions != null) {
+                // Setting made in options
+                m_appPrefs.put(
+                    m_res.getString("AppProps.Property.LookFeelDecor"),
+                    m_bLookFeelDecorationOptions.toString());
+            }
+            else {
+                // Current setting
+                m_appPrefs.putBoolean(
+                    m_res.getString("AppProps.Property.LookFeelDecor"),
+                    JFrame.isDefaultLookAndFeelDecorated());
+            }
 
-            // Do the save
-            String sUserDir = System.getProperty("user.home");
-            FileOutputStream fos = new FileOutputStream(new File(sUserDir, m_res.getString("AppProps.Filename")));
-            applicationProps.store(fos, m_res.getString("AppProps.Header"));
-            fos.close();
+            m_appPrefs.sync();
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             displayException(ex);
         }
     }
 
-    /**
-     * Load the application's properties from file.
-     *
-     * @return The application's properties
-     */
-    private static Properties loadAppProps()
-    {
-        // Get default properties
-        Properties defaultAppProps = getDefaultAppProps();
-
-        // Create application properties using defaults
-        Properties appProps = new Properties(defaultAppProps);
-
-        try
-        {
-            // Load application properties from file
-            String sUserDir = System.getProperty("user.home");
-            FileInputStream fis = new FileInputStream(new File(sUserDir, m_res.getString("AppProps.Filename")));
-            appProps.load(fis);
-            fis.close();
-        }
-        catch (IOException ex)
-        {
-            // Ignore - application properties file does not exist but we have defaults
-        }
-
-        return appProps;
-    }
 
     /**
      * Get the application's default properties.
@@ -5574,35 +5552,33 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
         }
 
-        // Save application properties
-        saveAppProps();
+        // Save application preferences
+        saveAppPrefs();
 
         System.exit(0);
     }
 
     /**
-     * Initialise the application's look and feel from application properties.
-     *
-     * @param appProps Application properties
+     * Initialise the application's look and feel.
      */
-    private static void initLookAndFeel(Properties appProps)
+    private static void initLookAndFeel()
     {
         /* Set the theme used by the Metal look and feel to be "Light Metal" -
-           this gets rid of the naff bold text used by the default Metal theme */
-        MetalLookAndFeel.setCurrentTheme(new LightMetalTheme());
+           this gets rid of the naff bold text used by the default Metal theme
+        */
+        MetalLookAndFeel.setCurrentTheme(METAL_THEME);
 
         // Install extra look and feels (which may or may not be present)
         installLookFeel("net.sourceforge.mlf.metouia.MetouiaLookAndFeel");
         installLookFeel("com.incors.plaf.kunststoff.KunststoffLookAndFeel");
         installLookFeel("org.gtk.java.swing.plaf.gtk.GtkLookAndFeel");
 
-        // Set look & feel using value from properties
-        String sLookFeelClassName = appProps.getProperty(m_res.getString("AppProps.Property.LookFeel"));
-
         try
         {
             // Use the look and feel
-            UIManager.setLookAndFeel(sLookFeelClassName);
+            UIManager.setLookAndFeel(
+                m_appPrefs.get(m_res.getString("AppProps.Property.LookFeel"),
+                               FKeyToolGUI.DEFAULT_LOOK_FEEL));
         }
         // Didn't work - no matter
         catch (UnsupportedLookAndFeelException e) { }
@@ -5611,7 +5587,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         catch (IllegalAccessException e) { }
 
         // Use look & feel's decoration?
-        boolean bLookFeelDecorated = new Boolean(appProps.getProperty(m_res.getString("AppProps.Property.LookFeelDecor"))).booleanValue();
+        boolean bLookFeelDecorated = m_appPrefs.getBoolean(
+            m_res.getString("AppProps.Property.LookFeelDecor"), false);
 
         JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
         JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
@@ -6202,6 +6179,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
     }
 
+
     /**
      * Runnable to create and show Portecle GUI.
      */
@@ -6226,25 +6204,15 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public void run()
         {
-            // Load application properties
-            Properties appProps = loadAppProps();
-
-            // Initialise look & feel
-            initLookAndFeel(appProps);
-
-            // Create the application's main frame
-            FKeyToolGUI fKeyToolGui = new FKeyToolGUI(appProps);
-
-            // Display the Portecle application
+            initLookAndFeel();
+            FKeyToolGUI fKeyToolGui = new FKeyToolGUI();
             fKeyToolGui.setVisible(true);
-
-            // If KeyStore file is not null then attempt to open it
-            if (m_fKeyStore != null)
-            {
+            if (m_fKeyStore != null) {
                 fKeyToolGui.openKeyStore(m_fKeyStore);
             }
         }
     }
+
 
     /**
      * Start the Portecle application.  Takes one optional argument -
