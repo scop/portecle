@@ -40,16 +40,16 @@ public class X509Ext extends Object
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Extension name or OID if unknown */
-    private String m_sName;
+    private final String m_sName;
 
     /** Extension object identifier */
-    private String m_sOid;
+    private final String m_sOid;
 
     /** Extension value as a DER-encoded OCTET string */
-    private byte[] m_bValue;
+    private final byte[] m_bValue;
 
     /** Critical extension? */
-    private boolean m_bCritical;
+    private final boolean m_bCritical;
 
     /////////////////////////////////////////////
     // Extension OIDs
