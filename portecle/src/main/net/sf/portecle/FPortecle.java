@@ -1721,8 +1721,7 @@ public class FPortecle extends JFrame implements StatusBar
     private void showAbout()
     {
         // Display About Dialog in the centre of the frame
-        DAbout dAbout = new DAbout(this, m_res.getString("FPortecle.About.Title"), true,
-        Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.About.image"))));
+        DAbout dAbout = new DAbout(this, true);
         dAbout.setLocationRelativeTo(this);
         dAbout.setVisible(true);
     }

@@ -21,23 +21,36 @@
 
 package net.sf.portecle.gui.about;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
- * An About dialog which displays an image of about information and a button
+ * An About dialog which displays about information and a button
  * to access system information.
  */
-public class DAbout extends JDialog
+public class DAbout
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-    /** Label that contains the supplied about image */
+    /** Label that contains the supplied about text */
     private JLabel m_jlAbout;
+
+    /** Panel containing the about text */
+    private JPanel m_jpAbout;
 
     /** OK button used to dismiss dialog */
     private JButton m_jbOK;
@@ -53,11 +66,10 @@ public class DAbout extends JDialog
      *
      * @param parent Parent frame
      * @param bModal Is dialog modal?
-     * @param aboutImg The image containing the about information
      */
-    public DAbout(JFrame parent, boolean bModal, Image aboutImg)
+    public DAbout(JFrame parent, boolean bModal)
     {
-        this(parent, m_res.getString("DAbout.Title"), bModal, aboutImg);
+        this(parent, m_res.getString("DAbout.Title"), bModal);
     }
 
     /**
@@ -66,23 +78,25 @@ public class DAbout extends JDialog
      * @param parent Parent frame
      * @param sTitle The title of the dialog
      * @param bModal Is dialog modal?
-     * @param aboutImg The image containing the about information
      */
-    public DAbout(JFrame parent, String sTitle, boolean bModal, Image aboutImg)
+    public DAbout(JFrame parent, String sTitle, boolean bModal)
     {
         super(parent, sTitle, bModal);
-        initComponents(aboutImg);
+        initComponents();
     }
 
     /**
      * Initialise the dialog's GUI components.
-     *
-     * @param aboutImg The image that containing the about information
      */
-    private void initComponents(Image aboutImg)
+    private void initComponents()
     {
-        getContentPane().setLayout(new BorderLayout(0, 0));
-        m_jlAbout = new JLabel(new ImageIcon(aboutImg));
+        getContentPane().setLayout(new BorderLayout());
+
+        m_jlAbout = new JLabel(m_res.getString("DAbout.m_jlAbout.text"));
+
+        m_jpAbout = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        m_jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
+        m_jpAbout.add(m_jlAbout);
 
         m_jbOK = new JButton(m_res.getString("DAbout.m_jbOK.text"));
         m_jbOK.addActionListener(new ActionListener() {
@@ -91,8 +105,11 @@ public class DAbout extends JDialog
             }
         });
 
-        m_jbSystemInformation = new JButton(m_res.getString("DAbout.m_jbSystemInformation.text"));
-        m_jbSystemInformation.setMnemonic(m_res.getString("DAbout.m_jbSystemInformation.mnemonic").charAt(0));
+        m_jbSystemInformation = new JButton(
+            m_res.getString("DAbout.m_jbSystemInformation.text"));
+        m_jbSystemInformation.setMnemonic(
+            m_res.getString(
+                "DAbout.m_jbSystemInformation.mnemonic").charAt(0));
 
         m_jbSystemInformation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -105,7 +122,7 @@ public class DAbout extends JDialog
         m_jpButtons.add(m_jbOK);
         m_jpButtons.add(m_jbSystemInformation);
 
-        getContentPane().add(m_jlAbout, BorderLayout.CENTER);
+        getContentPane().add(m_jpAbout, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
         setResizable(false);
@@ -126,7 +143,8 @@ public class DAbout extends JDialog
      */
     private void showSystemInformation()
     {
-        DSystemInformation dSystemInformation = new DSystemInformation(this, true);
+        DSystemInformation dSystemInformation =
+            new DSystemInformation(this, true);
         dSystemInformation.setLocationRelativeTo(this);
         dSystemInformation.setVisible(true);
     }
