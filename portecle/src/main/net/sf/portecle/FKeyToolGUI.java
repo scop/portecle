@@ -37,6 +37,7 @@ import java.security.*;
 import java.security.cert.*;
 import java.security.cert.Certificate;
 import java.net.*;
+import javax.net.ssl.*;
 
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.asn1.*;
@@ -101,6 +102,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
     /** The last directory accessed by the application */
     LastDir m_lastDir = new LastDir();
+
+    /** The PRNG, cached for performance reasons */
+    private SecureRandom m_rnd;
 
     /** Frame for Help System */
     private FHelp m_fHelp;
@@ -180,6 +184,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
     /** Examine Certificate menu item of Examine menu */
     private JMenuItem m_jmiExamineCert;
+
+    /** Examine Certificate (SSL/TLS connection) menu item of Examine menu */
+    private JMenuItem m_jmiExamineCertSSL;
 
     /** Examine CRL menu item of Examine menu */
     private JMenuItem m_jmiExamineCrl;
@@ -350,6 +357,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
     /** Examine Certificate action */
     private final ExamineCertAction m_examineCertAction = new ExamineCertAction();
+
+    /** Examine SSL/TLS Connection action */
+    private final ExamineCertSSLAction m_examineCertSSLAction = new ExamineCertSSLAction();
 
     /** Examine CRL action */
     private final ExamineCrlAction m_examineCrlAction = new ExamineCrlAction();
@@ -721,6 +731,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         m_jmiExamineCert.setToolTipText(null);
         new StatusBarChangeHandler(m_jmiExamineCert, (String)m_examineCertAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmExamine.add(m_jmiExamineCert);
+
+        m_jmiExamineCertSSL = new JMenuItem(m_examineCertSSLAction);
+        m_jmiExamineCertSSL.setToolTipText(null);
+        new StatusBarChangeHandler(m_jmiExamineCertSSL, (String)m_examineCertSSLAction.getValue(Action.LONG_DESCRIPTION), this);
+        m_jmExamine.add(m_jmiExamineCertSSL);
 
         m_jmiExamineCrl = new JMenuItem(m_examineCrlAction);
         m_jmiExamineCrl.setToolTipText(null);
@@ -2327,6 +2342,100 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
+     * Let the user examine the contents of a certificate file from a SSL
+     * connection.
+     *
+     * @return True if the user was able to examine the certificate file, false otherwise
+     */
+    private boolean examineCertSSL()
+    {
+        InetSocketAddress ia = chooseExamineCertSSL();
+        if (ia == null)
+        {
+            return false;
+        }
+
+        // TODO: options from user
+        boolean bVerifyCerts = false;
+        int timeOut = 10000;
+
+        // Get the certificates received from the connection
+        X509Certificate[] certs = null;
+        SSLSocket ss = null;
+
+        try {
+
+            SSLSocketFactory sf;
+            if (bVerifyCerts) {
+                sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            }
+            else {
+                // @@@TODO: cache all this?
+                SSLContext sc = SSLContext.getInstance("SSL");
+                TrustManager[] tm = { new X509TrustManager() {
+                        public void checkClientTrusted(
+                            X509Certificate[] chain, String authType) {}
+                        public void checkServerTrusted(
+                            X509Certificate[] chain, String authType) {}
+                        public X509Certificate[] getAcceptedIssuers()
+                            { return new X509Certificate[0]; }
+                    }};
+                if (m_rnd == null) {
+                    m_rnd = new SecureRandom();
+                }
+                sc.init(null, tm, m_rnd);
+                sf = sc.getSocketFactory();
+            }
+
+            ss = (SSLSocket) sf.createSocket();
+            ss.setSoTimeout(timeOut);
+            ss.connect(ia, timeOut);
+            SSLSession sess = ss.getSession();
+            certs = (X509Certificate[]) sess.getPeerCertificates();
+            sess.invalidate();
+        }
+        catch (Exception e) {
+            displayException(e);
+            return false;
+        }
+        finally {
+            if (ss != null && !ss.isClosed()) {
+                try {
+                    ss.close();
+                }
+                catch (IOException e) {
+                    displayException(e);
+                }
+            }
+        }
+
+        // Check what we got
+
+        try
+        {
+            // If there are any display the view certificate dialog with them
+            if ((certs != null) && (certs.length > 0))
+            {
+                DViewCertificate dViewCertificate =
+                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CertDetailsSSL.Title"), new String[]{ia.getHostName() + ":" + ia.getPort()}),
+                                         true, certs);
+                dViewCertificate.setLocationRelativeTo(this);
+                dViewCertificate.setVisible(true);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (CryptoException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+    }
+
+    /**
      * Let the user examine the contents of a CRL file.
      *
      * @return True if the user was able to examine the CRL file, false otherwise
@@ -2416,6 +2525,21 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             return fOpenFile;
         }
         return null;
+    }
+
+    /**
+     * Let the user choose a certificate to examine from a SSL connection.
+     *
+     * @return The chosen inet address or null if none was chosen
+     */
+    private InetSocketAddress chooseExamineCertSSL()
+    {
+        DGetHostPort d = new DGetHostPort(
+            this, m_res.getString("FKeyToolGUI.ExamineCertificateSSL.Title"),
+            true, null);
+        d.setLocationRelativeTo(this);
+        d.setVisible(true);
+        return d.getHostPort();
     }
 
     /**
@@ -5910,6 +6034,46 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 public void run()
                 {
                     try { examineCert(); } finally { setCursorFree(); }
+                }
+            });
+            t.start();
+        }
+    }
+
+    /**
+     * Action to examine a SSL/TLS connection.
+     */
+    private class ExamineCertSSLAction extends AbstractAction
+    {
+        /**
+         * Construct action.
+         */
+        public ExamineCertSSLAction()
+        {
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCertSSLAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.ExamineCertSSLAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FKeyToolGUI.ExamineCertSSLAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCertSSLAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.ExamineCertSSLAction.image")))));
+            setEnabled(true);
+        }
+
+        /**
+         * Perform action.
+         *
+         * @param evt Action event
+         */
+        public void actionPerformed(ActionEvent evt)
+        {
+            setDefaultStatusBarText();
+            setCursorBusy();
+            repaint();
+
+            Thread t = new Thread(new Runnable() {
+                public void run()
+                {
+                    try { examineCertSSL(); } finally { setCursorFree(); }
                 }
             });
             t.start();
