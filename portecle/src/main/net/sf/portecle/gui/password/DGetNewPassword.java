@@ -225,8 +225,8 @@ public class DGetNewPassword extends JDialog
         }
 
         JOptionPane.showMessageDialog(
-        	this, m_res.getString("PasswordsNoMatch.message"),
-			getTitle(), JOptionPane.WARNING_MESSAGE);
+            this, m_res.getString("PasswordsNoMatch.message"),
+            getTitle(), JOptionPane.WARNING_MESSAGE);
 
         return false;
     }
