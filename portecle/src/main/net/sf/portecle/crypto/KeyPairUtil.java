@@ -43,7 +43,7 @@ public final class KeyPairUtil extends Object
      *
      * @param keyPairType Key pair type to generate
      * @param iKeySize Key size of key pair
-     * @return A keypair
+     * @return A key pair
      * @throws CryptoException If there was a problem generating the key pair
      */
     public static KeyPair generateKeyPair(KeyPairType keyPairType, int iKeySize)

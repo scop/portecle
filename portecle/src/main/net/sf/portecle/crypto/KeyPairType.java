@@ -26,26 +26,26 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
- * Type safe enumeration of KeyPair Types supported by the KeyPairUtil class.
+ * Type safe enumeration of KeyPairTypes supported by the KeyPairUtil class.
  */
 public class KeyPairType extends Object
 {
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
-    /** Stores KeyPair Type name */
+    /** Stores KeyPairType name */
     private final String m_sType;
 
-    /** RSA KeyPair Type JCE String */
+    /** RSA KeyPairType JCE String */
     private static final String RSA_STR = "RSA";
 
-    /** DSA KeyPair Type JCE String */
+    /** DSA KeyPairType JCE String */
     private static final String DSA_STR = "DSA";
 
-    /** RSA KeyPair Type */
+    /** RSA KeyPairType */
     public static final KeyPairType RSA = new KeyPairType(RSA_STR);
 
-    /** DSA KeyPair Type */
+    /** DSA KeyPairType */
     public static final KeyPairType DSA = new KeyPairType(DSA_STR);
 
     /**
@@ -82,9 +82,9 @@ public class KeyPairType extends Object
     }
 
     /**
-     * Return string representation of KeyPair Type compatible with the JCE.
+     * Return string representation of KeyPairType compatible with the JCE.
      *
-     * @return String representation of a KeyPair Type
+     * @return String representation of a KeyPairType
      */
     public String toString()
     {

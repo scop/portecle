@@ -156,13 +156,13 @@ public class FPortecle extends JFrame implements StatusBar
     /** Tools menu */
     private JMenu m_jmTools;
 
-    /** Generate KeyPair menu item of Tools menu */
+    /** Generate Key Pair menu item of Tools menu */
     private JMenuItem m_jmiGenKeyPair;
 
     /** Import Trusted Certificate menu item of Tools menu */
     private JMenuItem m_jmiImportTrustCert;
 
-    /** Import KeyPair menu item of Tools menu */
+    /** Import Key Pair menu item of Tools menu */
     private JMenuItem m_jmiImportKeyPair;
 
     /** Change KeyStore Type menu Tools menu */
@@ -256,13 +256,13 @@ public class FPortecle extends JFrame implements StatusBar
     /** Save KeyStore toolbar button */
     private JButton m_jbSaveKeyStore;
 
-    /** Generate KeyPair toolbar button */
+    /** Generate Key Pair toolbar button */
     private JButton m_jbGenKeyPair;
 
     /** Import Trusted Certificate toolbar button */
     private JButton m_jbImportTrustCert;
 
-    /** Import KeyPair toolbar button */
+    /** Import Key Pair toolbar button */
     private JButton m_jbImportKeyPair;
 
     /** Set KeyStore Password toolbar button */
@@ -380,13 +380,13 @@ public class FPortecle extends JFrame implements StatusBar
     /** Examine CRL action */
     private final ExamineCrlAction m_examineCrlAction = new ExamineCrlAction();
 
-    /** Generate KeyPair action */
+    /** Generate Key Pair action */
     private final GenKeyPairAction m_genKeyPairAction = new GenKeyPairAction();
 
     /** Import Trusted Certificate action */
     private final ImportTrustCertAction m_importTrustCertAction = new ImportTrustCertAction();
 
-    /** Import KeyPair action */
+    /** Import Key Pair action */
     private final ImportKeyPairAction m_importKeyPairAction = new ImportKeyPairAction();
 
     /** Set KeyStore Password action */
@@ -1038,7 +1038,7 @@ public class FPortecle extends JFrame implements StatusBar
             }
         });
 
-        // Create the "generate keypair" toolbar button
+        // Create the "generate key pair" toolbar button
         m_jbGenKeyPair = new JButton();
         m_jbGenKeyPair.setAction(m_genKeyPairAction);
         m_jbGenKeyPair.setText(null); // Don't share text from action
@@ -1743,7 +1743,7 @@ public class FPortecle extends JFrame implements StatusBar
         int iKeySize = dGenerateKeyPair.getKeySize();
         KeyPairType keyPairType = dGenerateKeyPair.getKeyPairType();
 
-        // Display the Generating KeyPair dialog - generates the key pair
+        // Display the Generating Key Pair dialog - generates the key pair
         DGeneratingKeyPair dGeneratingKeyPair = new DGeneratingKeyPair(this, true, keyPairType, iKeySize);
         dGeneratingKeyPair.setLocationRelativeTo(this);
         dGeneratingKeyPair.startKeyPairGeneration();
@@ -3865,7 +3865,7 @@ public class FPortecle extends JFrame implements StatusBar
                         }
                     }
 
-                    // Use password to get keypair
+                    // Use password to get key pair
                     Key key = currentKeyStore.getKey(sAlias, cPassword);
 
                     // The current KeyStore type is PKCS #12 so entry password will be set to the PKCS #12 "dummy value" password
@@ -5942,7 +5942,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to generate a KeyPair.
+     * Action to generate a Key Pair.
      */
     private class GenKeyPairAction extends AbstractAction
     {
@@ -6022,7 +6022,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to import a KeyPair.
+     * Action to import a Key Pair.
      */
     private class ImportKeyPairAction extends AbstractAction
     {
