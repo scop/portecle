@@ -22,18 +22,47 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.security.cert.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.math.BigInteger;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.KeyFactory;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.Principal;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
 import java.security.cert.Certificate;
-import java.security.spec.*;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+import java.security.cert.X509CRL;
+import java.security.spec.DSAPublicKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.ResourceBundle;
+import java.util.Vector;
 
-import org.bouncycastle.asn1.*;
-import org.bouncycastle.asn1.x509.*;
-import org.bouncycastle.jce.*;
+import org.bouncycastle.asn1.DEROutputStream;
+import org.bouncycastle.asn1.x509.X509Name;
+import org.bouncycastle.jce.PKCS10CertificationRequest;
+import org.bouncycastle.jce.X509Principal;
+import org.bouncycastle.jce.X509V1CertificateGenerator;
 import org.bouncycastle.util.encoders.Base64;
 
 /**
@@ -665,12 +694,7 @@ public final class X509CertUtil extends Object
             return cert;
         }
         // Something went wrong
-        catch (SignatureException ex)
-        {
-            throw new CryptoException(
-                m_res.getString("CertificateGenFailed.exception.message"), ex);
-        }
-        catch (InvalidKeyException ex)
+        catch (GeneralSecurityException ex)
         {
             throw new CryptoException(
                 m_res.getString("CertificateGenFailed.exception.message"), ex);
