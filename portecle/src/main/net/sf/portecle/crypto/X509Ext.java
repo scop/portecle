@@ -422,8 +422,7 @@ public class X509Ext extends Object
         {
             return getCrlDistributionPointsStringValue(bOctets);
         }
-        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID) ||
-                 m_sOid.equals(CERTIFICATE_POLICIES_OLD_OID))
+        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID))
         {
             return getCertificatePoliciesStringValue(bOctets);
         }
