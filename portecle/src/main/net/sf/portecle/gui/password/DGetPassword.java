@@ -117,7 +117,8 @@ public class DGetPassword extends JDialog
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(m_jbCancel.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
+        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
                                           public void actionPerformed(ActionEvent evt) {
                                               cancelPressed();
