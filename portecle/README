@@ -13,11 +13,13 @@ Portecle is installed you will be able to access its online help.
 ------------
 
 Place the Portecle JAR file (portecle.jar) on your filesystem.  Next get
-Bouncy Castle Provider version 1.20 for JDK 1.4 (bcprov-jdk14-120.jar).  This
-is available for free from www.bouncycastle.org.  Note that only version 1.20
-will work.  Place it in the *same* directory as portecle.jar.  You now have
-everything you need to run Portecle from the command-line. Included below are
-example command-lines for Windows and UNIX systems.
+Bouncy Castle Provider version 1.20 or later (version 1.25b06 or later
+recommended) for your JDK (bcprov-jdk*-*.jar).  This is available for free
+from www.bouncycastle.org.  Be sure to get the version corresponding to your
+JRE (1.4 or 1.5)!  Place it in the *same* directory as portecle.jar, and
+rename it to bcprov.jar.  You now have everything you need to run Portecle
+from the command-line. Included below are example command lines for Windows
+and UNIX systems.
 
 The examples assume that the Java bin directory has been added to your path.
 
