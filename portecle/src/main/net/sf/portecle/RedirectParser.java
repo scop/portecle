@@ -28,7 +28,7 @@ import java.util.*;
 
 /**
  * Parses an HTML file for a frame redirection.  Used to get through
- * the EasySpace redirection currently setup for the KeyTool GUI site.
+ * the EasySpace redirection currently setup for the Portecle site.
  */
 public class RedirectParser extends HTMLEditorKit
 {
