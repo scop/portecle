@@ -132,7 +132,6 @@
       <zipfileset dir="${root}" prefix="portecle-${version}-src">
         <include name="*.txt" />
         <include name="build.xml" />
-        <include name="portecle.ico" />
         <include name="prj.el" />
         <include name=".classpath" />
         <include name=".project" />
