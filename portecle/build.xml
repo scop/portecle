@@ -84,7 +84,7 @@
     </javadoc>
   </target>
 
-  <target name="run" depends="build">
+  <target name="run" depends="build" description="Runs Portecle">
     <!-- TODO: command line args -->
     <java fork="true" classname="${main.class}">
       <sysproperty key="portecle.experimental" value="true" />
