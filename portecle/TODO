@@ -3,6 +3,5 @@
 - http://www.microsoft.com/technet/prodtechnol/windowsserver2003/technologies/security/ws03qswp.mspx
 - Add "Close keystore" functionality
 - Fix and clean up or really get rid of "check for update" functionality.
-- "Examine SSL/TLS connection":
-  - Icon
-  - Doc update
+- "Examine SSL/TLS connection": icon for menu item, doc update
+- PKCS #11 stuff: icon for menu item, doc update

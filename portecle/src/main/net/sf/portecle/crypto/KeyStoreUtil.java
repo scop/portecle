@@ -163,6 +163,56 @@ public final class KeyStoreUtil extends Object
         return keyStore;
     }
 
+
+    /**
+     * Load a PKCS #11 keystore accessed by a password.
+     *
+     * @param sPkcs11Provider The name of the PKCS #11 provider
+     * @param cPassword Password of the KeyStore
+     * @return The KeyStore
+     * @throws CryptoException Problem encountered loading the KeyStore
+     */
+    public static KeyStore loadKeyStore(String sPkcs11Provider, char[] cPassword)
+        throws CryptoException
+    {
+        KeyStore keyStore = null;
+
+        try
+        {
+            if (Security.getProvider(sPkcs11Provider) == null)
+            {
+                throw new CryptoException(
+                    MessageFormat.format(
+                        m_res.getString("NoSuchProvider.exception.message"),
+                        new String[]{sPkcs11Provider}));
+            }
+            keyStore = KeyStore.getInstance(
+                KeyStoreType.PKCS11.toString(), sPkcs11Provider);
+        }
+        catch (GeneralSecurityException ex)
+        {
+            throw new CryptoException(
+                m_res.getString("NoCreateKeystore.exception.message"), ex);
+        }
+
+        try
+        {
+            // Load the keystore
+            keyStore.load(null, cPassword);
+        }
+        catch (Exception ex)
+        {
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString("NoLoadKeystore.exception.message"),
+                    new Object[]{KeyStoreType.PKCS11}), ex);
+        }
+
+        // Return the keystore
+        return keyStore;
+    }
+
+
     /**
      * Save a KeyStore to a file protected by a password.
      *

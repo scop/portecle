@@ -79,6 +79,6 @@ class RecentFileActionListener implements ActionListener
                 return;
             }
         }
-        m_fKeyToolGui.openKeyStore(m_fRecentFile);
+        m_fKeyToolGui.openKeyStoreFile(m_fRecentFile);
     }
 }

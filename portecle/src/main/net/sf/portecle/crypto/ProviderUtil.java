@@ -1,0 +1,62 @@
+/*
+ * ProviderUtil.java
+ *
+ * Copyright (C) 2004 Ville Skyttä
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * (This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
+package net.sf.portecle.crypto;
+
+import java.security.Provider;
+import java.security.Security;
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * Provides security provider utility methods.
+ */
+public final class ProviderUtil
+    extends Object
+{
+    /**
+     * Private to prevent construction.
+     */
+    private ProviderUtil() {}
+
+    /**
+     * Get the PKCS #11 <code>Provider</code>s available on the system.
+     *
+     * @return the (possibly empty) collection of available PKCS #11
+     * <code>Provider</code>s
+     */
+    public static Collection getPkcs11Providers()
+    {
+        Provider[] provs = Security.getProviders();
+        ArrayList p11s = new ArrayList();
+        for (int i = 0, len = provs.length; i < len; i++) {
+            String pName = provs[i].getName();
+            // Is it a PKCS #11 provider?
+            /* TODO: is there a better way to find out?
+               Could try instanceof sun.security.pkcs11.SunPKCS11 but that
+               would require the class to be available?
+            */
+            if (pName.startsWith("SunPKCS11-")) {
+                p11s.add(provs[i]);
+            }
+        }
+        return p11s;
+    }
+}

@@ -145,8 +145,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** New KeyStore menu item of File menu */
     private JMenuItem m_jmiNewKeyStore;
 
-    /** Open KeyStore menu item of File menu */
-    private JMenuItem m_jmiOpenKeyStore;
+    /** Open KeyStore File menu item of File menu */
+    private JMenuItem m_jmiOpenKeyStoreFile;
+
+    /** Open PKCS #11 KeyStore menu item of File menu */
+    private JMenuItem m_jmiOpenKeyStorePkcs11;
 
     /** Save KeyStore menu item of File menu */
     private JMenuItem m_jmiSaveKeyStore;
@@ -254,8 +257,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** New KeyStore toolbar button */
     private JButton m_jbNewKeyStore;
 
-    /** Open KeyStore toolbar button */
-    private JButton m_jbOpenKeyStore;
+    /** Open KeyStore File toolbar button */
+    private JButton m_jbOpenKeyStoreFile;
 
     /** Save KeyStore toolbar button */
     private JButton m_jbSaveKeyStore;
@@ -366,8 +369,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** New KeyStore action */
     private final NewKeyStoreAction m_newKeyStoreAction = new NewKeyStoreAction();
 
-    /** Open KeyStore action */
-    private final OpenKeyStoreAction m_openKeyStoreAction = new OpenKeyStoreAction();
+    /** Open KeyStore File action */
+    private final OpenKeyStoreFileAction m_openKeyStoreFileAction = new OpenKeyStoreFileAction();
+
+    /** Open PKCS #11 KeyStore action */
+    private final OpenKeyStorePkcs11Action m_openKeyStorePkcs11Action = new OpenKeyStorePkcs11Action();
 
     /** Save KeyStore action */
     private final SaveKeyStoreAction m_saveKeyStoreAction = new SaveKeyStoreAction();
@@ -490,10 +496,21 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         new StatusBarChangeHandler(m_jmiNewKeyStore, (String)m_newKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmrfFile.add(m_jmiNewKeyStore);
 
-        m_jmiOpenKeyStore = new JMenuItem(m_openKeyStoreAction);
-        m_jmiOpenKeyStore.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiOpenKeyStore, (String)m_openKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this);
-        m_jmrfFile.add(m_jmiOpenKeyStore);
+        m_jmiOpenKeyStoreFile = new JMenuItem(m_openKeyStoreFileAction);
+        m_jmiOpenKeyStoreFile.setToolTipText(null);
+        new StatusBarChangeHandler(m_jmiOpenKeyStoreFile, (String)m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this);
+        m_jmrfFile.add(m_jmiOpenKeyStoreFile);
+
+        if (Boolean.getBoolean("portecle.experimental")) {
+            m_jmiOpenKeyStorePkcs11 =
+                new JMenuItem(m_openKeyStorePkcs11Action);
+            m_jmiOpenKeyStorePkcs11.setToolTipText(null);
+            new StatusBarChangeHandler(m_jmiOpenKeyStorePkcs11, (String)m_openKeyStorePkcs11Action.getValue(Action.LONG_DESCRIPTION), this);
+            if (ProviderUtil.getPkcs11Providers().isEmpty()) {
+                m_jmiOpenKeyStorePkcs11.setEnabled(false);
+            }
+            m_jmrfFile.add(m_jmiOpenKeyStorePkcs11);
+        }
 
         m_jmrfFile.addSeparator();
 
@@ -991,16 +1008,16 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         });
 
         // Create the "open" toolbar button
-        m_jbOpenKeyStore = new JButton();
-        m_jbOpenKeyStore.setAction(m_openKeyStoreAction);
-        m_jbOpenKeyStore.setText(null); // Don't share text from action
-        m_jbOpenKeyStore.setMnemonic(0); // Get around bug with action mnemonics on toolbar buttons
-        m_jbOpenKeyStore.setFocusable(false);
-        m_jbOpenKeyStore.addMouseListener(new MouseAdapter()
+        m_jbOpenKeyStoreFile = new JButton();
+        m_jbOpenKeyStoreFile.setAction(m_openKeyStoreFileAction);
+        m_jbOpenKeyStoreFile.setText(null); // Don't share text from action
+        m_jbOpenKeyStoreFile.setMnemonic(0); // Get around bug with action mnemonics on toolbar buttons
+        m_jbOpenKeyStoreFile.setFocusable(false);
+        m_jbOpenKeyStoreFile.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
-                setStatusBarText((String)m_openKeyStoreAction.getValue(Action.LONG_DESCRIPTION));
+                setStatusBarText((String)m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION));
             }
 
             public void mouseExited(MouseEvent evt)
@@ -1209,7 +1226,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
         // Add the buttons to the toolbar - use visible separators for all L&Fs
         m_jtbToolBar.add(m_jbNewKeyStore);
-        m_jtbToolBar.add(m_jbOpenKeyStore);
+        m_jtbToolBar.add(m_jbOpenKeyStoreFile);
         m_jtbToolBar.add(m_jbSaveKeyStore);
 
         JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
@@ -1850,11 +1867,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Open a KeyStore from disk.
+     * Open a KeyStore File from disk.
      *
      * @return True if a KeyStore is opened, false otherwise
      */
-    private boolean openKeyStore()
+    private boolean openKeyStoreFile()
     {
         // Does the current KeyStore contain unsaved changes?
         if (needSave())
@@ -1878,7 +1895,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.OpenKeyStore.Title"));
+        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"));
         chooser.setMultiSelectionEnabled(false);
 
         int iRtnValue = chooser.showOpenDialog(this);
@@ -1887,7 +1904,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             File fOpenFile = chooser.getSelectedFile();
 
             // File chosen - open the KeyStore
-            if (openKeyStore(fOpenFile))
+            if (openKeyStoreFile(fOpenFile))
             {
                 return true;
             }
@@ -1901,13 +1918,19 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      * @param fKeyStore The KeyStore file
      * @return True if a KeyStore is opened, false otherwise
      */
-    boolean openKeyStore(File fKeyStore) // Deliberately package private
+    /* package private */ boolean openKeyStoreFile(File fKeyStore)
     {
+        // The keystore does not exist
+        if (!fKeyStore.exists()) {
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.FileNotFound.message"), new Object[]{fKeyStore}),
+                                          m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
         // The KeyStore file is not a file
-        if (!fKeyStore.isFile())
+        else if (!fKeyStore.isFile())
         {
             JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NotFile.message"), new Object[]{fKeyStore}),
-                                          m_res.getString("FKeyToolGUI.OpenKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
+                                          m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
@@ -1952,8 +1975,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if (openedKeyStore == null)
             {
                 // None of the types worked - show each of the errors?
-                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenKeyStore.message"), new Object[]{fKeyStore}),
-                                                              m_res.getString("FKeyToolGUI.OpenKeyStore.Title"), JOptionPane.YES_NO_OPTION);
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenKeyStoreFile.message"), new Object[]{fKeyStore}),
+                                                              m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION)
                 {
                     for (int iCnt=0; iCnt < cexs.length; iCnt++)
@@ -1983,7 +2006,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         catch (FileNotFoundException ex)
         {
             JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoReadFile.message"), new Object[]{fKeyStore}),
-                                          m_res.getString("FKeyToolGUI.OpenKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
+                                          m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
         catch (Exception ex)
@@ -1992,6 +2015,85 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             return false;
         }
     }
+
+
+    /**
+     * Open a PKCS #11 KeyStore.
+     *
+     * @return True if a KeyStore is opened, false otherwise
+     */
+    private boolean openKeyStorePkcs11()
+    {
+        // Does the current KeyStore contain unsaved changes?
+        if (needSave())
+        {
+            // Yes - ask the user if it should be saved
+            int iWantSave = wantSave();
+
+            if ((iWantSave == JOptionPane.YES_OPTION && !saveKeyStore()) ||
+                iWantSave == JOptionPane.CANCEL_OPTION)
+            {
+                return false;
+            }
+        }
+
+        DChoosePkcs11Provider chooser =
+            new DChoosePkcs11Provider(
+                this,
+                m_res.getString("FKeyToolGUI.ChoosePkcs11Provider.Title"),
+                true, null);
+        chooser.setLocationRelativeTo(this);
+        chooser.setVisible(true);
+
+        String provider = chooser.getProvider();
+        return (provider == null) ? false : openKeyStorePkcs11(provider);
+    }
+
+
+    /**
+     * Open the supplied PKCS #11 KeyStore.
+     *
+     * @param sPkcs11Provider The PKCS #11 provider
+     * @return True if a KeyStore is opened, false otherwise
+     */
+    /* package private */ boolean openKeyStorePkcs11(String sPkcs11Provider)
+    {
+        // Get the user to enter the KeyStore's password
+        DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FKeyToolGUI.GetKeyStorePassword.Title"), new String[]{sPkcs11Provider}), true);
+        dGetPassword.setLocationRelativeTo(this);
+        dGetPassword.setVisible(true);
+        char[] cPassword = dGetPassword.getPassword();
+
+        if (cPassword == null) {
+            return false;
+        }
+
+        // Load the KeyStore
+        KeyStore openedKeyStore = null;
+
+        try {
+            openedKeyStore =
+                KeyStoreUtil.loadKeyStore(sPkcs11Provider, cPassword);
+        }
+        catch (CryptoException e) {
+            int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenKeyStorePkcs11.message"), new Object[]{sPkcs11Provider}),
+                                                          m_res.getString("FKeyToolGUI.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
+            if (iSelected == JOptionPane.YES_OPTION) {
+                displayException(e);
+            }
+            return false;
+        }
+
+        // Create a KeyStore wrapper for the KeyStore
+        m_keyStoreWrap = new KeyStoreWrapper(openedKeyStore, null, cPassword);
+
+        // Update the frame's components and title
+        updateControls();
+        updateTitle();
+
+        return true;
+    }
+
 
     /**
      * Save the currently opened KeyStore back to the file it was originally
@@ -5741,21 +5843,21 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Action to open a KeyStore.
+     * Action to open a KeyStore file.
      */
-    private class OpenKeyStoreAction extends AbstractAction
+    private class OpenKeyStoreFileAction extends AbstractAction
     {
         /**
          * Construct action.
          */
-        public OpenKeyStoreAction()
+        public OpenKeyStoreFileAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.OpenKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStoreAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.OpenKeyStoreAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.OpenKeyStoreAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStoreAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.OpenKeyStoreAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.image")))));
             setEnabled(true);
         }
 
@@ -5773,7 +5875,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             Thread t = new Thread(new Runnable() {
                 public void run()
                 {
-                    try { openKeyStore(); } finally { setCursorFree(); }
+                    try { openKeyStoreFile(); } finally { setCursorFree(); }
                 }
             });
             t.start();
@@ -5781,7 +5883,47 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Action to generate a KayPair.
+     * Action to open a KeyStore file.
+     */
+    private class OpenKeyStorePkcs11Action extends AbstractAction
+    {
+        /**
+         * Construct action.
+         */
+        public OpenKeyStorePkcs11Action()
+        {
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.image")))));
+            setEnabled(true);
+        }
+
+        /**
+         * Perform action.
+         *
+         * @param evt Action event
+         */
+        public void actionPerformed(ActionEvent evt)
+        {
+            setDefaultStatusBarText();
+            setCursorBusy();
+            repaint();
+
+            Thread t = new Thread(new Runnable() {
+                public void run()
+                {
+                    try { openKeyStorePkcs11(); } finally { setCursorFree(); }
+                }
+            });
+            t.start();
+        }
+    }
+
+    /**
+     * Action to generate a KeyPair.
      */
     private class GenKeyPairAction extends AbstractAction
     {
@@ -6208,7 +6350,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             FKeyToolGUI fKeyToolGui = new FKeyToolGUI();
             fKeyToolGui.setVisible(true);
             if (m_fKeyStore != null) {
-                fKeyToolGui.openKeyStore(m_fKeyStore);
+                fKeyToolGui.openKeyStoreFile(m_fKeyStore);
             }
         }
     }
