@@ -432,9 +432,9 @@ public class FPortecle extends JFrame implements StatusBar
     {
         // Get and store non-GUI related application properties
         m_bUseCaCerts = m_appPrefs.getBoolean(
-            m_res.getString("AppProps.Property.UseCaCerts"), false);
+            m_res.getString("AppPrefs.UseCaCerts"), false);
         m_fCaCertsFile = new File(
-            m_appPrefs.get(m_res.getString("AppProps.Property.CaCertsFile"),
+            m_appPrefs.get(m_res.getString("AppPrefs.CaCertsFile"),
                            DEFAULT_CA_CERTS_FILE));
 
         // Initialise GUI components
@@ -468,10 +468,8 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Set application position according to application preferences
         // unless the relevant preferences are not present or are invalid
-        int iXPos = m_appPrefs.getInt(
-            m_res.getString("AppProps.Property.XPos"), 0);
-        int iYPos = m_appPrefs.getInt(
-            m_res.getString("AppProps.Property.YPos"), 0);
+        int iXPos = m_appPrefs.getInt(m_res.getString("AppPrefs.XPos"), 0);
+        int iYPos = m_appPrefs.getInt(m_res.getString("AppPrefs.YPos"), 0);
 
         if ((iXPos <= 0) || (iYPos <= 0))
         {
@@ -593,7 +591,7 @@ public class FPortecle extends JFrame implements StatusBar
         for (int iCnt = RECENT_FILES_LENGTH; iCnt > 0; iCnt--)
         {
             String sRecentFile = m_appPrefs.get(
-                m_res.getString("AppProps.Property.RecentFile") + iCnt, null);
+                m_res.getString("AppPrefs.RecentFile") + iCnt, null);
 
             if (sRecentFile != null) {
                 m_jmrfFile.add(
@@ -1509,7 +1507,7 @@ public class FPortecle extends JFrame implements StatusBar
         // Set alias columns width according to the relevant application
         // property unless the property is not present or is invalid.
         int iAliasWidth = m_appPrefs.getInt(
-            m_res.getString("AppProps.Property.AliasWidth"), 0);
+            m_res.getString("AppPrefs.AliasWidth"), 0);
 
         TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(1);
         aliasCol.setMinWidth(20);
@@ -1533,9 +1531,9 @@ public class FPortecle extends JFrame implements StatusBar
         // Get the size of the KeyStore table panel from the application
         // preferences
         int iWidth = m_appPrefs.getInt(
-            m_res.getString("AppProps.Property.TableWidth"), 0);
+            m_res.getString("AppPrefs.TableWidth"), 0);
         int iHeight = m_appPrefs.getInt(
-            m_res.getString("AppProps.Property.TableHeight"), 0);
+            m_res.getString("AppPrefs.TableHeight"), 0);
 
         // Put the scroll pane into a panel.  The preferred size of the panel
         // dictates the size of the entire frame
@@ -6275,37 +6273,35 @@ public class FPortecle extends JFrame implements StatusBar
             // The size of the KeyStore table panel - determines the size
             // of the main frame
             m_appPrefs.putInt(
-                m_res.getString("AppProps.Property.TableWidth"),
+                m_res.getString("AppPrefs.TableWidth"),
                 m_jpKeyStoreTable.getWidth());
             m_appPrefs.putInt(
-                m_res.getString("AppProps.Property.TableHeight"),
+                m_res.getString("AppPrefs.TableHeight"),
                 m_jpKeyStoreTable.getHeight());
 
             // The size of the KeyStore table's alias column - determines
             // the size of all of the table's columns
             m_appPrefs.putInt(
-                m_res.getString("AppProps.Property.AliasWidth"),
+                m_res.getString("AppPrefs.AliasWidth"),
                 m_jtKeyStore.getColumnModel().getColumn(1).getWidth());
 
             // Application's position on the desktop
-            m_appPrefs.putInt(
-                m_res.getString("AppProps.Property.XPos"), this.getX());
-            m_appPrefs.putInt(
-                m_res.getString("AppProps.Property.YPos"), this.getY());
+            m_appPrefs.putInt(m_res.getString("AppPrefs.XPos"), this.getX());
+            m_appPrefs.putInt(m_res.getString("AppPrefs.YPos"), this.getY());
 
             // Use CA certificates file?
             m_appPrefs.putBoolean(
-                m_res.getString("AppProps.Property.UseCaCerts"),
+                m_res.getString("AppPrefs.UseCaCerts"),
                 m_bUseCaCerts);
 
             // CA Certificates file
             m_appPrefs.put(
-                m_res.getString("AppProps.Property.CaCertsFile"),
+                m_res.getString("AppPrefs.CaCertsFile"),
                 m_fCaCertsFile.toString());
 
             // Show splash screen?
             m_appPrefs.putBoolean(
-                m_res.getString("AppProps.Property.SplashScreen"),
+                m_res.getString("AppPrefs.SplashScreen"),
                 m_bSplashScreen);
 
             // Recent files
@@ -6313,7 +6309,7 @@ public class FPortecle extends JFrame implements StatusBar
             for (int iCnt=0; iCnt < fRecentFiles.length; iCnt++)
             {
                 m_appPrefs.put(
-                    m_res.getString("AppProps.Property.RecentFile")+(iCnt+1),
+                    m_res.getString("AppPrefs.RecentFile")+(iCnt+1),
                     fRecentFiles[iCnt].toString());
             }
 
@@ -6323,7 +6319,7 @@ public class FPortecle extends JFrame implements StatusBar
             if (m_lookFeelOptions != null) {
                 // Setting made in options
                 m_appPrefs.put(
-                    m_res.getString("AppProps.Property.LookFeel"),
+                    m_res.getString("AppPrefs.LookFeel"),
                     m_lookFeelOptions.getClassName());
             }
             else {
@@ -6343,7 +6339,7 @@ public class FPortecle extends JFrame implements StatusBar
                                 lookFeelInfo.getName()))
                         {
                             m_appPrefs.put(
-                                m_res.getString("AppProps.Property.LookFeel"),
+                                m_res.getString("AppPrefs.LookFeel"),
                                 lookFeelInfo.getClassName());
                             break;
                         }
@@ -6356,13 +6352,13 @@ public class FPortecle extends JFrame implements StatusBar
             if (m_bLookFeelDecorationOptions != null) {
                 // Setting made in options
                 m_appPrefs.put(
-                    m_res.getString("AppProps.Property.LookFeelDecor"),
+                    m_res.getString("AppPrefs.LookFeelDecor"),
                     m_bLookFeelDecorationOptions.toString());
             }
             else {
                 // Current setting
                 m_appPrefs.putBoolean(
-                    m_res.getString("AppProps.Property.LookFeelDecor"),
+                    m_res.getString("AppPrefs.LookFeelDecor"),
                     JFrame.isDefaultLookAndFeelDecorated());
             }
 
@@ -6496,7 +6492,7 @@ public class FPortecle extends JFrame implements StatusBar
         {
             // Use the look and feel
             UIManager.setLookAndFeel(
-                m_appPrefs.get(m_res.getString("AppProps.Property.LookFeel"),
+                m_appPrefs.get(m_res.getString("AppPrefs.LookFeel"),
                                FPortecle.DEFAULT_LOOK_FEEL));
         }
         // Didn't work - no matter
@@ -6507,7 +6503,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Use look & feel's decoration?
         boolean bLookFeelDecorated = m_appPrefs.getBoolean(
-            m_res.getString("AppProps.Property.LookFeelDecor"), false);
+            m_res.getString("AppPrefs.LookFeelDecor"), false);
 
         JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
         JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
@@ -7366,7 +7362,7 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         m_bSplashScreen = m_appPrefs.getBoolean(
-            m_res.getString("AppProps.Property.SplashScreen"), true);
+            m_res.getString("AppPrefs.SplashScreen"), true);
 
         if (m_bSplashScreen) {
             // Create and display a splash screen
