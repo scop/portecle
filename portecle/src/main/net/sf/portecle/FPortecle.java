@@ -3249,8 +3249,8 @@ public class FPortecle extends JFrame implements StatusBar
             String[] certTypes = {
                 X509CertUtil.PKCS7_ENCODING,
                 X509CertUtil.PKIPATH_ENCODING,
-                X509CertUtil.OPENSSL_PEM_ENCODING,
                 null,
+                X509CertUtil.OPENSSL_PEM_ENCODING,
             };
             Exception[] exs = new Exception[certTypes.length];
             for (int iCnt = 0; iCnt < certTypes.length; iCnt++) {
