@@ -62,7 +62,7 @@ public class X509Ext extends Object
     private static final String COMMON_NAME_OID = "2.5.4.3";
 
     /** Authority Key Identifier (old) OID */
-    private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1"; // Old - not to do?
+    private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1";
 
     /** Primary Key Attributes OID */
     private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2"; // No info available
@@ -77,7 +77,7 @@ public class X509Ext extends Object
     private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9"; // Std todo
 
     /** Basic Constraints (old 0) OID */
-    private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10"; // Old - not to do?
+    private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10";
 
     /** Basic Constraints (old 1) OID */
     private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13"; // Old - not to do?
@@ -429,6 +429,8 @@ public class X509Ext extends Object
 
         // TODO:
         // - CERTIFICATE_POLICIES_OLD_OID
+        // - AUTHORITY_KEY_IDENTIFIER_OLD_OID
+        // - BASIC_CONSTRAINTS_OLD_0_OID
 
         // Don't know how to process the extension
         // and clear text
