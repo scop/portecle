@@ -234,7 +234,7 @@ public class DThrowableDetail extends JDialog
     private void expandTree(JTree tree, TreePath parent)
     {
         // Traverse children expending nodes
-        TreeNode node = (TreeNode)parent.getLastPathComponent();
+        TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0)
         {
             for (Enumeration en = node.children(); en.hasMoreElements(); )

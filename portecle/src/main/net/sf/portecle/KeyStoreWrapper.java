@@ -84,7 +84,7 @@ class KeyStoreWrapper
     {
         for (int iCnt=0; iCnt < m_vEntryPasswords.size(); iCnt++)
         {
-            EntryPassword entry = (EntryPassword)m_vEntryPasswords.get(iCnt);
+            EntryPassword entry = (EntryPassword) m_vEntryPasswords.get(iCnt);
             if (sAlias.equalsIgnoreCase(entry.getAlias()))
             {
                 entry.setPassword(cPassword);
@@ -103,7 +103,7 @@ class KeyStoreWrapper
     {
         for (int iCnt=0; iCnt < m_vEntryPasswords.size(); iCnt++)
         {
-            EntryPassword entry = (EntryPassword)m_vEntryPasswords.get(iCnt);
+            EntryPassword entry = (EntryPassword) m_vEntryPasswords.get(iCnt);
             if (sAlias.equalsIgnoreCase(entry.getAlias()))
             {
                 m_vEntryPasswords.remove(iCnt);
@@ -122,7 +122,7 @@ class KeyStoreWrapper
     {
         for (int iCnt=0; iCnt < m_vEntryPasswords.size(); iCnt++)
         {
-            EntryPassword entry = (EntryPassword)m_vEntryPasswords.get(iCnt);
+            EntryPassword entry = (EntryPassword) m_vEntryPasswords.get(iCnt);
             if (sAlias.equalsIgnoreCase(entry.getAlias()))
             {
                 return entry.getPassword();

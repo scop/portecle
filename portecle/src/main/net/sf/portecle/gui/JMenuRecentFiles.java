@@ -225,6 +225,6 @@ public class JMenuRecentFiles extends JMenu
             arrList.add(m_jmirf[iCnt].getFile());
         }
 
-        return (File[])arrList.toArray(new File[arrList.size()]);
+        return (File[]) arrList.toArray(new File[arrList.size()]);
     }
 }

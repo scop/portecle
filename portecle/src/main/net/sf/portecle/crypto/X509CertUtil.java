@@ -178,7 +178,7 @@ public final class X509CertUtil
 
             if (coll != null) {
                 for (Iterator iter = coll.iterator(); iter.hasNext(); ) {
-                    X509Certificate cert = (X509Certificate)iter.next();
+                    X509Certificate cert = (X509Certificate) iter.next();
                     if (cert != null) {
                         vCerts.add(cert);
                     }
@@ -224,7 +224,7 @@ public final class X509CertUtil
             fis = new FileInputStream(fCRLFile);
             CertificateFactory cf =
                 CertificateFactory.getInstance(X509_CERT_TYPE);
-            X509CRL crl = (X509CRL)cf.generateCRL(fis);
+            X509CRL crl = (X509CRL) cf.generateCRL(fis);
             return crl;
         }
         catch (GeneralSecurityException ex)
@@ -368,7 +368,7 @@ public final class X509CertUtil
                 CertificateFactory.getInstance(X509_CERT_TYPE);
             ByteArrayInputStream bais =
                 new ByteArrayInputStream(certIn.getEncoded());
-            return (X509Certificate)cf.generateCertificate(bais);
+            return (X509Certificate) cf.generateCertificate(bais);
         }
         catch (CertificateException ex)
         {
@@ -387,7 +387,7 @@ public final class X509CertUtil
     public static X509Certificate[] orderX509CertChain(X509Certificate[] certs)
     {
         int iOrdered = 0;
-        X509Certificate[] tmpCerts = (X509Certificate[])certs.clone();
+        X509Certificate[] tmpCerts = (X509Certificate[]) certs.clone();
         X509Certificate[] orderedCerts = new X509Certificate[certs.length];
 
         X509Certificate issuerCert = null;
@@ -691,8 +691,9 @@ public final class X509CertUtil
 
         // Valid before and after dates now to iValidity days in the future
         certGen.setNotBefore(new Date(System.currentTimeMillis()));
-        certGen.setNotAfter(new Date(System.currentTimeMillis() +
-                                     ((long)iValidity * 24 * 60 * 60 * 1000)));
+        certGen.setNotAfter(new Date(
+                                System.currentTimeMillis() +
+                                ((long) iValidity * 24 * 60 * 60 * 1000)));
 
         // Set the subject distinguished name (same as issuer for our purposes)
         certGen.setSubjectDN(new X509Principal(vOrder, attrs));
@@ -890,7 +891,7 @@ public final class X509CertUtil
         // For each comparison certificate...
         for (int iCnt=0; iCnt < vCompCerts.size(); iCnt++)
         {
-            X509Certificate compCert = (X509Certificate)vCompCerts.get(iCnt);
+            X509Certificate compCert = (X509Certificate) vCompCerts.get(iCnt);
 
             // Check if the Comparison certificate's subject is the same as the
             // certificate's issuer

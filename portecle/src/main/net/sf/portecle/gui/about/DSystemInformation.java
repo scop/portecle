@@ -211,7 +211,8 @@ public class DSystemInformation
             m_res.getString("DSystemInformation.m_jlLocale.text"),
             JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlLocale = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlLocale =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlLocale.gridy = 1;
         m_jpSystemInformation.add(m_jlLocale, gbc_jlLocale);
 

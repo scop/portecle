@@ -194,7 +194,7 @@ class DGenerateCertificate extends JDialog
         // Signature Algorithm
         m_jlSigAlg = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlSigAlg.text"));
-        GridBagConstraints gbc_jlSigAlg = (GridBagConstraints)gbcLbl.clone();
+        GridBagConstraints gbc_jlSigAlg = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSigAlg.gridy = 0;
 
         m_jcbSigAlg = new JComboBox();
@@ -209,7 +209,8 @@ class DGenerateCertificate extends JDialog
         // Validity Period
         m_jlValidity = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlValidity.text"));
-        GridBagConstraints gbc_jlValidity = (GridBagConstraints)gbcLbl.clone();
+        GridBagConstraints gbc_jlValidity =
+            (GridBagConstraints) gbcLbl.clone();
         gbc_jlValidity.gridy = 1;
 
         m_jtfValidity = new JTextField(4);

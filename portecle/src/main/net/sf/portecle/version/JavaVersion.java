@@ -269,7 +269,7 @@ public class JavaVersion
      */
     public int compareTo(Object object)
     {
-        JavaVersion cmpJavaVersion = (JavaVersion)object;
+        JavaVersion cmpJavaVersion = (JavaVersion) object;
 
         // Comapre major number
         if (m_iMajor > cmpJavaVersion.getMajor())

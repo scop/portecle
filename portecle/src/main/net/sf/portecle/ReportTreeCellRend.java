@@ -68,7 +68,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
             // Set the cell's icon and tool tip text - depends on
             // nodes depth and index
 
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 
             int iLevel = node.getLevel();
 
@@ -93,7 +93,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
 
                 if (obj instanceof Entry)
                 {
-                    Entry entry = (Entry)obj;
+                    Entry entry = (Entry) obj;
 
                     if (entry.isKey())
                     {

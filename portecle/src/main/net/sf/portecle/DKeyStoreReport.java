@@ -251,7 +251,7 @@ class DKeyStoreReport
         m_jtrReport.setCellRenderer(new ReportTreeCellRend());
 
         // Expand all nodes in tree
-        TreeNode topNode = (TreeNode)m_jtrReport.getModel().getRoot();
+        TreeNode topNode = (TreeNode) m_jtrReport.getModel().getRoot();
         expandTree(m_jtrReport, new TreePath(topNode));
 
         m_jspReport = new JScrollPane(
@@ -293,7 +293,7 @@ class DKeyStoreReport
     private void expandTree(JTree tree, TreePath parent)
     {
         // Traverse children expending nodes
-        TreeNode node = (TreeNode)parent.getLastPathComponent();
+        TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0)
         {
             for (Enumeration en = node.children(); en.hasMoreElements(); )
@@ -424,7 +424,7 @@ class DKeyStoreReport
             while (aliases.hasMoreElements())
             {
                 // Alias
-                String sAlias = (String)aliases.nextElement();
+                String sAlias = (String) aliases.nextElement();
                 sbReport.append(
                     MessageFormat.format(
                         m_res.getString("DKeyStoreReport.report.alias"),
@@ -671,7 +671,7 @@ class DKeyStoreReport
             // Get information on each KeyStore entry
             while (aliases.hasMoreElements())
             {
-                String sAlias = (String)aliases.nextElement();
+                String sAlias = (String) aliases.nextElement();
 
                 String sCreation = null;
                 if (ksType.supportsCreationDate()) {
@@ -878,7 +878,7 @@ class DKeyStoreReport
             while (aliases.hasMoreElements())
             {
                 // Entry alias
-                String sAlias = (String)aliases.nextElement();
+                String sAlias = (String) aliases.nextElement();
 
                 Certificate[] certChain = null;
                 DefaultMutableTreeNode entryNode = null;

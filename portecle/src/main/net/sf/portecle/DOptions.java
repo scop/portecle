@@ -361,7 +361,8 @@ class DOptions extends JDialog
 
         // Store look & feel class name (look up in Vector by choice box index)
         int iSel = m_jcbLookFeel.getSelectedIndex();
-        m_lookFeelInfo = (UIManager.LookAndFeelInfo)m_vLookFeelInfos.get(iSel);
+        m_lookFeelInfo =
+            (UIManager.LookAndFeelInfo) m_vLookFeelInfos.get(iSel);
 
         // Store whether or not look & feel decoration should be used
         m_bLookFeelDecorated = m_jcbLookFeelDecorated.isSelected();

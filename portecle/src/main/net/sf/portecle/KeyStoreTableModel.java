@@ -106,7 +106,7 @@ class KeyStoreTableModel extends AbstractTableModel
         for (Iterator itr = sortedAliases.entrySet().iterator();
              itr.hasNext(); iCnt++)
         {
-            String sAlias = (String)((Map.Entry)itr.next()).getKey();
+            String sAlias = (String) ((Map.Entry) itr.next()).getKey();
 
             // Populate the type column - it is set with an integer
             // but a custom cell renderer will cause a suitable icon

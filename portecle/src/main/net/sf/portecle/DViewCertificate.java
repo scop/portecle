@@ -279,40 +279,40 @@ class DViewCertificate extends JDialog
         // Version
         m_jlVersion = new JLabel(
             m_res.getString("DViewCertificate.m_jlVersion.text"));
-        GridBagConstraints gbc_jlVersion = (GridBagConstraints)gbcLbl.clone();
+        GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
         gbc_jlVersion.gridy = 0;
 
         m_jtfVersion = new JTextField(3);
         m_jtfVersion.setEditable(false);
         m_jtfVersion.setToolTipText(
             m_res.getString("DViewCertificate.m_jtfVersion.tooltip"));
-        GridBagConstraints gbc_jtfVersion = (GridBagConstraints)gbcTf.clone();
+        GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
         gbc_jtfVersion.gridy = 0;
 
         // Subject
         m_jlSubject = new JLabel(
             m_res.getString("DViewCertificate.m_jlSubject.text"));
-        GridBagConstraints gbc_jlSubject = (GridBagConstraints)gbcLbl.clone();
+        GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSubject.gridy = 1;
 
         m_jtfSubject = new JTextField(36);
         m_jtfSubject.setEditable(false);
         m_jtfSubject.setToolTipText(
             m_res.getString("DViewCertificate.m_jtfSubject.tooltip"));
-        GridBagConstraints gbc_jtfSubject = (GridBagConstraints)gbcTf.clone();
+        GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
         gbc_jtfSubject.gridy = 1;
 
         // Issuer
         m_jlIssuer = new JLabel(
             m_res.getString("DViewCertificate.m_jlIssuer.text"));
-        GridBagConstraints gbc_jlIssuer = (GridBagConstraints)gbcLbl.clone();
+        GridBagConstraints gbc_jlIssuer = (GridBagConstraints) gbcLbl.clone();
         gbc_jlIssuer.gridy = 2;
 
         m_jtfIssuer = new JTextField(36);
         m_jtfIssuer.setEditable(false);
         m_jtfIssuer.setToolTipText(
             m_res.getString("DViewCertificate.m_jtfIssuer.tooltip"));
-        GridBagConstraints gbc_jtfIssuer = (GridBagConstraints)gbcTf.clone();
+        GridBagConstraints gbc_jtfIssuer = (GridBagConstraints) gbcTf.clone();
         gbc_jtfIssuer.gridy = 2;
 
         // Serial Number

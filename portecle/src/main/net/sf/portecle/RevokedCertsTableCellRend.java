@@ -57,7 +57,7 @@ class RevokedCertsTableCellRend extends DefaultTableCellRenderer
         // Serial Number column - format to a hex string
         if (iCol == 0)
         {
-            cell.setText(formatSerialNumber((BigInteger)value));
+            cell.setText(formatSerialNumber((BigInteger) value));
         }
         // Revocation Date column - format date
         else
@@ -65,7 +65,7 @@ class RevokedCertsTableCellRend extends DefaultTableCellRenderer
             // Include timezone
             cell.setText(
                 DateFormat.getDateTimeInstance(
-                    DateFormat.MEDIUM, DateFormat.LONG).format((Date)value));
+                    DateFormat.MEDIUM, DateFormat.LONG).format((Date) value));
         }
 
         cell.setBorder(new EmptyBorder(0, 5, 0, 5));

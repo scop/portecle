@@ -64,7 +64,7 @@ class ThrowableTreeCellRend extends DefaultTreeCellRenderer
         // Sanity check of value
         if (value instanceof DefaultMutableTreeNode)
         {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
             Object userValue = node.getUserObject();
             ImageIcon icon = null;
 

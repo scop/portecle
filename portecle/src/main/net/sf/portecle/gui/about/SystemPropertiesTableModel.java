@@ -71,7 +71,7 @@ class SystemPropertiesTableModel extends AbstractTableModel
         for (Enumeration names = sysProps.propertyNames();
              names.hasMoreElements();)
         {
-            String sName = (String)names.nextElement();
+            String sName = (String) names.nextElement();
             String sValue = sysProps.getProperty(sName);
 
             // Convert line.separator property value to be printable
@@ -107,7 +107,7 @@ class SystemPropertiesTableModel extends AbstractTableModel
         for (Iterator itrSorted = sortedSysProps.entrySet().iterator();
              itrSorted.hasNext(); iCnt++)
         {                        
-            Map.Entry property = (Map.Entry)itrSorted.next();
+            Map.Entry property = (Map.Entry) itrSorted.next();
             
             // Name column
             m_data[iCnt][0] = property.getKey();

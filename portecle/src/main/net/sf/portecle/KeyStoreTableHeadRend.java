@@ -80,7 +80,7 @@ class KeyStoreTableHeadRend extends DefaultTableCellRenderer
         // The other headers contain text
         else
         {
-            header.setText((String)value);
+            header.setText((String) value);
             header.setHorizontalAlignment(LEFT);
 
             if (iCol == 1)

@@ -214,7 +214,7 @@ public class DJarInfo extends JDialog
         if (vJars.size() == 1)
         {
             // Get manifest
-            JarFile jarFile = (JarFile)vJars.get(0);
+            JarFile jarFile = (JarFile) vJars.get(0);
             Manifest manifest = jarFile.getManifest();
 
             if (manifest != null) // Manifest may not exist
@@ -247,7 +247,7 @@ public class DJarInfo extends JDialog
         }
 
         // Return JARs in an array
-        return (JarFile[])vJars.toArray(new JarFile[vJars.size()]);
+        return (JarFile[]) vJars.toArray(new JarFile[vJars.size()]);
     }
 
     /**

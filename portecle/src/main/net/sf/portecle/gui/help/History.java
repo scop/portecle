@@ -237,7 +237,7 @@ public class History
 
             synchronized(this)
             {
-                listenersCopy = (Vector)listeners.clone();
+                listenersCopy = (Vector) listeners.clone();
             }
 
             Enumeration en = listenersCopy.elements();

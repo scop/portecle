@@ -2055,14 +2055,14 @@ public class FPortecle extends JFrame implements StatusBar
                 m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
 
                 // Show one menu if the KeyStore entry is of type key pair...
-                if (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
+                if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                         KeyStoreTableModel.KEY_PAIR_ENTRY))
                 {
                     m_jpmKeyPair.show(
                         evt.getComponent(), evt.getX(), evt.getY());
                 }
                 // ...and another if the type is trusted certificate
-                else if (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
+                else if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                              KeyStoreTableModel.TRUST_CERT_ENTRY))
                 {
                     m_jpmCert.show(evt.getComponent(), evt.getX(), evt.getY());
@@ -3346,7 +3346,7 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 
         // Get the KeyStore
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
@@ -4132,7 +4132,7 @@ public class FPortecle extends JFrame implements StatusBar
             // Build and connect to the relevant URL
             URL latestVersionUrl = new URL(
                 m_res.getString("FPortecle.LatestVersionAddress"));
-            urlConn = (HttpURLConnection)latestVersionUrl.openConnection();
+            urlConn = (HttpURLConnection) latestVersionUrl.openConnection();
 
             int iResponseCode = urlConn.getResponseCode();
             if (iResponseCode != HttpURLConnection.HTTP_OK)
@@ -4151,7 +4151,7 @@ public class FPortecle extends JFrame implements StatusBar
 
             // Attempt to read serialized Version into an object
             ois = new ObjectInputStream(urlConn.getInputStream());
-            Version latestVersion = (Version)ois.readObject();
+            Version latestVersion = (Version) ois.readObject();
 
             // Construct current version into a Version object for comparison
             Version currentVersion = new Version(sCurrentVersion);
@@ -4422,7 +4422,7 @@ public class FPortecle extends JFrame implements StatusBar
                  aliases.hasMoreElements();)
             {
                 // Entry alias
-                String sAlias = (String)aliases.nextElement();
+                String sAlias = (String) aliases.nextElement();
 
                 // Trusted certificate entry
                 if (currentKeyStore.isCertificateEntry(sAlias))
@@ -4611,16 +4611,16 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key or trusted certificate entry
-        if ((((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
-                 KeyStoreTableModel.KEY_ENTRY)) ||
-            (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
-                 KeyStoreTableModel.TRUST_CERT_ENTRY)))
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
+                 KeyStoreTableModel.KEY_ENTRY) ||
+            m_jtKeyStore.getValueAt(iRow, 0).equals(
+                 KeyStoreTableModel.TRUST_CERT_ENTRY))
         {
             return false;
         }
 
         // Get entry alias
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 
         // Do we already know the current password for the entry?
         char[] cOldPassword = m_keyStoreWrap.getEntryPassword(sAlias);
@@ -4694,14 +4694,14 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key entry
-        if (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                 KeyStoreTableModel.KEY_ENTRY))
         {
             return false;
         }
 
         // Get the entry
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 
         try
         {
@@ -5483,15 +5483,15 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key or trusted certificate entry
-        if ((((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
-                 KeyStoreTableModel.KEY_ENTRY)) ||
-            (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
-                 KeyStoreTableModel.TRUST_CERT_ENTRY)))
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
+                 KeyStoreTableModel.KEY_ENTRY) ||
+            m_jtKeyStore.getValueAt(iRow, 0).equals(
+                 KeyStoreTableModel.TRUST_CERT_ENTRY))
         {
             return false;
         }
 
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         File fCsrFile = null;
@@ -5616,15 +5616,15 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key or trusted certificate entry
-        if ((((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
-                 KeyStoreTableModel.KEY_ENTRY)) ||
-            (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
-                 KeyStoreTableModel.TRUST_CERT_ENTRY)))
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
+                 KeyStoreTableModel.KEY_ENTRY) ||
+            m_jtKeyStore.getValueAt(iRow, 0).equals(
+                 KeyStoreTableModel.TRUST_CERT_ENTRY))
         {
             return false;
         }
 
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         try
@@ -5814,13 +5814,13 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key entry
-        if (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                 KeyStoreTableModel.KEY_ENTRY))
         {
             return false;
         }
 
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         try
@@ -5880,13 +5880,13 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key entry
-        if (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                 KeyStoreTableModel.KEY_ENTRY))
         {
             return false;
         }
 
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         try
@@ -5930,13 +5930,13 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // Not valid for a key entry
-        if (((String)m_jtKeyStore.getValueAt(iRow, 0)).equals(
+        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
                 KeyStoreTableModel.KEY_ENTRY))
         {
             return false;
         }
 
-        String sAlias = (String)m_jtKeyStore.getValueAt(iRow, 1);
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         try
@@ -6094,7 +6094,7 @@ public class FPortecle extends JFrame implements StatusBar
         try
         {
             // Update KeyStore entries table
-            ((KeyStoreTableModel)m_jtKeyStore.getModel()).load(
+            ((KeyStoreTableModel) m_jtKeyStore.getModel()).load(
                 m_keyStoreWrap.getKeyStore());
         }
         catch (CryptoException ex) {
@@ -7345,7 +7345,7 @@ public class FPortecle extends JFrame implements StatusBar
             Class bcProvClass =
                 Class.forName(
                     "org.bouncycastle.jce.provider.BouncyCastleProvider");
-            Provider bcProv = (Provider)bcProvClass.newInstance();
+            Provider bcProv = (Provider) bcProvClass.newInstance();
 
             // Add BC as a security provider
             Security.addProvider(bcProv);

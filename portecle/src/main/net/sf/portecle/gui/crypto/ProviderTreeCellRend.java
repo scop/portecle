@@ -65,7 +65,7 @@ class ProviderTreeCellRend extends DefaultTreeCellRenderer
         if (value instanceof DefaultMutableTreeNode)
         {
             // Get the correct icon for the node and set any tool tip text
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 
             ImageIcon icon = null;
 

@@ -80,7 +80,7 @@ class ExtensionsTableModel extends AbstractTableModel
         // First the critical extensions...
         for (Iterator itr = critExts.iterator(); itr.hasNext();)
         {
-            String sExtOid = (String)itr.next();
+            String sExtOid = (String) itr.next();
             byte[] bValue = extensions.getExtensionValue(sExtOid);
 
             X509Ext ext = new X509Ext(sExtOid, bValue, true);
@@ -91,7 +91,7 @@ class ExtensionsTableModel extends AbstractTableModel
         // ...then the critical extensions
         for (Iterator itr = nonCritExts.iterator(); itr.hasNext();)
         {
-            String sExtOid = (String)itr.next();
+            String sExtOid = (String) itr.next();
             byte[] bValue = extensions.getExtensionValue(sExtOid);
 
             X509Ext ext = new X509Ext(sExtOid, bValue, false);

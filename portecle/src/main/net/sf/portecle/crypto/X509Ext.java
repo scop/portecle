@@ -783,13 +783,13 @@ public class X509Ext
 
         // Read CA boolean if present in sequence
         if (aLen > 0) {
-            DERBoolean derBool = (DERBoolean)asn1Seq.getObjectAt(0);
+            DERBoolean derBool = (DERBoolean) asn1Seq.getObjectAt(0);
             bCa = derBool.isTrue();
         }
 
         // Read Path Length Constraint boolean if present in sequence
         if (aLen > 1) {
-            DERInteger derInt = (DERInteger)asn1Seq.getObjectAt(1);
+            DERInteger derInt = (DERInteger) asn1Seq.getObjectAt(1);
             iPathLengthConstraint = derInt.getValue().intValue();
         }
 
@@ -1072,12 +1072,12 @@ public class X509Ext
 
             switch (derTagObj.getTagNo()) {
             case 0: // Key identifier
-                keyIdentifier = (DEROctetString)derObj;
+                keyIdentifier = (DEROctetString) derObj;
                 break;
             case 1: // Authority cert issuer
                 // Many general names
                 if (derObj instanceof ASN1Sequence) {
-                    authorityCertIssuer = (ASN1Sequence)derObj;
+                    authorityCertIssuer = (ASN1Sequence) derObj;
                 }
                 // One general name
                 else {
@@ -1085,7 +1085,7 @@ public class X509Ext
                 }
                 break;
             case 2: // Certificate serial number
-                certificateSerialNumber = (DEROctetString)derObj;
+                certificateSerialNumber = (DEROctetString) derObj;
                 break;
             }
         }
@@ -1153,7 +1153,7 @@ public class X509Ext
             DERTaggedObject policyConstraint =
                 (DERTaggedObject) policyConstraints.getObjectAt(i);
             DERInteger skipCerts = new DERInteger(
-                ((DEROctetString)policyConstraint.getObject()).getOctets());
+                ((DEROctetString) policyConstraint.getObject()).getOctets());
             int iSkipCerts = skipCerts.getValue().intValue();
 
             switch (policyConstraint.getTagNo()) {
@@ -1301,7 +1301,8 @@ public class X509Ext
         sb.append(MessageFormat.format(
                       m_res.getString("MsftCertTemplateId"),
                       new String[]{
-                          ((DERObjectIdentifier)seq.getObjectAt(0)).getId()}));
+                          ((DERObjectIdentifier) seq.getObjectAt(0))
+                          .getId()}));
         sb.append('\n');
 
         DERInteger derInt = (DERInteger) seq.getObjectAt(1);
@@ -1927,7 +1928,7 @@ public class X509Ext
         switch (generalName.getTagNo()) {
 
         case 0: // Other Name
-            ASN1Sequence other = (ASN1Sequence)generalName.getObject();
+            ASN1Sequence other = (ASN1Sequence) generalName.getObject();
             String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
             String sVal = stringify(other.getObjectAt(1));
             strBuff.append(MessageFormat.format(
@@ -1936,7 +1937,7 @@ public class X509Ext
             break;
 
         case 1: // RFC 822 Name
-            DEROctetString rfc822 = (DEROctetString)generalName.getObject();
+            DEROctetString rfc822 = (DEROctetString) generalName.getObject();
             String sRfc822 = new String(rfc822.getOctets());
             strBuff.append(MessageFormat.format(
                                m_res.getString("Rfc822GeneralName"),
@@ -1944,7 +1945,7 @@ public class X509Ext
             break;
 
         case 2: // DNS Name
-            DEROctetString dns = (DEROctetString)generalName.getObject();
+            DEROctetString dns = (DEROctetString) generalName.getObject();
             String sDns = new String(dns.getOctets());
             strBuff.append(MessageFormat.format(
                                m_res.getString("DnsGeneralName"),
@@ -1952,7 +1953,7 @@ public class X509Ext
             break;
 
         case 4: // Directory Name
-            ASN1Sequence directory = (ASN1Sequence)generalName.getObject();
+            ASN1Sequence directory = (ASN1Sequence) generalName.getObject();
             X509Name name = new X509Name(directory);
             strBuff.append(MessageFormat.format(
                                m_res.getString("DirectoryGeneralName"),
@@ -1960,7 +1961,7 @@ public class X509Ext
             break;
 
         case 6: // URI
-            DEROctetString uri = (DEROctetString)generalName.getObject();
+            DEROctetString uri = (DEROctetString) generalName.getObject();
             String sUri = new String(uri.getOctets());
             strBuff.append(MessageFormat.format(
                                m_res.getString("UriGeneralName"),
@@ -1968,7 +1969,8 @@ public class X509Ext
             break;
 
         case 7: // IP Address
-            DEROctetString ipAddress = (DEROctetString)generalName.getObject();
+            DEROctetString ipAddress =
+                (DEROctetString) generalName.getObject();
 
             byte[] bIpAddress = ipAddress.getOctets();
 
@@ -1991,7 +1993,7 @@ public class X509Ext
 
         case 8: // Registered ID
             DEROctetString registeredId =
-                (DEROctetString)generalName.getObject();
+                (DEROctetString) generalName.getObject();
 
             byte[] bRegisteredId = registeredId.getOctets();
 
@@ -2002,7 +2004,7 @@ public class X509Ext
             {
                 byte b = bRegisteredId[iCnt];
                 // Convert from (possibly negative) byte to positive int
-                sbRegisteredId.append((int)b & 0xFF);
+                sbRegisteredId.append((int) b & 0xFF);
                 if ((iCnt+1) < bRegisteredId.length) {
                     sbRegisteredId.append('.');
                 }
@@ -2077,7 +2079,7 @@ public class X509Ext
             int i = (int) b & 0xFF;
 
             // First part of byte will be one hex char
-            int i1 = (int)Math.floor(i / 16);
+            int i1 = (int) Math.floor(i / 16);
 
             // Second part of byte will be one hex char
             int i2 = i % 16;
@@ -2099,10 +2101,10 @@ public class X509Ext
             char c = '.';
 
             // Not a control character and defined in Unicode
-            if (!Character.isISOControl((char)i) &&
-                Character.isDefined((char)i))
+            if (!Character.isISOControl((char) i) &&
+                Character.isDefined((char) i))
             {
-                Character cClr = new Character((char)i);
+                Character cClr = new Character((char) i);
                 c = cClr.charValue();
             }
 

@@ -103,7 +103,7 @@ public class Version
      */
     private int[] getSections()
     {
-        return (int[])iSections.clone();
+        return (int[]) iSections.clone();
     }
 
     /**
@@ -114,7 +114,7 @@ public class Version
      */
     public int compareTo(Object object)
     {
-        Version cmpVersion = (Version)object;
+        Version cmpVersion = (Version) object;
 
         int[] iCmpSections = cmpVersion.getSections();
 

@@ -66,7 +66,7 @@ class ExtensionsTableCellRend extends DefaultTableCellRenderer
         {
             ImageIcon icon = null;
 
-            if (((Boolean)value).booleanValue())
+            if (((Boolean) value).booleanValue())
             {
                 icon = new ImageIcon(
                     getClass().getResource(

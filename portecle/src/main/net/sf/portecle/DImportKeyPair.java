@@ -305,7 +305,7 @@ class DImportKeyPair extends JDialog
                  aliases.hasMoreElements();)
             {
                 // Get alias...
-                String sAlias = (String)aliases.nextElement();
+                String sAlias = (String) aliases.nextElement();
 
                 // Add the alias to the list if the entry has a key
                 // and certificates
@@ -354,7 +354,7 @@ class DImportKeyPair extends JDialog
     {
         try
         {
-            String sAlias = (String)m_jltKeyPairs.getSelectedValue();
+            String sAlias = (String) m_jltKeyPairs.getSelectedValue();
 
             if (sAlias == null)
             {
@@ -412,7 +412,7 @@ class DImportKeyPair extends JDialog
     {
         try
         {
-            String sAlias = (String)m_jltKeyPairs.getSelectedValue();
+            String sAlias = (String) m_jltKeyPairs.getSelectedValue();
 
             assert sAlias != null;
 
@@ -470,7 +470,7 @@ class DImportKeyPair extends JDialog
      */
     public void importPressed()
     {
-        String sAlias = (String)m_jltKeyPairs.getSelectedValue();
+        String sAlias = (String) m_jltKeyPairs.getSelectedValue();
 
         assert sAlias != null;
 

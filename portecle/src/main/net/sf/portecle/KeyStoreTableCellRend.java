@@ -111,7 +111,7 @@ class KeyStoreTableCellRend extends DefaultTableCellRenderer
                 cell.setText(
                     DateFormat.getDateTimeInstance(
                         DateFormat.MEDIUM, DateFormat.LONG)
-                    .format((Date)value));
+                    .format((Date) value));
             }
             else
             {
