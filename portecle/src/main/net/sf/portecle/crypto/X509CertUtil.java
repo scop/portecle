@@ -195,7 +195,7 @@ public final class X509CertUtil
         }
         finally {
             if (fis != null) {
-                try {fis.close();} catch(IOException ex) { /* Ignore */ }};
+                try {fis.close();} catch(IOException ex) { /* Ignore */ }}
         }
 
         return (X509Certificate[])
@@ -235,7 +235,7 @@ public final class X509CertUtil
         finally
         {
             if (fis != null) {
-                try {fis.close();} catch(IOException ex) { /* Ignore */ }};
+                try {fis.close();} catch(IOException ex) { /* Ignore */ }}
         }
     }
 
@@ -323,11 +323,11 @@ public final class X509CertUtil
         finally
         {
             if (isr != null) {
-                try { isr.close(); } catch(IOException ex) { /* Ignore */ }};
+                try { isr.close(); } catch(IOException ex) { /* Ignore */ }}
             if (sw != null) {
-                try { sw.close();  } catch(IOException ex) { /* Ignore */ }};
+                try { sw.close();  } catch(IOException ex) { /* Ignore */ }}
             if (lnr != null) {
-                try { lnr.close(); } catch(IOException ex) { /* Ignore */ }};
+                try { lnr.close(); } catch(IOException ex) { /* Ignore */ }}
         }
     }
 
