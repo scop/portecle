@@ -46,7 +46,7 @@ class KeyStoreWrapper extends Object
 
     /** Indicator as to whether or not the KeyStore has been altered
      * since its last save */
-    private boolean m_bChanged = false;
+    private boolean m_bChanged;
 
     /**
      * Construst a new KeyStoreWrapper for the supplied KeyStore.

@@ -90,7 +90,7 @@ class DGenerateKeyPair extends JDialog
     private int m_iKeySize;
 
      /** Records whether or not correct parameters are entered */
-    private boolean m_bSuccess = false;
+    private boolean m_bSuccess;
 
     /**
      * Creates new DGenerateKeyPair dialog where the parent is a frame.

@@ -95,7 +95,7 @@ class DExport extends JDialog
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Records whether or not the an export is selected */
-    private boolean m_bExportSelected = false;
+    private boolean m_bExportSelected;
 
     /** The last directory accessed by a FileChooser dialog */
     private LastDir m_lastDir;
