@@ -22,6 +22,7 @@
 package net.sf.portecle.crypto;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.text.MessageFormat;
 import java.util.*;
@@ -1962,6 +1963,46 @@ public class X509Ext extends Object
 
         return strBuff.toString();
     }
+
+
+    /**
+     * Gets a string representation of the given object.
+     *
+     * @param obj Object
+     * @return String representation <code>obj</code>
+     */
+    private static String stringify(Object obj)
+    {
+        if (obj instanceof DERString) {
+            return ((DERString) obj).getString();
+        } else if (obj instanceof DERInteger) {
+            return convertToHexString((DERInteger) obj);
+        }
+        else if (obj instanceof byte[]) {
+            return convertToHexString((byte[]) obj);
+        }
+        else if (obj instanceof ASN1TaggedObject) {
+            ASN1TaggedObject tagObj = (ASN1TaggedObject) obj;
+            // Note: "[", _not_ '[' ...
+            return "[" + tagObj.getTagNo() + "] " +
+                stringify(tagObj.getObject());
+        }
+        else {
+            String hex = null;
+            try {
+                Method method = obj.getClass().getMethod("getOctets", null);
+                hex = convertToHexString((byte[]) method.invoke(obj, null));
+            }
+            catch (Exception e) {
+                // Ignore
+            }
+            if (hex == null && obj != null) {
+                hex = obj.toString();
+            }
+            return hex;
+        }
+    }
+
 
     /**
      * Gets a DER object from the given byte array.
