@@ -42,7 +42,8 @@ import net.sf.portecle.gui.error.DThrowable;
 class DImportKeyPair extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold key pair information */
     private JPanel m_jpKeyPairs;
@@ -65,7 +66,8 @@ class DImportKeyPair extends JDialog
     /** Selected key pair's algorithm text field */
     private JTextField m_jtfAlgorithm;
 
-    /** Button to press to display the selected key pair's certificate details */
+    /** Button to press to display the selected key pair's certificate
+     * details */
     private JButton m_jbCertificateDetails;
 
     /** Panel for confirmation button controls */
@@ -97,7 +99,8 @@ class DImportKeyPair extends JDialog
      * @param pkcs12 The PKCS #12 KeyStore to list key pairs from
      * @throws CryptoException A problem was encountered importing a key pair.
      */
-    public DImportKeyPair(JFrame parent, boolean bModal, KeyStore pkcs12) throws CryptoException
+    public DImportKeyPair(JFrame parent, boolean bModal, KeyStore pkcs12)
+        throws CryptoException
     {
         super(parent, bModal);
         m_pkcs12 = pkcs12;
@@ -112,7 +115,8 @@ class DImportKeyPair extends JDialog
     private void initComponents() throws CryptoException
     {
         // Instructions
-        m_jlInstructions = new JLabel(m_res.getString("DImportKeyPair.m_jlInstructions.text"));
+        m_jlInstructions = new JLabel(
+            m_res.getString("DImportKeyPair.m_jlInstructions.text"));
 
         // List to hold KeyStore's key pair aliases
         m_jltKeyPairs = new JList();
@@ -134,22 +138,31 @@ class DImportKeyPair extends JDialog
         });
 
         // Put the list into a scroll pane
-        m_jspKeyPairs = new JScrollPane(m_jltKeyPairs,
-                                        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspKeyPairs.getViewport().setBackground(m_jltKeyPairs.getBackground());
+        m_jspKeyPairs = new JScrollPane(
+            m_jltKeyPairs,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        m_jspKeyPairs.getViewport().setBackground(
+            m_jltKeyPairs.getBackground());
 
-        // Key Pair details (algorithm and button to access certificate details)
-        m_jlAlgorithm = new JLabel(m_res.getString("DImportKeyPair.m_jlAlgorithm.text"));
+        // Key Pair details (algorithm and button to access
+        // certificate details)
+        m_jlAlgorithm = new JLabel(
+            m_res.getString("DImportKeyPair.m_jlAlgorithm.text"));
 
         m_jtfAlgorithm = new JTextField(10);
         m_jtfAlgorithm.setText("");
-        m_jtfAlgorithm.setToolTipText(m_res.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
+        m_jtfAlgorithm.setToolTipText(
+            m_res.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
         m_jtfAlgorithm.setEditable(false);
 
-        m_jbCertificateDetails = new JButton(m_res.getString("DImportKeyPair.m_jbCertificateDetails.text"));
-        m_jbCertificateDetails.setMnemonic(m_res.getString("DImportKeyPair.m_jbCertificateDetails.mnemonic").charAt(0));
-        m_jbCertificateDetails.setToolTipText(m_res.getString("DImportKeyPair.m_jbCertificateDetails.tooltip"));
+        m_jbCertificateDetails = new JButton(
+            m_res.getString("DImportKeyPair.m_jbCertificateDetails.text"));
+        m_jbCertificateDetails.setMnemonic(
+            m_res.getString("DImportKeyPair.m_jbCertificateDetails.mnemonic")
+            .charAt(0));
+        m_jbCertificateDetails.setToolTipText(
+            m_res.getString("DImportKeyPair.m_jbCertificateDetails.tooltip"));
         m_jbCertificateDetails.setEnabled(false);
         m_jbCertificateDetails.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -165,25 +178,32 @@ class DImportKeyPair extends JDialog
         // Put all the key pair components together
         m_jpKeyPairs = new JPanel(new BorderLayout(10, 10));
         m_jpKeyPairs.setPreferredSize(new Dimension(400, 200));
-        m_jpKeyPairs.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                                     new EtchedBorder()), new EmptyBorder(5, 5, 5, 5)));
+        m_jpKeyPairs.setBorder(
+            new CompoundBorder(
+                new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+                                   new EtchedBorder()),
+                new EmptyBorder(5, 5, 5, 5)));
 
         m_jpKeyPairs.add(m_jlInstructions, BorderLayout.NORTH);
         m_jpKeyPairs.add(m_jspKeyPairs, BorderLayout.CENTER);
         m_jpKeyPairs.add(m_jpKeyPairDetails, BorderLayout.SOUTH);
 
         // Create import and cancel buttons
-        m_jbImport = new JButton(m_res.getString("DImportKeyPair.m_jbImport.text"));
+        m_jbImport = new JButton(
+            m_res.getString("DImportKeyPair.m_jbImport.text"));
         m_jbImport.setEnabled(false);
-        m_jbImport.setMnemonic(m_res.getString("DImportKeyPair.m_jbImport.mnemonic").charAt(0));
-        m_jbImport.setToolTipText(m_res.getString("DImportKeyPair.m_jbImport.tooltip"));
+        m_jbImport.setMnemonic(
+            m_res.getString("DImportKeyPair.m_jbImport.mnemonic").charAt(0));
+        m_jbImport.setToolTipText(
+            m_res.getString("DImportKeyPair.m_jbImport.tooltip"));
         m_jbImport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 importPressed();
             }
         });
 
-        m_jbCancel = new JButton(m_res.getString("DImportKeyPair.m_jbCancel.text"));
+        m_jbCancel = new JButton(
+            m_res.getString("DImportKeyPair.m_jbCancel.text"));
         m_jbCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelPressed();
@@ -192,9 +212,9 @@ class DImportKeyPair extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                              }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbImport);
@@ -239,7 +259,8 @@ class DImportKeyPair extends JDialog
     }
 
     /**
-     * Populate the key pair list with the PKCS #12 KeyStore's key pair aliases.
+     * Populate the key pair list with the PKCS #12 KeyStore's key
+     * pair aliases.
      *
      * @throws CryptoException Problem accessing the KeyStore's entries
      */
@@ -250,12 +271,14 @@ class DImportKeyPair extends JDialog
             Vector vKeyPairAliases = new Vector();
 
             // For each entry in the KeyStore...
-            for (Enumeration aliases = m_pkcs12.aliases(); aliases.hasMoreElements();)
+            for (Enumeration aliases = m_pkcs12.aliases();
+                 aliases.hasMoreElements();)
             {
                 // Get alias...
                 String sAlias = (String)aliases.nextElement();
 
-                // Add the alias to the list if the entry has a key and certificates
+                // Add the alias to the list if the entry has a key
+                // and certificates
                 if (m_pkcs12.isKeyEntry(sAlias))
                 {
                     Key key = m_pkcs12.getKey(sAlias, new char[]{});
@@ -276,28 +299,26 @@ class DImportKeyPair extends JDialog
             else
             {
                 // No key pairs available...
-                m_jltKeyPairs.setListData(new String[]{m_res.getString("DImportKeyPair.m_jltKeyPairs.empty")});
+                m_jltKeyPairs.setListData(
+                    new String[]{
+                        m_res.getString(
+                            "DImportKeyPair.m_jltKeyPairs.empty")});
                 m_jltKeyPairs.setEnabled(false);
             }
         }
-        catch (KeyStoreException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(m_res.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
-        }
-        catch (UnrecoverableKeyException ex)
-        {
-            throw new CryptoException(m_res.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString(
+                    "DImportKeyPair.ProblemAccessingPkcs12.exception.message"),
+                ex);
         }
     }
 
     /**
-     * Populate the algorithm text field.  If a key pair is selected then the field
-     * will contain the key pairs algorithm name and key size.  Otherwise the field
-     * will be blanked.
+     * Populate the algorithm text field.  If a key pair is selected
+     * then the field will contain the key pairs algorithm name and
+     * key size.  Otherwise the field will be blanked.
      */
     private void populateAlgorithm()
     {
@@ -311,11 +332,13 @@ class DImportKeyPair extends JDialog
                 return;
             }
 
-            // Get the algorithm information from the appropriate certificate - we
-            // can't yet use an API to get it directly from the private key
+            // Get the algorithm information from the appropriate
+            // certificate - we can't yet use an API to get it
+            // directly from the private key
             Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
-            X509Certificate[] x509Certs = X509CertUtil.convertCertificates(certs);
+            X509Certificate[] x509Certs =
+                X509CertUtil.convertCertificates(certs);
 
             if (x509Certs == null)
             {
@@ -332,7 +355,10 @@ class DImportKeyPair extends JDialog
 
             if (iKeySize != -1)
             {
-                m_jtfAlgorithm.setText(MessageFormat.format(m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"), new String[]{m_jtfAlgorithm.getText(), ""+iKeySize}));
+                m_jtfAlgorithm.setText(
+                    MessageFormat.format(
+                        m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"),
+                        new String[]{m_jtfAlgorithm.getText(), ""+iKeySize}));
             }
             m_jtfAlgorithm.setCaretPosition(0);
         }
@@ -349,7 +375,8 @@ class DImportKeyPair extends JDialog
     }
 
     /**
-     * Certificate Details button pressed.  Display the selected key pair's certificates.
+     * Certificate Details button pressed.  Display the selected key
+     * pair's certificates.
      */
     private void certificateDetailsPressed()
     {
@@ -359,9 +386,17 @@ class DImportKeyPair extends JDialog
 
             assert sAlias != null;
 
-            X509Certificate[] certs = X509CertUtil.convertCertificates(m_pkcs12.getCertificateChain(sAlias));
+            X509Certificate[] certs = X509CertUtil.convertCertificates(
+                m_pkcs12.getCertificateChain(sAlias));
 
-            DViewCertificate dViewCertificate = new DViewCertificate(this, MessageFormat.format(m_res.getString("DImportKeyPair.ViewCertificateDetails.Title"), new String[]{sAlias}), true, certs);
+            DViewCertificate dViewCertificate = new DViewCertificate(
+                this,
+                MessageFormat.format(
+                    m_res.getString(
+                        "DImportKeyPair.ViewCertificateDetails.Title"),
+                    new String[]{sAlias}),
+                true,
+                certs);
             dViewCertificate.setLocationRelativeTo(this);
             dViewCertificate.setVisible(true);
         }
@@ -388,9 +423,11 @@ class DImportKeyPair extends JDialog
     }
 
     /**
-     * Get the certificate chain part of the key pair chosen by the user for import.
+     * Get the certificate chain part of the key pair chosen by the
+     * user for import.
      *
-     * @return The certificate chain or null if the user has not chosen a key pair
+     * @return The certificate chain or null if the user has not
+     * chosen a key pair
      */
     public Certificate[] getCertificateChain()
     {
@@ -398,8 +435,8 @@ class DImportKeyPair extends JDialog
     }
 
     /**
-     * Import button pressed by user.  Store the selected key pair's private and
-     * public parts and close the dialog.
+     * Import button pressed by user.  Store the selected key pair's
+     * private and public parts and close the dialog.
      */
     public void importPressed()
     {

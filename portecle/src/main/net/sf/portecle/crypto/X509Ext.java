@@ -65,23 +65,23 @@ public class X509Ext extends Object
     /** Authority Key Identifier (old) OID */
     private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1";
 
-    /** Primary Key Attributes OID */
-    private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2"; // No info available
+    /** Primary Key Attributes OID */  // No info available
+    private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2";
 
     /** Certificate Policies (old) OID */
     private static final String CERTIFICATE_POLICIES_OLD_OID = "2.5.29.3";
 
-    /** Primary Key Usage Restriction (old) OID */
-    private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4"; // Old - not to do?
+    /** Primary Key Usage Restriction (old) OID */  // Old - not to do?
+    private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4";
 
-    /** Subject Directory Attributes OID */
-    private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9"; // Std todo
+    /** Subject Directory Attributes OID */ // Std todo
+    private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9";
 
     /** Basic Constraints (old 0) OID */
     private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10";
 
-    /** Basic Constraints (old 1) OID */
-    private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13"; // Old - not to do?
+    /** Basic Constraints (old 1) OID */ // Old - not to do?
+    private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13";
 
     /** Subject Key Identifier OID */
     private static final String SUBJECT_KEY_IDENTIFIER_OID = "2.5.29.14";
@@ -113,32 +113,32 @@ public class X509Ext extends Object
     /** Invalidity Date OID */
     private static final String INVALIDITY_DATE_OID = "2.5.29.24";
 
-    /** CRL Distribution Points (old) OID */
-    private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25"; // Old - not to do?
+    /** CRL Distribution Points (old) OID */ // Old - not to do?
+    private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25";
 
     /** Delta CRL Indicator OID */
     private static final String DELTA_CRL_INDICATOR_OID = "2.5.29.27";
 
-    /** Issuing Distribution Point OID */
-    private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28"; // Std todo
+    /** Issuing Distribution Point OID */ // Std todo
+    private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28";
 
     /** Certificate Issuer OID */
     private static final String CERTIFICATE_ISSUER_OID = "2.5.29.29";
 
-    /** Name Constraints OID */
-    private static final String NAME_CONSTRAINTS_OID = "2.5.29.30"; // Std todo
+    /** Name Constraints OID */ // Std todo
+    private static final String NAME_CONSTRAINTS_OID = "2.5.29.30";
 
     /** CRL Distribution Points OID */
     private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31";
 
-    /** Certificate Policies OID */
-    private static final String CERTIFICATE_POLICIES_OID = "2.5.29.32"; // Std todo
+    /** Certificate Policies OID */ // Std todo
+    private static final String CERTIFICATE_POLICIES_OID = "2.5.29.32";
 
     /** Policy Mappings OID */
     private static final String POLICY_MAPPINGS_OID = "2.5.29.33";
 
-    /** Policy Constraints (old) OID */
-    private static final String POLICY_CONSTRAINTS_OLD_OID = "2.5.29.34"; // Old - not to do?
+    /** Policy Constraints (old) OID */ // Old - not to do?
+    private static final String POLICY_CONSTRAINTS_OLD_OID = "2.5.29.34";
 
     /** Authority Key Identifier OID */
     private static final String AUTHORITY_KEY_IDENTIFIER_OID = "2.5.29.35";
@@ -149,80 +149,97 @@ public class X509Ext extends Object
     /** Extended Key Usage OID */
     private static final String EXTENDED_KEY_USAGE_OID = "2.5.29.37";
 
-    /** CRL Stream Identifier OID */
-    private static final String CRL_STREAM_IDENTIFIER_OID = "2.5.29.40"; // No info available
+    /** CRL Stream Identifier OID */ // No info available
+    private static final String CRL_STREAM_IDENTIFIER_OID = "2.5.29.40";
 
-    /** CRL Scope OID */
-    private static final String CRL_SCOPE_OID = "2.5.29.44"; // No info available
+    /** CRL Scope OID */ // No info available
+    private static final String CRL_SCOPE_OID = "2.5.29.44";
 
-    /** Status Referrals OID */
-    private static final String STATUS_REFERRALS_OID = "2.5.29.45"; // No info available
+    /** Status Referrals OID */ // No info available
+    private static final String STATUS_REFERRALS_OID = "2.5.29.45";
 
-    /** Freshest CRL OID */
-    private static final String FRESHEST_CRL_OID = "2.5.29.46"; // Std todo
+    /** Freshest CRL OID */ // Std todo
+    private static final String FRESHEST_CRL_OID = "2.5.29.46";
 
-    /** Ordered List OID */
-    private static final String ORDERED_LIST_OID = "2.5.29.47"; // No info available
+    /** Ordered List OID */ // No info available
+    private static final String ORDERED_LIST_OID = "2.5.29.47";
 
-    /** Base Update Time OID */
-    private static final String BASE_UPDATE_TIME_OID = "2.5.29.51"; // No info available
+    /** Base Update Time OID */ // No info available
+    private static final String BASE_UPDATE_TIME_OID = "2.5.29.51";
 
-    /** Delta Information OID */
-    private static final String DELTA_INFORMATION_OID = "2.5.29.53"; // No info available
+    /** Delta Information OID */ // No info available
+    private static final String DELTA_INFORMATION_OID = "2.5.29.53";
 
     /** Inhibit Any Policy OID */
     private static final String INHIBIT_ANY_POLICY_OID = "2.5.29.54";
 
     /** Entrust version extension OID */
-    private static final String ENTRUST_VERSION_EXTENSION_OID = "1.2.840.113533.7.65.0";
+    private static final String ENTRUST_VERSION_EXTENSION_OID =
+        "1.2.840.113533.7.65.0";
 
     /** S/MIME capabilities OID */
-    private static final String SMIME_CAPABILITIES_OID = "1.2.840.113549.1.9.15";
+    private static final String SMIME_CAPABILITIES_OID =
+        "1.2.840.113549.1.9.15";
 
     /** Microsoft certificate template name OID */
-    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID = "1.3.6.1.4.1.311.20.2";
+    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID =
+        "1.3.6.1.4.1.311.20.2";
 
     /** Microsoft CA version OID */
-    private static final String MICROSOFT_CA_VERSION_OID = "1.3.6.1.4.1.311.21.1";
+    private static final String MICROSOFT_CA_VERSION_OID =
+        "1.3.6.1.4.1.311.21.1";
 
     /** Microsoft certificate template (v2) OID */
-    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID = "1.3.6.1.4.1.311.21.7";
+    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID =
+        "1.3.6.1.4.1.311.21.7";
 
     /** Microsoft application policies OID */
-    private static final String MICROSOFT_APPLICATION_POLICIES_OID = "1.3.6.1.4.1.311.21.10";
+    private static final String MICROSOFT_APPLICATION_POLICIES_OID =
+        "1.3.6.1.4.1.311.21.10";
 
     /** Authority Information Access OID */
-    private static final String AUTHORITY_INFORMATION_ACCESS_OID = "1.3.6.1.5.5.7.1.1";
+    private static final String AUTHORITY_INFORMATION_ACCESS_OID =
+        "1.3.6.1.5.5.7.1.1";
 
     /** Novell Security Attributes OID */
-    private static final String NOVELL_SECURITY_ATTRIBUTES_OID = "2.16.840.1.113719.1.9.4.1";
+    private static final String NOVELL_SECURITY_ATTRIBUTES_OID =
+        "2.16.840.1.113719.1.9.4.1";
 
     /** Netscape Certificate Type OID */
-    private static final String NETSCAPE_CERTIFICATE_TYPE_OID = "2.16.840.1.113730.1.1";
+    private static final String NETSCAPE_CERTIFICATE_TYPE_OID =
+        "2.16.840.1.113730.1.1";
 
     /** Netscape Base URL OID */
-    private static final String NETSCAPE_BASE_URL_OID = "2.16.840.1.113730.1.2";
+    private static final String NETSCAPE_BASE_URL_OID =
+        "2.16.840.1.113730.1.2";
 
     /** Netscape Revocation URL OID */
-    private static final String NETSCAPE_REVOCATION_URL_OID = "2.16.840.1.113730.1.3";
+    private static final String NETSCAPE_REVOCATION_URL_OID =
+        "2.16.840.1.113730.1.3";
 
     /** Netscape CA Revocation URL OID */
-    private static final String NETSCAPE_CA_REVOCATION_URL_OID = "2.16.840.1.113730.1.4";
+    private static final String NETSCAPE_CA_REVOCATION_URL_OID =
+        "2.16.840.1.113730.1.4";
 
     /** Netscape Certificate Renewal URL OID */
-    private static final String NETSCAPE_CERTIFICATE_RENEWAL_URL_OID = "2.16.840.1.113730.1.7";
+    private static final String NETSCAPE_CERTIFICATE_RENEWAL_URL_OID =
+        "2.16.840.1.113730.1.7";
 
     /** Netscape CA Policy URL OID */
-    private static final String NETSCAPE_CA_POLICY_URL_OID = "2.16.840.1.113730.1.8";
+    private static final String NETSCAPE_CA_POLICY_URL_OID =
+        "2.16.840.1.113730.1.8";
 
     /** Netscape SSL Server Name OID */
-    private static final String NETSCAPE_SSL_SERVER_NAME_OID = "2.16.840.1.113730.1.12";
+    private static final String NETSCAPE_SSL_SERVER_NAME_OID =
+        "2.16.840.1.113730.1.12";
 
     /** Netscape Comment OID */
-    private static final String NETSCAPE_COMMENT_OID = "2.16.840.1.113730.1.13";
+    private static final String NETSCAPE_COMMENT_OID =
+        "2.16.840.1.113730.1.13";
 
     /** D&B D-U-N-S number OID */
-    private static final String DNB_DUNS_NUMBER_OID = "2.16.840.1.113733.1.6.15";
+    private static final String DNB_DUNS_NUMBER_OID =
+        "2.16.840.1.113733.1.6.15";
 
 
     /**
@@ -303,79 +320,79 @@ public class X509Ext extends Object
         {
             return getCommonNameStringValue(bOctets);
         }
-        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID)) // 2.5.29.14
+        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID))
         {
             return getSubjectKeyIndentifierStringValue(bOctets);
         }
-        else if (m_sOid.equals(KEY_USAGE_OID)) // 2.5.29.15
+        else if (m_sOid.equals(KEY_USAGE_OID))
         {
             return getKeyUsageStringValue(bOctets);
         }
-        else if (m_sOid.equals(PRIVATE_KEY_USAGE_PERIOD_OID)) // 2.5.29.16
+        else if (m_sOid.equals(PRIVATE_KEY_USAGE_PERIOD_OID))
         {
             return getPrivateKeyUsagePeriod(bOctets);
         }
-        else if (m_sOid.equals(SUBJECT_ALTERNATIVE_NAME_OID)) // 2.5.29.17
+        else if (m_sOid.equals(SUBJECT_ALTERNATIVE_NAME_OID))
         {
             return getSubjectAlternativeName(bOctets);
         }
-        else if (m_sOid.equals(ISSUER_ALTERNATIVE_NAME_OID)) // 2.5.29.18
+        else if (m_sOid.equals(ISSUER_ALTERNATIVE_NAME_OID))
         {
             return getIssuerAlternativeName(bOctets);
         }
-        else if (m_sOid.equals(BASIC_CONSTRAINTS_OID)) // 2.5.29.19
+        else if (m_sOid.equals(BASIC_CONSTRAINTS_OID))
         {
             return getBasicConstraintsStringValue(bOctets);
         }
-        else if (m_sOid.equals(CRL_NUMBER_OID)) // 2.5.29.20
+        else if (m_sOid.equals(CRL_NUMBER_OID))
         {
             return getCrlNumberStringValue(bOctets);
         }
-        else if (m_sOid.equals(REASON_CODE_OID)) // 2.5.29.21
+        else if (m_sOid.equals(REASON_CODE_OID))
         {
             return getReasonCodeStringValue(bOctets);
         }
-        else if (m_sOid.equals(HOLD_INSTRUCTION_CODE_OID)) // 2.5.29.23
+        else if (m_sOid.equals(HOLD_INSTRUCTION_CODE_OID))
         {
             return getHoldInstructionCodeStringValue(bOctets);
         }
-        else if (m_sOid.equals(INVALIDITY_DATE_OID)) // 2.5.29.24
+        else if (m_sOid.equals(INVALIDITY_DATE_OID))
         {
             return getInvalidityDateStringValue(bOctets);
         }
-        else if (m_sOid.equals(DELTA_CRL_INDICATOR_OID)) // 2.5.29.27
+        else if (m_sOid.equals(DELTA_CRL_INDICATOR_OID))
         {
             return getDeltaCrlIndicatorStringValue(bOctets);
         }
-        else if (m_sOid.equals(CERTIFICATE_ISSUER_OID)) // 2.5.29.29
+        else if (m_sOid.equals(CERTIFICATE_ISSUER_OID))
         {
             return getCertificateIssuerStringValue(bOctets);
         }
-        else if (m_sOid.equals(POLICY_MAPPINGS_OID)) // 2.5.29.33
+        else if (m_sOid.equals(POLICY_MAPPINGS_OID))
         {
             return getPolicyMappingsStringValue(bOctets);
         }
-        else if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OID)) // 2.5.29.35
+        else if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OID))
         {
             return getAuthorityKeyIdentifierStringValue(bOctets);
         }
-        else if (m_sOid.equals(POLICY_CONSTRAINTS_OID)) // 2.5.29.36
+        else if (m_sOid.equals(POLICY_CONSTRAINTS_OID))
         {
             return getPolicyConstraintsStringValue(bOctets);
         }
-        else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID)) // 2.5.29.37
+        else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID))
         {
             return getExtendedKeyUsageStringValue(bOctets);
         }
-        else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID)) // 2.5.29.54
+        else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID))
         {
             return getInhibitAnyPolicyStringValue(bOctets);
         }
-        else if (m_sOid.equals(ENTRUST_VERSION_EXTENSION_OID)) // 1.2.840.113533.7.65.0
+        else if (m_sOid.equals(ENTRUST_VERSION_EXTENSION_OID))
         {
             return getEntrustVersionExtensionStringValue(bOctets);
         }
-        else if (m_sOid.equals(SMIME_CAPABILITIES_OID)) // 1.2.840.113549.1.9.15
+        else if (m_sOid.equals(SMIME_CAPABILITIES_OID))
         {
             return getSmimeCapabilitiesStringValue(bOctets);
         }
@@ -387,31 +404,33 @@ public class X509Ext extends Object
         {
             return getMicrosoftCAVersionStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID)) // 1.3.6.1.4.1.311.21.7
+        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID))
         {
             return getMicrosoftCertificateTemplateV2StringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_APPLICATION_POLICIES_OID)) // 1.3.6.1.4.1.311.21.10
+        else if (m_sOid.equals(MICROSOFT_APPLICATION_POLICIES_OID))
         {
             return getUnknownOidStringValue(bOctets); // TODO
         }
-        else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID)) // 1.3.6.1.5.5.7.1.1
+        else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID))
         {
             return getAuthorityInformationAccessStringValue(bOctets);
         }
-        else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) // 2.16.840.1.113719.1.9.4.1
+        else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID))
         {
             return getNovellSecurityAttributesStringValue(bOctets);
         }
-        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) // 2.16.840.1.113730.1.1
+        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID))
         {
             return getNetscapeCertificateTypeStringValue(bOctets);
         }
-        // 2.16.840.1.113730.1.x where x is one of 2, 3, 4, 6, 7, 12 or 13
-        else if ((m_sOid.equals(NETSCAPE_BASE_URL_OID)) || (m_sOid.equals(NETSCAPE_REVOCATION_URL_OID)) ||
-                 (m_sOid.equals(NETSCAPE_CA_REVOCATION_URL_OID)) || (m_sOid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID)) ||
-                 (m_sOid.equals(NETSCAPE_CA_POLICY_URL_OID)) || (m_sOid.equals(NETSCAPE_SSL_SERVER_NAME_OID)) ||
-                 (m_sOid.equals(NETSCAPE_COMMENT_OID)))
+        else if (m_sOid.equals(NETSCAPE_BASE_URL_OID) ||
+                 m_sOid.equals(NETSCAPE_REVOCATION_URL_OID) ||
+                 m_sOid.equals(NETSCAPE_CA_REVOCATION_URL_OID) ||
+                 m_sOid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID) ||
+                 m_sOid.equals(NETSCAPE_CA_POLICY_URL_OID) ||
+                 m_sOid.equals(NETSCAPE_SSL_SERVER_NAME_OID) ||
+                 m_sOid.equals(NETSCAPE_COMMENT_OID))
         {
             return getNonNetscapeCertificateTypeStringValue(bOctets);
         }
@@ -496,7 +515,8 @@ public class X509Ext extends Object
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getSubjectKeyIndentifierStringValue(byte[] bValue) throws IOException
+    private String getSubjectKeyIndentifierStringValue(byte[] bValue)
+        throws IOException
     {
         /* SubjectKeyIdentifier ::= KeyIdentifier
 
@@ -542,7 +562,8 @@ public class X509Ext extends Object
 
         boolean bKeyAgreement = false;
 
-        // Loop through bit string appending them to the returned string value as flags are found true
+        // Loop through bit string appending them to the returned string
+        // value as flags are found true
         for (int iCnt=0; iCnt < bytes.length; iCnt++)
         {
             boolean[] b = new boolean[8];
@@ -880,7 +901,8 @@ public class X509Ext extends Object
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getDeltaCrlIndicatorStringValue(byte[] bValue) throws IOException
+    private String getDeltaCrlIndicatorStringValue(byte[] bValue)
+        throws IOException
     {
         // Get CRL number
         DERInteger derInt = (DERInteger) toDER(bValue);
@@ -906,7 +928,8 @@ public class X509Ext extends Object
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getCertificateIssuerStringValue(byte[] bValue) throws IOException
+    private String getCertificateIssuerStringValue(byte[] bValue)
+        throws IOException
     {
         ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
         StringBuffer strBuff = new StringBuffer();
@@ -1135,7 +1158,8 @@ public class X509Ext extends Object
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getExtendedKeyUsageStringValue(byte[] bValue) throws IOException
+    private String getExtendedKeyUsageStringValue(byte[] bValue)
+        throws IOException
     {
         // Get sequence of OIDs and return approriate strings
         ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
@@ -1209,7 +1233,7 @@ public class X509Ext extends Object
      * Get Microsoft certificate template name V1 (1.3.6.1.4.1.311.20.2)
      * extension value as a string.
      *
-     * @see <a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;291010">Microsoft KB article 291010</a>
+     * @see <a href="http://support.microsoft.com/?kbid=291010">Microsoft KB article 291010</a>
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If and I/O problem occurs
@@ -1271,7 +1295,7 @@ public class X509Ext extends Object
      * Get Microsoft CA Version (1.3.6.1.4.1.311.21.1) extension value as
      * a string.
      *
-     * @see <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/security/security/certification_authority_renewal.asp">MSDN</a>
+     * @see <a href="http://msdn.microsoft.com/library/en-us/security/security/certification_authority_renewal.asp">MSDN</a>
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If and I/O problem occurs
@@ -1545,44 +1569,51 @@ public class X509Ext extends Object
 
             if (b[7])
             {
-                strBuff.append(m_res.getString("SslClientNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("SslClientNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
             if (b[6])
             {
-                strBuff.append(m_res.getString("SslServerNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("SslServerNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
             if (b[5])
             {
-                strBuff.append(m_res.getString("SmimeNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("SmimeNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
             if (b[4])
             {
-                strBuff.append(m_res.getString("ObjectSigningNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("ObjectSigningNetscapeCertificateType"));
                 strBuff.append('\n');
                 bKeyAgreement = true;
             }
 
             if (b[2])
             {
-                strBuff.append(m_res.getString("SslCaNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("SslCaNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
             if (b[1])
             {
-                strBuff.append(m_res.getString("SmimeCaNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("SmimeCaNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
             if (b[0])
             {
-                strBuff.append(m_res.getString("ObjectSigningCaNetscapeCertificateType"));
+                strBuff.append(
+                    m_res.getString("ObjectSigningCaNetscapeCertificateType"));
                 strBuff.append('\n');
             }
         }

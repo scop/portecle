@@ -33,7 +33,8 @@ import javax.swing.border.*;
 class RevokedCertsTableHeadRend extends DefaultTableCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered header cell for the supplied value and column.
@@ -46,12 +47,13 @@ class RevokedCertsTableHeadRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(JTable jtRevokedCerts, Object value,
-                                                   boolean bIsSelected, boolean bHasFocus,
-                                                   int iRow, int iCol)
+    public Component getTableCellRendererComponent(
+        JTable jtRevokedCerts, Object value, boolean bIsSelected,
+        boolean bHasFocus, int iRow, int iCol)
     {
         // Get header renderer
-        JLabel header = (JLabel)jtRevokedCerts.getColumnModel().getColumn(iCol).getHeaderRenderer();
+        JLabel header = (JLabel) jtRevokedCerts.getColumnModel().getColumn(
+            iCol).getHeaderRenderer();
 
         // The headers contain text
         header.setText(value.toString());
@@ -60,14 +62,20 @@ class RevokedCertsTableHeadRend extends DefaultTableCellRenderer
         // Set tool tips
         if (iCol == 0)
         {
-            header.setToolTipText(m_res.getString("RevokedCertsTableHeadRend.SerialNumberColumn.tooltip"));
+            header.setToolTipText(
+                m_res.getString(
+                    "RevokedCertsTableHeadRend.SerialNumberColumn.tooltip"));
         }
         else
         {
-            header.setToolTipText(m_res.getString("RevokedCertsTableHeadRend.RevocationDateColumn.tooltip"));
+            header.setToolTipText(
+                m_res.getString(
+                    "RevokedCertsTableHeadRend.RevocationDateColumn.tooltip"));
         }
 
-        header.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
+        header.setBorder(
+            new CompoundBorder(new BevelBorder(BevelBorder.RAISED),
+                               new EmptyBorder(0, 5, 0, 5)));
 
         return header;
     }

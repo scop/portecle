@@ -42,13 +42,12 @@ class JarInfoTableCellRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(JTable jtJarInfo, Object value,
-                                                   boolean bIsSelected, boolean bHasFocus,
-                                                   int iRow, int iCol)
+    public Component getTableCellRendererComponent(
+        JTable jtJarInfo, Object value, boolean bIsSelected, boolean bHasFocus,
+        int iRow, int iCol)
     {
-        JLabel cell = (JLabel)super.getTableCellRendererComponent(jtJarInfo, value,
-                                                                  bIsSelected, bHasFocus,
-                                                                  iRow, iCol);
+        JLabel cell = (JLabel) super.getTableCellRendererComponent(
+            jtJarInfo, value, bIsSelected, bHasFocus, iRow, iCol);
         if (cell.getText().length() == 0)
         {
             cell.setText("-");

@@ -45,9 +45,11 @@ public class CryptoException extends Exception
     }
 
     /**
-     * Creates a new CryptoException with the specified message and cause throwable.
+     * Creates a new CryptoException with the specified message and cause
+     * throwable.
      *
-     * @param causeThrowable The throwable that caused this exception to be thrown
+     * @param causeThrowable The throwable that caused this exception to be
+     * thrown
      * @param sMessage Exception message
      */
     public CryptoException(String sMessage, Throwable causeThrowable)
@@ -58,7 +60,8 @@ public class CryptoException extends Exception
     /**
      * Creates a new CryptoException with the specified cause throwable.
      *
-     * @param causeThrowable The throwable that caused this exception to be thrown
+     * @param causeThrowable The throwable that caused this exception to be
+     * thrown
      */
     public CryptoException(Throwable causeThrowable)
     {

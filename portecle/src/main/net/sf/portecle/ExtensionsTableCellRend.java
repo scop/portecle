@@ -28,12 +28,14 @@ import javax.swing.table.*;
 import javax.swing.border.*;
 
 /**
- * Custom cell renderer for the cells of the Extensions table of DViewExtensions.
+ * Custom cell renderer for the cells of the Extensions table of
+ * DViewExtensions.
  */
 class ExtensionsTableCellRend extends DefaultTableCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered cell for the supplied entry type and column.
@@ -46,28 +48,43 @@ class ExtensionsTableCellRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(JTable jtExtensions, Object value,
-                                                   boolean bIsSelected, boolean bHasFocus,
+    public Component getTableCellRendererComponent(JTable jtExtensions,
+                                                   Object value,
+                                                   boolean bIsSelected,
+                                                   boolean bHasFocus,
                                                    int iRow, int iCol)
     {
-        JLabel cell = (JLabel)super.getTableCellRendererComponent(jtExtensions, value,
-                                                                  bIsSelected, bHasFocus,
-                                                                  iRow, iCol);
+        JLabel cell = (JLabel) super.getTableCellRendererComponent(
+            jtExtensions, value, bIsSelected, bHasFocus, iRow, iCol);
 
-        // Critical column - display an icon representing criticality and tool-tip text
+        // Critical column - display an icon representing criticality
+        // and tool-tip text
         if (iCol == 0)
         {
             ImageIcon icon = null;
 
             if (((Boolean)value).booleanValue())
             {
-                icon = new ImageIcon(getClass().getResource(m_res.getString("ExtensionsTableCellRend.CriticalExtension.image")));
-                cell.setToolTipText(m_res.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "ExtensionsTableCellRend.CriticalExtension.image")
+                        ));
+                cell.setToolTipText(
+                    m_res.getString(
+                        "ExtensionsTableCellRend.CriticalExtension.tooltip"));
             }
             else
             {
-                icon = new ImageIcon(getClass().getResource(m_res.getString("ExtensionsTableCellRend.NonCriticalExtension.image")));
-                cell.setToolTipText(m_res.getString("ExtensionsTableCellRend.NonCriticalExtension.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "ExtensionsTableCellRend." +
+                            "NonCriticalExtension.image")));
+                cell.setToolTipText(
+                    m_res.getString(
+                        "ExtensionsTableCellRend." +
+                        "NonCriticalExtension.tooltip"));
             }
 
             cell.setIcon(icon);

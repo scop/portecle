@@ -3771,7 +3771,8 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // Check an entry with the selected does not already exist in the KeyStore
+            // Check an entry with the selected does not already exist
+            // in the KeyStore
             if (keyStore.containsAlias(sAlias))
             {
                 String sMessage = MessageFormat.format(
@@ -4470,7 +4471,8 @@ public class FPortecle extends JFrame implements StatusBar
                                 this,
                                 MessageFormat.format(
                                     m_res.getString(
-                                        "FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"),
+                                        "FPortecle.ChangeKeyStoreTypeKey" +
+                                        "PairEntryPassword.Title"),
                                     new String[]{sAlias}),
                                 true);
                             dGetPassword.setLocationRelativeTo(this);
@@ -4499,7 +4501,8 @@ public class FPortecle extends JFrame implements StatusBar
                                 this,
                                 MessageFormat.format(
                                     m_res.getString(
-                                        "FPortecle.ChangeFromPkcs12Password.message"),
+                                        "FPortecle." +
+                                        "ChangeFromPkcs12Password.message"),
                                     new String[]{
                                         new String(PKCS12_DUMMY_PASSWORD)}),
                                 m_res.getString(
@@ -6218,7 +6221,8 @@ public class FPortecle extends JFrame implements StatusBar
         // No KeyStore loaded...
         if (m_keyStoreWrap == null)
         {
-            setStatusBarText(m_res.getString("FPortecle.noKeyStore.statusbar"));
+            setStatusBarText(
+                m_res.getString("FPortecle.noKeyStore.statusbar"));
         }
         // KeyStore loaded...
         else

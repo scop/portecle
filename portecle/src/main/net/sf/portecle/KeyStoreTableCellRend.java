@@ -34,7 +34,8 @@ import javax.swing.border.*;
 class KeyStoreTableCellRend extends DefaultTableCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered cell for the supplied value and column.
@@ -47,33 +48,49 @@ class KeyStoreTableCellRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(JTable jtKeyStore, Object value,
-                                                   boolean bIsSelected, boolean bHasFocus,
+    public Component getTableCellRendererComponent(JTable jtKeyStore,
+                                                   Object value,
+                                                   boolean bIsSelected,
+                                                   boolean bHasFocus,
                                                    int iRow, int iCol)
     {
-        JLabel cell = (JLabel)super.getTableCellRendererComponent(jtKeyStore, value,
-                                                                  bIsSelected, bHasFocus,
-                                                                  iRow, iCol);
+        JLabel cell = (JLabel) super.getTableCellRendererComponent(
+            jtKeyStore, value, bIsSelected, bHasFocus, iRow, iCol);
 
-        // Entry column - display an icon representing the type and tool-tip text
+        // Entry column - display an icon representing the type and
+        // tool-tip text
         if (iCol == 0)
         {
             ImageIcon icon = null;
 
             if (KeyStoreTableModel.KEY_PAIR_ENTRY.equals(value))
             {
-                icon = new ImageIcon(getClass().getResource(m_res.getString("KeyStoreTableCellRend.KeyPairEntry.image")));
-                cell.setToolTipText(m_res.getString("KeyStoreTableCellRend.KeyPairEntry.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "KeyStoreTableCellRend.KeyPairEntry.image")));
+                cell.setToolTipText(
+                    m_res.getString(
+                        "KeyStoreTableCellRend.KeyPairEntry.tooltip"));
             }
             else if (KeyStoreTableModel.TRUST_CERT_ENTRY.equals(value))
             {
-                icon = new ImageIcon(getClass().getResource(m_res.getString("KeyStoreTableCellRend.TrustCertEntry.image")));
-                cell.setToolTipText(m_res.getString("KeyStoreTableCellRend.TrustCertEntry.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "KeyStoreTableCellRend.TrustCertEntry.image")));
+                cell.setToolTipText(
+                    m_res.getString(
+                        "KeyStoreTableCellRend.TrustCertEntry.tooltip"));
             }
             else
             {
-                icon = new ImageIcon(getClass().getResource(m_res.getString("KeyStoreTableCellRend.KeyEntry.image")));
-                cell.setToolTipText(m_res.getString("KeyStoreTableCellRend.KeyEntry.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "KeyStoreTableCellRend.KeyEntry.image")));
+                cell.setToolTipText(
+                    m_res.getString("KeyStoreTableCellRend.KeyEntry.tooltip"));
             }
 
             cell.setIcon(icon);
@@ -87,7 +104,10 @@ class KeyStoreTableCellRend extends DefaultTableCellRenderer
             if (value instanceof Date)
             {
                 // Include timezone
-                cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format((Date)value));
+                cell.setText(
+                    DateFormat.getDateTimeInstance(
+                        DateFormat.MEDIUM, DateFormat.LONG)
+                    .format((Date)value));
             }
             else
             {

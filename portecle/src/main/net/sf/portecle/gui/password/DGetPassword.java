@@ -33,7 +33,8 @@ import java.util.*;
 public class DGetPassword extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
     /** Password entry label */
     private JLabel m_jlPassword;
@@ -101,7 +102,8 @@ public class DGetPassword extends JDialog
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlPassword = new JLabel(m_res.getString("DGetPassword.m_jlPassword.text"));
+        m_jlPassword = new JLabel(
+            m_res.getString("DGetPassword.m_jlPassword.text"));
         m_jpfPassword = new JPasswordField(15);
 
         m_jbOK = new JButton(m_res.getString("DGetPassword.m_jbOK.text"));
@@ -111,7 +113,8 @@ public class DGetPassword extends JDialog
             }
         });
 
-        m_jbCancel = new JButton(m_res.getString("DGetNewPassword.m_jbCancel.text"));
+        m_jbCancel = new JButton(
+            m_res.getString("DGetNewPassword.m_jbCancel.text"));
         m_jbCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelPressed();
@@ -120,9 +123,9 @@ public class DGetPassword extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpPassword = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpPassword.add(m_jlPassword);

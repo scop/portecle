@@ -38,9 +38,11 @@ public class RedirectParser extends HTMLEditorKit
      *
      * @param urlConnection URL connection of HTML file
      * @return Redirection URL or null if none could be found
-     * @throws IOException If a problem is enciuntered parsing for the redirection URL
+     * @throws IOException If a problem is encountered parsing for the
+     * redirection URL
      */
-    public static URL getRedirectUrl(HttpURLConnection urlConnection) throws IOException
+    public static URL getRedirectUrl(HttpURLConnection urlConnection)
+        throws IOException
     {
         // Create parser and handler
         HTMLEditorKit.Parser m_parser = new RedirectParser().getParser();
@@ -96,15 +98,18 @@ class RedirectionParserHandler extends HTMLEditorKit.ParserCallback
      * @param attrs Tag attributes
      * @param iPosition Position
      */
-    public void handleSimpleTag(HTML.Tag tag, MutableAttributeSet attrs, int iPosition)
+    public void handleSimpleTag(HTML.Tag tag, MutableAttributeSet attrs,
+                                int iPosition)
     {
         if (m_sRedirectUrl == null)
         {
             if (tag.toString().equalsIgnoreCase("frame"))
             {
-                for (Enumeration attrNames = attrs.getAttributeNames(); attrNames.hasMoreElements();)
+                for (Enumeration attrNames = attrs.getAttributeNames();
+                     attrNames.hasMoreElements();)
                 {
-                    HTML.Attribute attrName = (HTML.Attribute)attrNames.nextElement();
+                    HTML.Attribute attrName =
+                        (HTML.Attribute) attrNames.nextElement();
 
                     if (attrName.toString().equalsIgnoreCase("src"))
                     {

@@ -52,7 +52,8 @@ class RecentFileActionListener implements ActionListener
     }
 
     /**
-     * Action to perform to open the KeyStore file in response to an ActionEvent.
+     * Action to perform to open the KeyStore file in response to an
+     * ActionEvent.
      *
      * @param evt Action event
      */

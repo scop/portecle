@@ -38,10 +38,13 @@ public class HistoryEvent extends EventObject
      * Constructs a new HistoryEvent.
      *
      * @param source The source of the event
-     * @param bBackAvailable Whether there is a document in the history before the current document
-     * @param bForwardAvailable Whether there is a document in the history after the current document
+     * @param bBackAvailable Whether there is a document in the
+     * history before the current document
+     * @param bForwardAvailable Whether there is a document in the
+     * history after the current document
      */
-    public HistoryEvent(Object source, boolean bBackAvailable, boolean bForwardAvailable)
+    public HistoryEvent(Object source, boolean bBackAvailable,
+                        boolean bForwardAvailable)
     {
         super(source);
         m_bBackAvailable = bBackAvailable;
@@ -51,7 +54,8 @@ public class HistoryEvent extends EventObject
     /**
      * Is there is a document in the history before the current document?
      *
-     * @return True if there is a document in the history before the current document
+     * @return True if there is a document in the history before the
+     * current document
      */
     public boolean isBackAvailable()
     {
@@ -61,7 +65,8 @@ public class HistoryEvent extends EventObject
     /**
      * Is there is a document in the history after the current document?
      *
-     * @return True if there is a document in the history after the current document
+     * @return True if there is a document in the history after the
+     * current document
      */
     public boolean isForwardAvailable()
     {

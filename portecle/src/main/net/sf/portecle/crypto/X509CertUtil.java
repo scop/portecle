@@ -86,7 +86,8 @@ public final class X509CertUtil extends Object
      * @param encoding The certification path encoding, if null, treat as a
      * normal certificate, not certification path
      * @return The certificates
-     * @throws CryptoException Problem encountered while loading the certificate(s)
+     * @throws CryptoException Problem encountered while loading the
+     * certificate(s)
      * @throws FileNotFoundException If the certificate file does not exist,
      *                               is a directory rather than a regular
      *                               file, or for some other reason cannot
@@ -529,7 +530,8 @@ public final class X509CertUtil extends Object
      * @return The encoded certificates
      * @param certs The certificates
      * @param encoding The encoding
-     * @param errkey The error message key to use in the possibly occurred exception
+     * @param errkey The error message key to use in the possibly occurred
+     * exception
      * @throws CryptoException If there was a problem encoding the certificates
      */
     private static byte[] getCertsEncoded(X509Certificate[] certs,
@@ -1083,7 +1085,9 @@ public final class X509CertUtil extends Object
             {
                 throw new CryptoException(
                     MessageFormat.format(
-                        m_res.getString("NoCertificatePublicKeysizeUnrecogAlg.exception.message"),
+                        m_res.getString(
+                            "NoCertificatePublicKeysizeUnrecogAlg." +
+                            "exception.message"),
                         new Object[]{sAlgorithm}));
             }
         }

@@ -760,7 +760,8 @@ class DKeyStoreReport
                                 x509Cert.getIssuerDN().toString()));
 
                         // Serial Number
-                        Element serialNumberElement = xmlDoc.createElement("serial_number");
+                        Element serialNumberElement =
+                            xmlDoc.createElement("serial_number");
                         certificateElement.appendChild(serialNumberElement);
                         serialNumberElement.appendChild(
                             xmlDoc.createTextNode(
@@ -774,7 +775,8 @@ class DKeyStoreReport
                             DateFormat.MEDIUM,
                             DateFormat.MEDIUM).format(dValidFrom);
 
-                        Element validFromElement = xmlDoc.createElement("valid_from");
+                        Element validFromElement =
+                            xmlDoc.createElement("valid_from");
                         certificateElement.appendChild(validFromElement);
                         validFromElement.appendChild(
                             xmlDoc.createTextNode(sValidFrom));
@@ -810,7 +812,8 @@ class DKeyStoreReport
                         Element signatureAlgElement =
                             xmlDoc.createElement("signature_algorithm");
                         certificateElement.appendChild(signatureAlgElement);
-                        signatureAlgElement.appendChild(xmlDoc.createTextNode(x509Cert.getSigAlgName()));
+                        signatureAlgElement.appendChild(
+                            xmlDoc.createTextNode(x509Cert.getSigAlgName()));
 
                         // Fingerprints
                         byte[] bCert = x509Cert.getEncoded();

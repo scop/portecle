@@ -28,12 +28,14 @@ import javax.swing.table.*;
 import javax.swing.border.*;
 
 /**
- * Custom cell renderer for the headers of the Extensions table of DViewExtensions.
+ * Custom cell renderer for the headers of the Extensions table of
+ * DViewExtensions.
  */
 class ExtensionsTableHeadRend extends DefaultTableCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered header cell for the supplied value and column.
@@ -46,23 +48,31 @@ class ExtensionsTableHeadRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(JTable jtExtensions, Object value,
-                                                   boolean bIsSelected, boolean bHasFocus,
+    public Component getTableCellRendererComponent(JTable jtExtensions,
+                                                   Object value,
+                                                   boolean bIsSelected,
+                                                   boolean bHasFocus,
                                                    int iRow, int iCol)
     {
         // Get header renderer
-        JLabel header = (JLabel)jtExtensions.getColumnModel().getColumn(iCol).getHeaderRenderer();
+        JLabel header = (JLabel)
+            jtExtensions.getColumnModel().getColumn(iCol).getHeaderRenderer();
 
         // The Crtical header contains an icon
         if (iCol == 0)
         {
             header.setText("");
-            ImageIcon icon = new ImageIcon(getClass().getResource(m_res.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
+            ImageIcon icon = new ImageIcon(
+                getClass().getResource(
+                    m_res.getString(
+                        "ExtensionsTableHeadRend.CriticalColumn.image")));
             header.setIcon(icon);
             header.setHorizontalAlignment(CENTER);
             header.setVerticalAlignment(CENTER);
 
-            header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.CriticalColumn.tooltip"));
+            header.setToolTipText(
+                m_res.getString(
+                    "ExtensionsTableHeadRend.CriticalColumn.tooltip"));
         }
         // The other headers contain text
         else
@@ -73,15 +83,21 @@ class ExtensionsTableHeadRend extends DefaultTableCellRenderer
             // Set tool tips
             if (iCol == 1)
             {
-                header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.NameColumn.tooltip"));
+                header.setToolTipText(
+                    m_res.getString(
+                        "ExtensionsTableHeadRend.NameColumn.tooltip"));
             }
             else
             {
-                header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.OidColumn.tooltip"));
+                header.setToolTipText(
+                    m_res.getString(
+                        "ExtensionsTableHeadRend.OidColumn.tooltip"));
             }
         }
 
-        header.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
+        header.setBorder(new CompoundBorder(
+                             new BevelBorder(BevelBorder.RAISED),
+                             new EmptyBorder(0, 5, 0, 5)));
 
         return header;
     }

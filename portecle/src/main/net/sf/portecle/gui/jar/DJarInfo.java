@@ -36,7 +36,8 @@ import java.util.jar.*;
 public class DJarInfo extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
     /** OK button used to dismiss dialog */
     private JButton m_jbOK;
@@ -73,7 +74,8 @@ public class DJarInfo extends JDialog
      * @param bModal Is dialog modal?
      * @throws IOException Problem occurred getting JAR information
      */
-    public DJarInfo(JFrame parent, String sTitle, boolean bModal) throws IOException
+    public DJarInfo(JFrame parent, String sTitle, boolean bModal)
+        throws IOException
     {
         super(parent, sTitle, bModal);
         initComponents();
@@ -113,10 +115,12 @@ public class DJarInfo extends JDialog
         }
 
         // Put the table into a scroll panew
-        m_jspJarInfoTable = new JScrollPane(m_jtJarInfo,
-                                            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspJarInfoTable.getViewport().setBackground(m_jtJarInfo.getBackground());
+        m_jspJarInfoTable = new JScrollPane(
+            m_jtJarInfo,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        m_jspJarInfoTable.getViewport().setBackground(
+            m_jtJarInfo.getBackground());
 
         // Put the scroll pane into a panel
         m_jpJarInfoTable = new JPanel(new BorderLayout(10, 10));
@@ -171,7 +175,8 @@ public class DJarInfo extends JDialog
         String sClassPath = System.getProperty("java.class.path");
         String sPathSeparator = System.getProperty("path.separator");
 
-        StringTokenizer strTok = new StringTokenizer(sClassPath, sPathSeparator);
+        StringTokenizer strTok =
+            new StringTokenizer(sClassPath, sPathSeparator);
 
         // Store each JAR found on classpath
         while (strTok.hasMoreTokens())
@@ -186,8 +191,9 @@ public class DJarInfo extends JDialog
             }
         }
 
-        /* If only one JAR was found assume that application was started using "jar"
-           option - look in JAR manifest's Class-Path entry for the rest of the JARs */
+        /* If only one JAR was found assume that application was
+           started using "jar" option - look in JAR manifest's
+           Class-Path entry for the rest of the JARs */
         if (vJars.size() == 1)
         {
             // Get manifest
@@ -210,7 +216,9 @@ public class DJarInfo extends JDialog
                     {
                         String sJarClassPathEntry = strTok.nextToken();
 
-                        File file = new File(new File(jarFile.getName()).getParent(), sJarClassPathEntry);
+                        File file = new File(
+                            new File(jarFile.getName()).getParent(),
+                            sJarClassPathEntry);
 
                         if (isJarFile(file))
                         {
@@ -226,8 +234,8 @@ public class DJarInfo extends JDialog
     }
 
     /**
-     * Is supplied file a JAR file? That is, is it a regular file that it has an extension
-     * of "ZIP" or "JAR".
+     * Is supplied file a JAR file?  That is, is it a regular file that
+     * it has an extension of "ZIP" or "JAR".
      *
      * @param file The file
      * @return True if it is, false otherwise

@@ -31,7 +31,8 @@ import java.util.ResourceBundle;
 public class KeyPairType extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores KeyPairType name */
     private final String m_sType;
@@ -49,8 +50,8 @@ public class KeyPairType extends Object
     public static final KeyPairType DSA = new KeyPairType(DSA_STR);
 
     /**
-     * Construct a KeyPairType.  Private to prevent construction from outside this
-     * class.
+     * Construct a KeyPairType.  Private to prevent construction from outside
+     * this class.
      *
      * @param sType Key pair type
      */
@@ -77,7 +78,10 @@ public class KeyPairType extends Object
         }
         else
         {
-            throw new InvalidObjectException(MessageFormat.format(m_res.getString("NoResolveKeypairtype.exception.message"), new Object[]{m_sType}));
+            throw new InvalidObjectException(
+                MessageFormat.format(
+                    m_res.getString("NoResolveKeypairtype.exception.message"),
+                    new Object[]{m_sType}));
         }
     }
 

@@ -34,7 +34,8 @@ import java.util.*;
 public class DSystemProperties extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
     /** OK button used to dismiss dialog */
     private JButton m_jbOK;
@@ -94,10 +95,11 @@ public class DSystemProperties extends JDialog
         m_jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Add custom renderers for the table cells and headers
-        int tWidth = 30; // reserve arbitrary # of pixels for vertical scrollbar
+        int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
         for (int iCnt=0; iCnt < m_jtSystemProperties.getColumnCount(); iCnt++)
         {
-            TableColumn column =  m_jtSystemProperties.getColumnModel().getColumn(iCnt);
+            TableColumn column =
+                m_jtSystemProperties.getColumnModel().getColumn(iCnt);
 
             if (iCnt == 0)
             {
@@ -117,15 +119,18 @@ public class DSystemProperties extends JDialog
         }
 
         // Put the table into a scroll panew
-        m_jspSystemPropertiesTable = new JScrollPane(m_jtSystemProperties,
-                                            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspSystemPropertiesTable.getViewport().setBackground(m_jtSystemProperties.getBackground());
+        m_jspSystemPropertiesTable = new JScrollPane(
+            m_jtSystemProperties,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        m_jspSystemPropertiesTable.getViewport().setBackground(
+            m_jtSystemProperties.getBackground());
 
         // Put the scroll pane into a panel
         m_jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
         m_jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
-        m_jpSystemPropertiesTable.add(m_jspSystemPropertiesTable, BorderLayout.CENTER);
+        m_jpSystemPropertiesTable.add(
+            m_jspSystemPropertiesTable, BorderLayout.CENTER);
         m_jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         m_jbOK = new JButton(m_res.getString("DSystemProperties.m_jbOK.text"));

@@ -87,7 +87,8 @@ public class Version extends Object implements Comparable, Serializable
 
             for (int iCnt=0; iCnt < vSections.size(); iCnt++)
             {
-                iSections[iCnt] = Math.abs(((Integer)vSections.get(iCnt)).intValue());
+                iSections[iCnt] =
+                    Math.abs(((Integer) vSections.get(iCnt)).intValue());
             }
         }
     }
@@ -115,7 +116,8 @@ public class Version extends Object implements Comparable, Serializable
 
         int[] iCmpSections = cmpVersion.getSections();
 
-        for (int iCnt=0; (iCnt < iSections.length && iCnt < iCmpSections.length); iCnt++)
+        for (int iCnt=0;
+             (iCnt < iSections.length && iCnt < iCmpSections.length); iCnt++)
         {
             if (iSections[iCnt] > iCmpSections[iCnt])
             {

@@ -33,7 +33,8 @@ import javax.swing.border.*;
 class KeyStoreTableHeadRend extends DefaultTableCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered header cell for the supplied value and column.
@@ -46,23 +47,30 @@ class KeyStoreTableHeadRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      ** @return The renderered cell
      */
-    public Component getTableCellRendererComponent(JTable jtKeyStore, Object value,
-                                                   boolean bIsSelected, boolean bHasFocus,
+    public Component getTableCellRendererComponent(JTable jtKeyStore,
+                                                   Object value,
+                                                   boolean bIsSelected,
+                                                   boolean bHasFocus,
                                                    int iRow, int iCol)
     {
         // Get header renderer
-        JLabel header = (JLabel)jtKeyStore.getColumnModel().getColumn(iCol).getHeaderRenderer();
+        JLabel header = (JLabel)
+            jtKeyStore.getColumnModel().getColumn(iCol).getHeaderRenderer();
 
         // The entry type header contains an icon
         if (iCol == 0)
         {
             header.setText("");
-            ImageIcon icon = new ImageIcon(getClass().getResource(m_res.getString("KeyStoreTableHeadRend.TypeColumn.image")));
+            ImageIcon icon = new ImageIcon(
+                getClass().getResource(
+                    m_res.getString(
+                        "KeyStoreTableHeadRend.TypeColumn.image")));
             header.setIcon(icon);
             header.setHorizontalAlignment(CENTER);
             header.setVerticalAlignment(CENTER);
 
-            header.setToolTipText(m_res.getString("KeyStoreTableHeadRend.TypeColumn.tooltip"));
+            header.setToolTipText(
+                m_res.getString("KeyStoreTableHeadRend.TypeColumn.tooltip"));
         }
         // The other headers contain text
         else
@@ -72,15 +80,22 @@ class KeyStoreTableHeadRend extends DefaultTableCellRenderer
 
             if (iCol == 1)
             {
-                header.setToolTipText(m_res.getString("KeyStoreTableHeadRend.AliasColumn.tooltip"));
+                header.setToolTipText(
+                    m_res.getString(
+                        "KeyStoreTableHeadRend.AliasColumn.tooltip"));
             }
             else
             {
-                header.setToolTipText(m_res.getString("KeyStoreTableHeadRend.LastModifiedDateColumn.tooltip"));
+                header.setToolTipText(
+                    m_res.getString(
+                        "KeyStoreTableHeadRend.LastModifiedDateColumn.tooltip"
+                        ));
             }
         }
 
-        header.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
+        header.setBorder(
+            new CompoundBorder(new BevelBorder(BevelBorder.RAISED),
+                               new EmptyBorder(0, 5, 0, 5)));
 
         return header;
     }

@@ -31,7 +31,8 @@ import java.security.*;
 public final class KeyPairUtil extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /**
      * Private to prevent construction.
@@ -46,13 +47,15 @@ public final class KeyPairUtil extends Object
      * @return A key pair
      * @throws CryptoException If there was a problem generating the key pair
      */
-    public static KeyPair generateKeyPair(KeyPairType keyPairType, int iKeySize)
+    public static KeyPair generateKeyPair(KeyPairType keyPairType,
+                                          int iKeySize)
         throws CryptoException
     {
         try
         {
             // Get a key pair generator
-            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(keyPairType.toString());
+            KeyPairGenerator keyPairGen =
+                KeyPairGenerator.getInstance(keyPairType.toString());
 
             // Create a SecureRandom
             SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
@@ -66,7 +69,10 @@ public final class KeyPairUtil extends Object
         }
         catch (NoSuchAlgorithmException ex)
         {
-            throw new CryptoException(MessageFormat.format(m_res.getString("NoGenerateKeypair.exception.message"), new Object[]{keyPairType}), ex);
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString("NoGenerateKeypair.exception.message"),
+                    new Object[]{keyPairType}), ex);
         }
     }
 }

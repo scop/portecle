@@ -44,7 +44,8 @@ class KeyStoreWrapper extends Object
     /** File the KeyStore was loaded from/saved to */
     private File m_fKeyStore;
 
-    /** Indicator as to whether or not the KeyStore has been altered since its last save */
+    /** Indicator as to whether or not the KeyStore has been altered
+     * since its last save */
     private boolean m_bChanged = false;
 
     /**

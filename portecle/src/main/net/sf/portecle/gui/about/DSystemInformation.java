@@ -37,7 +37,8 @@ public class DSystemInformation
     extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
     /** Panel containing system information */
     private JPanel m_jpSystemInformation;
@@ -140,7 +141,8 @@ public class DSystemInformation
         // Get the runtime (to access free/total memory values)
         Runtime runtime = Runtime.getRuntime();
 
-        // Grid Bag Constraints templates for system information labels and text fields
+        // Grid Bag Constraints templates for system information
+        // labels and text fields
         GridBagConstraints gbcLabel = new GridBagConstraints();
         gbcLabel.gridx = 0;
         gbcLabel.gridwidth = 3;
@@ -156,141 +158,202 @@ public class DSystemInformation
         gbcTextField.anchor = GridBagConstraints.WEST;
 
         m_jpSystemInformation = new JPanel(new GridBagLayout());
-        m_jpSystemInformation.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                           new EtchedBorder()));
+        m_jpSystemInformation.setBorder(
+            new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+                               new EtchedBorder()));
 
 
         // Operating System
-        m_jlOperatingSystem = new JLabel(m_res.getString("DSystemInformation.m_jlOperatingSystem.text"), JLabel.RIGHT);
+        m_jlOperatingSystem = new JLabel(
+            m_res.getString("DSystemInformation.m_jlOperatingSystem.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlOperatingSystem = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlOperatingSystem =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlOperatingSystem.gridy = 0;
         m_jpSystemInformation.add(m_jlOperatingSystem, gbc_jlOperatingSystem);
 
-        m_jtfOperatingSystem = new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.m_jtfOperatingSystem.text"),
-                                                                  new Object[]{sysProps.getProperty("os.name", ""),
-                                                                               sysProps.getProperty("os.version", ""),
-                                                                               sysProps.getProperty("os.arch", "")}), VALUE_WIDTH);
+        m_jtfOperatingSystem = new JTextField(
+            MessageFormat.format(
+                m_res.getString(
+                    "DSystemInformation.m_jtfOperatingSystem.text"),
+                new Object[]{sysProps.getProperty("os.name", ""),
+                             sysProps.getProperty("os.version", ""),
+                             sysProps.getProperty("os.arch", "")}),
+            VALUE_WIDTH);
         m_jtfOperatingSystem.setEditable(false);
         m_jtfOperatingSystem.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfOperatingSystem = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfOperatingSystem =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfOperatingSystem.gridy = 0;
-        m_jpSystemInformation.add(m_jtfOperatingSystem, gbc_jtfOperatingSystem);
+        m_jpSystemInformation.add(
+            m_jtfOperatingSystem, gbc_jtfOperatingSystem);
 
         // Locale
-        m_jlLocale = new JLabel(m_res.getString("DSystemInformation.m_jlLocale.text"), JLabel.RIGHT);
+        m_jlLocale = new JLabel(
+            m_res.getString("DSystemInformation.m_jlLocale.text"),
+            JLabel.RIGHT);
 
         GridBagConstraints gbc_jlLocale = (GridBagConstraints)gbcLabel.clone();
         gbc_jlLocale.gridy = 1;
         m_jpSystemInformation.add(m_jlLocale, gbc_jlLocale);
 
-        m_jtfLocale = new JTextField(Locale.getDefault().getDisplayName(), VALUE_WIDTH);
+        m_jtfLocale = new JTextField(
+            Locale.getDefault().getDisplayName(), VALUE_WIDTH);
         m_jtfLocale.setEditable(false);
         m_jtfLocale.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfLocale = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfLocale =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfLocale.gridy = 1;
         m_jpSystemInformation.add(m_jtfLocale, gbc_jtfLocale);
 
         // Java Version
-        m_jlJavaVersion = new JLabel(m_res.getString("DSystemInformation.m_jlJavaVersion.text"), JLabel.RIGHT);
+        m_jlJavaVersion = new JLabel(
+            m_res.getString("DSystemInformation.m_jlJavaVersion.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlJavaVersion = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlJavaVersion =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlJavaVersion.gridy = 2;
         m_jpSystemInformation.add(m_jlJavaVersion, gbc_jlJavaVersion);
 
-        m_jtfJavaVersion = new JTextField(sysProps.getProperty("java.version", ""), VALUE_WIDTH);
+        m_jtfJavaVersion = new JTextField(
+            sysProps.getProperty("java.version", ""), VALUE_WIDTH);
         m_jtfJavaVersion.setEditable(false);
         m_jtfJavaVersion.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfJavaVersion = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfJavaVersion =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfJavaVersion.gridy = 2;
         m_jpSystemInformation.add(m_jtfJavaVersion, gbc_jtfJavaVersion);
 
         // Java Vendor
-        m_jlJavaVendor = new JLabel(m_res.getString("DSystemInformation.m_jlJavaVendor.text"), JLabel.RIGHT);
+        m_jlJavaVendor = new JLabel(
+            m_res.getString("DSystemInformation.m_jlJavaVendor.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlJavaVendor = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlJavaVendor =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlJavaVendor.gridy = 3;
         m_jpSystemInformation.add(m_jlJavaVendor, gbc_jlJavaVendor);
 
-        m_jtfJavaVendor = new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.m_jtfJavaVendor.text"),
-                                                              new String[]{sysProps.getProperty("java.vendor", ""),
-                                                                           sysProps.getProperty("java.vendor.url", "")}), VALUE_WIDTH);
+        m_jtfJavaVendor = new JTextField(
+            MessageFormat.format(
+                m_res.getString("DSystemInformation.m_jtfJavaVendor.text"),
+                new String[]{sysProps.getProperty("java.vendor", ""),
+                             sysProps.getProperty("java.vendor.url", "")}),
+            VALUE_WIDTH);
         m_jtfJavaVendor.setEditable(false);
         m_jtfJavaVendor.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfJavaVendor = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfJavaVendor =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfJavaVendor.gridy = 3;
         m_jpSystemInformation.add(m_jtfJavaVendor, gbc_jtfJavaVendor);
 
         // Java Home
-        m_jlJavaHome = new JLabel(m_res.getString("DSystemInformation.m_jlJavaHome.text"), JLabel.RIGHT);
+        m_jlJavaHome = new JLabel(
+            m_res.getString("DSystemInformation.m_jlJavaHome.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlJavaHome = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlJavaHome =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlJavaHome.gridy = 4;
         m_jpSystemInformation.add(m_jlJavaHome, gbc_jlJavaHome);
 
-        m_jtfJavaHome = new JTextField(sysProps.getProperty("java.home", ""), VALUE_WIDTH);
+        m_jtfJavaHome = new JTextField(
+            sysProps.getProperty("java.home", ""), VALUE_WIDTH);
         m_jtfJavaHome.setEditable(false);
         m_jtfJavaHome.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfJavaHome = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfJavaHome =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfJavaHome.gridy = 4;
         m_jpSystemInformation.add(m_jtfJavaHome, gbc_jtfJavaHome);
 
         // JVM Maximum memory
-        m_jlJvmMaximumMemory = new JLabel(m_res.getString("DSystemInformation.m_jlJvmMaximumMemory.text"), JLabel.RIGHT);
+        m_jlJvmMaximumMemory = new JLabel(
+            m_res.getString("DSystemInformation.m_jlJvmMaximumMemory.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlJvmMaximumMemory = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlJvmMaximumMemory =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlJvmMaximumMemory.gridy = 5;
-        m_jpSystemInformation.add(m_jlJvmMaximumMemory, gbc_jlJvmMaximumMemory);
+        m_jpSystemInformation.add(
+            m_jlJvmMaximumMemory, gbc_jlJvmMaximumMemory);
 
-        m_jtfJvmMaximumMemory = new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.m_jtfJvmMaximumMemory.text"),
-                                                                 new Object[]{new Integer(Math.round(runtime.maxMemory() / 1024))}), VALUE_WIDTH);
+        m_jtfJvmMaximumMemory = new JTextField(
+            MessageFormat.format(
+                m_res.getString(
+                    "DSystemInformation.m_jtfJvmMaximumMemory.text"),
+                new Object[]{new Integer(
+                                 Math.round(runtime.maxMemory() / 1024))}),
+            VALUE_WIDTH);
         m_jtfJvmMaximumMemory.setEditable(false);
         m_jtfJvmMaximumMemory.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfJvmMaximumMemory = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfJvmMaximumMemory =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfJvmMaximumMemory.gridy = 5;
-        m_jpSystemInformation.add(m_jtfJvmMaximumMemory, gbc_jtfJvmMaximumMemory);
+        m_jpSystemInformation.add(
+            m_jtfJvmMaximumMemory, gbc_jtfJvmMaximumMemory);
 
         // JVM Total memory
-        m_jlJvmTotalMemory = new JLabel(m_res.getString("DSystemInformation.m_jlJvmTotalMemory.text"), JLabel.RIGHT);
+        m_jlJvmTotalMemory = new JLabel(
+            m_res.getString("DSystemInformation.m_jlJvmTotalMemory.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlJvmTotalMemory = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlJvmTotalMemory =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlJvmTotalMemory.gridy = 6;
         m_jpSystemInformation.add(m_jlJvmTotalMemory, gbc_jlJvmTotalMemory);
 
-        m_jtfJvmTotalMemory = new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.m_jtfJvmTotalMemory.text"),
-                                                                  new Object[]{new Integer(Math.round(runtime.totalMemory() / 1024))}), VALUE_WIDTH);
+        m_jtfJvmTotalMemory = new JTextField(
+            MessageFormat.format(
+                m_res.getString("DSystemInformation.m_jtfJvmTotalMemory.text"),
+                new Object[]{new Integer(
+                                 Math.round(runtime.totalMemory() / 1024))}),
+            VALUE_WIDTH);
         m_jtfJvmTotalMemory.setEditable(false);
         m_jtfJvmTotalMemory.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfJvmTotalMemory = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfJvmTotalMemory =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfJvmTotalMemory.gridy = 6;
         m_jpSystemInformation.add(m_jtfJvmTotalMemory, gbc_jtfJvmTotalMemory);
 
         // JVM Free memory
-        m_jlJvmFreeMemory = new JLabel(m_res.getString("DSystemInformation.m_jlJvmFreeMemory.text"), JLabel.RIGHT);
+        m_jlJvmFreeMemory = new JLabel(
+            m_res.getString("DSystemInformation.m_jlJvmFreeMemory.text"),
+            JLabel.RIGHT);
 
-        GridBagConstraints gbc_jlJvmFreeMemory = (GridBagConstraints)gbcLabel.clone();
+        GridBagConstraints gbc_jlJvmFreeMemory =
+            (GridBagConstraints) gbcLabel.clone();
         gbc_jlJvmFreeMemory.gridy = 7;
         m_jpSystemInformation.add(m_jlJvmFreeMemory, gbc_jlJvmFreeMemory);
 
-        m_jtfJvmFreeMemory = new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.m_jtfJvmFreeMemory.text"),
-                                                                 new Object[]{new Integer(Math.round(runtime.freeMemory() / 1024))}), VALUE_WIDTH);
+        m_jtfJvmFreeMemory = new JTextField(
+            MessageFormat.format(
+                m_res.getString("DSystemInformation.m_jtfJvmFreeMemory.text"),
+                new Object[]{new Integer(
+                                 Math.round(runtime.freeMemory() / 1024))}),
+            VALUE_WIDTH);
         m_jtfJvmFreeMemory.setEditable(false);
         m_jtfJvmFreeMemory.setCaretPosition(0);
 
-        GridBagConstraints gbc_jtfJvmFreeMemory = (GridBagConstraints)gbcTextField.clone();
+        GridBagConstraints gbc_jtfJvmFreeMemory =
+            (GridBagConstraints) gbcTextField.clone();
         gbc_jtfJvmFreeMemory.gridy = 7;
         m_jpSystemInformation.add(m_jtfJvmFreeMemory, gbc_jtfJvmFreeMemory);
 
         // SystemProperties button
-        m_jbSystemProperties = new JButton(m_res.getString("DSystemInformation.m_jbSystemProperties.text"));
-        m_jbSystemProperties.setMnemonic(m_res.getString("DSystemInformation.m_jbSystemProperties.mnemonic").charAt(0));
+        m_jbSystemProperties = new JButton(
+            m_res.getString("DSystemInformation.m_jbSystemProperties.text"));
+        m_jbSystemProperties.setMnemonic(
+            m_res.getString(
+                "DSystemInformation.m_jbSystemProperties.mnemonic").charAt(0));
         m_jbSystemProperties.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 systemPropertiesPressed();
@@ -298,7 +361,8 @@ public class DSystemInformation
         });
 
         // OK button
-        m_jbOK = new JButton(m_res.getString("DSystemInformation.m_jbOK.text"));
+        m_jbOK = new JButton(
+            m_res.getString("DSystemInformation.m_jbOK.text"));
         m_jbOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 okPressed();
@@ -335,7 +399,8 @@ public class DSystemInformation
     private void systemPropertiesPressed()
     {
         // Show System Properties dialog
-        DSystemProperties dSystemProperties = new DSystemProperties(this, true);
+        DSystemProperties dSystemProperties =
+            new DSystemProperties(this, true);
         dSystemProperties.setLocationRelativeTo(this);
         dSystemProperties.setVisible(true);
     }

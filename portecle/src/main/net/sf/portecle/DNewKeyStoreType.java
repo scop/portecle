@@ -35,7 +35,8 @@ import net.sf.portecle.crypto.KeyStoreType;
 class DNewKeyStoreType extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel containing KeyStore type controls */
     private JPanel m_jpKeyStoreType;
@@ -91,28 +92,50 @@ class DNewKeyStoreType extends JDialog
      */
     private void initComponents()
     {
-        // Create KeyStore type label and radio buttons and group them in a panel
-        m_jlKeyStoreType = new JLabel(m_res.getString("DNewKeyStoreType.m_jlKeyStoreType.text"));
+        // Create KeyStore type label and radio buttons and group them
+        // in a panel
+        m_jlKeyStoreType = new JLabel(
+            m_res.getString("DNewKeyStoreType.m_jlKeyStoreType.text"));
 
-        m_jrbJksKeyStore = new JRadioButton(m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.text"), true);
-        m_jrbJksKeyStore.setMnemonic(m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.mnemonic").charAt(0));
-        m_jrbJksKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.tooltip"));
+        m_jrbJksKeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.text"), true);
+        m_jrbJksKeyStore.setMnemonic(
+            m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.mnemonic")
+            .charAt(0));
+        m_jrbJksKeyStore.setToolTipText(
+            m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.tooltip"));
 
-        m_jrbJceksKeyStore = new JRadioButton(m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.text"));
-        m_jrbJceksKeyStore.setMnemonic(m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.mnemonic").charAt(0));
-        m_jrbJceksKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.tooltip"));
+        m_jrbJceksKeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.text"));
+        m_jrbJceksKeyStore.setMnemonic(
+            m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.mnemonic")
+            .charAt(0));
+        m_jrbJceksKeyStore.setToolTipText(
+            m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.tooltip"));
 
-        m_jrbPkcs12KeyStore = new JRadioButton(m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.text"));
-        m_jrbPkcs12KeyStore.setMnemonic(m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.mnemonic").charAt(0));
-        m_jrbPkcs12KeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.tooltip"));
+        m_jrbPkcs12KeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.text"));
+        m_jrbPkcs12KeyStore.setMnemonic(
+            m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.mnemonic")
+            .charAt(0));
+        m_jrbPkcs12KeyStore.setToolTipText(
+            m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.tooltip"));
 
-        m_jrbBksKeyStore = new JRadioButton(m_res.getString("DNewKeyStoreType.m_jrbBksKeyStore.text"));
-        m_jrbBksKeyStore.setMnemonic(m_res.getString("DNewKeyStoreType.m_jrbBksKeyStore.mnemonic").charAt(0));
-        m_jrbBksKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbBksKeyStore.tooltip"));
+        m_jrbBksKeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbBksKeyStore.text"));
+        m_jrbBksKeyStore.setMnemonic(
+            m_res.getString("DNewKeyStoreType.m_jrbBksKeyStore.mnemonic")
+            .charAt(0));
+        m_jrbBksKeyStore.setToolTipText(
+            m_res.getString("DNewKeyStoreType.m_jrbBksKeyStore.tooltip"));
 
-        m_jrbUberKeyStore = new JRadioButton(m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.text"));
-        m_jrbUberKeyStore.setMnemonic(m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.mnemonic").charAt(0));
-        m_jrbUberKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.tooltip"));
+        m_jrbUberKeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.text"));
+        m_jrbUberKeyStore.setMnemonic(
+            m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.mnemonic")
+            .charAt(0));
+        m_jrbUberKeyStore.setToolTipText(
+            m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.tooltip"));
 
         ButtonGroup keyStoreTypes = new ButtonGroup();
 
@@ -123,8 +146,11 @@ class DNewKeyStoreType extends JDialog
         keyStoreTypes.add(m_jrbUberKeyStore);
 
         m_jpKeyStoreType = new JPanel(new GridLayout(6, 1));
-        m_jpKeyStoreType.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                      new CompoundBorder(new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
+        m_jpKeyStoreType.setBorder(
+            new CompoundBorder(
+                new EmptyBorder(5, 5, 5, 5),
+                new CompoundBorder(new EtchedBorder(),
+                                   new EmptyBorder(5, 5, 5, 5))));
 
         m_jpKeyStoreType.add(m_jlKeyStoreType);
         m_jpKeyStoreType.add(m_jrbJksKeyStore);
@@ -141,7 +167,8 @@ class DNewKeyStoreType extends JDialog
             }
         });
 
-        m_jbCancel = new JButton(m_res.getString("DNewKeyStoreType.m_jbCancel.text"));
+        m_jbCancel = new JButton(
+            m_res.getString("DNewKeyStoreType.m_jbCancel.text"));
         m_jbCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelPressed();
@@ -150,9 +177,9 @@ class DNewKeyStoreType extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbOK);

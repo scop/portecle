@@ -34,13 +34,14 @@ import net.sf.portecle.crypto.*;
 import net.sf.portecle.gui.LastDir;
 
 /**
- * Dialog used to export KeyStore entries.  A number of export types and formats are
- * available depending on the entries content.
+ * Dialog used to export KeyStore entries.  A number of export types
+ * and formats are available depending on the entries content.
  */
 class DExport extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel containing all of the export type option controls */
     private JPanel m_jpExportType;
@@ -99,8 +100,9 @@ class DExport extends JDialog
     /** The last directory accessed by a FileChooser dialog */
     private LastDir m_lastDir;
 
-    /** Dummy password to use for PKCS #12 KeyStore entries (passwords are not applicable for these) */
-    private static final char[] PKCS12_DUMMY_PASSWORD = {'d', 'u', 'm', 'm', 'y'};
+    /** Dummy password to use for PKCS #12 KeyStore entries (passwords
+     * are not applicable for these) */
+    private static final char[] PKCS12_DUMMY_PASSWORD = "dummy".toCharArray();
 
     /**
      * Creates new form DExport where the parent is a frame.
@@ -112,7 +114,8 @@ class DExport extends JDialog
      * @param lastDir The last directory accessed by a FileChooser dialog
      * @throws CryptoException Problem accessing the KeyStore entry
      */
-    public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore, String sEntryAlias, LastDir lastDir)
+    public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore,
+                   String sEntryAlias, LastDir lastDir)
         throws CryptoException
     {
         super(parent, bModal);
@@ -131,9 +134,11 @@ class DExport extends JDialog
     {
         // Export type controls
         m_jpExportType = new JPanel(new GridLayout(3, 1));
-        m_jpExportType.setBorder(new TitledBorder(m_res.getString("DExport.m_jpExportType.text")));
+        m_jpExportType.setBorder(
+            new TitledBorder(m_res.getString("DExport.m_jpExportType.text")));
 
-        m_jrbHeadCertOnly = new JRadioButton(m_res.getString("DExport.m_jrbHeadCertOnly.text"), true);
+        m_jrbHeadCertOnly = new JRadioButton(
+            m_res.getString("DExport.m_jrbHeadCertOnly.text"), true);
         m_jrbHeadCertOnly.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 m_jrbDEREncoded.setEnabled(true);
@@ -148,7 +153,8 @@ class DExport extends JDialog
             }
         });
 
-        m_jrbCertChain = new JRadioButton(m_res.getString("DExport.m_jrbCertChain.text"));
+        m_jrbCertChain = new JRadioButton(
+            m_res.getString("DExport.m_jrbCertChain.text"));
         m_jrbCertChain.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 m_jrbDEREncoded.setEnabled(false);
@@ -163,7 +169,8 @@ class DExport extends JDialog
             }
         });
 
-        m_mjrbPrivKeyCertChain = new JRadioButton(m_res.getString("DExport.m_jrbPrivKeyCertChain.text"));
+        m_mjrbPrivKeyCertChain = new JRadioButton(
+            m_res.getString("DExport.m_jrbPrivKeyCertChain.text"));
         m_mjrbPrivKeyCertChain.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 m_jrbDEREncoded.setEnabled(false);
@@ -187,13 +194,20 @@ class DExport extends JDialog
         // Export format controls
         // @@@TODO: add item listeners for these
         m_jpExportFormat = new JPanel(new GridLayout(5, 1));
-        m_jpExportFormat.setBorder(new TitledBorder(m_res.getString("DExport.m_jpExportFormat.text")));
+        m_jpExportFormat.setBorder(
+            new TitledBorder(
+                m_res.getString("DExport.m_jpExportFormat.text")));
 
-        m_jrbDEREncoded = new JRadioButton(m_res.getString("DExport.m_jrbDEREncoded.text"), true);
-        m_jrbPemEncoded = new JRadioButton(m_res.getString("DExport.m_jrbPemEncoded.text"));
-        m_jrbPKCS7 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS7.text"));
-        m_jrbPkiPath = new JRadioButton(m_res.getString("DExport.m_jrbPkiPath.text"));
-        m_jrbPKCS12 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS12.text"));
+        m_jrbDEREncoded = new JRadioButton(
+            m_res.getString("DExport.m_jrbDEREncoded.text"), true);
+        m_jrbPemEncoded = new JRadioButton(
+            m_res.getString("DExport.m_jrbPemEncoded.text"));
+        m_jrbPKCS7 = new JRadioButton(
+            m_res.getString("DExport.m_jrbPKCS7.text"));
+        m_jrbPkiPath = new JRadioButton(
+            m_res.getString("DExport.m_jrbPkiPath.text"));
+        m_jrbPKCS12 = new JRadioButton(
+            m_res.getString("DExport.m_jrbPKCS12.text"));
         m_jrbPKCS12.setEnabled(false);
 
         ButtonGroup formatBG = new ButtonGroup();
@@ -222,15 +236,18 @@ class DExport extends JDialog
         }
         catch (KeyStoreException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("DExport.NoAccessEntry.message"), new String[]{m_sEntryAlias});
+            String sMessage = MessageFormat.format(
+                m_res.getString("DExport.NoAccessEntry.message"),
+                new String[]{m_sEntryAlias});
             throw new CryptoException(sMessage, ex);
         }
 
         // Put all export option controls together in one panel
         m_jpOptions = new JPanel(new BorderLayout(10, 0));
-        m_jpOptions.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                                    new EtchedBorder()),
-                                                 new EmptyBorder(5, 5, 5, 5)));
+        m_jpOptions.setBorder(
+            new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+                                                  new EtchedBorder()),
+                               new EmptyBorder(5, 5, 5, 5)));
 
         m_jpOptions.add(m_jpExportType, BorderLayout.NORTH);
         m_jpOptions.add(m_jpExportFormat, BorderLayout.SOUTH);
@@ -252,9 +269,9 @@ class DExport extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbOK);
@@ -271,7 +288,9 @@ class DExport extends JDialog
             }
         });
 
-        setTitle(MessageFormat.format(m_res.getString("DExport.Title"), new String[]{m_sEntryAlias}));
+        setTitle(MessageFormat.format(
+                     m_res.getString("DExport.Title"),
+                     new String[]{m_sEntryAlias}));
         setResizable(false);
 
         getRootPane().setDefaultButton(m_jbOK);

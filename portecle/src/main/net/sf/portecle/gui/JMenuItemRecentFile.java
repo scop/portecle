@@ -38,7 +38,8 @@ public class JMenuItemRecentFile extends JMenuItem
     /** Recent file */
     private File m_fRecentFile;
 
-    /** Menu's position in its recent file list (maintained by JMenuRecentFiles) */
+    /** Menu's position in its recent file list (maintained by
+     * JMenuRecentFiles) */
     private int m_iPosition;
 
     /**
@@ -65,7 +66,8 @@ public class JMenuItemRecentFile extends JMenuItem
     }
 
     /**
-     * Get the menu item's position in its recent file list (maintained by JMenuRecentFiles).
+     * Get the menu item's position in its recent file list
+     * (maintained by JMenuRecentFiles).
      *
      * @return Position
      */
@@ -75,7 +77,8 @@ public class JMenuItemRecentFile extends JMenuItem
     }
 
     /**
-     * Set the menu item's position in its recent file list (maintained by JMenuRecentFiles).
+     * Set the menu item's position in its recent file list
+     * (maintained by JMenuRecentFiles).
      *
      * @param iPosition Position
      */

@@ -197,7 +197,8 @@ public class History
      *
      * @param listener The HistoryEventListener to add
      */
-    public synchronized void addHistoryEventListener(HistoryEventListener listener)
+    public synchronized void addHistoryEventListener(
+        HistoryEventListener listener)
     {
         if (listeners == null)
         {
@@ -212,7 +213,8 @@ public class History
      *
      * @param listener The HistoryEventListener to remove
      */
-    public synchronized void removeHistoryEventListener(HistoryEventListener listener)
+    public synchronized void removeHistoryEventListener(
+        HistoryEventListener listener)
     {
         if (listeners == null)
         {
@@ -223,8 +225,8 @@ public class History
     }
 
     /**
-     * Fires a HistoryEvent to registered listeners notifying them of a change in the
-     * History's status.
+     * Fires a HistoryEvent to registered listeners notifying them of
+     * a change in the History's status.
      */
     protected void fireHistoryEvent()
     {
@@ -241,7 +243,8 @@ public class History
             Enumeration en = listenersCopy.elements();
             while (en.hasMoreElements())
             {
-                ((HistoryEventListener) en.nextElement()).historyStatusChanged(evt);
+                ((HistoryEventListener) en.nextElement())
+                    .historyStatusChanged(evt);
             }
         }
     }

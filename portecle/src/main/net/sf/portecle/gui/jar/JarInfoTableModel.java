@@ -33,7 +33,8 @@ import javax.swing.table.*;
 class JarInfoTableModel extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -46,15 +47,16 @@ class JarInfoTableModel extends AbstractTableModel
      */
     public JarInfoTableModel()
     {
-        m_columnNames = new String[8];
-        m_columnNames[0] = m_res.getString("JarInfoTableModel.JarFileColumn");
-        m_columnNames[1] = m_res.getString("JarInfoTableModel.SizeColumn");
-        m_columnNames[2] = m_res.getString("JarInfoTableModel.SpecificationTitleColumn");
-        m_columnNames[3] = m_res.getString("JarInfoTableModel.SpecificationVersionColumn");
-        m_columnNames[4] = m_res.getString("JarInfoTableModel.SpecificationVendorColumn");
-        m_columnNames[5] = m_res.getString("JarInfoTableModel.ImplementationTitleColumn");
-        m_columnNames[6] = m_res.getString("JarInfoTableModel.ImplementationVersionColumn");
-        m_columnNames[7] = m_res.getString("JarInfoTableModel.ImplementationVendorColumn");
+        m_columnNames = new String[] {
+            m_res.getString("JarInfoTableModel.JarFileColumn"),
+            m_res.getString("JarInfoTableModel.SizeColumn"),
+            m_res.getString("JarInfoTableModel.SpecificationTitleColumn"),
+            m_res.getString("JarInfoTableModel.SpecificationVersionColumn"),
+            m_res.getString("JarInfoTableModel.SpecificationVendorColumn"),
+            m_res.getString("JarInfoTableModel.ImplementationTitleColumn"),
+            m_res.getString("JarInfoTableModel.ImplementationVersionColumn"),
+            m_res.getString("JarInfoTableModel.ImplementationVendorColumn"),
+        };
 
         m_data = new Object[0][0];
     }
@@ -72,8 +74,9 @@ class JarInfoTableModel extends AbstractTableModel
 
         for (int iCnt=0; iCnt < jarFiles.length; iCnt++)
         {
-            /* Get JAR info (jar file, size, spec title, spec version, spec title,
-               impl title, impl version and impl vendor) */
+            /* Get JAR info (jar file, size, spec title, spec version,
+               spec title, impl title, impl version and impl
+               vendor) */
             JarFile jarFile = jarFiles[iCnt];
             String sFile = jarFile.getName();
             File file = new File(sFile);
@@ -133,8 +136,9 @@ class JarInfoTableModel extends AbstractTableModel
             m_data[iCnt][0] = file.getName();
 
             // Populate the size column
-            m_data[iCnt][1] = MessageFormat.format(m_res.getString("JarInfoTableModel.Size"),
-                                                   new Object[]{new Integer(Math.round(file.length() / 1024))});
+            m_data[iCnt][1] = MessageFormat.format(
+                m_res.getString("JarInfoTableModel.Size"),
+                new Object[]{new Integer(Math.round(file.length() / 1024))});
 
             // Populate the implementation title column
             m_data[iCnt][2] = sSpecificationTitle;

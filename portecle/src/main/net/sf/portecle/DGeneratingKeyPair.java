@@ -38,7 +38,8 @@ import net.sf.portecle.crypto.*;
 class DGeneratingKeyPair extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold generating key pair label */
     private JPanel m_jpGenKeyPair;
@@ -64,7 +65,8 @@ class DGeneratingKeyPair extends JDialog
     /** Generated Key Pair */
     private KeyPair m_keyPair;
 
-    /** Reference to the dialog for the GenerateKeyPair inner class to reference */
+    /** Reference to the dialog for the GenerateKeyPair inner class to
+     * reference */
     private JDialog dialog = this;
 
     /** The thread that actually does the key pair generation */
@@ -78,7 +80,8 @@ class DGeneratingKeyPair extends JDialog
      * @param keyPairType The key pair generation type
      * @param iKeySize The key size to generate
      */
-    public DGeneratingKeyPair(JFrame parent, boolean bModal, KeyPairType keyPairType, int iKeySize)
+    public DGeneratingKeyPair(JFrame parent, boolean bModal,
+                              KeyPairType keyPairType, int iKeySize)
     {
         super(parent, bModal);
         m_keyPairType = keyPairType;
@@ -94,7 +97,8 @@ class DGeneratingKeyPair extends JDialog
      * @param keyPairType The key pair generation type
      * @param iKeySize The key size to generate
      */
-    public DGeneratingKeyPair(JDialog parent, boolean bModal, KeyPairType keyPairType, int iKeySize)
+    public DGeneratingKeyPair(JDialog parent, boolean bModal,
+                              KeyPairType keyPairType, int iKeySize)
     {
         super(parent, bModal);
         m_keyPairType = keyPairType;
@@ -108,15 +112,19 @@ class DGeneratingKeyPair extends JDialog
     private void initComponents()
     {
         // Generate key Pair label
-        m_jlGenKeyPair = new JLabel(m_res.getString("DGeneratingKeypair.m_jlGenKeyPair.text"));
-        ImageIcon icon = new ImageIcon(getClass().getResource(m_res.getString("DGeneratingKeypair.Generating.image")));
+        m_jlGenKeyPair = new JLabel(
+            m_res.getString("DGeneratingKeypair.m_jlGenKeyPair.text"));
+        ImageIcon icon = new ImageIcon(
+            getClass().getResource(
+                m_res.getString("DGeneratingKeypair.Generating.image")));
         m_jlGenKeyPair.setIcon(icon);
         m_jpGenKeyPair = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpGenKeyPair.add(m_jlGenKeyPair);
         m_jpGenKeyPair.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Cancel button
-        m_jbCancel = new JButton(m_res.getString("DGeneratingKeyPair.m_jbCancel.text"));
+        m_jbCancel = new JButton(
+            m_res.getString("DGeneratingKeyPair.m_jbCancel.text"));
         m_jbCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelPressed();
@@ -125,9 +133,9 @@ class DGeneratingKeyPair extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
         m_jpCancel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpCancel.add(m_jbCancel);
 
@@ -208,11 +216,13 @@ class DGeneratingKeyPair extends JDialog
             {
                 if (m_keyPairType == KeyPairType.DSA)
                 {
-                    keyPair = KeyPairUtil.generateKeyPair(KeyPairType.DSA, m_iKeySize);
+                    keyPair = KeyPairUtil.generateKeyPair(
+                        KeyPairType.DSA, m_iKeySize);
                 }
                 else
                 {
-                    keyPair = KeyPairUtil.generateKeyPair(KeyPairType.RSA, m_iKeySize);
+                    keyPair = KeyPairUtil.generateKeyPair(
+                        KeyPairType.RSA, m_iKeySize);
                 }
 
                 if (true)
@@ -228,7 +238,8 @@ class DGeneratingKeyPair extends JDialog
             }
             catch (CryptoException ex)
             {
-                // Store excpetion in member so it can be accessed from inner class
+                // Store excpetion in member so it can be accessed
+                // from inner class
                 m_ex = ex;
 
                 // Manipulate GUI in event handler thread
@@ -236,8 +247,10 @@ class DGeneratingKeyPair extends JDialog
                     public void run() {
                         if (dialog.isShowing())
                         {
-                            DThrowable dThrowable = new DThrowable(dialog, true, m_ex);
-							dThrowable.setLocationRelativeTo(DGeneratingKeyPair.this);
+                            DThrowable dThrowable = new DThrowable(
+                                dialog, true, m_ex);
+                            dThrowable.setLocationRelativeTo(
+                                DGeneratingKeyPair.this);
                             dThrowable.setVisible(true);
                             closeDialog();
                         }

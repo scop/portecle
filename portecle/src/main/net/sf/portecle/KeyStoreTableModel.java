@@ -33,7 +33,8 @@ import net.sf.portecle.crypto.KeyStoreType;
 class KeyStoreTableModel extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -42,23 +43,27 @@ class KeyStoreTableModel extends AbstractTableModel
     private Object[][] m_data;
 
     /** Value to place in the type column for a key pair entry */
-    public static final String KEY_PAIR_ENTRY = m_res.getString("KeyStoreTableModel.KeyPairEntry");
+    public static final String KEY_PAIR_ENTRY =
+        m_res.getString("KeyStoreTableModel.KeyPairEntry");
 
     /** Value to place in the type column for a trusted certificate entry */
-    public static final String TRUST_CERT_ENTRY = m_res.getString("KeyStoreTableModel.TrustCertEntry");
+    public static final String TRUST_CERT_ENTRY =
+        m_res.getString("KeyStoreTableModel.TrustCertEntry");
 
     /** Value to place in the type column for a key entry */
-    public static final String KEY_ENTRY = m_res.getString("KeyStoreTableModel.KeyEntry");
+    public static final String KEY_ENTRY =
+        m_res.getString("KeyStoreTableModel.KeyEntry");
 
     /**
      * Construct a new KeyStoreTableModel.
      */
     public KeyStoreTableModel()
     {
-        m_columnNames = new String[3];
-        m_columnNames[0] = m_res.getString("KeyStoreTableModel.TypeColumn");
-        m_columnNames[1] = m_res.getString("KeyStoreTableModel.AliasColumn");
-        m_columnNames[2] = m_res.getString("KeyStoreTableModel.LastModifiedDateColumn");
+        m_columnNames = new String[] {
+            m_res.getString("KeyStoreTableModel.TypeColumn"),
+            m_res.getString("KeyStoreTableModel.AliasColumn"),
+            m_res.getString("KeyStoreTableModel.LastModifiedDateColumn"),
+        };
 
         m_data = new Object[0][0];
     }
@@ -67,7 +72,8 @@ class KeyStoreTableModel extends AbstractTableModel
      * Load the KeyStoreTableModel with the entries from a KeyStore.
      *
      * @param keyStore The KeyStore
-     * @throws KeyStoreException A problem is encountered accessing the KeyStore's entries
+     * @throws KeyStoreException A problem is encountered accessing
+     * the KeyStore's entries
      */
     public void load(KeyStore keyStore)
         throws KeyStoreException, CryptoException
@@ -87,14 +93,17 @@ class KeyStoreTableModel extends AbstractTableModel
         // Create one table row for each KeyStore entry
         m_data = new Object[sortedAliases.size()][3];
 
-        // Iterate through the sorted aliases, retrieving the KeyStore entries and populating the table model
+        // Iterate through the sorted aliases, retrieving the KeyStore
+        // entries and populating the table model
         int iCnt=0;
-        for (Iterator itr = sortedAliases.entrySet().iterator(); itr.hasNext(); iCnt++)
+        for (Iterator itr = sortedAliases.entrySet().iterator();
+             itr.hasNext(); iCnt++)
         {
             String sAlias = (String)((Map.Entry)itr.next()).getKey();
 
-            // Populate the type column - it is set with an integer but a custom
-            // cell renderer will cause a suitable icon to be displayed
+            // Populate the type column - it is set with an integer
+            // but a custom cell renderer will cause a suitable icon
+            // to be displayed
             if (keyStore.isCertificateEntry(sAlias))
             {
                 m_data[iCnt][0] = new String(TRUST_CERT_ENTRY);

@@ -33,7 +33,8 @@ import java.util.*;
 public class DGetNewPassword extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
     /** Panel to hold password entry components */
     private JPanel m_jpPassword;
@@ -130,8 +131,10 @@ public class DGetNewPassword extends JDialog
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlFirst = new JLabel(m_res.getString("DGetNewPassword.m_jlFirst.text"));
-        m_jlConfirm = new JLabel(m_res.getString("DGetNewPassword.m_jlConfirm.text"));
+        m_jlFirst = new JLabel(
+            m_res.getString("DGetNewPassword.m_jlFirst.text"));
+        m_jlConfirm = new JLabel(
+            m_res.getString("DGetNewPassword.m_jlConfirm.text"));
         m_jpfFirst = new JPasswordField(15);
         m_jpfConfirm = new JPasswordField(15);
 
@@ -142,7 +145,8 @@ public class DGetNewPassword extends JDialog
             }
         });
 
-        m_jbCancel = new JButton(m_res.getString("DGetNewPassword.m_jbCancel.text"));
+        m_jbCancel = new JButton(
+            m_res.getString("DGetNewPassword.m_jbCancel.text"));
         m_jbCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelPressed();
@@ -151,9 +155,9 @@ public class DGetNewPassword extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpPassword = new JPanel(new GridLayout(2, 2, 5, 5));
         m_jpPassword.add(m_jlFirst);
@@ -206,8 +210,9 @@ public class DGetNewPassword extends JDialog
         }
         else
         {
-            JOptionPane.showMessageDialog(this, m_res.getString("PasswordsNoMatch.message"),
-                                          getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                this, m_res.getString("PasswordsNoMatch.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
         }
 
         return false;

@@ -31,7 +31,8 @@ import java.security.*;
 public final class DigestUtil extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /**
      * Private to prevent construction.
@@ -44,9 +45,11 @@ public final class DigestUtil extends Object
      * @param bMessage The message to digest
      * @param digestType The message digest algorithm
      * @return The message digest
-     * @throws CryptoException If there was a problem generating the message digest
+     * @throws CryptoException If there was a problem generating the message
+     * digest
      */
-    public static String getMessageDigest(byte[] bMessage, DigestType digestType)
+    public static String getMessageDigest(byte[] bMessage,
+                                          DigestType digestType)
         throws CryptoException
     {
         // Create message digest object using the supplied algorithm
@@ -57,14 +60,16 @@ public final class DigestUtil extends Object
         }
         catch (NoSuchAlgorithmException ex)
         {
-            throw new CryptoException(m_res.getString("NoCreateDigest.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoCreateDigest.exception.message"), ex);
         }
 
         // Create raw message digest
         byte[] bFingerPrint = messageDigest.digest(bMessage);
 
         // Place the raw message digest into a StringBuffer as a Hex number
-        StringBuffer strBuff = new StringBuffer(new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
+        StringBuffer strBuff = new StringBuffer(
+            new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
 
         // Odd number of characters so add in a padding "0"
         if ((strBuff.length() % 2) == 1)

@@ -26,12 +26,14 @@ import javax.swing.table.*;
 import java.security.cert.*;
 
 /**
- * The table model used to display an array of X.509 CRL entries sorted by serial number.
+ * The table model used to display an array of X.509 CRL entries
+ * sorted by serial number.
  */
 class RevokedCertsTableModel extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -44,9 +46,10 @@ class RevokedCertsTableModel extends AbstractTableModel
      */
     public RevokedCertsTableModel()
     {
-        m_columnNames = new String[2];
-        m_columnNames[0] = m_res.getString("RevokedCertsTableModel.SerialNumberColumn");
-        m_columnNames[1] = m_res.getString("RevokedCertsTableModel.RevocationDateColumn");
+        m_columnNames = new String[] {
+            m_res.getString("RevokedCertsTableModel.SerialNumberColumn"),
+            m_res.getString("RevokedCertsTableModel.RevocationDateColumn"),
+        };
 
         m_data = new Object[0][0];
     }
@@ -63,17 +66,21 @@ class RevokedCertsTableModel extends AbstractTableModel
 
         for (int iCnt=0; iCnt < revokedCerts.length; iCnt++)
         {
-            sortedRevokedCerts.put(revokedCerts[iCnt].getSerialNumber(), revokedCerts[iCnt]);
+            sortedRevokedCerts.put(revokedCerts[iCnt].getSerialNumber(),
+                                   revokedCerts[iCnt]);
         }
 
         // Create one table row for each revoked certificate
         m_data = new Object[sortedRevokedCerts.size()][2];
 
-        // Iterate through the sorted revoked certificates populating the table model
+        // Iterate through the sorted revoked certificates populating
+        // the table model
         int iCnt=0;
-        for (Iterator itr = sortedRevokedCerts.entrySet().iterator(); itr.hasNext(); iCnt++)
+        for (Iterator itr = sortedRevokedCerts.entrySet().iterator();
+             itr.hasNext(); iCnt++)
         {
-            X509CRLEntry x509CrlEntry = (X509CRLEntry)((Map.Entry)itr.next()).getValue();
+            X509CRLEntry x509CrlEntry =
+                (X509CRLEntry) ((Map.Entry) itr.next()).getValue();
 
             // Populate the serial number column
             m_data[iCnt][0] = x509CrlEntry.getSerialNumber();

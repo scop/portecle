@@ -33,7 +33,8 @@ import java.util.ResourceBundle;
 class DGetAlias extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold the alias entry controls */
     private JPanel m_jpAlias;
@@ -67,7 +68,8 @@ class DGetAlias extends JDialog
      * @param bModal Is the dialog modal?
      * @param sOldAlias The alias to display initially
      */
-    public DGetAlias(JFrame parent, String sTitle, boolean bModal, String sOldAlias)
+    public DGetAlias(JFrame parent, String sTitle, boolean bModal,
+                     String sOldAlias)
     {
         super(parent, sTitle, bModal);
         initComponents(sOldAlias);
@@ -81,7 +83,8 @@ class DGetAlias extends JDialog
      * @param bModal Is the dialog modal?
      * @param sOldAlias The alias to display initially
      */
-    public DGetAlias(JDialog parent, String sTitle, boolean bModal, String sOldAlias)
+    public DGetAlias(JDialog parent, String sTitle, boolean bModal,
+                     String sOldAlias)
     {
         super(parent, sTitle, bModal);
         initComponents(sOldAlias);
@@ -131,9 +134,9 @@ class DGetAlias extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpAlias.add(m_jlAlias);
@@ -176,8 +179,9 @@ class DGetAlias extends JDialog
         }
         else
         {
-            JOptionPane.showMessageDialog(this, m_res.getString("DGetAlias.AliasReq.message"),
-                                          getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(
+                this, m_res.getString("DGetAlias.AliasReq.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
         }
         return false;
     }

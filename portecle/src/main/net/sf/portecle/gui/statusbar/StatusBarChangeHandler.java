@@ -46,7 +46,8 @@ public class StatusBarChangeHandler implements ChangeListener
      * @param sHelpText Help text for the menu item
      * @param statusBar The status bar
      */
-    public StatusBarChangeHandler(JMenuItem jmi, String sHelpText, StatusBar statusBar)
+    public StatusBarChangeHandler(JMenuItem jmi, String sHelpText,
+                                  StatusBar statusBar)
     {
         m_jmi = jmi;
         m_sHelpText = sHelpText;

@@ -33,8 +33,8 @@ import java.util.*;
  * Note that for the purposes of comparison the identifier is considered
  * only in so much as it is present or not - its actual value is unimportant.
  * Therefore for two otherwise identical versions the presence of an identifier
- * in one will make it a lower version than the other.  This is because standard
- * identifier values have not been identified by Sun.
+ * in one will make it a lower version than the other.  This is because
+ * standard identifier values have not been identified by Sun.
  */
 public class JavaVersion extends Object implements Comparable
 {
@@ -103,25 +103,34 @@ public class JavaVersion extends Object implements Comparable
         // Update but no identifier
         else if ((iIndexUpdate != -1) && (iIndexIdentifier == -1))
         {
-            sVersion = m_sJavaVersion.substring(0, iIndexUpdate); // Version as a string
-            sUpdate = m_sJavaVersion.substring(iIndexUpdate+1); // Update as a string
+            // Version as a string
+            sVersion = m_sJavaVersion.substring(0, iIndexUpdate);
+            // Update as a string
+            sUpdate = m_sJavaVersion.substring(iIndexUpdate+1);
         }
         // Identifier but no update
         else if ((iIndexUpdate == -1) && (iIndexIdentifier != -1))
         {
-            sVersion = m_sJavaVersion.substring(0, iIndexIdentifier); // Version as a string
-            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier+1); // Identifier as a string
+            // Version as a string
+            sVersion = m_sJavaVersion.substring(0, iIndexIdentifier);
+            // Identifier as a string
+            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier+1);
         }
         // Update and identifier
         else
         {
-            sVersion = m_sJavaVersion.substring(0, iIndexUpdate); // Version as a string
-            sUpdate = m_sJavaVersion.substring(iIndexUpdate+1, iIndexIdentifier); // Update as a string
-            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier+1); // Identifier as a string
+            // Version as a string
+            sVersion = m_sJavaVersion.substring(0, iIndexUpdate);
+            // Update as a string
+            sUpdate = m_sJavaVersion.substring(
+                iIndexUpdate+1, iIndexIdentifier);
+            // Identifier as a string
+            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier+1);
         }
 
         // Parse version string for major, middle and minor version numbers
-        StringTokenizer strTok = new StringTokenizer(sVersion, ""+VERSION_DELIMITER);
+        StringTokenizer strTok =
+            new StringTokenizer(sVersion, ""+VERSION_DELIMITER);
 
         if (strTok.countTokens() != 3)
         {
@@ -254,7 +263,8 @@ public class JavaVersion extends Object implements Comparable
      *
      * @param object Object to compare JavaVersion with
      * @return 0 if the equal, -1 if less, 1 if more
-     * @throws ClassCastException if the specified object's type prevents it from being compared to this Object
+     * @throws ClassCastException if the specified object's type
+     * prevents it from being compared to this Object
      */
     public int compareTo(Object object)
     {
@@ -300,7 +310,8 @@ public class JavaVersion extends Object implements Comparable
             return -1;
         }
 
-        // Compare identifier - not values - just whather they are present or not
+        // Compare identifier - not values - just whather they are
+        // present or not
         String sCmpIdentifier = cmpJavaVersion.getIdentifier();
 
         if ((m_sIdentifier == null) && (sCmpIdentifier != null))
@@ -352,9 +363,10 @@ public class JavaVersion extends Object implements Comparable
     public int hashCode()
     {
         // Initialise hash total to non-zero value
-        int iResult=27;
+        int iResult = 27;
 
-        // For each component of the version Multiply total by 53 (odd prime) and add section
+        // For each component of the version Multiply total by 53 (odd
+        // prime) and add section
         iResult = 53 * iResult + m_iMajor;
         iResult = 53 * iResult + m_iMiddle;
         iResult = 53 * iResult + m_iMinor;

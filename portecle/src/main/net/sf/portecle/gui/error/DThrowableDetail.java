@@ -36,7 +36,8 @@ import java.util.*;
 public class DThrowableDetail extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
     /** Panel to hold buttons */
     private JPanel m_jpButtons;
@@ -80,7 +81,8 @@ public class DThrowableDetail extends JDialog
      * @param bModal Is dialog modal?
      * @param throwable Throwable to display
      */
-    public DThrowableDetail(JDialog parent, boolean bModal, Throwable throwable)
+    public DThrowableDetail(JDialog parent, boolean bModal,
+                            Throwable throwable)
     {
         super(parent, bModal);
         m_throwable = throwable;
@@ -103,9 +105,12 @@ public class DThrowableDetail extends JDialog
         });
         m_jpButtons.add(m_jbOK);
 
-        m_jbCopy = new JButton(m_res.getString("DThrowableDetail.m_jbCopy.text"));
-        m_jbCopy.setMnemonic(m_res.getString("DThrowableDetail.m_jbCopy.mnemonic").charAt(0));
-        m_jbCopy.setToolTipText(m_res.getString("DThrowableDetail.m_jbCopy.tooltip"));
+        m_jbCopy = new JButton(
+            m_res.getString("DThrowableDetail.m_jbCopy.text"));
+        m_jbCopy.setMnemonic(
+            m_res.getString("DThrowableDetail.m_jbCopy.mnemonic").charAt(0));
+        m_jbCopy.setToolTipText(
+            m_res.getString("DThrowableDetail.m_jbCopy.tooltip"));
         m_jbCopy.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 copyPressed();
@@ -118,19 +123,25 @@ public class DThrowableDetail extends JDialog
 
         // Load tree with info on throwable's stack trace
         m_jtrThrowable = new JTree(createThrowableNodes());
-        m_jtrThrowable.setRowHeight(18); // Top accomodate node icons with spare space (they are 16 pixels tall)
-        m_jtrThrowable.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        ToolTipManager.sharedInstance().registerComponent(m_jtrThrowable); // Allow tooltips in tree
-        m_jtrThrowable.setCellRenderer(new ThrowableTreeCellRend()); // Custom tree node renderer
+        // Top accomodate node icons with spare space (they are 16 pixels tall)
+        m_jtrThrowable.setRowHeight(18);
+        m_jtrThrowable.getSelectionModel().setSelectionMode(
+            TreeSelectionModel.SINGLE_TREE_SELECTION);
+        // Allow tooltips in tree
+        ToolTipManager.sharedInstance().registerComponent(m_jtrThrowable);
+        // Custom tree node renderer
+        m_jtrThrowable.setCellRenderer(new ThrowableTreeCellRend());
 
         // Expand all nodes in tree
-        /* ...not.
+        /* ...then again, not.  Too much scary detail.
         TreeNode topNode = (TreeNode)m_jtrThrowable.getModel().getRoot();
         expandTree(m_jtrThrowable, new TreePath(topNode));
         */
 
-        m_jspThrowable = new JScrollPane(m_jtrThrowable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                                         JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        m_jspThrowable = new JScrollPane(
+            m_jtrThrowable,
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         m_jspThrowable.setPreferredSize(new Dimension(500, 250));
         m_jpThrowable.add(m_jspThrowable, BorderLayout.CENTER);
 
@@ -158,29 +169,35 @@ public class DThrowableDetail extends JDialog
     }
 
     /**
-     * Create tree node with information on the throwable and it's cause throwables.
+     * Create tree node with information on the throwable and it's
+     * cause throwables.
      *
      * @return The tree node
      */
     private DefaultMutableTreeNode createThrowableNodes()
     {
         // Top node
-        DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(m_res.getString("DThrowableDetail.RootNode.text"));
+        DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(
+            m_res.getString("DThrowableDetail.RootNode.text"));
 
         Throwable throwable = m_throwable;
 
         while (throwable != null)
         {
-            // Create a node for each throwable in cause chain and add as a child to the top node
-            DefaultMutableTreeNode throwableNode = new DefaultMutableTreeNode(throwable);
+            // Create a node for each throwable in cause chain and add
+            // as a child to the top node
+            DefaultMutableTreeNode throwableNode =
+                new DefaultMutableTreeNode(throwable);
             topNode.add(throwableNode);
 
             StackTraceElement[] stackTrace = throwable.getStackTrace();
 
             for (int iCnt=0; iCnt < stackTrace.length; iCnt++)
             {
-                // Create a node for each stack trace entry and add it to the throwable node
-                throwableNode.add(new DefaultMutableTreeNode(stackTrace[iCnt]));
+                // Create a node for each stack trace entry and add it
+                // to the throwable node
+                throwableNode.add(
+                    new DefaultMutableTreeNode(stackTrace[iCnt]));
             }
 
             throwable = throwable.getCause();

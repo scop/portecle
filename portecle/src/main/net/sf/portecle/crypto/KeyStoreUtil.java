@@ -28,14 +28,15 @@ import java.text.MessageFormat;
 import java.security.*;
 
 /**
- * Provides utility methods for loading/saving KeyStores.  The BouncyCastle provider
- * must be added before using this class to create or load a PKCS12, BKS or UBER type
- * KeyStores.
+ * Provides utility methods for loading/saving KeyStores.  The
+ * BouncyCastle provider must be added before using this class to
+ * create or load a PKCS12, BKS or UBER type KeyStores.
  */
 public final class KeyStoreUtil extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /**
      * Private to prevent construction.
@@ -50,7 +51,8 @@ public final class KeyStoreUtil extends Object
      * @throws CryptoException Problem encountered creating the KeyStore
      * @throws IOException An I/O error occurred
      */
-    public static KeyStore createKeyStore(KeyStoreType keyStoreType) throws CryptoException, IOException
+    public static KeyStore createKeyStore(KeyStoreType keyStoreType)
+        throws CryptoException, IOException
     {
         KeyStore keyStore = null;
 
@@ -98,7 +100,8 @@ public final class KeyStoreUtil extends Object
      *                               file, or for some other reason cannot
      *                               be opened for reading
      */
-    public static KeyStore loadKeyStore(File fKeyStore, char[] cPassword, KeyStoreType keyStoreType)
+    public static KeyStore loadKeyStore(File fKeyStore, char[] cPassword,
+                                        KeyStoreType keyStoreType)
         throws CryptoException, FileNotFoundException
     {
         // Open an input stream on the keystore file
@@ -172,7 +175,8 @@ public final class KeyStoreUtil extends Object
      * @return The KeyStore
      * @throws CryptoException Problem encountered loading the KeyStore
      */
-    public static KeyStore loadKeyStore(String sPkcs11Provider, char[] cPassword)
+    public static KeyStore loadKeyStore(String sPkcs11Provider,
+                                        char[] cPassword)
         throws CryptoException
     {
         KeyStore keyStore = null;
@@ -226,7 +230,8 @@ public final class KeyStoreUtil extends Object
      *                               or cannot be opened for any other reason
      * @throws IOException An I/O error occurred
      */
-    public static void saveKeyStore(KeyStore keyStore, File fKeyStoreFile, char[] cPassword)
+    public static void saveKeyStore(KeyStore keyStore, File fKeyStoreFile,
+                                    char[] cPassword)
         throws CryptoException, IOException
     {
         FileOutputStream fos = null;
@@ -241,7 +246,8 @@ public final class KeyStoreUtil extends Object
         }
         catch (IOException ex)
         {
-            throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoSaveKeystore.exception.message"), ex);
         }
         catch (GeneralSecurityException ex)
         {

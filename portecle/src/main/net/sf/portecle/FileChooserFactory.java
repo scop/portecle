@@ -28,14 +28,15 @@ import javax.swing.*;
 import net.sf.portecle.gui.FileExtFilter;
 
 /**
- * Simple factory that returns JFileChooser objects for the requested security
- * file types. Basically just supplies a JFileChooser object with the file filter
- * box completed appropriately.
+ * Simple factory that returns JFileChooser objects for the requested
+ * security file types. Basically just supplies a JFileChooser object
+ * with the file filter box completed appropriately.
  */
 public class FileChooserFactory extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** File extension for KeyStore files */
     private static final String KEYSTORE_EXT = "ks";
@@ -51,8 +52,10 @@ public class FileChooserFactory extends Object
 
     /** Description for KeyStore files */
     private static final String KEYSTORE_FILE_DESC =
-        MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles"),
-                             new String[]{KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
+        MessageFormat.format(
+            m_res.getString("FileChooseFactory.KeyStoreFiles"),
+            new String[]{KEYSTORE_EXT, JAVA_KEYSTORE_EXT,
+                         PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
 
     /** File extension for X.509 certificate files */
     private static final String X509_EXT_1 = "cer";
@@ -62,8 +65,9 @@ public class FileChooserFactory extends Object
 
     /** Description for X.509 certificate files */
     private static final String X509_FILE_DESC =
-        MessageFormat.format(m_res.getString("FileChooseFactory.CertificateFiles"),
-                             new String[]{X509_EXT_1, X509_EXT_2});
+        MessageFormat.format(
+            m_res.getString("FileChooseFactory.CertificateFiles"),
+            new String[]{X509_EXT_1, X509_EXT_2});
 
     /** File extension for PKCS #7 certificate files */
     private static final String PKCS7_EXT = "p7b";
@@ -83,8 +87,9 @@ public class FileChooserFactory extends Object
 
     /** Description for PKCS #12 KeyStore files */
     private static final String PKCS12_FILE_DESC =
-        MessageFormat.format(m_res.getString("FileChooseFactory.Pkcs12Files"),
-                             new String[]{PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
+        MessageFormat.format(
+            m_res.getString("FileChooseFactory.Pkcs12Files"),
+            new String[]{PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
 
     /** File extension for PKCS #10 CSR files */
     private static final String CSR_EXT_1 = "p10";
@@ -116,7 +121,11 @@ public class FileChooserFactory extends Object
     public static JFileChooser getKeyStoreFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[]{KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2}, KEYSTORE_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(
+                new String[] {
+                    KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1,
+                    PKCS12_KEYSTORE_EXT_2}, KEYSTORE_FILE_DESC));
         return chooser;
     }
 
@@ -128,7 +137,9 @@ public class FileChooserFactory extends Object
     public static JFileChooser getX509FileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[]{X509_EXT_1, X509_EXT_2}, X509_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(new String[] {
+                                  X509_EXT_1, X509_EXT_2}, X509_FILE_DESC));
         return chooser;
     }
 
@@ -140,7 +151,8 @@ public class FileChooserFactory extends Object
     public static JFileChooser getPkcs7FileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(PKCS7_EXT, PKCS7_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(PKCS7_EXT, PKCS7_FILE_DESC));
         return chooser;
     }
 
@@ -152,7 +164,8 @@ public class FileChooserFactory extends Object
     public static JFileChooser getPkiPathFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC));
         return chooser;
     }
 
@@ -165,9 +178,13 @@ public class FileChooserFactory extends Object
     public static JFileChooser getCertFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(PKCS7_EXT, PKCS7_FILE_DESC));
-        chooser.addChoosableFileFilter(new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC));
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[]{X509_EXT_1, X509_EXT_2}, X509_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(PKCS7_EXT, PKCS7_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(new String[] {X509_EXT_1, X509_EXT_2},
+                              X509_FILE_DESC));
         return chooser;
     }
 
@@ -179,7 +196,10 @@ public class FileChooserFactory extends Object
     public static JFileChooser getPkcs12FileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[]{PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2}, PKCS12_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(
+                new String[] {PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2},
+                PKCS12_FILE_DESC));
         return chooser;
     }
 
@@ -191,7 +211,9 @@ public class FileChooserFactory extends Object
     public static JFileChooser getCsrFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[]{CSR_EXT_1, CSR_EXT_2}, CSR_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(new String[] {CSR_EXT_1, CSR_EXT_2},
+                              CSR_FILE_DESC));
         return chooser;
     }
 
@@ -203,7 +225,8 @@ public class FileChooserFactory extends Object
     public static JFileChooser getCrlFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(CRL_EXT, CRL_FILE_DESC));
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(CRL_EXT, CRL_FILE_DESC));
         return chooser;
     }
 }

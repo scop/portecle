@@ -33,7 +33,8 @@ import java.util.*;
 public class DThrowable extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
     /** Panel to hold OK and Details buttons */
     private JPanel m_jpButtons;
@@ -89,7 +90,8 @@ public class DThrowable extends JDialog
      * @param parent Parent frame
      * @param throwable Throwable to display
      */
-    public DThrowable(JFrame parent, String sTitle, boolean bModal, Throwable throwable)
+    public DThrowable(JFrame parent, String sTitle, boolean bModal,
+                      Throwable throwable)
     {
         super(parent, bModal);
         setTitle(sTitle);
@@ -105,7 +107,8 @@ public class DThrowable extends JDialog
      * @param bModal Create the dialog as modal?
      * @param throwable Throwable to display
      */
-    public DThrowable(JDialog parent, String sTitle, boolean bModal, Throwable throwable)
+    public DThrowable(JDialog parent, String sTitle, boolean bModal,
+                      Throwable throwable)
     {
         super(parent, bModal);
         setTitle(sTitle);
@@ -120,8 +123,10 @@ public class DThrowable extends JDialog
     {
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbDetails = new JButton(m_res.getString("DThrowable.m_jbDetails.text"));
-        m_jbDetails.setMnemonic(m_res.getString("DThrowable.m_jbDetails.mnemonic").charAt(0));
+        m_jbDetails = new JButton(
+            m_res.getString("DThrowable.m_jbDetails.text"));
+        m_jbDetails.setMnemonic(
+            m_res.getString("DThrowable.m_jbDetails.mnemonic").charAt(0));
 
         m_jbDetails.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -165,7 +170,8 @@ public class DThrowable extends JDialog
      */
     private void showThrowableDetail()
     {
-        DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true, m_throwable);
+        DThrowableDetail dThrowableDetail =
+            new DThrowableDetail(this, true, m_throwable);
         dThrowableDetail.setLocationRelativeTo(this);
         dThrowableDetail.setVisible(true);
     }

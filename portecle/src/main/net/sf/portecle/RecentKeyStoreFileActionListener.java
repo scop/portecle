@@ -39,20 +39,22 @@ class RecentKeyStoreFileActionListener implements ActionListener
     FPortecle m_fPortecle;
 
     /**
-     * Create an RecentKeyStoreFileActionListener for the supplied KeyStore file
-     * and fPortecle frame.
+     * Create an RecentKeyStoreFileActionListener for the supplied
+     * KeyStore file and fPortecle frame.
      *
      * @param fRecentFile Recent KeyStore file
      * @param fPortecle FPortecle frame
      */
-    public RecentKeyStoreFileActionListener(File fRecentFile, FPortecle fPortecle)
+    public RecentKeyStoreFileActionListener(File fRecentFile,
+                                            FPortecle fPortecle)
     {
         m_fRecentFile = fRecentFile;
         m_fPortecle = fPortecle;
     }
 
     /**
-     * Action to perform to open the KeyStore file in response to an ActionEvent.
+     * Action to perform to open the KeyStore file in response to an
+     * ActionEvent.
      *
      * @param evt Action event
      */

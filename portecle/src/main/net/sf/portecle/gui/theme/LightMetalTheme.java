@@ -51,7 +51,8 @@ public class LightMetalTheme extends DefaultMetalTheme
      */
     public FontUIResource getControlTextFont()
     {
-        return new FontUIResource(super.getControlTextFont().deriveFont(Font.PLAIN));
+        return new FontUIResource(
+            super.getControlTextFont().deriveFont(Font.PLAIN));
     }
 
     /**
@@ -61,6 +62,7 @@ public class LightMetalTheme extends DefaultMetalTheme
      */
     public FontUIResource getMenuTextFont()
     {
-        return new FontUIResource(super.getMenuTextFont().deriveFont(Font.PLAIN));
+        return new FontUIResource(
+            super.getMenuTextFont().deriveFont(Font.PLAIN));
     }
 }

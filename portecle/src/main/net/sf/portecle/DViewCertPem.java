@@ -36,7 +36,8 @@ import net.sf.portecle.crypto.*;
 class DViewCertPem extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold OK button */
     private JPanel m_jpOK;
@@ -63,9 +64,11 @@ class DViewCertPem extends JDialog
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param cert Certificate to display encoding for
-     * @throws CryptoException A problem was encountered getting the certificate's PEM encoding
+     * @throws CryptoException A problem was encountered getting the
+     * certificate's PEM encoding
      */
-    public DViewCertPem(JFrame parent, String sTitle, boolean bModal, X509Certificate cert)
+    public DViewCertPem(JFrame parent, String sTitle, boolean bModal,
+                        X509Certificate cert)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
@@ -80,9 +83,11 @@ class DViewCertPem extends JDialog
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param cert Certificate to display encoding for
-     * @throws CryptoException A problem was encountered getting the certificate's PEM encoding
+     * @throws CryptoException A problem was encountered getting the
+     * certificate's PEM encoding
      */
-    public DViewCertPem(JDialog parent, String sTitle, boolean bModal, X509Certificate cert)
+    public DViewCertPem(JDialog parent, String sTitle, boolean bModal,
+                        X509Certificate cert)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
@@ -93,7 +98,8 @@ class DViewCertPem extends JDialog
     /**
      * Initialise the dialog's GUI components.
      *
-     * @throws CryptoException A problem was encountered getting the certificate's PEM encoding
+     * @throws CryptoException A problem was encountered getting the
+     * certificate's PEM encoding
      */
     private void initComponents() throws CryptoException
     {
@@ -115,10 +121,14 @@ class DViewCertPem extends JDialog
         m_jtaCertPem = new JTextArea(X509CertUtil.getCertEncodedPem(m_cert));
         m_jtaCertPem.setCaretPosition(0);
         m_jtaCertPem.setEditable(false);
-        m_jtaCertPem.setFont(new Font("Monospaced", Font.PLAIN, m_jtaCertPem.getFont().getSize()));
+        m_jtaCertPem.setFont(
+            new Font("Monospaced", Font.PLAIN,
+                     m_jtaCertPem.getFont().getSize()));
 
-        m_jspCertPem = new JScrollPane(m_jtaCertPem, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                                       JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        m_jspCertPem = new JScrollPane(
+            m_jtaCertPem,
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         m_jspCertPem.setPreferredSize(new Dimension(500, 300));
         m_jpCertPem.add(m_jspCertPem, BorderLayout.CENTER);
 

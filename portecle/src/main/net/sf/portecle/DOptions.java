@@ -36,7 +36,8 @@ import javax.swing.border.*;
 class DOptions extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Tabbed Pane to hold the oprions */
     private JTabbedPane m_jtpOptions;
@@ -124,7 +125,8 @@ class DOptions extends JDialog
      * @param bUseCaCerts Use CA Certs keystore file?
      * @param fCaCertsFile CA Certs keystore file
      */
-    public DOptions(JFrame parent, boolean bModal, boolean bUseCaCerts, File fCaCertsFile)
+    public DOptions(JFrame parent, boolean bModal, boolean bUseCaCerts,
+                    File fCaCertsFile)
     {
         super(parent, bModal);
         m_bUseCaCerts = bUseCaCerts;
@@ -140,24 +142,32 @@ class DOptions extends JDialog
         // Setup tabbed panels of options
 
         // CA Certs options tab panel
-        m_jcbUseCaCerts = new JCheckBox(m_res.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
-        m_jcbUseCaCerts.setToolTipText(m_res.getString("DOptions.m_jcbUseCaCerts.tooltip"));
+        m_jcbUseCaCerts = new JCheckBox(
+            m_res.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
+        m_jcbUseCaCerts.setToolTipText(
+            m_res.getString("DOptions.m_jcbUseCaCerts.tooltip"));
 
         m_jpUseCaCerts = new JPanel(new FlowLayout(FlowLayout.LEFT));
         m_jpUseCaCerts.add(m_jcbUseCaCerts);
 
-        m_jlCaCertsFile = new JLabel(m_res.getString("DOptions.m_jlCaCertsFile.text"));
+        m_jlCaCertsFile = new JLabel(
+            m_res.getString("DOptions.m_jlCaCertsFile.text"));
         m_jtfCaCertsFile = new JTextField(m_fCaCertsFile.toString(), 20);
-        m_jtfCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
+        m_jtfCaCertsFile.setToolTipText(
+            m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
         m_jtfCaCertsFile.setCaretPosition(0);
         m_jtfCaCertsFile.setEditable(false);
         m_jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
         m_jpCaCertsFile.add(m_jlCaCertsFile);
         m_jpCaCertsFile.add(m_jtfCaCertsFile);
 
-        m_jbBrowseCaCertsFile = new JButton(m_res.getString("DOptions.m_jbBrowseCaCertsFile.text"));
-        m_jbBrowseCaCertsFile.setMnemonic(m_res.getString("DOptions.m_jbBrowseCaCertsFile.mnemonic").charAt(0));
-        m_jbBrowseCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jbBrowseCaCertsFile.tooltip"));
+        m_jbBrowseCaCertsFile = new JButton(
+            m_res.getString("DOptions.m_jbBrowseCaCertsFile.text"));
+        m_jbBrowseCaCertsFile.setMnemonic(
+            m_res.getString("DOptions.m_jbBrowseCaCertsFile.mnemonic")
+            .charAt(0));
+        m_jbBrowseCaCertsFile.setToolTipText(
+            m_res.getString("DOptions.m_jbBrowseCaCertsFile.tooltip"));
         m_jbBrowseCaCertsFile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt)
             {
@@ -171,20 +181,24 @@ class DOptions extends JDialog
         m_jpCaCerts.add(m_jpCaCertsFile);
 
         // Look & feel tabbed options tab panel
-        m_jlLookFeelNote = new JLabel(m_res.getString("DOptions.m_jlLookFeelNote.text"));
+        m_jlLookFeelNote = new JLabel(
+            m_res.getString("DOptions.m_jlLookFeelNote.text"));
 
         // Note
         m_jpLookFeelNote = new JPanel(new FlowLayout(FlowLayout.LEFT));
         m_jpLookFeelNote.add(m_jlLookFeelNote);
 
-        m_jlLookFeel = new JLabel(m_res.getString("DOptions.m_jlLookFeel.text"));
+        m_jlLookFeel = new JLabel(
+            m_res.getString("DOptions.m_jlLookFeel.text"));
 
         // Create and populate combo box with available look & feels
         m_jcbLookFeel = new JComboBox();
-        m_jcbLookFeel.setToolTipText(m_res.getString("DOptions.m_jcbLookFeel.tooltip"));
+        m_jcbLookFeel.setToolTipText(
+            m_res.getString("DOptions.m_jcbLookFeel.tooltip"));
 
         // All Look and Feels (may contain duplicates)
-        UIManager.LookAndFeelInfo[] lookFeelInfos = UIManager.getInstalledLookAndFeels();
+        UIManager.LookAndFeelInfo[] lookFeelInfos =
+            UIManager.getInstalledLookAndFeels();
 
         // Current Look and Feel
         LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
@@ -207,7 +221,8 @@ class DOptions extends JDialog
             boolean bSupported = false;
             try
             {
-                bSupported = ((LookAndFeel) Class.forName(className).newInstance()).isSupportedLookAndFeel();
+                bSupported = ((LookAndFeel) Class.forName(className)
+                              .newInstance()).isSupportedLookAndFeel();
             }
             catch (Exception e) { /* Ignore */ }
             if (bSupported)
@@ -244,10 +259,14 @@ class DOptions extends JDialog
         m_jpLookFeelControls.add(m_jcbLookFeel);
 
         // Create and populate check box with look & feel decorated setting
-        m_jcbLookFeelDecorated = new JCheckBox(m_res.getString("DOptions.m_jcbLookFeelDecorated.text"), JFrame.isDefaultLookAndFeelDecorated());
-        m_jcbLookFeelDecorated.setToolTipText(m_res.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
+        m_jcbLookFeelDecorated = new JCheckBox(
+            m_res.getString("DOptions.m_jcbLookFeelDecorated.text"),
+            JFrame.isDefaultLookAndFeelDecorated());
+        m_jcbLookFeelDecorated.setToolTipText(
+            m_res.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
 
-        m_jpLookFeelDecoratedControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        m_jpLookFeelDecoratedControls = new JPanel(
+            new FlowLayout(FlowLayout.LEFT));
         m_jpLookFeelDecoratedControls.add(m_jcbLookFeelDecorated);
 
         m_jpLookFeel = new JPanel(new BorderLayout());
@@ -257,8 +276,12 @@ class DOptions extends JDialog
 
         // Add the panels to a tabbed pane
         m_jtpOptions = new JTabbedPane();
-        m_jtpOptions.addTab(m_res.getString("DOptions.m_jpCaCerts.text"), null, m_jpCaCerts, m_res.getString("DOptions.m_jpCaCerts.tooltip"));
-        m_jtpOptions.addTab(m_res.getString("DOptions.m_jpLookFeel.text"), null, m_jpLookFeel, m_res.getString("DOptions.m_jpLookFeel.tooltip"));
+        m_jtpOptions.addTab(
+            m_res.getString("DOptions.m_jpCaCerts.text"), null, m_jpCaCerts,
+            m_res.getString("DOptions.m_jpCaCerts.tooltip"));
+        m_jtpOptions.addTab(
+            m_res.getString("DOptions.m_jpLookFeel.text"), null, m_jpLookFeel,
+            m_res.getString("DOptions.m_jpLookFeel.tooltip"));
         m_jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // OK and Cancel buttons
@@ -278,9 +301,9 @@ class DOptions extends JDialog
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
         m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                                          public void actionPerformed(ActionEvent evt) {
-                                              cancelPressed();
-                                      }});
+                public void actionPerformed(ActionEvent evt) {
+                    cancelPressed();
+                }});
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         m_jpButtons.add(m_jbOK);
@@ -377,11 +400,14 @@ class DOptions extends JDialog
             chooser.setCurrentDirectory(m_fCaCertsFile.getParentFile());
         }
 
-        chooser.setDialogTitle(m_res.getString("DOptions.ChooseCACertsKeyStore.Title"));
+        chooser.setDialogTitle(
+            m_res.getString("DOptions.ChooseCACertsKeyStore.Title"));
 
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("DOptions.CaCertsKeyStoreFileChooser.button"));
+        int iRtnValue = chooser.showDialog(
+            this,
+            m_res.getString("DOptions.CaCertsKeyStoreFileChooser.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             m_jtfCaCertsFile.setText(chooser.getSelectedFile().toString());

@@ -32,7 +32,8 @@ import javax.swing.tree.*;
 class ThrowableTreeCellRend extends DefaultTreeCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
     /**
      * Returns the rendered cell for the supplied value.
@@ -47,11 +48,13 @@ class ThrowableTreeCellRend extends DefaultTreeCellRenderer
      * @return The renderered cell
      */
 
-    public Component getTreeCellRendererComponent(JTree jtrThrowable, Object value, boolean bIsSelected, boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
+    public Component getTreeCellRendererComponent(
+        JTree jtrThrowable, Object value, boolean bIsSelected,
+        boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
     {
-        JLabel cell = (JLabel)super.getTreeCellRendererComponent(jtrThrowable, value,
-                                                                 bIsSelected, bIsExpanded,
-                                                                 bLeaf, iRow, bHasFocus);
+        JLabel cell = (JLabel) super.getTreeCellRendererComponent(
+            jtrThrowable, value, bIsSelected, bIsExpanded, bLeaf, iRow,
+            bHasFocus);
         cell.setText(value.toString());
 
         // Sanity check of value
@@ -65,20 +68,33 @@ class ThrowableTreeCellRend extends DefaultTreeCellRenderer
             if (userValue instanceof Throwable)
             {
                 // Throwable
-                icon = new ImageIcon(getClass().getResource(m_res.getString("ThrowableTreeCellRend.Throwable.image")));
-                cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Throwable.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "ThrowableTreeCellRend.Throwable.image")));
+                cell.setToolTipText(
+                    m_res.getString(
+                        "ThrowableTreeCellRend.Throwable.tooltip"));
             }
             else if (userValue instanceof StackTraceElement)
             {
                 // Stack trace element
-                icon = new ImageIcon(getClass().getResource(m_res.getString("ThrowableTreeCellRend.StackTrace.image")));
-                cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.StackTrace.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString(
+                            "ThrowableTreeCellRend.StackTrace.image")));
+                cell.setToolTipText(
+                    m_res.getString(
+                        "ThrowableTreeCellRend.StackTrace.tooltip"));
             }
             else
             {
                 // Root node
-                icon = new ImageIcon(getClass().getResource(m_res.getString("ThrowableTreeCellRend.Root.image")));
-                cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Root.tooltip"));
+                icon = new ImageIcon(
+                    getClass().getResource(
+                        m_res.getString("ThrowableTreeCellRend.Root.image")));
+                cell.setToolTipText(
+                    m_res.getString("ThrowableTreeCellRend.Root.tooltip"));
             }
 
             cell.setIcon(icon);

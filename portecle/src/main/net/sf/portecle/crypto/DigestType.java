@@ -31,7 +31,8 @@ import java.util.ResourceBundle;
 public class DigestType extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores Digest Type name */
     private final String m_sType;
@@ -49,8 +50,8 @@ public class DigestType extends Object
     public static final DigestType SHA1 = new DigestType(SHA1_STR);
 
     /**
-     * Construct a DigestType.  Private to prevent construction from outside this
-     * class.
+     * Construct a DigestType.  Private to prevent construction from outside
+     * this class.
      *
      * @param sType Digest type
      */
@@ -77,7 +78,10 @@ public class DigestType extends Object
         }
         else
         {
-            throw new InvalidObjectException(MessageFormat.format(m_res.getString("NoResolveDigesttype.exception.message"), new Object[]{m_sType}));
+            throw new InvalidObjectException(
+                MessageFormat.format(
+                    m_res.getString("NoResolveDigesttype.exception.message"),
+                    new Object[]{m_sType}));
         }
     }
 

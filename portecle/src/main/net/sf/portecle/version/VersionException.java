@@ -45,9 +45,11 @@ public class VersionException extends Exception
     }
 
     /**
-     * Creates a new VersionException with the specified message and cause throwable.
+     * Creates a new VersionException with the specified message and
+     * cause throwable.
      *
-     * @param causeThrowable The throwable that caused this exception to be thrown
+     * @param causeThrowable The throwable that caused this exception
+     * to be thrown
      * @param sMessage Exception message
      */
     public VersionException(String sMessage, Throwable causeThrowable)
@@ -58,7 +60,8 @@ public class VersionException extends Exception
     /**
      * Creates a new VersionException with the specified cause throwable.
      *
-     * @param causeThrowable The throwable that caused this exception to be thrown
+     * @param causeThrowable The throwable that caused this exception
+     * to be thrown
      */
     public VersionException(Throwable causeThrowable)
     {

@@ -26,12 +26,14 @@ import java.util.ResourceBundle;
 import java.text.MessageFormat;
 
 /**
- * Type safe enumeration of Signature Types supported by the X509CertUtil class.
+ * Type safe enumeration of Signature Types supported by the
+ * X509CertUtil class.
  */
 public class SignatureType extends Object
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores Signature Type name */
     private final String m_sType;
@@ -55,14 +57,16 @@ public class SignatureType extends Object
     public static final SignatureType RSA_MD5 = new SignatureType(RSA_MD5_STR);
 
     /** SHA.1 with RSA Sigature Type */
-    public static final SignatureType RSA_SHA1 = new SignatureType(RSA_SHA1_STR);
+    public static final SignatureType RSA_SHA1 =
+        new SignatureType(RSA_SHA1_STR);
 
     /** SHA.1 with DSA Sigature Type */
-    public static final SignatureType DSA_SHA1 = new SignatureType(DSA_SHA1_STR);
+    public static final SignatureType DSA_SHA1 =
+        new SignatureType(DSA_SHA1_STR);
 
     /**
-     * Construct a SignatureType.  Private to prevent construction from outside this
-     * class.
+     * Construct a SignatureType.  Private to prevent construction
+     * from outside this class.
      *
      * @param sType Signature type
      */
@@ -97,7 +101,10 @@ public class SignatureType extends Object
         }
         else
         {
-            throw new InvalidObjectException(MessageFormat.format("NoResolveSignaturetype.exception.message", new Object[]{m_sType}));
+            throw new InvalidObjectException(
+                MessageFormat.format(
+                    "NoResolveSignaturetype.exception.message",
+                    new Object[]{m_sType}));
         }
     }
 

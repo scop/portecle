@@ -30,7 +30,8 @@ import javax.swing.table.*;
 class SystemPropertiesTableModel extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -43,9 +44,10 @@ class SystemPropertiesTableModel extends AbstractTableModel
      */
     public SystemPropertiesTableModel()
     {
-        m_columnNames = new String[2];
-        m_columnNames[0] = m_res.getString("SystemPropertiesTableModel.NameColumn");
-        m_columnNames[1] = m_res.getString("SystemPropertiesTableModel.ValueColumn");        
+        m_columnNames = new String[] {
+            m_res.getString("SystemPropertiesTableModel.NameColumn"),
+            m_res.getString("SystemPropertiesTableModel.ValueColumn"),
+        };
 
         m_data = new Object[0][0];
     }
@@ -60,7 +62,8 @@ class SystemPropertiesTableModel extends AbstractTableModel
         TreeMap sortedSysProps = new TreeMap();
                
         // Place properties in a sorted map
-        for (Enumeration names = sysProps.propertyNames(); names.hasMoreElements();)
+        for (Enumeration names = sysProps.propertyNames();
+             names.hasMoreElements();)
         {
             String sName = (String)names.nextElement();
             String sValue = sysProps.getProperty(sName);
@@ -95,7 +98,8 @@ class SystemPropertiesTableModel extends AbstractTableModel
         
         // Load sorted properties into the table
         int iCnt = 0;
-        for (Iterator itrSorted = sortedSysProps.entrySet().iterator(); itrSorted.hasNext(); iCnt++)
+        for (Iterator itrSorted = sortedSysProps.entrySet().iterator();
+             itrSorted.hasNext(); iCnt++)
         {                        
             Map.Entry property = (Map.Entry)itrSorted.next();
             
