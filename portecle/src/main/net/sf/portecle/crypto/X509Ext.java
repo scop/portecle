@@ -675,26 +675,15 @@ public class X509Ext extends Object
 
            KeyIdentifier ::= OCTET STRING */
 
-        DERInputStream dis = null;
+        DEROctetString derOctetStr = (DEROctetString) toDER(bValue);
 
-        try
-        {
-            // Get key identifier
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DEROctetString derOctetStr = (DEROctetString)dis.readObject();
+        byte[] bKeyIdent = derOctetStr.getOctets();
 
-            byte[] bKeyIdent = derOctetStr.getOctets();
-
-            // Output as a hex string
-            StringBuffer strBuff = new StringBuffer();
-            strBuff.append(convertToHexString(bKeyIdent));
-            strBuff.append('\n');
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        // Output as a hex string
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append(convertToHexString(bKeyIdent));
+        strBuff.append('\n');
+        return strBuff.toString();
     }
 
     /**
@@ -1026,25 +1015,14 @@ public class X509Ext extends Object
     {
         /* CRLNumber ::= INTEGER (0..MAX) */
 
-        DERInputStream dis = null;
+        // Get CRL number
+        DERInteger derInt = (DERInteger) toDER(bValue);
 
-        try
-        {
-            // Get CRL number
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERInteger derInt = (DERInteger)dis.readObject();
-
-            // Convert to and return hex string representation of number
-            StringBuffer strBuff = new StringBuffer();
-
-            strBuff.append(convertToHexString(derInt));
-            strBuff.append('\n');
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        // Convert to and return hex string representation of number
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append(convertToHexString(derInt));
+        strBuff.append('\n');
+        return strBuff.toString();
     }
 
     /**
@@ -1201,26 +1179,16 @@ public class X509Ext extends Object
     {
         /* InvalidityDate ::=  GeneralizedTime */
 
-        DERInputStream dis = null;
+        // Get invalidity date
+        DERGeneralizedTime invalidityDate = (DERGeneralizedTime) toDER(bValue);
 
-        try
-        {
-            // Get invalidity date
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERGeneralizedTime invalidityDate = (DERGeneralizedTime)dis.readObject();
+        // Format invalidity date for display
+        String sInvalidityTime = formatGeneralizedTime(invalidityDate);
 
-            // Format invalidity date for display
-            String sInvalidityTime = formatGeneralizedTime(invalidityDate);
-
-            StringBuffer strBuff = new StringBuffer();
-            strBuff.append(sInvalidityTime);
-            strBuff.append('\n');
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append(sInvalidityTime);
+        strBuff.append('\n');
+        return strBuff.toString();
     }
 
     /**
@@ -1236,24 +1204,14 @@ public class X509Ext extends Object
 
            CRLNumber ::= INTEGER (0..MAX)  */
 
-        DERInputStream dis = null;
+        // Get CRL number
+        DERInteger derInt = (DERInteger) toDER(bValue);
 
-        try
-        {
-            // Get CRL number
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERInteger derInt = (DERInteger)dis.readObject();
-
-            // Convert to and return hex string representation of number
-            StringBuffer strBuff = new StringBuffer();
-            strBuff.append(convertToHexString(derInt));
-            strBuff.append('\n');
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        // Convert to and return hex string representation of number
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append(convertToHexString(derInt));
+        strBuff.append('\n');
+        return strBuff.toString();
     }
 
     /**
