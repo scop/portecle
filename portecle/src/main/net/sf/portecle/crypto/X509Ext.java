@@ -1449,36 +1449,31 @@ public class X509Ext extends Object
     /**
      * Get Inhibit Any Policy (2.5.29.54) extension value as a string.
      *
+     * <pre>
+     * InhibitAnyPolicy ::= SkipCerts
+     *
+     * SkipCerts ::= INTEGER (0..MAX)
+     * </pre>
+     *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getInhibitAnyPolicyStringValue(byte[] bValue) throws IOException
+    private String getInhibitAnyPolicyStringValue(byte[] bValue)
+        throws IOException
     {
-        /* InhibitAnyPolicy ::= SkipCerts
+        // Get skip certs integer
+        DERInteger skipCerts = (DERInteger) toDER(bValue);
 
-           SkipCerts ::= INTEGER (0..MAX) */
+        int iSkipCerts = skipCerts.getValue().intValue();
 
-        DERInputStream dis = null;
-
-        try
-        {
-            // Get skip certs integer
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERInteger skipCerts = (DERInteger)dis.readObject();
-
-            int iSkipCerts = skipCerts.getValue().intValue();
-
-            // Return inhibit any policy extension
-            StringBuffer strBuff = new StringBuffer();
-            strBuff.append(MessageFormat.format(m_res.getString("InhibitAnyPolicy"), new String[]{""+iSkipCerts}));
-            strBuff.append('\n');
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        // Return inhibit any policy extension
+        StringBuffer strBuff = new StringBuffer();
+        strBuff.append(MessageFormat.format(
+                           m_res.getString("InhibitAnyPolicy"),
+                           new String[]{""+iSkipCerts}));
+        strBuff.append('\n');
+        return strBuff.toString();
     }
 
 
