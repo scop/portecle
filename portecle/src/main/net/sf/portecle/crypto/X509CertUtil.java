@@ -59,13 +59,13 @@ public final class X509CertUtil extends Object
     /** The maximum length of lines in printable encoded certificates */
     private static final int CERT_LINE_LENGTH = 64;
 
-    /** Begin certificate signing request for PEM encoding */
+    /** Begin certification request for PEM encoding */
     private static final String BEGIN_CERT_REQ = "-----BEGIN CERTIFICATE REQUEST-----";
 
-    /** End certificate signing request for PEM encoding */
+    /** End certification request for PEM encoding */
     private static final String END_CERT_REQ = "-----END CERTIFICATE REQUEST-----";
 
-    /** The maximum length of lines in certificate signing requests */
+    /** The maximum length of lines in certification requests */
     private static final int CERT_REQ_LINE_LENGTH = 76;
 
     /**
@@ -610,7 +610,7 @@ public final class X509CertUtil extends Object
     }
 
     /**
-     * Create a PKCS #10 certificate signing request (CSR) using the supplied
+     * Create a PKCS #10 certification request (CSR) using the supplied
      * certificate and private key.
      *
      * @param cert The certificate
