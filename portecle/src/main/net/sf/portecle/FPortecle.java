@@ -6351,9 +6351,9 @@ public class FPortecle extends JFrame implements StatusBar
             // Use Look & Feel's decoration?
             if (m_bLookFeelDecorationOptions != null) {
                 // Setting made in options
-                m_appPrefs.put(
+                m_appPrefs.putBoolean(
                     m_res.getString("AppPrefs.LookFeelDecor"),
-                    m_bLookFeelDecorationOptions.toString());
+                    m_bLookFeelDecorationOptions.booleanValue());
             }
             else {
                 // Current setting
