@@ -94,17 +94,22 @@ public class DSystemProperties extends JDialog
         m_jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Add custom renderers for the table cells and headers
+        int tWidth = 30; // reserve arbitrary # of pixels for vertical scrollbar
         for (int iCnt=0; iCnt < m_jtSystemProperties.getColumnCount(); iCnt++)
         {
             TableColumn column =  m_jtSystemProperties.getColumnModel().getColumn(iCnt);
 
             if (iCnt == 0)
             {
-                column.setPreferredWidth(200); // Property Name
+                int w = 210;
+                column.setPreferredWidth(w); // Property Name
+                tWidth += w;
             }
             else
             {
-                column.setPreferredWidth(300); // Property Value
+                int w = 320;
+                column.setPreferredWidth(w); // Property Value
+                tWidth += w;
             }
 
             column.setHeaderRenderer(new SystemPropertiesTableHeadRend());
@@ -119,7 +124,7 @@ public class DSystemProperties extends JDialog
 
         // Put the scroll pane into a panel
         m_jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
-        m_jpSystemPropertiesTable.setPreferredSize(new Dimension(500, 300));
+        m_jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
         m_jpSystemPropertiesTable.add(m_jspSystemPropertiesTable, BorderLayout.CENTER);
         m_jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -135,8 +140,6 @@ public class DSystemProperties extends JDialog
 
         getContentPane().add(m_jpSystemPropertiesTable, BorderLayout.CENTER);
         getContentPane().add(m_jpOK, BorderLayout.SOUTH);
-
-        setResizable(false);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
