@@ -7,38 +7,47 @@
   </head>
 
   <body>
-    <h1>Portecle:</h1>
-    <hr>
+    <h1>Portecle</h1>
 
     <p>
-      <b>Portecle</b> is a GUI version of the <kbd>keytool</kbd> command line
-      program provided with the Java 2 SDK.
+      <b>Portecle</b> is a user friendly GUI application for creating,
+      managing and examining key stores, keys, certificates, certificate
+      requests, certificate revocation lists and more.
     </p>
+
+    <h2 id="features">Features</h2>
 
     <p>
-      Portecle Help is not intended to be a guide to the use of keystores,
-      certificates, and the like.  What can be found here are
-      &quot;how to&quot; guides describing how to carry out the specific
-      keystore operations supported by <b>Portecle</b>.  For more in-depth
-      information on concepts such as X.509 certificates, public,
-      private keys, etc. see the
-      <a href="http://java.sun.com/j2se/1.4/docs/tooldocs/tools.html#security"><kbd>keytool</kbd>
-      documentation</a> supplied with the Java 2 SDK.
+      Currently, <b>Portecle</b> can be used to, for example:
     </p>
+
+    <ul>
+      <li>Create, load, save, and convert keystores.</li>
+      <li>Generate DSA and RSA key pair entires with self-signed version 1
+        X.509 certificates.</li>
+      <li>Import X.509 certificate files as trusted certificates.</li>
+      <li>Import key pairs from
+        <a href="http://www.rsasecurity.com/rsalabs/node.asp?id=2138">PKCS
+          #12</a> files.</li>
+      <li>Clone and change the password of key pair entries and keystores.</li>
+      <li>View the details of certificates contained within keystore entries
+        and certificate files.</li>
+      <li>Export keystore entries in a variety of formats.</li>
+      <li>Generate certification requests (CSRs).</li>
+      <li>Import Certificate Authority (CA) replies.</li>
+      <li>Change the password of key pair entries and keystores.</li>
+      <li>Delete, clone, and rename keystore entries.</li>
+      <li>View the details of certificate revocation list (CRL) files.</li>
+    </ul>
+
+    <h2 id="docs">Documentation</h2>
 
     <p>
-      Take the <a href="tour.html">tour</a>.  Read the
-      <a href="howtos.html">HOWTOs</a>.  Download:
-      <a href="downloads/portecle-0.1.tar.gz">gz</a>
-      <a href="downloads/portecle-0.1.tar.bz2">bz2</a>
-      <a href="downloads/portecle-0.1.zip">zip</a>.
+      Take the <a href="tour.html">tour</a>.
+      Read the <a href="howtos.html">HOWTOs</a>.
     </p>
 
-    <hr>
-
-    <p>
-      <b>Screenshots</b>
-    </p>
+    <h2 id="shots">Screenshots</h2>
 
     <table>
       <tbody>
@@ -56,52 +65,53 @@
       </tbody>
     </table>
 
+    <h2 id="resources">Resources</h2>
+
     <p>
-      <b>Acknowledgments</b>
+      For downloads, contact information and mailing lists, issue tracking
+      and other development facilities, see the
+      <a href="http://sourceforge.net/projects/portecle">SourceForge.net
+      project page</a>.
+    </p>
+ 
+    <h2 id="ack">Acknowledgments</h2>
+
+    <p>
+      Most of the cryptographic functionality of this program is implemented
+      using the <a href="http://www.bouncycastle.org">Bouncy Castle Crypto
+      APIs</a>.
     </p>
 
     <p>
-      The cryptographic functionality of this program was implemented using
-      the <b>Bouncy Castle Crypto Package</b>
-      <a href="http://www.bouncycastle.org/">www.bouncycastle.org</a>.
-    </p>
-
-    <p>
-      This help facility was adapted from work by Dave Seaton.
+      The help facility was adapted from work by Dave Seaton.
     </p>
 
     <p>
       Portecle makes use of three open source Java Look &amp; Feels:
     </p>
 
-    <ol>
-      <li><a href="http://www.incors.org">Kunststoff 2.0.1</a> from
-        INCORS.</li>
-      <li><a href="http://mlf.sourceforge.net">Metouia 1.0 beta</a> by
+    <ul>
+      <li><a href="http://www.incors.org/">Kunststoff</a> from INCORS.</li>
+      <li><a href="http://mlf.sourceforge.net/">Metouia</a> by
         Taoufik Romdhane.</li>
-      <li><a href="http://gtkswing.sourceforge.net">GTK/Swing 0.1</a> from
+      <li><a href="http://gtkswing.sourceforge.net/">GTK/Swing</a> from
         SourceForge.</li>
-    </ol>
+    </ul>
 
     <p>
       To launch web browsers and mail clients from within <b>Portecle</b>
-      <a href="http://browserlauncher.sourceforge.net">BrowserLauncher</a> by
+      <a href="http://browserlauncher.sourceforge.net/">BrowserLauncher</a> by
       Eric Albert is used.
     </p>
 
-    <!--
     <p>
-      Special thanks to Wayne Grant of
-      <a href="http://homepage.ntlworld.com/wayne_grant/keytool.html">KeyTool
-      GUI</a> for the initial work released under the
-      <a href="http://www.gnu.org/licenses/gpl.html">GNU General Public
-      License</a>.
+      <img align="left" src="http://sourceforge.net/sflogo.php?group_id=873&amp;type=1" alt="SourceForge.net" style="padding-right: .5em">
+      The project hosting is provided by
+      <a href="http://sourceforge.net/">SourceForge.net</a>.
+      <br style="clear: left">
     </p>
-    -->
 
-    <p>
-      <b>License</b>
-    </p>
+    <h2 id="License">License</h2>
 
     <p>
       This software is available under the terms laid out in the
@@ -111,15 +121,5 @@
       this program is supplied with <b>no warranty</b>.
     </p>
 
-    <p>
-      <b>Contact</b>
-    </p>
-
-    <p>
-      E-mail bugs, comments and suggestions regarding <b>Portecle</b> to
-      <i>mark at denlin dot org</i> or <i>kclinton at frogcement dot com</i>.
-    </p>
-
-    <hr>
   </body>
 </html>
