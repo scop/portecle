@@ -65,6 +65,7 @@ import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.X509Principal;
 import org.bouncycastle.jce.X509V1CertificateGenerator;
+import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.util.encoders.Base64;
 
 /**
@@ -77,6 +78,9 @@ public final class X509CertUtil extends Object
 
     /** PkiPath encoding name */
     public static final String PKIPATH_ENCODING = "PkiPath";
+
+    /** OpenSSL PEM encoding name */
+    public static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
 
     /** Resource bundle */
     private static ResourceBundle m_res =
@@ -114,15 +118,15 @@ public final class X509CertUtil extends Object
      * Load one or more certificates from the specified file.
      *
      * @param fCertFile The file to load certificates from
-     * @param encoding The certification path encoding, if null, treat as a
-     * normal certificate, not certification path
+     * @param encoding The certification path encoding.  If null, treat as a
+     * normal certificate, not certification path.  Use one of the
+     * <code>*_ENCODING</code> constants here.
      * @return The certificates
      * @throws CryptoException Problem encountered while loading the
      * certificate(s)
-     * @throws FileNotFoundException If the certificate file does not exist,
-     *                               is a directory rather than a regular
-     *                               file, or for some other reason cannot
-     *                               be opened for reading
+     * @throws FileNotFoundException If the certificate file does not
+     * exist, is a directory rather than a regular file, or for some
+     * other reason cannot be opened for reading
      * @throws IOException An I/O error occurred
      */
     public static X509Certificate[] loadCertificates(File fCertFile,
@@ -141,39 +145,55 @@ public final class X509CertUtil extends Object
                 CertificateFactory.getInstance(X509_CERT_TYPE);
 
             Collection coll = null;
-            if (encoding != null)
-            {
+
+            if (OPENSSL_PEM_ENCODING.equals(encoding)) {
+                // Special case; this is not a real JCE supported encoding.
+                PEMReader pr = new PEMReader(new InputStreamReader(fis),
+                                             null, cf.getProvider().getName());
+                /* These beasts can contain just about anything, and
+                   unfortunately the PEMReader API (as of BC 1.25) won't allow
+                   us to really skip things we're not interested in; stuff
+                   happens already in readObject().  This may cause some weird
+                   exception messages for non-certificate objects in the
+                   "stream" for example passphrase related ones for protected
+                   private keys.  Well, I guess this is better than nothing
+                   though... :( */
+                Object cert;
+                while ((cert = pr.readObject()) != null) {
+                    if (cert instanceof X509Certificate) {
+                        // "Short-circuit" into vCerts, not using coll.
+                        vCerts.add(cert);
+                    }
+                    // Skip other stuff, at least for now.
+                }
+            }
+            else if (encoding != null) {
                 // Try it as a certification path of the specified type
                 coll = cf.generateCertPath(fis, encoding).getCertificates();
             }
-            else
-            {
-                // TODO: do we need to "rewind" here under some circumstances?
+            else {
                 // "Normal" certificate(s)
                 coll = cf.generateCertificates(fis);
             }
 
-            Iterator iter = coll.iterator();
-
-            while (iter.hasNext())
-            {
-                X509Certificate cert = (X509Certificate)iter.next();
-                if (cert != null)
-                {
-                    vCerts.add(cert);
+            if (coll != null) {
+                for (Iterator iter = coll.iterator(); iter.hasNext(); ) {
+                    X509Certificate cert = (X509Certificate)iter.next();
+                    if (cert != null) {
+                        vCerts.add(cert);
+                    }
                 }
             }
         }
         // Some RuntimeExceptions which really ought to be
         // CertificateExceptions may be thrown from cf.generateCert* above,
         // for example Sun's PKCS #7 parser tends to throw them... :P
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
+            // TODO: don't throw if vCerts non-empty (eg. OpenSSL PEM above)?
             throw new CryptoException(
                 m_res.getString("NoLoadCertificate.exception.message"), ex);
         }
-        finally
-        {
+        finally {
             if (fis != null) {
                 try {fis.close();} catch(IOException ex) { /* Ignore */ }};
         }
@@ -1083,6 +1103,8 @@ public final class X509CertUtil extends Object
 
             // Get the public key algorithm
             String sAlgorithm = pubKey.getAlgorithm();
+            // TODO: for some certs, eg. some in OpenSSL's certs/ dir in the
+            // source tarball, this may return an OID, which will confuse us.
 
             /* If the algorithm is RSA then use a KeyFactory to create
                an RSA public key spec and get the keysize from the

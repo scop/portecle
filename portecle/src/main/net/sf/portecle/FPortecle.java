@@ -3179,6 +3179,7 @@ public class FPortecle extends JFrame implements StatusBar
         return null;
     }
 
+
     /**
      * Open a certificate file.
      *
@@ -3190,20 +3191,20 @@ public class FPortecle extends JFrame implements StatusBar
         try
         {
             X509Certificate[] certs = null;
-            String[] certTypes = {X509CertUtil.PKCS7_ENCODING,
-                                  X509CertUtil.PKIPATH_ENCODING,
-                                  null};
+            String[] certTypes = {
+                X509CertUtil.PKCS7_ENCODING,
+                X509CertUtil.PKIPATH_ENCODING,
+                X509CertUtil.OPENSSL_PEM_ENCODING,
+                null,
+            };
             Exception[] exs = new Exception[certTypes.length];
-            for (int iCnt = 0; iCnt < certTypes.length; iCnt++)
-            {
-                try
-                {
+            for (int iCnt = 0; iCnt < certTypes.length; iCnt++) {
+                try {
                     certs = X509CertUtil.loadCertificates(
                         fCertFile, certTypes[iCnt]);
                     break; // Success!
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     exs[iCnt] = ex;
                 }
             }
@@ -3244,6 +3245,7 @@ public class FPortecle extends JFrame implements StatusBar
             return null;
         }
     }
+
 
     /**
      * Open a CRL file.
