@@ -1,7 +1,11 @@
+// Portecle change: put package statement back here
 package edu.stanford.ejalbert;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -9,78 +13,65 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * BrowserLauncher is a class that provides one static method, openURL,
- * which opens the default web browser for the current user of the system to
- * the given URL.  It may support other protocols depending on the system --
- * mailto, ftp, etc. -- but that has not been rigorously tested and is not
- * guaranteed to work.
+ * BrowserLauncher is a class that provides one static method, openURL, which opens the default
+ * web browser for the current user of the system to the given URL.  It may support other
+ * protocols depending on the system -- mailto, ftp, etc. -- but that has not been rigorously
+ * tested and is not guaranteed to work.
  * <p>
- * Yes, this is platform-specific code, and yes, it may rely on classes on
- * certain platforms that are not part of the standard JDK.  What we're
- * trying to do, though, is to take something that's frequently desirable
- * but inherently platform-specific -- opening a default browser -- and
- * allow programmers (you, for example) to do so without worrying about
- * dropping into native code or doing anything else similarly evil.
+ * Yes, this is platform-specific code, and yes, it may rely on classes on certain platforms
+ * that are not part of the standard JDK.  What we're trying to do, though, is to take something
+ * that's frequently desirable but inherently platform-specific -- opening a default browser --
+ * and allow programmers (you, for example) to do so without worrying about dropping into native
+ * code or doing anything else similarly evil.
  * <p>
- * Anyway, this code is completely in Java and will run on all JDK
- * 1.1-compliant systems without modification or a need for additional
- * libraries.  All classes that are required on certain platforms to allow
- * this to run are dynamically loaded at runtime via reflection and, if not
- * found, will not cause this to do anything other than returning an error
- * when opening the browser.
+ * Anyway, this code is completely in Java and will run on all JDK 1.1-compliant systems without
+ * modification or a need for additional libraries.  All classes that are required on certain
+ * platforms to allow this to run are dynamically loaded at runtime via reflection and, if not
+ * found, will not cause this to do anything other than returning an error when opening the
+ * browser.
  * <p>
- * There are certain system requirements for this class, as it's running
- * through Runtime.exec(), which is Java's way of making a native system
- * call.  Currently, this requires that a Macintosh have a Finder which
- * supports the GURL event, which is true for Mac OS 8.0 and 8.1 systems
- * that have the Internet Scripting AppleScript dictionary installed in the
- * Scripting Additions folder in the Extensions folder (which is installed
- * by default as far as I know under Mac OS 8.0 and 8.1), and for all Mac OS
- * 8.5 and later systems.  On Windows, it only runs under Win32 systems
- * (Windows 95, 98, and NT 4.0, as well as later versions of all).  On other
- * systems, this drops back from the inherently platform-sensitive concept
- * of a default browser and simply attempts to launch Netscape via a shell
- * command.
+ * There are certain system requirements for this class, as it's running through Runtime.exec(),
+ * which is Java's way of making a native system call.  Currently, this requires that a Macintosh
+ * have a Finder which supports the GURL event, which is true for Mac OS 8.0 and 8.1 systems that
+ * have the Internet Scripting AppleScript dictionary installed in the Scripting Additions folder
+ * in the Extensions folder (which is installed by default as far as I know under Mac OS 8.0 and
+ * 8.1), and for all Mac OS 8.5 and later systems.  On Windows, it only runs under Win32 systems
+ * (Windows 95, 98, and NT 4.0, as well as later versions of all).  On other systems, this drops
+ * back from the inherently platform-sensitive concept of a default browser and simply attempts
+ * to launch Netscape via a shell command.
  * <p>
- * This code is Copyright 1999-2001 by Eric Albert
- * (ejalbert@cs.stanford.edu) and may be redistributed or modified in any
- * form without restrictions as long as the portion of this comment from
- * this paragraph through the end of the comment is not removed.  The author
- * requests that he be notified of any application, applet, or other binary
- * that makes use of this code, but that's more out of curiosity than
- * anything and is not required.  This software includes no warranty.  The
- * author is not repsonsible for any loss of data or functionality or any
- * adverse or unexpected effects of using this software.
+ * This code is Copyright 1999-2002 by Eric Albert (ejalbert@cs.stanford.edu) and may be
+ * redistributed or modified in any form without restrictions as long as the portion of this
+ * comment from this paragraph through the end of the comment is not removed.  The author
+ * requests that he be notified of any application, applet, or other binary that makes use of
+ * this code, but that's more out of curiosity than anything and is not required.  This software
+ * includes no warranty.  The author is not repsonsible for any loss of data or functionality
+ * or any adverse or unexpected effects of using this software.
  * <p>
  * Credits:
  * <br>Steven Spencer, JavaWorld magazine (<a href="http://www.javaworld.com/javaworld/javatips/jw-javatip66.html">Java Tip 66</a>)
- * <br>Thanks also to Ron B. Yeh, Eric Shapiro, Ben Engber, Paul Teitlebaum,
- * Andrea Cantatore, Larry Barowski, Trevor Bedzek, Frank Miedrich, and
- * Ron Rabakukk
+ * <br>Thanks also to Ron B. Yeh, Eric Shapiro, Ben Engber, Paul Teitlebaum, Andrea Cantatore,
+ * Larry Barowski, Trevor Bedzek, Frank Miedrich, Ron Rabakukk, and Glenn Vanderburg
  *
  * @author Eric Albert (<a href="mailto:ejalbert@cs.stanford.edu">ejalbert@cs.stanford.edu</a>)
- * @version 1.4b1 (Released June 20, 2001)
+ * @version 1.4b2
  */
-
 public class BrowserLauncher {
 
 	/**
-	 * The Java virtual machine that we are running on.  Actually, in most
-	 * cases we only care about the operating system, but some operating
-	 * systems require us to switch on the VM.
-	 */
+	 * The Java virtual machine that we are running on.  Actually, in most cases we only care
+	 * about the operating system, but some operating systems require us to switch on the VM. */
 	private static int jvm;
 
 	/** The browser for the system */
 	private static Object browser;
 
 	/**
-	 * Caches whether any classes, methods, and fields that are not part of
-	 * the JDK and need to be dynamically loaded at runtime loaded
-	 * successfully.
+	 * Caches whether any classes, methods, and fields that are not part of the JDK and need to
+	 * be dynamically loaded at runtime loaded successfully.
 	 * <p>
-	 * Note that if this is <code>false</code>, <code>openURL()</code> will
-	 * always return an IOException.
+	 * Note that if this is <code>false</code>, <code>openURL()</code> will always return an
+	 * IOException.
 	 */
 	private static boolean loadedWithoutErrors;
 
@@ -135,42 +126,45 @@ public class BrowserLauncher {
 	/** The kAnyTransactionID AppleEvent code */
 	private static Integer kAnyTransactionID;
 
-	/** The linkage object required for JDirect 3 on Mac OS X. */
+	/** The linkage object required for JDirect 3 on Mac OS X */
 	private static Object linkage;
 	
-	/** The framework to reference on Mac OS X */
+	/** The framework to reference on Mac OS X 10.0.x */
 	private static final String JDirect_MacOSX = "/System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework/HIToolbox";
 
 	/** JVM constant for MRJ 2.0 */
 	private static final int MRJ_2_0 = 0;
 	
-	/** JVM constant for MRJ 2.1 or later */
+	/** JVM constant for MRJ 2.1.x and 2.2.x */
 	private static final int MRJ_2_1 = 1;
 
 	/** JVM constant for Java on Mac OS X 10.0 (MRJ 3.0) */
 	private static final int MRJ_3_0 = 3;
 	
-	/** JVM constant for MRJ 3.1 */
+	/** JVM constant for Java 1.3.x on Mac OS X 10.1 and later (MRJ 3.1 and 3.2) */
 	private static final int MRJ_3_1 = 4;
+	
+	/** JVM constant for Java 1.4.x and later on Mac OS X */
+	private static final int MRJ_COCOA = 5;
 
 	/** JVM constant for any Windows NT JVM */
-	private static final int WINDOWS_NT = 5;
+	private static final int WINDOWS_NT = 6;
 	
 	/** JVM constant for any Windows 9x JVM */
-	private static final int WINDOWS_9x = 6;
+	private static final int WINDOWS_9x = 7;
 
 	/** JVM constant for any other platform */
 	private static final int OTHER = -1;
 
 	/**
-	 * The file type of the Finder on a Macintosh.  Hardcoding "Finder" would
-	 * keep non-U.S. English systems from working properly.
+	 * The file type of the Finder on a Macintosh.  Hardcoding "Finder" would keep non-U.S. English
+	 * systems from working properly.
 	 */
 	private static final String FINDER_TYPE = "FNDR";
 
 	/**
-	 * The creator code of the Finder on a Macintosh, which is needed to send
-	 * AppleEvents to the application.
+	 * The creator code of the Finder on a Macintosh, which is needed to send AppleEvents to the
+	 * application.
 	 */
 	private static final String FINDER_CREATOR = "MACS";
 
@@ -178,69 +172,80 @@ public class BrowserLauncher {
 	private static final String GURL_EVENT = "GURL";
 
 	/**
-	 * The first parameter that needs to be passed into Runtime.exec() to open
-	 * the default web browser on Windows.
+	 * The first parameter that needs to be passed into Runtime.exec() to open the default web
+	 * browser on Windows.
 	 */
-   private static final String FIRST_WINDOWS_PARAMETER = "/c";
+    private static final String FIRST_WINDOWS_PARAMETER = "/c";
     
-   /** The second parameter for Runtime.exec() on Windows. */
-   private static final String SECOND_WINDOWS_PARAMETER = "start";
+    /** The second parameter for Runtime.exec() on Windows. */
+    private static final String SECOND_WINDOWS_PARAMETER = "start";
     
-   /**
-    * The third parameter for Runtime.exec() on Windows.  This is a "title"
-    * parameter that the command line expects.  Setting this parameter allows
-    * URLs containing spaces to work.
-    */
-   private static final String THIRD_WINDOWS_PARAMETER = "\"\"";
+    /**
+     * The third parameter for Runtime.exec() on Windows.  This is a "title"
+     * parameter that the command line expects.  Setting this parameter allows
+     * URLs containing spaces to work.
+     */
+    private static final String THIRD_WINDOWS_PARAMETER = "\"\"";
 	
 	/**
-	 * The shell parameters for Netscape that opens a given URL in an
-	 * already-open copy of Netscape on many command-line systems.
+	 * The shell parameters for Netscape that opens a given URL in an already-open copy of Netscape
+	 * on many command-line systems.
 	 */
 	private static final String NETSCAPE_REMOTE_PARAMETER = "-remote";
 	private static final String NETSCAPE_OPEN_PARAMETER_START = "'openURL(";
 	private static final String NETSCAPE_OPEN_PARAMETER_END = ")'";
 	
 	/**
-	 * The message from any exception thrown throughout the initialization
-	 * process.
+	 * The message from any exception thrown throughout the initialization process.
 	 */
 	private static String errorMessage;
 
 	/**
-	 * An initialization block that determines the operating system and loads
-	 * the necessary runtime data.
+	 * An initialization block that determines the operating system and loads the necessary
+	 * runtime data.
 	 */
 	static {
 		loadedWithoutErrors = true;
 		String osName = System.getProperty("os.name");
 		if (osName.startsWith("Mac OS")) {
-			String mrjVersion = System.getProperty("mrj.version");
-			String majorMRJVersion = mrjVersion.substring(0, 3);
+			String javaVersion = System.getProperty("java.version");
+			String majorJavaVersion = javaVersion.substring(0, 3);
 			try {
-				double version = Double.valueOf(majorMRJVersion).doubleValue();
-				if (version == 2) {
-					jvm = MRJ_2_0;
-				} else if (version >= 2.1 && version < 3) {
-					// Assume that all 2.x versions of MRJ work the same.  MRJ 2.1 actually
-					// works via Runtime.exec() and 2.2 supports that but has an openURL() method
-					// as well that we currently ignore.
-					jvm = MRJ_2_1;
-				} else if (version == 3.0) {
-					jvm = MRJ_3_0;
-				} else if (version >= 3.1) {
-					// Assume that all 3.1 and later versions of MRJ work the same.
-					jvm = MRJ_3_1;
-				} else {
-					loadedWithoutErrors = false;
-					errorMessage = "Unsupported MRJ version: " + version;
+				double version = Double.valueOf(majorJavaVersion).doubleValue();
+				if (version >= 1.4) {
+					jvm = MRJ_COCOA;
 				}
 			} catch (NumberFormatException nfe) {
-				loadedWithoutErrors = false;
-				errorMessage = "Invalid MRJ version: " + mrjVersion;
+				// Fall through to earlier versions of Java on the Mac.
+			}
+			if (jvm != MRJ_COCOA) {
+				String mrjVersion = System.getProperty("mrj.version");
+				String majorMRJVersion = mrjVersion.substring(0, 3);
+				try {
+					double version = Double.valueOf(majorMRJVersion).doubleValue();
+					if (version == 2) {
+						jvm = MRJ_2_0;
+					} else if (version >= 2.1 && version < 3) {
+						// Assume that all post-2.1 2.x versions of MRJ work the same. MRJ 2.1 actually
+						// works via Runtime.exec() and 2.2 supports that but has an openURL() method
+						// as well that we don't use because the Runtime.exec() method works fine.
+						jvm = MRJ_2_1;
+					} else if (version == 3.0) {
+						jvm = MRJ_3_0;
+					} else if (version >= 3.1) {
+						// Assume that all 3.1 and later versions of MRJ work the same.
+						jvm = MRJ_3_1;
+					} else {
+						loadedWithoutErrors = false;
+						errorMessage = "Unsupported MRJ version: " + version;
+					}
+				} catch (NumberFormatException nfe) {
+					loadedWithoutErrors = false;
+					errorMessage = "Invalid MRJ version: " + mrjVersion;
+				}
 			}
 		} else if (osName.startsWith("Windows")) {
-			if (osName.indexOf("9") != -1) {
+			if (osName.indexOf("9") != -1 || osName.indexOf("Me") != -1) {
 				jvm = WINDOWS_9x;
 			} else {
 				jvm = WINDOWS_NT;
@@ -263,46 +268,12 @@ public class BrowserLauncher {
 	 * Called by a static initializer to load any classes, fields, and methods required at runtime
 	 * to locate the user's web browser.
 	 * @return <code>true</code> if all intialization succeeded
-	 *			<code>false</code> if any portion of the initialization failed
+	 *		   <code>false</code> if any portion of the initialization failed
 	 */
 	private static boolean loadClasses() {
 		switch (jvm) {
 			case MRJ_2_0:
-				try {
-					Class aeTargetClass = Class.forName("com.apple.MacOS.AETarget");
-					Class osUtilsClass = Class.forName("com.apple.MacOS.OSUtils");
-					Class appleEventClass = Class.forName("com.apple.MacOS.AppleEvent");
-					Class aeClass = Class.forName("com.apple.MacOS.ae");
-					aeDescClass = Class.forName("com.apple.MacOS.AEDesc");
-
-					aeTargetConstructor = aeTargetClass.getDeclaredConstructor(new Class [] { int.class });
-					appleEventConstructor = appleEventClass.getDeclaredConstructor(new Class[] { int.class, int.class, aeTargetClass, int.class, int.class });
-					aeDescConstructor = aeDescClass.getDeclaredConstructor(new Class[] { String.class });
-
-					makeOSType = osUtilsClass.getDeclaredMethod("makeOSType", new Class [] { String.class });
-					putParameter = appleEventClass.getDeclaredMethod("putParameter", new Class[] { int.class, aeDescClass });
-					sendNoReply = appleEventClass.getDeclaredMethod("sendNoReply", new Class[] { });
-
-					Field keyDirectObjectField = aeClass.getDeclaredField("keyDirectObject");
-					keyDirectObject = (Integer) keyDirectObjectField.get(null);
-					Field autoGenerateReturnIDField = appleEventClass.getDeclaredField("kAutoGenerateReturnID");
-					kAutoGenerateReturnID = (Integer) autoGenerateReturnIDField.get(null);
-					Field anyTransactionIDField = appleEventClass.getDeclaredField("kAnyTransactionID");
-					kAnyTransactionID = (Integer) anyTransactionIDField.get(null);
-				} catch (ClassNotFoundException cnfe) {
-					errorMessage = cnfe.getMessage();
-					return false;
-				} catch (NoSuchMethodException nsme) {
-					errorMessage = nsme.getMessage();
-					return false;
-				} catch (NoSuchFieldException nsfe) {
-					errorMessage = nsfe.getMessage();
-					return false;
-				} catch (IllegalAccessException iae) {
-					errorMessage = iae.getMessage();
-					return false;
-				}
-				break;
+				return loadMRJ20Classes();
 			case MRJ_2_1:
 				try {
 					mrjFileUtilsClass = Class.forName("com.apple.mrj.MRJFileUtils");
@@ -352,6 +323,13 @@ public class BrowserLauncher {
 				}
 				break;
 			case MRJ_3_1:
+			case MRJ_COCOA:
+				String className;
+				if (jvm == MRJ_3_1) {
+					className = "com.apple.mrj.MRJFileUtils";
+				} else {
+					className = "com.apple.eio.FileManager";
+				}
 				try {
 					mrjFileUtilsClass = Class.forName("com.apple.mrj.MRJFileUtils");
 					openURL = mrjFileUtilsClass.getDeclaredMethod("openURL", new Class[] { String.class });
@@ -370,11 +348,54 @@ public class BrowserLauncher {
 	}
 
 	/**
-	 * Attempts to locate the default web browser on the local system.  Caches results so it
+	 * Loads the classes, fields, and methods needed when running under MRJ 2.0. Sets
+	 * <code>errorMessage</code> if it fails.
+	 * @return <code>true</code> if all operations succeeded; <code>false</code> otherwise
+	 */
+	private static boolean loadMRJ20Classes() {
+		try {
+			Class aeTargetClass = Class.forName("com.apple.MacOS.AETarget");
+			Class osUtilsClass = Class.forName("com.apple.MacOS.OSUtils");
+			Class appleEventClass = Class.forName("com.apple.MacOS.AppleEvent");
+			Class aeClass = Class.forName("com.apple.MacOS.ae");
+			aeDescClass = Class.forName("com.apple.MacOS.AEDesc");
+
+			aeTargetConstructor = aeTargetClass.getDeclaredConstructor(new Class [] { int.class });
+			appleEventConstructor = appleEventClass.getDeclaredConstructor(new Class[] { int.class, int.class, aeTargetClass, int.class, int.class });
+			aeDescConstructor = aeDescClass.getDeclaredConstructor(new Class[] { String.class });
+
+			makeOSType = osUtilsClass.getDeclaredMethod("makeOSType", new Class [] { String.class });
+			putParameter = appleEventClass.getDeclaredMethod("putParameter", new Class[] { int.class, aeDescClass });
+			sendNoReply = appleEventClass.getDeclaredMethod("sendNoReply", new Class[] { });
+
+			Field keyDirectObjectField = aeClass.getDeclaredField("keyDirectObject");
+			keyDirectObject = (Integer) keyDirectObjectField.get(null);
+			Field autoGenerateReturnIDField = appleEventClass.getDeclaredField("kAutoGenerateReturnID");
+			kAutoGenerateReturnID = (Integer) autoGenerateReturnIDField.get(null);
+			Field anyTransactionIDField = appleEventClass.getDeclaredField("kAnyTransactionID");
+			kAnyTransactionID = (Integer) anyTransactionIDField.get(null);
+		} catch (ClassNotFoundException cnfe) {
+			errorMessage = cnfe.getMessage();
+			return false;
+		} catch (NoSuchMethodException nsme) {
+			errorMessage = nsme.getMessage();
+			return false;
+		} catch (NoSuchFieldException nsfe) {
+			errorMessage = nsfe.getMessage();
+			return false;
+		} catch (IllegalAccessException iae) {
+			errorMessage = iae.getMessage();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Attempts to locate the default web browser on the local system.  Caches the result so it
 	 * only locates the browser once for each use of this class per JVM instance.
 	 * @return The browser for the system.  Note that this may not be what you would consider
 	 *			to be a standard web browser; instead, it's the application that gets called to
-	 *			open the default web browser.  In some cases, this will be a non-String object
+	 *			open the default web browser.  In some cases this will be a non-String object
 	 *			that provides the means of calling the default browser.
 	 */
 	private static Object locateBrowser() {
@@ -446,7 +467,7 @@ public class BrowserLauncher {
 							}
 						}
 					} catch (IllegalArgumentException iare) {
-						browser = browser;
+						browser = null;
 						errorMessage = iare.getMessage();
 						return null;
 					} catch (IllegalAccessException iae) {
@@ -473,7 +494,15 @@ public class BrowserLauncher {
 				break;
 			case OTHER:
 			default:
-				browser = "netscape";
+				// On systems other than Windows and the Mac, we try via a rather Unix-
+				// specific hack to read the BROWSER environment variable
+				// <http://tuxedo.org/~esr/BROWSER/>. If we can't read that variable or
+				// it isn't set, we use Netscape.
+				// Note: This is commented out for now. It'll work soon.
+//				browser = getEnvironmentBrowser();
+//				if (browser == null) {
+					browser = "netscape";
+//				}
 				break;
 		}
 		return browser;
@@ -536,6 +565,7 @@ public class BrowserLauncher {
 				}
 				break;
 			case MRJ_3_1:
+			case MRJ_COCOA:
 				try {
 					openURL.invoke(null, new Object[] { url });
 				} catch (InvocationTargetException ite) {
@@ -548,11 +578,21 @@ public class BrowserLauncher {
 		    case WINDOWS_9x:
 		    	// Add quotes around the URL to allow ampersands and other special
 		    	// characters to work.
-				Process process = Runtime.getRuntime().exec(new String[] { (String) browser,
-																FIRST_WINDOWS_PARAMETER,
-																SECOND_WINDOWS_PARAMETER,
-																THIRD_WINDOWS_PARAMETER,
-																'"' + url + '"' });
+		    	String[] arguments;
+		    	if (jvm == WINDOWS_9x) {
+		    		arguments = new String[] { (String) browser,
+		    							  FIRST_WINDOWS_PARAMETER,
+		    							  SECOND_WINDOWS_PARAMETER,
+		    							  null };
+		    	} else {
+		    		arguments = new String[] { (String) browser,
+		    							  FIRST_WINDOWS_PARAMETER,
+		    							  SECOND_WINDOWS_PARAMETER,
+		    							  THIRD_WINDOWS_PARAMETER,
+		    							  null };
+		    	}
+		    	arguments[arguments.length - 1] = '"' + url + '"';
+				Process process = Runtime.getRuntime().exec(arguments);
 				// This avoids a memory leak on some versions of Java on Windows.
 				// That's hinted at in <http://developer.java.sun.com/developer/qow/archive/68/>.
 				try {
@@ -565,7 +605,7 @@ public class BrowserLauncher {
 			case OTHER:
 				// Assume that we're on Unix and that Netscape is installed
 				
-				// First, attempt to open the URL in a currently running session of Netscape
+				// Attempt to open the URL in a currently running session of Netscape
 				process = Runtime.getRuntime().exec(new String[] { (String) browser,
 													NETSCAPE_REMOTE_PARAMETER,
 													NETSCAPE_OPEN_PARAMETER_START +
@@ -588,7 +628,28 @@ public class BrowserLauncher {
 	}
 
 	/**
-	 * Methods required for Mac OS X.  The presence of native methods does not cause
+	 * Tries to read the BROWSER environment variable, which should be set to the absolute
+	 * path of the user's preferred web browser as proposed at <http://tuxedo.org/~esr/BROWSER/>.
+	 * @return The value of the BROWSER environment variable, or null if the variable does
+	 *		   not exist or can't be read.
+	 */
+	private static String getEnvironmentBrowser() {
+		String browser = null;
+		try {
+			String[] echoParams = { "/bin/sh", "-c", "echo $BROWSER" };
+			Process echoProcess = Runtime.getRuntime().exec(echoParams);
+			InputStream echoStream = echoProcess.getInputStream();
+			BufferedReader echoReader = new BufferedReader(new InputStreamReader(echoStream));
+			browser = echoReader.readLine();
+			echoReader.close();
+		} catch (Throwable t) {
+			// If anything goes wrong, we'll return null.
+		}
+		return browser;
+	}
+	
+	/**
+	 * Methods required for Mac OS X 10.0.x. The presence of native methods does not cause
 	 * any problems on other platforms.
 	 */
 	private native static int ICStart(int[] instance, int signature);
