@@ -2,6 +2,8 @@ New in Portecle x.x (not yet released):
 ---------------------------------------
 
 New features:
+- Support for RSA certificates using the RIPEMD160withRSA signature algorithm.
+- Recognition of Elliptic Curve DSA keys.
 - Recognition and decoding support for some additional certificate
   extensions.
 
