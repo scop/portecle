@@ -48,7 +48,8 @@
     </copy>
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.gif" />
-      <fileset dir="${root}" includes="doc/**" />
+      <fileset dir="${root}" includes="doc/**"
+        excludes="doc/index.html doc/**/keytool.png" />
     </copy>
   </target>
 
