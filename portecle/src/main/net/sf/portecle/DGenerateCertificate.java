@@ -203,13 +203,9 @@ class DGenerateCertificate extends JDialog
         gbc_jlSigAlg.gridy = 0;
 
         m_jcbSigAlg = new JComboBox();
-        populateSigAlgs();
+        populateSigAlgs(m_keyPairType, m_jcbSigAlg);
         m_jcbSigAlg.setToolTipText(
             m_res.getString("DGenerateCertificate.m_jcbSigAlg.tooltip"));
-        m_jcbSigAlg.setSelectedIndex(0);
-        if (m_jcbSigAlg.getItemCount() < 2) {
-            m_jcbSigAlg.setEnabled(false);
-        }
         GridBagConstraints gbc_jcbSigAlg =
             (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jcbSigAlg.gridy = 0;
@@ -398,31 +394,34 @@ class DGenerateCertificate extends JDialog
 
     /**
      * Populate the signature algorithm combo box with the signature algorithms
-     * applicable to the key pair algorithm.
+     * applicable to the key pair algorithm.  Also set a sane default selected
+     * item, and disable the combo box if it has less than 2 items.
+     * 
+     * @param key pair type
+     * @param combo the combo box to populate 
      */
-    private void populateSigAlgs()
+    private static void populateSigAlgs(KeyPairType type, JComboBox combo)
     {
         Object[] sigAlgs;
-
-        if (m_keyPairType == KeyPairType.DSA)
-        {
+        int selectedIndex = 0;
+        
+        if (type == KeyPairType.DSA) {
             sigAlgs = new Object[]{SignatureType.DSA_SHA1};
-
         }
-        else
-        {
+        else {
             sigAlgs = new Object[]{SignatureType.RSA_MD2,
                                    SignatureType.RSA_MD5,
                                    SignatureType.RSA_SHA1};
+            selectedIndex = 2;
         }
 
-        m_jcbSigAlg.removeAllItems();
-
-        for (int iCnt=0; iCnt < sigAlgs.length; iCnt++)
-        {
-            m_jcbSigAlg.addItem(sigAlgs[iCnt]);
+        combo.removeAllItems();
+        for (int iCnt=0; iCnt < sigAlgs.length; iCnt++) {
+            combo.addItem(sigAlgs[iCnt]);
         }
-        m_jcbSigAlg.setSelectedIndex(0);
+
+        combo.setSelectedIndex(selectedIndex);
+        combo.setEnabled(combo.getItemCount() > 1);
     }
 
 
