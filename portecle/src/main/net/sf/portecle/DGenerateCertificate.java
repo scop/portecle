@@ -127,7 +127,7 @@ class DGenerateCertificate extends JDialog
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Indicator used for a bad validity period */
-    private final static int BAD_VALIDITY = -1;
+    private static final int BAD_VALIDITY = -1;
 
     /** Dummy password to use for PKCS #12 KeyStore entries (passwords are not applicable for these) */
     private static final char[] PKCS12_DUMMY_PASSWORD = {'d', 'u', 'm', 'm', 'y'};
