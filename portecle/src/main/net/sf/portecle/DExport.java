@@ -71,6 +71,9 @@ class DExport extends JDialog
     /** PKCS#7 export format radio button */
     private JRadioButton m_jrbPKCS7;
 
+    /** PkiPath export format radio button */
+    private JRadioButton m_jrbPkiPath;
+
     /** PKCS#12 export format radio button */
     private JRadioButton m_jrbPKCS12;
 
@@ -145,6 +148,7 @@ class DExport extends JDialog
                 }
                 m_jrbPemEncoded.setEnabled(true);
                 m_jrbPKCS7.setEnabled(true);
+                m_jrbPkiPath.setEnabled(true);
                 m_jrbPKCS12.setEnabled(false);
             }
         });
@@ -155,7 +159,11 @@ class DExport extends JDialog
                 m_jrbDEREncoded.setEnabled(false);
                 m_jrbPemEncoded.setEnabled(false);
                 m_jrbPKCS7.setEnabled(true);
-                m_jrbPKCS7.setSelected(true);
+                if (!m_jrbPkiPath.isSelected())
+                {
+                    m_jrbPKCS7.setSelected(true);
+                }
+                m_jrbPkiPath.setEnabled(true);
                 m_jrbPKCS12.setEnabled(false);
             }
         });
@@ -166,6 +174,7 @@ class DExport extends JDialog
                 m_jrbDEREncoded.setEnabled(false);
                 m_jrbPemEncoded.setEnabled(false);
                 m_jrbPKCS7.setEnabled(false);
+                m_jrbPkiPath.setEnabled(false);
                 m_jrbPKCS12.setEnabled(true);
                 m_jrbPKCS12.setSelected(true);
             }
@@ -181,12 +190,14 @@ class DExport extends JDialog
         m_jpExportType.add(m_mjrbPrivKeyCertChain);
 
         // Export format controls
-        m_jpExportFormat = new JPanel(new GridLayout(4, 1));
+        // @@@TODO: add item listeners for these
+        m_jpExportFormat = new JPanel(new GridLayout(5, 1));
         m_jpExportFormat.setBorder(new TitledBorder(m_res.getString("DExport.m_jpExportFormat.text")));
 
         m_jrbDEREncoded = new JRadioButton(m_res.getString("DExport.m_jrbDEREncoded.text"), true);
         m_jrbPemEncoded = new JRadioButton(m_res.getString("DExport.m_jrbPemEncoded.text"));
         m_jrbPKCS7 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS7.text"));
+        m_jrbPkiPath = new JRadioButton(m_res.getString("DExport.m_jrbPkiPath.text"));
         m_jrbPKCS12 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS12.text"));
         m_jrbPKCS12.setEnabled(false);
 
@@ -194,11 +205,13 @@ class DExport extends JDialog
         formatBG.add(m_jrbDEREncoded);
         formatBG.add(m_jrbPemEncoded);
         formatBG.add(m_jrbPKCS7);
+        formatBG.add(m_jrbPkiPath);
         formatBG.add(m_jrbPKCS12);
 
         m_jpExportFormat.add(m_jrbDEREncoded);
         m_jpExportFormat.add(m_jrbPemEncoded);
         m_jpExportFormat.add(m_jrbPKCS7);
+        m_jpExportFormat.add(m_jrbPkiPath);
         m_jpExportFormat.add(m_jrbPKCS12);
 
         // Disable radio boxes depending on entry type
@@ -340,6 +353,16 @@ class DExport extends JDialog
     public boolean exportPkcs7()
     {
         return m_jrbPKCS7.isSelected();
+    }
+
+    /**
+     * Has the user chosen to export as PkiPath?
+     *
+     * @return True if they have, false otherwise
+     */
+    public boolean exportPkiPath()
+    {
+        return m_jrbPkiPath.isSelected();
     }
 
     /**

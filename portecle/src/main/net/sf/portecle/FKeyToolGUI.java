@@ -2549,20 +2549,42 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     {
         try
         {
-            X509Certificate[] certs = X509CertUtil.loadCertificates(fCertFile);
-            if (certs.length == 0)
+            X509Certificate[] certs = null;
+            String[] certTypes = {X509CertUtil.PKCS7_ENCODING, X509CertUtil.PKIPATH_ENCODING, null};
+            Exception[] exs = new Exception[certTypes.length];
+            for (int iCnt = 0; iCnt < certTypes.length; iCnt++)
+            {
+                try
+                {
+                    certs = X509CertUtil.loadCertificates(fCertFile, certTypes[iCnt]);
+                    break; // Success!
+                }
+                catch (Exception ex)
+                {
+                    exs[iCnt] = ex;
+                }
+            }
+
+            if (certs == null)
+            {
+                // None of the types worked - show each of the errors?
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenCertificate.message"), new Object[]{fCertFile}),
+                                                              m_res.getString("FKeyToolGUI.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+                if (iSelected == JOptionPane.YES_OPTION)
+                {
+                    for (int iCnt=0; iCnt < exs.length; iCnt++)
+                    {
+                        displayException(exs[iCnt]);
+                    }
+                }
+            }
+            else if (certs.length == 0)
             {
                 JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoCertsFound.message"), new Object[]{fCertFile}),
                                               m_res.getString("FKeyToolGUI.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
             }
 
             return certs;
-        }
-        catch (FileNotFoundException ex)
-        {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoReadFile.message"), new Object[]{fCertFile}),
-                                          m_res.getString("FKeyToolGUI.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
-            return null;
         }
         catch (Exception ex)
         {
@@ -3819,16 +3841,28 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 {
                     bSuccess = exportHeadCertOnlyDER(sAlias);
                 }
+                // Export PkiPath format
+                else if (dExport.exportPkiPath())
+                {
+                    bSuccess = exportHeadCertOnlyPkiPath(sAlias);
+                }
                 // Export PKCS #7 format
                 else
                 {
                    bSuccess = exportHeadCertOnlyPkcs7(sAlias);
                 }
             }
-            // Complete cert path (PKCS #7)
+            // Complete cert path (PKCS #7 or PkiPath)
             else if (dExport.exportChain())
             {
-                bSuccess = exportAllCertsPkcs7(sAlias);
+                if (dExport.exportPkiPath())
+                {
+                    bSuccess = exportAllCertsPkiPath(sAlias);
+                }
+                else // if (dExport.exportPkcs7())
+                {
+                    bSuccess = exportAllCertsPkcs7(sAlias);
+                }
             }
             // Complete cert path and private key (PKCS #12)
             else
@@ -4032,6 +4066,65 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
+     * Export the head certificate of the KeyStore entry to a PkiPath file.
+     *
+     * @param sEntryAlias Entry alias
+     * @return True if the export is successful, false otherwise
+     */
+    private boolean exportHeadCertOnlyPkiPath(String sEntryAlias)
+    {
+        // Let the user choose the export PkiPath file
+        File fExportFile = chooseExportPkiPathFile();
+        if (fExportFile == null)
+        {
+            return false;
+        }
+
+        // File already exists
+        if (fExportFile.isFile())
+        {
+            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
+            if (iSelected == JOptionPane.NO_OPTION)
+            {
+                return false;
+            }
+        }
+
+        try
+        {
+            // Get the head certificate
+            X509Certificate cert = getHeadCert(sEntryAlias);
+
+            // Do the export
+            byte[] bEncoded = X509CertUtil.getCertEncodedPkiPath(cert);
+            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos.write(bEncoded);
+            fos.close();
+
+            m_lastDir.updateLastDir(fExportFile);
+
+            return true;
+        }
+        catch (FileNotFoundException ex)
+        {
+            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        catch (IOException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+        catch (CryptoException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+    }
+
+    /**
      * Export all of the certificates of the KeyStore entry to a PKCS #7 file.
      *
      * @param sEntryAlias Entry alias
@@ -4065,6 +4158,71 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertsEncodedPkcs7(certChain);
+            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos.write(bEncoded);
+            fos.close();
+
+            m_lastDir.updateLastDir(fExportFile);
+
+            return true;
+        }
+        catch (FileNotFoundException ex)
+        {
+            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        catch (IOException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+        catch (KeyStoreException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+        catch (CryptoException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+    }
+
+    /**
+     * Export all of the certificates of the KeyStore entry to a PkiPath file.
+     *
+     * @param sEntryAlias Entry alias
+     * @return True if the export is successful, false otherwise
+     */
+    private boolean exportAllCertsPkiPath(String sEntryAlias)
+    {
+        // Let the user choose the export PkiPath file
+        File fExportFile = chooseExportPkiPathFile();
+        if (fExportFile == null)
+        {
+            return false;
+        }
+
+        // File already exists
+        if (fExportFile.isFile())
+        {
+            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
+            if (iSelected == JOptionPane.NO_OPTION)
+            {
+                return false;
+            }
+        }
+
+        try
+        {
+            // Get the certificates
+            KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+            X509Certificate[] certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
+
+            // Do the export
+            byte[] bEncoded = X509CertUtil.getCertsEncodedPkiPath(certChain);
             FileOutputStream fos = new FileOutputStream(fExportFile);
             fos.write(bEncoded);
             fos.close();
@@ -4288,6 +4446,33 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private File chooseExportPKCS7File()
     {
         JFileChooser chooser = FileChooserFactory.getPkcs7FileChooser();
+
+        File fLastDir = m_lastDir.getLastDir();
+        if (fLastDir != null)
+        {
+            chooser.setCurrentDirectory(fLastDir);
+        }
+
+        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExportCertificates.Title"));
+        chooser.setMultiSelectionEnabled(false);
+
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.Export.button"));
+        if (iRtnValue == JFileChooser.APPROVE_OPTION)
+        {
+            File fExportFile = chooser.getSelectedFile();
+            return fExportFile;
+        }
+        return null;
+    }
+
+    /**
+     * Let the user choose a PkiPath file to export to.
+     *
+     * @return The chosen file or null if none was chosen
+     */
+    private File chooseExportPkiPathFile()
+    {
+        JFileChooser chooser = FileChooserFactory.getPkiPathFileChooser();
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null)

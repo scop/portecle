@@ -48,7 +48,10 @@ public final class X509CertUtil extends Object
     private static final String X509_CERT_TYPE = "X.509";
 
     /** PKCS #7 encoding name */
-    private static final String PKCS7_ENCODING = "PKCS7";
+    public static final String PKCS7_ENCODING = "PKCS7";
+
+    /** PkiPath encoding name */
+    public static final String PKIPATH_ENCODING = "PkiPath";
 
     /** Begin certificate for PEM encoding */
     private static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
@@ -77,6 +80,7 @@ public final class X509CertUtil extends Object
      * Load one or more certificates from the specified file.
      *
      * @param fCertFile The file to load certificates from
+     * @param encoding The certification path encoding, if null, treat as a normal certificate, not certification path
      * @return The certificates
      * @throws CryptoException Problem encountered while loading the certificate(s)
      * @throws FileNotFoundException If the certificate file does not exist,
@@ -85,7 +89,7 @@ public final class X509CertUtil extends Object
      *                               be opened for reading
      * @throws IOException An I/O error occurred
      */
-    public static X509Certificate[] loadCertificates(File fCertFile)
+    public static X509Certificate[] loadCertificates(File fCertFile, String encoding)
         throws CryptoException, FileNotFoundException, IOException
     {
         Vector vCerts = new Vector();
@@ -98,7 +102,18 @@ public final class X509CertUtil extends Object
 
             CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
 
-            Collection coll = cf.generateCertificates(fis);
+            Collection coll = null;
+            if (encoding != null)
+            {
+                // Try it as a certification path of the specified type
+                coll = cf.generateCertPath(fis, encoding).getCertificates();
+            }
+            else
+            {
+                // "Normal" certificate(s)
+                coll = cf.generateCertificates(fis);
+            }
+
             Iterator iter = coll.iterator();
 
             while (iter.hasNext())
@@ -455,30 +470,62 @@ public final class X509CertUtil extends Object
     /**
      * PKCS #7 encode a number of certificates.
      *
-     * @return The encoding
+     * @return The PKCS #7 encoded certificates
      * @param certs The certificates
      * @throws CryptoException If there was a problem encoding the certificates
      */
     public static byte[] getCertsEncodedPkcs7(X509Certificate[] certs)
         throws CryptoException
     {
+        return getCertsEncoded(certs, PKCS7_ENCODING, "NoPkcs7Encode.exception.message");
+    }
+
+    /**
+     * PkiPath encode a certificate.
+     *
+     * @return The PkiPath encoded certificate
+     * @param cert The certificate
+     * @throws CryptoException If there was a problem encoding the certificate
+     */
+    public static byte[] getCertEncodedPkiPath(X509Certificate cert)
+        throws CryptoException
+    {
+        return getCertsEncodedPkiPath(new X509Certificate[] {cert});
+    }
+
+    /**
+     * PkiPath encode a number of certificates.
+     *
+     * @return The PkiPath encoded certificates
+     * @param certs The certificates
+     * @throws CryptoException If there was a problem encoding the certificates
+     */
+    public static byte[] getCertsEncodedPkiPath(X509Certificate[] certs)
+        throws CryptoException
+    {
+        return getCertsEncoded(certs, PKIPATH_ENCODING, "NoPkiPathEncode.exception.message");
+    }
+
+    /**
+     * Encode a number of certificates using the given encoding.
+     *
+     * @return The encoded certificates
+     * @param certs The certificates
+     * @param encoding The encoding
+     * @param errkey The error message key to use in the possibly occurred exception
+     * @throws CryptoException If there was a problem encoding the certificates
+     */
+    private static byte[] getCertsEncoded(X509Certificate[] certs, String encoding, String errkey)
+        throws CryptoException
+    {
         try
         {
-             ArrayList alCerts = new ArrayList();
-
-             for (int iCnt=0; iCnt < certs.length; iCnt++)
-             {
-                 alCerts.add(certs[iCnt]);
-             }
-
-             CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-             CertPath cp = cf.generateCertPath(alCerts);
-
-             return cp.getEncoded(PKCS7_ENCODING);
+            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
+            return cf.generateCertPath(Arrays.asList(certs)).getEncoded(encoding);
         }
         catch (CertificateException ex)
         {
-            throw new CryptoException(m_res.getString("NoPkcs7Encode.exception.message"), ex);
+            throw new CryptoException(m_res.getString(errkey), ex);
         }
     }
 

@@ -72,6 +72,14 @@ public class FileChooserFactory extends Object
         MessageFormat.format(m_res.getString("FileChooseFactory.Pkcs7Files"),
                              new String[]{PKCS7_EXT});
 
+    /** File extension for PkiPath certificate files */
+    private static final String PKIPATH_EXT = "pkipath";
+
+    /** Description for PkiPath certificate files */
+    private static final String PKIPATH_FILE_DESC =
+        MessageFormat.format(m_res.getString("FileChooseFactory.PkiPathFiles"),
+                             new String[]{PKIPATH_EXT});
+
     /** Description for PKCS #12 KeyStore files */
     private static final String PKCS12_FILE_DESC =
         MessageFormat.format(m_res.getString("FileChooseFactory.Pkcs12Files"),
@@ -133,7 +141,20 @@ public class FileChooserFactory extends Object
     }
 
     /**
-     * Get a JFileChooser filtered for X.509 and PKCS #7 Certificate files.
+     * Get a JFileChooser filtered for PkiPath Certificate files.
+     *
+     * @return JFileChooser object
+     */
+    public static JFileChooser getPkiPathFileChooser()
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.addChoosableFileFilter(new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC));
+        return chooser;
+    }
+
+    /**
+     * Get a JFileChooser filtered for X.509, PKCS #7, and PkiPath
+     * Certificate files.
      *
      * @return JFileChooser object
      */
@@ -141,6 +162,7 @@ public class FileChooserFactory extends Object
     {
         JFileChooser chooser = new JFileChooser();
         chooser.addChoosableFileFilter(new FileExtFilter(PKCS7_EXT, PKCS7_FILE_DESC));
+        chooser.addChoosableFileFilter(new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC));
         chooser.addChoosableFileFilter(new FileExtFilter(new String[]{X509_EXT_1, X509_EXT_2}, X509_FILE_DESC));
         return chooser;
     }
