@@ -15,6 +15,7 @@
     </module>
     <module name="MissingSwitchDefault" />
     <module name="DefaultComesLast" />
+    <module name="SimplifyBooleanExpression" />
     <module name="SimplifyBooleanReturn" />
     <module name="ParameterAssignment" />
     <module name="ExplicitInitialization" />
