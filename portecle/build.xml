@@ -24,14 +24,13 @@
   <property name="jar" value="portecle.jar" />
   <property name="doc" value="${root}/doc" />
 
+  <property name="bcprov.jar" value="${lib}/bcprov.jar" />
+
   <property name="build.debug" value="false" />
   <property name="build.srcver" value="1.4" />
 
   <path id="build.path">
-    <pathelement path="${classpath}" />
-    <fileset dir="${lib}">
-      <include name="**/*.jar"/>
-    </fileset>
+    <pathelement location="${bcprov.jar}" />
   </path>
 
   <target name="build-classes">
@@ -80,9 +79,8 @@
       </and>
     </condition>
     <antcall target="jar-classpath" />
-    <copy todir="${dist}">
-      <fileset dir="${lib}" includes="*.jar" />
-    </copy>
+    <copy file="${bcprov.jar}" tofile="${dist}/bcprov.jar"
+      preservelastmodified="true" />
   </target>
 
   <!-- Internal: updates jar's Class-Path if jar.classpath is set. -->
