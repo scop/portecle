@@ -1477,51 +1477,14 @@ public class X509Ext
         // Key quality
         ASN1Sequence keyq = (ASN1Sequence)
             ((ASN1TaggedObject) glbs.getObjectAt(0)).getObject();
-        boolean enforceQuality = ((DERBoolean) keyq.getObjectAt(0)).isTrue();
-        ASN1Sequence compusecQ = (ASN1Sequence) keyq.getObjectAt(1);
-        for (int i = 0, len = compusecQ.size(); i < len; i++) {
-            ASN1Sequence cqPair = (ASN1Sequence) compusecQ.getObjectAt(i);
-            DERInteger csecCriteria = (DERInteger) cqPair.getObjectAt(0);
-            DERInteger csecRating = (DERInteger) cqPair.getObjectAt(1);
-        }
-        ASN1Sequence cryptoQ = (ASN1Sequence) keyq.getObjectAt(2);
-        for (int i = 0, len = cryptoQ.size(); i < len; i++) {
-            ASN1Sequence cqPair = (ASN1Sequence) cryptoQ.getObjectAt(i);
-            DERInteger cryptoModuleCriteria =
-                (DERInteger) cqPair.getObjectAt(0);
-            DERInteger cryptoModuleRating =
-                (DERInteger) cqPair.getObjectAt(1);
-        }
-
-        String ksqv = ((DERInteger) keyq.getObjectAt(3)).getValue().toString();
-        String ksq = getRes("NovellKeyStorageQuality." + ksqv,
-                            "UnrecognisedNovellKeyStorageQuality");
-
         sb.append('\t').append(m_res.getString("NovellKeyQuality"));
-        sb.append("\n\t\t").append(m_res.getString("NovellKeyQualityEnforce"));
-        sb.append(' ').append(enforceQuality).append('\n');
-
-        sb.append("\t\t").append(m_res.getString("NovellCompusecQuality"));
-        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
-        sb.append('\n');
-
-        sb.append("\t\t").append(m_res.getString("NovellCryptoQuality"));
-        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
-        sb.append('\n');
-
-        sb.append("\t\t").append(m_res.getString("NovellKeyStorageQuality"));
-        sb.append("\n\t\t\t").append(
-            MessageFormat.format(ksq, new String[]{ksqv}));
-        sb.append('\n');
+        sb.append('\n').append(getNovellQualityAttr(keyq));
 
         // Crypto process quality
         ASN1Sequence cpq = (ASN1Sequence)
             ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
-        sb.append('\t');
-        sb.append(m_res.getString("NovellCryptoProcessQuality"));
-        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
-        // TODO: reuse from key quality
-        sb.append('\n');
+        sb.append('\t').append(m_res.getString("NovellCryptoProcessQuality"));
+        sb.append('\n').append(getNovellQualityAttr(cpq));
 
         // Certificate class
         ASN1Sequence cclass = (ASN1Sequence)
@@ -1567,7 +1530,81 @@ public class X509Ext
         return sb.toString();
     }
 
+    
+    /**
+     * Gets a Novell quality attribute in a decoded, human readable
+     * form.
+     *  
+     * @param seq the quality attribute
+     * @return the decoded quality attribute
+     */
+    private CharSequence getNovellQualityAttr(ASN1Sequence seq)
+    {
+        StringBuffer res = new StringBuffer();
 
+        boolean enforceQuality = ((DERBoolean) seq.getObjectAt(0)).isTrue();
+        res.append("\t\t").append(m_res.getString("NovellQualityEnforce"));
+        res.append(' ').append(enforceQuality).append('\n');
+        
+        ASN1Sequence compusecQ = (ASN1Sequence) seq.getObjectAt(1);
+        int clen = compusecQ.size();
+        if (clen > 0) {
+            res.append("\t\t");
+            res.append(m_res.getString("NovellCompusecQuality"));
+            res.append('\n');
+        }
+        for (int i = 0; i < clen; i++) {
+            ASN1Sequence cqPair = (ASN1Sequence) compusecQ.getObjectAt(i);
+            
+            DERInteger tmp = (DERInteger) cqPair.getObjectAt(0);
+            long type = tmp.getValue().longValue();
+            String csecCriteria = getRes(
+                "NovellCompusecQuality." + type,
+                "UnrecognisedNovellCompusecQuality");
+            csecCriteria = MessageFormat.format(
+                csecCriteria, new Object[]{tmp.getValue()});
+            res.append("\t\t\t").append(csecCriteria);
+
+            tmp = (DERInteger) cqPair.getObjectAt(1);
+            String csecRating;
+            if (type == 1L) { // TCSEC
+                csecRating = getRes(
+                    "TCSECRating." + tmp.getValue(),
+                    "UnrecognisedTCSECRating");
+            }
+            else {
+                csecRating = m_res.getString("UnrecognisedNovellQualityRating");
+            }
+            csecRating = MessageFormat.format(
+                csecRating, new Object[]{tmp.getValue()});
+            res.append("\n\t\t\t\t").append(m_res.getString("NovellQualityRating"));
+            res.append(' ').append(csecRating).append('\n');
+        }
+
+        ASN1Sequence cryptoQ = (ASN1Sequence) seq.getObjectAt(2);
+        res.append("\t\t").append(m_res.getString("NovellCryptoQuality"));
+        res.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
+        res.append('\n');
+        for (int i = 0, len = cryptoQ.size(); i < len; i++) {
+            ASN1Sequence cqPair = (ASN1Sequence) cryptoQ.getObjectAt(i);
+            DERInteger cryptoModuleCriteria =
+                (DERInteger) cqPair.getObjectAt(0);
+            DERInteger cryptoModuleRating =
+                (DERInteger) cqPair.getObjectAt(1);
+        }
+    
+        String ksqv = ((DERInteger) seq.getObjectAt(3)).getValue().toString();
+        String ksq = getRes("NovellKeyStorageQuality." + ksqv,
+                            "UnrecognisedNovellKeyStorageQuality");
+        res.append("\t\t").append(m_res.getString("NovellKeyStorageQuality"));
+        res.append("\n\t\t\t").append(
+            MessageFormat.format(ksq, new String[]{ksqv}));
+        res.append('\n');
+        
+        return res;
+    }
+
+    
     /**
      * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value
      * as a string.
