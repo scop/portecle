@@ -1699,70 +1699,90 @@ public class X509Ext extends Object
         }
     }
 
+
     /**
-     * Get the supplied general name as a string ([general name type]=[general name]).
+     * Get the supplied general name as a string
+     * ([general name type]=[general name]).
+     *
+     * <pre>
+     * GeneralName ::= CHOICE {
+     *     otherName                       [0]     OtherName,
+     *     rfc822Name                      [1]     IA5String, x
+     *     dNSName                         [2]     IA5String, x
+     *     x400Address                     [3]     ORAddress,
+     *     directoryName                   [4]     Name, x
+     *     ediPartyName                    [5]     EDIPartyName,
+     *     uniformResourceIdentifier       [6]     IA5String, x
+     *     iPAddress                       [7]     OCTET STRING, x
+     *     registeredID                    [8]     OBJECT IDENTIFIER x }
+     *
+     * OtherName ::= SEQUENCE {
+     *     type-id    OBJECT IDENTIFIER,
+     *     value      [0] EXPLICIT ANY DEFINED BY type-id }
+     *
+     * EDIPartyName ::= SEQUENCE {
+     *     nameAssigner            [0]     DirectoryString OPTIONAL,
+     *     partyName               [1]     DirectoryString }
+     *
+     * DirectoryString ::= CHOICE {
+     *     teletexString           TeletexString (SIZE (1..maxSize),
+     *     printableString         PrintableString (SIZE (1..maxSize)),
+     *     universalString         UniversalString (SIZE (1..maxSize)),
+     *     utf8String              UTF8String (SIZE (1.. MAX)),
+     *     bmpString               BMPString (SIZE(1..maxSIZE)) }
+     * </pre>
      *
      * @param generalName The general name
      * @return General name string
      */
     private String getGeneralNameString(DERTaggedObject generalName)
     {
-        /* GeneralName ::= CHOICE {
-               otherName                       [0]     OtherName,
-               rfc822Name                      [1]     IA5String, x
-               dNSName                         [2]     IA5String, x
-               x400Address                     [3]     ORAddress,
-               directoryName                   [4]     Name, x
-               ediPartyName                    [5]     EDIPartyName,
-               uniformResourceIdentifier       [6]     IA5String, x
-               iPAddress                       [7]     OCTET STRING, x
-               registeredID                    [8]     OBJECT IDENTIFIER x }
-
-           OtherName ::= SEQUENCE {
-               type-id    OBJECT IDENTIFIER,
-               value      [0] EXPLICIT ANY DEFINED BY type-id }
-
-           EDIPartyName ::= SEQUENCE {
-               nameAssigner            [0]     DirectoryString OPTIONAL,
-               partyName               [1]     DirectoryString }
-
-           DirectoryString ::= CHOICE {
-               teletexString           TeletexString (SIZE (1..maxSize),
-               printableString         PrintableString (SIZE (1..maxSize)),
-               universalString         UniversalString (SIZE (1..maxSize)),
-               utf8String              UTF8String (SIZE (1.. MAX)),
-               bmpString               BMPString (SIZE(1..maxSIZE)) }*/
-
         StringBuffer strBuff = new StringBuffer();
 
-        int iTagNo = generalName.getTagNo();
+        switch (generalName.getTagNo()) {
 
-        if (iTagNo == 1)  // RFC 822 Name
-        {
+        case 0: // Other Name
+            ASN1Sequence other = (ASN1Sequence)generalName.getObject();
+            String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
+            String sVal = stringify(other.getObjectAt(1));
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("OtherGeneralName"),
+                               new String[]{sOid, sVal}));
+            break;
+
+        case 1: // RFC 822 Name
             DEROctetString rfc822 = (DEROctetString)generalName.getObject();
             String sRfc822 = new String(rfc822.getOctets());
-            strBuff.append(MessageFormat.format(m_res.getString("Rfc822GeneralName"), new String[]{sRfc822}));
-        }
-        else if (iTagNo == 2)  // DNS Name
-        {
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("Rfc822GeneralName"),
+                               new String[]{sRfc822}));
+            break;
+
+        case 2: // DNS Name
             DEROctetString dns = (DEROctetString)generalName.getObject();
             String sDns = new String(dns.getOctets());
-            strBuff.append(MessageFormat.format(m_res.getString("DnsGeneralName"), new String[]{sDns}));
-        }
-        else if (iTagNo == 4) // Directory Name
-        {
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("DnsGeneralName"),
+                               new String[]{sDns}));
+            break;
+
+        case 4: // Directory Name
             ASN1Sequence directory = (ASN1Sequence)generalName.getObject();
             X509Name name = new X509Name(directory);
-            strBuff.append(MessageFormat.format(m_res.getString("DirectoryGeneralName"), new String[]{name.toString()}));
-        }
-        else if (iTagNo == 6) // URI
-        {
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("DirectoryGeneralName"),
+                               new String[]{name.toString()}));
+            break;
+
+        case 6: // URI
             DEROctetString uri = (DEROctetString)generalName.getObject();
             String sUri = new String(uri.getOctets());
-            strBuff.append(MessageFormat.format(m_res.getString("UriGeneralName"), new String[]{sUri}));
-        }
-        else if (iTagNo == 7) // IP Address
-        {
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("UriGeneralName"),
+                               new String[]{sUri}));
+            break;
+
+        case 7: // IP Address
             DEROctetString ipAddress = (DEROctetString)generalName.getObject();
 
             byte[] bIpAddress = ipAddress.getOctets();
@@ -1770,52 +1790,54 @@ public class X509Ext extends Object
             // Output the IP Address components one at a time separated by dots
             StringBuffer sbIpAddress = new StringBuffer();
 
-            for (int iCnt=0; iCnt < bIpAddress.length; iCnt++)
+            for (int iCnt = 0, bl = bIpAddress.length; iCnt < bl; iCnt++)
             {
-                byte b = bIpAddress[iCnt];
-
                 // Convert from (possibly negative) byte to positive int
-                sbIpAddress.append((int) b & 0xFF);
-
-                if ((iCnt+1) < bIpAddress.length)
-                {
+                sbIpAddress.append((int) bIpAddress[iCnt] & 0xFF);
+                if ((iCnt+1) < bIpAddress.length) {
                     sbIpAddress.append('.');
                 }
             }
 
-            strBuff.append(MessageFormat.format(m_res.getString("IpAddressGeneralName"), new String[]{sbIpAddress.toString()}));
-        }
-        else if (iTagNo == 8) // Registered ID
-        {
-            DEROctetString registeredId = (DEROctetString)generalName.getObject();
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("IpAddressGeneralName"),
+                               new String[]{sbIpAddress.toString()}));
+            break;
+
+        case 8: // Registered ID
+            DEROctetString registeredId =
+                (DEROctetString)generalName.getObject();
 
             byte[] bRegisteredId = registeredId.getOctets();
 
-            // Output the Registered ID components one at a time separated by dots
+            // Output the components one at a time separated by dots
             StringBuffer sbRegisteredId = new StringBuffer();
 
-            for (int iCnt=0; iCnt < bRegisteredId.length; iCnt++)
+            for (int iCnt = 0; iCnt < bRegisteredId.length; iCnt++)
             {
                 byte b = bRegisteredId[iCnt];
-
                 // Convert from (possibly negative) byte to positive int
                 sbRegisteredId.append((int)b & 0xFF);
-
-                if ((iCnt+1) < bRegisteredId.length)
-                {
+                if ((iCnt+1) < bRegisteredId.length) {
                     sbRegisteredId.append('.');
                 }
             }
 
-            strBuff.append(MessageFormat.format(m_res.getString("RegisteredIdGeneralName"), new String[]{sbRegisteredId.toString()}));
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("RegisteredIdGeneralName"),
+                               new String[]{sbRegisteredId.toString()}));
+            break;
 
+        default: // Unsupported general name type
+            strBuff.append(MessageFormat.format(
+                               m_res.getString("UnsupportedGeneralNameType"),
+                               new String[]{""+generalName.getTagNo()}));
+            break;
         }
-        else // Unsupported general name type
-        {
-            strBuff.append(MessageFormat.format(m_res.getString("UnsupportedGeneralNameType"), new String[]{""+iTagNo}));
-        }
+
         return strBuff.toString();
     }
+
 
     /**
      * Get a formatted string value for the supplied generalized time object.
