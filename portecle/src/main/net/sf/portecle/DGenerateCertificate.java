@@ -403,15 +403,21 @@ class DGenerateCertificate extends JDialog
     private static void populateSigAlgs(KeyPairType type, JComboBox combo)
     {
         Object[] sigAlgs;
-        int selectedIndex = 0;
+        int selectedIndex;
         
         if (type == KeyPairType.DSA) {
-            sigAlgs = new Object[]{SignatureType.DSA_SHA1};
+            sigAlgs = new Object[]{
+                SignatureType.DSA_SHA1,
+            };
+            selectedIndex = 0;
         }
         else {
-            sigAlgs = new Object[]{SignatureType.RSA_MD2,
-                                   SignatureType.RSA_MD5,
-                                   SignatureType.RSA_SHA1};
+            sigAlgs = new Object[]{
+                SignatureType.RSA_MD2,
+                SignatureType.RSA_MD5,
+                SignatureType.RSA_SHA1,
+                SignatureType.RSA_RIPEMD160,
+            };
             selectedIndex = 2;
         }
 
