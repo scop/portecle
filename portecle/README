@@ -2,75 +2,111 @@
  Portecle README
 =-=-=-=-=-=-=-=-=
 
-Getting up and running with Portecle is quick and easy.  Everything you
-need to know is detailed below.  Being written in Java, Portecle will run
-on any machine that has a suitable JVM installed.  Note that a prerequisite is
-that you must have at least JRE/JDK v 1.4.0 on your machine.  The latest
-version of the JRE/JDK is available for free from java.sun.com.  Once
-Portecle is installed you will be able to access its online help.
+Getting up and running with Portecle is quick and easy.  Everything
+you need to know is detailed below.  Being written in Java, Portecle
+will run on any machine that has a suitable JVM installed.  Note that
+a prerequisite is that you must have JRE/JDK version 1.4.0 or later on
+your machine.  The latest version of the JRE/JDK is available for free
+from http://java.sun.com/.
+
+You can access the online help of Portecle from within the Portecle
+GUI, or on the Internet at http://portecle.sourceforge.net/#docs
 
 1 Installing
 ------------
 
-Place the Portecle JAR file (portecle.jar) on your filesystem.  Next get
-Bouncy Castle Provider version 1.20 or later (version 1.25b06 or later
-recommended) for your JDK (bcprov-jdk*-*.jar).  This is available for free
-from www.bouncycastle.org.  Be sure to get the version corresponding to your
-JRE (1.4 or 1.5)!  Place it in the *same* directory as portecle.jar, and
-rename it to bcprov.jar.  You now have everything you need to run Portecle
-from the command line. Included below are example command lines for Windows
-and UNIX systems.
+The default binary distribution of Portecle contains everything you'll
+need to run Portecle with Java 1.4.x (except the JRE, see above).  The
+easiest way to install it is to unzip the Portecle binary distribution
+to a directory somewhere on your filesystem.
 
-The examples assume that the Java bin directory has been added to your path.
+The binary distribution contains the Portecle jar file (portecle.jar)
+as well as Bouncy Castle Provider jar version 1.25 (bcprov.jar) for
+Java 1.4.x.  If you wish to run Portecle with Java 1.5.x, or update
+the bundled Bouncy Castle Provider for some other reason, simply
+download an update for your version of Java from
+http://www.bouncycastle.org/ and place it into the same directory as
+portecle.jar with the name bcprov.jar, overwriting the existing one
+already there (if any).  The binary distribution also contains icons
+for use with Portecle (portecle.ico, portecle.png).
+
+The default way of running Portecle uses the "java -jar" method, which
+means that the Class-Path defined in portecle.jar's MANIFEST.MF will
+be used to locate all classes.  You can also invoke Portecle by its
+"main" class, net.sf.portecle.FPortecle.  This method allows you to
+use a Bouncy Castle Provider jar elsewhere on your filesystem.
+
+The following chapters contain examples how to run Portecle; all of
+the examples assume that the JRE/JRE "bin" directory has been added to
+your PATH environment variable.
 
 1.1 Windows Command Line
 ------------------------
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
-Portecle and BouncyCastle Provider JAR files into a directory c:\portecle you
-can run Portecle like so:
+Portecle and BouncyCastle Provider JAR files into a directory
+c:\portecle you can run Portecle like so:
 
   java -jar c:\portecle\portecle.jar
 
-The portecle.jar contains an icon file (portecle.ico) for use with Portecle.
+In most setups, if portecle.jar and bcprov.jar were installed as
+instructed above, Portecle can also be run by double-clicking
+portecle.jar in the Windows Explorer.
 
-In most setups, if portecle.jar and bcprov.jar were installed as instructed
-above, Portecle can also be run by double-clicking portecle.jar in the
-Windows Explorer.
+If you wish to use a Bouncy Castle Provider somewhere else on your
+filesystem, for example c:\bc\bcprov-jdk15-125.jar, use:
+
+  java -cp c:\portecle\portecle.jar;c:\bc\bcprov-jdk15-125.jar
+  net.sf.portecle.FPortecle
+
+Note that the above command should be on one line; it has been line
+wrapped here for readability.
 
 1.2 UNIX Command Line
 ---------------------
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
-Portecle and BouncyCastle Provider JAR files into a directory /portecle you
-can run Portecle like so:
+Portecle and BouncyCastle Provider jar files into a directory
+/portecle you can run Portecle like so:
 
   java -jar /portecle/portecle.jar
+
+If you wish to use a Bouncy Castle Provider somewhere else on your
+filesystem, for example /bc/bcprov-jdk15-125.jar, use:
+
+  java -cp /portecle/portecle.jar:/bc/bcprov-jdk15-125.jar \
+  net.sf.portecle.FPortecle
+
+Note that the above command should be on one line; it has been line
+wrapped here for readability.
 
 1.3 Experimental Features
 -------------------------
 
-Portecle releases may contain experimental features that are not enabled
-by default.  These have known limitations or incomplete implementations
-that make them unsuitable for production use, but they may be valuable for
-early adopters.  To enable these features, use "-Dportecle.experimental=true"
-in your Portecle invocation command line.  See the file NEWS for information
-about status of current experimental features.
+Portecle releases may contain experimental features that are not
+enabled by default.  These have known limitations or incomplete
+implementations that make them unsuitable for production use, but they
+may be valuable for early adopters.  To enable these features, use
+"-Dportecle.experimental=true" in your Portecle invocation command
+line.  See the file NEWS for information about status of current
+experimental features.
 
 2 Copyright and License
 -----------------------
+
 Copyright © 2004 Wayne Grant
             2004 Mark Majczyk
             2004 Ville Skyttä
 
-This software is available under the terms laid out in the GNU General Public
-License.  This makes it free for you to use and modify if you so wish.  As per
-the terms and conditions of the aforementioned license this program is
-supplied without warranty.  For more information, see license.txt included
-in the Portecle distribution.
+This software is available under the terms laid out in the GNU General
+Public License.  This makes it free for you to use and modify if you
+so wish.  As per the terms and conditions of the aforementioned
+license this program is supplied without warranty.  For more
+information, see license.txt included in the Portecle distribution.
 
 3 Contact
 ---------
+
 For contact information, mailing lists and issue tracking facilities,
 see Portecle's SourceForge.net project page at
 http://sourceforge.net/projects/portecle
