@@ -169,6 +169,9 @@ public class X509Ext extends Object
     /** Inhibit Any Policy OID */
     private static final String INHIBIT_ANY_POLICY_OID = "2.5.29.54";
 
+    /** Entrust version extension OID */
+    private static final String ENTRUST_VERSION_EXTENSION_OID = "1.2.840.113533.7.65.0";
+
     /** S/MIME capabilities OID */
     private static final String SMIME_CAPABILITIES_OID = "1.2.840.113549.1.9.15";
     /** Netscape Certificate Type OID */
@@ -594,6 +597,10 @@ public class X509Ext extends Object
         else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID)) // 2.5.29.54
         {
             return getInhibitAnyPolicyStringValue(bOctets);
+        }
+        else if (m_sOid.equals(ENTRUST_VERSION_EXTENSION_OID)) // 1.2.840.113533.7.65.0
+        {
+            return getEntrustVersionExtensionStringValue(bOctets);
         }
         else if (m_sOid.equals(SMIME_CAPABILITIES_OID)) // 1.2.840.113549.1.9.15
         {
@@ -1488,6 +1495,25 @@ public class X509Ext extends Object
                            new String[]{""+iSkipCerts}));
         strBuff.append('\n');
         return strBuff.toString();
+    }
+
+
+    /**
+     * Get Entrust Version Extension (1.2.840.113533.7.65.0) extension
+     * value as a string.
+     *
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If an I/O problem occurs
+     */
+    private String getEntrustVersionExtensionStringValue(byte[] bValue)
+        throws IOException
+    {
+        // SEQUENCE encapsulated in a OCTET STRING
+        ASN1Sequence as = (ASN1Sequence) toDER(bValue);
+        // Also has BIT STRING, ignored here
+        // http://www.mail-archive.com/openssl-dev@openssl.org/msg06546.html
+        return ((DERGeneralString) as.getObjectAt(0)).getString();
     }
 
 
