@@ -94,14 +94,16 @@ public class FPortecle extends JFrame implements StatusBar
 
     /** Dummy password to use for PKCS #12 KeyStore entries
      * (passwords are not applicable for these). */
-    private static final char[] PKCS12_DUMMY_PASSWORD = {
-        'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
+    private static final char[] PKCS12_DUMMY_PASSWORD =
+        "password".toCharArray();
 
     /** Default CA Certs KeyStore file */
     private static final String DEFAULT_CA_CERTS_FILE;
     static {
-        String sFileSep = System.getProperty("file.separator");
-        DEFAULT_CA_CERTS_FILE = new File(System.getProperty("java.home"), "lib" + sFileSep + "security" + sFileSep + "cacerts").toString();
+        String sep = System.getProperty("file.separator");
+        DEFAULT_CA_CERTS_FILE =
+            new File(System.getProperty("java.home"),
+                     "lib" + sep + "security" + sep + "cacerts").toString();
     }
 
     /** Use CA Certs KeyStore file? */
@@ -366,22 +368,28 @@ public class FPortecle extends JFrame implements StatusBar
     ////////////////////////////////////////////////////////////
 
     /** New KeyStore action */
-    private final NewKeyStoreAction m_newKeyStoreAction = new NewKeyStoreAction();
+    private final NewKeyStoreAction m_newKeyStoreAction =
+        new NewKeyStoreAction();
 
     /** Open KeyStore File action */
-    private final OpenKeyStoreFileAction m_openKeyStoreFileAction = new OpenKeyStoreFileAction();
+    private final OpenKeyStoreFileAction m_openKeyStoreFileAction =
+        new OpenKeyStoreFileAction();
 
     /** Open PKCS #11 KeyStore action */
-    private final OpenKeyStorePkcs11Action m_openKeyStorePkcs11Action = new OpenKeyStorePkcs11Action();
+    private final OpenKeyStorePkcs11Action m_openKeyStorePkcs11Action =
+        new OpenKeyStorePkcs11Action();
 
     /** Save KeyStore action */
-    private final SaveKeyStoreAction m_saveKeyStoreAction = new SaveKeyStoreAction();
+    private final SaveKeyStoreAction m_saveKeyStoreAction =
+        new SaveKeyStoreAction();
 
     /** Examine Certificate action */
-    private final ExamineCertAction m_examineCertAction = new ExamineCertAction();
+    private final ExamineCertAction m_examineCertAction =
+        new ExamineCertAction();
 
     /** Examine SSL/TLS Connection action */
-    private final ExamineCertSSLAction m_examineCertSSLAction = new ExamineCertSSLAction();
+    private final ExamineCertSSLAction m_examineCertSSLAction =
+        new ExamineCertSSLAction();
 
     /** Examine CRL action */
     private final ExamineCrlAction m_examineCrlAction = new ExamineCrlAction();
@@ -390,16 +398,20 @@ public class FPortecle extends JFrame implements StatusBar
     private final GenKeyPairAction m_genKeyPairAction = new GenKeyPairAction();
 
     /** Import Trusted Certificate action */
-    private final ImportTrustCertAction m_importTrustCertAction = new ImportTrustCertAction();
+    private final ImportTrustCertAction m_importTrustCertAction =
+        new ImportTrustCertAction();
 
     /** Import Key Pair action */
-    private final ImportKeyPairAction m_importKeyPairAction = new ImportKeyPairAction();
+    private final ImportKeyPairAction m_importKeyPairAction =
+        new ImportKeyPairAction();
 
     /** Set KeyStore Password action */
-    private final SetKeyStorePassAction m_setKeyStorePassAction = new SetKeyStorePassAction();
+    private final SetKeyStorePassAction m_setKeyStorePassAction =
+        new SetKeyStorePassAction();
 
     /** KeyStore Report action */
-    private final KeyStoreReportAction m_keyStoreReportAction = new KeyStoreReportAction();
+    private final KeyStoreReportAction m_keyStoreReportAction =
+        new KeyStoreReportAction();
 
     /** Donate action */
     private final DonateAction m_donateAction = new DonateAction();
@@ -451,8 +463,10 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Set application position according to application preferences
         // unless the relevant preferences are not present or are invalid
-        int iXPos = m_appPrefs.getInt(m_res.getString("AppProps.Property.XPos"), 0);
-        int iYPos = m_appPrefs.getInt(m_res.getString("AppProps.Property.YPos"), 0);
+        int iXPos = m_appPrefs.getInt(
+            m_res.getString("AppProps.Property.XPos"), 0);
+        int iYPos = m_appPrefs.getInt(
+            m_res.getString("AppProps.Property.YPos"), 0);
 
         if ((iXPos <= 0) || (iYPos <= 0))
         {
@@ -466,14 +480,19 @@ public class FPortecle extends JFrame implements StatusBar
         }
 
         // If frame is not completely visible then set it to default size and centre it
-        if (!SwingUtilities.isRectangleContainingRectangle(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()), getBounds()))
+        if (!SwingUtilities.isRectangleContainingRectangle(
+                new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()),
+                getBounds()))
         {
-            m_jpKeyStoreTable.setPreferredSize(new Dimension(DEFAULT_TABLE_WIDTH, DEFAULT_TABLE_HEIGHT));
+            m_jpKeyStoreTable.setPreferredSize(
+                new Dimension(DEFAULT_TABLE_WIDTH, DEFAULT_TABLE_HEIGHT));
             setLocationRelativeTo(null);
         }
 
         // Set its icon
-        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.Icon.image"))));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(
+                         getClass().getResource(
+                             m_res.getString("FPortecle.Icon.image"))));
     }
 
     /**
@@ -481,14 +500,18 @@ public class FPortecle extends JFrame implements StatusBar
      */
     private void initMenu()
     {
-        // The menu items that carry out the same function as toolbar buttons use actions
+        // The menu items that carry out the same function as toolbar buttons
+        // use actions
 
         // The menu bar
         m_jmbMenuBar = new JMenuBar();
 
         // File menu
-        m_jmrfFile = new JMenuRecentFiles(m_res.getString("FPortecle.m_jmrfFile.text"), RECENT_FILES_LENGTH, RECENT_FILES_INDEX);
-        m_jmrfFile.setMnemonic(m_res.getString("FPortecle.m_jmrfFile.mnemonic").charAt(0));
+        m_jmrfFile = new JMenuRecentFiles(
+            m_res.getString("FPortecle.m_jmrfFile.text"),
+            RECENT_FILES_LENGTH, RECENT_FILES_INDEX);
+        m_jmrfFile.setMnemonic(
+            m_res.getString("FPortecle.m_jmrfFile.mnemonic").charAt(0));
 
         m_jmiNewKeyStore = new JMenuItem(m_newKeyStoreAction);
         m_jmiNewKeyStore.setToolTipText(null);
@@ -518,8 +541,10 @@ public class FPortecle extends JFrame implements StatusBar
         new StatusBarChangeHandler(m_jmiSaveKeyStore, (String)m_saveKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmrfFile.add(m_jmiSaveKeyStore);
 
-        m_jmiSaveKeyStoreAs = new JMenuItem(m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.text"),
-                                            m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.mnemonic").charAt(0));
+        m_jmiSaveKeyStoreAs = new JMenuItem(
+            m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.text"),
+            m_res.getString(
+                "FPortecle.m_jmiSaveKeyStoreAs.mnemonic").charAt(0));
         m_jmiSaveKeyStoreAs.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.image")))));
         m_jmiSaveKeyStoreAs.setEnabled(false);
         m_jmrfFile.add(m_jmiSaveKeyStoreAs);
@@ -577,7 +602,8 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Tools menu
         m_jmTools = new JMenu(m_res.getString("FPortecle.m_jmTools.text"));
-        m_jmTools.setMnemonic(m_res.getString("FPortecle.m_jmTools.mnemonic").charAt(0));
+        m_jmTools.setMnemonic(
+            m_res.getString("FPortecle.m_jmTools.mnemonic").charAt(0));
 
         m_jmiGenKeyPair = new JMenuItem(m_genKeyPairAction);
         m_jmiGenKeyPair.setToolTipText(null);
@@ -743,7 +769,8 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Examine menu
         m_jmExamine = new JMenu(m_res.getString("FPortecle.m_jmExamine.text"));
-        m_jmExamine.setMnemonic(m_res.getString("FPortecle.m_jmExamine.mnemonic").charAt(0));
+        m_jmExamine.setMnemonic(
+            m_res.getString("FPortecle.m_jmExamine.mnemonic").charAt(0));
 
         m_jmiExamineCert = new JMenuItem(m_examineCertAction);
         m_jmiExamineCert.setToolTipText(null);
@@ -762,7 +789,8 @@ public class FPortecle extends JFrame implements StatusBar
 
         // Help menu
         m_jmHelp = new JMenu(m_res.getString("FPortecle.m_jmHelp.text"));
-        m_jmHelp.setMnemonic(m_res.getString("FPortecle.m_jmHelp.mnemonic").charAt(0));
+        m_jmHelp.setMnemonic(
+            m_res.getString("FPortecle.m_jmHelp.mnemonic").charAt(0));
 
         m_jmiHelp = new JMenuItem(m_helpAction);
         m_jmiHelp.setToolTipText(null);
@@ -1279,7 +1307,7 @@ public class FPortecle extends JFrame implements StatusBar
         // Add custom renderers for the table headers and cells
         for (int iCnt=0; iCnt < m_jtKeyStore.getColumnCount(); iCnt++)
         {
-            TableColumn column =  m_jtKeyStore.getColumnModel().getColumn(iCnt);
+            TableColumn column = m_jtKeyStore.getColumnModel().getColumn(iCnt);
             column.setHeaderRenderer(new KeyStoreTableHeadRend());
             column.setCellRenderer(new KeyStoreTableCellRend());
         }
@@ -1327,7 +1355,8 @@ public class FPortecle extends JFrame implements StatusBar
 
         if ((iWidth <= 0) || (iHeight <= 0))
         {
-            m_jpKeyStoreTable.setPreferredSize(new Dimension(DEFAULT_TABLE_WIDTH, DEFAULT_TABLE_HEIGHT));
+            m_jpKeyStoreTable.setPreferredSize(
+                new Dimension(DEFAULT_TABLE_WIDTH, DEFAULT_TABLE_HEIGHT));
         }
         else
         {
@@ -1338,7 +1367,7 @@ public class FPortecle extends JFrame implements StatusBar
         m_jpKeyStoreTable.setBorder(new EmptyBorder(3, 3, 3, 3));
 
         /* Add mouse listeners to show pop-up menus when table entries are
-           clicked upon - maybeShowPopup for both mousePressed and mouseReleased
+           clicked upon; maybeShowPopup for both mousePressed and mouseReleased
            for cross-platform compatibility.  Also add listeners to show an
            entry's certificate details if it is double-clicked */
         m_jtKeyStore.addMouseListener(new MouseAdapter()
@@ -1703,7 +1732,8 @@ public class FPortecle extends JFrame implements StatusBar
             if (iRow != -1)
             {
                 // Get the entry type of the row
-                KeyStoreTableModel tableModel = (KeyStoreTableModel)m_jtKeyStore.getModel();
+                KeyStoreTableModel tableModel =
+                    (KeyStoreTableModel) m_jtKeyStore.getModel();
 
                 // Make the row that was clicked upon the selected one
                 m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
@@ -1766,7 +1796,9 @@ public class FPortecle extends JFrame implements StatusBar
            key pair and signature algorithm - this will update the KeyStore
            with the key pair for us */
         DGenerateCertificate dGenerateCertificate =
-            new DGenerateCertificate(this, m_res.getString("FPortecle.GenerateCertificate.Title"), true, keyPair, keyPairType);
+            new DGenerateCertificate(
+                this, m_res.getString("FPortecle.GenerateCertificate.Title"),
+                true, keyPair, keyPairType);
         dGenerateCertificate.setLocationRelativeTo(this);
         dGenerateCertificate.setVisible(true);
 
@@ -1893,7 +1925,8 @@ public class FPortecle extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FPortecle.OpenKeyStoreFile.Title"));
+        chooser.setDialogTitle(
+            m_res.getString("FPortecle.OpenKeyStoreFile.Title"));
         chooser.setMultiSelectionEnabled(false);
 
         int iRtnValue = chooser.showOpenDialog(this);
