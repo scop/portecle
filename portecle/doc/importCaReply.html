@@ -8,15 +8,15 @@
 
   <body>
 
-    <h1>How to import a CA reply into a KeyStore Key Pair entry</h1>
+    <h1>How to import a CA reply into a Keystore Key Pair entry</h1>
     <hr>
 
     <p>
-      To import a CA reply into a KeyStore Key Pair entry:
+      To import a CA reply into a Keystore Key Pair entry:
     </p>
 
     <ol>
-      <li>Right-click on the Key Pair KeyStore entry in the KeyStore Entries
+      <li>Right-click on the Key Pair Keystore entry in the Keystore Entries
         table.  Select the <b>Import CA Reply</b> item from the
         resultant pop-up menu.</li>
 
@@ -37,7 +37,7 @@
             <ul>
               <li>If <b>Portecle</b> can establish a trust path between
                 the certificate and an existing self-signed Trusted
-                Certificate in your KeyStore (or the CA Certs KeyStore
+                Certificate in your Keystore (or the CA Certs Keystore
                 if it is enabled) then the import will continue.
                 Otherwise it will fail at this point.</li>
             </ul>
@@ -46,8 +46,8 @@
             certificates:
             <ul>
               <li><b>Portecle</b> will attempt to match the reply's root CA
-                to an existing Trusted Certificate in your KeyStore (or the
-                CA Certs KeyStore if it is enabled).</li>
+                to an existing Trusted Certificate in your Keystore (or the
+                CA Certs Keystore if it is enabled).</li>
               <li>If it cannot then the <b>Certificate Details</b> dialog
                 will appear displaying the details of the reply's root CA
                 certificate for you to verify.</li>
@@ -64,7 +64,7 @@
         </ul>
       </li>
 
-      <li>If the current KeyStore type is not <b>PKCS #12</b>:
+      <li>If the current Keystore type is not <b>PKCS #12</b>:
         <ul>
           <li>The <b>Key Pair Entry Password</b> dialog will be displayed.</li>
           <li>Enter the key entry's password into the dialog and
@@ -72,7 +72,7 @@
         </ul>
       </li>
 
-      <li>The KeyStore Key Pair entry will be updated to reflect the
+      <li>The Keystore Key Pair entry will be updated to reflect the
         content of the CA reply.</li>
 
     </ol>
