@@ -1068,7 +1068,7 @@ public class X509Ext
         {
             DERTaggedObject derTagObj =
                 (DERTaggedObject) asn1Seq.getObjectAt(i);
-            DERObject derObj = (DERObject)derTagObj.getObject();
+            DERObject derObj = derTagObj.getObject();
 
             switch (derTagObj.getTagNo()) {
             case 0: // Key identifier
@@ -1786,7 +1786,7 @@ public class X509Ext
             sb.append('\n');
 
             ASN1Sequence pQuals;
-            if ((pQuals = (ASN1Sequence) pi.getPolicyQualifiers()) != null) {
+            if ((pQuals = pi.getPolicyQualifiers()) != null) {
                 for (int j = 0, plen = pQuals.size(); j < plen; j++) {
 
                     ASN1Sequence pqi = (ASN1Sequence) pQuals.getObjectAt(j);
@@ -1818,8 +1818,7 @@ public class X509Ext
                             ASN1Sequence un = (ASN1Sequence) d;
 
                             for (int k = 0, dlen = un.size(); k < dlen; k++) {
-                                DEREncodable de =
-                                    (DEREncodable) un.getObjectAt(k);
+                                DEREncodable de = un.getObjectAt(k);
 
                                 // TODO: is it possible to use something
                                 // smarter than instanceof here?
@@ -2047,7 +2046,7 @@ public class X509Ext
 
         // Re-format date - include timezone
         sTime = DateFormat.getDateTimeInstance(
-            DateFormat.MEDIUM, DateFormat.LONG).format((Date)date);
+            DateFormat.MEDIUM, DateFormat.LONG).format(date);
 
         return sTime;
     }

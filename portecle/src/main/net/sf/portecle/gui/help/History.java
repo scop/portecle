@@ -83,7 +83,7 @@ public class History
     public void visit(URL newPage)
     {
         // Only add page to history if it isn't the current page in the history
-        if (newPage.equals((URL)m_vHistory.get(m_iCurrent)))
+        if (newPage.equals(m_vHistory.get(m_iCurrent)))
         {
             // New page same as current page so ignore
             return;
