@@ -528,7 +528,7 @@ class DViewCRL extends JDialog
 
                 for (Iterator itr = revokedCertsSet.iterator(); itr.hasNext();)
                 {
-                    X509CRLEntry entry = (X509CRLEntry)itr.next();;
+                    X509CRLEntry entry = (X509CRLEntry) itr.next();
                     if (serialNumber.equals(entry.getSerialNumber()))
                     {
                         x509CrlEntry = entry;
@@ -600,7 +600,7 @@ class DViewCRL extends JDialog
 
                 for (Iterator itr = revokedCertsSet.iterator(); itr.hasNext();)
                 {
-                    X509CRLEntry entry = (X509CRLEntry)itr.next();;
+                    X509CRLEntry entry = (X509CRLEntry) itr.next();
                     if (serialNumber.equals(entry.getSerialNumber()))
                     {
                         x509CrlEntry = entry;
