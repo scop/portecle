@@ -520,14 +520,7 @@ public class X509Ext extends Object
      */
     public String getName()
     {
-        if (m_sName == null)
-        {
-            return null;
-        }
-        else
-        {
-            return new String(m_sName);
-        }
+        return m_sName;
     }
 
     /**

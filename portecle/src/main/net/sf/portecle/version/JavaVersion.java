@@ -246,14 +246,7 @@ public class JavaVersion extends Object implements Comparable
      */
     public String getIdentifier()
     {
-        if (m_sIdentifier == null)
-        {
-            return null;
-        }
-        else
-        {
-            return new String(m_sIdentifier);
-        }
+        return m_sIdentifier;
     }
 
     /**
@@ -379,6 +372,6 @@ public class JavaVersion extends Object implements Comparable
      */
     public String toString()
     {
-        return new String(m_sJavaVersion);
+        return m_sJavaVersion;
     }
 }
