@@ -2014,4 +2014,22 @@ public class X509Ext extends Object
         }
     }
 
+
+    /**
+     * Gets a resource string, with fallback.
+     *
+     * @param key the key
+     * @param fallback the fallback key
+     * @return a resource string
+     */
+    private final String getRes(String key, String fallback)
+    {
+        try {
+            return m_res.getString(key);
+        }
+        catch (MissingResourceException e) {
+            return m_res.getString(fallback);
+        }
+    }
+
 }
