@@ -2024,4 +2024,26 @@ public class X509Ext extends Object
 
         return strBuff.toString();
     }
+
+    /**
+     * Gets a DER object from the given byte array.
+     *
+     * @param bytes bytes
+     * @return a DER object
+     */
+    private static final DERObject toDER(byte[] bytes)
+        throws IOException
+    {
+        ASN1InputStream in =
+            new ASN1InputStream(new ByteArrayInputStream(bytes));
+        try {
+            return in.readObject();
+        }
+        finally {
+            if (in != null) {
+                try { in.close(); } catch (IOException e) { /* Ignore */ }
+            }
+        }
+    }
+
 }
