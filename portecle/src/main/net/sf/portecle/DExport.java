@@ -68,13 +68,13 @@ class DExport extends JDialog
     /** PEM Encoded export format radio button */
     private JRadioButton m_jrbPemEncoded;
 
-    /** PKCS#7 export format radio button */
+    /** PKCS #7 export format radio button */
     private JRadioButton m_jrbPKCS7;
 
     /** PkiPath export format radio button */
     private JRadioButton m_jrbPkiPath;
 
-    /** PKCS#12 export format radio button */
+    /** PKCS #12 export format radio button */
     private JRadioButton m_jrbPKCS12;
 
     /** Panel containing all of the export option controls */

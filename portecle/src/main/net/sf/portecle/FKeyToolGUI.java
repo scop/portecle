@@ -157,7 +157,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** JCEKS menu item in Change KeyStore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeJceks;
 
-    /** PKCS#12 menu item in Change KeyStore Type menu */
+    /** PKCS #12 menu item in Change KeyStore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypePkcs12;
 
     /** BKS menu item in Change KeyStore Type menu */
@@ -2689,7 +2689,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Holds the new certificate chain for the entry should the import succeed
             X509Certificate[] newCertChain = null;
 
-            /* PKCS#7 reply - try and match the self-signed root with any of the
+            /* PKCS #7 reply - try and match the self-signed root with any of the
                certificates in the CA Certs or current KeyStore */
             if (certs.length > 1)
             {
