@@ -2,7 +2,6 @@ TODO for next version (0.2):
 - UI + docs for setting the "show splash screen" option
 - Improve browserlauncher to work better on recent Linux/Unix.
 - Add ChangeLog.txt/NEWS.txt (remember to include experimental stuff).
-- Add dist/srcdist targets.
 
 TODO for website:
 - Smaller (in bytes) screenshot for keytool.

@@ -112,7 +112,43 @@
     </java>
   </target>
 
-  <target name="all" depends="jar,javadoc"
+  <target name="bindist" depends="jar"
+    description="Builds the Portecle binary distribution">
+    <mkdir dir="${dist}" />
+    <zip destfile="${dist}/portecle-${version}.zip">
+      <zipfileset prefix="portecle-${version}"
+        dir="${root}" includes="README.txt,LICENSE.txt" />
+      <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
+      <zipfileset prefix="portecle-${version}"
+        dir="${src}/icons" includes="portecle.*" />
+      <zipfileset file="${bcprov.jar}"
+        fullpath="portecle-${version}/bcprov.jar" />
+    </zip>
+  </target>
+
+  <target name="srcdist"
+    description="Builds the Portecle source distribution">
+    <mkdir dir="${dist}" />
+    <zip destfile="${dist}/portecle-${version}-src.zip">
+      <zipfileset dir="${root}" prefix="portecle-${version}-src">
+        <include name="*.txt" />
+        <include name="build.xml" />
+        <include name="portecle.ico" />
+        <include name="prj.el" />
+        <include name=".classpath" />
+        <include name=".project" />
+        <include name="conf/*" />
+        <include name="doc/**" />
+        <include name="lib" />
+        <include name="src/**" />
+      </zipfileset>
+    </zip>
+  </target>
+
+  <target name="dist" depends="srcdist,bindist"
+    description="Builds Portecle distributions" />
+
+  <target name="all" depends="dist,javadoc"
     description="Builds everything" />
 
   <target name="antic">
