@@ -443,7 +443,8 @@ class DViewCRL extends JDialog
             revokedCertsSet = new HashSet();
         }
         X509CRLEntry[] revokedCerts = (X509CRLEntry[])revokedCertsSet.toArray(new X509CRLEntry[revokedCertsSet.size()]);
-        RevokedCertsTableModel revokedCertsTableModel = ((RevokedCertsTableModel)m_jtRevokedCerts.getModel());
+        RevokedCertsTableModel revokedCertsTableModel =
+            (RevokedCertsTableModel) m_jtRevokedCerts.getModel();
         revokedCertsTableModel.load(revokedCerts);
 
         // Select first CRL

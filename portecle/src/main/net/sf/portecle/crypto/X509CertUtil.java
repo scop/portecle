@@ -447,14 +447,14 @@ public final class X509CertUtil extends Object
 
                 if ((iCnt + CERT_LINE_LENGTH) > sTmp.length())
                 {
-                    iLineLength = (sTmp.length() - iCnt);
+                    iLineLength = sTmp.length() - iCnt;
                 }
                 else
                 {
                     iLineLength = CERT_LINE_LENGTH;
                 }
 
-                sEncoded += sTmp.substring(iCnt, (iCnt + iLineLength)) + "\n";
+                sEncoded += sTmp.substring(iCnt, iCnt + iLineLength) + "\n";
             }
 
             // Footer
@@ -732,14 +732,14 @@ public final class X509CertUtil extends Object
 
                 if ((iCnt + CERT_REQ_LINE_LENGTH) > sTmp.length())
                 {
-                    iLineLength = (sTmp.length() - iCnt);
+                    iLineLength = sTmp.length() - iCnt;
                 }
                 else
                 {
                     iLineLength = CERT_REQ_LINE_LENGTH;
                 }
 
-                sCsr += sTmp.substring(iCnt, (iCnt + iLineLength)) + "\n";
+                sCsr += sTmp.substring(iCnt, iCnt + iLineLength) + "\n";
             }
 
             // Footer

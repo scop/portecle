@@ -82,7 +82,7 @@ public class JMenuItemRecentFile extends JMenuItem
     void setPosition(int iPosition)
     {
         m_iPosition = iPosition;
-        setText((m_iPosition) + " " + m_fRecentFile.getName());
+        setText(m_iPosition + " " + m_fRecentFile.getName());
 
         switch (m_iPosition)
         {

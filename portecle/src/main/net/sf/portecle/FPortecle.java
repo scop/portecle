@@ -3332,7 +3332,7 @@ public class FPortecle extends JFrame implements StatusBar
 
             // If the CA Certs KeyStore is to be used and it has yet to
             // be loaded then do so
-            if ((m_bUseCaCerts) && (m_caCertsKeyStore == null))
+            if (m_bUseCaCerts && m_caCertsKeyStore == null)
             {
                 m_caCertsKeyStore = openCaCertsKeyStore();
                 if (m_caCertsKeyStore == null)
@@ -3562,7 +3562,7 @@ public class FPortecle extends JFrame implements StatusBar
 
             // If the CA Certs KeyStore is to be used and it has yet to be
             // loaded then do so
-            if ((m_bUseCaCerts) && (m_caCertsKeyStore == null))
+            if (m_bUseCaCerts && m_caCertsKeyStore == null)
             {
                 m_caCertsKeyStore = openCaCertsKeyStore();
                 if (m_caCertsKeyStore == null)
@@ -4384,8 +4384,8 @@ public class FPortecle extends JFrame implements StatusBar
     {
         assert m_keyStoreWrap.getKeyStore() != null;
         // Cannot change type to current type
-        assert (!m_keyStoreWrap.getKeyStore().getType().equals(
-                    keyStoreType.toString()));
+        assert !m_keyStoreWrap.getKeyStore().getType().equals(
+                    keyStoreType.toString());
 
         try
         {
@@ -4586,8 +4586,8 @@ public class FPortecle extends JFrame implements StatusBar
     {
         assert m_keyStoreWrap.getKeyStore() != null;
         // Not relevant for a PKCS #12 KeyStore
-        assert (!m_keyStoreWrap.getKeyStore().getType().equals(
-                    KeyStoreType.PKCS12.toString()));
+        assert !m_keyStoreWrap.getKeyStore().getType().equals(
+                   KeyStoreType.PKCS12.toString());
 
         // What entry has been selected?
         int iRow = m_jtKeyStore.getSelectedRow();

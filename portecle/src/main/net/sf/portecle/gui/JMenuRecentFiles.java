@@ -93,7 +93,7 @@ public class JMenuRecentFiles extends JMenu
             {
                 break;
             }
-            add(m_jmirf[iCnt], (m_iIndex + iCnt + 1));
+            add(m_jmirf[iCnt], m_iIndex + iCnt + 1);
         }
     }
 

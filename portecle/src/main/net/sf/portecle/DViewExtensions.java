@@ -126,10 +126,10 @@ class DViewExtensions extends JDialog
     private void initComponents()
     {
         // There must be extensions to display
-        assert (((m_extensions.getCriticalExtensionOIDs() != null) &&
-                 (m_extensions.getCriticalExtensionOIDs().size() != 0)) ||
-                ((m_extensions.getNonCriticalExtensionOIDs() != null) &&
-                 (m_extensions.getNonCriticalExtensionOIDs().size() != 0)));
+        assert (m_extensions.getCriticalExtensionOIDs() != null &&
+                m_extensions.getCriticalExtensionOIDs().size() != 0) ||
+               (m_extensions.getNonCriticalExtensionOIDs() != null &&
+                m_extensions.getNonCriticalExtensionOIDs().size() != 0);
 
         // Extensions table
 

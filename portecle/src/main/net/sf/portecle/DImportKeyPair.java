@@ -357,7 +357,7 @@ class DImportKeyPair extends JDialog
         {
             String sAlias = (String)m_jltKeyPairs.getSelectedValue();
 
-            assert (sAlias != null);
+            assert sAlias != null;
 
             X509Certificate[] certs = X509CertUtil.convertCertificates(m_pkcs12.getCertificateChain(sAlias));
 

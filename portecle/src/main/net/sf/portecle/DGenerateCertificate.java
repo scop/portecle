@@ -402,7 +402,8 @@ class DGenerateCertificate extends JDialog
 
         try
         {
-            SignatureType signatureType = ((SignatureType)m_jcbSigAlg.getSelectedItem());
+            SignatureType signatureType =
+                (SignatureType) m_jcbSigAlg.getSelectedItem();
             m_certificate = X509CertUtil.generateCert(
                 sCommonName, sOrganisationUnit, sOrganisationName, sLocalityName, sStateName, sCountryCode,
                 sEmailAddress, iValidity, m_keyPair.getPublic(), m_keyPair.getPrivate(), signatureType

@@ -115,7 +115,7 @@ public class Version extends Object implements Comparable, Serializable
 
         int[] iCmpSections = cmpVersion.getSections();
 
-        for (int iCnt=0; ((iCnt < iSections.length) && (iCnt < iCmpSections.length)); iCnt++)
+        for (int iCnt=0; (iCnt < iSections.length && iCnt < iCmpSections.length); iCnt++)
         {
             if (iSections[iCnt] > iCmpSections[iCnt])
             {

@@ -547,14 +547,14 @@ public class X509Ext extends Object
         {
             boolean[] b = new boolean[8];
 
-            b[7] = ((bytes[iCnt] & 0x80) == 0x80);
-            b[6] = ((bytes[iCnt] & 0x40) == 0x40);
-            b[5] = ((bytes[iCnt] & 0x20) == 0x20);
-            b[4] = ((bytes[iCnt] & 0x10) == 0x10);
-            b[3] = ((bytes[iCnt] & 0x8) == 0x8);
-            b[2] = ((bytes[iCnt] & 0x4) == 0x4);
-            b[1] = ((bytes[iCnt] & 0x2) == 0x2);
-            b[0] = ((bytes[iCnt] & 0x1) == 0x1);
+            b[7] = (bytes[iCnt] & 0x80) == 0x80;
+            b[6] = (bytes[iCnt] & 0x40) == 0x40;
+            b[5] = (bytes[iCnt] & 0x20) == 0x20;
+            b[4] = (bytes[iCnt] & 0x10) == 0x10;
+            b[3] = (bytes[iCnt] & 0x8) == 0x8;
+            b[2] = (bytes[iCnt] & 0x4) == 0x4;
+            b[1] = (bytes[iCnt] & 0x2) == 0x2;
+            b[0] = (bytes[iCnt] & 0x1) == 0x1;
 
             // First byte
             if (iCnt == 0) {
@@ -1534,14 +1534,14 @@ public class X509Ext extends Object
         {
             boolean[] b = new boolean[8];
 
-            b[7] = ((bytes[0] & 0x80) == 0x80);
-            b[6] = ((bytes[0] & 0x40) == 0x40);
-            b[5] = ((bytes[0] & 0x20) == 0x20);
-            b[4] = ((bytes[0] & 0x10) == 0x10);
-            b[3] = ((bytes[0] & 0x8) == 0x8);
-            b[2] = ((bytes[0] & 0x4) == 0x4);
-            b[1] = ((bytes[0] & 0x2) == 0x2);
-            b[0] = ((bytes[0] & 0x1) == 0x1);
+            b[7] = (bytes[0] & 0x80) == 0x80;
+            b[6] = (bytes[0] & 0x40) == 0x40;
+            b[5] = (bytes[0] & 0x20) == 0x20;
+            b[4] = (bytes[0] & 0x10) == 0x10;
+            b[3] = (bytes[0] & 0x8) == 0x8;
+            b[2] = (bytes[0] & 0x4) == 0x4;
+            b[1] = (bytes[0] & 0x2) == 0x2;
+            b[0] = (bytes[0] & 0x1) == 0x1;
 
             if (b[7])
             {
