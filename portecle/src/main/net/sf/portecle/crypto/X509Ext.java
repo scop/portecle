@@ -1724,37 +1724,42 @@ public class X509Ext extends Object
                 for (int j = 0, plen = pQuals.size(); j < plen; j++) {
 
                     ASN1Sequence pqi = (ASN1Sequence) pQuals.getObjectAt(j);
-                    DERObjectIdentifier pqId =
-                        (DERObjectIdentifier) pqi.getObjectAt(0);
+                    String pqId =
+                        ((DERObjectIdentifier) pqi.getObjectAt(0)).getId();
+                    
 
                     sb.append('\t');
-                    sb.append(pqId.getId());
+                    sb.append(MessageFormat.format(
+                                  getRes(pqId, "UnrecognisedPolicyQualifier"),
+                                  new String[]{pqId}));
                     sb.append('\n');
 
                     if (pQuals.size() > 0) {
 
-                        // TODO: don't do instanceof, use policy identifier
-
                         DEREncodable d = pqi.getObjectAt(1);
-                        if (d instanceof DERString) {
+
+                        if (pqId.equals("1.3.6.1.5.5.7.2.1")) {
                             // cPSuri
-                            sb.append('\t');
+                            sb.append("\t\t");
                             sb.append(MessageFormat.format(
                                           m_res.getString("CpsUri"),
                                           new String[]{
                                               ((DERString) d).getString()}));
                             sb.append('\n');
                         }
-                        else if (d instanceof ASN1Sequence) {
+                        else if (pqId.equals("1.3.6.1.5.5.7.2.2")) {
                             // userNotice
                             ASN1Sequence un = (ASN1Sequence) d;
 
                             for (int k = 0, dlen = un.size(); k < dlen; k++) {
                                 DEREncodable de =
                                     (DEREncodable) un.getObjectAt(k);
+
+                                // TODO: don't do instanceof, be more smart
+
                                 if (de instanceof DERString) {
                                     // explicitText
-                                    sb.append('\t');
+                                    sb.append("\t\t");
                                     // TODO
                                     sb.append("<DISPLAYTEXT>:")
                                         .append(((DERString) de).getString());
@@ -1762,19 +1767,21 @@ public class X509Ext extends Object
                                 }
                                 else if (de instanceof ASN1Sequence) {
                                     // noticeRef
-                                    sb.append('\t');
+                                    sb.append("\t\t");
                                     // TODO
                                     sb.append("<NOTICEREF>:")
                                         .append(stringify(de));
                                     sb.append('\n');
                                 }
                                 else {
-                                    // TODO: warn?
+                                    // TODO
                                 }
                             }
                         }
                         else {
-                            // TODO: warn?
+                            sb.append("\t\t");
+                            sb.append(stringify(d));
+                            sb.append('\n');
                         }
                     }
                 }
