@@ -33,11 +33,11 @@ public interface StatusBar
      *
      * @param sStatus Text to display
      */
-    public void setStatusBarText(String sStatus);
+    void setStatusBarText(String sStatus);
 
     /**
      * Set the status bar text to its default message.
      */
-    public void setDefaultStatusBarText();
+    void setDefaultStatusBarText();
 
 }

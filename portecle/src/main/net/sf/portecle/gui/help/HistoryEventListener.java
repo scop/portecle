@@ -33,5 +33,5 @@ public interface HistoryEventListener extends EventListener
      *
      * @param evt Event which caused the change
      */
-    public void historyStatusChanged(HistoryEvent evt);
+    void historyStatusChanged(HistoryEvent evt);
 }
