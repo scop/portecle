@@ -8,3 +8,6 @@
   - logout, login from java.security.AuthProvider (from J2SE 5)
 - UI + docs for setting the "show splash screen" option
 - Improve browserlauncher to work better on recent Linux/Unix.
+- Change "Copy" and "Copy as XML" in keystore report to "Save as (XML)".
+  I have a hunch that clipboards may screw up the encoding which is fatal at
+  least with XML...

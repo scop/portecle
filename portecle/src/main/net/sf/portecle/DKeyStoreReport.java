@@ -28,6 +28,7 @@ import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.datatransfer.*;
+import java.io.StringWriter;
 import java.util.*;
 import java.text.MessageFormat;
 import java.math.BigInteger;
@@ -36,11 +37,15 @@ import java.security.cert.*;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import javax.xml.parsers.*;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 
 import net.sf.portecle.crypto.*;
 import net.sf.portecle.gui.error.DThrowable;
-import net.sf.portecle.xml.*;
 
 /**
  * Displays a report on the contents of a supplied KeyStore.
@@ -54,8 +59,33 @@ class DKeyStoreReport extends JDialog
     /** KeyStore report */
     private String m_sReport;
 
-    /** keyStore report in XML form */
+    /** KeyStore report in XML form */
     private String m_sReportXML;
+
+    /** Transformer factory for XML output */
+    private static final TransformerFactory TF_FACTORY =
+        TransformerFactory.newInstance();
+    static {
+        try {
+            // XSLTC in J2SE 5 (why oh why doesn't it grok the "normal"
+            // transformer properties... :()
+            TF_FACTORY.setAttribute("indent-number", "2");
+        }
+        catch (IllegalArgumentException e) {
+            // Ignore.
+        }
+    }
+
+    /** Transformer properties for XML output */
+    private static final Properties TF_PROPS = new Properties();
+    static {
+        try {
+            TF_PROPS.load(DKeyStoreReport.class.getResourceAsStream(
+                              "keystore-report-xml.properties"));
+        } catch (java.io.IOException e) {
+            throw new ExceptionInInitializerError(e);
+        }
+    }
 
     /** Panel to hold option controls */
     private JPanel m_jpOptions;
@@ -96,8 +126,10 @@ class DKeyStoreReport extends JDialog
      * @param parent Parent frame
      * @param bModal Is dialog modal?
      * @param keystore KeyStore to display report on
-     * @throws CryptoException A crypto related problem was encountered generating the KeyStore report
-     * @throws ParserConfigurationException There was a serious problem creating the XML report
+     * @throws CryptoException A crypto related problem was encountered
+     * generating the KeyStore report
+     * @throws ParserConfigurationException There was a serious problem
+     * creating the XML report
      */
     public DKeyStoreReport(JFrame parent, boolean bModal, KeyStore keystore) throws CryptoException, ParserConfigurationException
     {
@@ -268,27 +300,37 @@ class DKeyStoreReport extends JDialog
             dThrowable.setLocationRelativeTo(this);
             dThrowable.setVisible(true);
         }
+        catch (TransformerException ex)
+        {
+            DThrowable dThrowable = new DThrowable(this, true, ex);
+            dThrowable.setLocationRelativeTo(this);
+            dThrowable.setVisible(true);
+        }
     }
+
 
     /**
      * Get the KeyStoreReport as XML.
      *
      * @return KeyStore report
-     * @throws CryptoException A crypto related problem was encountered generating the KeyStore report
-     * @throws ParserConfigurationException There was a serious problem creating the XML report
+     * @throws CryptoException A crypto related problem was encountered
+     * generating the KeyStore report
+     * @throws ParserConfigurationException There was a serious problem
+     * creating the XML report
+     * @throws TransformerException There was a serious problem
+     * creating the XML report
      */
-    private String getKeyStoreReportXml() throws CryptoException, ParserConfigurationException
+    private String getKeyStoreReportXml()
+        throws CryptoException, ParserConfigurationException,
+        TransformerException
     {
-        // Get report as DOM
-        Document doc = generateDocument();
-
-        // Format DOM into a tab indented string
-        XmlFormatter xmlFormatter = new XmlFormatter(false);
-        String sXml = xmlFormatter.format(doc, "1.0");
-
-        // Return as the report
-        return sXml;
+        StringWriter xml = new StringWriter();
+        Transformer tr = TF_FACTORY.newTransformer();
+        tr.setOutputProperties(TF_PROPS);
+        tr.transform(new DOMSource(generateDocument()), new StreamResult(xml));
+        return xml.toString();
     }
+
 
     /**
      * Get the KeyStoreReport as plain text.
@@ -476,10 +518,13 @@ class DKeyStoreReport extends JDialog
      * Generate the KeyStore report as an XML Document.
      *
      * @return The KeyStiore report as an XML Document
-     * @throws CryptoException A crypto related problem was encountered generating the KeyStore report
-     * @throws ParserConfigurationException There was a serious problem creating the XML report
+     * @throws CryptoException A crypto related problem was encountered
+     * generating the KeyStore report
+     * @throws ParserConfigurationException There was a serious problem
+     * creating the XML report
      */
-    private Document generateDocument() throws CryptoException, ParserConfigurationException
+    private Document generateDocument() throws
+        CryptoException, ParserConfigurationException
     {
         try
         {
