@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2004 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -206,6 +207,9 @@ class DGenerateCertificate extends JDialog
         m_jcbSigAlg.setToolTipText(
             m_res.getString("DGenerateCertificate.m_jcbSigAlg.tooltip"));
         m_jcbSigAlg.setSelectedIndex(0);
+        if (m_jcbSigAlg.getItemCount() < 2) {
+            m_jcbSigAlg.setEnabled(false);
+        }
         GridBagConstraints gbc_jcbSigAlg =
             (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jcbSigAlg.gridy = 0;
