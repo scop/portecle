@@ -28,6 +28,8 @@ import java.text.MessageFormat;
 import java.util.*;
 import java.text.*;
 import org.bouncycastle.asn1.*;
+import org.bouncycastle.asn1.smime.SMIMECapabilities;
+import org.bouncycastle.asn1.smime.SMIMECapability;
 import org.bouncycastle.asn1.x509.*;
 
 /**
@@ -167,6 +169,8 @@ public class X509Ext extends Object
     /** Inhibit Any Policy OID */
     private static final String INHIBIT_ANY_POLICY_OID = "2.5.29.54";
 
+    /** S/MIME capabilities OID */
+    private static final String SMIME_CAPABILITIES_OID = "1.2.840.113549.1.9.15";
     /** Netscape Certificate Type OID */
     private static final String NETSCAPE_CERTIFICATE_TYPE_OID = "2.16.840.1.113730.1.1";
 
@@ -590,6 +594,10 @@ public class X509Ext extends Object
         else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID)) // 2.5.29.54
         {
             return getInhibitAnyPolicyStringValue(bOctets);
+        }
+        else if (m_sOid.equals(SMIME_CAPABILITIES_OID)) // 1.2.840.113549.1.9.15
+        {
+            return getSmimeCapabilitiesStringValue(bOctets);
         }
         else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) // 2.16.840.1.113730.1.1
         {
@@ -1472,6 +1480,55 @@ public class X509Ext extends Object
             try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
         }
     }
+
+
+    /**
+     * Get S/MIME capabilities (1.2.840.113549.1.9.15) extension value as
+     * a string.
+     *
+     * <pre>
+     * SMIMECapability ::= SEQUENCE {
+     *   capabilityID OBJECT IDENTIFIER,
+     *   parameters ANY DEFINED BY capabilityID OPTIONAL }
+     *
+     * SMIMECapabilities ::= SEQUENCE OF SMIMECapability
+     * </pre>
+     *
+     * @see <a href="http://www.ietf.org/rfc/rfc2633">RFC 2633</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If and I/O problem occurs
+     */
+    private String getSmimeCapabilitiesStringValue(byte[] bValue)
+        throws IOException
+    {
+        SMIMECapabilities caps = SMIMECapabilities.getInstance(toDER(bValue));
+
+        String sParams = m_res.getString("SmimeParameters");
+
+        StringBuffer sb = new StringBuffer();
+
+        for (Iterator i = caps.getCapabilities(null).iterator(); i.hasNext(); )
+        {
+            SMIMECapability cap = (SMIMECapability) i.next();
+
+            String sCapId = cap.getCapabilityID().getId();
+            String sCap = getRes(sCapId, "UnrecognisedSmimeCapability");
+            sb.append(MessageFormat.format(sCap, new String[]{sCapId}));
+
+            DEREncodable params;
+            if ((params = cap.getParameters()) != null) {
+                sb.append("\n\t");
+                sb.append(MessageFormat.format(
+                              sParams, new String[]{stringify(params)}));
+            }
+
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
 
     /**
      * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value as a string.
