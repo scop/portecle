@@ -42,7 +42,12 @@
     <module name="ParameterNumber" />
 
     <!-- Whitespace -->
+    <module name="EmptyForInitializerPad" />
+    <module name="EmptyForIteratorPad" />
+    <module name="ParenPad" />
     <module name="TabCharacter" />
+    <module name="TypecastParenPad" />
+    <module name="WhitespaceAfter" />
     <!--module name="WhitespaceAround" /-->
 
     <!-- Modifiers -->
@@ -90,6 +95,13 @@
     <module name="UncommentedMain" />
     <module name="UpperEll" />
     <module name="ArrayTypeStyle" />
+
+    <!-- Usage -->
+    <!--module name="usage.OneMethodPrivateField" /-->
+    <module name="usage.UnusedLocalVariable" />
+    <!--module name="usage.UnusedParameter" /-->
+    <module name="usage.UnusedPrivateField" />
+    <module name="usage.UnusedPrivateMethod" />
 
   </module>
 </module>
