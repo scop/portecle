@@ -1417,9 +1417,39 @@ public class X509Ext extends Object
         // Key quality
         ASN1Sequence keyq = (ASN1Sequence)
             ((ASN1TaggedObject) glbs.getObjectAt(0)).getObject();
-        sb.append('\t');
-        sb.append("Key quality: <TODO>");
-        // TODO
+        boolean enforceQuality = ((DERBoolean) keyq.getObjectAt(0)).isTrue();
+        ASN1Sequence compusecQ = (ASN1Sequence) keyq.getObjectAt(1);
+        for (int i = 0, len = compusecQ.size(); i < len; i++) {
+            ASN1Sequence cqPair = (ASN1Sequence) compusecQ.getObjectAt(i);
+            DERInteger csecCriteria = (DERInteger) cqPair.getObjectAt(0);
+            DERInteger csecRating = (DERInteger) cqPair.getObjectAt(1);
+        }
+        ASN1Sequence cryptoQ = (ASN1Sequence) keyq.getObjectAt(2);
+        for (int i = 0, len = cryptoQ.size(); i < len; i++) {
+            ASN1Sequence cqPair = (ASN1Sequence) cryptoQ.getObjectAt(i);
+            DERInteger cryptoModuleCriteria =
+                (DERInteger) cqPair.getObjectAt(0);
+            DERInteger cryptoModuleRating =
+                (DERInteger) cqPair.getObjectAt(1);
+        }
+
+        String ksqv = ((DERInteger) keyq.getObjectAt(3)).getValue().toString();
+        String ksq = getRes("NovellKeyStorageQuality." + ksqv,
+                            "UnrecognisedNovellKeyStorageQuality");
+
+        sb.append('\t').append(m_res.getString("NovellKeyQuality"));
+        sb.append("\n\t\t").append(m_res.getString("NovellKeyQualityEnforce"));
+        sb.append(' ').append(enforceQuality).append('\n');
+
+        sb.append("\t\t").append("Compusec quality: <TODO>");
+        sb.append('\n');
+
+        sb.append("\t\t").append("Crypto quality: <TODO>");
+        sb.append('\n');
+
+        sb.append("\t\t").append(m_res.getString("NovellKeyStorageQuality"));
+        sb.append("\n\t\t\t").append(
+            MessageFormat.format(ksq, new String[]{ksqv}));
         sb.append('\n');
 
         // Crypto process quality
@@ -1427,7 +1457,7 @@ public class X509Ext extends Object
             ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
         sb.append('\t');
         sb.append("Crypto process quality: <TODO>");
-        // TODO
+        // TODO: reuse from key quality
         sb.append('\n');
 
         // Certificate class
@@ -1455,6 +1485,17 @@ public class X509Ext extends Object
         // Enterprise ID
         ASN1Sequence eid = (ASN1Sequence)
             ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject();
+        ASN1Sequence rootLabel = (ASN1Sequence)
+            ((ASN1TaggedObject) eid.getObjectAt(0)).getObject();
+        ASN1Sequence registryLabel = (ASN1Sequence)
+            ((ASN1TaggedObject) eid.getObjectAt(1)).getObject();
+        ASN1Sequence eLabels = (ASN1Sequence)
+            ((ASN1TaggedObject) eid.getObjectAt(2)).getObject();
+        for (int i = 0, len = eLabels.size(); i < len; i++) {
+            // Hmm... I thought this would be a sequence of sequences,
+            // but the following throws a ClassCastException...?
+            // ASN1Sequence eLabel = (ASN1Sequence) eLabels.getObjectAt(i);
+        }
         sb.append('\t');
         sb.append("Enterprise ID: <TODO>");
         // TODO
