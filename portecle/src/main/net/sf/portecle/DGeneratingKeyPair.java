@@ -231,17 +231,10 @@ class DGeneratingKeyPair extends JDialog
             KeyPair keyPair;
             try
             {
-                if (m_keyPairType == KeyPairType.DSA)
-                {
-                    keyPair = KeyPairUtil.generateKeyPair(
-                        KeyPairType.DSA, m_iKeySize);
-                }
-                else
-                {
-                    keyPair = KeyPairUtil.generateKeyPair(
-                        KeyPairType.RSA, m_iKeySize);
-                }
+                keyPair = KeyPairUtil.generateKeyPair(
+                    m_keyPairType, m_iKeySize);
 
+                // @@@ TODO what's this?
                 if (true)
 
                 m_keyPair = keyPair;
