@@ -110,7 +110,10 @@ public final class X509CertUtil extends Object
                 }
             }
         }
-        catch (CertificateException ex)
+        // Some RuntimeExceptions which really ought to be
+        // CertificateExceptions may be thrown from cf.generateCert* above,
+        // for example Sun's PKCS #7 parser tends to throw them... :P
+        catch (Exception ex)
         {
             throw new CryptoException(m_res.getString("NoLoadCertificate.exception.message"), ex);
         }
