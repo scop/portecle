@@ -1,4 +1,3 @@
-- Move "Save as" next to "Save" like the rest of the world has.
 - http://www.microsoft.com/technet/prodtechnol/windowsserver2003/technologies/security/ws03qswp.mspx
 - Add "Close keystore" functionality (see also PKCS #11 stuff)
 - Fix and clean up or really get rid of "check for update" functionality.

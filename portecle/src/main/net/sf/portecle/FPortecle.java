@@ -68,6 +68,10 @@ public class FPortecle extends JFrame implements StatusBar
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";
 
+    /** Enable experimental features? */
+    private static final boolean EXPERIMENTAL =
+        Boolean.getBoolean("portecle.experimental");
+
     /** Default KeyStore table width - dictates width of this frame */
     private static final int DEFAULT_TABLE_WIDTH = 600;
 
@@ -78,7 +82,8 @@ public class FPortecle extends JFrame implements StatusBar
     private static final int RECENT_FILES_LENGTH = 4;
 
     /** Menu index in the file menu for recent files to be inserted at */
-    private static final int RECENT_FILES_INDEX = 5;
+    // EXPERIMENTAL enables/disables the PKCS #11 menu item
+    private static final int RECENT_FILES_INDEX = EXPERIMENTAL ? 6 : 5;
 
     /** Default look & feel class name */
     private static final String DEFAULT_LOOK_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
@@ -494,7 +499,7 @@ public class FPortecle extends JFrame implements StatusBar
         new StatusBarChangeHandler(m_jmiOpenKeyStoreFile, (String)m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmrfFile.add(m_jmiOpenKeyStoreFile);
 
-        if (Boolean.getBoolean("portecle.experimental")) {
+        if (EXPERIMENTAL) {
             m_jmiOpenKeyStorePkcs11 =
                 new JMenuItem(m_openKeyStorePkcs11Action);
             m_jmiOpenKeyStorePkcs11.setToolTipText(null);
@@ -3746,7 +3751,7 @@ public class FPortecle extends JFrame implements StatusBar
                 m_bLookFeelDecorationOptions =
                     Boolean.valueOf(bLookFeelDecoration);
 
-                if (Boolean.getBoolean("portecle.experimental")) {
+                if (EXPERIMENTAL) {
                     saveAppPrefs();
                     setVisible(false);
                     MetalLookAndFeel.setCurrentTheme(METAL_THEME);
