@@ -25,7 +25,9 @@
 
   <property name="bcprov.jar" value="${lib}/bcprov.jar" />
   <property name="checkstyle.jar" value="${lib}/checkstyle-all.jar" />
-  <taskdef resource="checkstyletask.properties" classpath="${checkstyle.jar}"/>
+  <property name="checkstyle-opt.jar" value="${lib}/checkstyle-optional.jar" />
+  <taskdef resource="checkstyletask.properties"
+    classpath="${checkstyle.jar}:${checkstyle-opt.jar}"/>
 
   <property name="build.debug" value="false" />
   <property name="build.srcver" value="1.4" />
