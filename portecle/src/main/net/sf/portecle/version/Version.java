@@ -30,7 +30,8 @@ import java.util.StringTokenizer;
  * versions.  Only allows for simple versions strings made up of >= 0 integers
  * separated by dots or something similar.
  */
-public class Version extends Object implements Comparable, Serializable
+public class Version
+    implements Comparable, Serializable
 {
     /** Holds the version "sections" that make up the version number. */
     private int[] iSections;

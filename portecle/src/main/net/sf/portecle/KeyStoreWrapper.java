@@ -30,7 +30,7 @@ import java.util.Vector;
  * physical file, its password, the password's of its protected entries
  * and whether or not the KeyStore has been changed since it was last saved.
  */
-class KeyStoreWrapper extends Object
+class KeyStoreWrapper
 {
     /** The wrapped KeyStore */
     private KeyStore m_keyStore;

@@ -71,7 +71,7 @@ import org.bouncycastle.util.encoders.Base64;
 /**
  * Provides utility methods relating to X509 Certificates, CRLs and CSRs.
  */
-public final class X509CertUtil extends Object
+public final class X509CertUtil
 {
     /** PKCS #7 encoding name */
     public static final String PKCS7_ENCODING = "PKCS7";

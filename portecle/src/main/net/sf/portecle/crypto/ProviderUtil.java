@@ -30,7 +30,6 @@ import java.util.Collection;
  * Provides security provider utility methods.
  */
 public final class ProviderUtil
-    extends Object
 {
     /**
      * Private to prevent construction.

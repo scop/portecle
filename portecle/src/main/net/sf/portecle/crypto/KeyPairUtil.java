@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 /**
  * Provides utility methods for the generation of keys.
  */
-public final class KeyPairUtil extends Object
+public final class KeyPairUtil
 {
     /** Resource bundle */
     private static ResourceBundle m_res =

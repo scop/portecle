@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
  * BouncyCastle provider must be added before using this class to
  * create or load a PKCS12, BKS or UBER type KeyStores.
  */
-public final class KeyStoreUtil extends Object
+public final class KeyStoreUtil
 {
     /** Resource bundle */
     private static ResourceBundle m_res =

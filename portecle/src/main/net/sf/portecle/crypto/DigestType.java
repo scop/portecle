@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Type safe enumeration of Digest Types supported by the DigestUtil class.
  */
-public class DigestType extends Object
+public class DigestType
 {
     /** MD5 Digest Type */
     public static final DigestType MD5 = new DigestType("MD5");

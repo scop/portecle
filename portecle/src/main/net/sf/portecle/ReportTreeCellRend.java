@@ -274,7 +274,7 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
      * set the cell's icon and tool top text and the alais to display
      * as it's text.
      */
-    static class Entry extends Object
+    static class Entry
     {
         /** Key entry type */
         private static final int KEY = 0;

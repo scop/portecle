@@ -34,7 +34,7 @@ import net.sf.portecle.gui.FileExtFilter;
  * security file types. Basically just supplies a JFileChooser object
  * with the file filter box completed appropriately.
  */
-public class FileChooserFactory extends Object
+public class FileChooserFactory
 {
     /** Resource bundle */
     private static ResourceBundle m_res =

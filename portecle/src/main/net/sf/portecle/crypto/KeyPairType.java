@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Type safe enumeration of KeyPairTypes supported by the KeyPairUtil class.
  */
-public class KeyPairType extends Object
+public class KeyPairType
 {
     /** RSA KeyPairType */
     public static final KeyPairType RSA = new KeyPairType("RSA");

@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Provides utility methods for the creation of message digests.
  */
-public final class DigestUtil extends Object
+public final class DigestUtil
 {
     /** Resource bundle */
     private static ResourceBundle m_res =

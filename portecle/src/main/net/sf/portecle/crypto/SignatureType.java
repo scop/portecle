@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
  * Type safe enumeration of Signature Types supported by the
  * X509CertUtil class.
  */
-public class SignatureType extends Object
+public class SignatureType
 {
     /** MD2 with RSA Sigature Type */
     public static final SignatureType RSA_MD2 =

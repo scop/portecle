@@ -27,7 +27,7 @@ import java.io.File;
  * Simple class intended to store the last accessed directory for a file
  * centric GUI application.
  */
-public class LastDir extends Object
+public class LastDir
 {
     /** Last directory. */
     private File m_fLastDir;

@@ -36,7 +36,8 @@ import java.util.StringTokenizer;
  * in one will make it a lower version than the other.  This is because
  * standard identifier values have not been identified by Sun.
  */
-public class JavaVersion extends Object implements Comparable
+public class JavaVersion
+    implements Comparable
 {
     /** Java version string */
     private String m_sJavaVersion;

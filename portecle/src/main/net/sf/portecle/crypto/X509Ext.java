@@ -67,7 +67,7 @@ import org.bouncycastle.asn1.x509.X509Name;
  * Holds the information of an X.509 extension and provides the ability
  * to get the extension's name and value as a string.
  */
-public class X509Ext extends Object
+public class X509Ext
 {
     /** Resource bundle */
     private static ResourceBundle m_res =

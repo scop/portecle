@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * Type safe enumeration of KeyStore Types supported by the KeyStoreUtil
  * class.
  */
-public class KeyStoreType extends Object
+public class KeyStoreType
 {
     /** JCEKS KeyStore Type */
     public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true);
