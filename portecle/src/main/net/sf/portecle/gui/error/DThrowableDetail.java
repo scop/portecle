@@ -96,6 +96,14 @@ public class DThrowableDetail extends JDialog
         // Buttons
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
+        m_jbOK = new JButton(m_res.getString("DThrowableDetail.m_jbOK.text"));
+        m_jbOK.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                okPressed();
+            }
+        });
+        m_jpButtons.add(m_jbOK);
+
         m_jbCopy = new JButton(m_res.getString("DThrowableDetail.m_jbCopy.text"));
         m_jbCopy.setMnemonic(m_res.getString("DThrowableDetail.m_jbCopy.mnemonic").charAt(0));
         m_jbCopy.setToolTipText(m_res.getString("DThrowableDetail.m_jbCopy.tooltip"));
@@ -104,17 +112,7 @@ public class DThrowableDetail extends JDialog
                 copyPressed();
             }
         });
-
         m_jpButtons.add(m_jbCopy);
-
-        m_jbOK = new JButton(m_res.getString("DThrowableDetail.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                okPressed();
-            }
-        });
-
-        m_jpButtons.add(m_jbOK);
 
         m_jpThrowable = new JPanel(new BorderLayout());
         m_jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
