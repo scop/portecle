@@ -191,18 +191,35 @@ class DOptions extends JDialog
         // Current Look and Feel
         LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
 
-        // Use tree set to avoid duplicates
+        // Set of installed and supported Look and Feel class names
         TreeSet lookFeelClasses = new TreeSet();
 
         for (int iCnt=0; iCnt < lookFeelInfos.length; iCnt++)
         {
             UIManager.LookAndFeelInfo lookFeelInfo = lookFeelInfos[iCnt];
+            String className = lookFeelInfo.getClassName();
 
-            // Avoid duplicates
-            if (!lookFeelClasses.contains(lookFeelInfo.getClassName()))
+            // Avoid duplicates, optimize
+            if (lookFeelClasses.contains(className))
             {
-                // Add class name to tree set to avoid duplicates
-                lookFeelClasses.add(lookFeelInfo.getClassName());
+                continue;
+            }
+
+            // Check if it's a supported one (eg. Windows on Linux is not)
+            boolean bSupported = false;
+            try
+            {
+                bSupported = ((LookAndFeel) Class.forName(className).newInstance()).isSupportedLookAndFeel();
+            }
+            catch (Exception e) { /* Ignore */ }
+            if (bSupported)
+            {
+                lookFeelClasses.add(className);
+            }
+            else
+            {
+                continue;
+            }
 
                 // Add Look and Feel to vector and choice box (so we can look up Look and Feel in Vector by choice box index)
                 m_vLookFeelInfos.add(lookFeelInfos[iCnt]);
