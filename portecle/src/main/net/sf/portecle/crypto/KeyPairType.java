@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2004 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -37,6 +38,9 @@ public class KeyPairType
     /** DSA KeyPairType */
     public static final KeyPairType DSA = new KeyPairType("DSA");
 
+    /** ECDSA KeyPairType */
+    public static final KeyPairType ECDSA = new KeyPairType("ECDSA");
+    
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
@@ -63,16 +67,16 @@ public class KeyPairType
      */
     private Object readResolve () throws ObjectStreamException
     {
-        if (m_sType.equals(RSA.toString()))
-        {
+        if (m_sType.equals(RSA.toString())) {
             return RSA;
         }
-        else if (m_sType.equals(DSA.toString()))
-        {
+        else if (m_sType.equals(DSA.toString())) {
             return DSA;
         }
-        else
-        {
+        else if (m_sType.equals(ECDSA.toString())) {
+            return ECDSA;
+        }
+        else {
             throw new InvalidObjectException(
                 MessageFormat.format(
                     m_res.getString("NoResolveKeypairtype.exception.message"),
