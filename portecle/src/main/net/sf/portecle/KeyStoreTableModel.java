@@ -26,6 +26,7 @@ import javax.swing.table.*;
 import java.security.*;
 import java.security.cert.*;
 import java.security.cert.Certificate;
+import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyStoreType;
 
 /**
@@ -70,7 +71,8 @@ class KeyStoreTableModel extends AbstractTableModel
      * @param keyStore The KeyStore
      * @throws KeyStoreException A problem is encountered accessing the KeyStore's entries
      */
-    public void load(KeyStore keyStore) throws KeyStoreException
+    public void load(KeyStore keyStore)
+        throws KeyStoreException, CryptoException
     {
         // Place aliases in a tree map to sort them
         TreeMap sortedAliases = new TreeMap();
@@ -80,6 +82,9 @@ class KeyStoreTableModel extends AbstractTableModel
             String sAlias = (String) en.nextElement();
             sortedAliases.put(sAlias, sAlias);
         }
+
+        boolean cdSupport = KeyStoreType.getInstance(
+            keyStore.getType()).supportsCreationDate();
 
         // Create one table row for each KeyStore entry
         m_data = new Object[sortedAliases.size()][3];
@@ -109,14 +114,12 @@ class KeyStoreTableModel extends AbstractTableModel
             // Populate the alias column
             m_data[iCnt][1] = sAlias;
 
-            // Populate the modified date column (if KeyStore type is not PKCS #12 - dates not supported)
-            if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
-            {
+            // Populate the modified date column
+            if (cdSupport) {
                 m_data[iCnt][2] = keyStore.getCreationDate(sAlias);
             }
-            else
-            {
-                m_data[iCnt][2] = ""; // Display empty string for modification date of PKCS #12 KeyStore entries
+            else {
+                m_data[iCnt][2] = "";
             }
         }
 

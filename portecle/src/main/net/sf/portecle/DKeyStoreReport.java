@@ -333,8 +333,7 @@ class DKeyStoreReport extends JDialog
 
                 // Creation date
 
-                // Creation date not applicable for PKCS #12 KeyStore entries
-                if (!sType.equals(KeyStoreType.PKCS12.toString()))
+                if (ksType.supportsCreationDate())
                 {
                     Date dCreation = m_keystore.getCreationDate(sAlias);
 
@@ -506,8 +505,12 @@ class DKeyStoreReport extends JDialog
             {
                 String sAlias = (String)aliases.nextElement();
 
-                Date dCreation = m_keystore.getCreationDate(sAlias);
-                String sCreation = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(dCreation);
+                String sCreation = null;
+                if (ksType.supportsCreationDate()) {
+                    Date dCreation = m_keystore.getCreationDate(sAlias);
+                    sCreation = DateFormat.getDateTimeInstance(
+                        DateFormat.MEDIUM, DateFormat.MEDIUM).format(dCreation);
+                }
 
                 String sEntryType = null;
                 Certificate[] certChain = null;
@@ -539,8 +542,7 @@ class DKeyStoreReport extends JDialog
                 Element entryElement = xmlDoc.createElement("entry");
                 entryElement.setAttribute("alias", sAlias);
 
-                // Creation date no applicable for PKCS #12 KeyStore entries
-                if (!sType.equals(KeyStoreType.PKCS12.toString()))
+                if (sCreation != null)
                 {
                     entryElement.setAttribute("creation_date", sCreation);
                 }
@@ -701,13 +703,12 @@ class DKeyStoreReport extends JDialog
 
                 topNode.add(entryNode);
 
-                // Creation date
-
-                // Creation date not applicable for PKCS #12 KeyStore entries
-                if (!sType.equals(KeyStoreType.PKCS12.toString()))
+                // Creation date, if applicable
+                if (ksType.supportsCreationDate())
                 {
                     Date dCreation = m_keystore.getCreationDate(sAlias);
-                    String sCreation = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(dCreation);
+                    String sCreation = DateFormat.getDateTimeInstance(
+                        DateFormat.MEDIUM, DateFormat.MEDIUM).format(dCreation);
                     entryNode.add(new DefaultMutableTreeNode(sCreation));
                 }
 
