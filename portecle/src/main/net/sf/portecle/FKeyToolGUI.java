@@ -825,6 +825,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         });
         new StatusBarChangeHandler(m_jmiMailList, m_res.getString("FKeyToolGUI.m_jmiMailList.statusbar"), this);
 
+        /* Update check disabled for now...
         m_jmiCheckUpdate = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.text"),
                                          m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.mnemonic").charAt(0));
         m_jmiCheckUpdate.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.image")))));
@@ -845,6 +846,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
         });
         new StatusBarChangeHandler(m_jmiCheckUpdate, m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.statusbar"), this);
+        */
 
         /* Donations disabled for now...
         m_jmiDonate = new JMenuItem(m_donateAction);
