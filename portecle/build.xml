@@ -2,6 +2,11 @@
 
 <project name="portecle" basedir="." default="build">
 
+  <property name="version" value="0.2" />
+  <property name="main.class" value="net.sf.portecle.FKeyToolGUI" />
+
+  <property file="build.properties" />
+
   <property name="root" value="." />
   <property name="src" value="${root}/src" />
   <property name="build" value="${root}/build" />
@@ -12,6 +17,9 @@
   <property name="jar" value="portecle.jar" />
   <property name="doc" value="${root}/doc" />
 
+  <property name="build.debug" value="false" />
+  <property name="build.srcver" value="1.4" />
+
   <path id="build.path">
     <pathelement path="${classpath}" />
     <fileset dir="${lib}">
@@ -21,8 +29,15 @@
 
   <target name="build-classes">
     <mkdir dir="${build}/classes" />
-    <javac srcdir="${src}/main" destdir="${build}/classes" source="1.4">
+    <javac
+      srcdir="${src}/main"
+      destdir="${build}/classes"
+      source="${build.srcver}"
+      debug="${build.debug}">
       <classpath refid="build.path" />
+      <compilerarg compiler="jikes" value="+P" />
+      <!-- TODO: +Z2 sometime -->
+      <compilerarg compiler="jikes" value="+Z" />
     </javac>
   </target>
 
@@ -41,7 +56,10 @@
 
   <target name="javadoc">
     <mkdir dir="${build}/api" />
-    <javadoc destdir="${build}/api" source="1.4" private="yes">
+    <javadoc
+      destdir="${build}/api"
+      source="${build.srcver}"
+      private="yes">
       <packageset dir="${src}/main" defaultexcludes="yes">
         <include name="net/sf/portecle/**" />
       </packageset>
