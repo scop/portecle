@@ -32,7 +32,7 @@ import java.awt.event.*;
 import java.math.BigInteger;
 import java.security.cert.*;
 
-import net.sf.portecle.crypto.*;
+import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**

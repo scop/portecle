@@ -27,7 +27,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import net.sf.portecle.crypto.*;
+import net.sf.portecle.crypto.KeyPairType;
 
 /**
  * Dialog used to choose the parameters required for key pair generation.

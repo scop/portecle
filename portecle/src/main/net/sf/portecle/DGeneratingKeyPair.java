@@ -28,8 +28,10 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.security.*;
 
+import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.KeyPairType;
+import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.gui.error.DThrowable;
-import net.sf.portecle.crypto.*;
 
 /**
  * Generates a key pair which the user may cancel at any time by pressing the

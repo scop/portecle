@@ -41,17 +41,30 @@ import javax.net.ssl.*;
 
 import edu.stanford.ejalbert.BrowserLauncher;
 
-import net.sf.portecle.crypto.*;
-import net.sf.portecle.gui.*;
+import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.KeyPairType;
+import net.sf.portecle.crypto.KeyStoreUtil;
+import net.sf.portecle.crypto.KeyStoreType;
+import net.sf.portecle.crypto.ProviderUtil;
+import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.JMenuItemRecentFile;
+import net.sf.portecle.gui.JMenuRecentFiles;
+import net.sf.portecle.gui.LastDir;
+import net.sf.portecle.gui.WSplash;
 import net.sf.portecle.gui.about.DAbout;
 import net.sf.portecle.gui.crypto.DProviderInfo;
 import net.sf.portecle.gui.error.DThrowable;
 import net.sf.portecle.gui.help.FHelp;
 import net.sf.portecle.gui.jar.DJarInfo;
-import net.sf.portecle.gui.password.*;
-import net.sf.portecle.gui.statusbar.*;
+import net.sf.portecle.gui.password.DChangePassword;
+import net.sf.portecle.gui.password.DGetNewPassword;
+import net.sf.portecle.gui.password.DGetPassword;
+import net.sf.portecle.gui.statusbar.StatusBar;
+import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
 import net.sf.portecle.gui.theme.LightMetalTheme;
-import net.sf.portecle.version.*;
+import net.sf.portecle.version.JavaVersion;
+import net.sf.portecle.version.Version;
+import net.sf.portecle.version.VersionException;
 
 /**
  * Start class and main frame of the KeyStore GUI application.

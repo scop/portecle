@@ -30,7 +30,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.security.*;
 
-import net.sf.portecle.crypto.*;
+import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.LastDir;
 
 /**

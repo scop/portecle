@@ -29,7 +29,10 @@ import javax.swing.border.*;
 import java.security.*;
 import java.security.cert.X509Certificate;
 
-import net.sf.portecle.crypto.*;
+import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.KeyPairType;
+import net.sf.portecle.crypto.SignatureType;
+import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**

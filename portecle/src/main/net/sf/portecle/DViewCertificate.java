@@ -30,7 +30,10 @@ import java.awt.event.*;
 import java.math.BigInteger;
 import java.security.cert.*;
 
-import net.sf.portecle.crypto.*;
+import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.DigestType;
+import net.sf.portecle.crypto.DigestUtil;
+import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**

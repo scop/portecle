@@ -28,7 +28,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.security.cert.*;
 
-import net.sf.portecle.crypto.*;
+import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.X509CertUtil;
 
 /**
  * Displays an X.509 certificate's PEM encoding.
