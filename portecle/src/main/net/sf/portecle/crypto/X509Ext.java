@@ -1107,14 +1107,17 @@ public class X509Ext extends Object
     /**
      * Get Hold Instruction Code (2.5.29.23) extension value as a string.
      *
+     * <pre>
+     * HoldInstructionCode ::= OBJECT IDENTIFER
+     * </pre>
+     *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getHoldInstructionCodeStringValue(byte[] bValue) throws IOException
+    private String getHoldInstructionCodeStringValue(byte[] bValue)
+        throws IOException
     {
-        /* HoldInstructionCode ::= OBJECT IDENTIFER */
-
         DERInputStream dis = null;
 
         try
