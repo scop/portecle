@@ -23,6 +23,7 @@
     <module name="RedundantThrows" />
     <module name="LineLength">
       <property name="max" value="79" />
+      <property name="ignorePattern" value="(f|ht)tps?://" />
     </module>
   </module>
 </module>
