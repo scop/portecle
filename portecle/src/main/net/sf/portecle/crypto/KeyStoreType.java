@@ -21,12 +21,15 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.*;
+import java.io.InvalidObjectException;
+import java.io.ObjectStreamException;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
- * Type safe enumeration of KeyStore Types supported by the KeyStoreUtil class.
+ * Type safe enumeration of KeyStore Types supported by the KeyStoreUtil
+ * class.
  */
 public class KeyStoreType extends Object
 {
@@ -37,11 +40,17 @@ public class KeyStoreType extends Object
     /** Stores KeyStore Type name */
     private final String m_sType;
 
+    /** Whether the keystore type supports creation dates */
+    private final boolean m_bCreationDate;
+
     /** JCEKS KeyStore Type JCE String */
     private static final String JCEKS_STR = "JCEKS";
 
     /** JKS KeyStore Type JCE String */
     private static final String JKS_STR = "JKS";
+
+    /** PKCS #11 KeyStore Type JCE String */
+    private static final String PKCS11_STR = "PKCS11";
 
     /** PKCS #12 KeyStore Type JCE String */
     private static final String PKCS12_STR = "PKCS12";
@@ -53,29 +62,80 @@ public class KeyStoreType extends Object
     private static final String UBER_STR = "UBER";
 
     /** JCEKS KeyStore Type */
-    public static final KeyStoreType JCEKS = new KeyStoreType(JCEKS_STR);
+    public static final KeyStoreType JCEKS =
+        new KeyStoreType(JCEKS_STR, true);
 
     /** JKS KeyStore Type */
-    public static final KeyStoreType JKS = new KeyStoreType(JKS_STR);
+    public static final KeyStoreType JKS =
+        new KeyStoreType(JKS_STR, true);
+
+    /** PKCS #11 KeyStore Type */
+    public static final KeyStoreType PKCS11 =
+        new KeyStoreType(PKCS11_STR, false);
 
     /** PKCS #12 KeyStore Type */
-    public static final KeyStoreType PKCS12 = new KeyStoreType(PKCS12_STR);
+    public static final KeyStoreType PKCS12 =
+        new KeyStoreType(PKCS12_STR, false);
 
     /** BKS KeyStore Type */
-    public static final KeyStoreType BKS = new KeyStoreType(BKS_STR);
+    public static final KeyStoreType BKS =
+        new KeyStoreType(BKS_STR, true);
 
     /** UBER KeyStore Type */
-    public static final KeyStoreType UBER = new KeyStoreType(UBER_STR);
+    public static final KeyStoreType UBER =
+        new KeyStoreType(UBER_STR, true);
+
+    private static final HashMap TYPE_MAP = new HashMap();
+    static {
+        TYPE_MAP.put(JKS_STR, JKS);
+        TYPE_MAP.put(JCEKS_STR, JCEKS);
+        TYPE_MAP.put(PKCS11_STR, PKCS11);
+        TYPE_MAP.put(PKCS12_STR, PKCS12);
+        TYPE_MAP.put(BKS_STR, BKS);
+        TYPE_MAP.put(UBER_STR, UBER);
+    }
 
     /**
-     * Construct a KeyStoreType.  Private to prevent construction from outside this
-     * class.
+     * Construct a KeyStoreType.
+     * Private to prevent construction from outside this class.
      *
      * @param sType KeyStore type
+     * @param bCreationDate Whether the keystore supports creation dates
      */
-    private KeyStoreType(String sType)
+    private KeyStoreType(String sType, boolean bCreationDate)
     {
         m_sType = sType;
+        m_bCreationDate = bCreationDate;
+    }
+
+    /**
+     * Gets a KeyPairType corresponding to the given type String.
+     *
+     * @param sType the keystore type name
+     * @return the corresponding KeyStoreType
+     * @throws CryptoException if the type is not known
+     */
+    public static KeyStoreType getInstance(String sType)
+        throws CryptoException
+    {
+        KeyStoreType kst = (KeyStoreType) TYPE_MAP.get(sType);
+        if (kst == null) {
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString("NoResolveKeystoretype.exception.message"),
+                    new String[]{sType}));
+        }
+        return kst;
+    }
+
+    /**
+     * Does the keystore type support creation dates?
+     *
+     * @return true if creation dates are supported, false otherwise
+     */
+    public boolean supportsCreationDate()
+    {
+        return m_bCreationDate;
     }
 
     /**
@@ -86,29 +146,11 @@ public class KeyStoreType extends Object
      */
     private Object readResolve() throws ObjectStreamException
     {
-        if (m_sType.equals(JCEKS_STR))
-        {
-            return JCEKS;
+        try {
+            return getInstance(m_sType);
         }
-        else if (m_sType.equals(JKS_STR))
-        {
-            return JKS;
-        }
-        else if (m_sType.equals(PKCS12_STR))
-        {
-            return PKCS12;
-        }
-        else if (m_sType.equals(BKS_STR))
-        {
-            return BKS;
-        }
-        else if (m_sType.equals(UBER_STR))
-        {
-            return UBER;
-        }
-        else
-        {
-            throw new InvalidObjectException(MessageFormat.format(m_res.getString("NoResolveKeystoretype.exception.message"), new Object[]{m_sType}));
+        catch (CryptoException e) {
+            throw new InvalidObjectException(e.getMessage());
         }
     }
 
@@ -120,5 +162,21 @@ public class KeyStoreType extends Object
     public String toString()
     {
         return m_sType;
+    }
+
+    /**
+     * Return a "pretty", human readable representation of the keystore type.
+     *
+     * @return human readable String representation of the keystore type
+     */
+    public String toPrettyString()
+    {
+        if (equals(PKCS11)) {
+            return "PKCS #11";
+        }
+        if (equals(PKCS12)) {
+            return "PKCS #12";
+        }
+        return toString();
     }
 }
