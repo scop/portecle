@@ -44,10 +44,15 @@
 
   <target name="build" depends="build-classes">
     <mkdir dir="${dist}" />
-    <jar jarfile="${dist}/${jar}">
+    <jar jarfile="${dist}/${jar}" index="true">
       <manifest>
         <attribute name="Main-Class" value="${main.class}" />
         <attribute name="Class-Path" value="${jar.classpath}" />
+        <attribute name="Implementation-Title" value="Portecle" />
+        <attribute name="Implementation-Version" value="${version}" />
+        <attribute name="Implementation-Vendor" value="The Portecle Project" />
+        <attribute name="Implementation-Vendor-Id" value="net.sf.portecle" />
+        <attribute name="Implementation-URL" value="http://portecle.sourceforge.net/" />
       </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
       <fileset dir="${src}/main" includes="**/*.properties" />
