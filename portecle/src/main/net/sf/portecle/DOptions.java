@@ -226,11 +226,18 @@ class DOptions extends JDialog
             m_vLookFeelInfos.add(lookFeelInfo);
             m_jcbLookFeel.addItem(lookFeelInfo.getName());
 
-                // Pre-select current look & feel
-                if ((currentLookAndFeel != null) && (currentLookAndFeel.getName().equals(lookFeelInfo.getName())))
+            // Pre-select current look & feel
+            /* Note: UIManager.LookAndFeelInfo.getName() and
+               LookAndFeel.getName() can be different for the same L&F (one
+               example is the GTK+ one in J2SE 5 RC2 (Linux), where the former
+               is "GTK+" and the latter is "GTK look and feel"). Therefore,
+               compare the class names instead. */
+            if (currentLookAndFeel != null &&
+                currentLookAndFeel.getClass().getName().equals(
+                    lookFeelInfo.getClassName()))
                 {
-                    m_jcbLookFeel.setSelectedIndex(m_jcbLookFeel.getItemCount() - 1);
-                }
+                m_jcbLookFeel.setSelectedIndex(
+                    m_jcbLookFeel.getItemCount() - 1);
             }
         }
 

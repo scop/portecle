@@ -3496,10 +3496,15 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         boolean bLookFeelDecoration = dOptions.getLookFeelDecoration();
 
         // Look & feel/decoration changed?
+        /* Note: UIManager.LookAndFeelInfo.getName() and LookAndFeel.getName()
+           can be different for the same L&F (one example is the GTK+ one
+           in J2SE 5 RC2 (Linux), where the former is "GTK+" and the latter is
+           "GTK look and feel"). Therefore, compare the class names instead. */
         if (lookFeelInfo != null)
         {
-            if ((!lookFeelInfo.getName().equals(UIManager.getLookAndFeel().getName())) ||
-                (bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated()))
+            if (!lookFeelInfo.getClassName().equals(
+                    UIManager.getLookAndFeel().getClass().getName()) ||
+                bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated())
             {
                 // Yes - save selections to be picked up by app properties save and exit application
                 JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.LookFeelChanged.message"),
