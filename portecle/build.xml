@@ -59,9 +59,8 @@
   </target>
 
   <target name="jar" depends="build-classes">
-    <mkdir dir="${dist}" />
     <!-- Indexing breaks "java -jar" (Class-Path ignored). -->
-    <jar jarfile="${dist}/${jar}" index="false">
+    <jar jarfile="${build}/${jar}" index="false">
       <manifest>
         <attribute name="Main-Class" value="${main.class}" />
         <attribute name="Implementation-Title" value="Portecle" />
@@ -79,13 +78,11 @@
       </and>
     </condition>
     <antcall target="jar-classpath" />
-    <copy file="${bcprov.jar}" tofile="${dist}/bcprov.jar"
-      preservelastmodified="true" />
   </target>
 
   <!-- Internal: updates jar's Class-Path if jar.classpath is set. -->
   <target name="jar-classpath" if="jar.classpath.set">
-    <jar jarfile="${dist}/${jar}" update="true">
+    <jar jarfile="${build}/${jar}" update="true">
       <manifest>
         <attribute name="Class-Path" value="${jar.classpath}" />
       </manifest>
@@ -109,7 +106,8 @@
     <java fork="true" classname="${main.class}">
       <sysproperty key="portecle.experimental" value="true" />
       <classpath>
-        <fileset dir="${dist}" includes="*.jar" />
+        <pathelement location="${build}/${jar}" />
+        <pathelement location="${bcprov.jar}" />
       </classpath>
     </java>
   </target>
