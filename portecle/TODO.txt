@@ -1,5 +1,4 @@
 TODO for next version (0.2):
-- Improve browserlauncher to work better on recent Linux/Unix.
 - Add ChangeLog.txt/NEWS.txt (remember to include experimental stuff).
 
 TODO for website:
@@ -18,3 +17,4 @@ TODO for later:
 - Change "Copy" and "Copy as XML" in keystore report to "Save as (XML)".
   I have a hunch that clipboards may screw up the encoding which is fatal at
   least with XML...
+- Make browser executable configurable.

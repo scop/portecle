@@ -153,6 +153,10 @@ public class BrowserLauncher {
 	/** JVM constant for any Windows 9x JVM */
 	private static final int WINDOWS_9x = 7;
 
+	/** JVM constant for any Linux JVM */
+	// Portecle addition
+	private static final int LINUX = 8;
+
 	/** JVM constant for any other platform */
 	private static final int OTHER = -1;
 
@@ -250,6 +254,8 @@ public class BrowserLauncher {
 			} else {
 				jvm = WINDOWS_NT;
 			}
+		} else if (osName.startsWith("Linux")) { // Portecle addition
+			jvm = LINUX;
 		} else {
 			jvm = OTHER;
 		}
@@ -492,6 +498,9 @@ public class BrowserLauncher {
 			case WINDOWS_9x:
 				browser = "command.com";
 				break;
+			case LINUX: // Portecle addition
+				browser = "mozilla";
+				break;
 			case OTHER:
 			default:
 				// On systems other than Windows and the Mac, we try via a rather Unix-
@@ -602,6 +611,7 @@ public class BrowserLauncher {
 					throw new IOException("InterruptedException while launching browser: " + ie.getMessage());
 				}
 				break;
+			case LINUX: // Portecle addition
 			case OTHER:
 				// Assume that we're on Unix and that Netscape is installed
 				
