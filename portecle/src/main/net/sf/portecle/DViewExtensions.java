@@ -40,7 +40,8 @@ import net.sf.portecle.gui.error.DThrowable;
 class DViewExtensions extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res =
+        ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold extensions controls */
     private JPanel m_jpExtensions;
@@ -78,6 +79,7 @@ class DViewExtensions extends JDialog
     /** Extensions to display */
     private X509Extension m_extensions;
 
+
     /**
      * Creates new DViewExtensions dialog where the parent is a frame.
      *
@@ -85,15 +87,18 @@ class DViewExtensions extends JDialog
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param extensions Extensions to display
-     * @throws CryptoException A problem was encountered getting the extension details
+     * @throws CryptoException A problem was encountered getting the extension
+     * details
      */
-    public DViewExtensions(JFrame parent, String sTitle, boolean bModal, X509Extension extensions)
+    public DViewExtensions(JFrame parent, String sTitle, boolean bModal,
+                           X509Extension extensions)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
         m_extensions = extensions;
         initComponents();
     }
+
 
     /**
      * Creates new DViewExtensions dialog where the parent is a dialog.
@@ -102,15 +107,18 @@ class DViewExtensions extends JDialog
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param extensions Extensions to display
-     * @throws CryptoException A problem was encountered getting the extension details
+     * @throws CryptoException A problem was encountered getting the extension
+     * details
      */
-    public DViewExtensions(JDialog parent, String sTitle, boolean bModal, X509Extension extensions)
+    public DViewExtensions(JDialog parent, String sTitle, boolean bModal,
+                           X509Extension extensions)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
         m_extensions = extensions;
         initComponents();
     }
+
 
     /**
      * Initialise the dialog's GUI components.
@@ -139,7 +147,8 @@ class DViewExtensions extends JDialog
         // Add custom renderers for the table cells and headers
         for (int iCnt=0; iCnt < m_jtExtensions.getColumnCount(); iCnt++)
         {
-            TableColumn column =  m_jtExtensions.getColumnModel().getColumn(iCnt);
+            TableColumn column =
+                m_jtExtensions.getColumnModel().getColumn(iCnt);
             column.setHeaderRenderer(new ExtensionsTableHeadRend());
             column.setCellRenderer(new ExtensionsTableCellRend());
         }
@@ -165,10 +174,12 @@ class DViewExtensions extends JDialog
         });
 
         // Put the table into a scroll pane
-        m_jspExtensionsTable = new JScrollPane(m_jtExtensions,
-                                               JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                               JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspExtensionsTable.getViewport().setBackground(m_jtExtensions.getBackground());
+        m_jspExtensionsTable = new JScrollPane(
+            m_jtExtensions,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        m_jspExtensionsTable.getViewport().setBackground(
+            m_jtExtensions.getBackground());
 
         // Put the scroll pane into a panel
         m_jpExtensionsTable = new JPanel(new BorderLayout(10, 10));
@@ -179,36 +190,46 @@ class DViewExtensions extends JDialog
         m_jpExtensionValue = new JPanel(new BorderLayout(10, 10));
 
         // Extension Value label
-        m_jlExtensionValue = new JLabel(m_res.getString("DViewExtensions.m_jlExtensionValue.text"));
+        m_jlExtensionValue = new JLabel(
+            m_res.getString("DViewExtensions.m_jlExtensionValue.text"));
 
         // Put label into panel
         m_jpExtensionValue.add(m_jlExtensionValue, BorderLayout.NORTH);
 
         // Extension Value text area
         m_jtaExtensionValue = new JTextArea();
-        m_jtaExtensionValue.setFont(new Font("Monospaced", Font.PLAIN, m_jtaExtensionValue.getFont().getSize()));
+        m_jtaExtensionValue.setFont(
+            new Font("Monospaced", Font.PLAIN,
+                     m_jtaExtensionValue.getFont().getSize()));
         m_jtaExtensionValue.setEditable(false);
-        m_jtaExtensionValue.setToolTipText(m_res.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
+        m_jtaExtensionValue.setToolTipText(
+            m_res.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
         m_jtaExtensionValue.setTabSize(2);
 
         // Put the text area into a scroll pane
-        m_jspExtensionValue = new JScrollPane(m_jtaExtensionValue,
-                                              JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                              JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        m_jspExtensionValue = new JScrollPane(
+            m_jtaExtensionValue,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         // Put the scroll pane into a panel
         m_jpExtensionValueTextArea = new JPanel(new BorderLayout(10, 10));
         m_jpExtensionValueTextArea.setPreferredSize(new Dimension(520, 200));
-        m_jpExtensionValueTextArea.add(m_jspExtensionValue, BorderLayout.CENTER);
+        m_jpExtensionValueTextArea.add(
+            m_jspExtensionValue, BorderLayout.CENTER);
 
         // Put text area panel into Extension Value controls panel
-        m_jpExtensionValue.add(m_jpExtensionValueTextArea, BorderLayout.CENTER);
+        m_jpExtensionValue.add(
+            m_jpExtensionValueTextArea, BorderLayout.CENTER);
 
-        // Put Extensions table and Extension Value text area together in extensions panel
+        // Put Extensions table and Extension Value text area together in
+        // extensions panel
         m_jpExtensions = new JPanel(new GridLayout(2, 1, 5, 5));
-        m_jpExtensions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                    new CompoundBorder(new EtchedBorder(),
-                                                                       new EmptyBorder(5, 5, 5, 5))));
+        m_jpExtensions.setBorder(
+            new CompoundBorder(
+                new EmptyBorder(5, 5, 5, 5),
+                new CompoundBorder(new EtchedBorder(),
+                                   new EmptyBorder(5, 5, 5, 5))));
 
         m_jpExtensions.add(m_jpExtensionsTable);
         m_jpExtensions.add(m_jpExtensionValue);
@@ -255,6 +276,7 @@ class DViewExtensions extends JDialog
         });
     }
 
+
     /**
      * Update the value of the Extension Value text area depending on whether
      * or not an extension has been selected in the table.
@@ -271,17 +293,20 @@ class DViewExtensions extends JDialog
         else
         {
             // Extension selected - get value for extension
-            String sOid = m_jtExtensions.getModel().getValueAt(iSelectedRow, 2).toString();
+            String sOid = m_jtExtensions.getModel().getValueAt(
+                iSelectedRow, 2).toString();
 
             byte[] bValue = m_extensions.getExtensionValue(sOid);
 
-            X509Ext ext = new X509Ext(sOid, bValue, false); // Don't care about criticality
+            // Don't care about criticality
+            X509Ext ext = new X509Ext(sOid, bValue, false);
 
             try
             {
                 m_jtaExtensionValue.setText(ext.getStringValue());
             }
-            catch (Exception ex) // Don't like catching exception but *anything* could go wrong in there
+            // Don't like this but *anything* could go wrong in there
+            catch (Exception ex)
             {
                 m_jtaExtensionValue.setText("");
                 DThrowable dThrowable = new DThrowable(this, true, ex);
@@ -292,6 +317,7 @@ class DViewExtensions extends JDialog
         }
     }
 
+
     /**
      * OK button pressed or otherwise activated.
      */
@@ -299,6 +325,7 @@ class DViewExtensions extends JDialog
     {
         closeDialog();
     }
+
 
     /**
      * Hides the View Extensions dialog.
