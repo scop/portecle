@@ -4,6 +4,7 @@
 
   <property name="version" value="0.2" />
   <property name="main.class" value="net.sf.portecle.FKeyToolGUI" />
+  <property name="jar.classpath" value=". bcprov-jdk14-123.jar metouia.jar kunststoff.jar gtkswing.jar" />
 
   <property file="build.properties" />
 
@@ -43,7 +44,11 @@
 
   <target name="build" depends="build-classes">
     <mkdir dir="${dist}" />
-    <jar jarfile="${dist}/${jar}" manifest="${conf}/MANIFEST.MF">
+    <jar jarfile="${dist}/${jar}">
+      <manifest>
+        <attribute name="Main-Class" value="${main.class}" />
+        <attribute name="Class-Path" value="${jar.classpath}" />
+      </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
       <fileset dir="${src}/main" includes="**/*.properties" />
       <fileset dir="${src}/main" includes="**/*.gif" />

@@ -1,2 +1,0 @@
-Main-Class: net.sf.portecle.FKeyToolGUI
-Class-Path: . bcprov-jdk14-123.jar metouia.jar kunststoff.jar gtkswing.jar
