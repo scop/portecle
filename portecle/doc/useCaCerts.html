@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
   <head>
-    <title>How to use CA Certs Keystore when importing trusted
+    <title>Portecle: How to use CA certs keystore when importing trusted
       certificates and CA replies</title>
     <link rel="stylesheet" href="help.css" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -9,14 +9,14 @@
 
   <body>
 
-    <h1>How to use a CA Certs Keystore</h1>
+    <h1>How to use a CA certs keystore</h1>
     <hr>
 
     <p>
-      Extra certificates from a CA Certs Keystore can be considered when
+      Extra certificates from a CA certs keystore can be considered when
       forming trust paths and attempting to match root certificates.
       This is relevant when importing trusted certifcates and CA
-      replies.  To use a CA Certs Keystore:
+      replies.  To use a CA certs keystore:
     </p>
 
     <ol>
@@ -28,12 +28,11 @@
       <li>Tick the <b>Use CA Certs Keystore</b> check box.</li>
 
       <li>The default <b>CA Certs Keystore</b> is the cacerts file
-        bundled with Java.  To change to another Keystore:
+        bundled with Java.  To change to another keystore:
         <ul>
           <li>Press the <b>Browse</b> button.</li>
           <li>The <b>Choose CA Certs Keystore</b> dialog will appear.</li>
-          <li>Select the drive and folder where the Keystore file is
-            located.</li>
+          <li>Select the folder where the keystore file is located.</li>
           <li>Type the filename into the <b>File Name</b> text box.</li>
           <li>Click on the <b>Choose</b> button.</li>
         </ul>
@@ -42,11 +41,11 @@
       <li>Press the <b>OK</b> button to save your settings and dismiss
         the <b>Options</b> dialog.</li>
 
-      <li>The use of the CA Certs Keystore is now enabled.  The first
+      <li>The use of the CA certs keystore is now enabled.  The first
         time that you attempt to import a trusted certificate or CA
         Reply in a <b>Portecle</b> session you will be prompted for the
-        CA Certs Keystore password.  The default password for cacerts
-        file bundled with Java is "changeit".</li>
+        CA certs keystore password.  The default password for cacerts
+        file bundled with Java is <code>changeit</code>.</li>
     </ol>
 
     <hr>
