@@ -125,7 +125,7 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /** The last directory accessed by the application */
-    LastDir m_lastDir = new LastDir(); // TODO: package private on purpose?
+    private LastDir m_lastDir = new LastDir();
 
     /** Use CA Certs KeyStore file? */
     private boolean m_bUseCaCerts;

@@ -43,7 +43,7 @@ class DNewKeyStoreType extends JDialog
         ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Stores the selected KeyStore type */
-    KeyStoreType m_keyStoreType; // TODO: package private on purpose?
+    private KeyStoreType m_keyStoreType;
 
     /** Panel containing KeyStore type controls */
     private JPanel m_jpKeyStoreType;
