@@ -4092,53 +4092,6 @@ public class FPortecle extends JFrame implements StatusBar
                 return;
             }
 
-            /* Current hosting goes through a frame redirect - this is
-               indicated by content type being HTML.  When the redirection
-               is removed in future this code block will not be called */
-            if (urlConn.getContentType().equals("text/html"))
-            {
-                // Parse redirection HTML for the real URL of the Version file
-                URL redirectionUrl = RedirectParser.getRedirectUrl(urlConn);
-
-                // Disconnect current connection
-                urlConn.disconnect();
-
-                if (redirectionUrl == null)
-                {
-                    // No redirection URL found
-                    JOptionPane.showMessageDialog(
-                        this,
-                        MessageFormat.format(
-                            m_res.getString(
-                                "FPortecle.NoFindRedirect.message"),
-                            new Object[]{latestVersionUrl}),
-                        m_res.getString("FPortecle.Title"),
-                        JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                latestVersionUrl = redirectionUrl;
-
-                // Replace connection with a new one to the redirection URL
-                urlConn = (HttpURLConnection)latestVersionUrl.openConnection();
-
-                iResponseCode = urlConn.getResponseCode();
-                if (iResponseCode != HttpURLConnection.HTTP_OK)
-                {
-                    // Bad response code from server
-                    JOptionPane.showMessageDialog(
-                        this,
-                        MessageFormat.format(
-                            m_res.getString(
-                                "FPortecle.Non200Response.message"),
-                            new Object[]{""+iResponseCode, latestVersionUrl}),
-                        m_res.getString("FPortecle.Title"),
-                        JOptionPane.ERROR_MESSAGE
-                    );
-                    return;
-                }
-            }
-
             // Attempt to read serialized Version into an object
             ois = new ObjectInputStream(urlConn.getInputStream());
             Version latestVersion = (Version)ois.readObject();
