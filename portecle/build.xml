@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="portecle" basedir="." default="build">
+<project name="portecle" basedir="." default="jar">
 
   <property name="version" value="0.2" />
   <property name="main.class" value="net.sf.portecle.FPortecle" />
