@@ -94,7 +94,27 @@
     </java>
   </target>
 
-  <target name="all" depends="build,javadoc" />
+  <target name="all" depends="build,javadoc"
+    description="Builds everything" />
+
+  <target name="antic">
+    <exec executable="antic" taskname="antic">
+      <arg value="-java" />
+      <arg line="-tab 4" />
+      <arg value="${src}/main" />
+    </exec>
+  </target>
+
+  <target name="jlint" depends="build-classes">
+    <exec executable="jlint" taskname="jlint">
+      <arg value="-source" /><arg value="${src}/main" />
+      <arg value="+all" />
+      <arg value="${build}/classes" />
+    </exec>
+  </target>
+
+  <target name="check" depends="antic,jlint"
+    description="Runs static checks" />
 
   <target name="clean">
     <delete dir="${build}" />
