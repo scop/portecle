@@ -42,7 +42,7 @@ easiest way to install it is to unzip the Portecle binary distribution
 to a directory somewhere on your filesystem.
 
 The binary distribution contains the Portecle jar file (portecle.jar)
-as well as Bouncy Castle Provider jar version 1.25 (bcprov.jar) for
+as well as Bouncy Castle Provider jar version 1.27 (bcprov.jar) for
 Java 1.4.x.  If you wish to run Portecle with Java 1.5.x, or update
 the bundled Bouncy Castle Provider for some other reason, simply
 download an update for your version of Java from

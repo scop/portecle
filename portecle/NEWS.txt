@@ -9,7 +9,7 @@ New features:
 
 Enhancements:
 - Minor user interface improvements here and there.
-- Bundled Bouncy Castle Provider jar upgraded to 1.26.
+- Bundled Bouncy Castle Provider jar upgraded to 1.27.
 
 New in Portecle 0.9 (2004-11-03):
 --------------------------------
