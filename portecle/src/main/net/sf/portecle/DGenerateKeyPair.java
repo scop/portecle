@@ -76,10 +76,10 @@ class DGenerateKeyPair extends JDialog
     /** Key algorithm label */
     private JLabel m_jlKeyAlg;
 
-    /** Radio button for a DSA key algorithm */
+    /** Radio button for the DSA key algorithm */
     private JRadioButton m_jrbDSA;
 
-    /** Radio button for an RSA key algorithm */
+    /** Radio button for the RSA key algorithm */
     private JRadioButton m_jrbRSA;
 
     /** Panel for key size controls */
@@ -235,8 +235,12 @@ class DGenerateKeyPair extends JDialog
         m_iKeySize = iKeySize;
 
         // Get key pair generation algorithm
-        m_keyPairType =
-            m_jrbDSA.isSelected() ? KeyPairType.DSA : KeyPairType.RSA;
+        if (m_jrbDSA.isSelected()) {
+            m_keyPairType = KeyPairType.DSA;
+        }
+        else {
+            m_keyPairType = KeyPairType.RSA;
+        }
 
         m_bSuccess = true;
 
