@@ -807,54 +807,39 @@ public class X509Ext extends Object
 
     /**
      * Get Private Key Usage Period (2.5.29.16) extension value as a string.
-     *
+     * <pre>
+     * PrivateKeyUsagePeriod ::= SEQUENCE {
+     *       notBefore       [0]     GeneralizedTime OPTIONAL,
+     *       notAfter        [1]     GeneralizedTime OPTIONAL }
+     * </pre>
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      * @throws ParseException If a date formatting problem occurs
      */
-    private String getPrivateKeyUsagePeriod(byte[] bValue) throws IOException, ParseException
+    private String getPrivateKeyUsagePeriod(byte[] bValue)
+        throws IOException, ParseException
     {
-        /* PrivateKeyUsagePeriod ::= SEQUENCE {
-               notBefore       [0]     GeneralizedTime OPTIONAL,
-               notAfter        [1]     GeneralizedTime OPTIONAL } */
+        ASN1Sequence times = (ASN1Sequence) toDER(bValue);
 
-        DERInputStream dis = null;
+        StringBuffer strBuff = new StringBuffer();
 
-        try
+        for (int i = 0, len = times.size(); i < len; i++)
         {
-            // Get sequence of "not before" and "not after" times
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            ASN1Sequence times = (ASN1Sequence)dis.readObject();
+            DERTaggedObject derTag = (DERTaggedObject) times.getObjectAt(i);
+            DEROctetString dOct = (DEROctetString) derTag.getObject();
+            DERGeneralizedTime dTime =
+                new DERGeneralizedTime(new String(dOct.getOctets()));
 
-            StringBuffer strBuff = new StringBuffer();
-
-            for (Enumeration enumTimes = times.getObjects(); enumTimes.hasMoreElements();)
-            {
-                DERTaggedObject derTag = (DERTaggedObject)enumTimes.nextElement();
-
-                if (derTag.getTagNo() == 0) // Output "not before" time
-                {
-                    DEROctetString notBefore = (DEROctetString)derTag.getObject();
-                    DERGeneralizedTime notBeforeTime = new DERGeneralizedTime(new String(notBefore.getOctets()));
-                    strBuff.append(MessageFormat.format(m_res.getString("NotBeforePrivateKeyUsagePeriod"), new String[]{formatGeneralizedTime(notBeforeTime)}));
-                    strBuff.append('\n');
-                }
-                else if (derTag.getTagNo() == 1) // Output "not after" time
-                {
-                    DEROctetString notAfter = (DEROctetString)derTag.getObject();
-                    DERGeneralizedTime notAfterTime = new DERGeneralizedTime(new String(notAfter.getOctets()));
-                    strBuff.append(MessageFormat.format(m_res.getString("NotAfterPrivateKeyUsagePeriod"), new String[]{formatGeneralizedTime(notAfterTime)}));
-                    strBuff.append('\n');
-                }
-            }
-
-            return strBuff.toString();
+            strBuff.append(
+                MessageFormat.format(
+                    m_res.getString("PrivateKeyUsagePeriod." +
+                                    derTag.getTagNo()),
+                    new String[]{formatGeneralizedTime(dTime)}));
+            strBuff.append('\n');
         }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+
+        return strBuff.toString();
     }
 
     /**
