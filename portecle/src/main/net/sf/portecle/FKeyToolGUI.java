@@ -4929,8 +4929,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void updateTitle()
     {
-        // Application name (name and version)
-        String sAppName = MessageFormat.format("{0} {1}", new String[]{m_res.getString("FKeyToolGUI.Title"), m_res.getString("FKeyToolGUI.Version")});
+        // Application name
+        String sAppName = m_res.getString("FKeyToolGUI.Title");
 
         // No keystore loaded so just display the application name
         if (m_keyStoreWrap == null)
