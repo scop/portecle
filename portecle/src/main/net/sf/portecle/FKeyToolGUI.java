@@ -195,8 +195,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** KeyTool GUI Website menu item of Online Resources menu */
     private JMenuItem m_jmiWebsite;
 
-    /** KeyTool GUI project page at java.net menu item of Online Resources menu */
-    private JMenuItem m_jmiJavaNetProject;
+    /** Portecle project page at SourceForge.net menu item of Online Resources menu */
+    private JMenuItem m_jmiSFNetProject;
 
     /** KeyTool GUI Email menu item of Online Resources menu */
     private JMenuItem m_jmiEmail;
@@ -762,11 +762,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         });
         new StatusBarChangeHandler(m_jmiWebsite, m_res.getString("FKeyToolGUI.m_jmiWebsite.statusbar"), this);
 
-        m_jmiJavaNetProject = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiJavaNetProject.text"),
-                                            m_res.getString("FKeyToolGUI.m_jmiJavaNetProject.mnemonic").charAt(0));
-        m_jmiJavaNetProject.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiJavaNetProject.image")))));
-        m_jmOnlineResources.add(m_jmiJavaNetProject);
-        m_jmiJavaNetProject.addActionListener(new ActionListener()
+        m_jmiSFNetProject = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiSFNetProject.text"),
+                                          m_res.getString("FKeyToolGUI.m_jmiSFNetProject.mnemonic").charAt(0));
+        m_jmiSFNetProject.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiSFNetProject.image")))));
+        m_jmOnlineResources.add(m_jmiSFNetProject);
+        m_jmiSFNetProject.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -776,12 +776,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
                 Thread t = new Thread(new Runnable() {
                     public void run() {
-                        try { visitJavaNetProject(); } finally { setCursorFree(); }
+                        try { visitSFNetProject(); } finally { setCursorFree(); }
                 }});
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiJavaNetProject, m_res.getString("FKeyToolGUI.m_jmiJavaNetProject.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiSFNetProject, m_res.getString("FKeyToolGUI.m_jmiSFNetProject.statusbar"), this);
 
         m_jmiEmail = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiEmail.text"),
                                    m_res.getString("FKeyToolGUI.m_jmiEmail.mnemonic").charAt(0));
@@ -3189,11 +3189,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Display KeyTool GUI project page at java.net.
+     * Display Portecle project page at SourceForge.net.
      */
-    private void visitJavaNetProject()
+    private void visitSFNetProject()
     {
-        String sWebsiteAddress = m_res.getString("FKeyToolGUI.JavaNetProjectAddress");
+        String sWebsiteAddress = m_res.getString("FKeyToolGUI.SFNetProjectAddress");
 
         try
         {
@@ -3231,7 +3231,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Display KeyTool GUI mailing list signup page at java.net.
+     * Display Portecle mailing list signup page at SourceForge.net.
      */
     private void visitMailListSignup()
     {
