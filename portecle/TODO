@@ -1,3 +1,16 @@
+TODO for next version (0.2):
+- UI + docs for setting the "show splash screen" option
+- Mention portecle.experimental somewhere
+- Improve browserlauncher to work better on recent Linux/Unix.
+- Add ChangeLog/NEWS.
+- Add dist/srcdist targets.
+- Add option for building without Class-Path in MANIFEST.MF.
+- Parametrize location to bcprov.jar.
+
+TODO for website:
+- Smaller (in bytes) screenshot for keytool.
+
+TODO for later:
 - http://www.microsoft.com/technet/prodtechnol/windowsserver2003/technologies/security/ws03qswp.mspx
 - Add "Close keystore" functionality (see also PKCS #11 stuff)
 - Fix and clean up or really get rid of "check for update" functionality.
@@ -6,9 +19,6 @@
   - icon for menu item, doc update
   - check "save", "save as" and "change keystore type"
   - logout, login from java.security.AuthProvider (from J2SE 5)
-- UI + docs for setting the "show splash screen" option
-- Improve browserlauncher to work better on recent Linux/Unix.
 - Change "Copy" and "Copy as XML" in keystore report to "Save as (XML)".
   I have a hunch that clipboards may screw up the encoding which is fatal at
   least with XML...
-- Smaller (in bytes) screenshot for keytool.
