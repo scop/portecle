@@ -11,3 +11,4 @@
 - Change "Copy" and "Copy as XML" in keystore report to "Save as (XML)".
   I have a hunch that clipboards may screw up the encoding which is fatal at
   least with XML...
+- Smaller (in bytes) screenshot for keytool.
