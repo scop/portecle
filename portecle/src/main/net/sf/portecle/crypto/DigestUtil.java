@@ -21,8 +21,9 @@
 
 package net.sf.portecle.crypto;
 
-import java.math.*;
-import java.security.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 /**

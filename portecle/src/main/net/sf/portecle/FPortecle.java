@@ -22,23 +22,78 @@
 
 package net.sf.portecle;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.*;
-import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
-import java.security.*;
-import java.security.cert.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.PrivateKey;
+import java.security.Provider;
+import java.security.SecureRandom;
+import java.security.Security;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+import java.security.cert.X509CRL;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-import javax.net.ssl.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.table.*;
+import javax.swing.table.TableColumn;
 
 import edu.stanford.ejalbert.BrowserLauncher;
 
@@ -2873,7 +2928,7 @@ public class FPortecle extends JFrame implements StatusBar
             else {
                 // @@@TODO: cache all this?
                 SSLContext sc = SSLContext.getInstance("SSL");
-                TrustManager[] tm = { new X509TrustManager() {
+                X509TrustManager[] tm = { new X509TrustManager() {
                         public void checkClientTrusted(
                             X509Certificate[] chain, String authType) {}
                         public void checkServerTrusted(
@@ -5288,17 +5343,7 @@ public class FPortecle extends JFrame implements StatusBar
             displayException(ex);
             return false;
         }
-        catch (KeyStoreException ex)
-        {
-            displayException(ex);
-            return false;
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            displayException(ex);
-            return false;
-        }
-        catch (UnrecoverableKeyException ex)
+        catch (GeneralSecurityException ex)
         {
             displayException(ex);
             return false;

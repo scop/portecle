@@ -21,7 +21,8 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.*;
+import java.io.InvalidObjectException;
+import java.io.ObjectStreamException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.ResourceBundle;
