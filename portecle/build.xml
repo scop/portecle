@@ -40,6 +40,16 @@
       <!-- TODO: +Z2 sometime -->
       <compilerarg compiler="jikes" value="+Z" />
     </javac>
+    <copy todir="${build}/classes">
+      <fileset dir="${src}/main" includes="**/*.properties" />
+      <filterset>
+        <filter token="VERSION" value="${version}" />
+      </filterset>
+    </copy>
+    <copy todir="${build}/classes">
+      <fileset dir="${src}/main" includes="**/*.gif" />
+      <fileset dir="${root}" includes="doc/**" />
+    </copy>
   </target>
 
   <target name="build" depends="build-classes">
@@ -55,9 +65,6 @@
         <attribute name="Implementation-URL" value="http://portecle.sourceforge.net/" />
       </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
-      <fileset dir="${src}/main" includes="**/*.properties" />
-      <fileset dir="${src}/main" includes="**/*.gif" />
-      <fileset dir="${root}" includes="doc/**" />
     </jar>
     <copy todir="${dist}">
       <fileset dir="${lib}" includes="*.jar" />
