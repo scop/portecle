@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="portecle" basedir="." default="all">
+<project name="portecle" basedir="." default="build">
 
   <property name="root" value="." />
   <property name="src" value="${root}/src" />
@@ -11,10 +11,6 @@
 
   <property name="jar" value="portecle.jar" />
   <property name="doc" value="${root}/doc" />
-
-  <!--
-  <property name="javadocs" value="${docs}/api" />
-  -->
 
   <path id="build.path">
     <pathelement path="${classpath}" />
@@ -43,7 +39,16 @@
     </copy>
   </target>
 
-  <target name="all" depends="build" />
+  <target name="javadoc">
+    <mkdir dir="${build}/api" />
+    <javadoc destdir="${build}/api" source="1.4" private="yes">
+      <packageset dir="${src}/main" defaultexcludes="yes">
+        <include name="net/sf/portecle/**" />
+      </packageset>
+    </javadoc>
+  </target>
+
+  <target name="all" depends="build,javadoc" />
 
   <target name="clean">
     <delete dir="${build}" />
