@@ -35,20 +35,20 @@ class RecentFileActionListener implements ActionListener
     /** Recent KeyStore file */
     File m_fRecentFile;
 
-    /** FKeyToolGUI object that contains the recent files menu */
-    FKeyToolGUI m_fKeyToolGui;
+    /** FPortecle object that contains the recent files menu */
+    FPortecle m_fPortecle;
 
     /**
      * Create an RecentFileActionListener for the supplied KeyStore file
-     * and fKeyToolGui frame.
+     * and fPortecle frame.
      *
      * @param fRecentFile Recent KeyStore file
-     * @param fKeyToolGui FKeyToolGUI frame
+     * @param fPortecle FPortecle frame
      */
-    public RecentFileActionListener(File fRecentFile, FKeyToolGUI fKeyToolGui)
+    public RecentFileActionListener(File fRecentFile, FPortecle fPortecle)
     {
         m_fRecentFile = fRecentFile;
-        m_fKeyToolGui = fKeyToolGui;
+        m_fPortecle = fPortecle;
     }
 
     /**
@@ -58,18 +58,18 @@ class RecentFileActionListener implements ActionListener
      */
     public void actionPerformed(ActionEvent evt)
     {
-        m_fKeyToolGui.setDefaultStatusBarText();
+        m_fPortecle.setDefaultStatusBarText();
 
         // Does the current KeyStore contain unsaved changes?
-        if (m_fKeyToolGui.needSave())
+        if (m_fPortecle.needSave())
         {
             // Yes - ask the user if it should be saved
-            int iWantSave = m_fKeyToolGui.wantSave();
+            int iWantSave = m_fPortecle.wantSave();
 
             if (iWantSave == JOptionPane.YES_OPTION)
             {
                 // Save it
-                if (!m_fKeyToolGui.saveKeyStore())
+                if (!m_fPortecle.saveKeyStore())
                 {
                     return; // Save failed
                 }
@@ -79,6 +79,6 @@ class RecentFileActionListener implements ActionListener
                 return;
             }
         }
-        m_fKeyToolGui.openKeyStoreFile(m_fRecentFile);
+        m_fPortecle.openKeyStoreFile(m_fRecentFile);
     }
 }

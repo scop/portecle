@@ -1,5 +1,5 @@
 /*
- * FKeyToolGUI.java
+ * FPortecle.java
  *
  * Copyright (C) 2004 Wayne Grant
  * waynedgrant@hotmail.com
@@ -62,7 +62,7 @@ import net.sf.portecle.version.*;
 /**
  * Start class and main frame of the KeyStore GUI application.
  */
-public class FKeyToolGUI extends JFrame implements StatusBar
+public class FPortecle extends JFrame implements StatusBar
 {
     /** Resource bundle */
     private static ResourceBundle m_res =
@@ -70,7 +70,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
     /** Application preferences */
     private static Preferences m_appPrefs =
-        Preferences.userNodeForPackage(FKeyToolGUI.class);
+        Preferences.userNodeForPackage(FPortecle.class);
 
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";
@@ -196,7 +196,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** Set KeyStore Report menu item of Tools menu */
     private JMenuItem m_jmiKeyStoreReport;
 
-    /** KeyTool Options menu item of Tools menu */
+    /** Options menu item of Tools menu */
     private JMenuItem m_jmiOptions;
 
     /** Examine menu */
@@ -410,9 +410,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
 
     /**
-     * Creates a new FKeyToolGUI frame.
+     * Creates a new FPortecle frame.
      */
-    public FKeyToolGUI()
+    public FPortecle()
     {
         // Get and store non-GUI related application properties
         m_bUseCaCerts = m_appPrefs.getBoolean(
@@ -427,7 +427,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
 
     /**
-     * Initialise FKeyToolGUI frame's GUI components.
+     * Initialise FPortecle frame's GUI components.
      */
     private void initComponents()
     {
@@ -474,11 +474,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
 
         // Set its icon
-        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.Icon.image"))));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.Icon.image"))));
     }
 
     /**
-     * Initialise FKeyToolGUI frame's main menu GUI components.
+     * Initialise FPortecle frame's main menu GUI components.
      */
     private void initMenu()
     {
@@ -488,8 +488,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         m_jmbMenuBar = new JMenuBar();
 
         // File menu
-        m_jmrfFile = new JMenuRecentFiles(m_res.getString("FKeyToolGUI.m_jmrfFile.text"), RECENT_FILES_LENGTH, RECENT_FILES_INDEX);
-        m_jmrfFile.setMnemonic(m_res.getString("FKeyToolGUI.m_jmrfFile.mnemonic").charAt(0));
+        m_jmrfFile = new JMenuRecentFiles(m_res.getString("FPortecle.m_jmrfFile.text"), RECENT_FILES_LENGTH, RECENT_FILES_INDEX);
+        m_jmrfFile.setMnemonic(m_res.getString("FPortecle.m_jmrfFile.mnemonic").charAt(0));
 
         m_jmiNewKeyStore = new JMenuItem(m_newKeyStoreAction);
         m_jmiNewKeyStore.setToolTipText(null);
@@ -519,9 +519,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         new StatusBarChangeHandler(m_jmiSaveKeyStore, (String)m_saveKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmrfFile.add(m_jmiSaveKeyStore);
 
-        m_jmiSaveKeyStoreAs = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiSaveKeyStoreAs.text"),
-                                            m_res.getString("FKeyToolGUI.m_jmiSaveKeyStoreAs.mnemonic").charAt(0));
-        m_jmiSaveKeyStoreAs.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiSaveKeyStoreAs.image")))));
+        m_jmiSaveKeyStoreAs = new JMenuItem(m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.text"),
+                                            m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.mnemonic").charAt(0));
+        m_jmiSaveKeyStoreAs.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.image")))));
         m_jmiSaveKeyStoreAs.setEnabled(false);
         m_jmrfFile.add(m_jmiSaveKeyStoreAs);
         m_jmiSaveKeyStoreAs.addActionListener(new ActionListener()
@@ -539,7 +539,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiSaveKeyStoreAs, m_res.getString("FKeyToolGUI.m_jmiSaveKeyStoreAs.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiSaveKeyStoreAs, m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.statusbar"), this);
 
         m_jmrfFile.addSeparator();
 
@@ -555,9 +555,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
         }
 
-        m_jmiExit = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiExit.text"),
-                                                  m_res.getString("FKeyToolGUI.m_jmiExit.mnemonic").charAt(0));
-        m_jmiExit.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiExit.image")))));
+        m_jmiExit = new JMenuItem(m_res.getString("FPortecle.m_jmiExit.text"),
+                                                  m_res.getString("FPortecle.m_jmiExit.mnemonic").charAt(0));
+        m_jmiExit.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiExit.image")))));
         m_jmrfFile.add(m_jmiExit);
         m_jmiExit.addActionListener(new ActionListener()
         {
@@ -574,11 +574,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiExit, m_res.getString("FKeyToolGUI.m_jmiExit.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiExit, m_res.getString("FPortecle.m_jmiExit.statusbar"), this);
 
         // Tools menu
-        m_jmTools = new JMenu(m_res.getString("FKeyToolGUI.m_jmTools.text"));
-        m_jmTools.setMnemonic(m_res.getString("FKeyToolGUI.m_jmTools.mnemonic").charAt(0));
+        m_jmTools = new JMenu(m_res.getString("FPortecle.m_jmTools.text"));
+        m_jmTools.setMnemonic(m_res.getString("FPortecle.m_jmTools.mnemonic").charAt(0));
 
         m_jmiGenKeyPair = new JMenuItem(m_genKeyPairAction);
         m_jmiGenKeyPair.setToolTipText(null);
@@ -602,15 +602,15 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         new StatusBarChangeHandler(m_jmiSetKeyStorePass, (String)m_setKeyStorePassAction.getValue(Action.LONG_DESCRIPTION), this);
         m_jmTools.add(m_jmiSetKeyStorePass);
 
-        m_jmChangeKeyStoreType = new JMenu(m_res.getString("FKeyToolGUI.m_jmChangeKeyStoreType.text"));
-        m_jmChangeKeyStoreType.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmChangeKeyStoreType.image")))));
-        m_jmChangeKeyStoreType.setMnemonic(m_res.getString("FKeyToolGUI.m_jmChangeKeyStoreType.mnemonic").charAt(0));
+        m_jmChangeKeyStoreType = new JMenu(m_res.getString("FPortecle.m_jmChangeKeyStoreType.text"));
+        m_jmChangeKeyStoreType.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmChangeKeyStoreType.image")))));
+        m_jmChangeKeyStoreType.setMnemonic(m_res.getString("FPortecle.m_jmChangeKeyStoreType.mnemonic").charAt(0));
         m_jmChangeKeyStoreType.setEnabled(false);
         m_jmTools.add(m_jmChangeKeyStoreType);
 
         // Add Change KeyStore Type sub-menu of Tools
-        m_jmiChangeKeyStoreTypeJks = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeJks.text"),
-                                                   m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeJks.mnemonic").charAt(0));
+        m_jmiChangeKeyStoreTypeJks = new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.text"),
+                                                   m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeJks.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJks);
         m_jmiChangeKeyStoreTypeJks.addActionListener(new ActionListener()
@@ -628,10 +628,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJks, m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeJks.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJks, m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"), this);
 
-        m_jmiChangeKeyStoreTypeJceks = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeJceks.text"),
-                                                     m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeJceks.mnemonic").charAt(0));
+        m_jmiChangeKeyStoreTypeJceks = new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.text"),
+                                                     m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJceks);
         m_jmiChangeKeyStoreTypeJceks.addActionListener(new ActionListener()
@@ -649,10 +649,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJceks, m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeJceks.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJceks, m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.statusbar"), this);
 
-        m_jmiChangeKeyStoreTypePkcs12 = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypePkcs12.text"),
-                                                      m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypePkcs12.mnemonic").charAt(0));
+        m_jmiChangeKeyStoreTypePkcs12 = new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.text"),
+                                                      m_res.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypePkcs12);
         m_jmiChangeKeyStoreTypePkcs12.addActionListener(new ActionListener()
@@ -670,10 +670,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypePkcs12, m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypePkcs12.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypePkcs12, m_res.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.statusbar"), this);
 
-        m_jmiChangeKeyStoreTypeBks = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeBks.text"),
-                                                   m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeBks.mnemonic").charAt(0));
+        m_jmiChangeKeyStoreTypeBks = new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.text"),
+                                                   m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeBks.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeBks);
         m_jmiChangeKeyStoreTypeBks.addActionListener(new ActionListener()
@@ -691,10 +691,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeBks, m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeBks.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeBks, m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"), this);
 
-        m_jmiChangeKeyStoreTypeUber = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeUber.text"),
-                                                    m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeUber.mnemonic").charAt(0));
+        m_jmiChangeKeyStoreTypeUber = new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.text"),
+                                                    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeUber.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeUber);
         m_jmiChangeKeyStoreTypeUber.addActionListener(new ActionListener()
@@ -712,7 +712,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeUber, m_res.getString("FKeyToolGUI.m_jmiChangeKeyStoreTypeUber.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeUber, m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"), this);
 
         m_jmiKeyStoreReport = new JMenuItem(m_keyStoreReportAction);
         m_jmiKeyStoreReport.setToolTipText(null);
@@ -721,9 +721,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
         m_jmTools.addSeparator();
 
-        m_jmiOptions = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiOptions.text"),
-                                     m_res.getString("FKeyToolGUI.m_jmiOptions.mnemonic").charAt(0));
-        m_jmiOptions.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiOptions.image")))));
+        m_jmiOptions = new JMenuItem(m_res.getString("FPortecle.m_jmiOptions.text"),
+                                     m_res.getString("FPortecle.m_jmiOptions.mnemonic").charAt(0));
+        m_jmiOptions.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiOptions.image")))));
         m_jmTools.add(m_jmiOptions);
         m_jmiOptions.addActionListener(new ActionListener()
         {
@@ -740,11 +740,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiOptions, m_res.getString("FKeyToolGUI.m_jmiOptions.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiOptions, m_res.getString("FPortecle.m_jmiOptions.statusbar"), this);
 
         // Examine menu
-        m_jmExamine = new JMenu(m_res.getString("FKeyToolGUI.m_jmExamine.text"));
-        m_jmExamine.setMnemonic(m_res.getString("FKeyToolGUI.m_jmExamine.mnemonic").charAt(0));
+        m_jmExamine = new JMenu(m_res.getString("FPortecle.m_jmExamine.text"));
+        m_jmExamine.setMnemonic(m_res.getString("FPortecle.m_jmExamine.mnemonic").charAt(0));
 
         m_jmiExamineCert = new JMenuItem(m_examineCertAction);
         m_jmiExamineCert.setToolTipText(null);
@@ -762,8 +762,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         m_jmExamine.add(m_jmiExamineCrl);
 
         // Help menu
-        m_jmHelp = new JMenu(m_res.getString("FKeyToolGUI.m_jmHelp.text"));
-        m_jmHelp.setMnemonic(m_res.getString("FKeyToolGUI.m_jmHelp.mnemonic").charAt(0));
+        m_jmHelp = new JMenu(m_res.getString("FPortecle.m_jmHelp.text"));
+        m_jmHelp.setMnemonic(m_res.getString("FPortecle.m_jmHelp.mnemonic").charAt(0));
 
         m_jmiHelp = new JMenuItem(m_helpAction);
         m_jmiHelp.setToolTipText(null);
@@ -771,14 +771,14 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         m_jmHelp.add(m_jmiHelp);
 
         // Online Resources menu (sub-menu of Help)
-        m_jmOnlineResources = new JMenu(m_res.getString("FKeyToolGUI.m_jmOnlineResources.text"));
-        m_jmOnlineResources.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmOnlineResources.image")))));
-        m_jmOnlineResources.setMnemonic(m_res.getString("FKeyToolGUI.m_jmOnlineResources.mnemonic").charAt(0));
+        m_jmOnlineResources = new JMenu(m_res.getString("FPortecle.m_jmOnlineResources.text"));
+        m_jmOnlineResources.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmOnlineResources.image")))));
+        m_jmOnlineResources.setMnemonic(m_res.getString("FPortecle.m_jmOnlineResources.mnemonic").charAt(0));
         m_jmHelp.add(m_jmOnlineResources);
 
-        m_jmiWebsite = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiWebsite.text"),
-                                     m_res.getString("FKeyToolGUI.m_jmiWebsite.mnemonic").charAt(0));
-        m_jmiWebsite.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiWebsite.image")))));
+        m_jmiWebsite = new JMenuItem(m_res.getString("FPortecle.m_jmiWebsite.text"),
+                                     m_res.getString("FPortecle.m_jmiWebsite.mnemonic").charAt(0));
+        m_jmiWebsite.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiWebsite.image")))));
         m_jmOnlineResources.add(m_jmiWebsite);
         m_jmiWebsite.addActionListener(new ActionListener()
         {
@@ -795,11 +795,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiWebsite, m_res.getString("FKeyToolGUI.m_jmiWebsite.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiWebsite, m_res.getString("FPortecle.m_jmiWebsite.statusbar"), this);
 
-        m_jmiSFNetProject = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiSFNetProject.text"),
-                                          m_res.getString("FKeyToolGUI.m_jmiSFNetProject.mnemonic").charAt(0));
-        m_jmiSFNetProject.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiSFNetProject.image")))));
+        m_jmiSFNetProject = new JMenuItem(m_res.getString("FPortecle.m_jmiSFNetProject.text"),
+                                          m_res.getString("FPortecle.m_jmiSFNetProject.mnemonic").charAt(0));
+        m_jmiSFNetProject.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiSFNetProject.image")))));
         m_jmOnlineResources.add(m_jmiSFNetProject);
         m_jmiSFNetProject.addActionListener(new ActionListener()
         {
@@ -816,11 +816,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiSFNetProject, m_res.getString("FKeyToolGUI.m_jmiSFNetProject.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiSFNetProject, m_res.getString("FPortecle.m_jmiSFNetProject.statusbar"), this);
 
-        m_jmiEmail = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiEmail.text"),
-                                   m_res.getString("FKeyToolGUI.m_jmiEmail.mnemonic").charAt(0));
-        m_jmiEmail.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiEmail.image")))));
+        m_jmiEmail = new JMenuItem(m_res.getString("FPortecle.m_jmiEmail.text"),
+                                   m_res.getString("FPortecle.m_jmiEmail.mnemonic").charAt(0));
+        m_jmiEmail.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiEmail.image")))));
         m_jmOnlineResources.add(m_jmiEmail);
         m_jmiEmail.addActionListener(new ActionListener()
         {
@@ -837,11 +837,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiEmail, m_res.getString("FKeyToolGUI.m_jmiEmail.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiEmail, m_res.getString("FPortecle.m_jmiEmail.statusbar"), this);
 
-        m_jmiMailList = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiMailList.text"),
-                                   m_res.getString("FKeyToolGUI.m_jmiMailList.mnemonic").charAt(0));
-        m_jmiMailList.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiMailList.image")))));
+        m_jmiMailList = new JMenuItem(m_res.getString("FPortecle.m_jmiMailList.text"),
+                                   m_res.getString("FPortecle.m_jmiMailList.mnemonic").charAt(0));
+        m_jmiMailList.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiMailList.image")))));
         m_jmOnlineResources.add(m_jmiMailList);
         m_jmiMailList.addActionListener(new ActionListener()
         {
@@ -858,12 +858,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiMailList, m_res.getString("FKeyToolGUI.m_jmiMailList.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiMailList, m_res.getString("FPortecle.m_jmiMailList.statusbar"), this);
 
         /* Update check disabled for now...
-        m_jmiCheckUpdate = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.text"),
-                                         m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.mnemonic").charAt(0));
-        m_jmiCheckUpdate.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.image")))));
+        m_jmiCheckUpdate = new JMenuItem(m_res.getString("FPortecle.m_jmiCheckUpdate.text"),
+                                         m_res.getString("FPortecle.m_jmiCheckUpdate.mnemonic").charAt(0));
+        m_jmiCheckUpdate.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiCheckUpdate.image")))));
         m_jmOnlineResources.add(m_jmiCheckUpdate);
         m_jmiCheckUpdate.addActionListener(new ActionListener()
         {
@@ -880,7 +880,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiCheckUpdate, m_res.getString("FKeyToolGUI.m_jmiCheckUpdate.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiCheckUpdate, m_res.getString("FPortecle.m_jmiCheckUpdate.statusbar"), this);
         */
 
         /* Donations disabled for now...
@@ -892,9 +892,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
         m_jmHelp.addSeparator();
 
-        m_jmiSecurityProviders = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiSecurityProviders.text"),
-                                               m_res.getString("FKeyToolGUI.m_jmiSecurityProviders.mnemonic").charAt(0));
-        m_jmiSecurityProviders.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiSecurityProviders.image")))));
+        m_jmiSecurityProviders = new JMenuItem(m_res.getString("FPortecle.m_jmiSecurityProviders.text"),
+                                               m_res.getString("FPortecle.m_jmiSecurityProviders.mnemonic").charAt(0));
+        m_jmiSecurityProviders.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiSecurityProviders.image")))));
         m_jmHelp.add(m_jmiSecurityProviders);
         m_jmiSecurityProviders.addActionListener(new ActionListener()
         {
@@ -911,11 +911,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiSecurityProviders, m_res.getString("FKeyToolGUI.m_jmiSecurityProviders.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiSecurityProviders, m_res.getString("FPortecle.m_jmiSecurityProviders.statusbar"), this);
 
-        m_jmiJars = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiJars.text"),
-                                                  m_res.getString("FKeyToolGUI.m_jmiJars.mnemonic").charAt(0));
-        m_jmiJars.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiJars.image")))));
+        m_jmiJars = new JMenuItem(m_res.getString("FPortecle.m_jmiJars.text"),
+                                                  m_res.getString("FPortecle.m_jmiJars.mnemonic").charAt(0));
+        m_jmiJars.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiJars.image")))));
         m_jmHelp.add(m_jmiJars);
         m_jmiJars.addActionListener(new ActionListener()
         {
@@ -932,13 +932,13 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiJars, m_res.getString("FKeyToolGUI.m_jmiJars.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiJars, m_res.getString("FPortecle.m_jmiJars.statusbar"), this);
 
         m_jmHelp.addSeparator();
 
-        m_jmiAbout = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiAbout.text"),
-                                   m_res.getString("FKeyToolGUI.m_jmiAbout.mnemonic").charAt(0));
-        m_jmiAbout.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiAbout.image")))));
+        m_jmiAbout = new JMenuItem(m_res.getString("FPortecle.m_jmiAbout.text"),
+                                   m_res.getString("FPortecle.m_jmiAbout.mnemonic").charAt(0));
+        m_jmiAbout.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiAbout.image")))));
         m_jmHelp.add(m_jmiAbout);
         m_jmiAbout.addActionListener(new ActionListener()
         {
@@ -955,7 +955,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiAbout, m_res.getString("FKeyToolGUI.m_jmiAbout.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiAbout, m_res.getString("FPortecle.m_jmiAbout.statusbar"), this);
 
         // Add the menus to the menu bar
         m_jmbMenuBar.add(m_jmrfFile);
@@ -976,15 +976,15 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private JMenuItemRecentFile createRecentFileMenuItem(File fRecentFile)
     {
         JMenuItemRecentFile jmirfNew = new JMenuItemRecentFile(fRecentFile);
-        jmirfNew.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.OpenRecent.image")))));
+        jmirfNew.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.OpenRecent.image")))));
         jmirfNew.addActionListener(new RecentKeyStoreFileActionListener(fRecentFile, this));
 
-        new StatusBarChangeHandler(jmirfNew, MessageFormat.format(m_res.getString("FKeyToolGUI.recentfile.statusbar"), new Object[]{fRecentFile}), this);
+        new StatusBarChangeHandler(jmirfNew, MessageFormat.format(m_res.getString("FPortecle.recentfile.statusbar"), new Object[]{fRecentFile}), this);
         return jmirfNew;
     }
 
     /**
-     * Initialise FKeyToolGUI frame's toolbar GUI components.
+     * Initialise FPortecle frame's toolbar GUI components.
      */
     private void initToolBar()
     {
@@ -1222,7 +1222,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         m_jtbToolBar = new JToolBar();
         m_jtbToolBar.setFloatable(false);
         m_jtbToolBar.setRollover(true);
-        m_jtbToolBar.setName(m_res.getString("FKeyToolGUI.m_jtbToolBar.name"));
+        m_jtbToolBar.setName(m_res.getString("FPortecle.m_jtbToolBar.name"));
 
         // Add the buttons to the toolbar - use visible separators for all L&Fs
         m_jtbToolBar.add(m_jbNewKeyStore);
@@ -1260,7 +1260,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Initialise FKeyToolGUI frame's KeyStore content table GUI components.
+     * Initialise FPortecle frame's KeyStore content table GUI components.
      */
     private void initTable()
     {
@@ -1364,7 +1364,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Initialise FKeyToolGUI frame's status bar GUI components.
+     * Initialise FPortecle frame's status bar GUI components.
      */
     private void initStatusBar()
     {
@@ -1379,7 +1379,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Initialise FKeyToolGUI frame's popup menu GUI components.  These are invoked
+     * Initialise FPortecle frame's popup menu GUI components.  These are invoked
      * when rows of specific types are clicked upon in the KeyStore table.
      */
     private void initPopupMenus()
@@ -1387,9 +1387,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // Initialiase Key Pair entry pop-up menu including mnemonics and listeners
         m_jpmKeyPair = new JPopupMenu();
 
-        m_jmiKeyPairCertDetails = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiKeyPairCertDetails.text"),
-                                                m_res.getString("FKeyToolGUI.m_jmiKeyPairCertDetails.mnemonic").charAt(0));
-        m_jmiKeyPairCertDetails.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiKeyPairCertDetails.image")))));
+        m_jmiKeyPairCertDetails = new JMenuItem(m_res.getString("FPortecle.m_jmiKeyPairCertDetails.text"),
+                                                m_res.getString("FPortecle.m_jmiKeyPairCertDetails.mnemonic").charAt(0));
+        m_jmiKeyPairCertDetails.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiKeyPairCertDetails.image")))));
         m_jmiKeyPairCertDetails.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1405,11 +1405,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairCertDetails, m_res.getString("FKeyToolGUI.m_jmiKeyPairCertDetails.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiKeyPairCertDetails, m_res.getString("FPortecle.m_jmiKeyPairCertDetails.statusbar"), this);
 
-        m_jmiKeyPairExport = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiKeyPairExport.text"),
-                                           m_res.getString("FKeyToolGUI.m_jmiKeyPairExport.mnemonic").charAt(0));
-        m_jmiKeyPairExport.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiKeyPairExport.image")))));
+        m_jmiKeyPairExport = new JMenuItem(m_res.getString("FPortecle.m_jmiKeyPairExport.text"),
+                                           m_res.getString("FPortecle.m_jmiKeyPairExport.mnemonic").charAt(0));
+        m_jmiKeyPairExport.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiKeyPairExport.image")))));
 
         m_jmiKeyPairExport.addActionListener(new ActionListener()
         {
@@ -1426,12 +1426,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairExport, m_res.getString("FKeyToolGUI.m_jmiKeyPairExport.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiKeyPairExport, m_res.getString("FPortecle.m_jmiKeyPairExport.statusbar"), this);
 
 
-        m_jmiGenerateCSR = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiGenerateCSR.text"),
-                                         m_res.getString("FKeyToolGUI.m_jmiGenerateCSR.mnemonic").charAt(0));
-        m_jmiGenerateCSR.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiGenerateCSR.image")))));
+        m_jmiGenerateCSR = new JMenuItem(m_res.getString("FPortecle.m_jmiGenerateCSR.text"),
+                                         m_res.getString("FPortecle.m_jmiGenerateCSR.mnemonic").charAt(0));
+        m_jmiGenerateCSR.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiGenerateCSR.image")))));
         m_jmiGenerateCSR.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1447,11 +1447,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiGenerateCSR, m_res.getString("FKeyToolGUI.m_jmiGenerateCSR.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiGenerateCSR, m_res.getString("FPortecle.m_jmiGenerateCSR.statusbar"), this);
 
-        m_jmiImportCAReply = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiImportCAReply.text"),
-                                           m_res.getString("FKeyToolGUI.m_jmiImportCAReply.mnemonic").charAt(0));
-        m_jmiImportCAReply.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiImportCAReply.image")))));
+        m_jmiImportCAReply = new JMenuItem(m_res.getString("FPortecle.m_jmiImportCAReply.text"),
+                                           m_res.getString("FPortecle.m_jmiImportCAReply.mnemonic").charAt(0));
+        m_jmiImportCAReply.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiImportCAReply.image")))));
         m_jmiImportCAReply.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1467,11 +1467,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiImportCAReply, m_res.getString("FKeyToolGUI.m_jmiImportCAReply.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiImportCAReply, m_res.getString("FPortecle.m_jmiImportCAReply.statusbar"), this);
 
-        m_jmiSetKeyPairPass = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiSetKeyPairPass.text"),
-                                        m_res.getString("FKeyToolGUI.m_jmiSetKeyPairPass.mnemonic").charAt(0));
-        m_jmiSetKeyPairPass.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiSetKeyPairPass.image")))));
+        m_jmiSetKeyPairPass = new JMenuItem(m_res.getString("FPortecle.m_jmiSetKeyPairPass.text"),
+                                        m_res.getString("FPortecle.m_jmiSetKeyPairPass.mnemonic").charAt(0));
+        m_jmiSetKeyPairPass.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiSetKeyPairPass.image")))));
         m_jmiSetKeyPairPass.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1487,11 +1487,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiSetKeyPairPass, m_res.getString("FKeyToolGUI.m_jmiSetKeyPairPass.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiSetKeyPairPass, m_res.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"), this);
 
-        m_jmiKeyPairDelete = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiKeyPairDelete.text"),
-                                           m_res.getString("FKeyToolGUI.m_jmiKeyPairDelete.mnemonic").charAt(0));
-        m_jmiKeyPairDelete.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiKeyPairDelete.image")))));
+        m_jmiKeyPairDelete = new JMenuItem(m_res.getString("FPortecle.m_jmiKeyPairDelete.text"),
+                                           m_res.getString("FPortecle.m_jmiKeyPairDelete.mnemonic").charAt(0));
+        m_jmiKeyPairDelete.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiKeyPairDelete.image")))));
         m_jmiKeyPairDelete.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1507,11 +1507,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairDelete, m_res.getString("FKeyToolGUI.m_jmiKeyPairDelete.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiKeyPairDelete, m_res.getString("FPortecle.m_jmiKeyPairDelete.statusbar"), this);
 
-        m_jmiClone = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiClone.text"),
-                                   m_res.getString("FKeyToolGUI.m_jmiClone.mnemonic").charAt(0));
-        m_jmiClone.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiClone.image")))));
+        m_jmiClone = new JMenuItem(m_res.getString("FPortecle.m_jmiClone.text"),
+                                   m_res.getString("FPortecle.m_jmiClone.mnemonic").charAt(0));
+        m_jmiClone.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiClone.image")))));
         m_jmiClone.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1527,11 +1527,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiClone, m_res.getString("FKeyToolGUI.m_jmiClone.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiClone, m_res.getString("FPortecle.m_jmiClone.statusbar"), this);
 
-        m_jmiKeyPairRename = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiKeyPairRename.text"),
-                                           m_res.getString("FKeyToolGUI.m_jmiKeyPairRename.mnemonic").charAt(0));
-        m_jmiKeyPairRename.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiKeyPairRename.image")))));
+        m_jmiKeyPairRename = new JMenuItem(m_res.getString("FPortecle.m_jmiKeyPairRename.text"),
+                                           m_res.getString("FPortecle.m_jmiKeyPairRename.mnemonic").charAt(0));
+        m_jmiKeyPairRename.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiKeyPairRename.image")))));
         m_jmiKeyPairRename.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1547,7 +1547,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairRename, m_res.getString("FKeyToolGUI.m_jmiKeyPairRename.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiKeyPairRename, m_res.getString("FPortecle.m_jmiKeyPairRename.statusbar"), this);
 
         m_jpmKeyPair.add(m_jmiKeyPairCertDetails);
         m_jpmKeyPair.addSeparator();
@@ -1563,9 +1563,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // Initialise Trusted Certificate entry pop-up menu including mnemonics and listeners
         m_jpmCert = new JPopupMenu();
 
-        m_jmiTrustCertDetails = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiTrustCertDetails.text"),
-                                              m_res.getString("FKeyToolGUI.m_jmiTrustCertDetails.mnemonic").charAt(0));
-        m_jmiTrustCertDetails.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiTrustCertDetails.image")))));
+        m_jmiTrustCertDetails = new JMenuItem(m_res.getString("FPortecle.m_jmiTrustCertDetails.text"),
+                                              m_res.getString("FPortecle.m_jmiTrustCertDetails.mnemonic").charAt(0));
+        m_jmiTrustCertDetails.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiTrustCertDetails.image")))));
         m_jmiTrustCertDetails.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1581,11 +1581,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertDetails, m_res.getString("FKeyToolGUI.m_jmiTrustCertDetails.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiTrustCertDetails, m_res.getString("FPortecle.m_jmiTrustCertDetails.statusbar"), this);
 
-        m_jmiTrustCertExport = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiTrustCertExport.text"),
-                                             m_res.getString("FKeyToolGUI.m_jmTrustCertExport.mnemonic").charAt(0));
-        m_jmiTrustCertExport.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiTrustCertExport.image")))));
+        m_jmiTrustCertExport = new JMenuItem(m_res.getString("FPortecle.m_jmiTrustCertExport.text"),
+                                             m_res.getString("FPortecle.m_jmTrustCertExport.mnemonic").charAt(0));
+        m_jmiTrustCertExport.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiTrustCertExport.image")))));
         m_jmiTrustCertExport.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1601,11 +1601,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertExport, m_res.getString("FKeyToolGUI.m_jmiTrustCertExport.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiTrustCertExport, m_res.getString("FPortecle.m_jmiTrustCertExport.statusbar"), this);
 
-        m_jmiTrustCertDelete = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiTrustCertDelete.text"),
-                                             m_res.getString("FKeyToolGUI.m_jmiTrustCertDelete.mnemonic").charAt(0));
-        m_jmiTrustCertDelete.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiTrustCertDelete.image")))));
+        m_jmiTrustCertDelete = new JMenuItem(m_res.getString("FPortecle.m_jmiTrustCertDelete.text"),
+                                             m_res.getString("FPortecle.m_jmiTrustCertDelete.mnemonic").charAt(0));
+        m_jmiTrustCertDelete.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiTrustCertDelete.image")))));
         m_jmiTrustCertDelete.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1621,11 +1621,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertDelete, m_res.getString("FKeyToolGUI.m_jmiTrustCertDelete.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiTrustCertDelete, m_res.getString("FPortecle.m_jmiTrustCertDelete.statusbar"), this);
 
-        m_jmiTrustCertRename = new JMenuItem(m_res.getString("FKeyToolGUI.m_jmiTrustCertRename.text"),
-                                             m_res.getString("FKeyToolGUI.m_jmiTrustCertRename.mnemonic").charAt(0));
-        m_jmiTrustCertRename.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.m_jmiTrustCertRename.image")))));
+        m_jmiTrustCertRename = new JMenuItem(m_res.getString("FPortecle.m_jmiTrustCertRename.text"),
+                                             m_res.getString("FPortecle.m_jmiTrustCertRename.mnemonic").charAt(0));
+        m_jmiTrustCertRename.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.m_jmiTrustCertRename.image")))));
         m_jmiTrustCertRename.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -1641,7 +1641,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 t.start();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertRename, m_res.getString("FKeyToolGUI.m_jmiTrustCertRename.statusbar"), this);
+        new StatusBarChangeHandler(m_jmiTrustCertRename, m_res.getString("FPortecle.m_jmiTrustCertRename.statusbar"), this);
 
         m_jpmCert.add(m_jmiTrustCertDetails);
         m_jpmCert.addSeparator();
@@ -1721,8 +1721,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private void showAbout()
     {
         // Display About Dialog in the centre of the frame
-        DAbout dAbout = new DAbout(this, m_res.getString("FKeyToolGUI.About.Title"), true,
-        Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.About.image"))));
+        DAbout dAbout = new DAbout(this, m_res.getString("FPortecle.About.Title"), true,
+        Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.About.image"))));
         dAbout.setLocationRelativeTo(this);
         dAbout.setVisible(true);
     }
@@ -1768,7 +1768,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
            key pair and signature algorithm - this will update the KeyStore
            with the key pair for us */
         DGenerateCertificate dGenerateCertificate =
-            new DGenerateCertificate(this, m_res.getString("FKeyToolGUI.GenerateCertificate.Title"), true, keyPair, keyPairType);
+            new DGenerateCertificate(this, m_res.getString("FPortecle.GenerateCertificate.Title"), true, keyPair, keyPairType);
         dGenerateCertificate.setLocationRelativeTo(this);
         dGenerateCertificate.setVisible(true);
 
@@ -1860,8 +1860,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
         // Display success message
         JOptionPane.showMessageDialog(this,
-                                      m_res.getString("FKeyToolGUI.KeyPairGenerationSuccessful.message"),
-                                      m_res.getString("FKeyToolGUI.GenerateCertificate.Title"),
+                                      m_res.getString("FPortecle.KeyPairGenerationSuccessful.message"),
+                                      m_res.getString("FPortecle.GenerateCertificate.Title"),
                                       JOptionPane.INFORMATION_MESSAGE);
         return true;
     }
@@ -1895,7 +1895,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.OpenKeyStoreFile.Title"));
         chooser.setMultiSelectionEnabled(false);
 
         int iRtnValue = chooser.showOpenDialog(this);
@@ -1922,20 +1922,20 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     {
         // The keystore does not exist
         if (!fKeyStore.exists()) {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.FileNotFound.message"), new Object[]{fKeyStore}),
-                                          m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.FileNotFound.message"), new Object[]{fKeyStore}),
+                                          m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
         // The KeyStore file is not a file
         else if (!fKeyStore.isFile())
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NotFile.message"), new Object[]{fKeyStore}),
-                                          m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NotFile.message"), new Object[]{fKeyStore}),
+                                          m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         // Get the user to enter the KeyStore's password
-        DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FKeyToolGUI.GetKeyStorePassword.Title"), new String[]{fKeyStore.getName()}), true);
+        DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FPortecle.GetKeyStorePassword.Title"), new String[]{fKeyStore.getName()}), true);
         dGetPassword.setLocationRelativeTo(this);
         dGetPassword.setVisible(true);
         char[] cPassword = dGetPassword.getPassword();
@@ -1975,8 +1975,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if (openedKeyStore == null)
             {
                 // None of the types worked - show each of the errors?
-                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenKeyStoreFile.message"), new Object[]{fKeyStore}),
-                                                              m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoOpenKeyStoreFile.message"), new Object[]{fKeyStore}),
+                                                              m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION)
                 {
                     for (int iCnt=0; iCnt < cexs.length; iCnt++)
@@ -2005,8 +2005,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoReadFile.message"), new Object[]{fKeyStore}),
-                                          m_res.getString("FKeyToolGUI.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoReadFile.message"), new Object[]{fKeyStore}),
+                                          m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
         catch (Exception ex)
@@ -2040,7 +2040,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         DChoosePkcs11Provider chooser =
             new DChoosePkcs11Provider(
                 this,
-                m_res.getString("FKeyToolGUI.ChoosePkcs11Provider.Title"),
+                m_res.getString("FPortecle.ChoosePkcs11Provider.Title"),
                 true, null);
         chooser.setLocationRelativeTo(this);
         chooser.setVisible(true);
@@ -2059,7 +2059,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /* package private */ boolean openKeyStorePkcs11(String sPkcs11Provider)
     {
         // Get the user to enter the KeyStore's password
-        DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FKeyToolGUI.GetKeyStorePassword.Title"), new String[]{sPkcs11Provider}), true);
+        DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FPortecle.GetKeyStorePassword.Title"), new String[]{sPkcs11Provider}), true);
         dGetPassword.setLocationRelativeTo(this);
         dGetPassword.setVisible(true);
         char[] cPassword = dGetPassword.getPassword();
@@ -2076,8 +2076,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 KeyStoreUtil.loadKeyStore(sPkcs11Provider, cPassword);
         }
         catch (CryptoException e) {
-            int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenKeyStorePkcs11.message"), new Object[]{sPkcs11Provider}),
-                                                          m_res.getString("FKeyToolGUI.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
+            int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoOpenKeyStorePkcs11.message"), new Object[]{sPkcs11Provider}),
+                                                          m_res.getString("FPortecle.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.YES_OPTION) {
                 displayException(e);
             }
@@ -2155,8 +2155,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new Object[]{fSaveFile}),
-                                          m_res.getString("FKeyToolGUI.SaveKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new Object[]{fSaveFile}),
+                                          m_res.getString("FPortecle.SaveKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
         catch (Exception ex)
@@ -2177,7 +2177,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         assert m_keyStoreWrap.getKeyStore() != null;
 
         // Display the get new password dialog
-        DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FKeyToolGUI.SetKeyStorePassword.Title"), true);
+        DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FPortecle.SetKeyStorePassword.Title"), true);
         dGetNewPassword.setLocationRelativeTo(this);
         dGetNewPassword.setVisible(true);
 
@@ -2223,7 +2223,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.SaveKeyStoreAs.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.SaveKeyStoreAs.Title"));
         chooser.setMultiSelectionEnabled(false);
 
         int iRtnValue = chooser.showSaveDialog(this);
@@ -2236,9 +2236,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 // Ask the user to overwrite if the chosen file exists already
                 if (fSaveFile.isFile())
                 {
-                    String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new Object[]{fSaveFile});
+                    String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new Object[]{fSaveFile});
 
-                    int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FKeyToolGUI.SaveKeyStoreAs.Title"),
+                    int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FPortecle.SaveKeyStoreAs.Title"),
                                                                   JOptionPane.YES_NO_OPTION);
                     if (iSelected == JOptionPane.NO_OPTION)
                     {
@@ -2267,8 +2267,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
             catch (FileNotFoundException ex)
             {
-                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new Object[]{fSaveFile}),
-                                              m_res.getString("FKeyToolGUI.SaveKeyStoreAs.Title"), JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new Object[]{fSaveFile}),
+                                              m_res.getString("FPortecle.SaveKeyStoreAs.Title"), JOptionPane.WARNING_MESSAGE);
                 return false;
             }
             catch (Exception ex)
@@ -2318,13 +2318,13 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         else
         {
-            sKeyStoreName = m_res.getString("FKeyToolGUI.Untitled");
+            sKeyStoreName = m_res.getString("FPortecle.Untitled");
         }
 
-        String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.WantSaveChanges.message"), new String[]{sKeyStoreName});
+        String sMessage = MessageFormat.format(m_res.getString("FPortecle.WantSaveChanges.message"), new String[]{sKeyStoreName});
 
         int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
-                                                      m_res.getString("FKeyToolGUI.WantSaveChanges.Title"),
+                                                      m_res.getString("FPortecle.WantSaveChanges.Title"),
                                                       JOptionPane.YES_NO_CANCEL_OPTION);
         return iSelected;
     }
@@ -2416,7 +2416,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if ((certs != null) && (certs.length > 0))
             {
                 DViewCertificate dViewCertificate =
-                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
+                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
                                          true, certs);
                 dViewCertificate.setLocationRelativeTo(this);
                 dViewCertificate.setVisible(true);
@@ -2510,7 +2510,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if ((certs != null) && (certs.length > 0))
             {
                 DViewCertificate dViewCertificate =
-                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CertDetailsSSL.Title"), new String[]{ia.getHostName() + ":" + ia.getPort()}),
+                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsSSL.Title"), new String[]{ia.getHostName() + ":" + ia.getPort()}),
                                          true, certs);
                 dViewCertificate.setLocationRelativeTo(this);
                 dViewCertificate.setVisible(true);
@@ -2551,7 +2551,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         if (crl != null)
         {
             DViewCRL dViewCRL =
-                new DViewCRL(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CrlDetailsFile.Title"), new String[]{fCRLFile.getName()}),
+                new DViewCRL(this, MessageFormat.format(m_res.getString("FPortecle.CrlDetailsFile.Title"), new String[]{fCRLFile.getName()}),
                              true, crl);
             dViewCRL.setLocationRelativeTo(this);
             dViewCRL.setVisible(true);
@@ -2581,10 +2581,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ImportCaReply.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ImportCaReply.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.ImportCaReply.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ImportCaReply.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fOpenFile = chooser.getSelectedFile();
@@ -2608,10 +2608,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExamineCertificate.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExamineCertificate.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.ExamineCertificate.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ExamineCertificate.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fOpenFile = chooser.getSelectedFile();
@@ -2628,7 +2628,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private InetSocketAddress chooseExamineCertSSL()
     {
         DGetHostPort d = new DGetHostPort(
-            this, m_res.getString("FKeyToolGUI.ExamineCertificateSSL.Title"),
+            this, m_res.getString("FPortecle.ExamineCertificateSSL.Title"),
             true, null);
         d.setLocationRelativeTo(this);
         d.setVisible(true);
@@ -2650,10 +2650,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExamineCrl.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExamineCrl.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.ExamineCrl.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ExamineCrl.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fOpenFile = chooser.getSelectedFile();
@@ -2680,10 +2680,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ImportTrustCert.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ImportTrustCert.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.ImportTrustCert.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ImportTrustCert.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fImportFile = chooser.getSelectedFile();
@@ -2710,10 +2710,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ImportPkcs12KeyStore.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ImportPkcs12KeyStore.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.ImportPkcs12KeyStore.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ImportPkcs12KeyStore.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fPkcs12File = chooser.getSelectedFile();
@@ -2740,10 +2740,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.GenerateCsr.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.GenerateCsr.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.GenerateCsr.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.GenerateCsr.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fCsrFile = chooser.getSelectedFile();
@@ -2781,8 +2781,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if (certs == null)
             {
                 // None of the types worked - show each of the errors?
-                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenCertificate.message"), new Object[]{fCertFile}),
-                                                              m_res.getString("FKeyToolGUI.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoOpenCertificate.message"), new Object[]{fCertFile}),
+                                                              m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION)
                 {
                     for (int iCnt=0; iCnt < exs.length; iCnt++)
@@ -2793,8 +2793,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
             else if (certs.length == 0)
             {
-                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoCertsFound.message"), new Object[]{fCertFile}),
-                                              m_res.getString("FKeyToolGUI.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoCertsFound.message"), new Object[]{fCertFile}),
+                                              m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
             }
 
             return certs;
@@ -2821,8 +2821,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoReadFile.message"), new Object[]{fCRLFile}),
-                                          MessageFormat.format(m_res.getString("FKeyToolGUI.CrlDetailsFile.Title"), new String[]{fCRLFile.getName()}), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoReadFile.message"), new Object[]{fCRLFile}),
+                                          MessageFormat.format(m_res.getString("FPortecle.CrlDetailsFile.Title"), new String[]{fCRLFile.getName()}), JOptionPane.WARNING_MESSAGE);
             return null;
         }
         catch (Exception ex)
@@ -2883,8 +2883,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Compare the public keys of the start of each chain
             if (!oldCerts[0].getPublicKey().equals(certs[0].getPublicKey()))
             {
-                JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.NoMatchPubKeyCaReply.message"),
-                                              m_res.getString("FKeyToolGUI.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.NoMatchPubKeyCaReply.message"),
+                                              m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
@@ -2923,19 +2923,19 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 if (sMatchAlias == null)
                 {
                     // Tell the user what is happening
-                    JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.NoMatchRootCertCaReplyConfirm.message"),
-                                                  m_res.getString("FKeyToolGUI.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.NoMatchRootCertCaReplyConfirm.message"),
+                                                  m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
 
                     // Display the certficate to the user
                     DViewCertificate dViewCertificate =
-                        new DViewCertificate(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
+                        new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
                                              true, new X509Certificate[]{rootCert});
                     dViewCertificate.setLocationRelativeTo(this);
                     dViewCertificate.setVisible(true);
 
                     // Request confirmation that the certidicate is to be trusted
-                    int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FKeyToolGUI.AcceptCaReply.message"),
-                                                                  m_res.getString("FKeyToolGUI.ImportCaReply.Title"),
+                    int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FPortecle.AcceptCaReply.message"),
+                                                                  m_res.getString("FPortecle.ImportCaReply.Title"),
                                                                   JOptionPane.YES_NO_OPTION);
                     if (iSelected == JOptionPane.NO_OPTION)
                     {
@@ -2972,8 +2972,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.NoTrustCaReply.message"),
-                                                  m_res.getString("FKeyToolGUI.ImportCaReply.Title"),
+                    JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.NoTrustCaReply.message"),
+                                                  m_res.getString("FPortecle.ImportCaReply.Title"),
                                                   JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
@@ -2989,7 +2989,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 // Password is only relevant if the KeyStore is not PKCS #12
                 if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                 {
-                    DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FKeyToolGUI.KeyEntryPassword.Title"), true);
+                    DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                     dGetPassword.setLocationRelativeTo(this);
                     dGetPassword.setVisible(true);
                     cPassword = dGetPassword.getPassword();
@@ -3017,8 +3017,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             m_lastDir.updateLastDir(fCertFile);
 
             // Display success message
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.ImportCaReplySuccessful.message"),
-                                          m_res.getString("FKeyToolGUI.ImportCaReply.Title"),
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.ImportCaReplySuccessful.message"),
+                                          m_res.getString("FPortecle.ImportCaReply.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
 
             return true;
@@ -3058,8 +3058,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         if (certs.length >  1)
         {
             // Cannot import more than one certificate
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.NoMultipleTrustCertImport.message"),
-                                          m_res.getString("FKeyToolGUI.ImportTrustCert.Title"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.NoMultipleTrustCertImport.message"),
+                                          m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -3074,8 +3074,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             String sMatchAlias = X509CertUtil.matchCertificate(keyStore, trustCert);
             if (sMatchAlias != null)
             {
-                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.TrustCertExistsConfirm.message"), new String[]{sMatchAlias}),
-                                                              m_res.getString("FKeyToolGUI.ImportTrustCert.Title"),
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FPortecle.TrustCertExistsConfirm.message"), new String[]{sMatchAlias}),
+                                                              m_res.getString("FPortecle.ImportTrustCert.Title"),
                                                               JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.NO_OPTION)
                 {
@@ -3112,20 +3112,20 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if (X509CertUtil.establishTrust(compKeyStores, trustCert) == null)
             {
                 // Tell the user what is happening
-                JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.NoTrustPathCertConfirm.message"),
-                                              m_res.getString("FKeyToolGUI.ImportTrustCert.Title"),
+                JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.NoTrustPathCertConfirm.message"),
+                                              m_res.getString("FPortecle.ImportTrustCert.Title"),
                                               JOptionPane.INFORMATION_MESSAGE);
 
                 // Display the certficate to the user
                 DViewCertificate dViewCertificate =
-                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
+                    new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsFile.Title"), new String[]{fCertFile.getName()}),
                                          true, new X509Certificate[]{trustCert});
                 dViewCertificate.setLocationRelativeTo(this);
                 dViewCertificate.setVisible(true);
 
                 // Request confirmation that the certidicate is to be trusted
-                int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FKeyToolGUI.AcceptTrustCert.message"),
-                                                              m_res.getString("FKeyToolGUI.ImportTrustCert.Title"),
+                int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FPortecle.AcceptTrustCert.message"),
+                                                              m_res.getString("FPortecle.ImportTrustCert.Title"),
                                                               JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.NO_OPTION)
                 {
@@ -3134,7 +3134,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
 
             // Get the entry alias to put the trusted certificate into
-            DGetAlias dGetAlias = new DGetAlias(this, m_res.getString("FKeyToolGUI.TrustCertEntryAlias.Title"), true, X509CertUtil.getCertificateAlias(trustCert));
+            DGetAlias dGetAlias = new DGetAlias(this, m_res.getString("FPortecle.TrustCertEntryAlias.Title"), true, X509CertUtil.getCertificateAlias(trustCert));
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
             String sAlias = dGetAlias.getAlias();
@@ -3147,9 +3147,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Check entry does not already exist in the KeyStore
             if (keyStore.containsAlias(sAlias))
             {
-                String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteEntry.message"), new String[]{sAlias});
+                String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), new String[]{sAlias});
 
-                int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FKeyToolGUI.ImportTrustCert.Title"),
+                int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FPortecle.ImportTrustCert.Title"),
                                                               JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.NO_OPTION)
                 {
@@ -3172,7 +3172,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             m_lastDir.updateLastDir(fCertFile);
 
             // Display success message
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.ImportTrustCertSuccessful.message"), m_res.getString("FKeyToolGUI.ImportTrustCert.Title"),
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.ImportTrustCertSuccessful.message"), m_res.getString("FPortecle.ImportTrustCert.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
 
             return true;
@@ -3206,13 +3206,13 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // The PKCS #12 file is not a file
         if (!fPkcs12.isFile())
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NotFile.message"), new Object[]{fPkcs12}),
-                                          m_res.getString("FKeyToolGUI.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NotFile.message"), new Object[]{fPkcs12}),
+                                          m_res.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         // Get the user to enter the PKCS #12 KeyStore's password
-        DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FKeyToolGUI.Pkcs12Password.Title"), true);
+        DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FPortecle.Pkcs12Password.Title"), true);
         dGetPassword.setLocationRelativeTo(this);
         dGetPassword.setVisible(true);
         char[] cPkcs12Password = dGetPassword.getPassword();
@@ -3250,7 +3250,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
             // Get the alias for the new key pair entry
             DGetAlias dGetAlias =
-                new DGetAlias(this, m_res.getString("FKeyToolGUI.KeyPairEntryAlias.Title"), true,
+                new DGetAlias(this, m_res.getString("FPortecle.KeyPairEntryAlias.Title"), true,
                               X509CertUtil.getCertificateAlias(X509CertUtil.convertCertificate(certs[0])));
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
@@ -3264,9 +3264,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Check an entry with the selected does not already exist in the KeyStore
             if (keyStore.containsAlias(sAlias))
             {
-                String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteEntry.message"), new String[]{sAlias});
+                String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), new String[]{sAlias});
 
-                int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FKeyToolGUI.KeyPairEntryAlias.Title"),
+                int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FPortecle.KeyPairEntryAlias.Title"),
                                                               JOptionPane.YES_NO_CANCEL_OPTION);
                 if (iSelected == JOptionPane.CANCEL_OPTION)
                 {
@@ -3285,7 +3285,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
             if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
             {
-                DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FKeyToolGUI.KeyEntryPassword.Title"), true);
+                DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                 dGetNewPassword.setLocationRelativeTo(this);
                 dGetNewPassword.setVisible(true);
                 cPassword = dGetNewPassword.getPassword();
@@ -3307,8 +3307,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             updateTitle();
 
             // Display success message
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.KeyPairImportSuccessful.message"),
-                                          m_res.getString("FKeyToolGUI.ImportKeyPair.Title"),
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.KeyPairImportSuccessful.message"),
+                                          m_res.getString("FPortecle.ImportKeyPair.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
             return true;
         }
@@ -3327,7 +3327,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private KeyStore openCaCertsKeyStore()
     {
         // Get the user to enter the CA Certs KeyStore's password
-        DGetPassword dGetPassword = new DGetPassword(this, m_res.getString("FKeyToolGUI.CaCertsKeyStorePassword.Title"), true);
+        DGetPassword dGetPassword = new DGetPassword(this, m_res.getString("FPortecle.CaCertsKeyStorePassword.Title"), true);
         dGetPassword.setLocationRelativeTo(this);
         dGetPassword.setVisible(true);
         char[] cPassword = dGetPassword.getPassword();
@@ -3367,8 +3367,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if (caCertsKeyStore == null)
             {
                 // None of the types worked - show each of the errors?
-                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoOpenCaCertsKeyStore.message"), new Object[]{m_fCaCertsFile}),
-                                                              m_res.getString("FKeyToolGUI.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoOpenCaCertsKeyStore.message"), new Object[]{m_fCaCertsFile}),
+                                                              m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION)
                 {
                     for (int iCnt=0; iCnt < cexs.length; iCnt++)
@@ -3384,8 +3384,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoReadFile.message"), new Object[]{m_fCaCertsFile}),
-                                          m_res.getString("FKeyToolGUI.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoReadFile.message"), new Object[]{m_fCaCertsFile}),
+                                          m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
             return null;
         }
         catch (Exception ex)
@@ -3403,10 +3403,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // Create the dialog if it does not already exist
         if (m_fHelp == null)
         {
-            URL toc = getClass().getResource(m_res.getString("FKeyToolGUI.Help.Contents"));
-            URL home = getClass().getResource(m_res.getString("FKeyToolGUI.Help.Home"));
+            URL toc = getClass().getResource(m_res.getString("FPortecle.Help.Contents"));
+            URL home = getClass().getResource(m_res.getString("FPortecle.Help.Home"));
 
-            m_fHelp = new FHelp(m_res.getString("FKeyToolGUI.Help.Title"), home, toc);
+            m_fHelp = new FHelp(m_res.getString("FPortecle.Help.Title"), home, toc);
             m_fHelp.setLocation(getX() + 25, getY() + 25);
             m_fHelp.setVisible(true);
         }
@@ -3420,7 +3420,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void visitWebsite()
     {
-        String sWebsiteAddress = m_res.getString("FKeyToolGUI.WebsiteAddress");
+        String sWebsiteAddress = m_res.getString("FPortecle.WebsiteAddress");
 
         try
         {
@@ -3430,8 +3430,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         {
             // Could not launch web browser - tell the user the address
             JOptionPane.showMessageDialog(this,
-                                          MessageFormat.format(m_res.getString("FKeyToolGUI.NoLaunchBrowser.message"), new String[]{sWebsiteAddress}),
-                                          m_res.getString("FKeyToolGUI.Title"),
+                                          MessageFormat.format(m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[]{sWebsiteAddress}),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -3441,7 +3441,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void visitSFNetProject()
     {
-        String sWebsiteAddress = m_res.getString("FKeyToolGUI.SFNetProjectAddress");
+        String sWebsiteAddress = m_res.getString("FPortecle.SFNetProjectAddress");
 
         try
         {
@@ -3451,8 +3451,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         {
             // Could not launch web browser - tell the user the address
             JOptionPane.showMessageDialog(this,
-                                          MessageFormat.format(m_res.getString("FKeyToolGUI.NoLaunchBrowser.message"), new String[]{sWebsiteAddress}),
-                                          m_res.getString("FKeyToolGUI.Title"),
+                                          MessageFormat.format(m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[]{sWebsiteAddress}),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -3462,7 +3462,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void composeEmail()
     {
-        String sEmailAddress = m_res.getString("FKeyToolGUI.EmailAddress");
+        String sEmailAddress = m_res.getString("FPortecle.EmailAddress");
 
         try
         {
@@ -3472,8 +3472,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         catch (IOException ex)
         {
             JOptionPane.showMessageDialog(this,
-                                          MessageFormat.format(m_res.getString("FKeyToolGUI.NoLaunchEmail.message"), new String[]{sEmailAddress}),
-                                          m_res.getString("FKeyToolGUI.Title"),
+                                          MessageFormat.format(m_res.getString("FPortecle.NoLaunchEmail.message"), new String[]{sEmailAddress}),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -3483,7 +3483,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void visitMailListSignup()
     {
-        String sMailListSignupAddress = m_res.getString("FKeyToolGUI.MailListSignupAddress");
+        String sMailListSignupAddress = m_res.getString("FPortecle.MailListSignupAddress");
 
         try
         {
@@ -3493,8 +3493,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         {
             // Could not launch web browser - tell the user the address
             JOptionPane.showMessageDialog(this,
-                                          MessageFormat.format(m_res.getString("FKeyToolGUI.NoLaunchBrowser.message"), new String[]{sMailListSignupAddress}),
-                                          m_res.getString("FKeyToolGUI.Title"),
+                                          MessageFormat.format(m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[]{sMailListSignupAddress}),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -3506,7 +3506,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private void checkForUpdate()
     {
         // Get the version number of this Portecle
-        String sCurrentVersion = m_res.getString("FKeyToolGUI.Version");
+        String sCurrentVersion = m_res.getString("FPortecle.Version");
 
         HttpURLConnection urlConn = null;
         ObjectInputStream ois = null;
@@ -3517,7 +3517,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                a serialised Version object on the Portecle web site */
 
             // Build and connect to the relevant URL
-            URL latestVersionUrl = new URL(m_res.getString("FKeyToolGUI.LatestVersionAddress"));
+            URL latestVersionUrl = new URL(m_res.getString("FPortecle.LatestVersionAddress"));
             urlConn = (HttpURLConnection)latestVersionUrl.openConnection();
 
             int iResponseCode = urlConn.getResponseCode();
@@ -3526,8 +3526,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 // Bad response code from server
                 JOptionPane.showMessageDialog(
                     this,
-                    MessageFormat.format(m_res.getString("FKeyToolGUI.Non200Response.message"), new Object[]{""+iResponseCode, latestVersionUrl}),
-                    m_res.getString("FKeyToolGUI.Title"),
+                    MessageFormat.format(m_res.getString("FPortecle.Non200Response.message"), new Object[]{""+iResponseCode, latestVersionUrl}),
+                    m_res.getString("FPortecle.Title"),
                     JOptionPane.ERROR_MESSAGE
                 );
                 return;
@@ -3547,8 +3547,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 {
                     // No redirection URL found
                     JOptionPane.showMessageDialog(this,
-                                                  MessageFormat.format(m_res.getString("FKeyToolGUI.NoFindRedirect.message"), new Object[]{latestVersionUrl}),
-                                                  m_res.getString("FKeyToolGUI.Title"),
+                                                  MessageFormat.format(m_res.getString("FPortecle.NoFindRedirect.message"), new Object[]{latestVersionUrl}),
+                                                  m_res.getString("FPortecle.Title"),
                                                   JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -3564,8 +3564,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                     // Bad response code from server
                     JOptionPane.showMessageDialog(
                         this,
-                        MessageFormat.format(m_res.getString("FKeyToolGUI.Non200Response.message"), new Object[]{""+iResponseCode, latestVersionUrl}),
-                        m_res.getString("FKeyToolGUI.Title"),
+                        MessageFormat.format(m_res.getString("FPortecle.Non200Response.message"), new Object[]{""+iResponseCode, latestVersionUrl}),
+                        m_res.getString("FPortecle.Title"),
                         JOptionPane.ERROR_MESSAGE
                     );
                     return;
@@ -3586,16 +3586,16 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             {
                 // Latest version same (or less!) then current version - tell user they are up-to-date
                 JOptionPane.showMessageDialog(this,
-                                              MessageFormat.format(m_res.getString("FKeyToolGUI.HaveLatestVersion.message"), new Object[]{currentVersion}),
-                                              m_res.getString("FKeyToolGUI.Title"),
+                                              MessageFormat.format(m_res.getString("FPortecle.HaveLatestVersion.message"), new Object[]{currentVersion}),
+                                              m_res.getString("FPortecle.Title"),
                                               JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
                 int iSelected = JOptionPane.showConfirmDialog(
                     this,
-                    MessageFormat.format(m_res.getString("FKeyToolGUI.NewerVersionAvailable.message"), new Object[]{latestVersion, m_res.getString("FKeyToolGUI.DownloadsAddress")}),
-                    m_res.getString("FKeyToolGUI.Title"), JOptionPane.YES_NO_OPTION);
+                    MessageFormat.format(m_res.getString("FPortecle.NewerVersionAvailable.message"), new Object[]{latestVersion, m_res.getString("FPortecle.DownloadsAddress")}),
+                    m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION)
                 {
                     visitDownloads();
@@ -3635,7 +3635,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void visitDownloads()
     {
-        String sDownloadsAddress = m_res.getString("FKeyToolGUI.DownloadsAddress");
+        String sDownloadsAddress = m_res.getString("FPortecle.DownloadsAddress");
 
         try
         {
@@ -3645,8 +3645,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         {
             // Could not launch web browser - tell the user the address
             JOptionPane.showMessageDialog(this,
-                                          MessageFormat.format(m_res.getString("FKeyToolGUI.NoLaunchBrowser.message"), new String[]{sDownloadsAddress}),
-                                          m_res.getString("FKeyToolGUI.Title"),
+                                          MessageFormat.format(m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[]{sDownloadsAddress}),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -3656,11 +3656,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
      */
     private void makeDonation()
     {
-        int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FKeyToolGUI.Donation.message"),
-                                                      m_res.getString("FKeyToolGUI.Title"), JOptionPane.YES_NO_OPTION);
+        int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FPortecle.Donation.message"),
+                                                      m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION);
         if (iSelected == JOptionPane.YES_OPTION)
         {
-            String sDonateAddress = m_res.getString("FKeyToolGUI.DonateAddress");
+            String sDonateAddress = m_res.getString("FPortecle.DonateAddress");
 
             try
             {
@@ -3670,8 +3670,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             {
                 // Could not launch web browser - tell the user the address
                 JOptionPane.showMessageDialog(this,
-                                              MessageFormat.format(m_res.getString("FKeyToolGUI.NoLaunchBrowser.message"), new String[]{sDonateAddress}),
-                                              m_res.getString("FKeyToolGUI.Title"),
+                                              MessageFormat.format(m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[]{sDonateAddress}),
+                                              m_res.getString("FPortecle.Title"),
                                               JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -3778,8 +3778,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                     // Save and exit application
                     JOptionPane.showMessageDialog(
                         this,
-                        m_res.getString("FKeyToolGUI.LookFeelChanged.message"),
-                        m_res.getString("FKeyToolGUI.LookFeelChanged.Title"),
+                        m_res.getString("FPortecle.LookFeelChanged.message"),
+                        m_res.getString("FPortecle.LookFeelChanged.Title"),
                         JOptionPane.INFORMATION_MESSAGE);
                     exitApplication();
                 }
@@ -3840,8 +3840,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                         if (!bWarnNoChangeKey)
                         {
                             bWarnNoChangeKey = true;
-                            int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FKeyToolGUI.WarnNoChangeKey.message"),
-                                                                          m_res.getString("FKeyToolGUI.ChangeKeyStoreType.Title"), JOptionPane.YES_NO_OPTION);
+                            int iSelected = JOptionPane.showConfirmDialog(this, m_res.getString("FPortecle.WarnNoChangeKey.message"),
+                                                                          m_res.getString("FPortecle.ChangeKeyStoreType.Title"), JOptionPane.YES_NO_OPTION);
                             if (iSelected == JOptionPane.NO_OPTION)
                             {
                                 return false;
@@ -3861,7 +3861,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                         // Password is only relevant if the current KeyStore type is not PKCS #12
                         if (!sCurrentType.equals(KeyStoreType.PKCS12.toString()))
                         {
-                            DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FKeyToolGUI.ChangeKeyStoreTypeKeyPairEntryPassword.Title"), new String[]{sAlias}), true);
+                            DGetPassword dGetPassword = new DGetPassword(this, MessageFormat.format(m_res.getString("FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"), new String[]{sAlias}), true);
                             dGetPassword.setLocationRelativeTo(this);
                             dGetPassword.setVisible(true);
                             cPassword = dGetPassword.getPassword();
@@ -3883,8 +3883,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                         if (!bWarnPkcs12Password)
                         {
                             bWarnPkcs12Password = true;
-                            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.ChangeFromPkcs12Password.message"), new String[]{new String(PKCS12_DUMMY_PASSWORD)}),
-                                                          m_res.getString("FKeyToolGUI.ChangeKeyStoreType.Title"),
+                            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.ChangeFromPkcs12Password.message"), new String[]{new String(PKCS12_DUMMY_PASSWORD)}),
+                                                          m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                                                           JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
@@ -3911,8 +3911,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             updateTitle();
 
             // Display success message
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.ChangeKeyStoreTypeSuccessful.message"),
-                                          m_res.getString("FKeyToolGUI.ChangeKeyStoreType.Title"),
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.ChangeKeyStoreTypeSuccessful.message"),
+                                          m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
             return true;
         }
@@ -3986,7 +3986,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
         /* Display the change password dialog supplying the current password to
            it if it was available */
-        DChangePassword dChangePassword = new DChangePassword(this, true, m_res.getString("FKeyToolGUI.SetKeyPairPassword.Title"), cOldPassword);
+        DChangePassword dChangePassword = new DChangePassword(this, true, m_res.getString("FPortecle.SetKeyPairPassword.Title"), cOldPassword);
         dChangePassword.setLocationRelativeTo(this);
         dChangePassword.setVisible(true);
 
@@ -4118,8 +4118,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             if (bSuccess)
             {
                 // Display success message
-                JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.ExportSuccessful.message"),
-                                              m_res.getString("FKeyToolGUI.Export.Title"),
+                JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.ExportSuccessful.message"),
+                                              m_res.getString("FPortecle.Export.Title"),
                                               JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -4150,7 +4150,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // File already exists
         if (fExportFile.isFile())
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.NO_OPTION)
             {
@@ -4176,7 +4176,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4210,7 +4210,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // File already exists
         if (fExportFile.isFile())
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.NO_OPTION)
             {
@@ -4235,7 +4235,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4269,7 +4269,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // File already exists
         if (fExportFile.isFile())
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.NO_OPTION)
             {
@@ -4294,7 +4294,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4328,7 +4328,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // File already exists
         if (fExportFile.isFile())
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.NO_OPTION)
             {
@@ -4353,7 +4353,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4387,7 +4387,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // File already exists
         if (fExportFile.isFile())
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.NO_OPTION)
             {
@@ -4413,7 +4413,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4452,7 +4452,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // File already exists
         if (fExportFile.isFile())
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
             if (iSelected == JOptionPane.NO_OPTION)
             {
@@ -4478,7 +4478,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4530,7 +4530,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (KeyStoreException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoAccessEntry.message"), new String[]{sEntryAlias});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoAccessEntry.message"), new String[]{sEntryAlias});
             throw new CryptoException(sMessage, ex);
         }
     }
@@ -4556,7 +4556,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Password is only relevant if the KeyStore is not PKCS #12
             if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
             {
-                DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FKeyToolGUI.KeyEntryPassword.Title"), true);
+                DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                 dGetPassword.setLocationRelativeTo(this);
                 dGetPassword.setVisible(true);
                 cPassword = dGetPassword.getPassword();
@@ -4587,7 +4587,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             pkcs12.setKeyEntry(sEntryAlias, privKey, new char[0], certs);
 
             // Get a new password for the PKCS #12 KeyStore
-            DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FKeyToolGUI.Pkcs12Password.Title"), true);
+            DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FPortecle.Pkcs12Password.Title"), true);
             dGetNewPassword.setLocationRelativeTo(this);
             dGetNewPassword.setVisible(true);
 
@@ -4608,7 +4608,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // File already exists
             if (fExportFile.isFile())
             {
-                String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new String[]{fExportFile.getName()});
+                String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new String[]{fExportFile.getName()});
                 int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.NO_OPTION)
                 {
@@ -4625,7 +4625,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new String[]{fExportFile.getName()});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new String[]{fExportFile.getName()});
             JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -4671,10 +4671,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExportCertificate.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExportCertificate.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.Export.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fExportFile = chooser.getSelectedFile();
@@ -4698,10 +4698,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExportCertificates.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExportCertificates.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.Export.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fExportFile = chooser.getSelectedFile();
@@ -4725,10 +4725,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExportCertificates.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExportCertificates.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.Export.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fExportFile = chooser.getSelectedFile();
@@ -4752,10 +4752,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             chooser.setCurrentDirectory(fLastDir);
         }
 
-        chooser.setDialogTitle(m_res.getString("FKeyToolGUI.ExportKeyCertificates.Title"));
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExportKeyCertificates.Title"));
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(this, m_res.getString("FKeyToolGUI.Export.button"));
+        int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION)
         {
             File fExportFile = chooser.getSelectedFile();
@@ -4806,7 +4806,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 // Password is only relevant if the KeyStore is not PKCS #12
                 if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                 {
-                    DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FKeyToolGUI.KeyEntryPassword.Title"), true);
+                    DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                     dGetPassword.setLocationRelativeTo(this);
                     dGetPassword.setVisible(true);
                     cPassword = dGetPassword.getPassword();
@@ -4834,8 +4834,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // The chosen file already exists
             if (fCsrFile.isFile())
             {
-                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteFile.message"), new Object[]{fCsrFile}),
-                                                              m_res.getString("FKeyToolGUI.GenerateCsr.Title"), JOptionPane.YES_NO_OPTION);
+                int iSelected = JOptionPane.showConfirmDialog(this, MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), new Object[]{fCsrFile}),
+                                                              m_res.getString("FPortecle.GenerateCsr.Title"), JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.NO_OPTION)
                 {
                     return false;
@@ -4856,8 +4856,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             fw.close();
 
             // Display success message
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.CsrGenerationSuccessful.message"),
-                                          m_res.getString("FKeyToolGUI.GenerateCsr.Title"),
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.CsrGenerationSuccessful.message"),
+                                          m_res.getString("FPortecle.GenerateCsr.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
 
             m_lastDir.updateLastDir(fCsrFile);
@@ -4866,8 +4866,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
         catch (FileNotFoundException ex)
         {
-            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.NoWriteFile.message"), new Object[]{fCsrFile}),
-                                          m_res.getString("FKeyToolGUI.GenerateCsr.Title"), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), new Object[]{fCsrFile}),
+                                          m_res.getString("FPortecle.GenerateCsr.Title"), JOptionPane.WARNING_MESSAGE);
             return false;
         }
         catch (Exception ex)
@@ -4917,7 +4917,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 // Password is only relevant if the KeyStore is not PKCS #12
                 if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                 {
-                    DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FKeyToolGUI.KeyEntryPassword.Title"), true);
+                    DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                     dGetPassword.setLocationRelativeTo(this);
                     dGetPassword.setVisible(true);
                     cPassword = dGetPassword.getPassword();
@@ -4941,7 +4941,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 X509CertUtil.convertCertificates(certs)
             );
 
-            DGetAlias dGetAlias = new DGetAlias(this, m_res.getString("FKeyToolGUI.ClonedKeyPairEntryAlias.Title"), true, X509CertUtil.getCertificateAlias(x509Certs[0]));
+            DGetAlias dGetAlias = new DGetAlias(this, m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), true, X509CertUtil.getCertificateAlias(x509Certs[0]));
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
             String sNewAlias = dGetAlias.getAlias();
@@ -4954,18 +4954,18 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Check new alias differs from the present one
             if (sNewAlias.equalsIgnoreCase(sAlias))
             {
-                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CloneAliasIdentical.message"), new String[]{sAlias}),
-                                              m_res.getString("FKeyToolGUI.CloneEntry.Title"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.CloneAliasIdentical.message"), new String[]{sAlias}),
+                                              m_res.getString("FPortecle.CloneEntry.Title"), JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
             // Check entry does not already exist in the KeyStore
             if (keyStore.containsAlias(sNewAlias))
             {
-                String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverwriteAlias.message"),
+                String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"),
                                                        new String[]{sNewAlias});
 
-                int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FKeyToolGUI.ClonedKeyPairEntryAlias.Title"),
+                int iSelected = JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"),
                                                               JOptionPane.YES_NO_CANCEL_OPTION);
                 if (iSelected == JOptionPane.CANCEL_OPTION)
                 {
@@ -4984,7 +4984,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
             if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
             {
-                DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FKeyToolGUI.ClonedKeyPairEntryPassword.Title"), true);
+                DGetNewPassword dGetNewPassword = new DGetNewPassword(this, m_res.getString("FPortecle.ClonedKeyPairEntryPassword.Title"), true);
                 dGetNewPassword.setLocationRelativeTo(this);
                 dGetNewPassword.setVisible(true);
                 cNewPassword = dGetNewPassword.getPassword();
@@ -5007,8 +5007,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             updateTitle();
 
             // Display success message
-            JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.KeyPairCloningSuccessful.message"),
-                                          m_res.getString("FKeyToolGUI.CloneKeyPair.Title"),
+            JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.KeyPairCloningSuccessful.message"),
+                                          m_res.getString("FPortecle.CloneKeyPair.Title"),
                                           JOptionPane.INFORMATION_MESSAGE);
 
             return true;
@@ -5089,7 +5089,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
             // Supply the certificates to the view certificate dialog
             DViewCertificate dViewCertificate =
-                new DViewCertificate(this, MessageFormat.format(m_res.getString("FKeyToolGUI.CertDetailsEntry.Title"), new String[]{sAlias}),
+                new DViewCertificate(this, MessageFormat.format(m_res.getString("FPortecle.CertDetailsEntry.Title"), new String[]{sAlias}),
                                      true, certs);
             dViewCertificate.setLocationRelativeTo(this);
             dViewCertificate.setVisible(true);
@@ -5181,7 +5181,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         try
         {
             // Get the new entry alias
-            DGetAlias dGetAlias = new DGetAlias(this, m_res.getString("FKeyToolGUI.NewEntryAlias.Title"), true, sAlias);
+            DGetAlias dGetAlias = new DGetAlias(this, m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias);
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
             String sNewAlias = dGetAlias.getAlias();
@@ -5194,18 +5194,18 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Check new alias differs from the present one
             if (sNewAlias.equalsIgnoreCase(sAlias))
             {
-                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FKeyToolGUI.RenameAliasIdentical.message"), new String[]{sAlias}),
-                                              m_res.getString("FKeyToolGUI.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, MessageFormat.format(m_res.getString("FPortecle.RenameAliasIdentical.message"), new String[]{sAlias}),
+                                              m_res.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
             // Check entry does not already exist in the KeyStore
             if (keyStore.containsAlias(sNewAlias))
             {
-                String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.OverWriteEntry.message"), new String[]{sNewAlias});
+                String sMessage = MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), new String[]{sNewAlias});
 
                 int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
-                                                              m_res.getString("FKeyToolGUI.RenameEntry.Title"),
+                                                              m_res.getString("FPortecle.RenameEntry.Title"),
                                                               JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.NO_OPTION)
                 {
@@ -5228,7 +5228,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                     // Password is only relevant if the KeyStore is not PKCS #12
                     if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
                     {
-                        DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FKeyToolGUI.KeyEntryPassword.Title"), true);
+                        DGetPassword dGetPassword = new DGetPassword(this,  m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                         dGetPassword.setLocationRelativeTo(this);
                         dGetPassword.setVisible(true);
                         cPassword = dGetPassword.getPassword();
@@ -5378,7 +5378,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private void updateTitle()
     {
         // Application name
-        String sAppName = m_res.getString("FKeyToolGUI.Title");
+        String sAppName = m_res.getString("FPortecle.Title");
 
         // No keystore loaded so just display the application name
         if (m_keyStoreWrap == null)
@@ -5392,7 +5392,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // A newly created keystore is loaded - display app name and Untitled string
             if (fKeyStore == null)
             {
-                 setTitle(MessageFormat.format("{0} - [{1}]", new Object[]{sAppName, m_res.getString("FKeyToolGUI.Untitled")}));
+                 setTitle(MessageFormat.format("{0} - [{1}]", new Object[]{sAppName, m_res.getString("FPortecle.Untitled")}));
             }
             else
             {
@@ -5428,7 +5428,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         // No KeyStore loaded...
         if (m_keyStoreWrap == null)
         {
-            setStatusBarText(m_res.getString("FKeyToolGUI.noKeyStore.statusbar"));
+            setStatusBarText(m_res.getString("FPortecle.noKeyStore.statusbar"));
         }
         // KeyStore loaded...
         else
@@ -5458,11 +5458,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
             if (iSize == 1)
             {
-                setStatusBarText(MessageFormat.format(m_res.getString("FKeyToolGUI.entry.statusbar"), new String[]{sType}));
+                setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entry.statusbar"), new String[]{sType}));
             }
             else
             {
-                setStatusBarText(MessageFormat.format(m_res.getString("FKeyToolGUI.entries.statusbar"), new String[]{sType, ""+iSize}));
+                setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entries.statusbar"), new String[]{sType, ""+iSize}));
             }
         }
     }
@@ -5588,7 +5588,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                                     new File(sJavaInstallDir, "lib" + sFileSep +
                                              "security" + sFileSep + "cacerts").toString());
 
-        defaultAppProps.setProperty(m_res.getString("AppProps.Property.LookFeel"), FKeyToolGUI.DEFAULT_LOOK_FEEL);
+        defaultAppProps.setProperty(m_res.getString("AppProps.Property.LookFeel"), FPortecle.DEFAULT_LOOK_FEEL);
         defaultAppProps.setProperty(m_res.getString("AppProps.Property.LookFeelDecor"), Boolean.toString(false));
 
         return defaultAppProps;
@@ -5615,9 +5615,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         catch (VersionException ex)
         {
             // Could not parse JRE version
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoParseJreVersion.message"), new String[]{sJreVersion});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"), new String[]{sJreVersion});
             System.err.println(sMessage);
-            JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FKeyToolGUI.Title"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -5631,9 +5631,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         catch (VersionException ex)
         {
             // Could not parse JRE version
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.NoParseJreVersion.message"), new String[]{sJreVersion});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"), new String[]{sJreVersion});
             System.err.println(sMessage);
-            JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FKeyToolGUI.Title"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -5641,10 +5641,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         if (actualJreVersion.compareTo(reqJreVersion) < 0)
         {
             // It isn't - warn the user and exit
-            String sMessage = MessageFormat.format(m_res.getString("FKeyToolGUI.MinJreVersionReq.message"), new Object[]{actualJreVersion, reqJreVersion});
+            String sMessage = MessageFormat.format(m_res.getString("FPortecle.MinJreVersionReq.message"), new Object[]{actualJreVersion, reqJreVersion});
             System.err.println(sMessage);
             JOptionPane.showMessageDialog(new JFrame(), sMessage,
-                                          m_res.getString("FKeyToolGUI.Title"),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -5707,7 +5707,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Use the look and feel
             UIManager.setLookAndFeel(
                 m_appPrefs.get(m_res.getString("AppProps.Property.LookFeel"),
-                               FKeyToolGUI.DEFAULT_LOOK_FEEL));
+                               FPortecle.DEFAULT_LOOK_FEEL));
         }
         // Didn't work - no matter
         catch (UnsupportedLookAndFeelException e) { }
@@ -5799,12 +5799,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public NewKeyStoreAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.NewKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.NewKeyStoreAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.NewKeyStoreAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.NewKeyStoreAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.NewKeyStoreAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.NewKeyStoreAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.NewKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.NewKeyStoreAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.NewKeyStoreAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.NewKeyStoreAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.NewKeyStoreAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.NewKeyStoreAction.image")))));
             setEnabled(true);
         }
 
@@ -5839,12 +5839,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public SaveKeyStoreAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.SaveKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.SaveKeyStoreAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.SaveKeyStoreAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.SaveKeyStoreAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.SaveKeyStoreAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.SaveKeyStoreAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.SaveKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.SaveKeyStoreAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.SaveKeyStoreAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.SaveKeyStoreAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.SaveKeyStoreAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.SaveKeyStoreAction.image")))));
             setEnabled(false);
         }
 
@@ -5879,12 +5879,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public OpenKeyStoreFileAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.OpenKeyStoreFileAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStoreFileAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.OpenKeyStoreFileAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.OpenKeyStoreFileAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStoreFileAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.OpenKeyStoreFileAction.image")))));
             setEnabled(true);
         }
 
@@ -5919,12 +5919,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public OpenKeyStorePkcs11Action()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.OpenKeyStorePkcs11Action.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.OpenKeyStorePkcs11Action.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStorePkcs11Action.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.OpenKeyStorePkcs11Action.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.OpenKeyStorePkcs11Action.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStorePkcs11Action.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.OpenKeyStorePkcs11Action.image")))));
             setEnabled(true);
         }
 
@@ -5959,12 +5959,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public GenKeyPairAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.GenKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.GenKeyPairAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.GenKeyPairAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.GenKeyPairAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.GenKeyPairAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.GenKeyPairAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.GenKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.GenKeyPairAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.GenKeyPairAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.GenKeyPairAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.GenKeyPairAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.GenKeyPairAction.image")))));
             setEnabled(false);
         }
 
@@ -5999,12 +5999,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public ImportTrustCertAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.ImportTrustCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.ImportTrustCertAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.ImportTrustCertAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.ImportTrustCertAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.ImportTrustCertAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.ImportTrustCertAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.ImportTrustCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ImportTrustCertAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ImportTrustCertAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.ImportTrustCertAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ImportTrustCertAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.ImportTrustCertAction.image")))));
             setEnabled(false);
         }
 
@@ -6039,12 +6039,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public ImportKeyPairAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.ImportKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.ImportKeyPairAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.ImportKeyPairAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.ImportKeyPairAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.ImportKeyPairAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.ImportKeyPairAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.ImportKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ImportKeyPairAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ImportKeyPairAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.ImportKeyPairAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ImportKeyPairAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.ImportKeyPairAction.image")))));
             setEnabled(false);
         }
 
@@ -6079,12 +6079,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public SetKeyStorePassAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.SetKeyStorePassAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.SetKeyStorePassAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.SetKeyStorePassAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.SetKeyStorePassAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.SetKeyStorePassAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.SetKeyStorePassAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.SetKeyStorePassAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.SetKeyStorePassAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.SetKeyStorePassAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.SetKeyStorePassAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.SetKeyStorePassAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.SetKeyStorePassAction.image")))));
             setEnabled(false);
         }
 
@@ -6119,12 +6119,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public KeyStoreReportAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.KeyStoreReportAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.KeyStoreReportAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.KeyStoreReportAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.KeyStoreReportAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.KeyStoreReportAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.KeyStoreReportAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.KeyStoreReportAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.KeyStoreReportAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.KeyStoreReportAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.KeyStoreReportAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.KeyStoreReportAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.KeyStoreReportAction.image")))));
             setEnabled(false);
         }
 
@@ -6159,12 +6159,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public ExamineCertAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.ExamineCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCertAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.ExamineCertAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.ExamineCertAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCertAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.ExamineCertAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.ExamineCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCertAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ExamineCertAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.ExamineCertAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCertAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.ExamineCertAction.image")))));
             setEnabled(true);
         }
 
@@ -6199,12 +6199,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public ExamineCertSSLAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCertSSLAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.ExamineCertSSLAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.ExamineCertSSLAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCertSSLAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.ExamineCertSSLAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCertSSLAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ExamineCertSSLAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.ExamineCertSSLAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCertSSLAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.ExamineCertSSLAction.image")))));
             setEnabled(true);
         }
 
@@ -6239,12 +6239,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public ExamineCrlAction()
         {
-            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FKeyToolGUI.ExamineCrlAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCrlAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.ExamineCrlAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.ExamineCrlAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.ExamineCrlAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.ExamineCrlAction.image")))));
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString("FPortecle.ExamineCrlAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCrlAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ExamineCrlAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.ExamineCrlAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCrlAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.ExamineCrlAction.image")))));
             setEnabled(true);
         }
 
@@ -6279,11 +6279,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
          */
         public DonateAction()
         {
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.DonateAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.DonateAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.DonateAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.DonateAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.DonateAction.image")))));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.DonateAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.DonateAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.DonateAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.DonateAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.DonateAction.image")))));
             setEnabled(true);
         }
 
@@ -6319,11 +6319,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         public HelpAction()
         {
             putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-            putValue(LONG_DESCRIPTION, m_res.getString("FKeyToolGUI.HelpAction.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FKeyToolGUI.HelpAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FKeyToolGUI.HelpAction.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString("FKeyToolGUI.HelpAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FKeyToolGUI.HelpAction.image")))));
+            putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.HelpAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.HelpAction.mnemonic").charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.HelpAction.text"));
+            putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.HelpAction.tooltip"));
+            putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getResource(m_res.getString("FPortecle.HelpAction.image")))));
             setEnabled(true);
         }
 
@@ -6374,10 +6374,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         public void run()
         {
             initLookAndFeel();
-            FKeyToolGUI fKeyToolGui = new FKeyToolGUI();
-            fKeyToolGui.setVisible(true);
+            FPortecle fPortecle = new FPortecle();
+            fPortecle.setVisible(true);
             if (m_fKeyStore != null) {
-                fKeyToolGui.openKeyStoreFile(m_fKeyStore);
+                fPortecle.openKeyStoreFile(m_fKeyStore);
             }
         }
     }
@@ -6409,16 +6409,16 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         catch (Throwable thw)
         {
             // No sign of the provider - warn the user and exit
-            System.err.println(m_res.getString("FKeyToolGUI.NoLoadBc.message"));
+            System.err.println(m_res.getString("FPortecle.NoLoadBc.message"));
             thw.printStackTrace();
-            JOptionPane.showMessageDialog(new JFrame(), m_res.getString("FKeyToolGUI.NoLoadBc.message"),
-                                          m_res.getString("FKeyToolGUI.Title"),
+            JOptionPane.showMessageDialog(new JFrame(), m_res.getString("FPortecle.NoLoadBc.message"),
+                                          m_res.getString("FPortecle.Title"),
                                           JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
 
         // Create and display a splash screen
-        WSplash wSplash = new WSplash(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource(m_res.getString("FKeyToolGUI.Splash.image"))), 3000);
+        WSplash wSplash = new WSplash(Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemResource(m_res.getString("FPortecle.Splash.image"))), 3000);
 
         // Wait for the splash screen to disappear
         while (wSplash.isVisible())

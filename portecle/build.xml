@@ -3,7 +3,7 @@
 <project name="portecle" basedir="." default="build">
 
   <property name="version" value="0.2" />
-  <property name="main.class" value="net.sf.portecle.FKeyToolGUI" />
+  <property name="main.class" value="net.sf.portecle.FPortecle" />
   <property name="jar.classpath" value=". bcprov.jar metouia.jar kunststoff.jar gtkswing.jar" />
 
   <property file="build.properties" />

@@ -28,7 +28,7 @@ import javax.swing.table.*;
 import javax.swing.border.*;
 
 /**
- * Custom cell renderer for the headers of the KeyStore table of FKeyToolGUI.
+ * Custom cell renderer for the headers of the KeyStore table of FPortecle.
  */
 class KeyStoreTableHeadRend extends DefaultTableCellRenderer
 {
