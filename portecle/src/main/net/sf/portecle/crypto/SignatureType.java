@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2004 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -33,29 +34,39 @@ import java.util.ResourceBundle;
  */
 public class SignatureType
 {
-    /** MD2 with RSA Sigature Type */
+    /** MD2 with RSA Signature Type */
     public static final SignatureType RSA_MD2 =
         new SignatureType("MD2withRSA");
 
-    /** MD5 with RSA Sigature Type */
+    /** MD5 with RSA Signature Type */
     public static final SignatureType RSA_MD5 =
         new SignatureType("MD5withRSA");
 
-    /** SHA-1 with RSA Sigature Type */
+    /** SHA-1 with RSA Signature Type */
     public static final SignatureType RSA_SHA1 =
         new SignatureType("SHA1withRSA");
-
-    /** SHA-1 with DSA Sigature Type */
+    
+    /** RIPEMD160 with RSA Signature Type */
+    public static final SignatureType RSA_RIPEMD160 =
+        new SignatureType("RIPEMD160withRSA");
+    
+    /** SHA-1 with DSA Signature Type */
     public static final SignatureType DSA_SHA1 =
         new SignatureType("SHA1withDSA");
 
+    /** SHA-1 with ECDSA Signature Type */
+    public static final SignatureType ECDSA_SHA1 =
+        new SignatureType("SHA1withECDSA");
+    
     /** String-to-type map */
     private static final HashMap TYPE_MAP = new HashMap();
     static {
-        TYPE_MAP.put(RSA_MD2.toString(),  RSA_MD2);
-        TYPE_MAP.put(RSA_MD5.toString(),  RSA_MD5);
-        TYPE_MAP.put(RSA_SHA1.toString(), RSA_SHA1);
-        TYPE_MAP.put(DSA_SHA1.toString(), DSA_SHA1);
+        TYPE_MAP.put(RSA_MD2.toString(),       RSA_MD2);
+        TYPE_MAP.put(RSA_MD5.toString(),       RSA_MD5);
+        TYPE_MAP.put(RSA_SHA1.toString(),      RSA_SHA1);
+        TYPE_MAP.put(RSA_RIPEMD160.toString(), RSA_RIPEMD160);
+        TYPE_MAP.put(DSA_SHA1.toString(),      DSA_SHA1);
+        TYPE_MAP.put(ECDSA_SHA1.toString(),    ECDSA_SHA1);
     }
 
     /** Resource bundle */
