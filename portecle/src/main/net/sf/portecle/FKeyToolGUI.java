@@ -193,13 +193,13 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     /** Online Resources menu of Help menu */
     private JMenu m_jmOnlineResources;
 
-    /** KeyTool GUI Website menu item of Online Resources menu */
+    /** Website menu item of Online Resources menu */
     private JMenuItem m_jmiWebsite;
 
-    /** Portecle project page at SourceForge.net menu item of Online Resources menu */
+    /** SourceForge.net Project menu item of Online Resources menu */
     private JMenuItem m_jmiSFNetProject;
 
-    /** KeyTool GUI Email menu item of Online Resources menu */
+    /** Email menu item of Online Resources menu */
     private JMenuItem m_jmiEmail;
 
     /** Portecle Mailing Lists menu item of Online Resources menu */
@@ -1313,7 +1313,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
 
         m_jpKeyStoreTable.add(m_jspKeyStoreTable, BorderLayout.CENTER);
-		m_jpKeyStoreTable.setBorder(new EmptyBorder(3, 3, 3, 3));
+        m_jpKeyStoreTable.setBorder(new EmptyBorder(3, 3, 3, 3));
 
         /* Add mouse listeners to show pop-up menus when table entries are
            clicked upon - maybeShowPopup for both mousePressed and mouseReleased
@@ -1856,15 +1856,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Yes - ask the user if it should be saved
             int iWantSave = wantSave();
 
-            if (iWantSave == JOptionPane.YES_OPTION)
-            {
-                // Save it
-                if (!saveKeyStore())
-                {
-                    return false;
-                }
-            }
-            else if (iWantSave == JOptionPane.CANCEL_OPTION)
+            if ((iWantSave == JOptionPane.YES_OPTION && !saveKeyStore()) ||
+                iWantSave == JOptionPane.CANCEL_OPTION)
             {
                 return false;
             }
@@ -1929,7 +1922,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             KeyStore openedKeyStore = null;
 
             // Types
-            KeyStoreType[] keyStoreTypes = {KeyStoreType.JKS, KeyStoreType.JCEKS, KeyStoreType.PKCS12, KeyStoreType.BKS, KeyStoreType.UBER};
+            KeyStoreType[] keyStoreTypes = {
+                KeyStoreType.JKS, KeyStoreType.JCEKS, KeyStoreType.PKCS12,
+                KeyStoreType.BKS, KeyStoreType.UBER,
+            };
 
             // Exceptions
             CryptoException[] cexs = new CryptoException[keyStoreTypes.length];
@@ -3012,7 +3008,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         try
         {
             // Load the PKCS #12 KeyStore
-            KeyStore pkcs12 = KeyStoreUtil.loadKeyStore(fPkcs12, cPkcs12Password, KeyStoreType.PKCS12);
+            KeyStore pkcs12 = KeyStoreUtil.loadKeyStore(
+                fPkcs12, cPkcs12Password, KeyStoreType.PKCS12);
 
             m_lastDir.updateLastDir(fPkcs12);
 
@@ -3129,7 +3126,10 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             KeyStore caCertsKeyStore = null;
 
             // Types
-            KeyStoreType[] keyStoreTypes = {KeyStoreType.JKS, KeyStoreType.JCEKS, KeyStoreType.PKCS12, KeyStoreType.BKS, KeyStoreType.UBER};
+            KeyStoreType[] keyStoreTypes = {
+                KeyStoreType.JKS, KeyStoreType.JCEKS, KeyStoreType.PKCS12,
+                KeyStoreType.BKS, KeyStoreType.UBER,
+            };
 
             // Exceptions
             CryptoException[] cexs = new CryptoException[keyStoreTypes.length];
@@ -3283,12 +3283,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Check if a more up-to-date version of KeyTool GUI exists by querying
+     * Check if a more up-to-date version of Portecle exists by querying
      * a properties file on the internet.
      */
     private void checkForUpdate()
     {
-        // Get the version number of this KeyTool GUI
+        // Get the version number of this Portecle
         String sCurrentVersion = m_res.getString("FKeyToolGUI.Version");
 
         HttpURLConnection urlConn = null;
@@ -3296,8 +3296,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
 
         try
         {
-            /* Get the version number of the latest KeyTool GUI from the Internet - present in
-               a serialised Version object on the KeyTool GUI web site */
+            /* Get the version number of the latest Portecle from the Internet - present in
+               a serialised Version object on the Portecle web site */
 
             // Build and connect to the relevant URL
             URL latestVersionUrl = new URL(m_res.getString("FKeyToolGUI.LatestVersionAddress"));
@@ -3414,7 +3414,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Display teh KeyTool GUI downloads web page.
+     * Display teh Portecle downloads web page.
      */
     private void visitDownloads()
     {
@@ -3716,7 +3716,8 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     private boolean setPasswordSelectedEntry()
     {
         assert m_keyStoreWrap.getKeyStore() != null;
-        assert (!m_keyStoreWrap.getKeyStore().getType().equals(KeyStoreType.PKCS12.toString())); // Not relevant for a PKCS #12 KeyStore
+        // Not relevant for a PKCS #12 KeyStore
+        assert (!m_keyStoreWrap.getKeyStore().getType().equals(KeyStoreType.PKCS12.toString()));
 
         // What entry has been selected?
         int iRow = m_jtKeyStore.getSelectedRow();
@@ -3847,9 +3848,9 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                     bSuccess = exportHeadCertOnlyPkiPath(sAlias);
                 }
                 // Export PKCS #7 format
-                else
+                else // if (dExport.exportPkcs7())
                 {
-                   bSuccess = exportHeadCertOnlyPkcs7(sAlias);
+                    bSuccess = exportHeadCertOnlyPkcs7(sAlias);
                 }
             }
             // Complete cert path (PKCS #7 or PkiPath)
@@ -3870,12 +3871,12 @@ public class FKeyToolGUI extends JFrame implements StatusBar
                 bSuccess = exportPrivKeyCertChain(sAlias);
             }
 
-			if (bSuccess)
-			{
-            	// Display success message
-            	JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.ExportSuccessful.message"),
-            	                              m_res.getString("FKeyToolGUI.Export.Title"),
-            	                              JOptionPane.INFORMATION_MESSAGE);
+            if (bSuccess)
+            {
+                // Display success message
+                JOptionPane.showMessageDialog(this, m_res.getString("FKeyToolGUI.ExportSuccessful.message"),
+                                              m_res.getString("FKeyToolGUI.Export.Title"),
+                                              JOptionPane.INFORMATION_MESSAGE);
             }
         }
         catch (Exception ex)
@@ -4438,7 +4439,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         return null;
     }
 
-   /**
+    /**
      * Let the user choose a PKCS #7 file to export to.
      *
      * @return The chosen file or null if none was chosen
@@ -5438,7 +5439,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             }
             else if (iWantSave == JOptionPane.CANCEL_OPTION)
             {
-				// May be exiting because of L&F change
+                // May be exiting because of L&F change
                 m_lookFeelOptions = null;
                 m_bLookFeelDecorationOptions = null;
 
@@ -6035,10 +6036,11 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Runnable to create and show KeyTool GUI.
+     * Runnable to create and show Portecle GUI.
      */
     private static class CreateAndShowGui implements Runnable
     {
+
         /** KeyStore file to open initially */
         private File m_fKeyStore;
 
@@ -6053,7 +6055,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
         }
 
         /**
-         * Create and show KeyTool GUI.
+         * Create and show Portecle GUI.
          */
         public void run()
         {
@@ -6066,7 +6068,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
             // Create the application's main frame
             FKeyToolGUI fKeyToolGui = new FKeyToolGUI(appProps);
 
-            // Display the KeyTool GUI application
+            // Display the Portecle application
             fKeyToolGui.setVisible(true);
 
             // If KeyStore file is not null then attempt to open it
@@ -6078,7 +6080,7 @@ public class FKeyToolGUI extends JFrame implements StatusBar
     }
 
     /**
-     * Start the KeyTool GUI application.  Takes one optional argument -
+     * Start the Portecle application.  Takes one optional argument -
      * the location of a KeyStore file to open upon startup.
      *
      * @param args the command line arguments
