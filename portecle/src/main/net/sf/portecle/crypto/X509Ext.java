@@ -1441,10 +1441,12 @@ public class X509Ext extends Object
         sb.append("\n\t\t").append(m_res.getString("NovellKeyQualityEnforce"));
         sb.append(' ').append(enforceQuality).append('\n');
 
-        sb.append("\t\t").append("Compusec quality: <TODO>");
+        sb.append("\t\t").append(m_res.getString("NovellCompusecQuality"));
+        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
         sb.append('\n');
 
-        sb.append("\t\t").append("Crypto quality: <TODO>");
+        sb.append("\t\t").append(m_res.getString("NovellCryptoQuality"));
+        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
         sb.append('\n');
 
         sb.append("\t\t").append(m_res.getString("NovellKeyStorageQuality"));
@@ -1456,7 +1458,8 @@ public class X509Ext extends Object
         ASN1Sequence cpq = (ASN1Sequence)
             ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
         sb.append('\t');
-        sb.append("Crypto process quality: <TODO>");
+        sb.append(m_res.getString("NovellCryptoProcessQuality"));
+        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
         // TODO: reuse from key quality
         sb.append('\n');
 
@@ -1497,8 +1500,8 @@ public class X509Ext extends Object
             // ASN1Sequence eLabel = (ASN1Sequence) eLabels.getObjectAt(i);
         }
         sb.append('\t');
-        sb.append("Enterprise ID: <TODO>");
-        // TODO
+        sb.append(m_res.getString("NovellEnterpriseID"));
+        sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
         sb.append('\n');
 
         return sb.toString();
