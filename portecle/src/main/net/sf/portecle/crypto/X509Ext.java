@@ -1104,6 +1104,7 @@ public class X509Ext extends Object
         }
     }
 
+
     /**
      * Get Hold Instruction Code (2.5.29.23) extension value as a string.
      *
@@ -1118,42 +1119,11 @@ public class X509Ext extends Object
     private String getHoldInstructionCodeStringValue(byte[] bValue)
         throws IOException
     {
-        DERInputStream dis = null;
-
-        try
-        {
-            // Get Hold Instruction Code OID
-            dis = new DERInputStream(new ByteArrayInputStream(bValue));
-            DERObjectIdentifier holdInstructionCode = (DERObjectIdentifier)dis.readObject();
-            String sHoldInstructionCode = holdInstructionCode.getId();
-
-            StringBuffer strBuff = new StringBuffer();
-
-            if (sHoldInstructionCode.equals(HOLD_INSTRUCTION_CODE_NONE_OID))
-            {
-                strBuff.append(MessageFormat.format(m_res.getString("HoldInstructionCodeNone"), new String[]{sHoldInstructionCode}));
-            }
-            else if (sHoldInstructionCode.equals(HOLD_INSTRUCTION_CODE_CALL_ISSUER_OID))
-            {
-                strBuff.append(MessageFormat.format(m_res.getString("HoldInstructionCodeCallIssuer"), new String[]{sHoldInstructionCode}));
-            }
-            else if (sHoldInstructionCode.equals(HOLD_INSTRUCTION_CODE_REJECT_OID))
-            {
-                strBuff.append(MessageFormat.format(m_res.getString("HoldInstructionCodeReject"), new String[]{sHoldInstructionCode}));
-            }
-            else // Unrecognised Hold Instruction Code OIDderObj
-            {
-                strBuff.append(sHoldInstructionCode);
-            }
-            strBuff.append('\n');
-
-            return strBuff.toString();
-        }
-        finally
-        {
-            try { if (dis != null)  dis.close(); } catch (IOException ex) { /* Ignore */ }
-        }
+        String sHoldIns = ((DERObjectIdentifier) toDER(bValue)).getId();
+        String res = getRes(sHoldIns, "UnrecognisedHoldInstructionCode");
+        return MessageFormat.format(res, new String[]{sHoldIns}) + '\n';
     }
+
 
     /**
      * Get Invalidity Date (2.5.29.24) extension value as a string.
