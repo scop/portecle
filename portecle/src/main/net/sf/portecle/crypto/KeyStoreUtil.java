@@ -63,7 +63,8 @@ public final class KeyStoreUtil extends Object
                 // Need BC provider for PKCS #12, BKS and UBER
                 if (Security.getProvider("BC") == null)
                 {
-                    throw new CryptoException(m_res.getString("NoBcProvider.exception.message"));
+                    throw new CryptoException(
+                        m_res.getString("NoBcProvider.exception.message"));
                 }
                 keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
             }
@@ -73,21 +74,10 @@ public final class KeyStoreUtil extends Object
             }
             keyStore.load(null, null);
         }
-        catch (KeyStoreException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
-        }
-        catch (CertificateException ex)
-        {
-            throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
-        }
-        catch (NoSuchProviderException ex)
-        {
-            throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
 
         // Return the keystore
@@ -134,13 +124,10 @@ public final class KeyStoreUtil extends Object
                 keyStore = KeyStore.getInstance(keyStoreType.toString());
             }
         }
-        catch (KeyStoreException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
-        }
-        catch (NoSuchProviderException ex)
-        {
-            throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
 
         try
@@ -148,13 +135,12 @@ public final class KeyStoreUtil extends Object
             // Load the file into the keystore
             keyStore.load(fis, cPassword);
         }
-        catch (CertificateException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(MessageFormat.format(m_res.getString("NoLoadKeystore.exception.message"), new Object[]{keyStoreType}), ex);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(MessageFormat.format(m_res.getString("NoLoadKeystore.exception.message"), new Object[]{keyStoreType}), ex);
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString("NoLoadKeystore.exception.message"),
+                    new Object[]{keyStoreType}), ex);
         }
         catch (FileNotFoundException ex)
         {
@@ -162,7 +148,10 @@ public final class KeyStoreUtil extends Object
         }
         catch (IOException ex)
         {
-            throw new CryptoException(MessageFormat.format(m_res.getString("NoLoadKeystore.exception.message"), new Object[]{keyStoreType}), ex);
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString("NoLoadKeystore.exception.message"),
+                    new Object[]{keyStoreType}), ex);
         }
 
         // Close the stream
@@ -202,17 +191,10 @@ public final class KeyStoreUtil extends Object
         {
             throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
         }
-        catch (KeyStoreException ex)
+        catch (GeneralSecurityException ex)
         {
-            throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
-        }
-        catch (CertificateException ex)
-        {
-            throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
-        }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
+            throw new CryptoException(
+                m_res.getString("NoSaveKeystore.exception.message"), ex);
         }
 
         // Close the stream
