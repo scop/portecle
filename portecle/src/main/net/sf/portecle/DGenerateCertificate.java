@@ -33,6 +33,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
@@ -72,6 +73,9 @@ class DGenerateCertificate extends JDialog
     /** Indicator used for a bad validity period */
     private static final int BAD_VALIDITY = -1;
 
+    /** Required country code length in characters */
+    private static final int COUNTRY_CODE_LENGTH = 2;
+    
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -121,7 +125,7 @@ class DGenerateCertificate extends JDialog
     /** Country Code label */
     private JLabel m_jlCountryCode;
 
-    /** Country Code test field */
+    /** Country Code text field */
     private JTextField m_jtfCountryCode;
 
     /** Email Address label */
@@ -299,7 +303,7 @@ class DGenerateCertificate extends JDialog
             (GridBagConstraints) gbcLbl.clone();
         gbc_jlCountryCode.gridy = 7;
 
-        m_jtfCountryCode = new JTextField(4);
+        m_jtfCountryCode = new JTextField(COUNTRY_CODE_LENGTH);
         m_jtfCountryCode.setToolTipText(
             m_res.getString("DGenerateCertificate.m_jtfCountryCode.tooltip"));
         GridBagConstraints gbc_jtfCountryCode =
@@ -461,12 +465,15 @@ class DGenerateCertificate extends JDialog
         }
 
         // Country code must be two characters long
-        if ((sCountryCode != null) && (sCountryCode.length() != 2))
+        if (sCountryCode != null &&
+            sCountryCode.length() != COUNTRY_CODE_LENGTH)
         {
             JOptionPane.showMessageDialog(
                 this,
-                m_res.getString(
-                    "DGenerateCertificate.CountryCodeTwoChars.message"),
+                MessageFormat.format(
+                    m_res.getString(
+                        "DGenerateCertificate.CountryCodeLength.message"),
+                    new String[]{String.valueOf(COUNTRY_CODE_LENGTH)}),
                 getTitle(),
                 JOptionPane.WARNING_MESSAGE);
             return false;
