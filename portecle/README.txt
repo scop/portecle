@@ -102,7 +102,7 @@ This software is available under the terms laid out in the GNU General
 Public License.  This makes it free for you to use and modify if you
 so wish.  As per the terms and conditions of the aforementioned
 license this program is supplied without warranty.  For more
-information, see license.txt included in the Portecle distribution.
+information, see LICENSE.txt included in the Portecle distribution.
 
 3 Contact
 ---------
