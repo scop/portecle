@@ -81,6 +81,8 @@ class KeyStoreTableModel extends AbstractTableModel
      * @param keyStore The KeyStore
      * @throws KeyStoreException A problem is encountered accessing
      * the KeyStore's entries
+     * @throws CryptoException A problem is encountered accessing
+     * the KeyStore's entries
      */
     public void load(KeyStore keyStore)
         throws KeyStoreException, CryptoException

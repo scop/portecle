@@ -2231,6 +2231,7 @@ public class X509Ext
      *
      * @param bytes bytes
      * @return a DER object
+     * @throws IOException if a conversion error occurs
      */
     private static DERObject toDER(byte[] bytes)
         throws IOException
