@@ -32,7 +32,11 @@ can run Portecle like so:
 
   java -jar c:\portecle\portecle.jar
 
-The portecle.jar contains an Icon file for use with Portecle.
+The portecle.jar contains an icon file (portecle.ico) for use with Portecle.
+
+In most setups, if portecle.jar and bcprov.jar were installed as instructed
+above, Portecle can also be run by double-clicking portecle.jar in the
+Windows Explorer.
 
 1.2 UNIX Command Line
 ---------------------
@@ -48,9 +52,11 @@ can run Portecle like so:
 This software is available under the terms laid out in the GNU General Public
 License.  This makes it free for you to use and modify if you so wish.  As per
 the terms and conditions of the aforementioned license this program is
-supplied without warranty.
+supplied without warranty.  For more information, see license.txt included
+in the Portecle distribution.
 
 3 Contact
 ---------
-Please email bugs, comments, and suggestions regarding Portecle to
-mark@denlin.org or keith@frogcement.com.
+For contact information, mailing lists and issue tracking facilities,
+see Portecle's SourceForge.net project page at
+http://sourceforge.net/projects/portecle
