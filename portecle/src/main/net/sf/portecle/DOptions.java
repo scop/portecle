@@ -221,9 +221,10 @@ class DOptions extends JDialog
                 continue;
             }
 
-                // Add Look and Feel to vector and choice box (so we can look up Look and Feel in Vector by choice box index)
-                m_vLookFeelInfos.add(lookFeelInfos[iCnt]);
-                m_jcbLookFeel.addItem(lookFeelInfo.getName());
+            // Add Look and Feel to vector and choice box (so we can look up
+            // Look and Feel in Vector by choice box index).
+            m_vLookFeelInfos.add(lookFeelInfo);
+            m_jcbLookFeel.addItem(lookFeelInfo.getName());
 
                 // Pre-select current look & feel
                 if ((currentLookAndFeel != null) && (currentLookAndFeel.getName().equals(lookFeelInfo.getName())))
