@@ -1,4 +1,4 @@
-New in Portecle x.x (not yet released):
+New in Portecle 1.0 (not yet released):
 ---------------------------------------
 
 New features:
