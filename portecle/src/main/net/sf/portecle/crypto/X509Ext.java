@@ -1445,6 +1445,86 @@ public class X509Ext
         throws IOException
     {
         return getUnknownOidStringValue(bValue);
+
+        /* work-in-progress:
+        ASN1Sequence logos = (ASN1Sequence) toDER(bValue);
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0, len = logos.size(); i < len; i++)
+        {
+            DERTaggedObject derTag = (DERTaggedObject) logos.getObjectAt(i);
+            switch (derTag.getTagNo()) {
+            case 0:
+                sb.append(m_res.getString("CommunityLogos"));
+                break;
+            case 1:
+                sb.append(m_res.getString("IssuerLogo"));
+                DERTaggedObject ltInfo = (DERTaggedObject) derTag.getObject();
+                switch (ltInfo.getTagNo()) {
+                case 0: // LogotypeData
+                    sb.append("\n\tData");
+                    ASN1Sequence ltData = (ASN1Sequence) ltInfo.getObject();
+                    if (ltData.size() > 0) {
+                        ASN1Sequence ltImage =
+                            (ASN1Sequence) ltData.getObjectAt(0);
+                        sb.append("\n\t\tImage");
+                        ASN1Sequence ltDetails =
+                            (ASN1Sequence) ltImage.getObjectAt(0);
+                        sb.append("\n\t\t\tDetails");
+                        sb.append("\n\t\t\t\tMedia type: ")
+                            .append(((DERString)
+                                     ltDetails.getObjectAt(0)).getString());
+                        ASN1Sequence ltHash =
+                            (ASN1Sequence) ltDetails.getObjectAt(1);
+                        for (int j = 0, jlen = ltHash.size(); j < jlen; j++) {
+                            sb.append("\n\t\t\t\tHash: ");
+                            ASN1Sequence haav =
+                                (ASN1Sequence) ltHash.getObjectAt(j);
+                            sb.append("<TODO>: "); // haav[0]: alg identifier
+                            byte[] bHashValue =
+                                ((DEROctetString) haav.getObjectAt(1))
+                                .getOctets();
+                            sb.append(convertToHexString(bHashValue));
+                        }
+                        ASN1Sequence ltURI =
+                            (ASN1Sequence) ltDetails.getObjectAt(2);
+                        for (int j = 0, jlen = ltURI.size(); j < jlen; j++) {
+                            sb.append("\n\t\t\t\tURI: ")
+                                .append(((DERString)
+                                         ltURI.getObjectAt(j)).getString());
+                        }
+                        if (ltImage.size() > 1) {
+                            ASN1Sequence ltImageInfo =
+                                (ASN1Sequence) ltImage.getObjectAt(1);
+                            sb.append("\n\t\t\tImage info");
+                        }
+                        if (ltData.size() > 1) {
+                            ASN1Sequence ltAudio =
+                                (ASN1Sequence) ltData.getObjectAt(1);
+                            sb.append("\n\t\tAudio");
+                        }
+                    }
+                    break;
+                case 1: // LogotypeReference
+                    sb.append("\n  Reference");
+                    break;
+                default:
+                    // Unknown, skip
+                }
+                break;
+            case 2:
+                sb.append(m_res.getString("SubjectLogo"));
+                break;
+            case 3:
+                sb.append(m_res.getString("OtherLogos"));
+                break;
+            default:
+                // Unknown, skip
+            }
+        }
+
+        return sb.toString();
+        */
     }
 
 
