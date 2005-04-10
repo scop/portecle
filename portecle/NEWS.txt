@@ -1,5 +1,5 @@
-New in Portecle 1.0 (not yet released):
----------------------------------------
+New in Portecle 1.0 (2005-04-10):
+---------------------------------
 
 New features:
 - Support for RSA certificates using the SHA224withRSA, SHA256withRSA,
