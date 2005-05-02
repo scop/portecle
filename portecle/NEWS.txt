@@ -1,3 +1,9 @@
+New in Portecle x.x (2005-xx-xx):
+---------------------------------
+
+Miscellaneous:
+- Bundled Bouncy Castle Provider jar upgraded to 1.28.
+
 New in Portecle 1.0 (2005-04-10):
 ---------------------------------
 
