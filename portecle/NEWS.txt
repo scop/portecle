@@ -47,7 +47,7 @@ Enhancements:
 - Minor optimizations.
 
 Bug fixes:
-- Typo and spelling fixes in documentation an UI.
+- Typo and spelling fixes in documentation and UI.
 
 Miscellaneous:
 - Requires BouncyCastle Provider version 1.25 or later.
