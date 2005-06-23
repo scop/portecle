@@ -148,6 +148,9 @@ public class FPortecle extends JFrame implements StatusBar
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";
 
+    /** Minimum required BC version */
+    private static final Double REQ_BC_VERSION = new Double(1.26);
+
     /** Enable experimental features? */
     private static final boolean EXPERIMENTAL =
         Boolean.getBoolean("portecle.experimental");
@@ -7351,6 +7354,19 @@ public class FPortecle extends JFrame implements StatusBar
 
             // Add BC as a security provider
             Security.addProvider(bcProv);
+
+            // Check BC version
+            Double bcVer = new Double(bcProv.getVersion());
+            if (REQ_BC_VERSION.compareTo(bcVer) > 0)
+            {
+                JOptionPane.showMessageDialog(
+                    new JFrame(),
+                    MessageFormat.format(
+                        m_res.getString("FPortecle.NoBcVersion.message"),
+                        new Object[]{REQ_BC_VERSION, bcVer}),
+                    m_res.getString("FPortecle.Title"),
+                    JOptionPane.WARNING_MESSAGE);
+            }
         }
         catch (Throwable thw)
         {
