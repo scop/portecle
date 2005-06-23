@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,6 +24,7 @@ package net.sf.portecle.crypto;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.InvalidParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
@@ -75,6 +77,13 @@ public final class KeyPairUtil
             throw new CryptoException(
                 MessageFormat.format(
                     m_res.getString("NoGenerateKeypair.exception.message"),
+                    new Object[]{keyPairType}), ex);
+        }
+        catch (InvalidParameterException ex)
+        {
+            throw new CryptoException(
+                MessageFormat.format(
+                    m_res.getString("NoGenerateKeypairParm.exception.message"),
                     new Object[]{keyPairType}), ex);
         }
     }
