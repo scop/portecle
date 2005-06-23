@@ -71,19 +71,19 @@ your PATH environment variable.
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
 Portecle and Bouncy Castle provider JAR files into a directory
-c:\portecle you can run Portecle like so:
+c:\java you can run Portecle like so:
 
-  java -jar c:\portecle\portecle.jar
+  java -jar c:\java\portecle.jar
 
 In most setups, if portecle.jar and bcprov.jar were installed as
 instructed above, Portecle can also be run by double-clicking
 portecle.jar in the Windows Explorer.
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example c:\bc\bcprov-jdk15-128.jar, use:
+filesystem, for example c:\java\bcprov-jdk15-128.jar, use:
 
-  java -cp c:\portecle\portecle.jar;c:\bc\bcprov-jdk15-128.jar
-  net.sf.portecle.FPortecle
+  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk15-128.jar
+       net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
 wrapped here for readability.
@@ -93,15 +93,15 @@ wrapped here for readability.
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
 Portecle and Bouncy Castle provider jar files into a directory
-/portecle you can run Portecle like so:
+/usr/share/java you can run Portecle like so:
 
-  java -jar /portecle/portecle.jar
+  java -jar /usr/share/java/portecle.jar
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example /bc/bcprov-jdk15-128.jar, use:
+filesystem, for example /usr/share/java/bcprov-jdk15-128.jar, use:
 
-  java -cp /portecle/portecle.jar:/bc/bcprov-jdk15-128.jar \
-  net.sf.portecle.FPortecle
+  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk15-128.jar \
+       net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
 wrapped here for readability.
