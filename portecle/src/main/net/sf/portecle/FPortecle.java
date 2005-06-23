@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -6255,19 +6255,21 @@ public class FPortecle extends JFrame implements StatusBar
                 // Ignore
             }
 
+            String sProv = ksLoaded.getProvider().getName();
+
             if (iSize == 1)
             {
                 setStatusBarText(MessageFormat.format(
                                      m_res.getString(
                                          "FPortecle.entry.statusbar"),
-                                     new String[]{sType}));
+                                     new String[]{sType, sProv}));
             }
             else
             {
                 setStatusBarText(MessageFormat.format(
                                      m_res.getString(
                                          "FPortecle.entries.statusbar"),
-                                     new String[]{sType, ""+iSize}));
+                                     new String[]{sType, sProv, ""+iSize}));
             }
         }
     }
