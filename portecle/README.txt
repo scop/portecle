@@ -42,16 +42,16 @@ easiest way to install it is to unzip the Portecle binary distribution
 to a directory somewhere on your filesystem.
 
 The binary distribution contains the Portecle jar file (portecle.jar)
-as well as Bouncy Castle Provider jar (bcprov.jar) for Java 1.4.x.  If
+as well as Bouncy Castle provider jar (bcprov.jar) for Java 1.4.x.  If
 you wish to run Portecle with Java 1.5.x, or update the bundled Bouncy
-Castle Provider for some other reason, simply download an update for
+Castle provider for some other reason, simply download an update for
 your version of Java from http://www.bouncycastle.org/ and place it
 into the same directory as portecle.jar with the name bcprov.jar,
 overwriting the existing one already there (if any).  The binary
 distribution also contains icons for use with Portecle (portecle.ico,
 portecle.png).
 
-Depending on your Portecle usage patterns, the BouncyCastle provider
+Depending on your Portecle usage patterns, the Bouncy Castle provider
 may require the JCE unlimited strength jurisdiction policy files
 installed to function properly.  See "IMPORTANT NOTES" at
 http://www.bouncycastle.org/documentation.html
@@ -60,7 +60,7 @@ The default way of running Portecle uses the "java -jar" method, which
 means that the Class-Path defined in portecle.jar's MANIFEST.MF will
 be used to locate all classes.  You can also invoke Portecle by its
 "main" class, net.sf.portecle.FPortecle.  This method allows you to
-use a Bouncy Castle Provider jar elsewhere on your filesystem.
+use a Bouncy Castle provider jar elsewhere on your filesystem.
 
 The following chapters contain examples how to run Portecle; all of
 the examples assume that the JRE/JRE "bin" directory has been added to
@@ -70,7 +70,7 @@ your PATH environment variable.
 ------------------------
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
-Portecle and BouncyCastle Provider JAR files into a directory
+Portecle and Bouncy Castle provider JAR files into a directory
 c:\portecle you can run Portecle like so:
 
   java -jar c:\portecle\portecle.jar
@@ -79,10 +79,10 @@ In most setups, if portecle.jar and bcprov.jar were installed as
 instructed above, Portecle can also be run by double-clicking
 portecle.jar in the Windows Explorer.
 
-If you wish to use a Bouncy Castle Provider somewhere else on your
-filesystem, for example c:\bc\bcprov-jdk15-125.jar, use:
+If you wish to use a Bouncy Castle provider somewhere else on your
+filesystem, for example c:\bc\bcprov-jdk15-128.jar, use:
 
-  java -cp c:\portecle\portecle.jar;c:\bc\bcprov-jdk15-125.jar
+  java -cp c:\portecle\portecle.jar;c:\bc\bcprov-jdk15-128.jar
   net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
@@ -92,15 +92,15 @@ wrapped here for readability.
 ---------------------
 
 Assuming you have an appropriate JRE/JDK installed and have placed the
-Portecle and BouncyCastle Provider jar files into a directory
+Portecle and Bouncy Castle provider jar files into a directory
 /portecle you can run Portecle like so:
 
   java -jar /portecle/portecle.jar
 
-If you wish to use a Bouncy Castle Provider somewhere else on your
-filesystem, for example /bc/bcprov-jdk15-125.jar, use:
+If you wish to use a Bouncy Castle provider somewhere else on your
+filesystem, for example /bc/bcprov-jdk15-128.jar, use:
 
-  java -cp /portecle/portecle.jar:/bc/bcprov-jdk15-125.jar \
+  java -cp /portecle/portecle.jar:/bc/bcprov-jdk15-128.jar \
   net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line

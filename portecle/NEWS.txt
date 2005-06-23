@@ -5,7 +5,7 @@ Enhancements:
 - Bouncy Castle provider version is checked at startup.
 
 Miscellaneous:
-- Bundled Bouncy Castle Provider jar upgraded to 1.28.
+- Bundled Bouncy Castle provider jar upgraded to 1.28.
 
 New in Portecle 1.0 (2005-04-10):
 ---------------------------------
@@ -21,7 +21,7 @@ Enhancements:
 - Minor user interface improvements here and there.
 
 Miscellaneous:
-- Bundled Bouncy Castle Provider jar upgraded to 1.27, version 1.26 or
+- Bundled Bouncy Castle provider jar upgraded to 1.27, version 1.26 or
   later is now required.
 
 New in Portecle 0.9 (2004-11-03):
@@ -53,7 +53,7 @@ Bug fixes:
 - Typo and spelling fixes in documentation and UI.
 
 Miscellaneous:
-- Requires BouncyCastle Provider version 1.25 or later.
+- Requires Bouncy Castle provider version 1.25 or later.
 - Mozilla is the browser to launch on Linux systems.
 - Added PNG version of the icon.
 - KeyTool GUI -> Portecle and net.sf.portecle renaming complete.

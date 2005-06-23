@@ -35,7 +35,7 @@ import java.util.ResourceBundle;
 
 /**
  * Provides utility methods for loading/saving keystores.  The
- * BouncyCastle provider must be added before using this class to
+ * Bouncy Castle provider must be added before using this class to
  * create or load a PKCS12, BKS or UBER type keystores.
  */
 public final class KeyStoreUtil

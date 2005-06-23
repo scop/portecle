@@ -7346,7 +7346,7 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            // Instantiate the BouncyCastle provider
+            // Instantiate the Bouncy Castle provider
             Class bcProvClass =
                 Class.forName(
                     "org.bouncycastle.jce.provider.BouncyCastleProvider");
