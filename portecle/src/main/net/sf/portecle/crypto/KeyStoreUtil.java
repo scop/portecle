@@ -127,8 +127,6 @@ public final class KeyStoreUtil
                                         KeyStoreType keyStoreType)
         throws CryptoException, FileNotFoundException
     {
-        FileInputStream fis = new FileInputStream(fKeyStore);
-
         KeyStore keyStore = null;
         try
         {
@@ -140,6 +138,7 @@ public final class KeyStoreUtil
                 m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
 
+        FileInputStream fis = new FileInputStream(fKeyStore);
         try
         {
             keyStore.load(fis, cPassword);
@@ -162,8 +161,10 @@ public final class KeyStoreUtil
                     m_res.getString("NoLoadKeystore.exception.message"),
                     new Object[]{keyStoreType}), ex);
         }
-
-        try { fis.close(); } catch (IOException ex) { /* Ignore */ }
+        finally
+        {
+            try { fis.close(); } catch (IOException ex) { /* Ignore */ }
+        }
 
         return keyStore;
     }
@@ -233,14 +234,9 @@ public final class KeyStoreUtil
                                     char[] cPassword)
         throws CryptoException, IOException
     {
-        FileOutputStream fos = null;
-
-        // Setup an output stream for the admin keystore
-        fos = new FileOutputStream(fKeyStoreFile);
-
+        FileOutputStream fos = new FileOutputStream(fKeyStoreFile);
         try
         {
-            // Store the keystore to file with password protection
             keyStore.store(fos, cPassword);
         }
         catch (IOException ex)
@@ -253,8 +249,9 @@ public final class KeyStoreUtil
             throw new CryptoException(
                 m_res.getString("NoSaveKeystore.exception.message"), ex);
         }
-
-        // Close the stream
-        fos.close();
+        finally
+        {
+            fos.close();
+        }
     }
 }

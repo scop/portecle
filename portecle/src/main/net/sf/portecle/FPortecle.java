@@ -4814,6 +4814,7 @@ public class FPortecle extends JFrame implements StatusBar
             }
         }
 
+        FileWriter fw = null;
         try
         {
             // Get the head certificate
@@ -4822,9 +4823,8 @@ public class FPortecle extends JFrame implements StatusBar
             // Do the export
             String sEncoded = X509CertUtil.getCertEncodedPem(cert);
 
-            FileWriter fw = new FileWriter(fExportFile);
+            fw = new FileWriter(fExportFile);
             fw.write(sEncoded);
-            fw.close();
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -4848,6 +4848,14 @@ public class FPortecle extends JFrame implements StatusBar
         {
             displayException(ex);
             return false;
+        }
+        finally
+        {
+            if (fw != null)
+            {
+                try { fw.close(); }
+                catch (IOException ex) { displayException(ex); }
+            }
         }
     }
 
@@ -4880,6 +4888,7 @@ public class FPortecle extends JFrame implements StatusBar
             }
         }
 
+        FileOutputStream fos = null;
         try
         {
             // Get the head certificate
@@ -4887,9 +4896,8 @@ public class FPortecle extends JFrame implements StatusBar
 
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertEncodedDer(cert);
-            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos = new FileOutputStream(fExportFile);
             fos.write(bEncoded);
-            fos.close();
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -4913,6 +4921,14 @@ public class FPortecle extends JFrame implements StatusBar
         {
             displayException(ex);
             return false;
+        }
+        finally
+        {
+            if (fos != null)
+            {
+                try { fos.close(); }
+                catch (IOException ex) { displayException(ex); }
+            }
         }
     }
 
@@ -5499,6 +5515,7 @@ public class FPortecle extends JFrame implements StatusBar
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         File fCsrFile = null;
+        FileWriter fw = null;
 
         try
         {
@@ -5568,9 +5585,8 @@ public class FPortecle extends JFrame implements StatusBar
             String sCsr = X509CertUtil.generatePKCS10CSR(cert, privKey);
 
             // Write it out to file
-            FileWriter fw = new FileWriter(fCsrFile);
+            fw = new FileWriter(fCsrFile);
             fw.write(sCsr);
-            fw.close();
 
             // Display success message
             JOptionPane.showMessageDialog(
@@ -5598,6 +5614,14 @@ public class FPortecle extends JFrame implements StatusBar
         {
             displayException(ex);
             return false;
+        }
+        finally
+        {
+            if (fw != null)
+            {
+                try { fw.close(); }
+                catch (IOException ex) { displayException(ex); }
+            }
         }
     }
 
