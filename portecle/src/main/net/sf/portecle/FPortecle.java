@@ -2376,7 +2376,7 @@ public class FPortecle extends JFrame implements StatusBar
 
             // Types
             KeyStoreType[] keyStoreTypes = {
-                KeyStoreType.JKS, KeyStoreType.JCEKS, KeyStoreType.PKCS12,
+                KeyStoreType.JKS, KeyStoreType.PKCS12, KeyStoreType.JCEKS,
                 KeyStoreType.BKS, KeyStoreType.UBER,
             };
 
@@ -3931,7 +3931,7 @@ public class FPortecle extends JFrame implements StatusBar
 
             // Types
             KeyStoreType[] keyStoreTypes = {
-                KeyStoreType.JKS, KeyStoreType.JCEKS, KeyStoreType.PKCS12,
+                KeyStoreType.JKS, KeyStoreType.PKCS12, KeyStoreType.JCEKS,
                 KeyStoreType.BKS, KeyStoreType.UBER,
             };
 

@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -158,8 +159,8 @@ class DNewKeyStoreType extends JDialog
         ButtonGroup keyStoreTypes = new ButtonGroup();
 
         keyStoreTypes.add(m_jrbJksKeyStore);
-        keyStoreTypes.add(m_jrbJceksKeyStore);
         keyStoreTypes.add(m_jrbPkcs12KeyStore);
+        keyStoreTypes.add(m_jrbJceksKeyStore);
         keyStoreTypes.add(m_jrbBksKeyStore);
         keyStoreTypes.add(m_jrbUberKeyStore);
 
@@ -172,8 +173,8 @@ class DNewKeyStoreType extends JDialog
 
         m_jpKeyStoreType.add(m_jlKeyStoreType);
         m_jpKeyStoreType.add(m_jrbJksKeyStore);
-        m_jpKeyStoreType.add(m_jrbJceksKeyStore);
         m_jpKeyStoreType.add(m_jrbPkcs12KeyStore);
+        m_jpKeyStoreType.add(m_jrbJceksKeyStore);
         m_jpKeyStoreType.add(m_jrbBksKeyStore);
         m_jpKeyStoreType.add(m_jrbUberKeyStore);
 
