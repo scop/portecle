@@ -80,9 +80,9 @@ instructed above, Portecle can also be run by double-clicking
 portecle.jar in the Windows Explorer.
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example c:\java\bcprov-jdk15-128.jar, use:
+filesystem, for example c:\java\bcprov-jdk15-129.jar, use:
 
-  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk15-128.jar
+  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk15-129.jar
        net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
@@ -98,9 +98,9 @@ Portecle and Bouncy Castle provider jar files into a directory
   java -jar /usr/share/java/portecle.jar
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example /usr/share/java/bcprov-jdk15-128.jar, use:
+filesystem, for example /usr/share/java/bcprov-jdk15-129.jar, use:
 
-  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk15-128.jar \
+  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk15-129.jar \
        net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line

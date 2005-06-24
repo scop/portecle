@@ -5,7 +5,7 @@ Enhancements:
 - Bouncy Castle provider version is checked at startup.
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to 1.28.
+- Bundled Bouncy Castle provider jar upgraded to 1.29.
 
 New in Portecle 1.0 (2005-04-10):
 ---------------------------------
