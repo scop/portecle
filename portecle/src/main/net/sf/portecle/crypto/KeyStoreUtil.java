@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,14 +29,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
  * Provides utility methods for loading/saving keystores.  The
- * Bouncy Castle provider must be added before using this class to
- * create or load a PKCS12, BKS or UBER type keystores.
+ * Bouncy Castle provider must be registered before using this class to
+ * create or load BKS or UBER type keystores, or PKCS #12 on Java 1.4.
  */
 public final class KeyStoreUtil
 {
@@ -48,6 +50,40 @@ public final class KeyStoreUtil
      * Private to prevent construction.
      */
     private KeyStoreUtil() {}
+
+
+    /**
+     * Gets the preferred (by us) KeyStore instance for the given
+     * keystore type.
+     *
+     * @param keyStoreType The keystore type
+     * @return The keystore
+     * @throws KeyStoreException No implementation found
+     */
+    private static KeyStore getKeyStoreImpl(KeyStoreType keyStoreType)
+        throws KeyStoreException
+    {
+        KeyStore keyStore = null;
+        if (keyStoreType == KeyStoreType.PKCS12)
+        {
+            // Prefer BC for PKCS #12; Sun's implementation in 1.5
+            // (as of 1.5.0_03) barfs on empty keystores.
+            try
+            {
+                keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
+            }
+            catch (NoSuchProviderException ex)
+            {
+                // Fall through
+            }
+        }
+        if (keyStore == null)
+        {
+            keyStore = KeyStore.getInstance(keyStoreType.toString());
+        }
+        return keyStore;
+    }
+
 
     /**
      * Create a new, empty keystore.
@@ -61,26 +97,9 @@ public final class KeyStoreUtil
         throws CryptoException, IOException
     {
         KeyStore keyStore = null;
-
-        // Create a new keystore by using load with null parameters
         try
         {
-            if (keyStoreType == KeyStoreType.PKCS12 ||
-                keyStoreType == KeyStoreType.BKS ||
-                keyStoreType == KeyStoreType.UBER)
-            {
-                // Need BC provider for PKCS #12, BKS and UBER
-                if (Security.getProvider("BC") == null)
-                {
-                    throw new CryptoException(
-                        m_res.getString("NoBcProvider.exception.message"));
-                }
-                keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
-            }
-            else
-            {
-                keyStore = KeyStore.getInstance(keyStoreType.toString());
-            }
+            keyStore = getKeyStoreImpl(keyStoreType);
             keyStore.load(null, null);
         }
         catch (GeneralSecurityException ex)
@@ -88,10 +107,9 @@ public final class KeyStoreUtil
             throw new CryptoException(
                 m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
-
-        // Return the keystore
         return keyStore;
     }
+
 
     /**
      * Load a Keystore from a file accessed by a password.
@@ -109,32 +127,14 @@ public final class KeyStoreUtil
                                         KeyStoreType keyStoreType)
         throws CryptoException, FileNotFoundException
     {
-        // Open an input stream on the keystore file
         FileInputStream fis = new FileInputStream(fKeyStore);
 
-        // Create a keystore object
         KeyStore keyStore = null;
         try
         {
-            if (keyStoreType == KeyStoreType.PKCS12 ||
-                keyStoreType == KeyStoreType.BKS ||
-                keyStoreType == KeyStoreType.UBER)
-            {
-                // Need BC provider for PKCS #12, BKS and UBER
-                if (Security.getProvider("BC") == null)
-                {
-                    throw new CryptoException(
-                        m_res.getString("NoBcProvider.exception.message"));
-                }
-
-                keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
-            }
-            else
-            {
-                keyStore = KeyStore.getInstance(keyStoreType.toString());
-            }
+            keyStore = getKeyStoreImpl(keyStoreType);
         }
-        catch (GeneralSecurityException ex)
+        catch (KeyStoreException ex)
         {
             throw new CryptoException(
                 m_res.getString("NoCreateKeystore.exception.message"), ex);
@@ -142,7 +142,6 @@ public final class KeyStoreUtil
 
         try
         {
-            // Load the file into the keystore
             keyStore.load(fis, cPassword);
         }
         catch (GeneralSecurityException ex)
@@ -164,10 +163,8 @@ public final class KeyStoreUtil
                     new Object[]{keyStoreType}), ex);
         }
 
-        // Close the stream
         try { fis.close(); } catch (IOException ex) { /* Ignore */ }
 
-        // Return the keystore
         return keyStore;
     }
 
@@ -206,7 +203,6 @@ public final class KeyStoreUtil
 
         try
         {
-            // Load the keystore
             keyStore.load(null, cPassword);
         }
         catch (Exception ex)
@@ -217,7 +213,6 @@ public final class KeyStoreUtil
                     new Object[]{KeyStoreType.PKCS11}), ex);
         }
 
-        // Return the keystore
         return keyStore;
     }
 
