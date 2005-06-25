@@ -369,9 +369,6 @@ public class FPortecle extends JFrame implements StatusBar
     /** Examine CRL toolbar button */
     private JButton m_jbExamineCrl;
 
-    /** Donate toolbar button */
-    private JButton m_jbDonate;
-
     /** Help toolbar button */
     private JButton m_jbHelp;
 
@@ -1113,7 +1110,6 @@ public class FPortecle extends JFrame implements StatusBar
             this);
         */
 
-        /* Donations disabled for now...
         m_jmiDonate = new JMenuItem(m_donateAction);
         m_jmiDonate.setToolTipText(null);
         new StatusBarChangeHandler(
@@ -1121,7 +1117,6 @@ public class FPortecle extends JFrame implements StatusBar
             (String)m_donateAction.getValue(Action.LONG_DESCRIPTION),
             this);
         m_jmHelp.add(m_jmiDonate);
-        */
 
         m_jmHelp.addSeparator();
 
@@ -1464,29 +1459,6 @@ public class FPortecle extends JFrame implements StatusBar
             }
         });
 
-        // Create the "donate" toolbar button
-        /* Donations disabled for now...
-        m_jbDonate = new JButton();
-        m_jbDonate.setAction(m_donateAction);
-        m_jbDonate.setText(null); // Don't share text from action
-        // Get around bug with action mnemonics on toolbar buttons
-        m_jbDonate.setMnemonic(0);
-        m_jbDonate.setFocusable(false);
-        m_jbDonate.addMouseListener(new MouseAdapter()
-        {
-            public void mouseEntered(MouseEvent evt)
-            {
-                setStatusBarText(
-                   (String)m_donateAction.getValue(Action.LONG_DESCRIPTION));
-            }
-
-            public void mouseExited(MouseEvent evt)
-            {
-                setDefaultStatusBarText();
-            }
-        });
-        */
-
         // Create the "help" toolbar button
         m_jbHelp = new JButton();
         m_jbHelp.setAction(m_helpAction);
@@ -1540,9 +1512,6 @@ public class FPortecle extends JFrame implements StatusBar
         separator3.setMaximumSize(new Dimension(3, 16));
         m_jtbToolBar.add(separator3);
 
-        /* Donations disabled for now...
-        m_jtbToolBar.add(m_jbDonate);
-        */
         m_jtbToolBar.add(m_jbHelp);
 
         // Add the toolbar to the frame
@@ -4247,32 +4216,25 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Display PayPal donation web page.
+     * Display donation web page.
      */
     private void makeDonation()
     {
-        int iSelected = JOptionPane.showConfirmDialog(
-            this, m_res.getString("FPortecle.Donation.message"),
-            m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION);
-        if (iSelected == JOptionPane.YES_OPTION)
+        String sDonateAddress = m_res.getString("FPortecle.DonateAddress");
+        try
         {
-            String sDonateAddress = m_res.getString("FPortecle.DonateAddress");
-
-            try
-            {
-                BrowserLauncher.openURL(sDonateAddress);
-            }
-            catch (IOException ex)
-            {
-                // Could not launch web browser - tell the user the address
-                JOptionPane.showMessageDialog(
-                    this,
-                    MessageFormat.format(
-                        m_res.getString("FPortecle.NoLaunchBrowser.message"),
-                        new String[]{sDonateAddress}),
-                    m_res.getString("FPortecle.Title"),
-                    JOptionPane.INFORMATION_MESSAGE);
-            }
+            BrowserLauncher.openURL(sDonateAddress);
+        }
+        catch (IOException ex)
+        {
+            // Could not launch web browser - tell the user the address
+            JOptionPane.showMessageDialog(
+                this,
+                MessageFormat.format(
+                    m_res.getString("FPortecle.NoLaunchBrowser.message"),
+                    new String[]{sDonateAddress}),
+                m_res.getString("FPortecle.Title"),
+                JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
