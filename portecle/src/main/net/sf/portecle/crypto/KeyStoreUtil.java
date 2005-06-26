@@ -66,8 +66,9 @@ public final class KeyStoreUtil
         KeyStore keyStore = null;
         if (keyStoreType == KeyStoreType.PKCS12)
         {
-            // Prefer BC for PKCS #12; Sun's implementation in 1.5
-            // (as of 1.5.0_03) barfs on empty keystores.
+            // Prefer BC for PKCS #12 for now; the BC and Sun 1.5
+            // implementations (as of 1.29 and 1.5.0_03) are incompatible
+            // in how they handle empty/missing passwords (null vs char[0]).
             try
             {
                 keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
