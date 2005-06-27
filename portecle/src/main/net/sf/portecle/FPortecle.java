@@ -148,7 +148,6 @@ public class FPortecle extends JFrame implements StatusBar
     /** Minimum required JRE version */
     private static final String REQ_JRE_VERSION = "1.4.0";
 
-    // Note: BC 1.29 reports itself as 1.28.
     /** Minimum required BC version */
     private static final Double REQ_BC_VERSION = new Double(1.26);
 
