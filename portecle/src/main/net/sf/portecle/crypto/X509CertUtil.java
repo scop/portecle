@@ -364,6 +364,11 @@ public final class X509CertUtil
     {
         try
         {
+            // We could request BC here in order to gain support for certs
+            // with > 2048 bit RSA keys also on Java 1.4.  But unless there's
+            // a way to eg. read JKS keystores containing such certificates
+            // on Java 1.4 (think eg. importing such CA certs), that would
+            // just help the user shoot herself in the foot...
             CertificateFactory cf =
                 CertificateFactory.getInstance(X509_CERT_TYPE);
             ByteArrayInputStream bais =

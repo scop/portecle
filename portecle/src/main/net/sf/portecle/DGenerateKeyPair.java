@@ -285,31 +285,26 @@ class DGenerateKeyPair extends JDialog
             return BAD_KEYSIZE;
         }
 
-        if (m_jrbDSA.isSelected())
+        if (m_jrbDSA.isSelected() &&
+            (iKeySize < 512 || iKeySize > 1024 || iKeySize % 64 != 0))
         {
-            if (iKeySize < 512 || iKeySize > 1024 || (iKeySize % 64) != 0)
-            {
-                JOptionPane.showMessageDialog(
-                    this,
-                    m_res.getString(
-                        "DGenerateKeyPair.UnsupportedDsaKeySize.message"),
-                    getTitle(),
-                    JOptionPane.WARNING_MESSAGE);
-                return BAD_KEYSIZE;
-            }
+            JOptionPane.showMessageDialog(
+                this,
+                m_res.getString(
+                    "DGenerateKeyPair.UnsupportedDsaKeySize.message"),
+                getTitle(),
+                JOptionPane.WARNING_MESSAGE);
+            return BAD_KEYSIZE;
         }
-        else
+        else if (iKeySize < 512)
         {
-            if (iKeySize < 512 || iKeySize > 2048)
-            {
-                JOptionPane.showMessageDialog(
-                    this,
-                    m_res.getString(
-                        "DGenerateKeyPair.UnsupportedRsaKeySize.message"),
-                    getTitle(),
-                    JOptionPane.WARNING_MESSAGE);
-                return BAD_KEYSIZE;
-            }
+            JOptionPane.showMessageDialog(
+                this,
+                m_res.getString(
+                    "DGenerateKeyPair.UnsupportedRsaKeySize.message"),
+                getTitle(),
+                JOptionPane.WARNING_MESSAGE);
+            return BAD_KEYSIZE;
         }
 
         return iKeySize;

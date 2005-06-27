@@ -2,6 +2,9 @@ New in Portecle x.x (2005-xx-xx):
 ---------------------------------
 
 Enhancements:
+- Internal upper limit of 2048 bits for RSA keys has been removed.  The
+  upper limit is now dependent on the installed security providers; in
+  practice > 2048 bit RSA keys are supported on Java 1.5 and later.
 - Bouncy Castle provider version is checked at startup.
 - Error handling improvements.
 - Minor user interface improvements here and there.
