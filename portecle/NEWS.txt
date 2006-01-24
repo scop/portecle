@@ -3,6 +3,7 @@ New in Portecle x.x (200x-xx-xx):
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.30.
+- Spelling fixes.
 
 New in Portecle 1.1 (2005-07-01):
 ---------------------------------
