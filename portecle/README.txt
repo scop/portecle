@@ -122,7 +122,7 @@ experimental features.
 
 Copyright © 2004 Wayne Grant
             2004 Mark Majczyk
-            2004-2005 Ville Skyttä
+            2004-2006 Ville Skyttä
 
 This software is available under the terms laid out in the GNU General
 Public License.  This makes it free for you to use and modify if you
