@@ -1,9 +1,15 @@
 New in Portecle x.x (200x-xx-xx):
 ---------------------------------
 
+New features:
+- Recognition and decoding support for some additional certificate
+  extensions.
+
+Enhancements:
+- Spelling fixes.
+
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.31.
-- Spelling fixes.
 
 New in Portecle 1.1 (2005-07-01):
 ---------------------------------

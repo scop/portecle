@@ -207,6 +207,10 @@ public class X509Ext
     private static final String MICROSOFT_CA_VERSION_OID =
         "1.3.6.1.4.1.311.21.1";
 
+    /** Microsoft previous CA certificate hash */
+    private static final String MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID =
+        "1.3.6.1.4.1.311.21.2";
+    
     /** Microsoft certificate template (v2) OID */
     private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID =
         "1.3.6.1.4.1.311.21.7";
@@ -437,6 +441,10 @@ public class X509Ext
         else if (m_sOid.equals(MICROSOFT_CA_VERSION_OID))
         {
             return getMicrosoftCAVersionStringValue(bOctets);
+        }
+        else if (m_sOid.equals(MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID))
+        {
+        	return getMicrosoftPreviousCACertificateHashStringValue(bOctets);
         }
         else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID))
         {
@@ -1347,6 +1355,25 @@ public class X509Ext
         String keyIx = String.valueOf(ver >> 16);     // high 16 bits
         return MessageFormat.format(
             m_res.getString("MsftCaVersion"),new String[]{certIx, keyIx})+'\n';
+    }
+
+
+    /**
+     * Get Microsoft Previous CA Certificate Hash (1.3.6.1.4.1.311.21.2)
+     * extension value as a string.
+     *
+     * @see <a href="http://support.microsoft.com/?id=287547">Microsoft support</a>
+     * @param bValue The octet string value
+     * @return Extension value as a string
+     * @throws IOException If and I/O problem occurs
+     */
+    private String getMicrosoftPreviousCACertificateHashStringValue(byte[] bValue)
+        throws IOException
+    {
+        DEROctetString derOctetStr = (DEROctetString) toDER(bValue);
+        byte[] bKeyIdent = derOctetStr.getOctets();
+        StringBuffer strBuff = new StringBuffer();
+        return strBuff.append(convertToHexString(bKeyIdent)).append('\n').toString();
     }
 
 
