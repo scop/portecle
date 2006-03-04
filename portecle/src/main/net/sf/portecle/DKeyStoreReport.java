@@ -48,7 +48,6 @@ import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -111,21 +110,6 @@ class DKeyStoreReport
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/resources");
-
-    /** Keystore report */
-    private String m_sReport;
-
-    /** Keystore report in XML form */
-    private String m_sReportXML;
-
-    /** Panel to hold option controls */
-    private JPanel m_jpOptions;
-
-    /** Panel to hold report type controls */
-    private JPanel m_jpReportType;
-
-    /** Label for report type */
-    private JLabel m_jlReportType;
 
     /** Panel to hold buttons */
     private JPanel m_jpButtons;

@@ -1612,6 +1612,7 @@ public class X509Ext
         sb.append('\n');
 
         // Enterprise ID
+        /*
         ASN1Sequence eid = (ASN1Sequence)
             ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject();
         ASN1Sequence rootLabel = (ASN1Sequence)
@@ -1625,6 +1626,7 @@ public class X509Ext
             // but the following throws a ClassCastException...?
             // ASN1Sequence eLabel = (ASN1Sequence) eLabels.getObjectAt(i);
         }
+        */
         sb.append('\t');
         sb.append(m_res.getString("NovellEnterpriseID"));
         sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
@@ -1684,10 +1686,11 @@ public class X509Ext
             res.append(' ').append(csecRating).append('\n');
         }
 
-        ASN1Sequence cryptoQ = (ASN1Sequence) seq.getObjectAt(2);
+        //ASN1Sequence cryptoQ = (ASN1Sequence) seq.getObjectAt(2);
         res.append("\t\t").append(m_res.getString("NovellCryptoQuality"));
         res.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
         res.append('\n');
+        /* TODO
         for (int i = 0, len = cryptoQ.size(); i < len; i++) {
             ASN1Sequence cqPair = (ASN1Sequence) cryptoQ.getObjectAt(i);
             DERInteger cryptoModuleCriteria =
@@ -1695,6 +1698,7 @@ public class X509Ext
             DERInteger cryptoModuleRating =
                 (DERInteger) cqPair.getObjectAt(1);
         }
+        */
     
         String ksqv = ((DERInteger) seq.getObjectAt(3)).getValue().toString();
         String ksq = getRes("NovellKeyStorageQuality." + ksqv,

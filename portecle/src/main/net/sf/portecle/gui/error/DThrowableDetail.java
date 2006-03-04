@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Enumeration;
+//import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -44,8 +44,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
+//import javax.swing.tree.TreeNode;
+//import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
@@ -231,6 +231,7 @@ public class DThrowableDetail extends JDialog
      * @param tree The tree.
      * @param parent Path to node to expand
      */
+    /*
     private void expandTree(JTree tree, TreePath parent)
     {
         // Traverse children expending nodes
@@ -247,6 +248,7 @@ public class DThrowableDetail extends JDialog
 
         tree.expandPath(parent);
     }
+    */
 
     /**
      * Copy button pressed - copy throwable stack traces to clipboard.

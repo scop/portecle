@@ -43,10 +43,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+//import java.io.ObjectInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.net.HttpURLConnection;
+//import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URL;
 import java.security.GeneralSecurityException;
@@ -126,7 +126,7 @@ import net.sf.portecle.gui.statusbar.StatusBar;
 import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
 import net.sf.portecle.gui.theme.LightMetalTheme;
 import net.sf.portecle.version.JavaVersion;
-import net.sf.portecle.version.Version;
+//import net.sf.portecle.version.Version;
 import net.sf.portecle.version.VersionException;
 
 /**
@@ -317,7 +317,7 @@ public class FPortecle extends JFrame implements StatusBar
     private JMenuItem m_jmiMailList;
 
     /** Check for Update menu item of Online Resources menu */
-    private JMenuItem m_jmiCheckUpdate;
+    //private JMenuItem m_jmiCheckUpdate;
 
     /** Donation menu item of Online Resources menu */
     private JMenuItem m_jmiDonate;
@@ -410,13 +410,6 @@ public class FPortecle extends JFrame implements StatusBar
 
     /** Export Trusted Certificate entry menu item pop-up menu */
     private JMenuItem m_jmiTrustCertExport;
-
-    /** Export sub-menu binary menu item of Trusted certificate pop-up menu */
-    private JMenuItem m_jmiTrustCertExportBin;
-
-    /** Export sub-menu printable menu item of Trusted certificate pop-up
-        menu */
-    private JMenuItem m_jmiTrustCertExportPrint;
 
     /** Delete menu item of Trusted Certificate Entry pop-up menu */
     private JMenuItem m_jmiTrustCertDelete;
@@ -4087,6 +4080,7 @@ public class FPortecle extends JFrame implements StatusBar
      * Check if a more up-to-date version of Portecle exists by querying
      * a properties file on the internet.
      */
+    /*
     private void checkForUpdate()
     {
         // Get the version number of this Portecle
@@ -4097,9 +4091,9 @@ public class FPortecle extends JFrame implements StatusBar
 
         try
         {
-            /* Get the version number of the latest Portecle from the
-               Internet - present in a serialised Version object on the
-               Portecle web site */
+            // Get the version number of the latest Portecle from the
+            // Internet - present in a serialised Version object on the
+            // Portecle web site
 
             // Build and connect to the relevant URL
             URL latestVersionUrl = new URL(
@@ -4184,14 +4178,16 @@ public class FPortecle extends JFrame implements StatusBar
 
             if (ois != null)
             {
-                try { ois.close(); } catch (IOException ex) { /* Ignore */ }
+                try { ois.close(); } catch (IOException ex) {}
             }
         }
     }
+    */
 
     /**
      * Display teh Portecle downloads web page.
      */
+    /*
     private void visitDownloads()
     {
         String sDownloadsAddress =
@@ -4213,6 +4209,7 @@ public class FPortecle extends JFrame implements StatusBar
                 JOptionPane.INFORMATION_MESSAGE);
         }
     }
+    */
 
     /**
      * Display donation web page.
@@ -4673,7 +4670,7 @@ public class FPortecle extends JFrame implements StatusBar
             /* Display the Generate Key Pair dialog to get the key pair
                generation parameters from the user */
             DExport dExport = new DExport(
-                this, true, m_keyStoreWrap, sAlias, m_lastDir);
+                this, true, m_keyStoreWrap, sAlias);
             dExport.setLocationRelativeTo(this);
             dExport.setVisible(true);
 
