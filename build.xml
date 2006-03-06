@@ -44,7 +44,8 @@
       destdir="${build}/classes"
       source="${build.srcver}"
       debug="${build.debug}"
-      debuglevel="${build.debuglevel}">
+      debuglevel="${build.debuglevel}"
+      encoding="UTF-8">
       <classpath refid="build.classpath" />
       <compilerarg compiler="javac1.5" value="-Xlint:all,-serial" />
       <compilerarg compiler="jikes" value="+P" />
