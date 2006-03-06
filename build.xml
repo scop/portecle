@@ -29,7 +29,8 @@
   <taskdef resource="checkstyletask.properties"
     classpath="${checkstyle.jar}:${checkstyle-opt.jar}"/>
 
-  <property name="build.debug" value="false" />
+  <property name="build.debug" value="true" />
+  <property name="build.debuglevel" value="lines,source" />
   <property name="build.srcver" value="1.4" />
 
   <path id="build.classpath">
@@ -42,7 +43,8 @@
       srcdir="${src}/main"
       destdir="${build}/classes"
       source="${build.srcver}"
-      debug="${build.debug}">
+      debug="${build.debug}"
+      debuglevel="${build.debuglevel}">
       <classpath refid="build.classpath" />
       <compilerarg compiler="javac1.5" value="-Xlint:all,-serial" />
       <compilerarg compiler="jikes" value="+P" />
