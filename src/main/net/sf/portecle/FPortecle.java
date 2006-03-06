@@ -3804,7 +3804,7 @@ public class FPortecle extends JFrame implements StatusBar
     */
 
     /**
-     * Display teh Portecle downloads web page.
+     * Display the Portecle downloads web page.
      */
     /*
     private void visitDownloads()
