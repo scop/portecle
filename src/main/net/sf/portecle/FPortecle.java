@@ -31,7 +31,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -71,7 +70,6 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -606,22 +604,8 @@ public class FPortecle extends JFrame implements StatusBar
                 m_jmiOpenKeyStorePkcs11.setEnabled(false);
             }
             m_jmrfFile.add(m_jmiOpenKeyStorePkcs11);
-            m_jmiOpenKeyStorePkcs11.addActionListener(new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent evt)
-                    {
-                        setDefaultStatusBarText();
-                        setCursorBusy();
-                        repaint();
-
-                        Thread t = new Thread(new Runnable() {
-                            public void run() {
-                                try { openKeyStorePkcs11();
-                                } finally { setCursorFree(); }
-                        }});
-                        t.start();
-                    }
-                });
+            m_jmiOpenKeyStorePkcs11.addActionListener(new ActionListener() {
+                protected void act() { openKeyStorePkcs11(); }});
             new StatusBarChangeHandler(
                 m_jmiOpenKeyStorePkcs11,
                 m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.statusbar"),
@@ -646,21 +630,8 @@ public class FPortecle extends JFrame implements StatusBar
             new ImageIcon(getResImage("FPortecle.m_jmiSaveKeyStoreAs.image")));
         m_jmiSaveKeyStoreAs.setEnabled(false);
         m_jmrfFile.add(m_jmiSaveKeyStoreAs);
-        m_jmiSaveKeyStoreAs.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { saveKeyStoreAs(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiSaveKeyStoreAs.addActionListener(new ActionListener() {
+            protected void act() { saveKeyStoreAs(); }});
         new StatusBarChangeHandler(
             m_jmiSaveKeyStoreAs,
             m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.statusbar"),
@@ -686,21 +657,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiExit.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiExit.image")));
         m_jmrfFile.add(m_jmiExit);
-        m_jmiExit.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { exitApplication(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiExit.addActionListener(new ActionListener() {
+            protected void act() { exitApplication(); }});
         new StatusBarChangeHandler(
             m_jmiExit, m_res.getString("FPortecle.m_jmiExit.statusbar"), this);
 
@@ -761,22 +719,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiChangeKeyStoreTypeJks.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeJks.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJks);
-        m_jmiChangeKeyStoreTypeJks.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { changeKeyStoreType(KeyStoreType.JKS);
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiChangeKeyStoreTypeJks.addActionListener(new ActionListener() {
+            protected void act() { changeKeyStoreType(KeyStoreType.JKS); }});
         new StatusBarChangeHandler(
             m_jmiChangeKeyStoreTypeJks,
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"),
@@ -788,22 +732,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiChangeKeyStoreTypeJceks.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJceks);
-        m_jmiChangeKeyStoreTypeJceks.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { changeKeyStoreType(KeyStoreType.JCEKS);
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiChangeKeyStoreTypeJceks.addActionListener(new ActionListener() {
+            protected void act() { changeKeyStoreType(KeyStoreType.JCEKS); }});
         new StatusBarChangeHandler(
             m_jmiChangeKeyStoreTypeJceks,
             m_res.getString(
@@ -816,22 +746,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiChangeKeyStoreTypePkcs12.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypePkcs12);
-        m_jmiChangeKeyStoreTypePkcs12.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { changeKeyStoreType(KeyStoreType.PKCS12);
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiChangeKeyStoreTypePkcs12.addActionListener(new ActionListener() {
+            protected void act() { changeKeyStoreType(KeyStoreType.PKCS12); }});
         new StatusBarChangeHandler(
             m_jmiChangeKeyStoreTypePkcs12,
             m_res.getString(
@@ -844,22 +760,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiChangeKeyStoreTypeBks.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeBks.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeBks);
-        m_jmiChangeKeyStoreTypeBks.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { changeKeyStoreType(KeyStoreType.BKS);
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiChangeKeyStoreTypeBks.addActionListener(new ActionListener() {
+            protected void act() { changeKeyStoreType(KeyStoreType.BKS); }});
         new StatusBarChangeHandler(
             m_jmiChangeKeyStoreTypeBks,
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"),
@@ -871,22 +773,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiChangeKeyStoreTypeUber.mnemonic").charAt(0));
         m_jmiChangeKeyStoreTypeUber.setEnabled(false);
         m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeUber);
-        m_jmiChangeKeyStoreTypeUber.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { changeKeyStoreType(KeyStoreType.UBER);
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiChangeKeyStoreTypeUber.addActionListener(new ActionListener() {
+            protected void act() { changeKeyStoreType(KeyStoreType.UBER); }});
         new StatusBarChangeHandler(
             m_jmiChangeKeyStoreTypeUber,
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"),
@@ -908,21 +796,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiOptions.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiOptions.image")));
         m_jmTools.add(m_jmiOptions);
-        m_jmiOptions.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { showOptions(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiOptions.addActionListener(new ActionListener() {
+            protected void act() { showOptions(); }});
         new StatusBarChangeHandler(
             m_jmiOptions,
             m_res.getString("FPortecle.m_jmiOptions.statusbar"),
@@ -986,21 +861,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiWebsite.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiWebsite.image")));
         m_jmOnlineResources.add(m_jmiWebsite);
-        m_jmiWebsite.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { visitWebsite(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiWebsite.addActionListener(new ActionListener() {
+            protected void act() { visitWebsite(); }});
         new StatusBarChangeHandler(
             m_jmiWebsite,
             m_res.getString("FPortecle.m_jmiWebsite.statusbar"),
@@ -1012,22 +874,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiSFNetProject.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiSFNetProject.image")));
         m_jmOnlineResources.add(m_jmiSFNetProject);
-        m_jmiSFNetProject.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { visitSFNetProject();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiSFNetProject.addActionListener(new ActionListener() {
+            protected void act() { visitSFNetProject(); }});
         new StatusBarChangeHandler(
             m_jmiSFNetProject,
             m_res.getString("FPortecle.m_jmiSFNetProject.statusbar"),
@@ -1039,21 +887,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiEmail.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiEmail.image")));
         m_jmOnlineResources.add(m_jmiEmail);
-        m_jmiEmail.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { composeEmail(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiEmail.addActionListener(new ActionListener() {
+            protected void act() { composeEmail(); }});
         new StatusBarChangeHandler(
             m_jmiEmail,
             m_res.getString("FPortecle.m_jmiEmail.statusbar"),
@@ -1065,22 +900,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiMailList.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiMailList.image")));
         m_jmOnlineResources.add(m_jmiMailList);
-        m_jmiMailList.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { visitMailListSignup();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiMailList.addActionListener(new ActionListener() {
+            protected void act() { visitMailListSignup(); }});
         new StatusBarChangeHandler(
             m_jmiMailList,
             m_res.getString("FPortecle.m_jmiMailList.statusbar"),
@@ -1093,21 +914,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiCheckUpdate.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiCheckUpdate.image")));
         m_jmOnlineResources.add(m_jmiCheckUpdate);
-        m_jmiCheckUpdate.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { checkForUpdate(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiCheckUpdate.addActionListener(new ActionListener() {
+            protected void act() { checkForUpdate(); }});
         new StatusBarChangeHandler(
             m_jmiCheckUpdate,
             m_res.getString("FPortecle.m_jmiCheckUpdate.statusbar"),
@@ -1122,22 +930,8 @@ public class FPortecle extends JFrame implements StatusBar
                 getResImage("FPortecle.m_jmiDonate.image")));
         m_jmiDonate.setToolTipText(null);
         m_jmHelp.add(m_jmiDonate);
-        m_jmiDonate.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent evt)
-                {
-                    setDefaultStatusBarText();
-                    setCursorBusy();
-                    repaint();
-
-                    Thread t = new Thread(new Runnable() {
-                        public void run() {
-                            try { makeDonation();
-                            } finally { setCursorFree(); }
-                    }});
-                    t.start();
-                }
-            });
+        m_jmiDonate.addActionListener(new ActionListener() {
+            protected void act() { makeDonation(); }});
         new StatusBarChangeHandler(
             m_jmiDonate,
             m_res.getString("FPortecle.m_jmiDonate.statusbar"),
@@ -1153,22 +947,8 @@ public class FPortecle extends JFrame implements StatusBar
             new ImageIcon(
                 getResImage("FPortecle.m_jmiSecurityProviders.image")));
         m_jmHelp.add(m_jmiSecurityProviders);
-        m_jmiSecurityProviders.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { showSecurityProviders();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiSecurityProviders.addActionListener(new ActionListener() {
+            protected void act() { showSecurityProviders(); }});
         new StatusBarChangeHandler(
             m_jmiSecurityProviders,
             m_res.getString("FPortecle.m_jmiSecurityProviders.statusbar"),
@@ -1180,21 +960,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiJars.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiJars.image")));
         m_jmHelp.add(m_jmiJars);
-        m_jmiJars.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { showJarInfo(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiJars.addActionListener(new ActionListener() {
+            protected void act() { showJarInfo(); }});
         new StatusBarChangeHandler(
             m_jmiJars, m_res.getString("FPortecle.m_jmiJars.statusbar"), this);
 
@@ -1206,21 +973,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiAbout.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiAbout.image")));
         m_jmHelp.add(m_jmiAbout);
-        m_jmiAbout.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { showAbout(); } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiAbout.addActionListener(new ActionListener() {
+            protected void act() { showAbout(); }});
         new StatusBarChangeHandler(
             m_jmiAbout,
             m_res.getString("FPortecle.m_jmiAbout.statusbar"),
@@ -1686,22 +1440,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiKeyPairCertDetails.setIcon(
             new ImageIcon(
                 getResImage("FPortecle.m_jmiKeyPairCertDetails.image")));
-        m_jmiKeyPairCertDetails.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { showSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiKeyPairCertDetails.addActionListener(new ActionListener() {
+            protected void act() { showSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiKeyPairCertDetails,
             m_res.getString("FPortecle.m_jmiKeyPairCertDetails.statusbar"),
@@ -1714,22 +1454,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiKeyPairExport.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiKeyPairExport.image")));
 
-        m_jmiKeyPairExport.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { exportSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiKeyPairExport.addActionListener(new ActionListener() {
+            protected void act() { exportSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiKeyPairExport,
             m_res.getString("FPortecle.m_jmiKeyPairExport.statusbar"),
@@ -1741,22 +1467,8 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiGenerateCSR.mnemonic").charAt(0));
         m_jmiGenerateCSR.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiGenerateCSR.image")));
-        m_jmiGenerateCSR.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { generateCsrSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiGenerateCSR.addActionListener(new ActionListener() {
+            protected void act() { generateCsrSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiGenerateCSR,
             m_res.getString("FPortecle.m_jmiGenerateCSR.statusbar"),
@@ -1768,22 +1480,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiImportCAReply.mnemonic").charAt(0));
         m_jmiImportCAReply.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiImportCAReply.image")));
-        m_jmiImportCAReply.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { importCAReplySelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiImportCAReply.addActionListener(new ActionListener() {
+            protected void act() { importCAReplySelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiImportCAReply,
             m_res.getString("FPortecle.m_jmiImportCAReply.statusbar"),
@@ -1795,22 +1493,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiSetKeyPairPass.mnemonic").charAt(0));
         m_jmiSetKeyPairPass.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiSetKeyPairPass.image")));
-        m_jmiSetKeyPairPass.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { setPasswordSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiSetKeyPairPass.addActionListener(new ActionListener() {
+            protected void act() { setPasswordSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiSetKeyPairPass,
             m_res.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"),
@@ -1822,22 +1506,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiKeyPairDelete.mnemonic").charAt(0));
         m_jmiKeyPairDelete.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiKeyPairDelete.image")));
-        m_jmiKeyPairDelete.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { deleteSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiKeyPairDelete.addActionListener(new ActionListener() {
+            protected void act() { deleteSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiKeyPairDelete,
             m_res.getString("FPortecle.m_jmiKeyPairDelete.statusbar"),
@@ -1848,22 +1518,8 @@ public class FPortecle extends JFrame implements StatusBar
             m_res.getString("FPortecle.m_jmiClone.mnemonic").charAt(0));
         m_jmiClone.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiClone.image")));
-        m_jmiClone.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { cloneSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiClone.addActionListener(new ActionListener() {
+            protected void act() { cloneSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiClone,
             m_res.getString("FPortecle.m_jmiClone.statusbar"),
@@ -1875,22 +1531,8 @@ public class FPortecle extends JFrame implements StatusBar
                 "FPortecle.m_jmiKeyPairRename.mnemonic").charAt(0));
         m_jmiKeyPairRename.setIcon(
             new ImageIcon(getResImage("FPortecle.m_jmiKeyPairRename.image")));
-        m_jmiKeyPairRename.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { renameSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiKeyPairRename.addActionListener(new ActionListener() {
+            protected void act() { renameSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiKeyPairRename,
             m_res.getString("FPortecle.m_jmiKeyPairRename.statusbar"),
@@ -1918,22 +1560,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiTrustCertDetails.setIcon(
             new ImageIcon(
                 getResImage("FPortecle.m_jmiTrustCertDetails.image")));
-        m_jmiTrustCertDetails.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { showSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiTrustCertDetails.addActionListener(new ActionListener() {
+            protected void act() { showSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiTrustCertDetails,
             m_res.getString("FPortecle.m_jmiTrustCertDetails.statusbar"),
@@ -1946,22 +1574,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiTrustCertExport.setIcon(
             new ImageIcon(
                 getResImage("FPortecle.m_jmiTrustCertExport.image")));
-        m_jmiTrustCertExport.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { exportSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiTrustCertExport.addActionListener(new ActionListener() {
+            protected void act() { exportSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiTrustCertExport,
             m_res.getString("FPortecle.m_jmiTrustCertExport.statusbar"),
@@ -1974,22 +1588,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiTrustCertDelete.setIcon(
             new ImageIcon(
                 getResImage("FPortecle.m_jmiTrustCertDelete.image")));
-        m_jmiTrustCertDelete.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { deleteSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiTrustCertDelete.addActionListener(new ActionListener() {
+            protected void act() { deleteSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiTrustCertDelete,
             m_res.getString("FPortecle.m_jmiTrustCertDelete.statusbar"),
@@ -2002,22 +1602,8 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmiTrustCertRename.setIcon(
             new ImageIcon(
                 getResImage("FPortecle.m_jmiTrustCertRename.image")));
-        m_jmiTrustCertRename.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                setDefaultStatusBarText();
-                setCursorBusy();
-                repaint();
-
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        try { renameSelectedEntry();
-                        } finally { setCursorFree(); }
-                }});
-                t.start();
-            }
-        });
+        m_jmiTrustCertRename.addActionListener(new ActionListener() {
+            protected void act() { renameSelectedEntry(); }});
         new StatusBarChangeHandler(
             m_jmiTrustCertRename,
             m_res.getString("FPortecle.m_jmiTrustCertRename.statusbar"),
@@ -6618,7 +6204,8 @@ public class FPortecle extends JFrame implements StatusBar
     /**
      * Action to create a new keystore.
      */
-    private class NewKeyStoreAction extends AbstractAction
+    private class NewKeyStoreAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6646,29 +6233,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { newKeyStore(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            newKeyStore();
         }
     }
 
     /**
      * Action to save a keystore.
      */
-    private class SaveKeyStoreAction extends AbstractAction
+    private class SaveKeyStoreAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6696,29 +6272,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { saveKeyStore(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            saveKeyStore();
         }
     }
 
     /**
      * Action to open a keystore file.
      */
-    private class OpenKeyStoreFileAction extends AbstractAction
+    private class OpenKeyStoreFileAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6747,29 +6312,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { openKeyStoreFile(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            openKeyStoreFile();
         }
     }
 
     /**
      * Action to generate a key pair.
      */
-    private class GenKeyPairAction extends AbstractAction
+    private class GenKeyPairAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6796,29 +6350,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { generateKeyPair(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            generateKeyPair();
         }
     }
 
     /**
      * Action to import a trusted certificate.
      */
-    private class ImportTrustCertAction extends AbstractAction
+    private class ImportTrustCertAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6847,29 +6390,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { importTrustedCert(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            importTrustedCert();
         }
     }
 
     /**
      * Action to import a key pair.
      */
-    private class ImportKeyPairAction extends AbstractAction
+    private class ImportKeyPairAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6897,29 +6429,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { importKeyPair(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            importKeyPair();
         }
     }
 
     /**
      * Action to set a keystore password.
      */
-    private class SetKeyStorePassAction extends AbstractAction
+    private class SetKeyStorePassAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -6949,29 +6470,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { setKeyStorePassword(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            setKeyStorePassword();
         }
     }
 
     /**
      * Action to show a keystore report.
      */
-    private class KeyStoreReportAction extends AbstractAction
+    private class KeyStoreReportAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -7001,29 +6511,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { keyStoreReport(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            keyStoreReport();
         }
     }
 
     /**
      * Action to examine a certificate.
      */
-    private class ExamineCertAction extends AbstractAction
+    private class ExamineCertAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -7051,29 +6550,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { examineCert(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            examineCert();
         }
     }
 
     /**
      * Action to examine a SSL/TLS connection.
      */
-    private class ExamineCertSSLAction extends AbstractAction
+    private class ExamineCertSSLAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -7103,29 +6591,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { examineCertSSL(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            examineCertSSL();
         }
     }
 
     /**
      * Action to examine a CRL.
      */
-    private class ExamineCrlAction extends AbstractAction
+    private class ExamineCrlAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -7153,29 +6630,18 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
-        public void actionPerformed(ActionEvent evt)
+        public void act()
         {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { examineCRL(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+            examineCRL();
         }
     }
 
     /**
      * Action to show help.
      */
-    private class HelpAction extends AbstractAction
+    private class HelpAction
+        extends AbstractAction
     {
         /**
          * Construct action.
@@ -7201,22 +6667,50 @@ public class FPortecle extends JFrame implements StatusBar
 
         /**
          * Perform action.
-         *
-         * @param evt Action event
          */
+        public void act()
+        {
+            showHelp();
+        }
+    }
+
+
+    /**
+     * Action helper class.
+     */
+    private abstract class AbstractAction
+        extends javax.swing.AbstractAction
+    {
+        protected abstract void act();
+        
         public void actionPerformed(ActionEvent evt)
         {
             setDefaultStatusBarText();
             setCursorBusy();
             repaint();
+            new Thread(new Runnable() {
+                public void run() { try { act(); } finally { setCursorFree(); }
+                }}).start();
+        }
+    }
 
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { showHelp(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
+
+    /**
+     * ActionListener helper class.
+     */
+    private abstract class ActionListener
+        implements java.awt.event.ActionListener
+    {
+        protected abstract void act();
+        
+        public void actionPerformed(ActionEvent evt)
+        {
+            setDefaultStatusBarText();
+            setCursorBusy();
+            repaint();
+            new Thread(new Runnable() {
+                public void run() { try { act(); } finally { setCursorFree(); }
+                }}).start();
         }
     }
 
