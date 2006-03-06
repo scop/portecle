@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -449,10 +449,6 @@ public class FPortecle extends JFrame implements StatusBar
     private final OpenKeyStoreFileAction m_openKeyStoreFileAction =
         new OpenKeyStoreFileAction();
 
-    /** Open PKCS #11 Keystore action */
-    private final OpenKeyStorePkcs11Action m_openKeyStorePkcs11Action =
-        new OpenKeyStorePkcs11Action();
-
     /** Save Keystore action */
     private final SaveKeyStoreAction m_saveKeyStoreAction =
         new SaveKeyStoreAction();
@@ -486,9 +482,6 @@ public class FPortecle extends JFrame implements StatusBar
     /** Keystore Report action */
     private final KeyStoreReportAction m_keyStoreReportAction =
         new KeyStoreReportAction();
-
-    /** Donate action */
-    private final DonateAction m_donateAction = new DonateAction();
 
     /** Help action */
     private final HelpAction m_helpAction = new HelpAction();
@@ -602,18 +595,37 @@ public class FPortecle extends JFrame implements StatusBar
         m_jmrfFile.add(m_jmiOpenKeyStoreFile);
 
         if (EXPERIMENTAL) {
-            m_jmiOpenKeyStorePkcs11 =
-                new JMenuItem(m_openKeyStorePkcs11Action);
+            m_jmiOpenKeyStorePkcs11 = new JMenuItem(
+                m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.text"),
+                m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.mnemonic").charAt(0));
+            m_jmiOpenKeyStorePkcs11.setIcon(
+                new ImageIcon(getResImage("FPortecle.m_jmiOpenKeyStorePkcs11.image")));
             m_jmiOpenKeyStorePkcs11.setToolTipText(null);
-            new StatusBarChangeHandler(
-                m_jmiOpenKeyStorePkcs11,
-                (String) m_openKeyStorePkcs11Action.getValue(
-                    Action.LONG_DESCRIPTION),
-                this);
-            if (ProviderUtil.getPkcs11Providers().isEmpty()) {
+            if (ProviderUtil.getPkcs11Providers().isEmpty())
+            {
                 m_jmiOpenKeyStorePkcs11.setEnabled(false);
             }
             m_jmrfFile.add(m_jmiOpenKeyStorePkcs11);
+            m_jmiOpenKeyStorePkcs11.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent evt)
+                    {
+                        setDefaultStatusBarText();
+                        setCursorBusy();
+                        repaint();
+
+                        Thread t = new Thread(new Runnable() {
+                            public void run() {
+                                try { openKeyStorePkcs11();
+                                } finally { setCursorFree(); }
+                        }});
+                        t.start();
+                    }
+                });
+            new StatusBarChangeHandler(
+                m_jmiOpenKeyStorePkcs11,
+                m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.statusbar"),
+                this);
         }
 
         m_jmrfFile.addSeparator();
@@ -1102,13 +1114,34 @@ public class FPortecle extends JFrame implements StatusBar
             this);
         */
 
-        m_jmiDonate = new JMenuItem(m_donateAction);
+        m_jmiDonate = new JMenuItem(
+            m_res.getString("FPortecle.m_jmiDonate.text"),
+            m_res.getString("FPortecle.m_jmiDonate.mnemonic").charAt(0));
+        m_jmiDonate.setIcon(
+            new ImageIcon(
+                getResImage("FPortecle.m_jmiDonate.image")));
         m_jmiDonate.setToolTipText(null);
+        m_jmHelp.add(m_jmiDonate);
+        m_jmiDonate.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent evt)
+                {
+                    setDefaultStatusBarText();
+                    setCursorBusy();
+                    repaint();
+
+                    Thread t = new Thread(new Runnable() {
+                        public void run() {
+                            try { makeDonation();
+                            } finally { setCursorFree(); }
+                    }});
+                    t.start();
+                }
+            });
         new StatusBarChangeHandler(
             m_jmiDonate,
-            (String)m_donateAction.getValue(Action.LONG_DESCRIPTION),
+            m_res.getString("FPortecle.m_jmiDonate.statusbar"),
             this);
-        m_jmHelp.add(m_jmiDonate);
 
         m_jmHelp.addSeparator();
 
@@ -6734,53 +6767,6 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
-     * Action to open a PKCS#11 keystore.
-     */
-    private class OpenKeyStorePkcs11Action extends AbstractAction
-    {
-        /**
-         * Construct action.
-         */
-        public OpenKeyStorePkcs11Action()
-        {
-            putValue(LONG_DESCRIPTION, m_res.getString(
-                         "FPortecle.OpenKeyStorePkcs11Action.statusbar"));
-            putValue(MNEMONIC_KEY, new Integer(
-                         m_res.getString(
-                             "FPortecle.OpenKeyStorePkcs11Action.mnemonic")
-                         .charAt(0)));
-            putValue(NAME, m_res.getString(
-                         "FPortecle.OpenKeyStorePkcs11Action.text"));
-            putValue(SHORT_DESCRIPTION, m_res.getString(
-                         "FPortecle.OpenKeyStorePkcs11Action.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(
-                         getResImage(
-                             "FPortecle.OpenKeyStorePkcs11Action.image")));
-            setEnabled(true);
-        }
-
-        /**
-         * Perform action.
-         *
-         * @param evt Action event
-         */
-        public void actionPerformed(ActionEvent evt)
-        {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { openKeyStorePkcs11(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
-        }
-    }
-
-    /**
      * Action to generate a key pair.
      */
     private class GenKeyPairAction extends AbstractAction
@@ -7180,51 +7166,6 @@ public class FPortecle extends JFrame implements StatusBar
                 public void run()
                 {
                     try { examineCRL(); } finally { setCursorFree(); }
-                }
-            });
-            t.start();
-        }
-    }
-
-    /**
-     * Action to make a donation.
-     */
-    private class DonateAction extends AbstractAction
-    {
-        /**
-         * Construct action.
-         */
-        public DonateAction()
-        {
-            putValue(LONG_DESCRIPTION,
-                     m_res.getString("FPortecle.DonateAction.statusbar"));
-            putValue(MNEMONIC_KEY,
-                     new Integer(
-                         m_res.getString(
-                             "FPortecle.DonateAction.mnemonic").charAt(0)));
-            putValue(NAME, m_res.getString("FPortecle.DonateAction.text"));
-            putValue(SHORT_DESCRIPTION,
-                     m_res.getString("FPortecle.DonateAction.tooltip"));
-            putValue(SMALL_ICON, new ImageIcon(
-                         getResImage("FPortecle.DonateAction.image")));
-            setEnabled(true);
-        }
-
-        /**
-         * Perform action.
-         *
-         * @param evt Action event
-         */
-        public void actionPerformed(ActionEvent evt)
-        {
-            setDefaultStatusBarText();
-            setCursorBusy();
-            repaint();
-
-            Thread t = new Thread(new Runnable() {
-                public void run()
-                {
-                    try { makeDonation(); } finally { setCursorFree(); }
                 }
             });
             t.start();
