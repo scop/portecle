@@ -5722,9 +5722,9 @@ public class FPortecle extends JFrame implements StatusBar
         // Enable change keystore type menu
         m_jmChangeKeyStoreType.setEnabled(true);
 
-        // Initially enable the menu items for all types
-        m_jmiChangeKeyStoreTypeJks.setEnabled(true);
-        m_jmiChangeKeyStoreTypeJceks.setEnabled(true);
+        // Initially enable the menu items for all available types
+        m_jmiChangeKeyStoreTypeJks.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JKS));
+        m_jmiChangeKeyStoreTypeJceks.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JCEKS));
         m_jmiChangeKeyStoreTypePkcs12.setEnabled(true);
         m_jmiChangeKeyStoreTypeBks.setEnabled(true);
         m_jmiChangeKeyStoreTypeUber.setEnabled(true);

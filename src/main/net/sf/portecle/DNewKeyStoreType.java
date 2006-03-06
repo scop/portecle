@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2005 Ville Skyttä, ville.skytta@iki.fi
+ *             2005-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -47,6 +47,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 import net.sf.portecle.crypto.KeyStoreType;
+import net.sf.portecle.crypto.KeyStoreUtil;
 
 /**
  * Dialog used to retrieve the type to use in the creation of a new keystore.
@@ -123,6 +124,7 @@ class DNewKeyStoreType extends JDialog
             .charAt(0));
         m_jrbJksKeyStore.setToolTipText(
             m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.tooltip"));
+        m_jrbJksKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JKS));
 
         m_jrbJceksKeyStore = new JRadioButton(
             m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.text"));
@@ -131,6 +133,7 @@ class DNewKeyStoreType extends JDialog
             .charAt(0));
         m_jrbJceksKeyStore.setToolTipText(
             m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.tooltip"));
+        m_jrbJceksKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JCEKS));
 
         m_jrbPkcs12KeyStore = new JRadioButton(
             m_res.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.text"));
@@ -163,6 +166,13 @@ class DNewKeyStoreType extends JDialog
         keyStoreTypes.add(m_jrbJceksKeyStore);
         keyStoreTypes.add(m_jrbBksKeyStore);
         keyStoreTypes.add(m_jrbUberKeyStore);
+
+        if (m_jrbJksKeyStore.isEnabled()) {
+            m_jrbJksKeyStore.setSelected(true);
+        }
+        else {
+            m_jrbPkcs12KeyStore.setSelected(true);
+        }
 
         m_jpKeyStoreType = new JPanel(new GridLayout(6, 1));
         m_jpKeyStoreType.setBorder(

@@ -33,6 +33,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
@@ -45,6 +46,10 @@ public final class KeyStoreUtil
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+
+    /** Map of available keystore types */
+    private static final HashMap AVAILABLE_TYPES = new HashMap();
+
 
     /**
      * Private to prevent construction.
@@ -80,8 +85,15 @@ public final class KeyStoreUtil
         }
         if (keyStore == null)
         {
-            keyStore = KeyStore.getInstance(keyStoreType.toString());
+            try {
+                keyStore = KeyStore.getInstance(keyStoreType.toString());
+            }
+            catch (KeyStoreException e) {
+                AVAILABLE_TYPES.put(keyStoreType, Boolean.FALSE);
+                throw e;
+            }
         }
+        AVAILABLE_TYPES.put(keyStoreType, Boolean.TRUE);
         return keyStore;
     }
 
@@ -112,6 +124,29 @@ public final class KeyStoreUtil
     }
 
 
+    /**
+     * Check if a keystore type is available.
+     * 
+     * @param keyStoreType the keystore type
+     * @return true if the keystore type is available, false otherwise
+     */
+    public static boolean isAvailable(KeyStoreType keyStoreType)
+    {
+        Boolean available;
+        if ((available = (Boolean) AVAILABLE_TYPES.get(keyStoreType)) != null) {
+            return available.booleanValue();
+        }
+        else {
+            try {
+                KeyStore testKeyStore = getKeyStoreImpl(keyStoreType);
+            }
+            catch (KeyStoreException e) {
+                // Ignore
+            }
+        }
+        return ((Boolean) AVAILABLE_TYPES.get(keyStoreType)).booleanValue();
+    }
+    
     /**
      * Load a Keystore from a file accessed by a password.
      *
