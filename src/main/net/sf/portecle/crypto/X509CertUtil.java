@@ -34,7 +34,6 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
-import java.security.KeyFactory;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.Principal;
@@ -46,8 +45,8 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
-import java.security.spec.DSAPublicKeySpec;
-import java.security.spec.RSAPublicKeySpec;
+import java.security.interfaces.DSAKey;
+import java.security.interfaces.RSAKey;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +58,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
+
+import javax.crypto.interfaces.DHKey;
 
 import org.bouncycastle.asn1.DEROutputStream;
 import org.bouncycastle.asn1.x509.X509Name;
@@ -1082,63 +1083,29 @@ public final class X509CertUtil
 
     
     /**
-     * For a given X.509 certificate get the keysize of its public key.
+     * For a given certificate get the keysize of its public key.
      *
      * @param cert The certificate
      * @return The keysize
      * @throws CryptoException If there is a problem getting the keysize
      */
-    public static int getCertificateKeyLength(X509Certificate cert)
+    public static int getCertificateKeyLength(Certificate cert)
         throws CryptoException
     {
-        try
-        {
-            // Get the certificate's public key
-            PublicKey pubKey = cert.getPublicKey();
+        PublicKey pubKey = cert.getPublicKey();
 
-            // Get the public key algorithm
-            String sAlgorithm = pubKey.getAlgorithm();
-            // TODO: for some certs, eg. some in OpenSSL's certs/ dir in the
-            // source tarball, this may return an OID, which will confuse us.
-
-            /* If the algorithm is RSA then use a KeyFactory to create
-               an RSA public key spec and get the keysize from the
-               modulus length in bits */
-            if (sAlgorithm.equals(KeyPairType.RSA.toString()))
-            {
-                KeyFactory keyFact = KeyFactory.getInstance(sAlgorithm);
-                RSAPublicKeySpec keySpec = (RSAPublicKeySpec)
-                    keyFact.getKeySpec(pubKey, RSAPublicKeySpec.class);
-                BigInteger modulus = keySpec.getModulus();
-                return modulus.toString(2).length();
-            }
-            /* If the algorithm is RSA then use a KeyFactory to create
-               a DSA public key spec and get the keysize from the
-               prime length in bits */
-            else if (sAlgorithm.equals(KeyPairType.DSA.toString()))
-            {
-                KeyFactory keyFact = KeyFactory.getInstance(sAlgorithm);
-                DSAPublicKeySpec keySpec = (DSAPublicKeySpec)
-                    keyFact.getKeySpec(pubKey, DSAPublicKeySpec.class);
-                BigInteger prime = keySpec.getP();
-                return prime.toString(2).length();
-            }
-            // Otherwise cannot calculate keysize
-            else
-            {
-                throw new CryptoException(
-                    MessageFormat.format(
-                        m_res.getString(
-                            "NoCertificatePublicKeysizeUnrecogAlg." +
-                            "exception.message"),
-                        new Object[]{sAlgorithm}));
-            }
+        if (pubKey instanceof RSAKey) {
+            return ((RSAKey) pubKey).getModulus().bitLength();
         }
-        catch (GeneralSecurityException ex)
-        {
+        else if (pubKey instanceof DSAKey) {
+            return ((DSAKey) pubKey).getParams().getP().bitLength();
+        }
+        else if (pubKey instanceof DHKey) {
+            return ((DHKey) pubKey).getParams().getP().bitLength();
+        }
+        else {
             throw new CryptoException(
-                m_res.getString(
-                    "NoCertificatePublicKeysize.exception.message"), ex);
+                m_res.getString("NoCertificatePublicKeysize.exception.message"));
         }
     }
 }
