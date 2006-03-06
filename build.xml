@@ -155,6 +155,9 @@
   <target name="all" depends="dist,javadoc"
     description="Builds everything" />
 
+  <target name="release" depends="distclean,dist"
+    description="Builds Portecle release from scratch" />
+
   <target name="antic">
     <exec executable="antic" taskname="antic">
       <arg value="-java" />
