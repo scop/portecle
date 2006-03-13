@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -52,6 +52,30 @@ public class FileChooserFactory
     /** File extension for PKCS #12 keystore files */
     private static final String PKCS12_KEYSTORE_EXT_2 = "p12";
 
+    /** File extension for X.509 certificate files */
+    private static final String X509_EXT_1 = "cer";
+
+    /** File extension for X.509 certificate files */
+    private static final String X509_EXT_2 = "crt";
+
+    /** File extension for PKCS #7 certificate files */
+    private static final String PKCS7_EXT = "p7b";
+
+    /** File extension for PkiPath certificate files */
+    private static final String PKIPATH_EXT = "pkipath";
+
+    /** File extension for PEM files */
+    private static final String PEM_EXT = "pem";
+    
+    /** File extension for PKCS #10 CSR files */
+    private static final String CSR_EXT_1 = "p10";
+
+    /** File extension for PKCS #10 CSR files */
+    private static final String CSR_EXT_2 = "csr";
+
+    /** File extension for CRL files */
+    private static final String CRL_EXT = "crl";
+
     /** Description for keystore files */
     private static final String KEYSTORE_FILE_DESC =
         MessageFormat.format(
@@ -59,11 +83,11 @@ public class FileChooserFactory
             new String[]{KEYSTORE_EXT, JAVA_KEYSTORE_EXT,
                          PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
 
-    /** File extension for X.509 certificate files */
-    private static final String X509_EXT_1 = "cer";
-
-    /** File extension for X.509 certificate files */
-    private static final String X509_EXT_2 = "crt";
+    /** Description for PKCS #12 keystore files */
+    private static final String PKCS12_FILE_DESC =
+        MessageFormat.format(
+            m_res.getString("FileChooseFactory.Pkcs12Files"),
+            new String[]{PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
 
     /** Description for X.509 certificate files */
     private static final String X509_FILE_DESC =
@@ -71,41 +95,25 @@ public class FileChooserFactory
             m_res.getString("FileChooseFactory.CertificateFiles"),
             new String[]{X509_EXT_1, X509_EXT_2});
 
-    /** File extension for PKCS #7 certificate files */
-    private static final String PKCS7_EXT = "p7b";
-
     /** Description for PKCS #7 certificate files */
     private static final String PKCS7_FILE_DESC =
         MessageFormat.format(m_res.getString("FileChooseFactory.Pkcs7Files"),
                              new String[]{PKCS7_EXT});
-
-    /** File extension for PkiPath certificate files */
-    private static final String PKIPATH_EXT = "pkipath";
 
     /** Description for PkiPath certificate files */
     private static final String PKIPATH_FILE_DESC =
         MessageFormat.format(m_res.getString("FileChooseFactory.PkiPathFiles"),
                              new String[]{PKIPATH_EXT});
 
-    /** Description for PKCS #12 keystore files */
-    private static final String PKCS12_FILE_DESC =
-        MessageFormat.format(
-            m_res.getString("FileChooseFactory.Pkcs12Files"),
-            new String[]{PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2});
-
-    /** File extension for PKCS #10 CSR files */
-    private static final String CSR_EXT_1 = "p10";
-
-    /** File extension for PKCS #10 CSR files */
-    private static final String CSR_EXT_2 = "csr";
+    /** Description for PEM files */
+    private static final String PEM_FILE_DESC =
+        MessageFormat.format(m_res.getString("FileChooseFactory.PEMFiles"),
+                             new String[]{PEM_EXT});
 
     /** Description for PKCS #10 CSR files */
     private static final String CSR_FILE_DESC =
         MessageFormat.format(m_res.getString("FileChooseFactory.CsrFiles"),
                              new String[]{CSR_EXT_1, CSR_EXT_2});
-
-    /** File extension for CRL files */
-    private static final String CRL_EXT = "crl";
 
     /** Description for CRL files */
     private static final String CRL_FILE_DESC =
@@ -202,6 +210,19 @@ public class FileChooserFactory
             new FileExtFilter(
                 new String[] {PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2},
                 PKCS12_FILE_DESC));
+        return chooser;
+    }
+
+    /**
+     * Get a JFileChooser filtered for PEM files.
+     *
+     * @return JFileChooser object
+     */
+    public static JFileChooser getPEMFileChooser()
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.addChoosableFileFilter(
+            new FileExtFilter(new String[] {PEM_EXT}, PEM_FILE_DESC));
         return chooser;
     }
 

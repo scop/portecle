@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -57,7 +57,8 @@ import net.sf.portecle.crypto.CryptoException;
  * Dialog used to export keystore entries.  A number of export types
  * and formats are available depending on the entries content.
  */
-class DExport extends JDialog
+class DExport
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
@@ -185,11 +186,14 @@ class DExport extends JDialog
         m_mjrbPrivKeyCertChain.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 m_jrbDEREncoded.setEnabled(false);
-                m_jrbPemEncoded.setEnabled(false);
+                m_jrbPemEncoded.setEnabled(true);
                 m_jrbPKCS7.setEnabled(false);
                 m_jrbPkiPath.setEnabled(false);
                 m_jrbPKCS12.setEnabled(true);
-                m_jrbPKCS12.setSelected(true);
+                if (!m_jrbPemEncoded.isSelected())
+                {
+                    m_jrbPKCS12.setSelected(true);
+                }
             }
         });
 

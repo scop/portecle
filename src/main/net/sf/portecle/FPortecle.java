@@ -105,6 +105,7 @@ import edu.stanford.ejalbert.BrowserLauncher;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
+import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.crypto.ProviderUtil;
@@ -4371,7 +4372,14 @@ public class FPortecle extends JFrame implements StatusBar
             // Complete cert path and private key (PKCS #12)
             else
             {
-                bSuccess = exportPrivKeyCertChain(sAlias);
+                if (dExport.exportPem())
+                {
+                    bSuccess = exportPrivKeyCertChainPEM(sAlias);
+                }
+                else // if (dExport.exportPkcs12())
+                {
+                    bSuccess = exportPrivKeyCertChainPKCS12(sAlias);
+                }
             }
 
             if (bSuccess)
@@ -4787,14 +4795,112 @@ public class FPortecle extends JFrame implements StatusBar
         }
     }
 
-   /**
+    /**
+     * Export the private key and certificates of the keystore entry to
+     * a PEM encoded "OpenSSL" format bundle.
+     *
+     * @param sEntryAlias Entry alias
+     * @return True if the export is successful, false otherwise
+     */
+    private boolean exportPrivKeyCertChainPEM(String sEntryAlias)
+    {
+        KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+
+        // Get the entry's password (we may already know it from the wrapper)
+        char[] cPassword = m_keyStoreWrap.getEntryPassword(sEntryAlias);
+
+        if (cPassword == null)
+        {
+            cPassword = PKCS12_DUMMY_PASSWORD;
+
+            // Password is only relevant if the keystore is not PKCS #12
+            if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+            {
+                DGetPassword dGetPassword = new DGetPassword(
+                    this,
+                    m_res.getString("FPortecle.KeyEntryPassword.Title"),
+                    true);
+                dGetPassword.setLocationRelativeTo(this);
+                dGetPassword.setVisible(true);
+                cPassword = dGetPassword.getPassword();
+
+                if (cPassword == null)
+                {
+                    return false;
+                }
+            }
+        }
+
+        File fExportFile = null;
+        PEMWriter pw = null;
+
+        try
+        {
+            // Get the private key and certificate chain from the entry
+            Key privKey = keyStore.getKey(sEntryAlias, cPassword);
+            Certificate[] certs = keyStore.getCertificateChain(sEntryAlias);
+
+            // Let the user choose the PEM export file
+            fExportFile = chooseExportPEMFile();
+            if (fExportFile == null)
+            {
+                return false;
+            }
+
+            if (!confirmOverwrite(fExportFile, getTitle())) {
+                return false;
+            }
+
+            // Do the export
+            pw = new PEMWriter(new FileWriter(fExportFile));
+            // TODO: private key encryption?
+            pw.writeObject(privKey);
+            for (int i = 0, len = certs.length; i < len; i++) {
+                pw.writeObject(certs[i]);
+            }
+            pw.flush();
+            
+            m_lastDir.updateLastDir(fExportFile);
+
+            return true;
+        }
+        catch (FileNotFoundException ex)
+        {
+            String sMessage = MessageFormat.format(
+                m_res.getString("FPortecle.NoWriteFile.message"),
+                new String[]{fExportFile.getName()});
+            JOptionPane.showMessageDialog(
+                this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        catch (IOException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+        catch (GeneralSecurityException ex)
+        {
+            displayException(ex);
+            return false;
+        }
+        finally
+        {
+            if (pw != null)
+            {
+                try { pw.close(); }
+                catch (IOException ex) { displayException(ex); }
+            }
+        }
+    }
+
+    /**
      * Export the private key and certificates of the keystore entry to
      * a PKCS #12 keystore file.
      *
      * @param sEntryAlias Entry alias
      * @return True if the export is successful, false otherwise
      */
-    private boolean exportPrivKeyCertChain(String sEntryAlias)
+    private boolean exportPrivKeyCertChainPKCS12(String sEntryAlias)
     {
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
@@ -4993,6 +5099,35 @@ public class FPortecle extends JFrame implements StatusBar
     private File chooseExportPKCS12File()
     {
         JFileChooser chooser = FileChooserFactory.getPkcs12FileChooser();
+
+        File fLastDir = m_lastDir.getLastDir();
+        if (fLastDir != null)
+        {
+            chooser.setCurrentDirectory(fLastDir);
+        }
+
+        chooser.setDialogTitle(m_res.getString(
+                                   "FPortecle.ExportKeyCertificates.Title"));
+        chooser.setMultiSelectionEnabled(false);
+
+        int iRtnValue = chooser.showDialog(
+            this, m_res.getString("FPortecle.Export.button"));
+        if (iRtnValue == JFileChooser.APPROVE_OPTION)
+        {
+            File fExportFile = chooser.getSelectedFile();
+            return fExportFile;
+        }
+        return null;
+    }
+
+    /**
+     * Let the user choose a PEM file to export to.
+     *
+     * @return The chosen file or null if none was chosen
+     */
+    private File chooseExportPEMFile()
+    {
+        JFileChooser chooser = FileChooserFactory.getPEMFileChooser();
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null)
