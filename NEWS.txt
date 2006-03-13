@@ -7,6 +7,7 @@ New features:
 
 Enhancements:
 - Spelling fixes.
+- Support for entry alias case sensitivity in keystores where applicable.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.31.

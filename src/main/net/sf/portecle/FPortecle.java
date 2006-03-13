@@ -62,6 +62,7 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -2096,6 +2097,8 @@ public class FPortecle extends JFrame implements StatusBar
         try {
             openedKeyStore =
                 KeyStoreUtil.loadKeyStore(sPkcs11Provider, cPassword);
+            m_keyStoreWrap = new KeyStoreWrapper(
+                openedKeyStore, null, cPassword);
         }
         catch (CryptoException e) {
             int iSelected = JOptionPane.showConfirmDialog(
@@ -2110,9 +2113,6 @@ public class FPortecle extends JFrame implements StatusBar
             }
             return false;
         }
-
-        // Create a keystore wrapper for the keystore
-        m_keyStoreWrap = new KeyStoreWrapper(openedKeyStore, null, cPassword);
 
         // Update the frame's components and title
         updateControls();
@@ -3976,17 +3976,21 @@ public class FPortecle extends JFrame implements StatusBar
             // Create empty keystore of new type
             KeyStore newKeyStore = KeyStoreUtil.createKeyStore(keyStoreType);
 
-            /* Flag used to tell if we have warned the user about default key
-               pair entry passwords for keystores changed to PKCS #12 */
+            // Flag used to tell if we have warned the user about default key
+            // pair entry passwords for keystores changed to PKCS #12
             boolean bWarnPkcs12Password = false;
 
-            /* Flag used to tell if we have warned the user about key entries
-               not being carried over by the change */
+            // Flag used to tell if we have warned the user about key entries
+            // not being carried over by the change
             boolean bWarnNoChangeKey = false;
 
-            /* For every entry in the current keystore transfer it to the new
-               one - get key/key pair entry passwords from the wrapper and if
-               not present there from the user */
+            // Flag used to tell if we have warned the user about alias case
+            // sensitivity issues involved with the conversion
+            boolean bWarnCaseSensitivity = false;
+
+            // For every entry in the current keystore transfer it to the new
+            // one - get key/key pair entry passwords from the wrapper and if
+            // not present there from the user
             for (Enumeration aliases = currentKeyStore.aliases();
                  aliases.hasMoreElements();)
             {
@@ -3999,6 +4003,25 @@ public class FPortecle extends JFrame implements StatusBar
                     // Get trusted certificate and place it in the new keystore
                     Certificate trustedCertificate =
                         currentKeyStore.getCertificate(sAlias);
+
+                    // Check and ask about case insensitivity issues
+                    if (newKeyStore.containsAlias(sAlias) &&
+                        !bWarnCaseSensitivity)
+                    {
+                        bWarnCaseSensitivity = true;
+                        int iSelected = JOptionPane.showConfirmDialog(
+                            this,
+                            m_res.getString(
+                                "FPortecle.WarnCaseSensitivity.message"),
+                            m_res.getString(
+                                "FPortecle.ChangeKeyStoreType.Title"),
+                            JOptionPane.YES_NO_OPTION);
+                        if (iSelected == JOptionPane.NO_OPTION)
+                        {
+                            return false;
+                        }
+                    }
+
                     newKeyStore.setCertificateEntry(sAlias,
                                                     trustedCertificate);
                 }
@@ -4094,6 +4117,24 @@ public class FPortecle extends JFrame implements StatusBar
                     else if (keyStoreType == KeyStoreType.PKCS12)
                     {
                         cPassword = PKCS12_DUMMY_PASSWORD;
+                    }
+
+                    // Check and ask about case insensitivity issues
+                    if (newKeyStore.containsAlias(sAlias) &&
+                        !bWarnCaseSensitivity)
+                    {
+                        bWarnCaseSensitivity = true;
+                        int iSelected = JOptionPane.showConfirmDialog(
+                            this,
+                            m_res.getString(
+                                "FPortecle.WarnCaseSensitivity.message"),
+                            m_res.getString(
+                                "FPortecle.ChangeKeyStoreType.Title"),
+                            JOptionPane.YES_NO_OPTION);
+                        if (iSelected == JOptionPane.NO_OPTION)
+                        {
+                            return false;
+                        }
                     }
 
                     // Put key and (possibly null) certificate chain in

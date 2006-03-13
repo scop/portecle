@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +24,10 @@ package net.sf.portecle;
 
 import java.io.File;
 import java.security.KeyStore;
-import java.util.Vector;
+import java.util.HashMap;
+
+import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.KeyStoreType;
 
 /**
  * Wrapper class for a keystore.  Used to keep a track of the keystore's
@@ -35,11 +39,14 @@ class KeyStoreWrapper
     /** The wrapped keystore */
     private KeyStore m_keyStore;
 
+    /** Type of the wrapped keystore */
+    private KeyStoreType m_keyStoreType;
+    
     /** The keystore's password */
     private char[] m_cPassword;
 
-    /** Keystore entry passwords as a Vector of EntryPassword objects */
-    private Vector m_vEntryPasswords;
+    /** Keystore entry passwords */
+    private HashMap m_mPasswords = new HashMap();
 
     /** File the keystore was loaded from/saved to */
     private File m_fKeyStore;
@@ -52,11 +59,12 @@ class KeyStoreWrapper
      * Construst a new KeyStoreWrapper for the supplied keystore.
      *
      * @param keyStore The keystore
+     * @throws CryptoException if the keystore type is not supported
      */
     public KeyStoreWrapper(KeyStore keyStore)
+        throws CryptoException
     {
-        m_keyStore = keyStore;
-        m_vEntryPasswords = new Vector();
+        setKeyStore(keyStore);
     }
 
     /**
@@ -66,8 +74,10 @@ class KeyStoreWrapper
      * @param keyStore The keystore
      * @param fKeyStore The keystore file
      * @param cPassword The keystore password
+     * @throws CryptoException if the keystore type is not supported
      */
     public KeyStoreWrapper(KeyStore keyStore, File fKeyStore, char[] cPassword)
+        throws CryptoException
     {
         this(keyStore);
         m_fKeyStore = fKeyStore;
@@ -82,16 +92,9 @@ class KeyStoreWrapper
      */
     public void setEntryPassword(String sAlias, char[] cPassword)
     {
-        for (int iCnt=0; iCnt < m_vEntryPasswords.size(); iCnt++)
-        {
-            EntryPassword entry = (EntryPassword) m_vEntryPasswords.get(iCnt);
-            if (sAlias.equalsIgnoreCase(entry.getAlias()))
-            {
-                entry.setPassword(cPassword);
-                return;
-            }
-        }
-        m_vEntryPasswords.add(new EntryPassword(sAlias, cPassword));
+        String theAlias = m_keyStoreType.isCaseSensitive() ?
+            sAlias : sAlias.toLowerCase();
+        m_mPasswords.put(theAlias, cPassword);
     }
 
     /**
@@ -101,15 +104,9 @@ class KeyStoreWrapper
      */
     public void removeEntryPassword(String sAlias)
     {
-        for (int iCnt=0; iCnt < m_vEntryPasswords.size(); iCnt++)
-        {
-            EntryPassword entry = (EntryPassword) m_vEntryPasswords.get(iCnt);
-            if (sAlias.equalsIgnoreCase(entry.getAlias()))
-            {
-                m_vEntryPasswords.remove(iCnt);
-                break;
-            }
-        }
+        String theAlias = m_keyStoreType.isCaseSensitive() ?
+            sAlias : sAlias.toLowerCase();
+        m_mPasswords.remove(theAlias);
     }
 
     /**
@@ -120,15 +117,9 @@ class KeyStoreWrapper
      */
     public char[] getEntryPassword(String sAlias)
     {
-        for (int iCnt=0; iCnt < m_vEntryPasswords.size(); iCnt++)
-        {
-            EntryPassword entry = (EntryPassword) m_vEntryPasswords.get(iCnt);
-            if (sAlias.equalsIgnoreCase(entry.getAlias()))
-            {
-                return entry.getPassword();
-            }
-        }
-        return null;
+        String theAlias = m_keyStoreType.isCaseSensitive() ?
+            sAlias : sAlias.toLowerCase();
+        return (char[]) m_mPasswords.get(theAlias);
     }
 
     /**
@@ -165,10 +156,22 @@ class KeyStoreWrapper
      * Set the keystore.
      *
      * @param keyStore The keystore
+     * @throws CryptoException if the keystore type is not supported
      */
     public void setKeyStore(KeyStore keyStore)
+        throws CryptoException
     {
         m_keyStore = keyStore;
+        KeyStoreType newType = KeyStoreType.getInstance(keyStore.getType());
+        if (m_keyStoreType != null &&
+            m_keyStoreType.isCaseSensitive() != newType.isCaseSensitive())
+        {
+            // Case sensitivity changed: can no longer trust that
+            // the cached passwords would work.  (Well, we could, if we tried
+            // hard and implemented that, but this'll do for now.)
+            m_mPasswords.clear();
+        }
+        m_keyStoreType = newType;
     }
 
     /**
