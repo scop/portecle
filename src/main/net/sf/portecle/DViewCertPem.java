@@ -29,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.security.cert.X509Certificate;
 import java.util.ResourceBundle;
 
@@ -41,13 +43,15 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import org.bouncycastle.openssl.PEMWriter;
+
 import net.sf.portecle.crypto.CryptoException;
-import net.sf.portecle.crypto.X509CertUtil;
 
 /**
  * Displays an X.509 certificate's PEM encoding.
  */
-class DViewCertPem extends JDialog
+class DViewCertPem
+    extends JDialog
 {
     /** Resource bundle */
     private static ResourceBundle m_res =
@@ -115,8 +119,23 @@ class DViewCertPem extends JDialog
      * @throws CryptoException A problem was encountered getting the
      * certificate's PEM encoding
      */
-    private void initComponents() throws CryptoException
+    private void initComponents()
+        throws CryptoException
     {
+        StringWriter encoded = new StringWriter();
+        PEMWriter pw = new PEMWriter(encoded);
+        try {
+            pw.writeObject(m_cert);
+        }
+        catch (IOException e) {
+            throw new CryptoException(
+                m_res.getString("NoPemEncode.exception.message"), e);
+        }
+        finally {
+            try { pw.close(); }
+            catch (IOException e) { /* Ignore */ }
+        }
+        
         m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         m_jbOK = new JButton(m_res.getString("DViewCertPem.m_jbOK.text"));
@@ -132,7 +151,7 @@ class DViewCertPem extends JDialog
         m_jpCertPem.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load text area with the PEM encoding
-        m_jtaCertPem = new JTextArea(X509CertUtil.getCertEncodedPem(m_cert));
+        m_jtaCertPem = new JTextArea(encoded.toString());
         m_jtaCertPem.setCaretPosition(0);
         m_jtaCertPem.setEditable(false);
         m_jtaCertPem.setFont(

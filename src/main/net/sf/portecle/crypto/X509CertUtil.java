@@ -23,7 +23,6 @@
 package net.sf.portecle.crypto;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -61,7 +60,6 @@ import java.util.Vector;
 
 import javax.crypto.interfaces.DHKey;
 
-import org.bouncycastle.asn1.DEROutputStream;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.X509Principal;
@@ -89,26 +87,6 @@ public final class X509CertUtil
 
     /** Type name for X.509 certificates */
     private static final String X509_CERT_TYPE = "X.509";
-
-    /** Begin certificate for PEM encoding */
-    private static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
-
-    /** End certificate for PEM encoding */
-    private static final String END_CERT = "-----END CERTIFICATE-----";
-
-    /** The maximum length of lines in printable encoded certificates */
-    private static final int CERT_LINE_LENGTH = 64;
-
-    /** Begin certification request for PEM encoding */
-    private static final String BEGIN_CERT_REQ =
-        "-----BEGIN CERTIFICATE REQUEST-----";
-
-    /** End certification request for PEM encoding */
-    private static final String END_CERT_REQ =
-        "-----END CERTIFICATE REQUEST-----";
-
-    /** The maximum length of lines in certification requests */
-    private static final int CERT_REQ_LINE_LENGTH = 76;
 
     /**
      * Private to prevent construction.
@@ -152,13 +130,13 @@ public final class X509CertUtil
                 PEMReader pr = new PEMReader(new InputStreamReader(fis),
                                              null, cf.getProvider().getName());
                 /* These beasts can contain just about anything, and
-                   unfortunately the PEMReader API (as of BC 1.25) won't allow
-                   us to really skip things we're not interested in; stuff
-                   happens already in readObject().  This may cause some weird
-                   exception messages for non-certificate objects in the
-                   "stream" for example passphrase related ones for protected
-                   private keys.  Well, I guess this is better than nothing
-                   though... :( */
+                   unfortunately the PEMReader API (as of BC 1.25 to 1.31)
+                   won't allow us to really skip things we're not interested
+                   in; stuff happens already in readObject().  This may cause
+                   some weird exception messages for non-certificate objects in
+                   the "stream", for example passphrase related ones for
+                   protected private keys.  Well, I guess this is better than
+                   nothing anyway... :( */
                 Object cert;
                 while ((cert = pr.readObject()) != null) {
                     if (cert instanceof X509Certificate) {
@@ -481,53 +459,6 @@ public final class X509CertUtil
     }
 
     /**
-     * PEM encode a certificate.
-     *
-     * @return The printable encoding
-     * @param cert The certificate
-     * @throws CryptoException If there was a problem encoding the certificate
-     */
-    public static String getCertEncodedPem(X509Certificate cert)
-        throws CryptoException
-    {
-        try
-        {
-            // Get Base 64 encoding of certificate
-            String sTmp = new String(Base64.encode(cert.getEncoded()));
-
-            // Certificate encodng is bounded by a header and footer
-            String sEncoded = BEGIN_CERT + "\n";
-
-            // Limit line lengths between header and footer
-            for (int iCnt=0; iCnt < sTmp.length(); iCnt += CERT_LINE_LENGTH)
-            {
-                int iLineLength;
-
-                if ((iCnt + CERT_LINE_LENGTH) > sTmp.length())
-                {
-                    iLineLength = sTmp.length() - iCnt;
-                }
-                else
-                {
-                    iLineLength = CERT_LINE_LENGTH;
-                }
-
-                sEncoded += sTmp.substring(iCnt, iCnt + iLineLength) + "\n";
-            }
-
-            // Footer
-            sEncoded += END_CERT + "\n";
-
-            return sEncoded;
-        }
-        catch (CertificateException ex)
-        {
-            throw new CryptoException(
-                m_res.getString("NoPemEncode.exception.message"), ex);
-        }
-    }
-
-    /**
      * PKCS #7 encode a certificate.
      *
      * @return The PKCS #7 encoded certificate
@@ -751,8 +682,8 @@ public final class X509CertUtil
      * @throws CryptoException If there was a problem generating the CSR
      * @return The CSR
      */
-    public static String generatePKCS10CSR(X509Certificate cert,
-                                           PrivateKey privateKey)
+    public static PKCS10CertificationRequest generatePKCS10CSR(
+        X509Certificate cert, PrivateKey privateKey)
         throws CryptoException
     {
         X509Name subject = new X509Name(cert.getSubjectDN().toString());
@@ -770,44 +701,10 @@ public final class X509CertUtil
                 throw new CryptoException(
                     m_res.getString("NoVerifyGenCsr.exception.message"));
             }
-
-            // Get Base 64 encoding of CSR
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            DEROutputStream deros = new DEROutputStream(baos);
-            deros.writeObject(csr.getDERObject());
-            String sTmp = new String(Base64.encode(baos.toByteArray()));
-
-            // CSR is bounded by a header and footer
-            String sCsr = BEGIN_CERT_REQ + "\n";
-
-            // Limit line lengths between header and footer
-            for (int iCnt=0; iCnt < sTmp.length(); iCnt +=CERT_REQ_LINE_LENGTH)
-            {
-                int iLineLength;
-
-                if ((iCnt + CERT_REQ_LINE_LENGTH) > sTmp.length())
-                {
-                    iLineLength = sTmp.length() - iCnt;
-                }
-                else
-                {
-                    iLineLength = CERT_REQ_LINE_LENGTH;
-                }
-
-                sCsr += sTmp.substring(iCnt, iCnt + iLineLength) + "\n";
-            }
-
-            // Footer
-            sCsr += END_CERT_REQ + "\n";
-
-            return sCsr;
+            
+            return csr;
         }
         catch (GeneralSecurityException ex)
-        {
-            throw new CryptoException(
-                m_res.getString("NoGenerateCsr.exception.message"), ex);
-        }
-        catch (IOException ex)
         {
             throw new CryptoException(
                 m_res.getString("NoGenerateCsr.exception.message"), ex);

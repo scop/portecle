@@ -128,6 +128,8 @@ import net.sf.portecle.version.JavaVersion;
 //import net.sf.portecle.version.Version;
 import net.sf.portecle.version.VersionException;
 
+import org.bouncycastle.openssl.PEMWriter;
+
 /**
  * Start class and main frame of the keystore GUI application.
  */
@@ -4410,20 +4412,12 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        FileWriter fw = null;
+        PEMWriter pw = null;
         try
         {
-            // Get the head certificate
-            X509Certificate cert = getHeadCert(sEntryAlias);
-
-            // Do the export
-            String sEncoded = X509CertUtil.getCertEncodedPem(cert);
-
-            fw = new FileWriter(fExportFile);
-            fw.write(sEncoded);
-
+            pw = new PEMWriter(new FileWriter(fExportFile));
+            pw.writeObject(getHeadCert(sEntryAlias));
             m_lastDir.updateLastDir(fExportFile);
-
             return true;
         }
         catch (FileNotFoundException ex)
@@ -4447,9 +4441,9 @@ public class FPortecle extends JFrame implements StatusBar
         }
         finally
         {
-            if (fw != null)
+            if (pw != null)
             {
-                try { fw.close(); }
+                try { pw.close(); }
                 catch (IOException ex) { displayException(ex); }
             }
         }
@@ -5051,7 +5045,7 @@ public class FPortecle extends JFrame implements StatusBar
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
         File fCsrFile = null;
-        FileWriter fw = null;
+        PEMWriter pw = null;
 
         try
         {
@@ -5107,12 +5101,9 @@ public class FPortecle extends JFrame implements StatusBar
                     keyStore.getCertificateChain(sAlias))
             )[0];
 
-            // Generate the CSR using the entry's certficate and private key
-            String sCsr = X509CertUtil.generatePKCS10CSR(cert, privKey);
-
-            // Write it out to file
-            fw = new FileWriter(fCsrFile);
-            fw.write(sCsr);
+            // Generate CSR and write it out to file
+            pw = new PEMWriter(new FileWriter(fCsrFile));
+            pw.writeObject(X509CertUtil.generatePKCS10CSR(cert, privKey));
 
             // Display success message
             JOptionPane.showMessageDialog(
@@ -5143,9 +5134,9 @@ public class FPortecle extends JFrame implements StatusBar
         }
         finally
         {
-            if (fw != null)
+            if (pw != null)
             {
-                try { fw.close(); }
+                try { pw.close(); }
                 catch (IOException ex) { displayException(ex); }
             }
         }
