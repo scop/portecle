@@ -2263,22 +2263,10 @@ public class FPortecle extends JFrame implements StatusBar
 
             try
             {
-                // Ask the user to overwrite if the chosen file exists already
-                if (fSaveFile.isFile())
+                if (!confirmOverwrite(fSaveFile,
+                    m_res.getString("FPortecle.SaveKeyStoreAs.Title")))
                 {
-                    String sMessage = MessageFormat.format(
-                        m_res.getString("FPortecle.OverWriteFile.message"),
-                        new Object[]{fSaveFile});
-
-                    int iSelected = JOptionPane.showConfirmDialog(
-                        this,
-                        sMessage,
-                        m_res.getString("FPortecle.SaveKeyStoreAs.Title"),
-                        JOptionPane.YES_NO_OPTION);
-                    if (iSelected == JOptionPane.NO_OPTION)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
 
                 // Save the keystore to file
@@ -4377,18 +4365,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // File already exists
-        if (fExportFile.isFile())
-        {
-            String sMessage = MessageFormat.format(
-                m_res.getString("FPortecle.OverWriteFile.message"),
-                new String[]{fExportFile.getName()});
-            int iSelected = JOptionPane.showConfirmDialog(
-                this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-            if (iSelected == JOptionPane.NO_OPTION)
-            {
-                return false;
-            }
+        if (!confirmOverwrite(fExportFile, getTitle())) {
+            return false;
         }
 
         FileWriter fw = null;
@@ -4451,18 +4429,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // File already exists
-        if (fExportFile.isFile())
-        {
-            String sMessage = MessageFormat.format(
-                m_res.getString("FPortecle.OverWriteFile.message"),
-                new String[]{fExportFile.getName()});
-            int iSelected = JOptionPane.showConfirmDialog(
-                this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-            if (iSelected == JOptionPane.NO_OPTION)
-            {
-                return false;
-            }
+        if (!confirmOverwrite(fExportFile, getTitle())) {
+            return false;
         }
 
         FileOutputStream fos = null;
@@ -4524,18 +4492,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // File already exists
-        if (fExportFile.isFile())
-        {
-            String sMessage = MessageFormat.format(
-                m_res.getString("FPortecle.OverWriteFile.message"),
-                new String[]{fExportFile.getName()});
-            int iSelected = JOptionPane.showConfirmDialog(
-                this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-            if (iSelected == JOptionPane.NO_OPTION)
-            {
-                return false;
-            }
+        if (!confirmOverwrite(fExportFile, getTitle())) {
+            return false;
         }
 
         try
@@ -4589,18 +4547,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // File already exists
-        if (fExportFile.isFile())
-        {
-            String sMessage = MessageFormat.format(
-                m_res.getString("FPortecle.OverWriteFile.message"),
-                new String[]{fExportFile.getName()});
-            int iSelected = JOptionPane.showConfirmDialog(
-                this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-            if (iSelected == JOptionPane.NO_OPTION)
-            {
-                return false;
-            }
+        if (!confirmOverwrite(fExportFile, getTitle())) {
+            return false;
         }
 
         try
@@ -4654,18 +4602,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // File already exists
-        if (fExportFile.isFile())
-        {
-            String sMessage = MessageFormat.format(
-                m_res.getString("FPortecle.OverWriteFile.message"),
-                new String[]{fExportFile.getName()});
-            int iSelected = JOptionPane.showConfirmDialog(
-                this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-            if (iSelected == JOptionPane.NO_OPTION)
-            {
-                return false;
-            }
+        if (!confirmOverwrite(fExportFile, getTitle())) {
+            return false;
         }
 
         try
@@ -4726,18 +4664,8 @@ public class FPortecle extends JFrame implements StatusBar
             return false;
         }
 
-        // File already exists
-        if (fExportFile.isFile())
-        {
-            String sMessage = MessageFormat.format(
-                m_res.getString("FPortecle.OverWriteFile.message"),
-                new String[]{fExportFile.getName()});
-            int iSelected = JOptionPane.showConfirmDialog(
-                this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-            if (iSelected == JOptionPane.NO_OPTION)
-            {
-                return false;
-            }
+        if (!confirmOverwrite(fExportFile, getTitle())) {
+            return false;
         }
 
         try
@@ -4898,18 +4826,8 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // File already exists
-            if (fExportFile.isFile())
-            {
-                String sMessage = MessageFormat.format(
-                    m_res.getString("FPortecle.OverWriteFile.message"),
-                    new String[]{fExportFile.getName()});
-                int iSelected = JOptionPane.showConfirmDialog(
-                    this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION)
-                {
-                    return false;
-                }
+            if (!confirmOverwrite(fExportFile, getTitle())) {
+                return false;
             }
 
             // Store the keystore to disk
@@ -5136,20 +5054,10 @@ public class FPortecle extends JFrame implements StatusBar
                 return false;
             }
 
-            // The chosen file already exists
-            if (fCsrFile.isFile())
+            if (!confirmOverwrite(fCsrFile,
+                m_res.getString("FPortecle.GenerateCsr.Title")))
             {
-                int iSelected = JOptionPane.showConfirmDialog(
-                    this,
-                    MessageFormat.format(
-                        m_res.getString("FPortecle.OverWriteFile.message"),
-                        new Object[]{fCsrFile}),
-                    m_res.getString("FPortecle.GenerateCsr.Title"),
-                    JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION)
-                {
-                    return false;
-                }
+                return false;
             }
 
             // Get the first certficate in the entry's certificate chain
@@ -6199,6 +6107,26 @@ public class FPortecle extends JFrame implements StatusBar
     {
         return Toolkit.getDefaultToolkit().createImage(
             getClass().getResource(m_res.getString(key)));
+    }
+
+    /**
+     * File overwrite confirmation dialog.
+     *
+     * @param file the file possibly being overwritten
+     * @param title window title
+     * @return true if the write operation should continue
+     */
+    private boolean confirmOverwrite(File file, String title)
+    {
+        if (file.isFile()) {
+            String sMessage = MessageFormat.format(
+                m_res.getString("FPortecle.OverWriteFile.message"),
+                new String[]{file.getName()});
+            int iSelected = JOptionPane.showConfirmDialog(
+                this, sMessage, title, JOptionPane.YES_NO_OPTION);
+            return iSelected != JOptionPane.NO_OPTION;
+        }
+        return true;
     }
 
     /**
