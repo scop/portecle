@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -35,22 +35,28 @@ import java.util.ResourceBundle;
 public class KeyStoreType
 {
     /** JCEKS keystore Type */
-    public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true);
+    public static final KeyStoreType JCEKS =
+        new KeyStoreType("JCEKS", true, false);
 
     /** JKS keystore Type */
-    public static final KeyStoreType JKS = new KeyStoreType("JKS", true);
+    public static final KeyStoreType JKS =
+        new KeyStoreType("JKS", true, false);
 
     /** PKCS #11 keystore Type */
-    public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",false);
+    public static final KeyStoreType PKCS11 =
+        new KeyStoreType("PKCS11", false, /* TODO: verify */ false);
 
     /** PKCS #12 keystore Type */
-    public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",false);
+    public static final KeyStoreType PKCS12 =
+        new KeyStoreType("PKCS12", false, true);
 
     /** BKS keystore Type */
-    public static final KeyStoreType BKS = new KeyStoreType("BKS", true);
+    public static final KeyStoreType BKS =
+        new KeyStoreType("BKS", true, true);
 
     /** UBER keystore Type */
-    public static final KeyStoreType UBER = new KeyStoreType("UBER", true);
+    public static final KeyStoreType UBER =
+        new KeyStoreType("UBER", true, true);
 
     /** String-to-type map */
     private static final HashMap TYPE_MAP = new HashMap();
@@ -73,17 +79,23 @@ public class KeyStoreType
     /** Whether the keystore type supports creation dates */
     private final boolean m_bCreationDate;
 
+    /** Whether aliases in the keystore type are case sensitive */
+    private final boolean m_bCaseSensitive;
+    
     /**
      * Construct a KeyStoreType.
      * Private to prevent construction from outside this class.
      *
      * @param sType Keystore type
      * @param bCreationDate Whether the keystore supports creation dates
+     * @param bCaseSensitive Whether aliases in the keystore are case sensitive 
      */
-    private KeyStoreType(String sType, boolean bCreationDate)
+    private KeyStoreType(String sType, boolean bCreationDate,
+        boolean bCaseSensitive)
     {
         m_sType = sType;
         m_bCreationDate = bCreationDate;
+        m_bCaseSensitive = bCaseSensitive;
     }
 
     /**
@@ -116,6 +128,16 @@ public class KeyStoreType
         return m_bCreationDate;
     }
 
+    /**
+     * Are aliases in the keystore case sensitive?
+     * 
+     * @return true if aliases are case sensitive, false otherwise
+     */
+    public boolean isCaseSensitive()
+    {
+        return m_bCaseSensitive;
+    }
+    
     /**
      * Resolve the KeyStoreType Object.
      *
