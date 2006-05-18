@@ -11,7 +11,7 @@ Enhancements:
 - Support for entry alias case sensitivity in keystores where applicable.
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to 1.31.
+- Bundled Bouncy Castle provider jar upgraded to 1.33.
 - Some workarounds for running with GNU Classpath, not fully working yet.
 
 New in Portecle 1.1 (2005-07-01):
