@@ -136,13 +136,11 @@ public final class KeyStoreUtil
         if ((available = (Boolean) AVAILABLE_TYPES.get(keyStoreType)) != null) {
             return available.booleanValue();
         }
-        else {
-            try {
-                KeyStore testKeyStore = getKeyStoreImpl(keyStoreType);
-            }
-            catch (KeyStoreException e) {
-                // Ignore
-            }
+        try {
+            KeyStore testKeyStore = getKeyStoreImpl(keyStoreType);
+        }
+        catch (KeyStoreException e) {
+            // Ignore
         }
         return ((Boolean) AVAILABLE_TYPES.get(keyStoreType)).booleanValue();
     }
