@@ -62,7 +62,6 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -105,7 +104,6 @@ import edu.stanford.ejalbert.BrowserLauncher;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
-import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.crypto.ProviderUtil;
