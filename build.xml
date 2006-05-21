@@ -24,10 +24,6 @@
   <property name="doc" value="${root}/doc" />
 
   <property name="bcprov.jar" value="${lib}/bcprov.jar" />
-  <property name="checkstyle.jar" value="${lib}/checkstyle-all.jar" />
-  <property name="checkstyle-opt.jar" value="${lib}/checkstyle-optional.jar" />
-  <taskdef resource="checkstyletask.properties"
-    classpath="${checkstyle.jar}:${checkstyle-opt.jar}"/>
 
   <property name="build.debug" value="true" />
   <property name="build.debuglevel" value="lines,source" />
@@ -177,19 +173,7 @@
     </exec>
   </target>
 
-  <target name="checkstyle" depends="build">
-    <mkdir dir="${build}/reports" />
-    <checkstyle config="checkstyle.xml">
-      <classpath>
-        <path refid="build.classpath" />
-        <pathelement location="${build}/classes" />
-      </classpath>
-      <fileset dir="${src}/main" includes="net/sf/portecle/**/*.java" />
-      <formatter type="plain" tofile="${build}/reports/checkstyle.txt" />
-    </checkstyle>
-  </target>
-
-  <target name="check" depends="antic,jlint,checkstyle"
+  <target name="check" depends="antic,jlint"
     description="Runs static checks" />
 
   <target name="clean">
