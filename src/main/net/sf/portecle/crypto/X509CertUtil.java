@@ -103,14 +103,10 @@ public final class X509CertUtil
      * @return The certificates
      * @throws CryptoException Problem encountered while loading the
      * certificate(s)
-     * @throws java.io.FileNotFoundException If the certificate file does not
-     * exist, is a directory rather than a regular file, or for some
-     * other reason cannot be opened for reading
-     * @throws IOException An I/O error occurred
      */
     public static X509Certificate[] loadCertificates(File fCertFile,
                                                      String encoding)
-        throws CryptoException, IOException
+        throws CryptoException
     {
         ArrayList vCerts = new ArrayList();
 

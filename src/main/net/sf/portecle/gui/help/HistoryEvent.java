@@ -37,16 +37,16 @@ public class HistoryEvent extends EventObject
     /**
      * Constructs a new HistoryEvent.
      *
-     * @param source The source of the event
+     * @param eventSource The source of the event
      * @param bBackAvailable Whether there is a document in the
      * history before the current document
      * @param bForwardAvailable Whether there is a document in the
      * history after the current document
      */
-    public HistoryEvent(Object source, boolean bBackAvailable,
+    public HistoryEvent(Object eventSource, boolean bBackAvailable,
                         boolean bForwardAvailable)
     {
-        super(source);
+        super(eventSource);
         m_bBackAvailable = bBackAvailable;
         m_bForwardAvailable = bForwardAvailable;
     }

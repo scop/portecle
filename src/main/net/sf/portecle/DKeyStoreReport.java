@@ -143,11 +143,9 @@ class DKeyStoreReport
      * @param keystore Keystore to display report on
      * @throws CryptoException A crypto related problem was encountered
      * generating the keystore report
-     * @throws ParserConfigurationException There was a serious problem
-     * creating the XML report
      */
     public DKeyStoreReport(JFrame parent, boolean bModal, KeyStore keystore)
-        throws CryptoException, ParserConfigurationException
+        throws CryptoException
     {
         super(parent, bModal);
         m_keystore = keystore;

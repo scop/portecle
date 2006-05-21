@@ -795,26 +795,16 @@ class DViewCertificate extends JDialog
 
         X509Certificate cert = m_certs[m_iSelCert];
 
-        try
-        {
-            DViewExtensions dViewExtensions =
-                new DViewExtensions(
-                    this,
-                    MessageFormat.format(
-                        m_res.getString(
-                            "DViewCertificate.Extensions.Title"),
-                        new String[]{""+(m_iSelCert + 1), ""+m_certs.length}),
-                    true, cert);
-            dViewExtensions.setLocationRelativeTo(this);
-            dViewExtensions.setVisible(true);
-        }
-        catch (CryptoException ex)
-        {
-            DThrowable dThrowable = new DThrowable(this, true, ex);
-            dThrowable.setLocationRelativeTo(this);
-            dThrowable.setVisible(true);
-            return;
-        }
+        DViewExtensions dViewExtensions =
+            new DViewExtensions(
+                this,
+                MessageFormat.format(
+                    m_res.getString(
+                        "DViewCertificate.Extensions.Title"),
+                    new String[]{""+(m_iSelCert + 1), ""+m_certs.length}),
+                true, cert);
+        dViewExtensions.setLocationRelativeTo(this);
+        dViewExtensions.setVisible(true);
     }
 
     /**

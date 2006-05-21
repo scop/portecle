@@ -113,7 +113,6 @@ class DViewExtensions extends JDialog
      */
     public DViewExtensions(JFrame parent, String sTitle, boolean bModal,
                            X509Extension extensions)
-        throws CryptoException
     {
         super(parent, sTitle, bModal);
         m_extensions = extensions;
@@ -128,12 +127,9 @@ class DViewExtensions extends JDialog
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param extensions Extensions to display
-     * @throws CryptoException A problem was encountered getting the extension
-     * details
      */
     public DViewExtensions(JDialog parent, String sTitle, boolean bModal,
                            X509Extension extensions)
-        throws CryptoException
     {
         super(parent, sTitle, bModal);
         m_extensions = extensions;
