@@ -137,7 +137,8 @@ public final class KeyStoreUtil
             return available.booleanValue();
         }
         try {
-            KeyStore testKeyStore = getKeyStoreImpl(keyStoreType);
+            // Populate AVAILABLE_TYPES
+            getKeyStoreImpl(keyStoreType);
         }
         catch (KeyStoreException e) {
             // Ignore

@@ -1633,7 +1633,7 @@ public class FPortecle extends JFrame implements StatusBar
             // What row and column were clicked upon (if any)?
             Point point = new Point(evt.getX(), evt.getY());
             int iRow = m_jtKeyStore.rowAtPoint(point);
-            int iCol = m_jtKeyStore.columnAtPoint(point);
+            //int iCol = m_jtKeyStore.columnAtPoint(point);
 
             if (iRow != -1)
             {
@@ -1675,8 +1675,8 @@ public class FPortecle extends JFrame implements StatusBar
             if (iRow != -1)
             {
                 // Get the entry type of the row
-                KeyStoreTableModel tableModel =
-                    (KeyStoreTableModel) m_jtKeyStore.getModel();
+                //KeyStoreTableModel tableModel =
+                //    (KeyStoreTableModel) m_jtKeyStore.getModel();
 
                 // Make the row that was clicked upon the selected one
                 m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
