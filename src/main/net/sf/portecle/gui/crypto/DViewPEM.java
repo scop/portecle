@@ -54,8 +54,7 @@ public class DViewPEM
     extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
     /** Panel to hold OK button */
     private JPanel m_jpOK;
@@ -130,15 +129,20 @@ public class DViewPEM
                 m_res.getString("DViewPEM.exception.message"), e);
         }
         finally {
-            try { pw.close(); }
-            catch (IOException e) { /* Ignore */ }
+            try {
+                pw.close();
+            }
+            catch (IOException e) { /* Ignore */
+            }
         }
-        
+
         m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         m_jbOK = new JButton(m_res.getString("DViewPEM.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
@@ -152,12 +156,10 @@ public class DViewPEM
         m_jtaPEM = new JTextArea(encoded.toString());
         m_jtaPEM.setCaretPosition(0);
         m_jtaPEM.setEditable(false);
-        m_jtaPEM.setFont(
-            new Font("Monospaced", Font.PLAIN,
-                     m_jtaPEM.getFont().getSize()));
+        m_jtaPEM.setFont(new Font("Monospaced", Font.PLAIN,
+            m_jtaPEM.getFont().getSize()));
 
-        m_jspPEM = new JScrollPane(
-            m_jtaPEM,
+        m_jspPEM = new JScrollPane(m_jtaPEM,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         m_jspPEM.setPreferredSize(new Dimension(500, 300));
@@ -168,8 +170,10 @@ public class DViewPEM
 
         setResizable(true);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -178,8 +182,10 @@ public class DViewPEM
 
         pack();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 m_jbOK.requestFocus();
             }
         });

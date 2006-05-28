@@ -34,7 +34,8 @@ import javax.swing.JMenu;
  * menu is completely populated with standard menu items and
  * separators.
  */
-public class JMenuRecentFiles extends JMenu
+public class JMenuRecentFiles
+    extends JMenu
 {
     /** Maximum length of list */
     public static final int MAX_LENGTH = 9;
@@ -69,10 +70,8 @@ public class JMenuRecentFiles extends JMenu
      */
     private void removeAllRecentFiles()
     {
-        for (int iCnt=0; iCnt < m_jmirf.length; iCnt++)
-        {
-            if (m_jmirf[iCnt] == null)
-            {
+        for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++) {
+            if (m_jmirf[iCnt] == null) {
                 break;
             }
 
@@ -85,10 +84,8 @@ public class JMenuRecentFiles extends JMenu
      */
     private void addAllRecentFiles()
     {
-        for (int iCnt=0; iCnt < m_jmirf.length; iCnt++)
-        {
-            if (m_jmirf[iCnt] == null)
-            {
+        for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++) {
+            if (m_jmirf[iCnt] == null) {
                 break;
             }
             add(m_jmirf[iCnt], m_iIndex + iCnt + 1);
@@ -104,10 +101,8 @@ public class JMenuRecentFiles extends JMenu
     {
         boolean bNoRecentFiles = true;
 
-        for (int iCnt=0; iCnt < m_jmirf.length; iCnt++)
-        {
-            if (m_jmirf[iCnt] != null)
-            {
+        for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++) {
+            if (m_jmirf[iCnt] != null) {
                 bNoRecentFiles = false;
                 break;
             }
@@ -125,15 +120,12 @@ public class JMenuRecentFiles extends JMenu
     {
         int iIndex = -1;
 
-        for (int iCnt=0; iCnt < m_jmirf.length; iCnt++)
-        {
-            if (m_jmirf[iCnt] == null)
-            {
+        for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++) {
+            if (m_jmirf[iCnt] == null) {
                 break;
             }
 
-            if (fRecent.equals(m_jmirf[iCnt].getFile()))
-            {
+            if (fRecent.equals(m_jmirf[iCnt].getFile())) {
                 iIndex = iCnt;
                 break;
             }
@@ -150,16 +142,14 @@ public class JMenuRecentFiles extends JMenu
     public void add(JMenuItemRecentFile jmirfNew)
     {
         // No items exist yet so add leading separator
-        if (!recentFiles())
-        {
+        if (!recentFiles()) {
             insertSeparator(m_iIndex);
         }
 
         int iIndex = findRecentFile(jmirfNew.getFile());
 
         // Menu item already exists at first position
-        if (iIndex == 0)
-        {
+        if (iIndex == 0) {
             // Do nothing
             return;
         }
@@ -171,34 +161,29 @@ public class JMenuRecentFiles extends JMenu
         jmirfNew.setPosition(1);
 
         // Item already exists outside of first position
-        if (iIndex != -1)
-        {
+        if (iIndex != -1) {
             // Introduce it to the first position and move the others
             // up over its old position
-            for (int iCnt=0; iCnt <= iIndex; iCnt++)
-            {
+            for (int iCnt = 0; iCnt <= iIndex; iCnt++) {
                 JMenuItemRecentFile jmirfTmp = m_jmirf[iCnt];
                 m_jmirf[iCnt] = jmirfNew;
                 jmirfNew = jmirfTmp;
-                jmirfNew.setPosition(iCnt+2);
+                jmirfNew.setPosition(iCnt + 2);
             }
         }
         // Item does not exist in the menu
-        else
-        {
+        else {
             // Introduce new item to the start of the list and shift
             // the others up one
-            for (int iCnt=0; iCnt < m_jmirf.length; iCnt++)
-            {
+            for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++) {
                 JMenuItemRecentFile jmirfTmp = m_jmirf[iCnt];
                 m_jmirf[iCnt] = jmirfNew;
                 jmirfNew = jmirfTmp;
 
-                if (jmirfNew == null)
-                {
+                if (jmirfNew == null) {
                     break; // Done shifting
                 }
-                jmirfNew.setPosition(iCnt+2);
+                jmirfNew.setPosition(iCnt + 2);
             }
         }
 
@@ -215,10 +200,8 @@ public class JMenuRecentFiles extends JMenu
     {
         ArrayList arrList = new ArrayList();
 
-        for (int iCnt=0; iCnt < m_jmirf.length; iCnt++)
-        {
-            if (m_jmirf[iCnt] == null)
-            {
+        for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++) {
+            if (m_jmirf[iCnt] == null) {
                 break;
             }
 

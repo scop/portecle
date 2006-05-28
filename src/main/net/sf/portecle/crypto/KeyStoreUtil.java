@@ -44,18 +44,17 @@ import java.util.ResourceBundle;
 public final class KeyStoreUtil
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Map of available keystore types */
     private static final HashMap AVAILABLE_TYPES = new HashMap();
 
-
     /**
      * Private to prevent construction.
      */
-    private KeyStoreUtil() {}
-
+    private KeyStoreUtil()
+    {
+    }
 
     /**
      * Gets the preferred (by us) KeyStore instance for the given
@@ -69,22 +68,18 @@ public final class KeyStoreUtil
         throws KeyStoreException
     {
         KeyStore keyStore = null;
-        if (keyStoreType == KeyStoreType.PKCS12)
-        {
+        if (keyStoreType == KeyStoreType.PKCS12) {
             // Prefer BC for PKCS #12 for now; the BC and Sun 1.5
             // implementations (as of 1.29 and 1.5.0_0[34]) are incompatible
             // in how they handle empty/missing passwords (null vs char[0]).
-            try
-            {
+            try {
                 keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
             }
-            catch (NoSuchProviderException ex)
-            {
+            catch (NoSuchProviderException ex) {
                 // Fall through
             }
         }
-        if (keyStore == null)
-        {
+        if (keyStore == null) {
             try {
                 keyStore = KeyStore.getInstance(keyStoreType.toString());
             }
@@ -96,7 +91,6 @@ public final class KeyStoreUtil
         AVAILABLE_TYPES.put(keyStoreType, Boolean.TRUE);
         return keyStore;
     }
-
 
     /**
      * Create a new, empty keystore.
@@ -110,19 +104,16 @@ public final class KeyStoreUtil
         throws CryptoException, IOException
     {
         KeyStore keyStore = null;
-        try
-        {
+        try {
             keyStore = getKeyStoreImpl(keyStoreType);
             keyStore.load(null, null);
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
         return keyStore;
     }
-
 
     /**
      * Check if a keystore type is available.
@@ -133,7 +124,8 @@ public final class KeyStoreUtil
     public static boolean isAvailable(KeyStoreType keyStoreType)
     {
         Boolean available;
-        if ((available = (Boolean) AVAILABLE_TYPES.get(keyStoreType)) != null) {
+        if ((available = (Boolean) AVAILABLE_TYPES.get(keyStoreType)) != null)
+        {
             return available.booleanValue();
         }
         try {
@@ -145,7 +137,7 @@ public final class KeyStoreUtil
         }
         return ((Boolean) AVAILABLE_TYPES.get(keyStoreType)).booleanValue();
     }
-    
+
     /**
      * Load a Keystore from a file accessed by a password.
      *
@@ -159,51 +151,45 @@ public final class KeyStoreUtil
      * other reason cannot be opened for reading
      */
     public static KeyStore loadKeyStore(File fKeyStore, char[] cPassword,
-                                        KeyStoreType keyStoreType)
+        KeyStoreType keyStoreType)
         throws CryptoException, FileNotFoundException
     {
         KeyStore keyStore = null;
-        try
-        {
+        try {
             keyStore = getKeyStoreImpl(keyStoreType);
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             throw new CryptoException(
                 m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
 
         FileInputStream fis = new FileInputStream(fKeyStore);
-        try
-        {
+        try {
             keyStore.load(fis, cPassword);
         }
-        catch (GeneralSecurityException ex)
-        {
-            throw new CryptoException(
-                MessageFormat.format(
-                    m_res.getString("NoLoadKeystore.exception.message"),
-                    new Object[]{keyStoreType}), ex);
+        catch (GeneralSecurityException ex) {
+            throw new CryptoException(MessageFormat.format(
+                m_res.getString("NoLoadKeystore.exception.message"),
+                new Object[] { keyStoreType }), ex);
         }
-        catch (FileNotFoundException ex)
-        {
+        catch (FileNotFoundException ex) {
             throw ex;
         }
-        catch (IOException ex)
-        {
-            throw new CryptoException(
-                MessageFormat.format(
-                    m_res.getString("NoLoadKeystore.exception.message"),
-                    new Object[]{keyStoreType}), ex);
+        catch (IOException ex) {
+            throw new CryptoException(MessageFormat.format(
+                m_res.getString("NoLoadKeystore.exception.message"),
+                new Object[] { keyStoreType }), ex);
         }
-        finally
-        {
-            try { fis.close(); } catch (IOException ex) { /* Ignore */ }
+        finally {
+            try {
+                fis.close();
+            }
+            catch (IOException ex) { /* Ignore */
+            }
         }
 
         return keyStore;
     }
-
 
     /**
      * Load a PKCS #11 keystore accessed by a password.
@@ -214,44 +200,36 @@ public final class KeyStoreUtil
      * @throws CryptoException Problem encountered loading the keystore
      */
     public static KeyStore loadKeyStore(String sPkcs11Provider,
-                                        char[] cPassword)
+        char[] cPassword)
         throws CryptoException
     {
         KeyStore keyStore = null;
 
-        try
-        {
-            if (Security.getProvider(sPkcs11Provider) == null)
-            {
-                throw new CryptoException(
-                    MessageFormat.format(
-                        m_res.getString("NoSuchProvider.exception.message"),
-                        new String[]{sPkcs11Provider}));
+        try {
+            if (Security.getProvider(sPkcs11Provider) == null) {
+                throw new CryptoException(MessageFormat.format(
+                    m_res.getString("NoSuchProvider.exception.message"),
+                    new String[] { sPkcs11Provider }));
             }
-            keyStore = KeyStore.getInstance(
-                KeyStoreType.PKCS11.toString(), sPkcs11Provider);
+            keyStore = KeyStore.getInstance(KeyStoreType.PKCS11.toString(),
+                sPkcs11Provider);
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("NoCreateKeystore.exception.message"), ex);
         }
 
-        try
-        {
+        try {
             keyStore.load(null, cPassword);
         }
-        catch (Exception ex)
-        {
-            throw new CryptoException(
-                MessageFormat.format(
-                    m_res.getString("NoLoadKeystore.exception.message"),
-                    new Object[]{KeyStoreType.PKCS11}), ex);
+        catch (Exception ex) {
+            throw new CryptoException(MessageFormat.format(
+                m_res.getString("NoLoadKeystore.exception.message"),
+                new Object[] { KeyStoreType.PKCS11 }), ex);
         }
 
         return keyStore;
     }
-
 
     /**
      * Save a keystore to a file protected by a password.
@@ -266,26 +244,22 @@ public final class KeyStoreUtil
      * @throws IOException An I/O error occurred
      */
     public static void saveKeyStore(KeyStore keyStore, File fKeyStoreFile,
-                                    char[] cPassword)
+        char[] cPassword)
         throws CryptoException, IOException
     {
         FileOutputStream fos = new FileOutputStream(fKeyStoreFile);
-        try
-        {
+        try {
             keyStore.store(fos, cPassword);
         }
-        catch (IOException ex)
-        {
+        catch (IOException ex) {
             throw new CryptoException(
                 m_res.getString("NoSaveKeystore.exception.message"), ex);
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("NoSaveKeystore.exception.message"), ex);
         }
-        finally
-        {
+        finally {
             fos.close();
         }
     }

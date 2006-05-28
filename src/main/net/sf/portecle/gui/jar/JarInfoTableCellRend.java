@@ -31,7 +31,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Custom cell renderer for the cells of the Jar Information table of DJarInfo.
  */
-class JarInfoTableCellRend extends DefaultTableCellRenderer
+class JarInfoTableCellRend
+    extends DefaultTableCellRenderer
 {
     /**
      * Returns the rendered cell for the supplied value and column.
@@ -44,20 +45,18 @@ class JarInfoTableCellRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(
-        JTable jtJarInfo, Object value, boolean bIsSelected, boolean bHasFocus,
-        int iRow, int iCol)
+    public Component getTableCellRendererComponent(JTable jtJarInfo,
+        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
+        int iCol)
     {
-        JLabel cell = (JLabel) super.getTableCellRendererComponent(
-            jtJarInfo, value, bIsSelected, bHasFocus, iRow, iCol);
-        if (cell.getText().length() == 0)
-        {
+        JLabel cell = (JLabel) super.getTableCellRendererComponent(jtJarInfo,
+            value, bIsSelected, bHasFocus, iRow, iCol);
+        if (cell.getText().length() == 0) {
             cell.setText("-");
-            cell.setHorizontalAlignment(CENTER);            
+            cell.setHorizontalAlignment(CENTER);
         }
-        else
-        {
-            cell.setHorizontalAlignment(LEFT);            
+        else {
+            cell.setHorizontalAlignment(LEFT);
         }
 
         cell.setBorder(new EmptyBorder(0, 5, 0, 5));

@@ -34,7 +34,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 /**
  * Custom cell renderer for the cells of the RevokedCerts table of DViewCRL.
  */
-class RevokedCertsTableCellRend extends DefaultTableCellRenderer
+class RevokedCertsTableCellRend
+    extends DefaultTableCellRenderer
 {
     /**
      * Returns the rendered cell for the supplied entry type and column.
@@ -47,25 +48,22 @@ class RevokedCertsTableCellRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(
-        JTable jtRevokedCerts, Object value, boolean bIsSelected,
-        boolean bHasFocus, int iRow, int iCol)
+    public Component getTableCellRendererComponent(JTable jtRevokedCerts,
+        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
+        int iCol)
     {
         JLabel cell = (JLabel) super.getTableCellRendererComponent(
             jtRevokedCerts, value, bIsSelected, bHasFocus, iRow, iCol);
 
         // Serial Number column - format to a hex string
-        if (iCol == 0)
-        {
+        if (iCol == 0) {
             cell.setText(formatSerialNumber((BigInteger) value));
         }
         // Revocation Date column - format date
-        else
-        {
+        else {
             // Include timezone
-            cell.setText(
-                DateFormat.getDateTimeInstance(
-                    DateFormat.MEDIUM, DateFormat.LONG).format((Date) value));
+            cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM,
+                DateFormat.LONG).format((Date) value));
         }
 
         cell.setBorder(new EmptyBorder(0, 5, 0, 5));
@@ -86,11 +84,10 @@ class RevokedCertsTableCellRend extends DefaultTableCellRenderer
 
         StringBuffer strBuff = new StringBuffer();
 
-        for (int iCnt=0; iCnt < sHexSerialNumber.length(); iCnt++)
-        {
+        for (int iCnt = 0; iCnt < sHexSerialNumber.length(); iCnt++) {
             strBuff.append(sHexSerialNumber.charAt(iCnt));
 
-            if (((iCnt+1) % 4) == 0 && iCnt+1 != sHexSerialNumber.length())
+            if (((iCnt + 1) % 4) == 0 && iCnt + 1 != sHexSerialNumber.length())
             {
                 strBuff.append(' ');
             }

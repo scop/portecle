@@ -50,11 +50,11 @@ import javax.swing.table.TableColumn;
 /**
  * A dialog that displays information about the JAR files on the classpath.
  */
-public class DJarInfo extends JDialog
+public class DJarInfo
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
     /** OK button used to dismiss dialog */
     private JButton m_jbOK;
@@ -78,7 +78,8 @@ public class DJarInfo extends JDialog
      * @param bModal Is dialog modal?
      * @throws IOException Problem occurred getting JAR information
      */
-    public DJarInfo(JFrame parent, boolean bModal) throws IOException
+    public DJarInfo(JFrame parent, boolean bModal)
+        throws IOException
     {
         this(parent, m_res.getString("DJarInfo.Title"), bModal);
     }
@@ -103,7 +104,8 @@ public class DJarInfo extends JDialog
      *
      * @throws IOException Problem occurred getting JAR information
      */
-    private void initComponents() throws IOException
+    private void initComponents()
+        throws IOException
     {
         JarFile[] jarFiles = getClassPathJars();
 
@@ -121,9 +123,8 @@ public class DJarInfo extends JDialog
         m_jtJarInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Add custom renderers for the table cells and headers
-        for (int iCnt=0; iCnt < m_jtJarInfo.getColumnCount(); iCnt++)
-        {
-            TableColumn column =  m_jtJarInfo.getColumnModel().getColumn(iCnt);
+        for (int iCnt = 0; iCnt < m_jtJarInfo.getColumnCount(); iCnt++) {
+            TableColumn column = m_jtJarInfo.getColumnModel().getColumn(iCnt);
 
             column.setPreferredWidth(150);
 
@@ -132,8 +133,7 @@ public class DJarInfo extends JDialog
         }
 
         // Put the table into a scroll panew
-        m_jspJarInfoTable = new JScrollPane(
-            m_jtJarInfo,
+        m_jspJarInfoTable = new JScrollPane(m_jtJarInfo,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         m_jspJarInfoTable.getViewport().setBackground(
@@ -146,8 +146,10 @@ public class DJarInfo extends JDialog
         m_jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         m_jbOK = new JButton(m_res.getString("DJarInfo.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
@@ -160,8 +162,10 @@ public class DJarInfo extends JDialog
 
         setResizable(false);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -170,8 +174,10 @@ public class DJarInfo extends JDialog
 
         pack();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 m_jbOK.requestFocus();
             }
         });
@@ -183,7 +189,8 @@ public class DJarInfo extends JDialog
      * @return JARs on classpath
      * @throws IOException Problem occurred getting JARs
      */
-    private JarFile[] getClassPathJars() throws IOException
+    private JarFile[] getClassPathJars()
+        throws IOException
     {
         // Store JARs
         ArrayList vJars = new ArrayList();
@@ -192,27 +199,24 @@ public class DJarInfo extends JDialog
         String sClassPath = System.getProperty("java.class.path");
         String sPathSeparator = System.getProperty("path.separator");
 
-        StringTokenizer strTok =
-            new StringTokenizer(sClassPath, sPathSeparator);
+        StringTokenizer strTok = new StringTokenizer(sClassPath,
+            sPathSeparator);
 
         // Store each JAR found on classpath
-        while (strTok.hasMoreTokens())
-        {
+        while (strTok.hasMoreTokens()) {
             String sClassPathEntry = strTok.nextToken();
 
             File file = new File(sClassPathEntry);
 
-            if (isJarFile(file))
-            {
+            if (isJarFile(file)) {
                 vJars.add(new JarFile(file));
             }
         }
 
         /* If only one JAR was found assume that application was
-           started using "jar" option - look in JAR manifest's
-           Class-Path entry for the rest of the JARs */
-        if (vJars.size() == 1)
-        {
+         started using "jar" option - look in JAR manifest's
+         Class-Path entry for the rest of the JARs */
+        if (vJars.size() == 1) {
             // Get manifest
             JarFile jarFile = (JarFile) vJars.get(0);
             Manifest manifest = jarFile.getManifest();
@@ -223,22 +227,19 @@ public class DJarInfo extends JDialog
                 Attributes attributes = manifest.getMainAttributes();
                 String sJarClassPath = attributes.getValue("Class-Path");
 
-                if (sJarClassPath != null)
-                {
+                if (sJarClassPath != null) {
                     // Split "JAR classpath" using spaces
                     strTok = new StringTokenizer(sJarClassPath, " ");
 
                     // Store each JAR found on "JAR classpath"
-                    while (strTok.hasMoreTokens())
-                    {
+                    while (strTok.hasMoreTokens()) {
                         String sJarClassPathEntry = strTok.nextToken();
 
                         File file = new File(
                             new File(jarFile.getName()).getParent(),
                             sJarClassPathEntry);
 
-                        if (isJarFile(file))
-                        {
+                        if (isJarFile(file)) {
                             vJars.add(new JarFile(file));
                         }
                     }
@@ -259,12 +260,11 @@ public class DJarInfo extends JDialog
      */
     private boolean isJarFile(File file)
     {
-        if (file.isFile())
-        {
+        if (file.isFile()) {
             String sName = file.getName();
 
-            if ((sName.endsWith(".jar")) || (sName.endsWith(".JAR")) ||
-                (sName.endsWith(".zip")) || (sName.endsWith(".ZIP")))
+            if (sName.endsWith(".jar") || sName.endsWith(".JAR")
+                || sName.endsWith(".zip") || sName.endsWith(".ZIP"))
             {
                 return true;
             }

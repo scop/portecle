@@ -34,11 +34,11 @@ import javax.swing.table.AbstractTableModel;
 /**
  * The table model used to display information about JAR files.
  */
-class JarInfoTableModel extends AbstractTableModel
+class JarInfoTableModel
+    extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -59,8 +59,7 @@ class JarInfoTableModel extends AbstractTableModel
             m_res.getString("JarInfoTableModel.SpecificationVendorColumn"),
             m_res.getString("JarInfoTableModel.ImplementationTitleColumn"),
             m_res.getString("JarInfoTableModel.ImplementationVersionColumn"),
-            m_res.getString("JarInfoTableModel.ImplementationVendorColumn"),
-        };
+            m_res.getString("JarInfoTableModel.ImplementationVendorColumn"), };
 
         m_data = new Object[0][0];
     }
@@ -71,16 +70,16 @@ class JarInfoTableModel extends AbstractTableModel
      * @param jarFiles The JAR files
      * @throws IOException Problem occurred getting JAR information
      */
-    public void load(JarFile[] jarFiles) throws IOException
+    public void load(JarFile[] jarFiles)
+        throws IOException
     {
         // Create one table row for each JAR file
         m_data = new Object[jarFiles.length][8];
 
-        for (int iCnt=0; iCnt < jarFiles.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < jarFiles.length; iCnt++) {
             /* Get JAR info (jar file, size, spec title, spec version,
-               spec title, impl title, impl version and impl
-               vendor) */
+             spec title, impl title, impl version and impl
+             vendor) */
             JarFile jarFile = jarFiles[iCnt];
             String sFile = jarFile.getName();
             File file = new File(sFile);
@@ -100,38 +99,32 @@ class JarInfoTableModel extends AbstractTableModel
                 Attributes attributes = manifest.getMainAttributes();
 
                 String sValue = attributes.getValue("Specification-Title");
-                if (sValue != null)
-                {
+                if (sValue != null) {
                     sSpecificationTitle = sValue;
                 }
 
                 sValue = attributes.getValue("Specification-Version");
-                if (sValue != null)
-                {
+                if (sValue != null) {
                     sSpecificationVersion = sValue;
                 }
 
                 sValue = attributes.getValue("Specification-Vendor");
-                if (sValue != null)
-                {
+                if (sValue != null) {
                     sSpecificationVendor = sValue;
                 }
 
                 sValue = attributes.getValue("Implementation-Title");
-                if (sValue != null)
-                {
+                if (sValue != null) {
                     sImplementationTitle = sValue;
                 }
 
                 sValue = attributes.getValue("Implementation-Version");
-                if (sValue != null)
-                {
+                if (sValue != null) {
                     sImplementationVersion = sValue;
                 }
 
                 sValue = attributes.getValue("Implementation-Vendor");
-                if (sValue != null)
-                {
+                if (sValue != null) {
                     sImplementationVendor = sValue;
                 }
             }
@@ -142,7 +135,7 @@ class JarInfoTableModel extends AbstractTableModel
             // Populate the size column
             m_data[iCnt][1] = MessageFormat.format(
                 m_res.getString("JarInfoTableModel.Size"),
-                new Object[]{new Integer(Math.round(file.length() / 1024))});
+                new Object[] { new Integer(Math.round(file.length() / 1024)) });
 
             // Populate the implementation title column
             m_data[iCnt][2] = sSpecificationTitle;

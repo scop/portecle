@@ -70,8 +70,7 @@ import org.bouncycastle.asn1.x509.X509Name;
 public class X509Ext
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /////////////////////////////////////////////
     // Extension OIDs
@@ -83,22 +82,26 @@ public class X509Ext
     /** Authority Key Identifier (old) OID */
     private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1";
 
-    /** Primary Key Attributes OID */  // No info available
+    /** Primary Key Attributes OID */
+    // No info available
     private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2";
 
     /** Certificate Policies (old) OID */
     private static final String CERTIFICATE_POLICIES_OLD_OID = "2.5.29.3";
 
-    /** Primary Key Usage Restriction (old) OID */  // Old - not to do?
+    /** Primary Key Usage Restriction (old) OID */
+    // Old - not to do?
     private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4";
 
-    /** Subject Directory Attributes OID */ // Std todo
+    /** Subject Directory Attributes OID */
+    // Std todo
     private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9";
 
     /** Basic Constraints (old 0) OID */
     private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10";
 
-    /** Basic Constraints (old 1) OID */ // Old - not to do?
+    /** Basic Constraints (old 1) OID */
+    // Old - not to do?
     private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13";
 
     /** Subject Key Identifier OID */
@@ -131,31 +134,36 @@ public class X509Ext
     /** Invalidity Date OID */
     private static final String INVALIDITY_DATE_OID = "2.5.29.24";
 
-    /** CRL Distribution Points (old) OID */ // Old - not to do?
+    /** CRL Distribution Points (old) OID */
+    // Old - not to do?
     private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25";
 
     /** Delta CRL Indicator OID */
     private static final String DELTA_CRL_INDICATOR_OID = "2.5.29.27";
 
-    /** Issuing Distribution Point OID */ // Std todo
+    /** Issuing Distribution Point OID */
+    // Std todo
     private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28";
 
     /** Certificate Issuer OID */
     private static final String CERTIFICATE_ISSUER_OID = "2.5.29.29";
 
-    /** Name Constraints OID */ // Std todo
+    /** Name Constraints OID */
+    // Std todo
     private static final String NAME_CONSTRAINTS_OID = "2.5.29.30";
 
     /** CRL Distribution Points OID */
     private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31";
 
-    /** Certificate Policies OID */ // Std todo
+    /** Certificate Policies OID */
+    // Std todo
     private static final String CERTIFICATE_POLICIES_OID = "2.5.29.32";
 
     /** Policy Mappings OID */
     private static final String POLICY_MAPPINGS_OID = "2.5.29.33";
 
-    /** Policy Constraints (old) OID */ // Old - not to do?
+    /** Policy Constraints (old) OID */
+    // Old - not to do?
     private static final String POLICY_CONSTRAINTS_OLD_OID = "2.5.29.34";
 
     /** Authority Key Identifier OID */
@@ -167,106 +175,93 @@ public class X509Ext
     /** Extended Key Usage OID */
     private static final String EXTENDED_KEY_USAGE_OID = "2.5.29.37";
 
-    /** CRL Stream Identifier OID */ // No info available
+    /** CRL Stream Identifier OID */
+    // No info available
     private static final String CRL_STREAM_IDENTIFIER_OID = "2.5.29.40";
 
-    /** CRL Scope OID */ // No info available
+    /** CRL Scope OID */
+    // No info available
     private static final String CRL_SCOPE_OID = "2.5.29.44";
 
-    /** Status Referrals OID */ // No info available
+    /** Status Referrals OID */
+    // No info available
     private static final String STATUS_REFERRALS_OID = "2.5.29.45";
 
-    /** Freshest CRL OID */ // Std todo
+    /** Freshest CRL OID */
+    // Std todo
     private static final String FRESHEST_CRL_OID = "2.5.29.46";
 
-    /** Ordered List OID */ // No info available
+    /** Ordered List OID */
+    // No info available
     private static final String ORDERED_LIST_OID = "2.5.29.47";
 
-    /** Base Update Time OID */ // No info available
+    /** Base Update Time OID */
+    // No info available
     private static final String BASE_UPDATE_TIME_OID = "2.5.29.51";
 
-    /** Delta Information OID */ // No info available
+    /** Delta Information OID */
+    // No info available
     private static final String DELTA_INFORMATION_OID = "2.5.29.53";
 
     /** Inhibit Any Policy OID */
     private static final String INHIBIT_ANY_POLICY_OID = "2.5.29.54";
 
     /** Entrust version extension OID */
-    private static final String ENTRUST_VERSION_EXTENSION_OID =
-        "1.2.840.113533.7.65.0";
+    private static final String ENTRUST_VERSION_EXTENSION_OID = "1.2.840.113533.7.65.0";
 
     /** S/MIME capabilities OID */
-    private static final String SMIME_CAPABILITIES_OID =
-        "1.2.840.113549.1.9.15";
+    private static final String SMIME_CAPABILITIES_OID = "1.2.840.113549.1.9.15";
 
     /** Microsoft certificate template name OID */
-    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID =
-        "1.3.6.1.4.1.311.20.2";
+    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID = "1.3.6.1.4.1.311.20.2";
 
     /** Microsoft CA version OID */
-    private static final String MICROSOFT_CA_VERSION_OID =
-        "1.3.6.1.4.1.311.21.1";
+    private static final String MICROSOFT_CA_VERSION_OID = "1.3.6.1.4.1.311.21.1";
 
     /** Microsoft previous CA certificate hash */
-    private static final String MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID =
-        "1.3.6.1.4.1.311.21.2";
-    
+    private static final String MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID = "1.3.6.1.4.1.311.21.2";
+
     /** Microsoft certificate template (v2) OID */
-    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID =
-        "1.3.6.1.4.1.311.21.7";
+    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID = "1.3.6.1.4.1.311.21.7";
 
     /** Microsoft application policies OID */
-    private static final String MICROSOFT_APPLICATION_POLICIES_OID =
-        "1.3.6.1.4.1.311.21.10";
+    private static final String MICROSOFT_APPLICATION_POLICIES_OID = "1.3.6.1.4.1.311.21.10";
 
     /** Authority Information Access OID */
-    private static final String AUTHORITY_INFORMATION_ACCESS_OID =
-        "1.3.6.1.5.5.7.1.1";
+    private static final String AUTHORITY_INFORMATION_ACCESS_OID = "1.3.6.1.5.5.7.1.1";
 
     /** Logotype OID */
-    private static final String LOGOTYPE_OID =
-        "1.3.6.1.5.5.7.1.12";
+    private static final String LOGOTYPE_OID = "1.3.6.1.5.5.7.1.12";
 
     /** Novell Security Attributes OID */
-    private static final String NOVELL_SECURITY_ATTRIBUTES_OID =
-        "2.16.840.1.113719.1.9.4.1";
+    private static final String NOVELL_SECURITY_ATTRIBUTES_OID = "2.16.840.1.113719.1.9.4.1";
 
     /** Netscape Certificate Type OID */
-    private static final String NETSCAPE_CERTIFICATE_TYPE_OID =
-        "2.16.840.1.113730.1.1";
+    private static final String NETSCAPE_CERTIFICATE_TYPE_OID = "2.16.840.1.113730.1.1";
 
     /** Netscape Base URL OID */
-    private static final String NETSCAPE_BASE_URL_OID =
-        "2.16.840.1.113730.1.2";
+    private static final String NETSCAPE_BASE_URL_OID = "2.16.840.1.113730.1.2";
 
     /** Netscape Revocation URL OID */
-    private static final String NETSCAPE_REVOCATION_URL_OID =
-        "2.16.840.1.113730.1.3";
+    private static final String NETSCAPE_REVOCATION_URL_OID = "2.16.840.1.113730.1.3";
 
     /** Netscape CA Revocation URL OID */
-    private static final String NETSCAPE_CA_REVOCATION_URL_OID =
-        "2.16.840.1.113730.1.4";
+    private static final String NETSCAPE_CA_REVOCATION_URL_OID = "2.16.840.1.113730.1.4";
 
     /** Netscape Certificate Renewal URL OID */
-    private static final String NETSCAPE_CERTIFICATE_RENEWAL_URL_OID =
-        "2.16.840.1.113730.1.7";
+    private static final String NETSCAPE_CERTIFICATE_RENEWAL_URL_OID = "2.16.840.1.113730.1.7";
 
     /** Netscape CA Policy URL OID */
-    private static final String NETSCAPE_CA_POLICY_URL_OID =
-        "2.16.840.1.113730.1.8";
+    private static final String NETSCAPE_CA_POLICY_URL_OID = "2.16.840.1.113730.1.8";
 
     /** Netscape SSL Server Name OID */
-    private static final String NETSCAPE_SSL_SERVER_NAME_OID =
-        "2.16.840.1.113730.1.12";
+    private static final String NETSCAPE_SSL_SERVER_NAME_OID = "2.16.840.1.113730.1.12";
 
     /** Netscape Comment OID */
-    private static final String NETSCAPE_COMMENT_OID =
-        "2.16.840.1.113730.1.13";
+    private static final String NETSCAPE_COMMENT_OID = "2.16.840.1.113730.1.13";
 
     /** D&B D-U-N-S number OID */
-    private static final String DNB_DUNS_NUMBER_OID =
-        "2.16.840.1.113733.1.6.15";
-
+    private static final String DNB_DUNS_NUMBER_OID = "2.16.840.1.113733.1.6.15";
 
     /** Extension name or OID if unknown */
     private final String m_sName;
@@ -348,148 +343,117 @@ public class X509Ext
      * @throws IOException If an I/O problem occurs
      * @throws ParseException If a date formatting problem occurs
      */
-    public String getStringValue() throws IOException, ParseException
+    public String getStringValue()
+        throws IOException, ParseException
     {
         // Get octet string from extension
         byte[] bOctets = ((DEROctetString) toDER(m_bValue)).getOctets();
 
         // Octet string processed differently depending on extension type
-        if (m_sOid.equals(COMMON_NAME_OID))
-        {
+        if (m_sOid.equals(COMMON_NAME_OID)) {
             return getCommonNameStringValue(bOctets);
         }
-        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID))
-        {
+        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID)) {
             return getSubjectKeyIndentifierStringValue(bOctets);
         }
-        else if (m_sOid.equals(KEY_USAGE_OID))
-        {
+        else if (m_sOid.equals(KEY_USAGE_OID)) {
             return getKeyUsageStringValue(bOctets);
         }
-        else if (m_sOid.equals(PRIVATE_KEY_USAGE_PERIOD_OID))
-        {
+        else if (m_sOid.equals(PRIVATE_KEY_USAGE_PERIOD_OID)) {
             return getPrivateKeyUsagePeriod(bOctets);
         }
-        else if (m_sOid.equals(SUBJECT_ALTERNATIVE_NAME_OID))
-        {
+        else if (m_sOid.equals(SUBJECT_ALTERNATIVE_NAME_OID)) {
             return getSubjectAlternativeName(bOctets);
         }
-        else if (m_sOid.equals(ISSUER_ALTERNATIVE_NAME_OID))
-        {
+        else if (m_sOid.equals(ISSUER_ALTERNATIVE_NAME_OID)) {
             return getIssuerAlternativeName(bOctets);
         }
-        else if (m_sOid.equals(BASIC_CONSTRAINTS_OID))
-        {
+        else if (m_sOid.equals(BASIC_CONSTRAINTS_OID)) {
             return getBasicConstraintsStringValue(bOctets);
         }
-        else if (m_sOid.equals(CRL_NUMBER_OID))
-        {
+        else if (m_sOid.equals(CRL_NUMBER_OID)) {
             return getCrlNumberStringValue(bOctets);
         }
-        else if (m_sOid.equals(REASON_CODE_OID))
-        {
+        else if (m_sOid.equals(REASON_CODE_OID)) {
             return getReasonCodeStringValue(bOctets);
         }
-        else if (m_sOid.equals(HOLD_INSTRUCTION_CODE_OID))
-        {
+        else if (m_sOid.equals(HOLD_INSTRUCTION_CODE_OID)) {
             return getHoldInstructionCodeStringValue(bOctets);
         }
-        else if (m_sOid.equals(INVALIDITY_DATE_OID))
-        {
+        else if (m_sOid.equals(INVALIDITY_DATE_OID)) {
             return getInvalidityDateStringValue(bOctets);
         }
-        else if (m_sOid.equals(DELTA_CRL_INDICATOR_OID))
-        {
+        else if (m_sOid.equals(DELTA_CRL_INDICATOR_OID)) {
             return getDeltaCrlIndicatorStringValue(bOctets);
         }
-        else if (m_sOid.equals(CERTIFICATE_ISSUER_OID))
-        {
+        else if (m_sOid.equals(CERTIFICATE_ISSUER_OID)) {
             return getCertificateIssuerStringValue(bOctets);
         }
-        else if (m_sOid.equals(POLICY_MAPPINGS_OID))
-        {
+        else if (m_sOid.equals(POLICY_MAPPINGS_OID)) {
             return getPolicyMappingsStringValue(bOctets);
         }
-        else if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OID))
-        {
+        else if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OID)) {
             return getAuthorityKeyIdentifierStringValue(bOctets);
         }
-        else if (m_sOid.equals(POLICY_CONSTRAINTS_OID))
-        {
+        else if (m_sOid.equals(POLICY_CONSTRAINTS_OID)) {
             return getPolicyConstraintsStringValue(bOctets);
         }
-        else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID))
-        {
+        else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID)) {
             return getExtendedKeyUsageStringValue(bOctets);
         }
-        else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID))
-        {
+        else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID)) {
             return getInhibitAnyPolicyStringValue(bOctets);
         }
-        else if (m_sOid.equals(ENTRUST_VERSION_EXTENSION_OID))
-        {
+        else if (m_sOid.equals(ENTRUST_VERSION_EXTENSION_OID)) {
             return getEntrustVersionExtensionStringValue(bOctets);
         }
-        else if (m_sOid.equals(SMIME_CAPABILITIES_OID))
-        {
+        else if (m_sOid.equals(SMIME_CAPABILITIES_OID)) {
             return getSmimeCapabilitiesStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID))
-        {
+        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID)) {
             return getMicrosoftCertificateTemplateV1StringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CA_VERSION_OID))
-        {
+        else if (m_sOid.equals(MICROSOFT_CA_VERSION_OID)) {
             return getMicrosoftCAVersionStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID))
-        {
-        	return getMicrosoftPreviousCACertificateHashStringValue(bOctets);
+        else if (m_sOid.equals(MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID)) {
+            return getMicrosoftPreviousCACertificateHashStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID))
-        {
+        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID)) {
             return getMicrosoftCertificateTemplateV2StringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_APPLICATION_POLICIES_OID))
-        {
+        else if (m_sOid.equals(MICROSOFT_APPLICATION_POLICIES_OID)) {
             return getUnknownOidStringValue(bOctets); // TODO
         }
-        else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID))
-        {
+        else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID)) {
             return getAuthorityInformationAccessStringValue(bOctets);
         }
-        else if (m_sOid.equals(LOGOTYPE_OID))
-        {
+        else if (m_sOid.equals(LOGOTYPE_OID)) {
             return getLogotypeStringValue(bOctets);
         }
-        else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID))
-        {
+        else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) {
             return getNovellSecurityAttributesStringValue(bOctets);
         }
-        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID))
-        {
+        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) {
             return getNetscapeCertificateTypeStringValue(bOctets);
         }
-        else if (m_sOid.equals(NETSCAPE_BASE_URL_OID) ||
-                 m_sOid.equals(NETSCAPE_REVOCATION_URL_OID) ||
-                 m_sOid.equals(NETSCAPE_CA_REVOCATION_URL_OID) ||
-                 m_sOid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID) ||
-                 m_sOid.equals(NETSCAPE_CA_POLICY_URL_OID) ||
-                 m_sOid.equals(NETSCAPE_SSL_SERVER_NAME_OID) ||
-                 m_sOid.equals(NETSCAPE_COMMENT_OID))
+        else if (m_sOid.equals(NETSCAPE_BASE_URL_OID)
+            || m_sOid.equals(NETSCAPE_REVOCATION_URL_OID)
+            || m_sOid.equals(NETSCAPE_CA_REVOCATION_URL_OID)
+            || m_sOid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID)
+            || m_sOid.equals(NETSCAPE_CA_POLICY_URL_OID)
+            || m_sOid.equals(NETSCAPE_SSL_SERVER_NAME_OID)
+            || m_sOid.equals(NETSCAPE_COMMENT_OID))
         {
             return getNonNetscapeCertificateTypeStringValue(bOctets);
         }
-        else if (m_sOid.equals(DNB_DUNS_NUMBER_OID))
-        {
+        else if (m_sOid.equals(DNB_DUNS_NUMBER_OID)) {
             return getDnBDUNSNumberStringValue(bOctets);
         }
-        else if (m_sOid.equals(CRL_DISTRIBUTION_POINTS_OID))
-        {
+        else if (m_sOid.equals(CRL_DISTRIBUTION_POINTS_OID)) {
             return getCrlDistributionPointsStringValue(bOctets);
         }
-        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID))
-        {
+        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID)) {
             return getCertificatePoliciesStringValue(bOctets);
         }
 
@@ -505,7 +469,6 @@ public class X509Ext
         }
     }
 
-
     /**
      * Get unknown OID extension value as a string.
      *
@@ -513,7 +476,8 @@ public class X509Ext
      * @return Extension value as a string (hex/clear text dump)
      * @throws IOException If an I/O error occurs
      */
-    private String getUnknownOidStringValue(byte[] bValue) throws IOException
+    private String getUnknownOidStringValue(byte[] bValue)
+        throws IOException
     {
         ByteArrayInputStream bais = null;
         int nBytes = 16; // how many bytes to show per line
@@ -526,19 +490,21 @@ public class X509Ext
             byte[] bLine = new byte[nBytes];
             int iRead = -1;
 
-            while ((iRead = bais.read(bLine)) != -1)
-            {
+            while ((iRead = bais.read(bLine)) != -1) {
                 strBuff.append(getHexClearDump(bLine, iRead));
             }
 
             return strBuff.toString();
         }
         finally {
-            try { if (bais != null)  bais.close(); }
-            catch (IOException ex) { /* Ignore */ }
+            try {
+                if (bais != null)
+                    bais.close();
+            }
+            catch (IOException ex) { /* Ignore */
+            }
         }
     }
-
 
     /**
      * Get Common Name (2.5.4.3) extension value as a string.
@@ -553,9 +519,13 @@ public class X509Ext
         return stringify(toDER(bValue));
     }
 
-
     /**
      * Get Subject Key Indentifier (2.5.29.14) extension value as a string.
+     * 
+     * <pre>
+     * SubjectKeyIdentifier ::= KeyIdentifier
+     * KeyIdentifier ::= OCTET STRING
+     * </pre>
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -564,9 +534,6 @@ public class X509Ext
     private String getSubjectKeyIndentifierStringValue(byte[] bValue)
         throws IOException
     {
-        /* SubjectKeyIdentifier ::= KeyIdentifier
-
-           KeyIdentifier ::= OCTET STRING */
 
         DEROctetString derOctetStr = (DEROctetString) toDER(bValue);
 
@@ -599,7 +566,8 @@ public class X509Ext
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getKeyUsageStringValue(byte[] bValue) throws IOException
+    private String getKeyUsageStringValue(byte[] bValue)
+        throws IOException
     {
         DERBitString derBitStr = (DERBitString) toDER(bValue);
         StringBuffer strBuff = new StringBuffer();
@@ -610,8 +578,7 @@ public class X509Ext
 
         // Loop through bit string appending them to the returned string
         // value as flags are found true
-        for (int iCnt=0; iCnt < bytes.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < bytes.length; iCnt++) {
             boolean[] b = new boolean[8];
 
             b[7] = (bytes[iCnt] & 0x80) == 0x80;
@@ -626,34 +593,28 @@ public class X509Ext
             // First byte
             if (iCnt == 0) {
                 if (b[7]) {
-                    strBuff.append(
-                        m_res.getString("DigitalSignatureKeyUsageString"));
+                    strBuff.append(m_res.getString("DigitalSignatureKeyUsageString"));
                     strBuff.append('\n');
                 }
                 if (b[6]) {
-                    strBuff.append(
-                        m_res.getString("NonRepudiationKeyUsageString"));
+                    strBuff.append(m_res.getString("NonRepudiationKeyUsageString"));
                     strBuff.append('\n');
                 }
                 if (b[5]) {
-                    strBuff.append(
-                        m_res.getString("KeyEnciphermentKeyUsageString"));
+                    strBuff.append(m_res.getString("KeyEnciphermentKeyUsageString"));
                     strBuff.append('\n');
                 }
                 if (b[4]) {
-                    strBuff.append(
-                        m_res.getString("DataEnciphermentKeyUsageString"));
+                    strBuff.append(m_res.getString("DataEnciphermentKeyUsageString"));
                     strBuff.append('\n');
                 }
                 if (b[3]) {
-                    strBuff.append(
-                        m_res.getString("KeyAgreementKeyUsageString"));
+                    strBuff.append(m_res.getString("KeyAgreementKeyUsageString"));
                     strBuff.append('\n');
                     bKeyAgreement = true;
                 }
                 if (b[2]) {
-                    strBuff.append(
-                        m_res.getString("KeyCertSignKeyUsageString"));
+                    strBuff.append(m_res.getString("KeyCertSignKeyUsageString"));
                     strBuff.append('\n');
                 }
                 if (b[1]) {
@@ -662,8 +623,7 @@ public class X509Ext
                 }
                 // Only has meaning if key agreement set
                 if (b[0] && bKeyAgreement) {
-                    strBuff.append(
-                        m_res.getString("EncipherOnlyKeyUsageString"));
+                    strBuff.append(m_res.getString("EncipherOnlyKeyUsageString"));
                     strBuff.append('\n');
                 }
             }
@@ -671,8 +631,7 @@ public class X509Ext
             else if (iCnt == 1) {
                 // Only has meaning if key agreement set
                 if (b[7] && bKeyAgreement) {
-                    strBuff.append(
-                        m_res.getString("DecipherOnlyKeyUsageString"));
+                    strBuff.append(m_res.getString("DecipherOnlyKeyUsageString"));
                     strBuff.append('\n');
                 }
             }
@@ -680,7 +639,6 @@ public class X509Ext
 
         return strBuff.toString();
     }
-
 
     /**
      * Get Private Key Usage Period (2.5.29.16) extension value as a string.
@@ -701,24 +659,20 @@ public class X509Ext
 
         StringBuffer strBuff = new StringBuffer();
 
-        for (int i = 0, len = times.size(); i < len; i++)
-        {
+        for (int i = 0, len = times.size(); i < len; i++) {
             DERTaggedObject derTag = (DERTaggedObject) times.getObjectAt(i);
             DEROctetString dOct = (DEROctetString) derTag.getObject();
-            DERGeneralizedTime dTime =
-                new DERGeneralizedTime(new String(dOct.getOctets()));
+            DERGeneralizedTime dTime = new DERGeneralizedTime(new String(
+                dOct.getOctets()));
 
-            strBuff.append(
-                MessageFormat.format(
-                    m_res.getString("PrivateKeyUsagePeriod." +
-                                    derTag.getTagNo()),
-                    new String[]{formatGeneralizedTime(dTime)}));
+            strBuff.append(MessageFormat.format(
+                m_res.getString("PrivateKeyUsagePeriod." + derTag.getTagNo()),
+                new String[] { formatGeneralizedTime(dTime) }));
             strBuff.append('\n');
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Get Subject Alternative Name (2.5.29.17) extension value as a string.
@@ -733,18 +687,17 @@ public class X509Ext
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getSubjectAlternativeName(byte[] bValue) throws IOException
+    private String getSubjectAlternativeName(byte[] bValue)
+        throws IOException
     {
         ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
         StringBuffer strBuff = new StringBuffer();
         for (int i = 0, len = generalNames.size(); i < len; i++) {
-            strBuff.append(getGeneralNameString(
-                               (DERTaggedObject) generalNames.getObjectAt(i)));
+            strBuff.append(getGeneralNameString((DERTaggedObject) generalNames.getObjectAt(i)));
             strBuff.append('\n');
         }
         return strBuff.toString();
     }
-
 
     /**
      * Get Issuer Alternative Name (2.5.29.18) extension value as a string.
@@ -759,19 +712,17 @@ public class X509Ext
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getIssuerAlternativeName(byte[] bValue) throws IOException
+    private String getIssuerAlternativeName(byte[] bValue)
+        throws IOException
     {
         ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
         StringBuffer strBuff = new StringBuffer();
-        for (int i = 0, len = generalNames.size(); i < len; i++)
-        {
-            strBuff.append(getGeneralNameString(
-                               (DERTaggedObject) generalNames.getObjectAt(i)));
+        for (int i = 0, len = generalNames.size(); i < len; i++) {
+            strBuff.append(getGeneralNameString((DERTaggedObject) generalNames.getObjectAt(i)));
             strBuff.append('\n');
         }
         return strBuff.toString();
     }
-
 
     /**
      * Get Basic Constraints (2.5.29.19) extension value as a string.
@@ -813,14 +764,14 @@ public class X509Ext
         StringBuffer strBuff = new StringBuffer();
 
         // Subject is CA?
-        strBuff.append(m_res.getString(bCa ? "SubjectIsCa" :"SubjectIsNotCa"));
+        strBuff.append(m_res.getString(bCa ? "SubjectIsCa" : "SubjectIsNotCa"));
         strBuff.append('\n');
 
         // Path length constraint (only has meaning when CA is true)
         if (iPathLengthConstraint != -1 && bCa) {
             strBuff.append(MessageFormat.format(
-                               m_res.getString("PathLengthConstraint"),
-                               new String[]{""+iPathLengthConstraint}));
+                m_res.getString("PathLengthConstraint"), new String[] { ""
+                    + iPathLengthConstraint }));
         }
         else {
             strBuff.append(m_res.getString("NoPathLengthConstraint"));
@@ -829,7 +780,6 @@ public class X509Ext
 
         return strBuff.toString();
     }
-
 
     /**
      * Get CRL Number (2.5.29.20) extension value as a string.
@@ -842,7 +792,8 @@ public class X509Ext
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getCrlNumberStringValue(byte[] bValue) throws IOException
+    private String getCrlNumberStringValue(byte[] bValue)
+        throws IOException
     {
         // Get CRL number
         DERInteger derInt = (DERInteger) toDER(bValue);
@@ -853,7 +804,6 @@ public class X509Ext
         strBuff.append('\n');
         return strBuff.toString();
     }
-
 
     /**
      * Get Reason Code (2.5.29.21) extension value as a string.
@@ -878,13 +828,13 @@ public class X509Ext
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getReasonCodeStringValue(byte[] bValue) throws IOException
+    private String getReasonCodeStringValue(byte[] bValue)
+        throws IOException
     {
         int iRc = ((DEREnumerated) toDER(bValue)).getValue().intValue();
-        String sRc = getRes("CrlReason."+iRc, "UnrecognisedCrlReasonString");
-        return MessageFormat.format(sRc, new String[]{""+iRc}) + '\n';
+        String sRc = getRes("CrlReason." + iRc, "UnrecognisedCrlReasonString");
+        return MessageFormat.format(sRc, new String[] { "" + iRc }) + '\n';
     }
-
 
     /**
      * Get Hold Instruction Code (2.5.29.23) extension value as a string.
@@ -902,9 +852,8 @@ public class X509Ext
     {
         String sHoldIns = ((DERObjectIdentifier) toDER(bValue)).getId();
         String res = getRes(sHoldIns, "UnrecognisedHoldInstructionCode");
-        return MessageFormat.format(res, new String[]{sHoldIns}) + '\n';
+        return MessageFormat.format(res, new String[] { sHoldIns }) + '\n';
     }
-
 
     /**
      * Get Invalidity Date (2.5.29.24) extension value as a string.
@@ -933,7 +882,6 @@ public class X509Ext
         return strBuff.toString();
     }
 
-
     /**
      * Get Delta CRL Indicator (2.5.29.27) extension value as a string.
      *
@@ -960,7 +908,6 @@ public class X509Ext
         return strBuff.toString();
     }
 
-
     /**
      * Get Certificate Issuer (2.5.29.29) extension value as a string.
      *
@@ -979,15 +926,12 @@ public class X509Ext
     {
         ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
         StringBuffer strBuff = new StringBuffer();
-        for (int i = 0, len = generalNames.size(); i < len; i++)
-        {
-            strBuff.append(getGeneralNameString(
-                               (DERTaggedObject) generalNames.getObjectAt(i)));
+        for (int i = 0, len = generalNames.size(); i < len; i++) {
+            strBuff.append(getGeneralNameString((DERTaggedObject) generalNames.getObjectAt(i)));
             strBuff.append('\n');
         }
         return strBuff.toString();
     }
-
 
     /**
      * Get Policy Mappings (2.5.29.33) extension value as a string.
@@ -1013,41 +957,36 @@ public class X509Ext
         StringBuffer strBuff = new StringBuffer();
 
         // Get each policy mapping
-        for (int i = 0, len = policyMappings.size(); i < len; i++)
-        {
-            ASN1Sequence policyMapping =
-                (ASN1Sequence) policyMappings.getObjectAt(i);
+        for (int i = 0, len = policyMappings.size(); i < len; i++) {
+            ASN1Sequence policyMapping = (ASN1Sequence) policyMappings.getObjectAt(i);
             int pmLen = policyMapping.size();
 
             strBuff.append(MessageFormat.format(
-                               m_res.getString("PolicyMapping"),
-                               new String[]{""+(i+1)}));
+                m_res.getString("PolicyMapping"),
+                new String[] { "" + (i + 1) }));
             strBuff.append('\n');
 
             if (pmLen > 0) { // Policy mapping issuer domain policy
-                DERObjectIdentifier issuerDomainPolicy =
-                    (DERObjectIdentifier) policyMapping.getObjectAt(0);
+                DERObjectIdentifier issuerDomainPolicy = (DERObjectIdentifier) policyMapping.getObjectAt(0);
                 strBuff.append('\t');
                 strBuff.append(MessageFormat.format(
-                                   m_res.getString("IssuerDomainPolicy"),
-                                   new String[]{issuerDomainPolicy.getId()}));
+                    m_res.getString("IssuerDomainPolicy"),
+                    new String[] { issuerDomainPolicy.getId() }));
                 strBuff.append('\n');
             }
 
             if (pmLen > 1) { // Policy mapping subject domain policy
-                DERObjectIdentifier subjectDomainPolicy =
-                    (DERObjectIdentifier) policyMapping.getObjectAt(1);
+                DERObjectIdentifier subjectDomainPolicy = (DERObjectIdentifier) policyMapping.getObjectAt(1);
                 strBuff.append('\t');
                 strBuff.append(MessageFormat.format(
-                                   m_res.getString("SubjectDomainPolicy"),
-                                   new String[]{subjectDomainPolicy.getId()}));
+                    m_res.getString("SubjectDomainPolicy"),
+                    new String[] { subjectDomainPolicy.getId() }));
                 strBuff.append('\n');
             }
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Get Authority Key Identifier (2.5.29.35) extension value as a string.
@@ -1073,17 +1012,15 @@ public class X509Ext
         throws IOException
     {
         /* Get sequence of (all optional) a key identifier, an authority
-           cert issuer names and an authority cert serial number */
+         cert issuer names and an authority cert serial number */
         ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
 
         DEROctetString keyIdentifier = null;
         ASN1Sequence authorityCertIssuer = null;
         DEROctetString certificateSerialNumber = null;
 
-        for (int i = 0, len = asn1Seq.size(); i < len; i++)
-        {
-            DERTaggedObject derTagObj =
-                (DERTaggedObject) asn1Seq.getObjectAt(i);
+        for (int i = 0, len = asn1Seq.size(); i < len; i++) {
+            DERTaggedObject derTagObj = (DERTaggedObject) asn1Seq.getObjectAt(i);
             DERObject derObj = derTagObj.getObject();
 
             switch (derTagObj.getTagNo()) {
@@ -1111,8 +1048,8 @@ public class X509Ext
         if (keyIdentifier != null) {
             byte[] bKeyIdent = keyIdentifier.getOctets();
             strBuff.append(MessageFormat.format(
-                               m_res.getString("KeyIdentifier"),
-                               new String[]{convertToHexString(bKeyIdent)}));
+                m_res.getString("KeyIdentifier"),
+                new String[] { convertToHexString(bKeyIdent) }));
             strBuff.append('\n');
         }
 
@@ -1120,8 +1057,7 @@ public class X509Ext
             strBuff.append(m_res.getString("CertificateIssuer"));
             strBuff.append('\n');
             for (int i = 0, len = authorityCertIssuer.size(); i < len; i++) {
-                DERTaggedObject generalName =
-                    (DERTaggedObject) authorityCertIssuer.getObjectAt(i);
+                DERTaggedObject generalName = (DERTaggedObject) authorityCertIssuer.getObjectAt(i);
                 strBuff.append('\t');
                 strBuff.append(getGeneralNameString(generalName));
                 strBuff.append('\n');
@@ -1131,15 +1067,13 @@ public class X509Ext
         if (certificateSerialNumber != null) {
             byte[] bCertSerialNumber = certificateSerialNumber.getOctets();
             strBuff.append(MessageFormat.format(
-                               m_res.getString("CertificateSerialNumber"),
-                               new String[]{convertToHexString(
-                                                bCertSerialNumber)}));
+                m_res.getString("CertificateSerialNumber"),
+                new String[] { convertToHexString(bCertSerialNumber) }));
             strBuff.append('\n');
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Get Policy Constraints (2.5.29.36) extension value as a string.
@@ -1166,8 +1100,7 @@ public class X509Ext
 
         for (int i = 0, len = policyConstraints.size(); i < len; i++) {
 
-            DERTaggedObject policyConstraint =
-                (DERTaggedObject) policyConstraints.getObjectAt(i);
+            DERTaggedObject policyConstraint = (DERTaggedObject) policyConstraints.getObjectAt(i);
             DERInteger skipCerts = new DERInteger(
                 ((DEROctetString) policyConstraint.getObject()).getOctets());
             int iSkipCerts = skipCerts.getValue().intValue();
@@ -1175,14 +1108,14 @@ public class X509Ext
             switch (policyConstraint.getTagNo()) {
             case 0: // Require Explicit Policy Skip Certs
                 strBuff.append(MessageFormat.format(
-                                   m_res.getString("RequireExplicitPolicy"),
-                                   new String[]{""+iSkipCerts}));
+                    m_res.getString("RequireExplicitPolicy"),
+                    new String[] { "" + iSkipCerts }));
                 strBuff.append('\n');
                 break;
             case 1: // Inhibit Policy Mapping Skip Certs
                 strBuff.append(MessageFormat.format(
-                                   m_res.getString("InhibitPolicyMapping"),
-                                   new String[]{""+iSkipCerts}));
+                    m_res.getString("InhibitPolicyMapping"), new String[] { ""
+                        + iSkipCerts }));
                 strBuff.append('\n');
                 break;
             }
@@ -1191,7 +1124,6 @@ public class X509Ext
         return strBuff.toString();
 
     }
-
 
     /**
      * Get Extended Key Usage (2.5.29.37) extension value as a string.
@@ -1212,18 +1144,15 @@ public class X509Ext
 
         StringBuffer strBuff = new StringBuffer();
 
-        for (int i = 0, len = asn1Seq.size(); i < len; i++)
-        {
-            String sOid =
-                ((DERObjectIdentifier) asn1Seq.getObjectAt(i)).getId();
+        for (int i = 0, len = asn1Seq.size(); i < len; i++) {
+            String sOid = ((DERObjectIdentifier) asn1Seq.getObjectAt(i)).getId();
             String sEku = getRes(sOid, "UnrecognisedExtKeyUsageString");
-            strBuff.append(MessageFormat.format(sEku, new String[]{sOid}));
+            strBuff.append(MessageFormat.format(sEku, new String[] { sOid }));
             strBuff.append('\n');
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Get Inhibit Any Policy (2.5.29.54) extension value as a string.
@@ -1249,12 +1178,11 @@ public class X509Ext
         // Return inhibit any policy extension
         StringBuffer strBuff = new StringBuffer();
         strBuff.append(MessageFormat.format(
-                           m_res.getString("InhibitAnyPolicy"),
-                           new String[]{""+iSkipCerts}));
+            m_res.getString("InhibitAnyPolicy"), new String[] { ""
+                + iSkipCerts }));
         strBuff.append('\n');
         return strBuff.toString();
     }
-
 
     /**
      * Get Entrust Version Extension (1.2.840.113533.7.65.0) extension
@@ -1274,7 +1202,6 @@ public class X509Ext
         return ((DERGeneralString) as.getObjectAt(0)).getString();
     }
 
-
     /**
      * Get Microsoft certificate template name V1 (1.3.6.1.4.1.311.20.2)
      * extension value as a string.
@@ -1289,7 +1216,6 @@ public class X509Ext
     {
         return ((DERBMPString) toDER(bValue)).getString() + '\n';
     }
-
 
     /**
      * Get Microsoft certificate template name V2 (1.3.6.1.4.1.311.20.7)
@@ -1315,28 +1241,25 @@ public class X509Ext
         StringBuffer sb = new StringBuffer();
 
         sb.append(MessageFormat.format(
-                      m_res.getString("MsftCertTemplateId"),
-                      new String[]{
-                          ((DERObjectIdentifier) seq.getObjectAt(0))
-                          .getId()}));
+            m_res.getString("MsftCertTemplateId"),
+            new String[] { ((DERObjectIdentifier) seq.getObjectAt(0)).getId() }));
         sb.append('\n');
 
         DERInteger derInt = (DERInteger) seq.getObjectAt(1);
         sb.append(MessageFormat.format(
-                      m_res.getString("MsftCertTemplateMajorVer"),
-                      new String[]{derInt.getValue().toString()}));
+            m_res.getString("MsftCertTemplateMajorVer"),
+            new String[] { derInt.getValue().toString() }));
         sb.append('\n');
 
         if ((derInt = (DERInteger) seq.getObjectAt(2)) != null) {
             sb.append(MessageFormat.format(
-                          m_res.getString("MsftCertTemplateMinorVer"),
-                          new String[]{derInt.getValue().toString()}));
+                m_res.getString("MsftCertTemplateMinorVer"),
+                new String[] { derInt.getValue().toString() }));
             sb.append('\n');
         }
 
         return sb.toString();
     }
-
 
     /**
      * Get Microsoft CA Version (1.3.6.1.4.1.311.21.1) extension value as
@@ -1352,11 +1275,10 @@ public class X509Ext
     {
         int ver = ((DERInteger) toDER(bValue)).getValue().intValue();
         String certIx = String.valueOf(ver & 0xffff); // low 16 bits
-        String keyIx = String.valueOf(ver >> 16);     // high 16 bits
-        return MessageFormat.format(
-            m_res.getString("MsftCaVersion"),new String[]{certIx, keyIx})+'\n';
+        String keyIx = String.valueOf(ver >> 16); // high 16 bits
+        return MessageFormat.format(m_res.getString("MsftCaVersion"),
+            new String[] { certIx, keyIx }) + '\n';
     }
-
 
     /**
      * Get Microsoft Previous CA Certificate Hash (1.3.6.1.4.1.311.21.2)
@@ -1367,7 +1289,8 @@ public class X509Ext
      * @return Extension value as a string
      * @throws IOException If and I/O problem occurs
      */
-    private String getMicrosoftPreviousCACertificateHashStringValue(byte[] bValue)
+    private String getMicrosoftPreviousCACertificateHashStringValue(
+        byte[] bValue)
         throws IOException
     {
         DEROctetString derOctetStr = (DEROctetString) toDER(bValue);
@@ -1375,7 +1298,6 @@ public class X509Ext
         StringBuffer strBuff = new StringBuffer();
         return strBuff.append(convertToHexString(bKeyIdent)).append('\n').toString();
     }
-
 
     /**
      * Get S/MIME capabilities (1.2.840.113549.1.9.15) extension value as
@@ -1409,13 +1331,13 @@ public class X509Ext
 
             String sCapId = cap.getCapabilityID().getId();
             String sCap = getRes(sCapId, "UnrecognisedSmimeCapability");
-            sb.append(MessageFormat.format(sCap, new String[]{sCapId}));
+            sb.append(MessageFormat.format(sCap, new String[] { sCapId }));
 
             DEREncodable params;
             if ((params = cap.getParameters()) != null) {
                 sb.append("\n\t");
-                sb.append(MessageFormat.format(
-                              sParams, new String[]{stringify(params)}));
+                sb.append(MessageFormat.format(sParams,
+                    new String[] { stringify(params) }));
             }
 
             sb.append('\n');
@@ -1423,7 +1345,6 @@ public class X509Ext
 
         return sb.toString();
     }
-
 
     /**
      * Get Authority Information Access (1.3.6.1.5.5.7.1.1) extension
@@ -1443,22 +1364,18 @@ public class X509Ext
 
         for (int i = 0, adLen = accDescs.size(); i < adLen; i++) {
             ASN1Sequence accDesc = (ASN1Sequence) accDescs.getObjectAt(i);
-            String accOid =
-                ((DERObjectIdentifier) accDesc.getObjectAt(0)).getId();
+            String accOid = ((DERObjectIdentifier) accDesc.getObjectAt(0)).getId();
             String accMeth = getRes(accOid, "UnrecognisedAccessMethod");
-            String accLoc = getGeneralNameString(
-                (DERTaggedObject) accDesc.getObjectAt(1));
-            sb.append(
-                MessageFormat.format(
-                    aia, new String[]{
-                        MessageFormat.format(accMeth, new String[]{accOid}),
-                        accLoc}));
+            String accLoc = getGeneralNameString((DERTaggedObject) accDesc.getObjectAt(1));
+            sb.append(MessageFormat.format(aia,
+                new String[] {
+                    MessageFormat.format(accMeth, new String[] { accOid }),
+                    accLoc }));
             sb.append('\n');
         }
 
         return sb.toString();
     }
-
 
     /**
      * Get Logotype (1.3.6.1.5.5.7.1.12) extension value as a string.
@@ -1474,93 +1391,92 @@ public class X509Ext
         return getUnknownOidStringValue(bValue);
 
         /* work-in-progress:
-        ASN1Sequence logos = (ASN1Sequence) toDER(bValue);
-        StringBuffer sb = new StringBuffer();
+         ASN1Sequence logos = (ASN1Sequence) toDER(bValue);
+         StringBuffer sb = new StringBuffer();
 
-        for (int i = 0, len = logos.size(); i < len; i++)
-        {
-            DERTaggedObject derTag = (DERTaggedObject) logos.getObjectAt(i);
-            switch (derTag.getTagNo()) {
-            case 0:
-                sb.append(m_res.getString("CommunityLogos"));
-                break;
-            case 1:
-                sb.append(m_res.getString("IssuerLogo"));
-                DERTaggedObject ltInfo = (DERTaggedObject) derTag.getObject();
-                switch (ltInfo.getTagNo()) {
-                case 0: // LogotypeData
-                    sb.append("\n\tData");
-                    ASN1Sequence ltData = (ASN1Sequence) ltInfo.getObject();
-                    if (ltData.size() > 0) {
-                        ASN1Sequence ltImage =
-                            (ASN1Sequence) ltData.getObjectAt(0);
-                        sb.append("\n\t\tImage");
-                        ASN1Sequence ltDetails =
-                            (ASN1Sequence) ltImage.getObjectAt(0);
-                        sb.append("\n\t\t\tDetails");
-                        sb.append("\n\t\t\t\tMedia type: ")
-                            .append(((DERString)
-                                     ltDetails.getObjectAt(0)).getString());
-                        ASN1Sequence ltHash =
-                            (ASN1Sequence) ltDetails.getObjectAt(1);
-                        for (int j = 0, jlen = ltHash.size(); j < jlen; j++) {
-                            sb.append("\n\t\t\t\tHash: ");
-                            ASN1Sequence haav =
-                                (ASN1Sequence) ltHash.getObjectAt(j);
-                            sb.append("<TODO>: "); // haav[0]: alg identifier
-                            byte[] bHashValue =
-                                ((DEROctetString) haav.getObjectAt(1))
-                                .getOctets();
-                            sb.append(convertToHexString(bHashValue));
-                        }
-                        ASN1Sequence ltURI =
-                            (ASN1Sequence) ltDetails.getObjectAt(2);
-                        for (int j = 0, jlen = ltURI.size(); j < jlen; j++) {
-                            sb.append("\n\t\t\t\tURI: ")
-                                .append(((DERString)
-                                         ltURI.getObjectAt(j)).getString());
-                        }
-                        if (ltImage.size() > 1) {
-                            ASN1Sequence ltImageInfo =
-                                (ASN1Sequence) ltImage.getObjectAt(1);
-                            sb.append("\n\t\t\tImage info");
-                        }
-                        if (ltData.size() > 1) {
-                            ASN1Sequence ltAudio =
-                                (ASN1Sequence) ltData.getObjectAt(1);
-                            sb.append("\n\t\tAudio");
-                        }
-                    }
-                    break;
-                case 1: // LogotypeReference
-                    sb.append("\n  Reference");
-                    break;
-                default:
-                    // Unknown, skip
-                }
-                break;
-            case 2:
-                sb.append(m_res.getString("SubjectLogo"));
-                break;
-            case 3:
-                sb.append(m_res.getString("OtherLogos"));
-                break;
-            default:
-                // Unknown, skip
-            }
-        }
+         for (int i = 0, len = logos.size(); i < len; i++)
+         {
+         DERTaggedObject derTag = (DERTaggedObject) logos.getObjectAt(i);
+         switch (derTag.getTagNo()) {
+         case 0:
+         sb.append(m_res.getString("CommunityLogos"));
+         break;
+         case 1:
+         sb.append(m_res.getString("IssuerLogo"));
+         DERTaggedObject ltInfo = (DERTaggedObject) derTag.getObject();
+         switch (ltInfo.getTagNo()) {
+         case 0: // LogotypeData
+         sb.append("\n\tData");
+         ASN1Sequence ltData = (ASN1Sequence) ltInfo.getObject();
+         if (ltData.size() > 0) {
+         ASN1Sequence ltImage =
+         (ASN1Sequence) ltData.getObjectAt(0);
+         sb.append("\n\t\tImage");
+         ASN1Sequence ltDetails =
+         (ASN1Sequence) ltImage.getObjectAt(0);
+         sb.append("\n\t\t\tDetails");
+         sb.append("\n\t\t\t\tMedia type: ")
+         .append(((DERString)
+         ltDetails.getObjectAt(0)).getString());
+         ASN1Sequence ltHash =
+         (ASN1Sequence) ltDetails.getObjectAt(1);
+         for (int j = 0, jlen = ltHash.size(); j < jlen; j++) {
+         sb.append("\n\t\t\t\tHash: ");
+         ASN1Sequence haav =
+         (ASN1Sequence) ltHash.getObjectAt(j);
+         sb.append("<TODO>: "); // haav[0]: alg identifier
+         byte[] bHashValue =
+         ((DEROctetString) haav.getObjectAt(1))
+         .getOctets();
+         sb.append(convertToHexString(bHashValue));
+         }
+         ASN1Sequence ltURI =
+         (ASN1Sequence) ltDetails.getObjectAt(2);
+         for (int j = 0, jlen = ltURI.size(); j < jlen; j++) {
+         sb.append("\n\t\t\t\tURI: ")
+         .append(((DERString)
+         ltURI.getObjectAt(j)).getString());
+         }
+         if (ltImage.size() > 1) {
+         ASN1Sequence ltImageInfo =
+         (ASN1Sequence) ltImage.getObjectAt(1);
+         sb.append("\n\t\t\tImage info");
+         }
+         if (ltData.size() > 1) {
+         ASN1Sequence ltAudio =
+         (ASN1Sequence) ltData.getObjectAt(1);
+         sb.append("\n\t\tAudio");
+         }
+         }
+         break;
+         case 1: // LogotypeReference
+         sb.append("\n  Reference");
+         break;
+         default:
+         // Unknown, skip
+         }
+         break;
+         case 2:
+         sb.append(m_res.getString("SubjectLogo"));
+         break;
+         case 3:
+         sb.append(m_res.getString("OtherLogos"));
+         break;
+         default:
+         // Unknown, skip
+         }
+         }
 
-        return sb.toString();
-        */
+         return sb.toString();
+         */
     }
-
 
     /**
      * Get Novell Security Attributes (2.16.840.1.113719.1.9.4.1) extension
      * value as a string.
      *
      * @see <a href="http://developer.novell.com/repository/attributes/">Novell
- Certificate Extension Attributes</a>
+     Certificate Extension Attributes</a>
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
@@ -1605,20 +1521,17 @@ public class X509Ext
          */
 
         // Key quality
-        ASN1Sequence keyq = (ASN1Sequence)
-            ((ASN1TaggedObject) glbs.getObjectAt(0)).getObject();
+        ASN1Sequence keyq = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(0)).getObject();
         sb.append('\t').append(m_res.getString("NovellKeyQuality"));
         sb.append('\n').append(getNovellQualityAttr(keyq));
 
         // Crypto process quality
-        ASN1Sequence cpq = (ASN1Sequence)
-            ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
+        ASN1Sequence cpq = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
         sb.append('\t').append(m_res.getString("NovellCryptoProcessQuality"));
         sb.append('\n').append(getNovellQualityAttr(cpq));
 
         // Certificate class
-        ASN1Sequence cclass = (ASN1Sequence)
-            ((ASN1TaggedObject) glbs.getObjectAt(2)).getObject();
+        ASN1Sequence cclass = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(2)).getObject();
         sb.append('\t');
         sb.append(m_res.getString("NovellCertClass"));
         sb.append('\n');
@@ -1626,8 +1539,8 @@ public class X509Ext
         sb.append("\t\t");
         String sv = ((DERInteger) cclass.getObjectAt(0)).getValue().toString();
         String sc = getRes("NovellCertClass." + sv,
-                           "UnregocnisedNovellCertClass");
-        sb.append(MessageFormat.format(sc, new String[]{sv}));
+            "UnregocnisedNovellCertClass");
+        sb.append(MessageFormat.format(sc, new String[] { sv }));
         sb.append('\n');
 
         boolean valid = true;
@@ -1640,20 +1553,20 @@ public class X509Ext
 
         // Enterprise ID
         /*
-        ASN1Sequence eid = (ASN1Sequence)
-            ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject();
-        ASN1Sequence rootLabel = (ASN1Sequence)
-            ((ASN1TaggedObject) eid.getObjectAt(0)).getObject();
-        ASN1Sequence registryLabel = (ASN1Sequence)
-            ((ASN1TaggedObject) eid.getObjectAt(1)).getObject();
-        ASN1Sequence eLabels = (ASN1Sequence)
-            ((ASN1TaggedObject) eid.getObjectAt(2)).getObject();
-        for (int i = 0, len = eLabels.size(); i < len; i++) {
-            // Hmm... I thought this would be a sequence of sequences,
-            // but the following throws a ClassCastException...?
-            // ASN1Sequence eLabel = (ASN1Sequence) eLabels.getObjectAt(i);
-        }
-        */
+         ASN1Sequence eid = (ASN1Sequence)
+         ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject();
+         ASN1Sequence rootLabel = (ASN1Sequence)
+         ((ASN1TaggedObject) eid.getObjectAt(0)).getObject();
+         ASN1Sequence registryLabel = (ASN1Sequence)
+         ((ASN1TaggedObject) eid.getObjectAt(1)).getObject();
+         ASN1Sequence eLabels = (ASN1Sequence)
+         ((ASN1TaggedObject) eid.getObjectAt(2)).getObject();
+         for (int i = 0, len = eLabels.size(); i < len; i++) {
+         // Hmm... I thought this would be a sequence of sequences,
+         // but the following throws a ClassCastException...?
+         // ASN1Sequence eLabel = (ASN1Sequence) eLabels.getObjectAt(i);
+         }
+         */
         sb.append('\t');
         sb.append(m_res.getString("NovellEnterpriseID"));
         sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
@@ -1662,7 +1575,6 @@ public class X509Ext
         return sb.toString();
     }
 
-    
     /**
      * Gets a Novell quality attribute in a decoded, human readable
      * form.
@@ -1677,7 +1589,7 @@ public class X509Ext
         boolean enforceQuality = ((DERBoolean) seq.getObjectAt(0)).isTrue();
         res.append("\t\t").append(m_res.getString("NovellQualityEnforce"));
         res.append(' ').append(enforceQuality).append('\n');
-        
+
         ASN1Sequence compusecQ = (ASN1Sequence) seq.getObjectAt(1);
         int clen = compusecQ.size();
         if (clen > 0) {
@@ -1687,29 +1599,28 @@ public class X509Ext
         }
         for (int i = 0; i < clen; i++) {
             ASN1Sequence cqPair = (ASN1Sequence) compusecQ.getObjectAt(i);
-            
+
             DERInteger tmp = (DERInteger) cqPair.getObjectAt(0);
             long type = tmp.getValue().longValue();
-            String csecCriteria = getRes(
-                "NovellCompusecQuality." + type,
+            String csecCriteria = getRes("NovellCompusecQuality." + type,
                 "UnrecognisedNovellCompusecQuality");
-            csecCriteria = MessageFormat.format(
-                csecCriteria, new Object[]{tmp.getValue()});
+            csecCriteria = MessageFormat.format(csecCriteria,
+                new Object[] { tmp.getValue() });
             res.append("\t\t\t").append(csecCriteria);
 
             tmp = (DERInteger) cqPair.getObjectAt(1);
             String csecRating;
             if (type == 1L) { // TCSEC
-                csecRating = getRes(
-                    "TCSECRating." + tmp.getValue(),
+                csecRating = getRes("TCSECRating." + tmp.getValue(),
                     "UnrecognisedTCSECRating");
             }
             else {
                 csecRating = m_res.getString("UnrecognisedNovellQualityRating");
             }
-            csecRating = MessageFormat.format(
-                csecRating, new Object[]{tmp.getValue()});
-            res.append("\n\t\t\t\t").append(m_res.getString("NovellQualityRating"));
+            csecRating = MessageFormat.format(csecRating,
+                new Object[] { tmp.getValue() });
+            res.append("\n\t\t\t\t").append(
+                m_res.getString("NovellQualityRating"));
             res.append(' ').append(csecRating).append('\n');
         }
 
@@ -1718,27 +1629,26 @@ public class X509Ext
         res.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
         res.append('\n');
         /* TODO
-        for (int i = 0, len = cryptoQ.size(); i < len; i++) {
-            ASN1Sequence cqPair = (ASN1Sequence) cryptoQ.getObjectAt(i);
-            DERInteger cryptoModuleCriteria =
-                (DERInteger) cqPair.getObjectAt(0);
-            DERInteger cryptoModuleRating =
-                (DERInteger) cqPair.getObjectAt(1);
-        }
-        */
-    
+         for (int i = 0, len = cryptoQ.size(); i < len; i++) {
+         ASN1Sequence cqPair = (ASN1Sequence) cryptoQ.getObjectAt(i);
+         DERInteger cryptoModuleCriteria =
+         (DERInteger) cqPair.getObjectAt(0);
+         DERInteger cryptoModuleRating =
+         (DERInteger) cqPair.getObjectAt(1);
+         }
+         */
+
         String ksqv = ((DERInteger) seq.getObjectAt(3)).getValue().toString();
         String ksq = getRes("NovellKeyStorageQuality." + ksqv,
-                            "UnrecognisedNovellKeyStorageQuality");
+            "UnrecognisedNovellKeyStorageQuality");
         res.append("\t\t").append(m_res.getString("NovellKeyStorageQuality"));
         res.append("\n\t\t\t").append(
-            MessageFormat.format(ksq, new String[]{ksqv}));
+            MessageFormat.format(ksq, new String[] { ksqv }));
         res.append('\n');
-        
+
         return res;
     }
 
-    
     /**
      * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value
      * as a string.
@@ -1750,14 +1660,13 @@ public class X509Ext
     private String getNetscapeCertificateTypeStringValue(byte[] bValue)
         throws IOException
     {
-       // Get bits
+        // Get bits
         byte[] bytes = ((DERBitString) toDER(bValue)).getBytes();
 
         StringBuffer strBuff = new StringBuffer();
         boolean bKeyAgreement = false;
 
-        if (bytes.length != 0)
-        {
+        if (bytes.length != 0) {
             boolean[] b = new boolean[8];
 
             b[7] = (bytes[0] & 0x80) == 0x80;
@@ -1769,60 +1678,45 @@ public class X509Ext
             b[1] = (bytes[0] & 0x2) == 0x2;
             b[0] = (bytes[0] & 0x1) == 0x1;
 
-            if (b[7])
-            {
-                strBuff.append(
-                    m_res.getString("SslClientNetscapeCertificateType"));
+            if (b[7]) {
+                strBuff.append(m_res.getString("SslClientNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
-            if (b[6])
-            {
-                strBuff.append(
-                    m_res.getString("SslServerNetscapeCertificateType"));
+            if (b[6]) {
+                strBuff.append(m_res.getString("SslServerNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
-            if (b[5])
-            {
-                strBuff.append(
-                    m_res.getString("SmimeNetscapeCertificateType"));
+            if (b[5]) {
+                strBuff.append(m_res.getString("SmimeNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
-            if (b[4])
-            {
-                strBuff.append(
-                    m_res.getString("ObjectSigningNetscapeCertificateType"));
+            if (b[4]) {
+                strBuff.append(m_res.getString("ObjectSigningNetscapeCertificateType"));
                 strBuff.append('\n');
                 bKeyAgreement = true;
             }
 
-            if (b[2])
-            {
-                strBuff.append(
-                    m_res.getString("SslCaNetscapeCertificateType"));
+            if (b[2]) {
+                strBuff.append(m_res.getString("SslCaNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
-            if (b[1])
-            {
-                strBuff.append(
-                    m_res.getString("SmimeCaNetscapeCertificateType"));
+            if (b[1]) {
+                strBuff.append(m_res.getString("SmimeCaNetscapeCertificateType"));
                 strBuff.append('\n');
             }
 
-            if (b[0])
-            {
-                strBuff.append(
-                    m_res.getString("ObjectSigningCaNetscapeCertificateType"));
+            if (b[0]) {
+                strBuff.append(m_res.getString("ObjectSigningCaNetscapeCertificateType"));
                 strBuff.append('\n');
             }
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Get extension value for any Netscape certificate extension that is
@@ -1839,7 +1733,6 @@ public class X509Ext
         return ((DERIA5String) toDER(bValue)).getString() + '\n';
     }
 
-
     /**
      * Get extension value for D&B D-U-N-S number as a string.
      *
@@ -1852,7 +1745,6 @@ public class X509Ext
     {
         return ((DERIA5String) toDER(bValue)).getString() + '\n';
     }
-
 
     /**
      * Get extension value for CRL Distribution Points as a string.
@@ -1870,24 +1762,20 @@ public class X509Ext
 
         StringBuffer sb = new StringBuffer();
 
-        for (int i = 0, len = points.length; i < len; i++)
-        {
+        for (int i = 0, len = points.length; i < len; i++) {
             DistributionPoint point = points[i];
 
             DistributionPointName dpn;
             if ((dpn = point.getDistributionPoint()) != null) {
-                ASN1TaggedObject tagObj =
-                    (ASN1TaggedObject) dpn.toASN1Object();
+                ASN1TaggedObject tagObj = (ASN1TaggedObject) dpn.toASN1Object();
                 switch (tagObj.getTagNo()) {
                 case DistributionPointName.FULL_NAME:
                     sb.append(m_res.getString("CrlDistributionPoint.0.0"));
                     sb.append('\n');
                     ASN1Sequence seq = (ASN1Sequence) tagObj.getObject();
-                    for (int j = 0, nLen = seq.size(); j < nLen; j++)
-                    {
+                    for (int j = 0, nLen = seq.size(); j < nLen; j++) {
                         sb.append('\t');
-                        sb.append(getGeneralNameString(
-                                      (DERTaggedObject) seq.getObjectAt(j)));
+                        sb.append(getGeneralNameString((DERTaggedObject) seq.getObjectAt(j)));
                         sb.append('\n');
                     }
                     break;
@@ -1920,8 +1808,7 @@ public class X509Ext
                 ASN1Sequence seq = (ASN1Sequence) issuer.getDERObject();
                 for (int j = 0, iLen = seq.size(); j < iLen; j++) {
                     sb.append('\t');
-                    sb.append(getGeneralNameString(
-                                  (DERTaggedObject) seq.getObjectAt(j)));
+                    sb.append(getGeneralNameString((DERTaggedObject) seq.getObjectAt(j)));
                     sb.append('\n');
                 }
             }
@@ -1929,7 +1816,6 @@ public class X509Ext
 
         return sb.toString();
     }
-
 
     /**
      * Get extension value for Certificate Policies as a string.
@@ -1947,14 +1833,13 @@ public class X509Ext
 
         for (int i = 0, len = pSeq.size(); i < len; i++) {
 
-            PolicyInformation pi =
-                PolicyInformation.getInstance(pSeq.getObjectAt(i));
+            PolicyInformation pi = PolicyInformation.getInstance(pSeq.getObjectAt(i));
 
             // TODO: 2.5.29.32.0 (any policy?)
 
             sb.append(MessageFormat.format(
-                          m_res.getString("PolicyIdentifier"),
-                          new String[]{pi.getPolicyIdentifier().getId()}));
+                m_res.getString("PolicyIdentifier"),
+                new String[] { pi.getPolicyIdentifier().getId() }));
             sb.append('\n');
 
             ASN1Sequence pQuals;
@@ -1962,14 +1847,11 @@ public class X509Ext
                 for (int j = 0, plen = pQuals.size(); j < plen; j++) {
 
                     ASN1Sequence pqi = (ASN1Sequence) pQuals.getObjectAt(j);
-                    String pqId =
-                        ((DERObjectIdentifier) pqi.getObjectAt(0)).getId();
-                    
+                    String pqId = ((DERObjectIdentifier) pqi.getObjectAt(0)).getId();
 
                     sb.append('\t');
-                    sb.append(MessageFormat.format(
-                                  getRes(pqId, "UnrecognisedPolicyQualifier"),
-                                  new String[]{pqId}));
+                    sb.append(MessageFormat.format(getRes(pqId,
+                        "UnrecognisedPolicyQualifier"), new String[] { pqId }));
                     sb.append('\n');
 
                     if (pQuals.size() > 0) {
@@ -1980,9 +1862,8 @@ public class X509Ext
                             // cPSuri
                             sb.append("\t\t");
                             sb.append(MessageFormat.format(
-                                          m_res.getString("CpsUri"),
-                                          new String[]{
-                                              ((DERString) d).getString()}));
+                                m_res.getString("CpsUri"),
+                                new String[] { ((DERString) d).getString() }));
                             sb.append('\n');
                         }
                         else if (pqId.equals("1.3.6.1.5.5.7.2.2")) {
@@ -2006,16 +1887,12 @@ public class X509Ext
                                 else if (de instanceof ASN1Sequence) {
                                     // noticeRef
                                     ASN1Sequence nr = (ASN1Sequence) de;
-                                    String orgstr =
-                                        stringify(nr.getObjectAt(0));
-                                    ASN1Sequence nrs =
-                                        (ASN1Sequence) nr.getObjectAt(1);
+                                    String orgstr = stringify(nr.getObjectAt(0));
+                                    ASN1Sequence nrs = (ASN1Sequence) nr.getObjectAt(1);
                                     StringBuffer nrstr = new StringBuffer();
-                                    for (int m = 0, nlen = nrs.size();
-                                         m < nlen; m++)
+                                    for (int m = 0, nlen = nrs.size(); m < nlen; m++)
                                     {
-                                        nrstr.append(
-                                            stringify(nrs.getObjectAt(m)));
+                                        nrstr.append(stringify(nrs.getObjectAt(m)));
                                         if (m != nlen - 1) {
                                             nrstr.append(", ");
                                         }
@@ -2024,14 +1901,12 @@ public class X509Ext
                                     sb.append(m_res.getString("NoticeRef"));
                                     sb.append("\n\t\t\t");
                                     sb.append(MessageFormat.format(
-                                                  m_res.getString(
-                                                      "NoticeRefOrganization"),
-                                                  new String[]{orgstr}));
+                                        m_res.getString("NoticeRefOrganization"),
+                                        new String[] { orgstr }));
                                     sb.append("\n\t\t\t");
                                     sb.append(MessageFormat.format(
-                                                  m_res.getString(
-                                                      "NoticeRefNumber"),
-                                                  new Object[]{nrstr}));
+                                        m_res.getString("NoticeRefNumber"),
+                                        new Object[] { nrstr }));
                                     sb.append('\n');
                                 }
                                 else {
@@ -2055,7 +1930,6 @@ public class X509Ext
 
         return sb.toString();
     }
-
 
     /**
      * Get the supplied general name as a string
@@ -2103,99 +1977,91 @@ public class X509Ext
             String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
             String sVal = stringify(other.getObjectAt(1));
             strBuff.append(MessageFormat.format(
-                               m_res.getString("OtherGeneralName"),
-                               new String[]{sOid, sVal}));
+                m_res.getString("OtherGeneralName"),
+                new String[] { sOid, sVal }));
             break;
 
         case 1: // RFC 822 Name
             DEROctetString rfc822 = (DEROctetString) generalName.getObject();
             String sRfc822 = new String(rfc822.getOctets());
             strBuff.append(MessageFormat.format(
-                               m_res.getString("Rfc822GeneralName"),
-                               new String[]{sRfc822}));
+                m_res.getString("Rfc822GeneralName"), new String[] { sRfc822 }));
             break;
 
         case 2: // DNS Name
             DEROctetString dns = (DEROctetString) generalName.getObject();
             String sDns = new String(dns.getOctets());
             strBuff.append(MessageFormat.format(
-                               m_res.getString("DnsGeneralName"),
-                               new String[]{sDns}));
+                m_res.getString("DnsGeneralName"), new String[] { sDns }));
             break;
 
         case 4: // Directory Name
             ASN1Sequence directory = (ASN1Sequence) generalName.getObject();
             X509Name name = new X509Name(directory);
             strBuff.append(MessageFormat.format(
-                               m_res.getString("DirectoryGeneralName"),
-                               new String[]{name.toString()}));
+                m_res.getString("DirectoryGeneralName"),
+                new String[] { name.toString() }));
             break;
 
         case 6: // URI
             DEROctetString uri = (DEROctetString) generalName.getObject();
             String sUri = new String(uri.getOctets());
             strBuff.append(MessageFormat.format(
-                               m_res.getString("UriGeneralName"),
-                               new String[]{sUri}));
+                m_res.getString("UriGeneralName"), new String[] { sUri }));
             break;
 
         case 7: // IP Address
-            DEROctetString ipAddress =
-                (DEROctetString) generalName.getObject();
+            DEROctetString ipAddress = (DEROctetString) generalName.getObject();
 
             byte[] bIpAddress = ipAddress.getOctets();
 
             // Output the IP Address components one at a time separated by dots
             StringBuffer sbIpAddress = new StringBuffer();
 
-            for (int iCnt = 0, bl = bIpAddress.length; iCnt < bl; iCnt++)
-            {
+            for (int iCnt = 0, bl = bIpAddress.length; iCnt < bl; iCnt++) {
                 // Convert from (possibly negative) byte to positive int
                 sbIpAddress.append((int) bIpAddress[iCnt] & 0xFF);
-                if ((iCnt+1) < bIpAddress.length) {
+                if ((iCnt + 1) < bIpAddress.length) {
                     sbIpAddress.append('.');
                 }
             }
 
             strBuff.append(MessageFormat.format(
-                               m_res.getString("IpAddressGeneralName"),
-                               new String[]{sbIpAddress.toString()}));
+                m_res.getString("IpAddressGeneralName"),
+                new String[] { sbIpAddress.toString() }));
             break;
 
         case 8: // Registered ID
-            DEROctetString registeredId =
-                (DEROctetString) generalName.getObject();
+            DEROctetString registeredId = (DEROctetString) generalName.getObject();
 
             byte[] bRegisteredId = registeredId.getOctets();
 
             // Output the components one at a time separated by dots
             StringBuffer sbRegisteredId = new StringBuffer();
 
-            for (int iCnt = 0; iCnt < bRegisteredId.length; iCnt++)
-            {
+            for (int iCnt = 0; iCnt < bRegisteredId.length; iCnt++) {
                 byte b = bRegisteredId[iCnt];
                 // Convert from (possibly negative) byte to positive int
                 sbRegisteredId.append((int) b & 0xFF);
-                if ((iCnt+1) < bRegisteredId.length) {
+                if ((iCnt + 1) < bRegisteredId.length) {
                     sbRegisteredId.append('.');
                 }
             }
 
             strBuff.append(MessageFormat.format(
-                               m_res.getString("RegisteredIdGeneralName"),
-                               new String[]{sbRegisteredId.toString()}));
+                m_res.getString("RegisteredIdGeneralName"),
+                new String[] { sbRegisteredId.toString() }));
             break;
 
         default: // Unsupported general name type
             strBuff.append(MessageFormat.format(
-                               m_res.getString("UnsupportedGeneralNameType"),
-                               new String[]{""+generalName.getTagNo()}));
+                m_res.getString("UnsupportedGeneralNameType"),
+                new String[] { "" + generalName.getTagNo() }));
             break;
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Get a formatted string value for the supplied generalized time object.
@@ -2218,12 +2084,11 @@ public class X509Ext
         Date date = dateFormat.parse(sTime);
 
         // Re-format date - include timezone
-        sTime = DateFormat.getDateTimeInstance(
-            DateFormat.MEDIUM, DateFormat.LONG).format(date);
+        sTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM,
+            DateFormat.LONG).format(date);
 
         return sTime;
     }
-
 
     /**
      * Get hex and clear text dump of byte array.
@@ -2243,8 +2108,7 @@ public class X509Ext
         // Populate buffers for hex and clear text
 
         // For each byte...
-        for (int iCnt=0; iCnt < iLen; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < iLen; iCnt++) {
             // Convert byte to int
             byte b = bytes[iCnt];
             int i = (int) b & 0xFF;
@@ -2259,8 +2123,7 @@ public class X509Ext
             sbHex.append(Character.toUpperCase(Character.forDigit(i1, 16)));
             sbHex.append(Character.toUpperCase(Character.forDigit(i2, 16)));
 
-            if ((iCnt + 1) < iLen)
-            {
+            if ((iCnt + 1) < iLen) {
                 // Divider between hex characters
                 sbHex.append(' ');
             }
@@ -2272,8 +2135,8 @@ public class X509Ext
             char c = '.';
 
             // Not a control character and defined in Unicode
-            if (!Character.isISOControl((char) i) &&
-                Character.isDefined((char) i))
+            if (!Character.isISOControl((char) i)
+                && Character.isDefined((char) i))
             {
                 Character cClr = new Character((char) i);
                 c = cClr.charValue();
@@ -2283,15 +2146,14 @@ public class X509Ext
         }
 
         /* Put both dumps together in one string (hex, clear) with
-           approriate padding between them (pad to array length) */
+         approriate padding between them (pad to array length) */
         StringBuffer strBuff = new StringBuffer();
 
         strBuff.append(sbHex.toString());
         sbHex = new StringBuffer();
 
         int iMissing = bytes.length - iLen;
-        for (int iCnt=0; iCnt < iMissing; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < iMissing; iCnt++) {
             strBuff.append("   ");
         }
 
@@ -2302,7 +2164,6 @@ public class X509Ext
 
         return strBuff.toString();
     }
-
 
     /**
      * Convert the supplied DER Integer to a hex string sub-divided by spaces
@@ -2319,11 +2180,11 @@ public class X509Ext
 
         StringBuffer strBuff = new StringBuffer();
 
-        for (int iCnt=0; iCnt < sHexCrlNumber.length(); iCnt++)
-        {
+        for (int iCnt = 0; iCnt < sHexCrlNumber.length(); iCnt++) {
             strBuff.append(sHexCrlNumber.charAt(iCnt));
 
-            if ((((iCnt+1) % 4) == 0) && ((iCnt+1) != sHexCrlNumber.length()))
+            if ((((iCnt + 1) % 4) == 0)
+                && ((iCnt + 1) != sHexCrlNumber.length()))
             {
                 strBuff.append(' ');
             }
@@ -2331,7 +2192,6 @@ public class X509Ext
 
         return strBuff.toString();
     }
-
 
     /**
      * Convert the supplied byte array to a hex string sub-divided by spaces
@@ -2348,15 +2208,13 @@ public class X509Ext
 
         // Place spaces at every four hex characters
         if (strBuff.length() > 4) {
-            for (int iCnt=4; iCnt < strBuff.length(); iCnt+=5)
-            {
+            for (int iCnt = 4; iCnt < strBuff.length(); iCnt += 5) {
                 strBuff.insert(iCnt, ' ');
             }
         }
 
         return strBuff.toString();
     }
-
 
     /**
      * Gets a string representation of the given object.
@@ -2368,7 +2226,8 @@ public class X509Ext
     {
         if (obj instanceof DERString) {
             return ((DERString) obj).getString();
-        } else if (obj instanceof DERInteger) {
+        }
+        else if (obj instanceof DERInteger) {
             return convertToHexString((DERInteger) obj);
         }
         else if (obj instanceof byte[]) {
@@ -2377,8 +2236,8 @@ public class X509Ext
         else if (obj instanceof ASN1TaggedObject) {
             ASN1TaggedObject tagObj = (ASN1TaggedObject) obj;
             // Note: "[", _not_ '[' ...
-            return "[" + tagObj.getTagNo() + "] " +
-                stringify(tagObj.getObject());
+            return "[" + tagObj.getTagNo() + "] "
+                + stringify(tagObj.getObject());
         }
         else {
             String hex = null;
@@ -2396,7 +2255,6 @@ public class X509Ext
         }
     }
 
-
     /**
      * Gets a DER object from the given byte array.
      *
@@ -2407,18 +2265,21 @@ public class X509Ext
     private static DERObject toDER(byte[] bytes)
         throws IOException
     {
-        ASN1InputStream in =
-            new ASN1InputStream(new ByteArrayInputStream(bytes));
+        ASN1InputStream in = new ASN1InputStream(new ByteArrayInputStream(
+            bytes));
         try {
             return in.readObject();
         }
         finally {
             if (in != null) {
-                try { in.close(); } catch (IOException e) { /* Ignore */ }
+                try {
+                    in.close();
+                }
+                catch (IOException e) { /* Ignore */
+                }
             }
         }
     }
-
 
     /**
      * Gets a resource string, with fallback.

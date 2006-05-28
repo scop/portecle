@@ -59,8 +59,7 @@ public class LastDir
      */
     public void updateLastDir(File file)
     {
-        if (file != null && file.exists())
-        {
+        if (file != null && file.exists()) {
             m_fLastDir = file.isDirectory() ? file : file.getParentFile();
         }
     }

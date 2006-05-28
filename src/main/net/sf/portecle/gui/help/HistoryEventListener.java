@@ -26,7 +26,8 @@ import java.util.EventListener;
 /**
  * Defines the method for listening to HistoryEvents.
  */
-public interface HistoryEventListener extends EventListener
+public interface HistoryEventListener
+    extends EventListener
 {
     /**
      * Fired when history changes.

@@ -43,7 +43,8 @@ public class Version
      * @param sVersion The version string.
      * @throws VersionException If the version string cannot be parsed.
      */
-    public Version(String sVersion) throws VersionException
+    public Version(String sVersion)
+        throws VersionException
     {
         this(sVersion, ".");
     }
@@ -55,42 +56,35 @@ public class Version
      * @param sDelimiters The delimiters.
      * @throws VersionException If the version string cannot be parsed.
      */
-    public Version(String sVersion, String sDelimiters) throws VersionException
+    public Version(String sVersion, String sDelimiters)
+        throws VersionException
     {
         StringTokenizer strTok = new StringTokenizer(sVersion, sDelimiters);
 
         ArrayList vSections = new ArrayList();
 
-        while (strTok.hasMoreTokens())
-        {
-            try
-            {
+        while (strTok.hasMoreTokens()) {
+            try {
                 Integer i = new Integer(strTok.nextToken());
 
-                if (i.intValue() < 0)
-                {
+                if (i.intValue() < 0) {
                     throw new VersionException(); // Less then 0
                 }
                 vSections.add(i);
             }
-            catch (NumberFormatException ex)
-            {
+            catch (NumberFormatException ex) {
                 throw new VersionException(ex); // Not an integer
             }
         }
 
-        if (vSections.size() == 0)
-        {
-            iSections = new int[]{0};
+        if (vSections.size() == 0) {
+            iSections = new int[] { 0 };
         }
-        else
-        {
+        else {
             iSections = new int[vSections.size()];
 
-            for (int iCnt=0; iCnt < vSections.size(); iCnt++)
-            {
-                iSections[iCnt] =
-                    Math.abs(((Integer) vSections.get(iCnt)).intValue());
+            for (int iCnt = 0; iCnt < vSections.size(); iCnt++) {
+                iSections[iCnt] = Math.abs(((Integer) vSections.get(iCnt)).intValue());
             }
         }
     }
@@ -118,36 +112,30 @@ public class Version
 
         int[] iCmpSections = cmpVersion.getSections();
 
-        for (int iCnt = 0;
-             iCnt < iSections.length && iCnt < iCmpSections.length; iCnt++)
+        for (int iCnt = 0; iCnt < iSections.length
+            && iCnt < iCmpSections.length; iCnt++)
         {
-            if (iSections[iCnt] > iCmpSections[iCnt])
-            {
+            if (iSections[iCnt] > iCmpSections[iCnt]) {
                 return 1;
             }
-            else if (iSections[iCnt] < iCmpSections[iCnt])
-            {
+            else if (iSections[iCnt] < iCmpSections[iCnt]) {
                 return -1;
             }
         }
 
-        if (iCmpSections.length > iSections.length)
-        {
-            for (int iCnt=iSections.length; iCnt < iCmpSections.length; iCnt++)
+        if (iCmpSections.length > iSections.length) {
+            for (int iCnt = iSections.length; iCnt < iCmpSections.length; iCnt++)
             {
-                if (iCmpSections[iCnt] != 0)
-                {
+                if (iCmpSections[iCnt] != 0) {
                     return -1;
                 }
             }
         }
 
-        if (iSections.length > iCmpSections.length)
-        {
-            for (int iCnt=iCmpSections.length; iCnt < iSections.length; iCnt++)
+        if (iSections.length > iCmpSections.length) {
+            for (int iCnt = iCmpSections.length; iCnt < iSections.length; iCnt++)
             {
-                if (iSections[iCnt] != 0)
-                {
+                if (iSections[iCnt] != 0) {
                     return 1;
                 }
             }
@@ -164,13 +152,11 @@ public class Version
      */
     public boolean equals(Object object)
     {
-        if (object == this)
-        {
+        if (object == this) {
             return true;
         }
 
-        if (!(object instanceof Version))
-        {
+        if (!(object instanceof Version)) {
             return false;
         }
 
@@ -185,11 +171,10 @@ public class Version
     public int hashCode()
     {
         // Initialise hash total to non-zero value
-        int iResult=27;
+        int iResult = 27;
 
         // For each component of the version...
-        for (int iCnt=0; iCnt < iSections.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < iSections.length; iCnt++) {
             // Multiply total by 53 (odd prime) and add section
             iResult = 53 * iResult + iSections[iCnt];
         }
@@ -208,12 +193,10 @@ public class Version
     {
         StringBuffer strBuff = new StringBuffer();
 
-        for (int iCnt=0; iCnt < iSections.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < iSections.length; iCnt++) {
             strBuff.append(iSections[iCnt]);
 
-            if ((iCnt+1) < iSections.length)
-            {
+            if ((iCnt + 1) < iSections.length) {
                 strBuff.append('.');
             }
         }

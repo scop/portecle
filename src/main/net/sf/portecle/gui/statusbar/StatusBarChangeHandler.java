@@ -29,7 +29,8 @@ import javax.swing.event.ChangeListener;
  * Handles change events on a menu item that causes the status bar text
  * to show or hide help text for the menu item.
  */
-public class StatusBarChangeHandler implements ChangeListener
+public class StatusBarChangeHandler
+    implements ChangeListener
 {
     /** Menu item */
     private JMenuItem m_jmi;
@@ -48,7 +49,7 @@ public class StatusBarChangeHandler implements ChangeListener
      * @param statusBar The status bar
      */
     public StatusBarChangeHandler(JMenuItem jmi, String sHelpText,
-                                  StatusBar statusBar)
+        StatusBar statusBar)
     {
         m_jmi = jmi;
         m_sHelpText = sHelpText;
@@ -64,13 +65,11 @@ public class StatusBarChangeHandler implements ChangeListener
      */
     public void stateChanged(ChangeEvent evt)
     {
-        if (m_jmi.isArmed())
-        {
+        if (m_jmi.isArmed()) {
             // Display help text
             m_statusBar.setStatusBarText(m_sHelpText);
         }
-        else
-        {
+        else {
             // Display default status
             m_statusBar.setDefaultStatusBarText();
         }

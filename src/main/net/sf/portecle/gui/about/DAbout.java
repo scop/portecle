@@ -45,8 +45,7 @@ public class DAbout
     extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
     /** Label that contains the supplied about text */
     private JLabel m_jlAbout;
@@ -101,20 +100,23 @@ public class DAbout
         m_jpAbout.add(m_jlAbout);
 
         m_jbOK = new JButton(m_res.getString("DAbout.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbSystemInformation = new JButton(
             m_res.getString("DAbout.m_jbSystemInformation.text"));
-        m_jbSystemInformation.setMnemonic(
-            m_res.getString(
-                "DAbout.m_jbSystemInformation.mnemonic").charAt(0));
+        m_jbSystemInformation.setMnemonic(m_res.getString(
+            "DAbout.m_jbSystemInformation.mnemonic").charAt(0));
 
-        m_jbSystemInformation.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbSystemInformation.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 showSystemInformation();
             }
         });
@@ -129,8 +131,10 @@ public class DAbout
 
         setResizable(false);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -145,8 +149,8 @@ public class DAbout
      */
     private void showSystemInformation()
     {
-        DSystemInformation dSystemInformation =
-            new DSystemInformation(this, true);
+        DSystemInformation dSystemInformation = new DSystemInformation(this,
+            true);
         dSystemInformation.setLocationRelativeTo(this);
         dSystemInformation.setVisible(true);
     }

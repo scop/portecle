@@ -32,13 +32,14 @@ import java.util.ResourceBundle;
 public final class DigestUtil
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /**
      * Private to prevent construction.
      */
-    private DigestUtil() {}
+    private DigestUtil()
+    {
+    }
 
     /**
      * Get the digest of a message as a formatted String.
@@ -50,17 +51,15 @@ public final class DigestUtil
      * digest
      */
     public static String getMessageDigest(byte[] bMessage,
-                                          DigestType digestType)
+        DigestType digestType)
         throws CryptoException
     {
         // Create message digest object using the supplied algorithm
         MessageDigest messageDigest;
-        try
-        {
+        try {
             messageDigest = MessageDigest.getInstance(digestType.toString());
         }
-        catch (NoSuchAlgorithmException ex)
-        {
+        catch (NoSuchAlgorithmException ex) {
             throw new CryptoException(
                 m_res.getString("NoCreateDigest.exception.message"), ex);
         }
@@ -73,16 +72,13 @@ public final class DigestUtil
             new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
 
         // Odd number of characters so add in a padding "0"
-        if ((strBuff.length() % 2) == 1)
-        {
+        if ((strBuff.length() % 2) == 1) {
             strBuff.insert(0, '0');
         }
 
         // Place colons at every two hex characters
-        if (strBuff.length() > 2)
-        {
-            for (int iCnt=2; iCnt < strBuff.length(); iCnt+=3)
-            {
+        if (strBuff.length() > 2) {
+            for (int iCnt = 2; iCnt < strBuff.length(); iCnt += 3) {
                 strBuff.insert(iCnt, ':');
             }
         }

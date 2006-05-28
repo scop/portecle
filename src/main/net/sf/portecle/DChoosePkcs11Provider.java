@@ -61,8 +61,7 @@ public class DChoosePkcs11Provider
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold the provider choice controls */
     private JPanel m_jpProvider;
@@ -85,7 +84,6 @@ public class DChoosePkcs11Provider
     /** Stores the provider chosen by the user */
     private String m_sProvider;
 
-
     /**
      * Creates new DChoosePkcs11Provider dialog where the parent is a frame.
      *
@@ -94,13 +92,12 @@ public class DChoosePkcs11Provider
      * @param bModal Is the dialog modal?
      * @param sOldProvider The provider to display initially
      */
-    public DChoosePkcs11Provider(
-        JFrame parent, String sTitle, boolean bModal, String sOldProvider)
+    public DChoosePkcs11Provider(JFrame parent, String sTitle, boolean bModal,
+        String sOldProvider)
     {
         super(parent, sTitle, bModal);
         initComponents(sOldProvider);
     }
-
 
     /**
      * Creates new DChoosePkcs11Provider dialog where the parent is a dialog.
@@ -110,13 +107,12 @@ public class DChoosePkcs11Provider
      * @param bModal Is the dialog modal?
      * @param sOldProvider The provider to display initially
      */
-    public DChoosePkcs11Provider(
-        JDialog parent, String sTitle, boolean bModal, String sOldProvider)
+    public DChoosePkcs11Provider(JDialog parent, String sTitle,
+        boolean bModal, String sOldProvider)
     {
         super(parent, sTitle, bModal);
         initComponents(sOldProvider);
     }
-
 
     /**
      * Get the provider chosen by the user.
@@ -127,7 +123,6 @@ public class DChoosePkcs11Provider
     {
         return m_sProvider;
     }
-
 
     /**
      * Initialise the dialog's GUI components.
@@ -141,8 +136,7 @@ public class DChoosePkcs11Provider
         m_jlProvider = new JLabel(
             m_res.getString("DChoosePkcs11Provider.m_jlProvider.text"));
         m_jcbProvider = new JComboBox();
-        m_jcbProvider.setToolTipText(
-            m_res.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
+        m_jcbProvider.setToolTipText(m_res.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 
         TreeSet pSet = new TreeSet(ProviderUtil.getPkcs11Providers());
 
@@ -153,25 +147,25 @@ public class DChoosePkcs11Provider
                 String pName = ((Provider) i.next()).getName();
                 m_jcbProvider.addItem(pName);
                 if (pName.equals(sOldProvider)) {
-                    m_jcbProvider.setSelectedIndex(
-                        m_jcbProvider.getItemCount() - 1);
+                    m_jcbProvider.setSelectedIndex(m_jcbProvider.getItemCount() - 1);
                 }
             }
         }
         else {
-            m_jcbProvider.addItem(
-                m_res.getString("DChoosePkcs11Provider.NoPkcs11Providers"));
+            m_jcbProvider.addItem(m_res.getString("DChoosePkcs11Provider.NoPkcs11Providers"));
             m_jcbProvider.setEnabled(false);
         }
 
         m_jbOK = new JButton(
             m_res.getString("DChoosePkcs11Provider.m_jbOK.text"));
         if (providersAvailable) {
-            m_jbOK.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        okPressed();
-                    }
-                });
+            m_jbOK.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent evt)
+                {
+                    okPressed();
+                }
+            });
         }
         else {
             m_jbOK.setEnabled(false);
@@ -179,18 +173,22 @@ public class DChoosePkcs11Provider
 
         m_jbCancel = new JButton(
             m_res.getString("DChoosePkcs11Provider.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(
-            CANCEL_KEY, new AbstractAction () {
-                    public void actionPerformed(ActionEvent evt) {
-                        cancelPressed();
-                    }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpProvider = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpProvider.add(m_jlProvider);
@@ -204,8 +202,10 @@ public class DChoosePkcs11Provider
         getContentPane().add(m_jpProvider, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -218,7 +218,6 @@ public class DChoosePkcs11Provider
         pack();
     }
 
-
     /**
      * Check that the chosen provider is valid.
      *
@@ -230,18 +229,16 @@ public class DChoosePkcs11Provider
 
         if (sProvider == null || Security.getProvider(sProvider) == null) {
             String msg = MessageFormat.format(
-                m_res.getString(
-                    "DChoosePkcs11Provider.InvalidProvider.message"),
-                new String[]{sProvider});
-            JOptionPane.showMessageDialog(
-                this, msg, getTitle(), JOptionPane.WARNING_MESSAGE);
+                m_res.getString("DChoosePkcs11Provider.InvalidProvider.message"),
+                new String[] { sProvider });
+            JOptionPane.showMessageDialog(this, msg, getTitle(),
+                JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         m_sProvider = sProvider;
         return true;
     }
-
 
     /**
      * OK button pressed or otherwise activated.
@@ -253,7 +250,6 @@ public class DChoosePkcs11Provider
         }
     }
 
-
     /**
      * Cancel button pressed or otherwise activated.
      */
@@ -261,7 +257,6 @@ public class DChoosePkcs11Provider
     {
         closeDialog();
     }
-
 
     /** Closes the dialog */
     private void closeDialog()

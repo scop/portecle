@@ -37,23 +37,20 @@ import net.sf.portecle.crypto.KeyStoreType;
 /**
  * The table model used to display a keystore's entries sorted by alias name.
  */
-class KeyStoreTableModel extends AbstractTableModel
+class KeyStoreTableModel
+    extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Value to place in the type column for a key pair entry */
-    public static String KEY_PAIR_ENTRY =
-        m_res.getString("KeyStoreTableModel.KeyPairEntry");
+    public static String KEY_PAIR_ENTRY = m_res.getString("KeyStoreTableModel.KeyPairEntry");
 
     /** Value to place in the type column for a trusted certificate entry */
-    public static String TRUST_CERT_ENTRY =
-        m_res.getString("KeyStoreTableModel.TrustCertEntry");
+    public static String TRUST_CERT_ENTRY = m_res.getString("KeyStoreTableModel.TrustCertEntry");
 
     /** Value to place in the type column for a key entry */
-    public static String KEY_ENTRY =
-        m_res.getString("KeyStoreTableModel.KeyEntry");
+    public static String KEY_ENTRY = m_res.getString("KeyStoreTableModel.KeyEntry");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -69,8 +66,7 @@ class KeyStoreTableModel extends AbstractTableModel
         m_columnNames = new String[] {
             m_res.getString("KeyStoreTableModel.TypeColumn"),
             m_res.getString("KeyStoreTableModel.AliasColumn"),
-            m_res.getString("KeyStoreTableModel.LastModifiedDateColumn"),
-        };
+            m_res.getString("KeyStoreTableModel.LastModifiedDateColumn"), };
 
         m_data = new Object[0][0];
     }
@@ -90,41 +86,36 @@ class KeyStoreTableModel extends AbstractTableModel
         // Place aliases in a tree map to sort them
         TreeMap sortedAliases = new TreeMap();
 
-        for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
-        {
+        for (Enumeration en = keyStore.aliases(); en.hasMoreElements();) {
             String sAlias = (String) en.nextElement();
             sortedAliases.put(sAlias, sAlias);
         }
 
-        boolean cdSupport = KeyStoreType.getInstance(
-            keyStore.getType()).supportsCreationDate();
+        boolean cdSupport = KeyStoreType.getInstance(keyStore.getType()).supportsCreationDate();
 
         // Create one table row for each keystore entry
         m_data = new Object[sortedAliases.size()][3];
 
         // Iterate through the sorted aliases, retrieving the keystore
         // entries and populating the table model
-        int iCnt=0;
-        for (Iterator itr = sortedAliases.entrySet().iterator();
-             itr.hasNext(); iCnt++)
+        int iCnt = 0;
+        for (Iterator itr = sortedAliases.entrySet().iterator(); itr.hasNext(); iCnt++)
         {
             String sAlias = (String) ((Map.Entry) itr.next()).getKey();
 
             // Populate the type column - it is set with an integer
             // but a custom cell renderer will cause a suitable icon
             // to be displayed
-            if (keyStore.isCertificateEntry(sAlias))
-            {
+            if (keyStore.isCertificateEntry(sAlias)) {
                 m_data[iCnt][0] = new String(TRUST_CERT_ENTRY);
             }
-            else if (keyStore.isKeyEntry(sAlias) &&
-                     keyStore.getCertificateChain(sAlias) != null &&
-                     keyStore.getCertificateChain(sAlias).length != 0)
+            else if (keyStore.isKeyEntry(sAlias)
+                && keyStore.getCertificateChain(sAlias) != null
+                && keyStore.getCertificateChain(sAlias).length != 0)
             {
                 m_data[iCnt][0] = new String(KEY_PAIR_ENTRY);
             }
-            else
-            {
+            else {
                 m_data[iCnt][0] = new String(KEY_ENTRY);
             }
 

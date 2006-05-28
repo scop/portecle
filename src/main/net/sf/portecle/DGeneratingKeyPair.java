@@ -52,14 +52,14 @@ import net.sf.portecle.gui.error.DThrowable;
  * Generates a key pair which the user may cancel at any time by pressing the
  * cancel button.
  */
-class DGeneratingKeyPair extends JDialog
+class DGeneratingKeyPair
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold generating key pair label */
     private JPanel m_jpGenKeyPair;
@@ -98,7 +98,7 @@ class DGeneratingKeyPair extends JDialog
      * @param iKeySize The key size to generate
      */
     public DGeneratingKeyPair(JFrame parent, boolean bModal,
-                              KeyPairType keyPairType, int iKeySize)
+        KeyPairType keyPairType, int iKeySize)
     {
         super(parent, bModal);
         m_keyPairType = keyPairType;
@@ -115,7 +115,7 @@ class DGeneratingKeyPair extends JDialog
      * @param iKeySize The key size to generate
      */
     public DGeneratingKeyPair(JDialog parent, boolean bModal,
-                              KeyPairType keyPairType, int iKeySize)
+        KeyPairType keyPairType, int iKeySize)
     {
         super(parent, bModal);
         m_keyPairType = keyPairType;
@@ -131,9 +131,8 @@ class DGeneratingKeyPair extends JDialog
         // Generate key Pair label
         m_jlGenKeyPair = new JLabel(
             m_res.getString("DGeneratingKeypair.m_jlGenKeyPair.text"));
-        ImageIcon icon = new ImageIcon(
-            getClass().getResource(
-                m_res.getString("DGeneratingKeypair.Generating.image")));
+        ImageIcon icon = new ImageIcon(getClass().getResource(
+            m_res.getString("DGeneratingKeypair.Generating.image")));
         m_jlGenKeyPair.setIcon(icon);
         m_jpGenKeyPair = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpGenKeyPair.add(m_jlGenKeyPair);
@@ -142,27 +141,33 @@ class DGeneratingKeyPair extends JDialog
         // Cancel button
         m_jbCancel = new JButton(
             m_res.getString("DGeneratingKeyPair.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
         m_jpCancel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpCancel.add(m_jbCancel);
 
         getContentPane().add(m_jpGenKeyPair, BorderLayout.NORTH);
         getContentPane().add(m_jpCancel, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
-                if ((m_generator != null) && (m_generator.isAlive()))
-                {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
+                if (m_generator != null && m_generator.isAlive()) {
                     m_generator.interrupt();
                 }
                 closeDialog();
@@ -190,8 +195,7 @@ class DGeneratingKeyPair extends JDialog
      */
     private void cancelPressed()
     {
-        if ((m_generator != null) && (m_generator.isAlive()))
-        {
+        if (m_generator != null && m_generator.isAlive()) {
             m_generator.interrupt();
         }
         closeDialog();
@@ -217,7 +221,8 @@ class DGeneratingKeyPair extends JDialog
     /**
      * Generates a key pair.  Is Runnable so can be run in a seperate thread.
      */
-    private class GenerateKeyPair implements Runnable
+    private class GenerateKeyPair
+        implements Runnable
     {
         /** Store any crypto exception that occurs */
         CryptoException m_ex;
@@ -229,38 +234,40 @@ class DGeneratingKeyPair extends JDialog
         {
             // Generate key pair
             KeyPair keyPair;
-            try
-            {
-                keyPair = KeyPairUtil.generateKeyPair(
-                    m_keyPairType, m_iKeySize);
+            try {
+                keyPair = KeyPairUtil.generateKeyPair(m_keyPairType,
+                    m_iKeySize);
 
                 // @@@ TODO what's this?
                 if (true)
 
-                m_keyPair = keyPair;
+                    m_keyPair = keyPair;
 
                 // Manipulate GUI in event handler thread
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (dialog.isShowing()) { closeDialog(); }
+                SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        if (dialog.isShowing()) {
+                            closeDialog();
+                        }
                     }
                 });
             }
-            catch (CryptoException ex)
-            {
+            catch (CryptoException ex) {
                 // Store excpetion in member so it can be accessed
                 // from inner class
                 m_ex = ex;
 
                 // Manipulate GUI in event handler thread
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (dialog.isShowing())
-                        {
-                            DThrowable dThrowable = new DThrowable(
-                                dialog, true, m_ex);
-                            dThrowable.setLocationRelativeTo(
-                                DGeneratingKeyPair.this);
+                SwingUtilities.invokeLater(new Runnable()
+                {
+                    public void run()
+                    {
+                        if (dialog.isShowing()) {
+                            DThrowable dThrowable = new DThrowable(dialog,
+                                true, m_ex);
+                            dThrowable.setLocationRelativeTo(DGeneratingKeyPair.this);
                             dThrowable.setVisible(true);
                             closeDialog();
                         }

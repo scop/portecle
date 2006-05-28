@@ -70,14 +70,14 @@ import net.sf.portecle.gui.error.DThrowable;
  * Dialog that displays the details of all key pairs from a PKCS #12
  * keystore allowing the user to pick one for import.
  */
-class DImportKeyPair extends JDialog
+class DImportKeyPair
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold key pair information */
     private JPanel m_jpKeyPairs;
@@ -143,7 +143,8 @@ class DImportKeyPair extends JDialog
      *
      * @throws CryptoException A problem was encountered importing a key pair
      */
-    private void initComponents() throws CryptoException
+    private void initComponents()
+        throws CryptoException
     {
         // Instructions
         m_jlInstructions = new JLabel(
@@ -152,16 +153,16 @@ class DImportKeyPair extends JDialog
         // List to hold keystore's key pair aliases
         m_jltKeyPairs = new JList();
         m_jltKeyPairs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        m_jltKeyPairs.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent evt) {
+        m_jltKeyPairs.addListSelectionListener(new ListSelectionListener()
+        {
+            public void valueChanged(ListSelectionEvent evt)
+            {
                 populateAlgorithm();
-                if (m_jltKeyPairs.getSelectedIndex() == -1)
-                {
+                if (m_jltKeyPairs.getSelectedIndex() == -1) {
                     m_jbImport.setEnabled(false);
                     m_jbCertificateDetails.setEnabled(false);
                 }
-                else
-                {
+                else {
                     m_jbImport.setEnabled(true);
                     m_jbCertificateDetails.setEnabled(true);
                 }
@@ -169,8 +170,7 @@ class DImportKeyPair extends JDialog
         });
 
         // Put the list into a scroll pane
-        m_jspKeyPairs = new JScrollPane(
-            m_jltKeyPairs,
+        m_jspKeyPairs = new JScrollPane(m_jltKeyPairs,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         m_jspKeyPairs.getViewport().setBackground(
@@ -183,20 +183,19 @@ class DImportKeyPair extends JDialog
 
         m_jtfAlgorithm = new JTextField(10);
         m_jtfAlgorithm.setText("");
-        m_jtfAlgorithm.setToolTipText(
-            m_res.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
+        m_jtfAlgorithm.setToolTipText(m_res.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
         m_jtfAlgorithm.setEditable(false);
 
         m_jbCertificateDetails = new JButton(
             m_res.getString("DImportKeyPair.m_jbCertificateDetails.text"));
-        m_jbCertificateDetails.setMnemonic(
-            m_res.getString("DImportKeyPair.m_jbCertificateDetails.mnemonic")
-            .charAt(0));
-        m_jbCertificateDetails.setToolTipText(
-            m_res.getString("DImportKeyPair.m_jbCertificateDetails.tooltip"));
+        m_jbCertificateDetails.setMnemonic(m_res.getString(
+            "DImportKeyPair.m_jbCertificateDetails.mnemonic").charAt(0));
+        m_jbCertificateDetails.setToolTipText(m_res.getString("DImportKeyPair.m_jbCertificateDetails.tooltip"));
         m_jbCertificateDetails.setEnabled(false);
-        m_jbCertificateDetails.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCertificateDetails.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 certificateDetailsPressed();
             }
         });
@@ -209,11 +208,9 @@ class DImportKeyPair extends JDialog
         // Put all the key pair components together
         m_jpKeyPairs = new JPanel(new BorderLayout(10, 10));
         m_jpKeyPairs.setPreferredSize(new Dimension(400, 200));
-        m_jpKeyPairs.setBorder(
-            new CompoundBorder(
-                new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                   new EtchedBorder()),
-                new EmptyBorder(5, 5, 5, 5)));
+        m_jpKeyPairs.setBorder(new CompoundBorder(new CompoundBorder(
+            new EmptyBorder(5, 5, 5, 5), new EtchedBorder()), new EmptyBorder(
+            5, 5, 5, 5)));
 
         m_jpKeyPairs.add(m_jlInstructions, BorderLayout.NORTH);
         m_jpKeyPairs.add(m_jspKeyPairs, BorderLayout.CENTER);
@@ -223,29 +220,35 @@ class DImportKeyPair extends JDialog
         m_jbImport = new JButton(
             m_res.getString("DImportKeyPair.m_jbImport.text"));
         m_jbImport.setEnabled(false);
-        m_jbImport.setMnemonic(
-            m_res.getString("DImportKeyPair.m_jbImport.mnemonic").charAt(0));
-        m_jbImport.setToolTipText(
-            m_res.getString("DImportKeyPair.m_jbImport.tooltip"));
-        m_jbImport.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbImport.setMnemonic(m_res.getString(
+            "DImportKeyPair.m_jbImport.mnemonic").charAt(0));
+        m_jbImport.setToolTipText(m_res.getString("DImportKeyPair.m_jbImport.tooltip"));
+        m_jbImport.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 importPressed();
             }
         });
 
         m_jbCancel = new JButton(
             m_res.getString("DImportKeyPair.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbImport);
@@ -258,8 +261,10 @@ class DImportKeyPair extends JDialog
         // Populate the list
         populateList();
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -271,18 +276,20 @@ class DImportKeyPair extends JDialog
 
         pack();
 
-        if (m_jbImport.isEnabled())
-        {
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
+        if (m_jbImport.isEnabled()) {
+            SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
                     m_jbImport.requestFocus();
                 }
             });
         }
-        else
-        {
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
+        else {
+            SwingUtilities.invokeLater(new Runnable()
+            {
+                public void run()
+                {
                     m_jbCancel.requestFocus();
                 }
             });
@@ -295,53 +302,43 @@ class DImportKeyPair extends JDialog
      *
      * @throws CryptoException Problem accessing the keystore's entries
      */
-    private void populateList() throws CryptoException
+    private void populateList()
+        throws CryptoException
     {
-        try
-        {
+        try {
             Vector vKeyPairAliases = new Vector();
 
             // For each entry in the keystore...
-            for (Enumeration aliases = m_pkcs12.aliases();
-                 aliases.hasMoreElements();)
+            for (Enumeration aliases = m_pkcs12.aliases(); aliases.hasMoreElements();)
             {
                 // Get alias...
                 String sAlias = (String) aliases.nextElement();
 
                 // Add the alias to the list if the entry has a key
                 // and certificates
-                if (m_pkcs12.isKeyEntry(sAlias))
-                {
-                    Key key = m_pkcs12.getKey(sAlias, new char[]{});
+                if (m_pkcs12.isKeyEntry(sAlias)) {
+                    Key key = m_pkcs12.getKey(sAlias, new char[] {});
                     Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
-                    if (certs != null && certs.length != 0)
-                    {
+                    if (certs != null && certs.length != 0) {
                         vKeyPairAliases.add(sAlias);
                     }
                 }
             }
 
-            if (vKeyPairAliases.size() > 0)
-            {
+            if (vKeyPairAliases.size() > 0) {
                 m_jltKeyPairs.setListData(vKeyPairAliases);
                 m_jltKeyPairs.setSelectedIndex(0);
             }
-            else
-            {
+            else {
                 // No key pairs available...
-                m_jltKeyPairs.setListData(
-                    new String[]{
-                        m_res.getString(
-                            "DImportKeyPair.m_jltKeyPairs.empty")});
+                m_jltKeyPairs.setListData(new String[] { m_res.getString("DImportKeyPair.m_jltKeyPairs.empty") });
                 m_jltKeyPairs.setEnabled(false);
             }
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
-                m_res.getString(
-                    "DImportKeyPair.ProblemAccessingPkcs12.exception.message"),
+                m_res.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"),
                 ex);
         }
     }
@@ -353,12 +350,10 @@ class DImportKeyPair extends JDialog
      */
     private void populateAlgorithm()
     {
-        try
-        {
+        try {
             String sAlias = (String) m_jltKeyPairs.getSelectedValue();
 
-            if (sAlias == null)
-            {
+            if (sAlias == null) {
                 m_jtfAlgorithm.setText("");
                 return;
             }
@@ -368,11 +363,9 @@ class DImportKeyPair extends JDialog
             // directly from the private key
             Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
-            X509Certificate[] x509Certs =
-                X509CertUtil.convertCertificates(certs);
+            X509Certificate[] x509Certs = X509CertUtil.convertCertificates(certs);
 
-            if (x509Certs == null)
-            {
+            if (x509Certs == null) {
                 m_jtfAlgorithm.setText("");
                 return;
             }
@@ -384,22 +377,18 @@ class DImportKeyPair extends JDialog
             int iKeySize = KeyPairUtil.getKeyLength(keyPairCert.getPublicKey());
             m_jtfAlgorithm.setText(keyPairCert.getPublicKey().getAlgorithm());
 
-            if (iKeySize != -1)
-            {
-                m_jtfAlgorithm.setText(
-                    MessageFormat.format(
-                        m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"),
-                        new String[]{m_jtfAlgorithm.getText(), ""+iKeySize}));
+            if (iKeySize != -1) {
+                m_jtfAlgorithm.setText(MessageFormat.format(
+                    m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"),
+                    new String[] { m_jtfAlgorithm.getText(), "" + iKeySize }));
             }
             m_jtfAlgorithm.setCaretPosition(0);
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             displayException(ex);
             closeDialog();
         }
-        catch (CryptoException ex)
-        {
+        catch (CryptoException ex) {
             displayException(ex);
             closeDialog();
         }
@@ -411,33 +400,26 @@ class DImportKeyPair extends JDialog
      */
     private void certificateDetailsPressed()
     {
-        try
-        {
+        try {
             String sAlias = (String) m_jltKeyPairs.getSelectedValue();
 
             assert sAlias != null;
 
-            X509Certificate[] certs = X509CertUtil.convertCertificates(
-                m_pkcs12.getCertificateChain(sAlias));
+            X509Certificate[] certs = X509CertUtil.convertCertificates(m_pkcs12.getCertificateChain(sAlias));
 
             DViewCertificate dViewCertificate = new DViewCertificate(
                 this,
                 MessageFormat.format(
-                    m_res.getString(
-                        "DImportKeyPair.ViewCertificateDetails.Title"),
-                    new String[]{sAlias}),
-                true,
-                certs);
+                    m_res.getString("DImportKeyPair.ViewCertificateDetails.Title"),
+                    new String[] { sAlias }), true, certs);
             dViewCertificate.setLocationRelativeTo(this);
             dViewCertificate.setVisible(true);
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             displayException(ex);
             closeDialog();
         }
-        catch (CryptoException ex)
-        {
+        catch (CryptoException ex) {
             displayException(ex);
             closeDialog();
         }
@@ -475,23 +457,19 @@ class DImportKeyPair extends JDialog
 
         assert sAlias != null;
 
-        try
-        {
-            m_privateKey = m_pkcs12.getKey(sAlias, new char[]{});
+        try {
+            m_privateKey = m_pkcs12.getKey(sAlias, new char[] {});
             m_certificateChain = m_pkcs12.getCertificateChain(sAlias);
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             displayException(ex);
             closeDialog();
         }
-        catch (NoSuchAlgorithmException ex)
-        {
+        catch (NoSuchAlgorithmException ex) {
             displayException(ex);
             closeDialog();
         }
-        catch (UnrecoverableKeyException ex)
-        {
+        catch (UnrecoverableKeyException ex) {
             displayException(ex);
             closeDialog();
         }

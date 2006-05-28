@@ -26,7 +26,8 @@ import java.util.EventObject;
 /**
  * Defines an event for reporting status changes in a History.
  */
-public class HistoryEvent extends EventObject
+public class HistoryEvent
+    extends EventObject
 {
     /** Is history back navigabale? */
     private boolean m_bBackAvailable;
@@ -44,7 +45,7 @@ public class HistoryEvent extends EventObject
      * history after the current document
      */
     public HistoryEvent(Object eventSource, boolean bBackAvailable,
-                        boolean bForwardAvailable)
+        boolean bForwardAvailable)
     {
         super(eventSource);
         m_bBackAvailable = bBackAvailable;

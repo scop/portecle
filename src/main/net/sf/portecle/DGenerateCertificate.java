@@ -66,7 +66,8 @@ import net.sf.portecle.gui.error.DThrowable;
  * a version 1 X.509 certificate.  The choice of available signature
  * algorithms depends on the key pair generation algorithm selected.
  */
-class DGenerateCertificate extends JDialog
+class DGenerateCertificate
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
@@ -76,10 +77,9 @@ class DGenerateCertificate extends JDialog
 
     /** Required country code length in characters */
     private static final int COUNTRY_CODE_LENGTH = 2;
-    
+
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Signature Algorithm label */
     private JLabel m_jlSigAlg;
@@ -166,7 +166,7 @@ class DGenerateCertificate extends JDialog
      * @param keyPairType The key pair type
      */
     public DGenerateCertificate(JFrame parent, String sTitle, boolean bModal,
-                                KeyPair keyPair, KeyPairType keyPairType)
+        KeyPair keyPair, KeyPairType keyPairType)
     {
         super(parent, bModal);
         m_keyPair = keyPair;
@@ -204,130 +204,102 @@ class DGenerateCertificate extends JDialog
 
         m_jcbSigAlg = new JComboBox();
         populateSigAlgs(m_keyPairType, m_jcbSigAlg);
-        m_jcbSigAlg.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jcbSigAlg.tooltip"));
-        GridBagConstraints gbc_jcbSigAlg =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jcbSigAlg.setToolTipText(m_res.getString("DGenerateCertificate.m_jcbSigAlg.tooltip"));
+        GridBagConstraints gbc_jcbSigAlg = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jcbSigAlg.gridy = 0;
 
         // Validity Period
         m_jlValidity = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlValidity.text"));
-        GridBagConstraints gbc_jlValidity =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlValidity = (GridBagConstraints) gbcLbl.clone();
         gbc_jlValidity.gridy = 1;
 
         m_jtfValidity = new JTextField(4);
-        m_jtfValidity.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jtfValidity.tooltip"));
-        GridBagConstraints gbc_jtfValidity =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfValidity.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfValidity.tooltip"));
+        GridBagConstraints gbc_jtfValidity = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfValidity.gridy = 1;
 
         // Common Name
         m_jlCommonName = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlCommonName.text"));
-        GridBagConstraints gbc_jlCommonName =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlCommonName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlCommonName.gridy = 2;
 
         m_jtfCommonName = new JTextField(15);
-        m_jtfCommonName.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jtfCommonName.tooltip"));
-        GridBagConstraints gbc_jtfCommonName =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfCommonName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfCommonName.tooltip"));
+        GridBagConstraints gbc_jtfCommonName = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfCommonName.gridy = 2;
 
         // Organisation Unit
         m_jlOrganisationUnit = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlOrganisationUnit.text"));
-        GridBagConstraints gbc_jlOrganisationUnit =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlOrganisationUnit = (GridBagConstraints) gbcLbl.clone();
         gbc_jlOrganisationUnit.gridy = 3;
 
         m_jtfOrganisationUnit = new JTextField(15);
-        m_jtfOrganisationUnit.setToolTipText(
-            m_res.getString(
-                "DGenerateCertificate.m_jtfOrganisationUnit.tooltip"));
-        GridBagConstraints gbc_jtfOrganisationUnit =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfOrganisationUnit.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfOrganisationUnit.tooltip"));
+        GridBagConstraints gbc_jtfOrganisationUnit = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfOrganisationUnit.gridy = 3;
 
         // Organisation Name
         m_jlOrganisationName = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlOrganisationName.text"));
-        GridBagConstraints gbc_jlOrganisationName =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlOrganisationName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlOrganisationName.gridy = 4;
 
         m_jtfOrganisationName = new JTextField(15);
-        m_jtfOrganisationName.setToolTipText(
-            m_res.getString(
-                "DGenerateCertificate.m_jtfOrganisationName.tooltip"));
-        GridBagConstraints gbc_jtfOrganisationName =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfOrganisationName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfOrganisationName.tooltip"));
+        GridBagConstraints gbc_jtfOrganisationName = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfOrganisationName.gridy = 4;
 
         // Locality Name
         m_jlLocalityName = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlLocalityName.text"));
-        GridBagConstraints gbc_jlLocalityName =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlLocalityName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlLocalityName.gridy = 5;
 
         m_jtfLocalityName = new JTextField(15);
-        m_jtfLocalityName.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jtfLocalityName.tooltip"));
-        GridBagConstraints gbc_jtfLocalityName =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfLocalityName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfLocalityName.tooltip"));
+        GridBagConstraints gbc_jtfLocalityName = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfLocalityName.gridy = 5;
 
         // State Name
         m_jlStateName = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlStateName.text"));
-        GridBagConstraints gbc_jlStateName =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlStateName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlStateName.gridy = 6;
 
         m_jtfStateName = new JTextField(15);
-        m_jtfStateName.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jtfStateName.tooltip"));
-        GridBagConstraints gbc_jtfStateName =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfStateName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfStateName.tooltip"));
+        GridBagConstraints gbc_jtfStateName = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfStateName.gridy = 6;
 
         // Country Code
         m_jlCountryCode = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlCountryCode.text"));
-        GridBagConstraints gbc_jlCountryCode =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlCountryCode = (GridBagConstraints) gbcLbl.clone();
         gbc_jlCountryCode.gridy = 7;
 
         m_jtfCountryCode = new JTextField(COUNTRY_CODE_LENGTH);
-        m_jtfCountryCode.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jtfCountryCode.tooltip"));
-        GridBagConstraints gbc_jtfCountryCode =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfCountryCode.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfCountryCode.tooltip"));
+        GridBagConstraints gbc_jtfCountryCode = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfCountryCode.gridy = 7;
 
         // Email Address
         m_jlEmailAddress = new JLabel(
             m_res.getString("DGenerateCertificate.m_jlEmailAddress.text"));
-        GridBagConstraints gbc_jlEmailAddress =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlEmailAddress = (GridBagConstraints) gbcLbl.clone();
         gbc_jlEmailAddress.gridy = 8;
 
         m_jtfEmailAddress = new JTextField(15);
-        m_jtfEmailAddress.setToolTipText(
-            m_res.getString("DGenerateCertificate.m_jtfEmailAddress.tooltip"));
-        GridBagConstraints gbc_jtfEmailAddress =
-            (GridBagConstraints) gbcEdCtrl.clone();
+        m_jtfEmailAddress.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfEmailAddress.tooltip"));
+        GridBagConstraints gbc_jtfEmailAddress = (GridBagConstraints) gbcEdCtrl.clone();
         gbc_jtfEmailAddress.gridy = 8;
 
         // Put it all together
         m_jpOptions = new JPanel(new GridBagLayout());
         m_jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                 new EtchedBorder()));
+            new EtchedBorder()));
 
         m_jpOptions.add(m_jlSigAlg, gbc_jlSigAlg);
         m_jpOptions.add(m_jcbSigAlg, gbc_jcbSigAlg);
@@ -350,25 +322,32 @@ class DGenerateCertificate extends JDialog
 
         m_jbOK = new JButton(
             m_res.getString("DGenerateCertificate.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(
             m_res.getString("DGenerateCertificate.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbOK);
@@ -378,8 +357,10 @@ class DGenerateCertificate extends JDialog
         getContentPane().add(m_jpOptions, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -404,36 +385,28 @@ class DGenerateCertificate extends JDialog
     {
         Object[] sigAlgs;
         int selectedIndex;
-        
+
         if (type == KeyPairType.DSA) {
-            sigAlgs = new Object[]{
-                SignatureType.DSA_SHA1,
-            };
+            sigAlgs = new Object[] { SignatureType.DSA_SHA1, };
             selectedIndex = 0;
         }
         else {
-            sigAlgs = new Object[]{
-                SignatureType.RSA_MD2,
-                SignatureType.RSA_MD5,
-                SignatureType.RSA_SHA1,
-                SignatureType.RSA_SHA224,
-                SignatureType.RSA_SHA256,
-                SignatureType.RSA_SHA384,
-                SignatureType.RSA_SHA512,
-                SignatureType.RSA_RIPEMD160,
-            };
+            sigAlgs = new Object[] { SignatureType.RSA_MD2,
+                SignatureType.RSA_MD5, SignatureType.RSA_SHA1,
+                SignatureType.RSA_SHA224, SignatureType.RSA_SHA256,
+                SignatureType.RSA_SHA384, SignatureType.RSA_SHA512,
+                SignatureType.RSA_RIPEMD160, };
             selectedIndex = 2;
         }
 
         combo.removeAllItems();
-        for (int iCnt=0; iCnt < sigAlgs.length; iCnt++) {
+        for (int iCnt = 0; iCnt < sigAlgs.length; iCnt++) {
             combo.addItem(sigAlgs[iCnt]);
         }
 
         combo.setSelectedIndex(selectedIndex);
         combo.setEnabled(combo.getItemCount() > 1);
     }
-
 
     /**
      * Generate a certificate based on the parameters supplied to the dialog
@@ -447,66 +420,52 @@ class DGenerateCertificate extends JDialog
         // Validate dialog's field values
         int iValidity = validateValidity(m_jtfValidity.getText());
         String sCommonName = validateCommonName(m_jtfCommonName.getText());
-        String sOrganisationUnit =
-            validateOrganisationUnit(m_jtfOrganisationUnit.getText());
-        String sOrganisationName =
-            validateOrganisationName(m_jtfOrganisationName.getText());
-        String sLocalityName =
-            validateLocalityName(m_jtfLocalityName.getText());
+        String sOrganisationUnit = validateOrganisationUnit(m_jtfOrganisationUnit.getText());
+        String sOrganisationName = validateOrganisationName(m_jtfOrganisationName.getText());
+        String sLocalityName = validateLocalityName(m_jtfLocalityName.getText());
         String sStateName = validateStateName(m_jtfStateName.getText());
         String sCountryCode = validateCountryCode(m_jtfCountryCode.getText());
-        String sEmailAddress =
-            validateEmailAddress(m_jtfEmailAddress.getText());
+        String sEmailAddress = validateEmailAddress(m_jtfEmailAddress.getText());
 
-        if (iValidity == BAD_VALIDITY)
-        {
+        if (iValidity == BAD_VALIDITY) {
             return false;
         }
 
-        if ((sCommonName == null) && (sOrganisationUnit == null) &&
-            (sOrganisationName == null) && (sLocalityName == null) &&
-            (sStateName == null) && (sCountryCode == null) &&
-            (sEmailAddress == null))
+        if (sCommonName == null && sOrganisationUnit == null
+            && sOrganisationName == null && sLocalityName == null
+            && sStateName == null && sCountryCode == null
+            && sEmailAddress == null)
         {
             JOptionPane.showMessageDialog(
                 this,
-                m_res.getString(
-                    "DGenerateCertificate.ValueReqCertAttr.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                m_res.getString("DGenerateCertificate.ValueReqCertAttr.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         // Country code must be two characters long
-        if (sCountryCode != null &&
-            sCountryCode.length() != COUNTRY_CODE_LENGTH)
+        if (sCountryCode != null
+            && sCountryCode.length() != COUNTRY_CODE_LENGTH)
         {
             JOptionPane.showMessageDialog(
                 this,
                 MessageFormat.format(
-                    m_res.getString(
-                        "DGenerateCertificate.CountryCodeLength.message"),
-                    new String[]{String.valueOf(COUNTRY_CODE_LENGTH)}),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                    m_res.getString("DGenerateCertificate.CountryCodeLength.message"),
+                    new String[] { String.valueOf(COUNTRY_CODE_LENGTH) }),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         // Generate certificate...
 
-        try
-        {
-            SignatureType signatureType =
-                (SignatureType) m_jcbSigAlg.getSelectedItem();
-            m_certificate = X509CertUtil.generateCert(
-                sCommonName, sOrganisationUnit, sOrganisationName,
-                sLocalityName, sStateName, sCountryCode,
-                sEmailAddress, iValidity, m_keyPair.getPublic(),
-                m_keyPair.getPrivate(), signatureType
-            );
+        try {
+            SignatureType signatureType = (SignatureType) m_jcbSigAlg.getSelectedItem();
+            m_certificate = X509CertUtil.generateCert(sCommonName,
+                sOrganisationUnit, sOrganisationName, sLocalityName,
+                sStateName, sCountryCode, sEmailAddress, iValidity,
+                m_keyPair.getPublic(), m_keyPair.getPrivate(), signatureType);
         }
-        catch (CryptoException ex)
-        {
+        catch (CryptoException ex) {
             DThrowable dThrowable = new DThrowable(this, true, ex);
             dThrowable.setLocationRelativeTo(getParent());
             dThrowable.setVisible(true);
@@ -528,39 +487,30 @@ class DGenerateCertificate extends JDialog
         sValidity = sValidity.trim();
         int iValidity;
 
-        if (sValidity.length() == 0)
-        {
+        if (sValidity.length() == 0) {
             JOptionPane.showMessageDialog(
                 this,
                 m_res.getString("DGenerateCertificate.ValReqValidity.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_VALIDITY;
         }
 
-        try
-        {
+        try {
             iValidity = Integer.parseInt(sValidity);
         }
-        catch (NumberFormatException ex)
-        {
+        catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(
                 this,
-                m_res.getString(
-                    "DGenerateCertificate.ValidityInteger.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                m_res.getString("DGenerateCertificate.ValidityInteger.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_VALIDITY;
         }
 
-        if (iValidity < 1)
-        {
+        if (iValidity < 1) {
             JOptionPane.showMessageDialog(
                 this,
-                m_res.getString(
-                    "DGenerateCertificate.ValidityNonZero.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                m_res.getString("DGenerateCertificate.ValidityNonZero.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_VALIDITY;
         }
 
@@ -577,8 +527,7 @@ class DGenerateCertificate extends JDialog
     {
         sCommonName = sCommonName.trim();
 
-        if (sCommonName.length() < 1)
-        {
+        if (sCommonName.length() < 1) {
             return null;
         }
 
@@ -596,8 +545,7 @@ class DGenerateCertificate extends JDialog
     {
         sOrganisationUnit = sOrganisationUnit.trim();
 
-        if (sOrganisationUnit.length() < 1)
-        {
+        if (sOrganisationUnit.length() < 1) {
             return null;
         }
 
@@ -614,8 +562,7 @@ class DGenerateCertificate extends JDialog
     {
         sOrganisationName = sOrganisationName.trim();
 
-        if (sOrganisationName.length() < 1)
-        {
+        if (sOrganisationName.length() < 1) {
             return null;
         }
 
@@ -632,8 +579,7 @@ class DGenerateCertificate extends JDialog
     {
         sLocalityName = sLocalityName.trim();
 
-        if (sLocalityName.length() < 1)
-        {
+        if (sLocalityName.length() < 1) {
             return null;
         }
 
@@ -650,8 +596,7 @@ class DGenerateCertificate extends JDialog
     {
         sStateName = sStateName.trim();
 
-        if (sStateName.length() < 1)
-        {
+        if (sStateName.length() < 1) {
             return null;
         }
 
@@ -668,8 +613,7 @@ class DGenerateCertificate extends JDialog
     {
         sCountryCode = sCountryCode.trim();
 
-        if (sCountryCode.length() < 1)
-        {
+        if (sCountryCode.length() < 1) {
             return null;
         }
 
@@ -686,8 +630,7 @@ class DGenerateCertificate extends JDialog
     {
         sEmailAddress = sEmailAddress.trim();
 
-        if (sEmailAddress.length() < 1)
-        {
+        if (sEmailAddress.length() < 1) {
             return null;
         }
 
@@ -710,8 +653,7 @@ class DGenerateCertificate extends JDialog
      */
     private void okPressed()
     {
-        if (generateCertificate())
-        {
+        if (generateCertificate()) {
             closeDialog();
         }
     }

@@ -54,7 +54,8 @@ import net.sf.portecle.crypto.KeyPairType;
  * The user may select an asymmetric key generation algorithm of DSA or RSA and
  * enter a key size in bits.
  */
-class DGenerateKeyPair extends JDialog
+class DGenerateKeyPair
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
@@ -63,12 +64,10 @@ class DGenerateKeyPair extends JDialog
     private static final int BAD_KEYSIZE = -1;
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Default keysize for the dialog */
-    private static String DEFAULT_KEYSIZE =
-        m_res.getString("DGenerateKeyPair.DefaultKeySize");
+    private static String DEFAULT_KEYSIZE = m_res.getString("DGenerateKeyPair.DefaultKeySize");
 
     /** Panel for key algorithm controls */
     private JPanel m_jpKeyAlg;
@@ -109,7 +108,7 @@ class DGenerateKeyPair extends JDialog
     /** Key size chosen */
     private int m_iKeySize;
 
-     /** Records whether or not correct parameters are entered */
+    /** Records whether or not correct parameters are entered */
     private boolean m_bSuccess;
 
     /**
@@ -145,12 +144,10 @@ class DGenerateKeyPair extends JDialog
             m_res.getString("DGenerateKeyPair.m_jlKeyAlg.text"));
         m_jrbDSA = new JRadioButton(
             m_res.getString("DGenerateKeyPair.m_jrbDSA.text"), true);
-        m_jrbDSA.setToolTipText(
-            m_res.getString("DGenerateKeyPair.m_jrbDSA.tooltip"));
+        m_jrbDSA.setToolTipText(m_res.getString("DGenerateKeyPair.m_jrbDSA.tooltip"));
         m_jrbRSA = new JRadioButton(
             m_res.getString("DGenerateKeyPair.m_jrbRSA.text"), false);
-        m_jrbRSA.setToolTipText(
-            m_res.getString("DGenerateKeyPair.m_jrbRSA.tooltip"));
+        m_jrbRSA.setToolTipText(m_res.getString("DGenerateKeyPair.m_jrbRSA.tooltip"));
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(m_jrbDSA);
         buttonGroup.add(m_jrbRSA);
@@ -163,8 +160,7 @@ class DGenerateKeyPair extends JDialog
             m_res.getString("DGenerateKeyPair.m_jlKeySize.text"));
         m_jtfKeySize = new JTextField(5);
         m_jtfKeySize.setText(DEFAULT_KEYSIZE);
-        m_jtfKeySize.setToolTipText(
-            m_res.getString("DGenerateKeyPair.m_jtfKeySize.tooltip"));
+        m_jtfKeySize.setToolTipText(m_res.getString("DGenerateKeyPair.m_jtfKeySize.tooltip"));
         m_jpKeySize = new JPanel(new FlowLayout(FlowLayout.LEFT));
         m_jpKeySize.add(m_jlKeySize);
         m_jpKeySize.add(m_jtfKeySize);
@@ -174,28 +170,35 @@ class DGenerateKeyPair extends JDialog
         m_jpOptions.add(m_jpKeySize);
 
         m_jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                 new EtchedBorder()));
+            new EtchedBorder()));
 
         m_jbOK = new JButton(m_res.getString("DGenerateKeyPair.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(
             m_res.getString("DGenerateKeyPair.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbOK);
@@ -204,8 +207,10 @@ class DGenerateKeyPair extends JDialog
         getContentPane().add(m_jpOptions, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -228,8 +233,7 @@ class DGenerateKeyPair extends JDialog
     {
         // Check key size
         int iKeySize = validateKeySize();
-        if (iKeySize == BAD_KEYSIZE)
-        {
+        if (iKeySize == BAD_KEYSIZE) {
             return false; // Invalid
         }
         m_iKeySize = iKeySize;
@@ -261,49 +265,37 @@ class DGenerateKeyPair extends JDialog
         String sKeySize = m_jtfKeySize.getText().trim();
         int iKeySize;
 
-        if (sKeySize.length() == 0)
-        {
-            JOptionPane.showMessageDialog(
-                this,
+        if (sKeySize.length() == 0) {
+            JOptionPane.showMessageDialog(this,
                 m_res.getString("DGenerateKeyPair.KeySizeReq.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_KEYSIZE;
         }
 
-        try
-        {
+        try {
             iKeySize = Integer.parseInt(sKeySize);
         }
-        catch (NumberFormatException ex)
-        {
-            JOptionPane.showMessageDialog(
-                this,
+        catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
                 m_res.getString("DGenerateKeyPair.KeySizeIntegerReq.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_KEYSIZE;
         }
 
-        if (m_jrbDSA.isSelected() &&
-            (iKeySize < 512 || iKeySize > 1024 || iKeySize % 64 != 0))
+        if (m_jrbDSA.isSelected()
+            && (iKeySize < 512 || iKeySize > 1024 || iKeySize % 64 != 0))
         {
             JOptionPane.showMessageDialog(
                 this,
-                m_res.getString(
-                    "DGenerateKeyPair.UnsupportedDsaKeySize.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                m_res.getString("DGenerateKeyPair.UnsupportedDsaKeySize.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_KEYSIZE;
         }
-        else if (iKeySize < 512)
-        {
+        else if (iKeySize < 512) {
             JOptionPane.showMessageDialog(
                 this,
-                m_res.getString(
-                    "DGenerateKeyPair.UnsupportedRsaKeySize.message"),
-                getTitle(),
-                JOptionPane.WARNING_MESSAGE);
+                m_res.getString("DGenerateKeyPair.UnsupportedRsaKeySize.message"),
+                getTitle(), JOptionPane.WARNING_MESSAGE);
             return BAD_KEYSIZE;
         }
 
@@ -315,8 +307,7 @@ class DGenerateKeyPair extends JDialog
      */
     private void okPressed()
     {
-        if (validateKeyGenParameters())
-        {
+        if (validateKeyGenParameters()) {
             closeDialog();
         }
     }

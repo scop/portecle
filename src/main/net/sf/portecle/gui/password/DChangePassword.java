@@ -47,14 +47,14 @@ import javax.swing.border.EmptyBorder;
  * Dialog used for entering and confirming a password and checking it against
  * an old password which may or may not have been supplied to the dialog.
  */
-public class DChangePassword extends JDialog
+public class DChangePassword
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
     /** Panel to hold password entry components */
     private JPanel m_jpPassword;
@@ -102,7 +102,7 @@ public class DChangePassword extends JDialog
     public DChangePassword(JFrame parent, boolean bModal, char[] cOldPassword)
     {
         this(parent, bModal, m_res.getString("DChangePassword.Title"),
-             cOldPassword);
+            cOldPassword);
     }
 
     /**
@@ -114,7 +114,7 @@ public class DChangePassword extends JDialog
      * @param cOldPassword The password to be changed
      */
     public DChangePassword(JFrame parent, boolean bModal, String sTitle,
-                           char[] cOldPassword)
+        char[] cOldPassword)
     {
         super(parent, sTitle, bModal);
         m_cOldPassword = cOldPassword;
@@ -131,7 +131,7 @@ public class DChangePassword extends JDialog
     public DChangePassword(JDialog parent, boolean bModal, char[] cOldPassword)
     {
         this(parent, m_res.getString("DChangePassword.Title"), bModal,
-             cOldPassword);
+            cOldPassword);
     }
 
     /**
@@ -143,7 +143,7 @@ public class DChangePassword extends JDialog
      * @param cOldPassword The password to be changed
      */
     public DChangePassword(JDialog parent, String sTitle, boolean bModal,
-                           char[] cOldPassword)
+        char[] cOldPassword)
     {
         super(parent, sTitle, bModal);
         m_cOldPassword = cOldPassword;
@@ -189,36 +189,41 @@ public class DChangePassword extends JDialog
 
         // Old password was supplied - just disable the old password
         // field after filling it with junk
-        if (m_cOldPassword != null)
-        {
+        if (m_cOldPassword != null) {
             m_jpfOld = new JPasswordField("1234567890", 15);
             m_jpfOld.setEnabled(false);
         }
-        else
-        {
+        else {
             m_jpfOld = new JPasswordField(10);
         }
 
         m_jbOK = new JButton(m_res.getString("DChangePassword.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(
             m_res.getString("DChangePassword.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpPassword = new JPanel(new GridLayout(3, 2, 5, 5));
         m_jpPassword.add(m_jlOld);
@@ -236,8 +241,10 @@ public class DChangePassword extends JDialog
         getContentPane().add(m_jpPassword, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -276,9 +283,9 @@ public class DChangePassword extends JDialog
             return true;
         }
 
-        JOptionPane.showMessageDialog(
-            this, m_res.getString("PasswordsNoMatch.message"),
-            getTitle(), JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+            m_res.getString("PasswordsNoMatch.message"), getTitle(),
+            JOptionPane.WARNING_MESSAGE);
 
         return false;
     }
@@ -288,8 +295,7 @@ public class DChangePassword extends JDialog
      */
     private void okPressed()
     {
-        if (checkPassword())
-        {
+        if (checkPassword()) {
             closeDialog();
         }
     }

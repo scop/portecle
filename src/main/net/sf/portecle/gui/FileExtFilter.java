@@ -28,7 +28,8 @@ import javax.swing.filechooser.FileFilter;
 /**
  * File filter specifically for filtering against file extensions.
  */
-public class FileExtFilter extends FileFilter
+public class FileExtFilter
+    extends FileFilter
 {
     /** File extensions to filter against */
     private String[] m_sExts;
@@ -59,8 +60,7 @@ public class FileExtFilter extends FileFilter
     {
         m_sExts = new String[sExts.length];
 
-        for (int iCnt=0; iCnt < sExts.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < sExts.length; iCnt++) {
             m_sExts[iCnt] = sExts[iCnt];
         }
 
@@ -75,24 +75,20 @@ public class FileExtFilter extends FileFilter
      */
     public boolean accept(File file)
     {
-        if (file.isDirectory())
-        {
+        if (file.isDirectory()) {
             return true;
         }
 
         String sFileExt = getExtension(file);
 
-        if (sFileExt == null)
-        {
+        if (sFileExt == null) {
             return false;
         }
 
-        for (int iCnt=0; iCnt < m_sExts.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < m_sExts.length; iCnt++) {
             String sExt = m_sExts[iCnt];
 
-            if (sFileExt.equalsIgnoreCase(sExt))
-            {
+            if (sFileExt.equalsIgnoreCase(sExt)) {
                 return true;
             }
         }
@@ -121,9 +117,8 @@ public class FileExtFilter extends FileFilter
         String sName = file.getName();
         int i = sName.lastIndexOf('.');
 
-        if (i > 0 &&  i < sName.length() - 1)
-        {
-            sExt = sName.substring(i+1).toLowerCase();
+        if (i > 0 && i < sName.length() - 1) {
+            sExt = sName.substring(i + 1).toLowerCase();
         }
         return sExt;
     }

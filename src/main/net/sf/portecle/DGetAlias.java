@@ -45,14 +45,14 @@ import javax.swing.border.EmptyBorder;
 /**
  * Dialog used for entering a keystore alias.
  */
-class DGetAlias extends JDialog
+class DGetAlias
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold the alias entry controls */
     private JPanel m_jpAlias;
@@ -84,7 +84,7 @@ class DGetAlias extends JDialog
      * @param sOldAlias The alias to display initially
      */
     public DGetAlias(JFrame parent, String sTitle, boolean bModal,
-                     String sOldAlias)
+        String sOldAlias)
     {
         super(parent, sTitle, bModal);
         initComponents(sOldAlias);
@@ -99,7 +99,7 @@ class DGetAlias extends JDialog
      * @param sOldAlias The alias to display initially
      */
     public DGetAlias(JDialog parent, String sTitle, boolean bModal,
-                     String sOldAlias)
+        String sOldAlias)
     {
         super(parent, sTitle, bModal);
         initComponents(sOldAlias);
@@ -127,31 +127,37 @@ class DGetAlias extends JDialog
         m_jlAlias = new JLabel(m_res.getString("DGetAlias.m_jlAlias.text"));
         m_jtfAlias = new JTextField(15);
 
-        if (sOldAlias != null)
-        {
+        if (sOldAlias != null) {
             m_jtfAlias.setText(sOldAlias);
             m_jtfAlias.setCaretPosition(0);
         }
 
         m_jbOK = new JButton(m_res.getString("DGetAlias.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(m_res.getString("DGetAlias.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpAlias.add(m_jlAlias);
@@ -165,8 +171,10 @@ class DGetAlias extends JDialog
         getContentPane().add(m_jpAlias, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -192,9 +200,9 @@ class DGetAlias extends JDialog
             return true;
         }
 
-        JOptionPane.showMessageDialog(
-            this, m_res.getString("DGetAlias.AliasReq.message"),
-			getTitle(), JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this,
+            m_res.getString("DGetAlias.AliasReq.message"), getTitle(),
+            JOptionPane.WARNING_MESSAGE);
         return false;
     }
 
@@ -203,8 +211,7 @@ class DGetAlias extends JDialog
      */
     private void okPressed()
     {
-        if (checkAlias())
-        {
+        if (checkAlias()) {
             closeDialog();
         }
     }

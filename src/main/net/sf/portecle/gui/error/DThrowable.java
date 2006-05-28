@@ -39,11 +39,11 @@ import javax.swing.border.EmptyBorder;
 /**
  * Displays an throwable message with the option to display the stack trace.
  */
-public class DThrowable extends JDialog
+public class DThrowable
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
     /** Panel to hold OK and Details buttons */
     private JPanel m_jpButtons;
@@ -100,7 +100,7 @@ public class DThrowable extends JDialog
      * @param throwable Throwable to display
      */
     public DThrowable(JFrame parent, String sTitle, boolean bModal,
-                      Throwable throwable)
+        Throwable throwable)
     {
         super(parent, bModal);
         setTitle(sTitle);
@@ -117,7 +117,7 @@ public class DThrowable extends JDialog
      * @param throwable Throwable to display
      */
     public DThrowable(JDialog parent, String sTitle, boolean bModal,
-                      Throwable throwable)
+        Throwable throwable)
     {
         super(parent, bModal);
         setTitle(sTitle);
@@ -134,18 +134,22 @@ public class DThrowable extends JDialog
 
         m_jbDetails = new JButton(
             m_res.getString("DThrowable.m_jbDetails.text"));
-        m_jbDetails.setMnemonic(
-            m_res.getString("DThrowable.m_jbDetails.mnemonic").charAt(0));
+        m_jbDetails.setMnemonic(m_res.getString(
+            "DThrowable.m_jbDetails.mnemonic").charAt(0));
 
-        m_jbDetails.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbDetails.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 showThrowableDetail();
             }
         });
 
         m_jbOK = new JButton(m_res.getString("DThrowable.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
@@ -163,8 +167,10 @@ public class DThrowable extends JDialog
 
         setResizable(false);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -179,8 +185,8 @@ public class DThrowable extends JDialog
      */
     private void showThrowableDetail()
     {
-        DThrowableDetail dThrowableDetail =
-            new DThrowableDetail(this, true, m_throwable);
+        DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true,
+            m_throwable);
         dThrowableDetail.setLocationRelativeTo(this);
         dThrowableDetail.setVisible(true);
     }

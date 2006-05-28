@@ -38,7 +38,8 @@ import javax.swing.SwingUtilities;
  * which can facilitate the calling application to initialise itself in
  * parallel.
  */
-public class WSplash extends JWindow
+public class WSplash
+    extends JWindow
 {
     /** Contains the splash image */
     private JLabel m_jlSplash;
@@ -71,7 +72,8 @@ public class WSplash extends JWindow
 
         setLocationRelativeTo(null);
 
-        addMouseListener(new MouseAdapter() {
+        addMouseListener(new MouseAdapter()
+        {
             public void mousePressed(MouseEvent e)
             {
                 setVisible(false);
@@ -81,7 +83,8 @@ public class WSplash extends JWindow
 
         final int iPauseMs = iDisplayMs;
 
-        final Runnable closerRunner = new Runnable() {
+        final Runnable closerRunner = new Runnable()
+        {
             public void run()
             {
                 setVisible(false);
@@ -89,16 +92,18 @@ public class WSplash extends JWindow
             }
         };
 
-        Runnable waitRunner = new Runnable() {
+        Runnable waitRunner = new Runnable()
+        {
             public void run()
             {
-                try
-                {
+                try {
                     Thread.sleep(iPauseMs);
                     SwingUtilities.invokeAndWait(closerRunner);
                 }
-                catch (InterruptedException e) { /* Ignore */ }
-                catch (InvocationTargetException e) { /* Ignore */ }
+                catch (InterruptedException e) { /* Ignore */
+                }
+                catch (InvocationTargetException e) { /* Ignore */
+                }
             }
         };
         setVisible(true);

@@ -55,8 +55,7 @@ class DGetHostPort
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold the host+port entry controls */
     private JPanel m_jpHostPort;
@@ -93,8 +92,8 @@ class DGetHostPort
      * @param bModal Is the dialog modal?
      * @param iOldHostPort The alias to display initially
      */
-    public DGetHostPort(JFrame parent, String sTitle,
-                        boolean bModal, InetSocketAddress iOldHostPort)
+    public DGetHostPort(JFrame parent, String sTitle, boolean bModal,
+        InetSocketAddress iOldHostPort)
     {
         super(parent, sTitle, bModal);
         initComponents(iOldHostPort);
@@ -108,8 +107,8 @@ class DGetHostPort
      * @param bModal Is the dialog modal?
      * @param iOldHostPort The alias to display initially
      */
-    public DGetHostPort(JDialog parent, String sTitle,
-                        boolean bModal, InetSocketAddress iOldHostPort)
+    public DGetHostPort(JDialog parent, String sTitle, boolean bModal,
+        InetSocketAddress iOldHostPort)
     {
         super(parent, sTitle, bModal);
         initComponents(iOldHostPort);
@@ -148,27 +147,32 @@ class DGetHostPort
         }
 
         m_jbOK = new JButton(m_res.getString("DGetHostPort.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(
             m_res.getString("DGetHostPort.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(
-            JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(
-            CANCEL_KEY, new AbstractAction () {
-                    public void actionPerformed(ActionEvent evt) {
-                        cancelPressed();
-                    }});
+        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpHostPort.add(m_jlHost);
@@ -184,8 +188,10 @@ class DGetHostPort
         getContentPane().add(m_jpHostPort, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -209,9 +215,9 @@ class DGetHostPort
             sHost = m_jtfHost.getText().trim();
         }
         else {
-            JOptionPane.showMessageDialog(
-                this, m_res.getString("DGetHostPort.HostReq.message"),
-                getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                m_res.getString("DGetHostPort.HostReq.message"), getTitle(),
+                JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
@@ -220,9 +226,9 @@ class DGetHostPort
             sPort = m_jtfPort.getText().trim();
         }
         else {
-            JOptionPane.showMessageDialog(
-                this, m_res.getString("DGetHostPort.PortReq.message"),
-                getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                m_res.getString("DGetHostPort.PortReq.message"), getTitle(),
+                JOptionPane.WARNING_MESSAGE);
             return false;
         }
         int port;

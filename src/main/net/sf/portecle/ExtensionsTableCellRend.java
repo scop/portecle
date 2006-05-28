@@ -34,11 +34,11 @@ import javax.swing.table.DefaultTableCellRenderer;
  * Custom cell renderer for the cells of the Extensions table of
  * DViewExtensions.
  */
-class ExtensionsTableCellRend extends DefaultTableCellRenderer
+class ExtensionsTableCellRend
+    extends DefaultTableCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered cell for the supplied entry type and column.
@@ -52,42 +52,29 @@ class ExtensionsTableCellRend extends DefaultTableCellRenderer
      * @return The renderered cell
      */
     public Component getTableCellRendererComponent(JTable jtExtensions,
-                                                   Object value,
-                                                   boolean bIsSelected,
-                                                   boolean bHasFocus,
-                                                   int iRow, int iCol)
+        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
+        int iCol)
     {
         JLabel cell = (JLabel) super.getTableCellRendererComponent(
             jtExtensions, value, bIsSelected, bHasFocus, iRow, iCol);
 
         // Critical column - display an icon representing criticality
         // and tool-tip text
-        if (iCol == 0)
-        {
+        if (iCol == 0) {
             ImageIcon icon = null;
 
-            if (((Boolean) value).booleanValue())
-            {
+            if (((Boolean) value).booleanValue()) {
                 icon = new ImageIcon(
                     getClass().getResource(
-                        m_res.getString(
-                            "ExtensionsTableCellRend.CriticalExtension.image")
-                        ));
-                cell.setToolTipText(
-                    m_res.getString(
-                        "ExtensionsTableCellRend.CriticalExtension.tooltip"));
+                        m_res.getString("ExtensionsTableCellRend.CriticalExtension.image")));
+                cell.setToolTipText(m_res.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
             }
-            else
-            {
-                icon = new ImageIcon(
-                    getClass().getResource(
-                        m_res.getString(
-                            "ExtensionsTableCellRend." +
-                            "NonCriticalExtension.image")));
-                cell.setToolTipText(
-                    m_res.getString(
-                        "ExtensionsTableCellRend." +
-                        "NonCriticalExtension.tooltip"));
+            else {
+                icon = new ImageIcon(getClass().getResource(
+                    m_res.getString("ExtensionsTableCellRend."
+                        + "NonCriticalExtension.image")));
+                cell.setToolTipText(m_res.getString("ExtensionsTableCellRend."
+                    + "NonCriticalExtension.tooltip"));
             }
 
             cell.setIcon(icon);
@@ -95,8 +82,7 @@ class ExtensionsTableCellRend extends DefaultTableCellRenderer
             cell.setVerticalAlignment(CENTER);
             cell.setHorizontalAlignment(CENTER);
         }
-        else
-        {
+        else {
             // Just use toString of object as text
             cell.setText(value.toString());
         }

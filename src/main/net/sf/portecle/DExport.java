@@ -64,8 +64,7 @@ class DExport
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel containing all of the export type option controls */
     private JPanel m_jpExportType;
@@ -128,7 +127,7 @@ class DExport
      * @throws CryptoException Problem accessing the keystore entry
      */
     public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore,
-                   String sEntryAlias)
+        String sEntryAlias)
         throws CryptoException
     {
         super(parent, bModal);
@@ -142,20 +141,22 @@ class DExport
      *
      * @throws CryptoException Problem accessing the keystore entry
      */
-    private void initComponents() throws CryptoException
+    private void initComponents()
+        throws CryptoException
     {
         // Export type controls
         m_jpExportType = new JPanel(new GridLayout(3, 1));
-        m_jpExportType.setBorder(
-            new TitledBorder(m_res.getString("DExport.m_jpExportType.text")));
+        m_jpExportType.setBorder(new TitledBorder(
+            m_res.getString("DExport.m_jpExportType.text")));
 
         m_jrbHeadCertOnly = new JRadioButton(
             m_res.getString("DExport.m_jrbHeadCertOnly.text"), true);
-        m_jrbHeadCertOnly.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent evt) {
+        m_jrbHeadCertOnly.addItemListener(new ItemListener()
+        {
+            public void itemStateChanged(ItemEvent evt)
+            {
                 m_jrbDEREncoded.setEnabled(true);
-                if (m_jrbPKCS12.isSelected())
-                {
+                if (m_jrbPKCS12.isSelected()) {
                     m_jrbDEREncoded.setSelected(true);
                 }
                 m_jrbPemEncoded.setEnabled(true);
@@ -167,13 +168,14 @@ class DExport
 
         m_jrbCertChain = new JRadioButton(
             m_res.getString("DExport.m_jrbCertChain.text"));
-        m_jrbCertChain.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent evt) {
+        m_jrbCertChain.addItemListener(new ItemListener()
+        {
+            public void itemStateChanged(ItemEvent evt)
+            {
                 m_jrbDEREncoded.setEnabled(false);
                 m_jrbPemEncoded.setEnabled(false);
                 m_jrbPKCS7.setEnabled(true);
-                if (!m_jrbPkiPath.isSelected())
-                {
+                if (!m_jrbPkiPath.isSelected()) {
                     m_jrbPKCS7.setSelected(true);
                 }
                 m_jrbPkiPath.setEnabled(true);
@@ -183,15 +185,16 @@ class DExport
 
         m_mjrbPrivKeyCertChain = new JRadioButton(
             m_res.getString("DExport.m_jrbPrivKeyCertChain.text"));
-        m_mjrbPrivKeyCertChain.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent evt) {
+        m_mjrbPrivKeyCertChain.addItemListener(new ItemListener()
+        {
+            public void itemStateChanged(ItemEvent evt)
+            {
                 m_jrbDEREncoded.setEnabled(false);
                 m_jrbPemEncoded.setEnabled(true);
                 m_jrbPKCS7.setEnabled(false);
                 m_jrbPkiPath.setEnabled(false);
                 m_jrbPKCS12.setEnabled(true);
-                if (!m_jrbPemEncoded.isSelected())
-                {
+                if (!m_jrbPemEncoded.isSelected()) {
                     m_jrbPKCS12.setSelected(true);
                 }
             }
@@ -209,9 +212,8 @@ class DExport
         // Export format controls
         // @@@TODO: add item listeners for these
         m_jpExportFormat = new JPanel(new GridLayout(5, 1));
-        m_jpExportFormat.setBorder(
-            new TitledBorder(
-                m_res.getString("DExport.m_jpExportFormat.text")));
+        m_jpExportFormat.setBorder(new TitledBorder(
+            m_res.getString("DExport.m_jpExportFormat.text")));
 
         m_jrbDEREncoded = new JRadioButton(
             m_res.getString("DExport.m_jrbDEREncoded.text"), true);
@@ -241,52 +243,55 @@ class DExport
         // Disable radio boxes depending on entry type
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
-        try
-        {
-            if (keyStore.isCertificateEntry(m_sEntryAlias))
-            {
+        try {
+            if (keyStore.isCertificateEntry(m_sEntryAlias)) {
                 m_jrbCertChain.setEnabled(false);
                 m_mjrbPrivKeyCertChain.setEnabled(false);
             }
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             String sMessage = MessageFormat.format(
                 m_res.getString("DExport.NoAccessEntry.message"),
-                new String[]{m_sEntryAlias});
+                new String[] { m_sEntryAlias });
             throw new CryptoException(sMessage, ex);
         }
 
         // Put all export option controls together in one panel
         m_jpOptions = new JPanel(new BorderLayout(10, 0));
-        m_jpOptions.setBorder(
-            new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-                                                  new EtchedBorder()),
-                               new EmptyBorder(5, 5, 5, 5)));
+        m_jpOptions.setBorder(new CompoundBorder(new CompoundBorder(
+            new EmptyBorder(5, 5, 5, 5), new EtchedBorder()), new EmptyBorder(
+            5, 5, 5, 5)));
 
         m_jpOptions.add(m_jpExportType, BorderLayout.NORTH);
         m_jpOptions.add(m_jpExportFormat, BorderLayout.SOUTH);
 
         // Buttons
         m_jbOK = new JButton(m_res.getString("DExport.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(m_res.getString("DExport.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpButtons.add(m_jbOK);
@@ -297,15 +302,16 @@ class DExport
         getContentPane().add(m_jpOptions, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
 
-        setTitle(MessageFormat.format(
-                     m_res.getString("DExport.Title"),
-                     new String[]{m_sEntryAlias}));
+        setTitle(MessageFormat.format(m_res.getString("DExport.Title"),
+            new String[] { m_sEntryAlias }));
         setResizable(false);
 
         getRootPane().setDefaultButton(m_jbOK);

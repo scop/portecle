@@ -46,13 +46,14 @@ import org.bouncycastle.crypto.params.RSAKeyParameters;
 public final class KeyPairUtil
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /**
      * Private to prevent construction.
      */
-    private KeyPairUtil() {}
+    private KeyPairUtil()
+    {
+    }
 
     /**
      * Generate a key pair.
@@ -62,18 +63,15 @@ public final class KeyPairUtil
      * @return A key pair
      * @throws CryptoException If there was a problem generating the key pair
      */
-    public static KeyPair generateKeyPair(KeyPairType keyPairType,
-                                          int iKeySize)
+    public static KeyPair generateKeyPair(KeyPairType keyPairType, int iKeySize)
         throws CryptoException
     {
-        try
-        {
+        try {
             // We could request BC here in order to gain support for generating
             // > 2048 bit RSA keys also on Java 1.4.  But unless there's a way
             // to eg. read JKS keystores containing such keys on Java 1.4,
             // that would just help the user shoot herself in the foot...
-            KeyPairGenerator keyPairGen =
-                KeyPairGenerator.getInstance(keyPairType.toString());
+            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(keyPairType.toString());
 
             // Create a SecureRandom
             SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
@@ -85,19 +83,15 @@ public final class KeyPairUtil
             KeyPair keyPair = keyPairGen.generateKeyPair();
             return keyPair;
         }
-        catch (NoSuchAlgorithmException ex)
-        {
-            throw new CryptoException(
-                MessageFormat.format(
-                    m_res.getString("NoGenerateKeypair.exception.message"),
-                    new Object[]{keyPairType}), ex);
+        catch (NoSuchAlgorithmException ex) {
+            throw new CryptoException(MessageFormat.format(
+                m_res.getString("NoGenerateKeypair.exception.message"),
+                new Object[] { keyPairType }), ex);
         }
-        catch (InvalidParameterException ex)
-        {
-            throw new CryptoException(
-                MessageFormat.format(
-                    m_res.getString("NoGenerateKeypairParm.exception.message"),
-                    new Object[]{keyPairType}), ex);
+        catch (InvalidParameterException ex) {
+            throw new CryptoException(MessageFormat.format(
+                m_res.getString("NoGenerateKeypairParm.exception.message"),
+                new Object[] { keyPairType }), ex);
         }
     }
 
@@ -125,7 +119,7 @@ public final class KeyPairUtil
                 m_res.getString("NoPublicKeysize.exception.message"));
         }
     }
-    
+
     /**
      * Get the keysize of a key represented by key parameters.
      *

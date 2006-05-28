@@ -71,7 +71,8 @@ public class JavaVersion
      *
      * @throws VersionException If the Java version string cannot be parsed
      */
-    public JavaVersion() throws VersionException
+    public JavaVersion()
+        throws VersionException
     {
         this(System.getProperty("java.version"));
     }
@@ -82,7 +83,8 @@ public class JavaVersion
      * @param sJavaVersion The Java version string
      * @throws VersionException If the Java version string cannot be parsed
      */
-    public JavaVersion(String sJavaVersion) throws VersionException
+    public JavaVersion(String sJavaVersion)
+        throws VersionException
     {
         // Store version number
         m_sJavaVersion = sJavaVersion;
@@ -97,107 +99,90 @@ public class JavaVersion
         String sIdentifier = null;
 
         // No update nor identifier
-        if ((iIndexUpdate == -1) && (iIndexIdentifier == -1))
-        {
+        if (iIndexUpdate == -1 && iIndexIdentifier == -1) {
             sVersion = m_sJavaVersion; // Version as a string
         }
         // Update but no identifier
-        else if ((iIndexUpdate != -1) && (iIndexIdentifier == -1))
-        {
+        else if (iIndexUpdate != -1 && iIndexIdentifier == -1) {
             // Version as a string
             sVersion = m_sJavaVersion.substring(0, iIndexUpdate);
             // Update as a string
-            sUpdate = m_sJavaVersion.substring(iIndexUpdate+1);
+            sUpdate = m_sJavaVersion.substring(iIndexUpdate + 1);
         }
         // Identifier but no update
-        else if ((iIndexUpdate == -1) && (iIndexIdentifier != -1))
-        {
+        else if (iIndexUpdate == -1 && iIndexIdentifier != -1) {
             // Version as a string
             sVersion = m_sJavaVersion.substring(0, iIndexIdentifier);
             // Identifier as a string
-            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier+1);
+            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier + 1);
         }
         // Update and identifier
-        else
-        {
+        else {
             // Version as a string
             sVersion = m_sJavaVersion.substring(0, iIndexUpdate);
             // Update as a string
-            sUpdate = m_sJavaVersion.substring(
-                iIndexUpdate+1, iIndexIdentifier);
+            sUpdate = m_sJavaVersion.substring(iIndexUpdate + 1,
+                iIndexIdentifier);
             // Identifier as a string
-            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier+1);
+            sIdentifier = m_sJavaVersion.substring(iIndexIdentifier + 1);
         }
 
         // Parse version string for major, middle and minor version numbers
-        StringTokenizer strTok =
-            new StringTokenizer(sVersion, ""+VERSION_DELIMITER);
+        StringTokenizer strTok = new StringTokenizer(sVersion, ""
+            + VERSION_DELIMITER);
 
-        if (strTok.countTokens() != 3)
-        {
+        if (strTok.countTokens() != 3) {
             throw new VersionException(); // Don't have all three versions
         }
 
         // Get major version as a string, convert it to an integer, store it
         String sMajor = strTok.nextToken();
-        try
-        {
+        try {
             m_iMajor = Integer.parseInt(sMajor);
         }
-        catch (NumberFormatException ex)
-        {
+        catch (NumberFormatException ex) {
             throw new VersionException(ex);
         }
 
-        if (m_iMajor < 0)
-        {
+        if (m_iMajor < 0) {
             throw new VersionException(); // Less then 0
         }
 
         // Get middle version as a string, convert it to an integer, store it
         String sMiddle = strTok.nextToken();
-        try
-        {
+        try {
             m_iMiddle = Integer.parseInt(sMiddle);
         }
-        catch (NumberFormatException ex)
-        {
+        catch (NumberFormatException ex) {
             throw new VersionException(ex);
         }
 
-        if (m_iMiddle < 0)
-        {
+        if (m_iMiddle < 0) {
             throw new VersionException(); // Less then 0
         }
 
         // Get minor version as a string, convert it to an integer, store it
         String sMinor = strTok.nextToken();
-        try
-        {
+        try {
             m_iMinor = Integer.parseInt(sMinor);
         }
-        catch (NumberFormatException ex)
-        {
+        catch (NumberFormatException ex) {
             throw new VersionException(ex);
         }
 
-        if (m_iMinor < 0)
-        {
+        if (m_iMinor < 0) {
             throw new VersionException(); // Less then 0
         }
 
         // Convert update to integer and store
-        try
-        {
+        try {
             m_iUpdate = Integer.parseInt(sUpdate);
         }
-        catch (NumberFormatException ex)
-        {
+        catch (NumberFormatException ex) {
             throw new VersionException(ex); // Not an integer
         }
 
-        if (m_iUpdate < 0)
-        {
+        if (m_iUpdate < 0) {
             throw new VersionException(); // Less then 0
         }
 
@@ -272,42 +257,34 @@ public class JavaVersion
         JavaVersion cmpJavaVersion = (JavaVersion) object;
 
         // Comapre major number
-        if (m_iMajor > cmpJavaVersion.getMajor())
-        {
+        if (m_iMajor > cmpJavaVersion.getMajor()) {
             return 1;
         }
-        else if (m_iMajor < cmpJavaVersion.getMajor())
-        {
+        else if (m_iMajor < cmpJavaVersion.getMajor()) {
             return -1;
         }
 
         // Compare middle number
-        if (m_iMiddle > cmpJavaVersion.getMiddle())
-        {
+        if (m_iMiddle > cmpJavaVersion.getMiddle()) {
             return 1;
         }
-        else if (m_iMiddle < cmpJavaVersion.getMiddle())
-        {
+        else if (m_iMiddle < cmpJavaVersion.getMiddle()) {
             return -1;
         }
 
         // Compare minor number
-        if (m_iMinor > cmpJavaVersion.getMinor())
-        {
+        if (m_iMinor > cmpJavaVersion.getMinor()) {
             return 1;
         }
-        else if (m_iMinor < cmpJavaVersion.getMinor())
-        {
+        else if (m_iMinor < cmpJavaVersion.getMinor()) {
             return -1;
         }
 
         // Compare update number
-        if (m_iUpdate > cmpJavaVersion.getUpdate())
-        {
+        if (m_iUpdate > cmpJavaVersion.getUpdate()) {
             return 1;
         }
-        else if (m_iUpdate < cmpJavaVersion.getUpdate())
-        {
+        else if (m_iUpdate < cmpJavaVersion.getUpdate()) {
             return -1;
         }
 
@@ -315,12 +292,10 @@ public class JavaVersion
         // present or not
         String sCmpIdentifier = cmpJavaVersion.getIdentifier();
 
-        if ((m_sIdentifier == null) && (sCmpIdentifier != null))
-        {
+        if (m_sIdentifier == null && sCmpIdentifier != null) {
             return 1;
         }
-        else if ((m_sIdentifier != null) && (sCmpIdentifier == null))
-        {
+        else if (m_sIdentifier != null && sCmpIdentifier == null) {
             return -1;
         }
 
@@ -336,13 +311,11 @@ public class JavaVersion
      */
     public boolean equals(Object object)
     {
-        if (object == this)
-        {
+        if (object == this) {
             return true;
         }
 
-        if (!(object instanceof JavaVersion))
-        {
+        if (!(object instanceof JavaVersion)) {
             return false;
         }
 
@@ -365,7 +338,7 @@ public class JavaVersion
         iResult = 53 * iResult + m_iMiddle;
         iResult = 53 * iResult + m_iMinor;
         iResult = 53 * iResult + m_iUpdate;
-        iResult = 53 * iResult + (m_sIdentifier == null ? 0:1);
+        iResult = 53 * iResult + (m_sIdentifier == null ? 0 : 1);
 
         // Return hash code
         return iResult;

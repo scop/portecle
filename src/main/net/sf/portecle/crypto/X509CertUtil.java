@@ -74,8 +74,7 @@ public final class X509CertUtil
     public static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Type name for X.509 certificates */
     private static final String X509_CERT_TYPE = "X.509";
@@ -83,7 +82,9 @@ public final class X509CertUtil
     /**
      * Private to prevent construction.
      */
-    private X509CertUtil() {}
+    private X509CertUtil()
+    {
+    }
 
     /**
      * Load one or more certificates from the specified file.
@@ -97,34 +98,32 @@ public final class X509CertUtil
      * certificate(s)
      */
     public static X509Certificate[] loadCertificates(File fCertFile,
-                                                     String encoding)
+        String encoding)
         throws CryptoException
     {
         ArrayList vCerts = new ArrayList();
 
         FileInputStream fis = null;
 
-        try
-        {
+        try {
             fis = new FileInputStream(fCertFile);
 
-            CertificateFactory cf =
-                CertificateFactory.getInstance(X509_CERT_TYPE);
+            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
 
             Collection coll = null;
 
             if (OPENSSL_PEM_ENCODING.equals(encoding)) {
                 // Special case; this is not a real JCE supported encoding.
-                PEMReader pr = new PEMReader(new InputStreamReader(fis),
-                                             null, cf.getProvider().getName());
+                PEMReader pr = new PEMReader(new InputStreamReader(fis), null,
+                    cf.getProvider().getName());
                 /* These beasts can contain just about anything, and
-                   unfortunately the PEMReader API (as of BC 1.25 to 1.31)
-                   won't allow us to really skip things we're not interested
-                   in; stuff happens already in readObject().  This may cause
-                   some weird exception messages for non-certificate objects in
-                   the "stream", for example passphrase related ones for
-                   protected private keys.  Well, I guess this is better than
-                   nothing anyway... :( */
+                 unfortunately the PEMReader API (as of BC 1.25 to 1.31)
+                 won't allow us to really skip things we're not interested
+                 in; stuff happens already in readObject().  This may cause
+                 some weird exception messages for non-certificate objects in
+                 the "stream", for example passphrase related ones for
+                 protected private keys.  Well, I guess this is better than
+                 nothing anyway... :( */
                 Object cert;
                 while ((cert = pr.readObject()) != null) {
                     if (cert instanceof X509Certificate) {
@@ -162,11 +161,15 @@ public final class X509CertUtil
         }
         finally {
             if (fis != null) {
-                try { fis.close(); } catch(IOException ex) { /* Ignore */ }}
+                try {
+                    fis.close();
+                }
+                catch (IOException ex) { /* Ignore */
+                }
+            }
         }
 
-        return (X509Certificate[])
-            vCerts.toArray(new X509Certificate[vCerts.size()]);
+        return (X509Certificate[]) vCerts.toArray(new X509Certificate[vCerts.size()]);
     }
 
     /**
@@ -186,23 +189,24 @@ public final class X509CertUtil
     {
         FileInputStream fis = null;
 
-        try
-        {
+        try {
             fis = new FileInputStream(fCRLFile);
-            CertificateFactory cf =
-                CertificateFactory.getInstance(X509_CERT_TYPE);
+            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
             X509CRL crl = (X509CRL) cf.generateCRL(fis);
             return crl;
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("NoLoadCrl.exception.message"), ex);
         }
-        finally
-        {
+        finally {
             if (fis != null) {
-                try { fis.close(); } catch(IOException ex) { /* Ignore */ }}
+                try {
+                    fis.close();
+                }
+                catch (IOException ex) { /* Ignore */
+                }
+            }
         }
     }
 
@@ -224,7 +228,8 @@ public final class X509CertUtil
         // TODO: handle DER encoded requests too?
         PEMReader in = null;
         try {
-            in = new PEMReader(new InputStreamReader(new FileInputStream(fCSRFile)));
+            in = new PEMReader(new InputStreamReader(new FileInputStream(
+                fCSRFile)));
             PKCS10CertificationRequest csr = (PKCS10CertificationRequest) in.readObject();
             if (!csr.verify()) {
                 throw new CryptoException(
@@ -242,7 +247,12 @@ public final class X509CertUtil
         }
         finally {
             if (in != null) {
-                try { in.close(); } catch(IOException ex) { /* Ignore */ }}
+                try {
+                    in.close();
+                }
+                catch (IOException ex) { /* Ignore */
+                }
+            }
         }
     }
 
@@ -259,8 +269,7 @@ public final class X509CertUtil
     {
         X509Certificate[] certsOut = new X509Certificate[certsIn.length];
 
-        for (int iCnt=0; iCnt < certsIn.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < certsIn.length; iCnt++) {
             certsOut[iCnt] = convertCertificate(certsIn[iCnt]);
         }
 
@@ -277,21 +286,18 @@ public final class X509CertUtil
     public static X509Certificate convertCertificate(Certificate certIn)
         throws CryptoException
     {
-        try
-        {
+        try {
             // We could request BC here in order to gain support for certs
             // with > 2048 bit RSA keys also on Java 1.4.  But unless there's
             // a way to eg. read JKS keystores containing such certificates
             // on Java 1.4 (think eg. importing such CA certs), that would
             // just help the user shoot herself in the foot...
-            CertificateFactory cf =
-                CertificateFactory.getInstance(X509_CERT_TYPE);
-            ByteArrayInputStream bais =
-                new ByteArrayInputStream(certIn.getEncoded());
+            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
+            ByteArrayInputStream bais = new ByteArrayInputStream(
+                certIn.getEncoded());
             return (X509Certificate) cf.generateCertificate(bais);
         }
-        catch (CertificateException ex)
-        {
+        catch (CertificateException ex) {
             throw new CryptoException(
                 m_res.getString("NoConvertCertificate.exception.message"), ex);
         }
@@ -314,11 +320,9 @@ public final class X509CertUtil
 
         // Find the root issuer (ie certificate where issuer is the same
         // as subject)
-        for (int iCnt=0; iCnt < tmpCerts.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < tmpCerts.length; iCnt++) {
             X509Certificate aCert = tmpCerts[iCnt];
-            if (aCert.getIssuerDN().equals(aCert.getSubjectDN()))
-            {
+            if (aCert.getIssuerDN().equals(aCert.getSubjectDN())) {
                 issuerCert = aCert;
                 orderedCerts[iOrdered] = issuerCert;
                 iOrdered++;
@@ -326,23 +330,20 @@ public final class X509CertUtil
         }
 
         // Couldn't find a root issuer so just return the un-ordered array
-        if (issuerCert == null)
-        {
+        if (issuerCert == null) {
             return certs;
         }
 
         // Keep making passes through the array of certificates looking for the
         // next certificate in the chain until the links run out
-        while (true)
-        {
+        while (true) {
             boolean bFoundNext = false;
-            for (int iCnt=0; iCnt < tmpCerts.length; iCnt++)
-            {
+            for (int iCnt = 0; iCnt < tmpCerts.length; iCnt++) {
                 X509Certificate aCert = tmpCerts[iCnt];
 
                 // Is this certificate the next in the chain?
-                if (aCert.getIssuerDN().equals(issuerCert.getSubjectDN()) &&
-                    aCert != issuerCert)
+                if (aCert.getIssuerDN().equals(issuerCert.getSubjectDN())
+                    && aCert != issuerCert)
                 {
                     // Yes
                     issuerCert = aCert;
@@ -352,8 +353,7 @@ public final class X509CertUtil
                     break;
                 }
             }
-            if (!bFoundNext)
-            {
+            if (!bFoundNext) {
                 break;
             }
         }
@@ -365,8 +365,7 @@ public final class X509CertUtil
         // Reverse the order of the array
         orderedCerts = new X509Certificate[iOrdered];
 
-        for (int iCnt=0; iCnt < iOrdered; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < iOrdered; iCnt++) {
             orderedCerts[iCnt] = tmpCerts[tmpCerts.length - 1 - iCnt];
         }
 
@@ -383,12 +382,10 @@ public final class X509CertUtil
     public static byte[] getCertEncodedDer(X509Certificate cert)
         throws CryptoException
     {
-        try
-        {
+        try {
             return cert.getEncoded();
         }
-        catch (CertificateException ex)
-        {
+        catch (CertificateException ex) {
             throw new CryptoException(
                 m_res.getString("NoDerEncode.exception.message"), ex);
         }
@@ -404,7 +401,7 @@ public final class X509CertUtil
     public static byte[] getCertEncodedPkcs7(X509Certificate cert)
         throws CryptoException
     {
-        return getCertsEncodedPkcs7(new X509Certificate[] {cert});
+        return getCertsEncodedPkcs7(new X509Certificate[] { cert });
     }
 
     /**
@@ -417,8 +414,8 @@ public final class X509CertUtil
     public static byte[] getCertsEncodedPkcs7(X509Certificate[] certs)
         throws CryptoException
     {
-        return getCertsEncoded(
-            certs, PKCS7_ENCODING, "NoPkcs7Encode.exception.message");
+        return getCertsEncoded(certs, PKCS7_ENCODING,
+            "NoPkcs7Encode.exception.message");
     }
 
     /**
@@ -431,7 +428,7 @@ public final class X509CertUtil
     public static byte[] getCertEncodedPkiPath(X509Certificate cert)
         throws CryptoException
     {
-        return getCertsEncodedPkiPath(new X509Certificate[] {cert});
+        return getCertsEncodedPkiPath(new X509Certificate[] { cert });
     }
 
     /**
@@ -444,8 +441,8 @@ public final class X509CertUtil
     public static byte[] getCertsEncodedPkiPath(X509Certificate[] certs)
         throws CryptoException
     {
-        return getCertsEncoded(
-            certs, PKIPATH_ENCODING, "NoPkiPathEncode.exception.message");
+        return getCertsEncoded(certs, PKIPATH_ENCODING,
+            "NoPkiPathEncode.exception.message");
     }
 
     /**
@@ -459,18 +456,15 @@ public final class X509CertUtil
      * @throws CryptoException If there was a problem encoding the certificates
      */
     private static byte[] getCertsEncoded(X509Certificate[] certs,
-                                          String encoding, String errkey)
+        String encoding, String errkey)
         throws CryptoException
     {
-        try
-        {
-            CertificateFactory cf =
-                CertificateFactory.getInstance(X509_CERT_TYPE);
-            return cf.generateCertPath(
-                Arrays.asList(certs)).getEncoded(encoding);
+        try {
+            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
+            return cf.generateCertPath(Arrays.asList(certs)).getEncoded(
+                encoding);
         }
-        catch (CertificateException ex)
-        {
+        catch (CertificateException ex) {
             throw new CryptoException(m_res.getString(errkey), ex);
         }
     }
@@ -495,16 +489,10 @@ public final class X509CertUtil
      * certificate
      */
     public static X509Certificate generateCert(String sCommonName,
-                                               String sOrganisationUnit,
-                                               String sOrganisation,
-                                               String sLocality,
-                                               String sState,
-                                               String sCountryCode,
-                                               String sEmailAddress,
-                                               int iValidity,
-                                               PublicKey publicKey,
-                                               PrivateKey privateKey,
-                                               SignatureType signatureType)
+        String sOrganisationUnit, String sOrganisation, String sLocality,
+        String sState, String sCountryCode, String sEmailAddress,
+        int iValidity, PublicKey publicKey, PrivateKey privateKey,
+        SignatureType signatureType)
         throws CryptoException
     {
         // Holds certificate attributes
@@ -512,44 +500,37 @@ public final class X509CertUtil
         Vector vOrder = new Vector();
 
         // Load certificate attributes
-        if (sCommonName != null)
-        {
+        if (sCommonName != null) {
             attrs.put(X509Principal.CN, sCommonName);
             vOrder.add(0, X509Principal.CN);
         }
 
-        if (sOrganisationUnit != null)
-        {
+        if (sOrganisationUnit != null) {
             attrs.put(X509Principal.OU, sOrganisationUnit);
             vOrder.add(0, X509Principal.OU);
         }
 
-        if (sOrganisation != null)
-        {
+        if (sOrganisation != null) {
             attrs.put(X509Principal.O, sOrganisation);
             vOrder.add(0, X509Principal.O);
         }
 
-        if (sLocality != null)
-        {
+        if (sLocality != null) {
             attrs.put(X509Principal.L, sLocality);
             vOrder.add(0, X509Principal.L);
         }
 
-        if (sState != null)
-        {
+        if (sState != null) {
             attrs.put(X509Principal.ST, sState);
             vOrder.add(0, X509Principal.ST);
         }
 
-        if (sCountryCode != null)
-        {
+        if (sCountryCode != null) {
             attrs.put(X509Principal.C, sCountryCode);
             vOrder.add(0, X509Principal.C);
         }
 
-        if (sEmailAddress != null)
-        {
+        if (sEmailAddress != null) {
             attrs.put(X509Principal.E, sEmailAddress);
             vOrder.add(0, X509Principal.E);
         }
@@ -564,9 +545,8 @@ public final class X509CertUtil
 
         // Valid before and after dates now to iValidity days in the future
         certGen.setNotBefore(new Date(System.currentTimeMillis()));
-        certGen.setNotAfter(new Date(
-                                System.currentTimeMillis() +
-                                ((long) iValidity * 24 * 60 * 60 * 1000)));
+        certGen.setNotAfter(new Date(System.currentTimeMillis()
+            + ((long) iValidity * 24 * 60 * 60 * 1000)));
 
         // Set the subject distinguished name (same as issuer for our purposes)
         certGen.setSubjectDN(new X509Principal(vOrder, attrs));
@@ -580,8 +560,7 @@ public final class X509CertUtil
         // Set the serial number
         certGen.setSerialNumber(generateX509SerialNumber());
 
-        try
-        {
+        try {
             // Generate an X.509 certificate, based on the current issuer and
             // subject
             X509Certificate cert = certGen.generateX509Certificate(privateKey);
@@ -590,8 +569,7 @@ public final class X509CertUtil
             return cert;
         }
         // Something went wrong
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("CertificateGenFailed.exception.message"), ex);
         }
@@ -605,8 +583,7 @@ public final class X509CertUtil
     private static BigInteger generateX509SerialNumber()
     {
         // Time in seconds
-        return new BigInteger(
-            Long.toString(System.currentTimeMillis() / 1000));
+        return new BigInteger(Long.toString(System.currentTimeMillis() / 1000));
     }
 
     /**
@@ -624,24 +601,18 @@ public final class X509CertUtil
     {
         X509Name subject = new X509Name(cert.getSubjectDN().toString());
 
-        try
-        {
-            PKCS10CertificationRequest csr =
-                new PKCS10CertificationRequest(cert.getSigAlgName(),
-                                               subject,
-                                               cert.getPublicKey(),
-                                               null,
-                                               privateKey);
-            if (!csr.verify())
-            {
+        try {
+            PKCS10CertificationRequest csr = new PKCS10CertificationRequest(
+                cert.getSigAlgName(), subject, cert.getPublicKey(), null,
+                privateKey);
+            if (!csr.verify()) {
                 throw new CryptoException(
                     m_res.getString("NoVerifyGenCsr.exception.message"));
             }
-            
+
             return csr;
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("NoGenerateCsr.exception.message"), ex);
         }
@@ -658,26 +629,22 @@ public final class X509CertUtil
      * @throws CryptoException If there was a problem verifying the signature.
      */
     public static boolean verifyCertificate(X509Certificate signedCert,
-                                            X509Certificate signingCert)
+        X509Certificate signingCert)
         throws CryptoException
     {
-        try
-        {
+        try {
             signedCert.verify(signingCert.getPublicKey());
         }
         // Verification failed
-        catch (InvalidKeyException ex)
-        {
+        catch (InvalidKeyException ex) {
             return false;
         }
         // Verification failed
-        catch (SignatureException ex)
-        {
+        catch (SignatureException ex) {
             return false;
         }
         // Problem verifying
-        catch (GeneralSecurityException ex)
-        {
+        catch (GeneralSecurityException ex) {
             throw new CryptoException(
                 m_res.getString("NoVerifyCertificate.exception.message"), ex);
         }
@@ -697,13 +664,12 @@ public final class X509CertUtil
      * @throws CryptoException If there is a problem establishing trust
      */
     public static X509Certificate[] establishTrust(KeyStore[] keyStores,
-                                                   X509Certificate cert)
+        X509Certificate cert)
         throws CryptoException
     {
         // Extract all certificates from the Keystores creating
         ArrayList ksCerts = new ArrayList();
-        for (int iCnt=0; iCnt < keyStores.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < keyStores.length; iCnt++) {
             ksCerts.addAll(extractCertificates(keyStores[iCnt]));
         }
 
@@ -724,39 +690,35 @@ public final class X509CertUtil
      * @throws CryptoException If there is a problem establishing trust
      */
     private static X509Certificate[] establishTrust(List vCompCerts,
-                                                    X509Certificate cert)
+        X509Certificate cert)
         throws CryptoException
     {
         // For each comparison certificate...
-        for (int iCnt=0; iCnt < vCompCerts.size(); iCnt++)
-        {
+        for (int iCnt = 0; iCnt < vCompCerts.size(); iCnt++) {
             X509Certificate compCert = (X509Certificate) vCompCerts.get(iCnt);
 
             // Check if the Comparison certificate's subject is the same as the
             // certificate's issuer
-            if (cert.getIssuerDN().equals(compCert.getSubjectDN()))
-            {
+            if (cert.getIssuerDN().equals(compCert.getSubjectDN())) {
                 // If so verify with the comparison certificate's corresponding
                 // private key was used to sign the certificate
-                if (X509CertUtil.verifyCertificate(cert, compCert))
-                {
+                if (X509CertUtil.verifyCertificate(cert, compCert)) {
                     // If the keystore certificate is self-signed then a
                     // chain of trust exists
                     if (compCert.getSubjectDN().equals(compCert.getIssuerDN()))
                     {
-                        return new X509Certificate[]{cert, compCert};
+                        return new X509Certificate[] { cert, compCert };
                     }
                     // Otherwise try and establish a chain of trust for
                     // the comparison certificate against the other comparison
                     // certificates
-                    X509Certificate[] tmpChain =
-                        establishTrust(vCompCerts, compCert);
+                    X509Certificate[] tmpChain = establishTrust(vCompCerts,
+                        compCert);
                     if (tmpChain != null) {
-                        X509Certificate[] trustChain =
-                            new X509Certificate[tmpChain.length + 1];
+                        X509Certificate[] trustChain = new X509Certificate[tmpChain.length + 1];
                         trustChain[0] = cert;
                         for (int j = 1; j <= tmpChain.length; j++) {
-                            trustChain[j] = tmpChain[j-1];
+                            trustChain[j] = tmpChain[j - 1];
                         }
                         return trustChain;
                     }
@@ -780,27 +742,22 @@ public final class X509CertUtil
     private static Collection extractCertificates(KeyStore keyStore)
         throws CryptoException
     {
-        try
-        {
+        try {
             ArrayList vCerts = new ArrayList();
 
-            for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
-            {
+            for (Enumeration en = keyStore.aliases(); en.hasMoreElements();) {
                 String sAlias = (String) en.nextElement();
 
-                if (keyStore.isCertificateEntry(sAlias))
-                {
-                    vCerts.add(X509CertUtil.convertCertificate(
-                                   keyStore.getCertificate(sAlias)));
+                if (keyStore.isCertificateEntry(sAlias)) {
+                    vCerts.add(X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias)));
                 }
             }
 
             return vCerts;
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             throw new CryptoException(
-                m_res.getString("NoExtractCertificates.exception.message"),ex);
+                m_res.getString("NoExtractCertificates.exception.message"), ex);
         }
     }
 
@@ -815,30 +772,23 @@ public final class X509CertUtil
      * @throws CryptoException If there is a problem establishing trust
      */
     public static String matchCertificate(KeyStore keyStore,
-                                          X509Certificate cert)
+        X509Certificate cert)
         throws CryptoException
     {
-        try
-        {
-            for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
-            {
+        try {
+            for (Enumeration en = keyStore.aliases(); en.hasMoreElements();) {
                 String sAlias = (String) en.nextElement();
-                if (keyStore.isCertificateEntry(sAlias))
-                {
-                    X509Certificate compCert =
-                        X509CertUtil.convertCertificate(
-                            keyStore.getCertificate(sAlias));
+                if (keyStore.isCertificateEntry(sAlias)) {
+                    X509Certificate compCert = X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias));
 
-                    if (cert.equals(compCert))
-                    {
+                    if (cert.equals(compCert)) {
                         return sAlias;
                     }
                 }
             }
             return null;
         }
-        catch (KeyStoreException ex)
-        {
+        catch (KeyStoreException ex) {
             throw new CryptoException(
                 m_res.getString("NoMatchCertificate.exception.message"), ex);
         }
@@ -865,16 +815,13 @@ public final class X509CertUtil
         String sSubject = subject.getName();
         String sSubjectCN = "";
         int iCN = sSubject.indexOf("CN=");
-        if (iCN != -1)
-        {
+        if (iCN != -1) {
             iCN += 3;
             int iEndCN = sSubject.indexOf(", ", iCN);
-            if (iEndCN != -1)
-            {
+            if (iEndCN != -1) {
                 sSubjectCN = sSubject.substring(iCN, iEndCN).toLowerCase();
             }
-            else
-            {
+            else {
                 sSubjectCN = sSubject.substring(iCN).toLowerCase();
             }
         }
@@ -883,23 +830,19 @@ public final class X509CertUtil
         String sIssuer = issuer.getName();
         String sIssuerCN = "";
         iCN = sIssuer.indexOf("CN=");
-        if (iCN != -1)
-        {
+        if (iCN != -1) {
             iCN += 3;
             int iEndCN = sIssuer.indexOf(", ", iCN);
-            if (iEndCN != -1)
-            {
+            if (iEndCN != -1) {
                 sIssuerCN = sIssuer.substring(iCN, iEndCN).toLowerCase();
             }
-            else
-            {
+            else {
                 sIssuerCN = sIssuer.substring(iCN).toLowerCase();
             }
         }
 
         // Could not get a subject CN - return blank
-        if (sSubjectCN.length() == 0)
-        {
+        if (sSubjectCN.length() == 0) {
             return "";
         }
 
@@ -910,7 +853,7 @@ public final class X509CertUtil
         }
         // else non-self-signed certificate
         // Alias is the subject CN followed by the issuer CN in brackets
-        return MessageFormat.format("{0} ({1})",
-                new String[]{sSubjectCN, sIssuerCN});
+        return MessageFormat.format("{0} ({1})", new String[] { sSubjectCN,
+            sIssuerCN });
     }
 }

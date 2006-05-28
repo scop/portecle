@@ -24,7 +24,8 @@ package net.sf.portecle.crypto;
 /**
  * Represents a cryptographic exception.
  */
-public class CryptoException extends Exception
+public class CryptoException
+    extends Exception
 {
     /**
      * Creates a new CryptoException.

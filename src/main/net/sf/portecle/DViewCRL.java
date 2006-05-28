@@ -64,11 +64,11 @@ import javax.swing.table.TableColumn;
 /**
  * Displays the details of a Certificate Revocation List (CRL).
  */
-class DViewCRL extends JDialog
+class DViewCRL
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Panel to hold OK button */
     private JPanel m_jpOK;
@@ -190,8 +190,7 @@ class DViewCRL extends JDialog
 
         m_jtfVersion = new JTextField(3);
         m_jtfVersion.setEditable(false);
-        m_jtfVersion.setToolTipText(
-            m_res.getString("DViewCRL.m_jtfVersion.tooltip"));
+        m_jtfVersion.setToolTipText(m_res.getString("DViewCRL.m_jtfVersion.tooltip"));
         GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
         gbc_jtfVersion.gridy = 0;
 
@@ -202,66 +201,57 @@ class DViewCRL extends JDialog
 
         m_jtfIssuer = new JTextField(40);
         m_jtfIssuer.setEditable(false);
-        m_jtfIssuer.setToolTipText(
-            m_res.getString("DViewCRL.m_jtfIssuer.tooltip"));
+        m_jtfIssuer.setToolTipText(m_res.getString("DViewCRL.m_jtfIssuer.tooltip"));
         GridBagConstraints gbc_jtfIssuer = (GridBagConstraints) gbcTf.clone();
         gbc_jtfIssuer.gridy = 1;
 
         // Effective Date
         m_jlEffectiveDate = new JLabel(
             m_res.getString("DViewCRL.m_jlEffectiveDate.text"));
-        GridBagConstraints gbc_jlEffectiveDate =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlEffectiveDate = (GridBagConstraints) gbcLbl.clone();
         gbc_jlEffectiveDate.gridy = 2;
 
         m_jtfEffectiveDate = new JTextField(30);
         m_jtfEffectiveDate.setEditable(false);
-        m_jtfEffectiveDate.setToolTipText(
-            m_res.getString("DViewCRL.m_jtfEffectiveDate.tooltip"));
-        GridBagConstraints gbc_jtfEffectiveDate =
-            (GridBagConstraints) gbcTf.clone();
+        m_jtfEffectiveDate.setToolTipText(m_res.getString("DViewCRL.m_jtfEffectiveDate.tooltip"));
+        GridBagConstraints gbc_jtfEffectiveDate = (GridBagConstraints) gbcTf.clone();
         gbc_jtfEffectiveDate.gridy = 2;
 
         // Next Update
         m_jlNextUpdate = new JLabel(
             m_res.getString("DViewCRL.m_jlNextUpdate.text"));
-        GridBagConstraints gbc_jlNextUpdate =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlNextUpdate = (GridBagConstraints) gbcLbl.clone();
         gbc_jlNextUpdate.gridy = 3;
 
         m_jtfNextUpdate = new JTextField(30);
         m_jtfNextUpdate.setEditable(false);
-        m_jtfNextUpdate.setToolTipText(
-            m_res.getString("DViewCRL.m_jtfNextUpdate.tooltip"));
-        GridBagConstraints gbc_jtfNextUpdate =
-            (GridBagConstraints) gbcTf.clone();
+        m_jtfNextUpdate.setToolTipText(m_res.getString("DViewCRL.m_jtfNextUpdate.tooltip"));
+        GridBagConstraints gbc_jtfNextUpdate = (GridBagConstraints) gbcTf.clone();
         gbc_jtfNextUpdate.gridy = 3;
 
         // Signature Algorithm
         m_jlSignatureAlgorithm = new JLabel(
             m_res.getString("DViewCRL.m_jlSignatureAlgorithm.text"));
-        GridBagConstraints gbc_jlSignatureAlgorithm =
-            (GridBagConstraints) gbcLbl.clone();
+        GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSignatureAlgorithm.gridy = 4;
 
         m_jtfSignatureAlgorithm = new JTextField(15);
         m_jtfSignatureAlgorithm.setEditable(false);
-        m_jtfSignatureAlgorithm.setToolTipText(
-            m_res.getString("DViewCRL.m_jtfSignatureAlgorithm.tooltip"));
-        GridBagConstraints gbc_jtfSignatureAlgorithm =
-            (GridBagConstraints) gbcTf.clone();
+        m_jtfSignatureAlgorithm.setToolTipText(m_res.getString("DViewCRL.m_jtfSignatureAlgorithm.tooltip"));
+        GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
         gbc_jtfSignatureAlgorithm.gridy = 4;
 
         // CRL Extensions
         m_jbCrlExtensions = new JButton(
             m_res.getString("DViewCRL.m_jbCrlExtensions.text"));
 
-        m_jbCrlExtensions.setMnemonic(
-            m_res.getString("DViewCRL.m_jbCrlExtensions.mnemonic").charAt(0));
-        m_jbCrlExtensions.setToolTipText(
-            m_res.getString("DViewCRL.m_jbCrlExtensions.tooltip"));
-        m_jbCrlExtensions.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCrlExtensions.setMnemonic(m_res.getString(
+            "DViewCRL.m_jbCrlExtensions.mnemonic").charAt(0));
+        m_jbCrlExtensions.setToolTipText(m_res.getString("DViewCRL.m_jbCrlExtensions.tooltip"));
+        m_jbCrlExtensions.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 crlExtensionsPressed();
             }
         });
@@ -288,13 +278,11 @@ class DViewCRL extends JDialog
         m_jtRevokedCerts.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         // Add custom renderers for the table cells and headers
-        for (int iCnt=0; iCnt < m_jtRevokedCerts.getColumnCount(); iCnt++)
-        {
-            TableColumn column =
-                m_jtRevokedCerts.getColumnModel().getColumn(iCnt);
+        for (int iCnt = 0; iCnt < m_jtRevokedCerts.getColumnCount(); iCnt++) {
+            TableColumn column = m_jtRevokedCerts.getColumnModel().getColumn(
+                iCnt);
 
-            if (iCnt == 0)
-            {
+            if (iCnt == 0) {
                 column.setPreferredWidth(150);
             }
 
@@ -302,23 +290,20 @@ class DViewCRL extends JDialog
             column.setCellRenderer(new RevokedCertsTableCellRend());
         }
 
-        ListSelectionModel listSelectionModel =
-            m_jtRevokedCerts.getSelectionModel();
-        listSelectionModel.addListSelectionListener(
-            new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent evt)
-                    {
-                        // Ignore spurious events
-                        if (!evt.getValueIsAdjusting())
-                        {
-                            crlEntrySelection();
-                        }
-                    }
-            });
+        ListSelectionModel listSelectionModel = m_jtRevokedCerts.getSelectionModel();
+        listSelectionModel.addListSelectionListener(new ListSelectionListener()
+        {
+            public void valueChanged(ListSelectionEvent evt)
+            {
+                // Ignore spurious events
+                if (!evt.getValueIsAdjusting()) {
+                    crlEntrySelection();
+                }
+            }
+        });
 
         // Put the table into a scroll pane
-        m_jspRevokedCertsTable = new JScrollPane(
-            m_jtRevokedCerts,
+        m_jspRevokedCertsTable = new JScrollPane(m_jtRevokedCerts,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         m_jspRevokedCertsTable.getViewport().setBackground(
@@ -329,24 +314,22 @@ class DViewCRL extends JDialog
         // More for the benefit of a reduced height
         m_jpRevokedCertsTable.setPreferredSize(new Dimension(100, 200));
         m_jpRevokedCertsTable.add(m_jspRevokedCertsTable, BorderLayout.CENTER);
-        m_jpRevokedCertsTable.setBorder(
-            new CompoundBorder(
-                new TitledBorder(new EtchedBorder(),
-                                 m_res.getString("DViewCRL.TableTitle")),
-                new EmptyBorder(5, 5, 5, 5)));
+        m_jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(
+            new EtchedBorder(), m_res.getString("DViewCRL.TableTitle")),
+            new EmptyBorder(5, 5, 5, 5)));
 
         // CRL Entry Extensions
         m_jbCrlEntryExtensions = new JButton(
             m_res.getString("DViewCRL.m_jbCrlEntryExtensions.text"));
 
-        m_jbCrlEntryExtensions.setMnemonic(
-            m_res.getString(
-                "DViewCRL.m_jbCrlEntryExtensions.mnemonic").charAt(0));
-        m_jbCrlEntryExtensions.setToolTipText(
-            m_res.getString("DViewCRL.m_jbCrlEntryExtensions.tooltip"));
+        m_jbCrlEntryExtensions.setMnemonic(m_res.getString(
+            "DViewCRL.m_jbCrlEntryExtensions.mnemonic").charAt(0));
+        m_jbCrlEntryExtensions.setToolTipText(m_res.getString("DViewCRL.m_jbCrlEntryExtensions.tooltip"));
         m_jbCrlEntryExtensions.setEnabled(false);
-        m_jbCrlEntryExtensions.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCrlEntryExtensions.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 crlEntryExtensionsPressed();
             }
         });
@@ -367,7 +350,7 @@ class DViewCRL extends JDialog
 
         m_jpCRL = new JPanel(new GridBagLayout());
         m_jpCRL.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10),
-                                             new EtchedBorder()));
+            new EtchedBorder()));
 
         // Put it all together
         m_jpCRL.add(m_jlVersion, gbc_jlVersion);
@@ -390,8 +373,10 @@ class DViewCRL extends JDialog
         m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         m_jbOK = new JButton(m_res.getString("DViewCRL.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
@@ -404,8 +389,10 @@ class DViewCRL extends JDialog
 
         setResizable(false);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -414,8 +401,10 @@ class DViewCRL extends JDialog
 
         pack();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 m_jbOK.requestFocus();
             }
         });
@@ -446,41 +435,31 @@ class DViewCRL extends JDialog
         m_jtfIssuer.setCaretPosition(0);
 
         // Effective Date (include timezone)
-        m_jtfEffectiveDate.setText(
-            DateFormat.getDateTimeInstance(
-                DateFormat.MEDIUM, DateFormat.LONG).format(effectiveDate));
+        m_jtfEffectiveDate.setText(DateFormat.getDateTimeInstance(
+            DateFormat.MEDIUM, DateFormat.LONG).format(effectiveDate));
 
-        if (bEffective)
-        {
-            m_jtfEffectiveDate.setText(
-                MessageFormat.format(
-                    m_res.getString(
-                        "DViewCRL.m_jtfEffectiveDate.noteffective.text"),
-                    new String[]{m_jtfEffectiveDate.getText()}));
+        if (bEffective) {
+            m_jtfEffectiveDate.setText(MessageFormat.format(
+                m_res.getString("DViewCRL.m_jtfEffectiveDate.noteffective.text"),
+                new String[] { m_jtfEffectiveDate.getText() }));
             m_jtfEffectiveDate.setForeground(Color.red);
         }
-        else
-        {
+        else {
             m_jtfEffectiveDate.setForeground(m_jtfVersion.getForeground());
         }
         m_jtfEffectiveDate.setCaretPosition(0);
 
         // Next Update (include timezone)
-        m_jtfNextUpdate.setText(
-            DateFormat.getDateTimeInstance(
-                DateFormat.MEDIUM, DateFormat.LONG).format(updateDate));
+        m_jtfNextUpdate.setText(DateFormat.getDateTimeInstance(
+            DateFormat.MEDIUM, DateFormat.LONG).format(updateDate));
 
-        if (bUpdateAvailable)
-        {
-            m_jtfNextUpdate.setText(
-                MessageFormat.format(
-                    m_res.getString(
-                        "DViewCRL.m_jtfNextUpdate.updateavailable.text"),
-                    new String[]{m_jtfNextUpdate.getText()}));
+        if (bUpdateAvailable) {
+            m_jtfNextUpdate.setText(MessageFormat.format(
+                m_res.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"),
+                new String[] { m_jtfNextUpdate.getText() }));
             m_jtfNextUpdate.setForeground(Color.red);
         }
-        else
-        {
+        else {
             m_jtfNextUpdate.setForeground(m_jtfVersion.getForeground());
         }
         m_jtfNextUpdate.setCaretPosition(0);
@@ -493,34 +472,28 @@ class DViewCRL extends JDialog
         Set critExts = m_crl.getCriticalExtensionOIDs();
         Set nonCritExts = m_crl.getNonCriticalExtensionOIDs();
 
-        if (((critExts != null) && (critExts.size() != 0)) ||
-            ((nonCritExts != null) && (nonCritExts.size() != 0)))
+        if ((critExts != null && critExts.size() != 0)
+            || (nonCritExts != null && nonCritExts.size() != 0))
         {
             // Extensions
             m_jbCrlExtensions.setEnabled(true);
         }
-        else
-        {
+        else {
             // No extensions
             m_jbCrlExtensions.setEnabled(false);
         }
 
         // Populate Revoked Certificates table
         Set revokedCertsSet = m_crl.getRevokedCertificates();
-        if (revokedCertsSet == null)
-        {
+        if (revokedCertsSet == null) {
             revokedCertsSet = new HashSet();
         }
-        X509CRLEntry[] revokedCerts =
-            (X509CRLEntry[]) revokedCertsSet.toArray(
-                new X509CRLEntry[revokedCertsSet.size()]);
-        RevokedCertsTableModel revokedCertsTableModel =
-            (RevokedCertsTableModel) m_jtRevokedCerts.getModel();
+        X509CRLEntry[] revokedCerts = (X509CRLEntry[]) revokedCertsSet.toArray(new X509CRLEntry[revokedCertsSet.size()]);
+        RevokedCertsTableModel revokedCertsTableModel = (RevokedCertsTableModel) m_jtRevokedCerts.getModel();
         revokedCertsTableModel.load(revokedCerts);
 
         // Select first CRL
-        if (revokedCertsTableModel.getRowCount() > 0)
-        {
+        if (revokedCertsTableModel.getRowCount() > 0) {
             m_jtRevokedCerts.changeSelection(0, 0, false, false);
         }
     }
@@ -532,20 +505,17 @@ class DViewCRL extends JDialog
      */
     private void crlEntrySelection()
     {
-        ListSelectionModel listSelectionModel =
-            m_jtRevokedCerts.getSelectionModel();
+        ListSelectionModel listSelectionModel = m_jtRevokedCerts.getSelectionModel();
 
         if (!listSelectionModel.isSelectionEmpty()) // Enry must be selected
         {
             // Only one entry though
-            if (listSelectionModel.getMinSelectionIndex() ==
-                listSelectionModel.getMaxSelectionIndex())
+            if (listSelectionModel.getMinSelectionIndex() == listSelectionModel.getMaxSelectionIndex())
             {
                 // Get serial number of entry
                 int iRow = listSelectionModel.getMinSelectionIndex();
-                BigInteger serialNumber = (BigInteger)
-                    ((RevokedCertsTableModel) m_jtRevokedCerts.getModel())
-                    .getValueAt(iRow, 0);
+                BigInteger serialNumber = (BigInteger) ((RevokedCertsTableModel) m_jtRevokedCerts.getModel()).getValueAt(
+                    iRow, 0);
 
                 // Find CRL entry using serial number
                 Set revokedCertsSet = m_crl.getRevokedCertificates();
@@ -555,8 +525,7 @@ class DViewCRL extends JDialog
                 for (Iterator itr = revokedCertsSet.iterator(); itr.hasNext();)
                 {
                     X509CRLEntry entry = (X509CRLEntry) itr.next();
-                    if (serialNumber.equals(entry.getSerialNumber()))
-                    {
+                    if (serialNumber.equals(entry.getSerialNumber())) {
                         x509CrlEntry = entry;
                         break;
                     }
@@ -581,9 +550,8 @@ class DViewCRL extends JDialog
      */
     private void crlExtensionsPressed()
     {
-        DViewExtensions dViewExtensions = new DViewExtensions(
-            this, m_res.getString("DViewCRL.Extensions.Title"), true,
-            m_crl);
+        DViewExtensions dViewExtensions = new DViewExtensions(this,
+            m_res.getString("DViewCRL.Extensions.Title"), true, m_crl);
         dViewExtensions.setLocationRelativeTo(this);
         dViewExtensions.setVisible(true);
     }
@@ -594,20 +562,17 @@ class DViewCRL extends JDialog
      */
     private void crlEntryExtensionsPressed()
     {
-        ListSelectionModel listSelectionModel =
-            m_jtRevokedCerts.getSelectionModel();
+        ListSelectionModel listSelectionModel = m_jtRevokedCerts.getSelectionModel();
 
         if (!listSelectionModel.isSelectionEmpty()) // Entry must be selected
         {
             // Only one entry though
-            if (listSelectionModel.getMinSelectionIndex() ==
-                listSelectionModel.getMaxSelectionIndex())
+            if (listSelectionModel.getMinSelectionIndex() == listSelectionModel.getMaxSelectionIndex())
             {
                 // Get serial number of entry
                 int iRow = listSelectionModel.getMinSelectionIndex();
-                BigInteger serialNumber = (BigInteger)
-                    ((RevokedCertsTableModel) m_jtRevokedCerts.getModel())
-                    .getValueAt(iRow, 0);
+                BigInteger serialNumber = (BigInteger) ((RevokedCertsTableModel) m_jtRevokedCerts.getModel()).getValueAt(
+                    iRow, 0);
 
                 // Find CRL entry using serial number
                 Set revokedCertsSet = m_crl.getRevokedCertificates();
@@ -617,8 +582,7 @@ class DViewCRL extends JDialog
                 for (Iterator itr = revokedCertsSet.iterator(); itr.hasNext();)
                 {
                     X509CRLEntry entry = (X509CRLEntry) itr.next();
-                    if (serialNumber.equals(entry.getSerialNumber()))
-                    {
+                    if (serialNumber.equals(entry.getSerialNumber())) {
                         x509CrlEntry = entry;
                         break;
                     }
@@ -626,12 +590,9 @@ class DViewCRL extends JDialog
 
                 if (x509CrlEntry.hasExtensions()) // Entry has extensions
                 {
-                    DViewExtensions dViewExtensions =
-                        new DViewExtensions(this,
-                                            m_res.getString(
-                                                "DViewCRL." +
-                                                "EntryExtensions.Title"),
-                                            true, x509CrlEntry);
+                    DViewExtensions dViewExtensions = new DViewExtensions(
+                        this, m_res.getString("DViewCRL."
+                            + "EntryExtensions.Title"), true, x509CrlEntry);
                     dViewExtensions.setLocationRelativeTo(this);
                     dViewExtensions.setVisible(true);
                 }

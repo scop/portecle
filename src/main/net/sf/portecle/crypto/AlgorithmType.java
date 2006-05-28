@@ -38,7 +38,7 @@ public class AlgorithmType
     /** OID-to-type map */
     private static final HashMap OID_MAP = new HashMap();
     static {
-        OID_MAP.put("1.2.840.10040.4.1",    DSA);
+        OID_MAP.put("1.2.840.10040.4.1", DSA);
         OID_MAP.put("1.2.840.113549.1.1.1", RSA);
     }
 
@@ -83,7 +83,7 @@ public class AlgorithmType
             return RSA;
         }
         else {
-        	return new AlgorithmType(m_sType);
+            return new AlgorithmType(m_sType);
         }
     }
 

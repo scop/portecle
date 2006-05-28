@@ -32,7 +32,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  * Custom cell renderer for the cells of the System Properties table
  * of DSystemProperties.
  */
-class SystemPropertiesTableCellRend extends DefaultTableCellRenderer
+class SystemPropertiesTableCellRend
+    extends DefaultTableCellRenderer
 {
     /**
      * Returns the rendered cell for the supplied value and column.
@@ -45,13 +46,13 @@ class SystemPropertiesTableCellRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(
-        JTable jtSystemProperties, Object value, boolean bIsSelected,
-        boolean bHasFocus, int iRow, int iCol)
+    public Component getTableCellRendererComponent(JTable jtSystemProperties,
+        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
+        int iCol)
     {
         JLabel cell = (JLabel) super.getTableCellRendererComponent(
             jtSystemProperties, value, bIsSelected, bHasFocus, iRow, iCol);
-        cell.setHorizontalAlignment(LEFT);       
+        cell.setHorizontalAlignment(LEFT);
 
         cell.setBorder(new EmptyBorder(0, 5, 0, 5));
 

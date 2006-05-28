@@ -83,27 +83,23 @@ public class History
     public void visit(URL newPage)
     {
         // Only add page to history if it isn't the current page in the history
-        if (newPage.equals(m_vHistory.get(m_iCurrent)))
-        {
+        if (newPage.equals(m_vHistory.get(m_iCurrent))) {
             // New page same as current page so ignore
             return;
         }
 
         // At end of history...
-        if (!m_bForward)
-        {
+        if (!m_bForward) {
             m_vHistory.addElement(newPage);
             m_iCurrent++;
         }
         // Not at end of history...
-        else
-        {
+        else {
             // Lop off history after the current page
             int iRemove = m_vHistory.size() - (m_iCurrent + 1);
 
-            for (int iCnt = 0; iCnt < iRemove; iCnt++)
-            {
-                m_vHistory.removeElementAt(m_vHistory.size()-1);
+            for (int iCnt = 0; iCnt < iRemove; iCnt++) {
+                m_vHistory.removeElementAt(m_vHistory.size() - 1);
             }
 
             // Add new page to end of history
@@ -111,21 +107,17 @@ public class History
             m_iCurrent++;
         }
 
-        if (m_iCurrent == 0)
-        {
+        if (m_iCurrent == 0) {
             m_bBack = false;
         }
-        else
-        {
+        else {
             m_bBack = true;
         }
 
-        if (m_iCurrent+1 == m_vHistory.size())
-        {
+        if (m_iCurrent + 1 == m_vHistory.size()) {
             m_bForward = false;
         }
-        else
-        {
+        else {
             m_bForward = true;
         }
 
@@ -140,21 +132,18 @@ public class History
      */
     public URL goBack()
     {
-        if (!m_bBack)
-        {
+        if (!m_bBack) {
             return null;
         }
 
         URL page = (URL) m_vHistory.elementAt(--m_iCurrent);
 
-        if (m_iCurrent == 0)
-        {
+        if (m_iCurrent == 0) {
             m_bBack = false;
             m_bForward = true;
             fireHistoryEvent();
         }
-        else if (!m_bForward)
-        {
+        else if (!m_bForward) {
             m_bForward = true;
             fireHistoryEvent();
         }
@@ -170,21 +159,18 @@ public class History
      */
     public URL goForward()
     {
-        if (!m_bForward)
-        {
+        if (!m_bForward) {
             return null;
         }
 
         URL page = (URL) m_vHistory.elementAt(++m_iCurrent);
 
-        if (m_iCurrent == m_vHistory.size() - 1)
-        {
+        if (m_iCurrent == m_vHistory.size() - 1) {
             m_bForward = false;
             m_bBack = true;
             fireHistoryEvent();
         }
-        else if (!m_bBack)
-        {
+        else if (!m_bBack) {
             m_bBack = true;
             fireHistoryEvent();
         }
@@ -200,8 +186,7 @@ public class History
     public synchronized void addHistoryEventListener(
         HistoryEventListener listener)
     {
-        if (listeners == null)
-        {
+        if (listeners == null) {
             listeners = new Vector();
         }
 
@@ -216,8 +201,7 @@ public class History
     public synchronized void removeHistoryEventListener(
         HistoryEventListener listener)
     {
-        if (listeners == null)
-        {
+        if (listeners == null) {
             listeners = new Vector();
         }
 
@@ -230,21 +214,17 @@ public class History
      */
     protected void fireHistoryEvent()
     {
-        if ((listeners != null) && (!listeners.isEmpty()))
-        {
+        if (listeners != null && !listeners.isEmpty()) {
             HistoryEvent evt = new HistoryEvent(this, m_bBack, m_bForward);
             Vector listenersCopy;
 
-            synchronized(this)
-            {
+            synchronized (this) {
                 listenersCopy = (Vector) listeners.clone();
             }
 
             Enumeration en = listenersCopy.elements();
-            while (en.hasMoreElements())
-            {
-                ((HistoryEventListener) en.nextElement())
-                    .historyStatusChanged(evt);
+            while (en.hasMoreElements()) {
+                ((HistoryEventListener) en.nextElement()).historyStatusChanged(evt);
             }
         }
     }

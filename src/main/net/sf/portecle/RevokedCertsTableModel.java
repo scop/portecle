@@ -33,11 +33,11 @@ import javax.swing.table.AbstractTableModel;
  * The table model used to display an array of X.509 CRL entries
  * sorted by serial number.
  */
-class RevokedCertsTableModel extends AbstractTableModel
+class RevokedCertsTableModel
+    extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -52,8 +52,7 @@ class RevokedCertsTableModel extends AbstractTableModel
     {
         m_columnNames = new String[] {
             m_res.getString("RevokedCertsTableModel.SerialNumberColumn"),
-            m_res.getString("RevokedCertsTableModel.RevocationDateColumn"),
-        };
+            m_res.getString("RevokedCertsTableModel.RevocationDateColumn"), };
 
         m_data = new Object[0][0];
     }
@@ -68,10 +67,9 @@ class RevokedCertsTableModel extends AbstractTableModel
         // Place revoked certs in a tree map to sort them by serial number
         TreeMap sortedRevokedCerts = new TreeMap();
 
-        for (int iCnt=0; iCnt < revokedCerts.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < revokedCerts.length; iCnt++) {
             sortedRevokedCerts.put(revokedCerts[iCnt].getSerialNumber(),
-                                   revokedCerts[iCnt]);
+                revokedCerts[iCnt]);
         }
 
         // Create one table row for each revoked certificate
@@ -79,12 +77,10 @@ class RevokedCertsTableModel extends AbstractTableModel
 
         // Iterate through the sorted revoked certificates populating
         // the table model
-        int iCnt=0;
-        for (Iterator itr = sortedRevokedCerts.entrySet().iterator();
-             itr.hasNext(); iCnt++)
+        int iCnt = 0;
+        for (Iterator itr = sortedRevokedCerts.entrySet().iterator(); itr.hasNext(); iCnt++)
         {
-            X509CRLEntry x509CrlEntry =
-                (X509CRLEntry) ((Map.Entry) itr.next()).getValue();
+            X509CRLEntry x509CrlEntry = (X509CRLEntry) ((Map.Entry) itr.next()).getValue();
 
             // Populate the serial number column
             m_data[iCnt][0] = x509CrlEntry.getSerialNumber();

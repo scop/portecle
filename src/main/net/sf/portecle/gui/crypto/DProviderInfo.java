@@ -54,11 +54,11 @@ import javax.swing.tree.TreeSelectionModel;
 /**
  * Displays information on the currently loaded security providers.
  */
-public class DProviderInfo extends JDialog
+public class DProviderInfo
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
     /** Panel to hold buttons */
     private JPanel m_jpButtons;
@@ -111,8 +111,10 @@ public class DProviderInfo extends JDialog
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         m_jbOK = new JButton(m_res.getString("DProviderInfo.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
@@ -120,12 +122,13 @@ public class DProviderInfo extends JDialog
         m_jpButtons.add(m_jbOK);
 
         m_jbCopy = new JButton(m_res.getString("DProviderInfo.m_jbCopy.text"));
-        m_jbCopy.setMnemonic(
-            m_res.getString("DProviderInfo.m_jbCopy.mnemonic").charAt(0));
-        m_jbCopy.setToolTipText(
-            m_res.getString("DProviderInfo.m_jbCopy.tooltip"));
-        m_jbCopy.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCopy.setMnemonic(m_res.getString("DProviderInfo.m_jbCopy.mnemonic").charAt(
+            0));
+        m_jbCopy.setToolTipText(m_res.getString("DProviderInfo.m_jbCopy.tooltip"));
+        m_jbCopy.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 copyPressed();
             }
         });
@@ -146,8 +149,7 @@ public class DProviderInfo extends JDialog
         // Custom tree node renderer
         m_jtrProviders.setCellRenderer(new ProviderTreeCellRend());
 
-        m_jspProviders = new JScrollPane(
-            m_jtrProviders,
+        m_jspProviders = new JScrollPane(m_jtrProviders,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         m_jspProviders.setPreferredSize(new Dimension(350, 200));
@@ -159,8 +161,10 @@ public class DProviderInfo extends JDialog
         setTitle(m_res.getString("DProviderInfo.Title"));
         setResizable(true);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -169,8 +173,10 @@ public class DProviderInfo extends JDialog
 
         pack();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 m_jbOK.requestFocus();
             }
         });
@@ -191,40 +197,36 @@ public class DProviderInfo extends JDialog
         Provider[] providers = Security.getProviders();
 
         // For each provider...
-        for (int iCnt=0; iCnt < providers.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < providers.length; iCnt++) {
             Provider provider = providers[iCnt];
 
             // Create a node with the provider name and add it as a
             // child of the top node
-            DefaultMutableTreeNode providerNode =
-                new DefaultMutableTreeNode(provider.getName());
+            DefaultMutableTreeNode providerNode = new DefaultMutableTreeNode(
+                provider.getName());
             topNode.add(providerNode);
 
             // Add child nodes to the provider node for provider
             // decription and version
             providerNode.add(new DefaultMutableTreeNode(provider.getInfo()));
-            providerNode.add(
-                new DefaultMutableTreeNode(""+provider.getVersion()));
+            providerNode.add(new DefaultMutableTreeNode(""
+                + provider.getVersion()));
 
             // Create another child node called properties and...
-            DefaultMutableTreeNode providerPropertiesNode =
-                new DefaultMutableTreeNode(
-                    m_res.getString("DProviderInfo.ProviderProperties"));
+            DefaultMutableTreeNode providerPropertiesNode = new DefaultMutableTreeNode(
+                m_res.getString("DProviderInfo.ProviderProperties"));
             providerNode.add(providerPropertiesNode);
 
             // ...add property child nodes to it.
             // Use a TreeSet for sorting the properties.
             TreeSet ts = new TreeSet(provider.keySet());
-            for (Iterator i = ts.iterator(); i.hasNext();)
-            {
+            for (Iterator i = ts.iterator(); i.hasNext();) {
                 String sKey = (String) i.next();
                 String sValue = provider.getProperty(sKey);
-                providerPropertiesNode.add(
-                    new DefaultMutableTreeNode(
-                        MessageFormat.format(
-                            m_res.getString("DProviderInfo.ProviderProperty"),
-                            new String[]{sKey, sValue})));
+                providerPropertiesNode.add(new DefaultMutableTreeNode(
+                    MessageFormat.format(
+                        m_res.getString("DProviderInfo.ProviderProperty"),
+                        new String[] { sKey, sValue })));
             }
         }
 
@@ -243,35 +245,29 @@ public class DProviderInfo extends JDialog
         Provider[] providers = Security.getProviders();
 
         // For each provider...
-        for (int iCnt=0; iCnt < providers.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < providers.length; iCnt++) {
             Provider provider = providers[iCnt];
 
             // ...write out the provider name, description and version...
-            strBuff.append(
-                MessageFormat.format(
-                    m_res.getString("DProviderInfo.Copy.ProviderName"),
-                    new Object[]{provider.getName()}));
+            strBuff.append(MessageFormat.format(
+                m_res.getString("DProviderInfo.Copy.ProviderName"),
+                new Object[] { provider.getName() }));
             strBuff.append('\n');
-            strBuff.append(
-                MessageFormat.format(
-                    m_res.getString("DProviderInfo.Copy.ProviderVersion"),
-                    new Object[]{""+provider.getVersion()}));
+            strBuff.append(MessageFormat.format(
+                m_res.getString("DProviderInfo.Copy.ProviderVersion"),
+                new Object[] { "" + provider.getVersion() }));
             strBuff.append('\n');
-            strBuff.append(
-                MessageFormat.format(
-                    m_res.getString("DProviderInfo.Copy.ProviderDescription"),
-                    new Object[]{provider.getInfo()}));
+            strBuff.append(MessageFormat.format(
+                m_res.getString("DProviderInfo.Copy.ProviderDescription"),
+                new Object[] { provider.getInfo() }));
             strBuff.append('\n');
-            strBuff.append(
-                m_res.getString("DProviderInfo.Copy.ProviderProperties"));
+            strBuff.append(m_res.getString("DProviderInfo.Copy.ProviderProperties"));
             strBuff.append('\n');
 
             // ...and it's properties
             // Use a TreeSet for sorting the properties.
             TreeSet ts = new TreeSet(provider.keySet());
-            for (Iterator i = ts.iterator(); i.hasNext();)
-            {
+            for (Iterator i = ts.iterator(); i.hasNext();) {
                 String sKey = (String) i.next();
                 String sValue = provider.getProperty(sKey);
                 strBuff.append('\t');
@@ -281,8 +277,7 @@ public class DProviderInfo extends JDialog
                 strBuff.append('\n');
             }
 
-            if (iCnt+1 < providers.length)
-            {
+            if (iCnt + 1 < providers.length) {
                 strBuff.append('\n');
             }
         }

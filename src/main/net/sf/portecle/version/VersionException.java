@@ -24,7 +24,8 @@ package net.sf.portecle.version;
 /**
  * Represents a version exception.
  */
-public class VersionException extends Exception
+public class VersionException
+    extends Exception
 {
     /**
      * Creates a new VersionException.

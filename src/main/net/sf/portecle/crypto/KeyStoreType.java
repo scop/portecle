@@ -35,43 +35,40 @@ import java.util.ResourceBundle;
 public class KeyStoreType
 {
     /** JCEKS keystore Type */
-    public static final KeyStoreType JCEKS =
-        new KeyStoreType("JCEKS", true, false);
+    public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true,
+        false);
 
     /** JKS keystore Type */
-    public static final KeyStoreType JKS =
-        new KeyStoreType("JKS", true, false);
+    public static final KeyStoreType JKS = new KeyStoreType("JKS", true, false);
 
     /** PKCS #11 keystore Type */
-    public static final KeyStoreType PKCS11 =
-        new KeyStoreType("PKCS11", false, /* TODO: verify */ false);
+    public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",
+        false, /* TODO: verify */false);
 
     /** PKCS #12 keystore Type */
-    public static final KeyStoreType PKCS12 =
-        new KeyStoreType("PKCS12", false, true);
+    public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",
+        false, true);
 
     /** BKS keystore Type */
-    public static final KeyStoreType BKS =
-        new KeyStoreType("BKS", true, true);
+    public static final KeyStoreType BKS = new KeyStoreType("BKS", true, true);
 
     /** UBER keystore Type */
-    public static final KeyStoreType UBER =
-        new KeyStoreType("UBER", true, true);
+    public static final KeyStoreType UBER = new KeyStoreType("UBER", true,
+        true);
 
     /** String-to-type map */
     private static final HashMap TYPE_MAP = new HashMap();
     static {
-        TYPE_MAP.put(JKS.toString(),    JKS);
-        TYPE_MAP.put(JCEKS.toString(),  JCEKS);
+        TYPE_MAP.put(JKS.toString(), JKS);
+        TYPE_MAP.put(JCEKS.toString(), JCEKS);
         TYPE_MAP.put(PKCS11.toString(), PKCS11);
         TYPE_MAP.put(PKCS12.toString(), PKCS12);
-        TYPE_MAP.put(BKS.toString(),    BKS);
-        TYPE_MAP.put(UBER.toString(),   UBER);
+        TYPE_MAP.put(BKS.toString(), BKS);
+        TYPE_MAP.put(UBER.toString(), UBER);
     }
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores keystore type name */
     private final String m_sType;
@@ -81,7 +78,7 @@ public class KeyStoreType
 
     /** Whether aliases in the keystore type are case sensitive */
     private final boolean m_bCaseSensitive;
-    
+
     /**
      * Construct a KeyStoreType.
      * Private to prevent construction from outside this class.
@@ -110,10 +107,9 @@ public class KeyStoreType
     {
         KeyStoreType kst = (KeyStoreType) TYPE_MAP.get(sType);
         if (kst == null) {
-            throw new CryptoException(
-                MessageFormat.format(
-                    m_res.getString("NoResolveKeystoretype.exception.message"),
-                    new String[]{sType}));
+            throw new CryptoException(MessageFormat.format(
+                m_res.getString("NoResolveKeystoretype.exception.message"),
+                new String[] { sType }));
         }
         return kst;
     }
@@ -137,14 +133,15 @@ public class KeyStoreType
     {
         return m_bCaseSensitive;
     }
-    
+
     /**
      * Resolve the KeyStoreType Object.
      *
      * @return The resolved KeyStoreType object
      * @throws ObjectStreamException if the KeyStoreType could not be resolved
      */
-    private Object readResolve() throws ObjectStreamException
+    private Object readResolve()
+        throws ObjectStreamException
     {
         try {
             return getInstance(m_sType);

@@ -34,11 +34,11 @@ import javax.swing.tree.TreeNode;
 /**
  * Custom cell renderer for the cells of the DKeyStoreReport tree.
  */
-class ReportTreeCellRend extends DefaultTreeCellRenderer
+class ReportTreeCellRend
+    extends DefaultTreeCellRenderer
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /**
      * Returns the rendered cell for the supplied value.
@@ -52,19 +52,17 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTreeCellRendererComponent(
-        JTree jtrReport, Object value, boolean bIsSelected,
-        boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
+    public Component getTreeCellRendererComponent(JTree jtrReport,
+        Object value, boolean bIsSelected, boolean bIsExpanded, boolean bLeaf,
+        int iRow, boolean bHasFocus)
     {
-        JLabel cell = (JLabel) super.getTreeCellRendererComponent(
-            jtrReport, value, bIsSelected, bIsExpanded, bLeaf, iRow, bHasFocus
-            );
+        JLabel cell = (JLabel) super.getTreeCellRendererComponent(jtrReport,
+            value, bIsSelected, bIsExpanded, bLeaf, iRow, bHasFocus);
         cell.setText(value.toString());
         ImageIcon icon = null;
 
         // Sanity check of value
-        if (value instanceof DefaultMutableTreeNode)
-        {
+        if (value instanceof DefaultMutableTreeNode) {
             // Set the cell's icon and tool tip text - depends on
             // nodes depth and index
 
@@ -74,190 +72,114 @@ class ReportTreeCellRend extends DefaultTreeCellRenderer
 
             TreeNode parent = node.getParent();
             int iIndex = 0;
-            if (parent != null)
-            {
+            if (parent != null) {
                 iIndex = parent.getIndex(node);
             }
 
-            if (iLevel == 0)
-            {
-                icon = new ImageIcon(
-                    getClass().getResource(
-                        m_res.getString("ReportTreeCellRend.Root.image")));
-                cell.setToolTipText(
-                    m_res.getString("ReportTreeCellRend.Root.tooltip"));
+            if (iLevel == 0) {
+                icon = new ImageIcon(getClass().getResource(
+                    m_res.getString("ReportTreeCellRend.Root.image")));
+                cell.setToolTipText(m_res.getString("ReportTreeCellRend.Root.tooltip"));
             }
-            else if (iLevel == 1)
-            {
+            else if (iLevel == 1) {
                 Object obj = node.getUserObject();
 
-                if (obj instanceof Entry)
-                {
+                if (obj instanceof Entry) {
                     Entry entry = (Entry) obj;
 
-                    if (entry.isKey())
-                    {
+                    if (entry.isKey()) {
                         icon = new ImageIcon(
                             getClass().getResource(
-                                m_res.getString(
-                                    "ReportTreeCellRend.KeyEntry.image")));
-                        cell.setToolTipText(
-                            m_res.getString(
-                                "ReportTreeCellRend.KeyEntry.tooltip"));
+                                m_res.getString("ReportTreeCellRend.KeyEntry.image")));
+                        cell.setToolTipText(m_res.getString("ReportTreeCellRend.KeyEntry.tooltip"));
                     }
-                    else if (entry.isKeyPair())
-                    {
+                    else if (entry.isKeyPair()) {
                         icon = new ImageIcon(
                             getClass().getResource(
-                                m_res.getString(
-                                    "ReportTreeCellRend.KeyPairEntry.image")));
-                        cell.setToolTipText(
-                            m_res.getString(
-                                "ReportTreeCellRend.KeyPairEntry.tooltip"));
+                                m_res.getString("ReportTreeCellRend.KeyPairEntry.image")));
+                        cell.setToolTipText(m_res.getString("ReportTreeCellRend.KeyPairEntry.tooltip"));
                     }
-                    else
-                    {
+                    else {
                         icon = new ImageIcon(
                             getClass().getResource(
-                                m_res.getString(
-                                    "ReportTreeCellRend.TrustCertEntry.image")
-                                ));
-                        cell.setToolTipText(
-                            m_res.getString(
-                                "ReportTreeCellRend.TrustCertEntry.tooltip"));
+                                m_res.getString("ReportTreeCellRend.TrustCertEntry.image")));
+                        cell.setToolTipText(m_res.getString("ReportTreeCellRend.TrustCertEntry.tooltip"));
                     }
                 }
             }
-            else if (iLevel == 2)
-            {
+            else if (iLevel == 2) {
                 // PKCS #12 keystores will not have a created node
-                if (iIndex == 0 && node.getChildCount() == 0)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Created.image")));
-                    cell.setToolTipText(
-                        m_res.getString("ReportTreeCellRend.Created.tooltip"));
+                if (iIndex == 0 && node.getChildCount() == 0) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.Created.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Created.tooltip"));
                 }
-                else
-                {
+                else {
                     icon = new ImageIcon(
                         getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Certificates.image")));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.Certificates.tooltip"));
+                            m_res.getString("ReportTreeCellRend.Certificates.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Certificates.tooltip"));
                 }
             }
-            else if (iLevel == 3)
-            {
-                icon = new ImageIcon(
-                    getClass().getResource(
-                        m_res.getString(
-                            "ReportTreeCellRend.Certificate.image")));
-                cell.setToolTipText(
-                    m_res.getString("ReportTreeCellRend.Certificate.tooltip"));
+            else if (iLevel == 3) {
+                icon = new ImageIcon(getClass().getResource(
+                    m_res.getString("ReportTreeCellRend.Certificate.image")));
+                cell.setToolTipText(m_res.getString("ReportTreeCellRend.Certificate.tooltip"));
             }
-            else
-            {
-                if (iIndex == 0)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Version.image")));
-                    cell.setToolTipText(
-                        m_res.getString("ReportTreeCellRend.Version.tooltip"));
+            else {
+                if (iIndex == 0) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.Version.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Version.tooltip"));
                 }
-                else if (iIndex == 1)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Subject.image")));
-                    cell.setToolTipText(
-                        m_res.getString("ReportTreeCellRend.Subject.tooltip"));
+                else if (iIndex == 1) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.Subject.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Subject.tooltip"));
                 }
-                else if (iIndex == 2)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Issuer.image")));
-                    cell.setToolTipText(
-                        m_res.getString("ReportTreeCellRend.Issuer.tooltip"));
+                else if (iIndex == 2) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.Issuer.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Issuer.tooltip"));
                 }
-                else if (iIndex == 3)
-                {
+                else if (iIndex == 3) {
                     icon = new ImageIcon(
                         getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.SerialNumber.image")));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.SerialNumber.tooltip"));
+                            m_res.getString("ReportTreeCellRend.SerialNumber.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.SerialNumber.tooltip"));
                 }
-                else if (iIndex == 4)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.ValidFrom.image")));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.ValidFrom.tooltip"));
+                else if (iIndex == 4) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.ValidFrom.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.ValidFrom.tooltip"));
                 }
-                else if (iIndex == 5)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.ValidTo.image")));
-                    cell.setToolTipText(
-                        m_res.getString("ReportTreeCellRend.ValidTo.tooltip"));
+                else if (iIndex == 5) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.ValidTo.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.ValidTo.tooltip"));
                 }
-                else if (iIndex == 6)
-                {
-                    icon = new ImageIcon(
-                        getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.PublicKey.image")));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.PublicKey.tooltip"));
+                else if (iIndex == 6) {
+                    icon = new ImageIcon(getClass().getResource(
+                        m_res.getString("ReportTreeCellRend.PublicKey.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.PublicKey.tooltip"));
                 }
-                else if (iIndex == 7)
-                {
+                else if (iIndex == 7) {
                     icon = new ImageIcon(
                         getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.SignatureAlgorithm.image")
-                            ));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.SignatureAlgorithm.tooltip"));
+                            m_res.getString("ReportTreeCellRend.SignatureAlgorithm.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.SignatureAlgorithm.tooltip"));
                 }
-                else if (iIndex == 8)
-                {
+                else if (iIndex == 8) {
                     icon = new ImageIcon(
                         getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Md5Fingerprint.image")));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.Md5Fingerprint.tooltip"));
+                            m_res.getString("ReportTreeCellRend.Md5Fingerprint.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Md5Fingerprint.tooltip"));
                 }
-                else
-                {
+                else {
                     icon = new ImageIcon(
                         getClass().getResource(
-                            m_res.getString(
-                                "ReportTreeCellRend.Sha1Fingerprint.image")));
-                    cell.setToolTipText(
-                        m_res.getString(
-                            "ReportTreeCellRend.Sha1Fingerprint.tooltip"));
+                            m_res.getString("ReportTreeCellRend.Sha1Fingerprint.image")));
+                    cell.setToolTipText(m_res.getString("ReportTreeCellRend.Sha1Fingerprint.tooltip"));
                 }
             }
 

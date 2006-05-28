@@ -34,7 +34,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  * Custom cell renderer for the headers of the System Properties table
  * of DSystemProperties.
  */
-class SystemPropertiesTableHeadRend extends DefaultTableCellRenderer
+class SystemPropertiesTableHeadRend
+    extends DefaultTableCellRenderer
 {
     /**
      * Returns the rendered header cell for the supplied value and column.
@@ -47,9 +48,9 @@ class SystemPropertiesTableHeadRend extends DefaultTableCellRenderer
      * @param bHasFocus If true, render cell appropriately
      * @return The renderered cell
      */
-    public Component getTableCellRendererComponent(
-        JTable jtSystemProperties, Object value, boolean bIsSelected,
-        boolean bHasFocus, int iRow, int iCol)
+    public Component getTableCellRendererComponent(JTable jtSystemProperties,
+        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
+        int iCol)
     {
         // Get header renderer
         JLabel header = (JLabel) jtSystemProperties.getColumnModel().getColumn(
@@ -59,9 +60,8 @@ class SystemPropertiesTableHeadRend extends DefaultTableCellRenderer
         header.setText(value.toString());
         header.setHorizontalAlignment(LEFT);
 
-        header.setBorder(
-            new CompoundBorder(new BevelBorder(BevelBorder.RAISED),
-                               new EmptyBorder(0, 5, 0, 5)));
+        header.setBorder(new CompoundBorder(
+            new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
 
         return header;
     }

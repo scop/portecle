@@ -34,7 +34,8 @@ import javax.swing.JMenuItem;
  * open the file.  Other listeners can be added as required to respond to
  * other types of event.
  */
-public class JMenuItemRecentFile extends JMenuItem
+public class JMenuItemRecentFile
+    extends JMenuItem
 {
     /** Recent file */
     private File m_fRecentFile;
@@ -88,17 +89,34 @@ public class JMenuItemRecentFile extends JMenuItem
         m_iPosition = iPosition;
         setText(m_iPosition + " " + m_fRecentFile.getName());
 
-        switch (m_iPosition)
-        {
-            case 1: super.setMnemonic(KeyEvent.VK_1); break;
-            case 2: super.setMnemonic(KeyEvent.VK_2); break;
-            case 3: super.setMnemonic(KeyEvent.VK_3); break;
-            case 4: super.setMnemonic(KeyEvent.VK_4); break;
-            case 5: super.setMnemonic(KeyEvent.VK_5); break;
-            case 6: super.setMnemonic(KeyEvent.VK_6); break;
-            case 7: super.setMnemonic(KeyEvent.VK_7); break;
-            case 8: super.setMnemonic(KeyEvent.VK_8); break;
-            case 9: super.setMnemonic(KeyEvent.VK_9); break;
+        switch (m_iPosition) {
+        case 1:
+            super.setMnemonic(KeyEvent.VK_1);
+            break;
+        case 2:
+            super.setMnemonic(KeyEvent.VK_2);
+            break;
+        case 3:
+            super.setMnemonic(KeyEvent.VK_3);
+            break;
+        case 4:
+            super.setMnemonic(KeyEvent.VK_4);
+            break;
+        case 5:
+            super.setMnemonic(KeyEvent.VK_5);
+            break;
+        case 6:
+            super.setMnemonic(KeyEvent.VK_6);
+            break;
+        case 7:
+            super.setMnemonic(KeyEvent.VK_7);
+            break;
+        case 8:
+            super.setMnemonic(KeyEvent.VK_8);
+            break;
+        case 9:
+            super.setMnemonic(KeyEvent.VK_9);
+            break;
         }
     }
 }

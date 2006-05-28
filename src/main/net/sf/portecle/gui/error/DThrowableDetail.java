@@ -31,7 +31,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-//import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -44,19 +43,17 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
-//import javax.swing.tree.TreeNode;
-//import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
  * Displays a throwable's stack trace.  Cause throwable's stack trace will be
  * show recursively also.
  */
-public class DThrowableDetail extends JDialog
+public class DThrowableDetail
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
     /** Panel to hold buttons */
     private JPanel m_jpButtons;
@@ -100,8 +97,7 @@ public class DThrowableDetail extends JDialog
      * @param bModal Is dialog modal?
      * @param throwable Throwable to display
      */
-    public DThrowableDetail(JDialog parent, boolean bModal,
-                            Throwable throwable)
+    public DThrowableDetail(JDialog parent, boolean bModal, Throwable throwable)
     {
         super(parent, bModal);
         m_throwable = throwable;
@@ -117,8 +113,10 @@ public class DThrowableDetail extends JDialog
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         m_jbOK = new JButton(m_res.getString("DThrowableDetail.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
@@ -126,12 +124,13 @@ public class DThrowableDetail extends JDialog
 
         m_jbCopy = new JButton(
             m_res.getString("DThrowableDetail.m_jbCopy.text"));
-        m_jbCopy.setMnemonic(
-            m_res.getString("DThrowableDetail.m_jbCopy.mnemonic").charAt(0));
-        m_jbCopy.setToolTipText(
-            m_res.getString("DThrowableDetail.m_jbCopy.tooltip"));
-        m_jbCopy.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCopy.setMnemonic(m_res.getString(
+            "DThrowableDetail.m_jbCopy.mnemonic").charAt(0));
+        m_jbCopy.setToolTipText(m_res.getString("DThrowableDetail.m_jbCopy.tooltip"));
+        m_jbCopy.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 copyPressed();
             }
         });
@@ -153,12 +152,11 @@ public class DThrowableDetail extends JDialog
 
         // Expand all nodes in tree
         /* ...then again, not.  Too much scary detail.
-        TreeNode topNode = (TreeNode)m_jtrThrowable.getModel().getRoot();
-        expandTree(m_jtrThrowable, new TreePath(topNode));
-        */
+         TreeNode topNode = (TreeNode)m_jtrThrowable.getModel().getRoot();
+         expandTree(m_jtrThrowable, new TreePath(topNode));
+         */
 
-        m_jspThrowable = new JScrollPane(
-            m_jtrThrowable,
+        m_jspThrowable = new JScrollPane(m_jtrThrowable,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         m_jspThrowable.setPreferredSize(new Dimension(500, 250));
@@ -170,8 +168,10 @@ public class DThrowableDetail extends JDialog
         setTitle(m_res.getString("DThrowableDetail.Title"));
         setResizable(true);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -180,8 +180,10 @@ public class DThrowableDetail extends JDialog
 
         pack();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 m_jbOK.requestFocus();
             }
         });
@@ -201,22 +203,19 @@ public class DThrowableDetail extends JDialog
 
         Throwable throwable = m_throwable;
 
-        while (throwable != null)
-        {
+        while (throwable != null) {
             // Create a node for each throwable in cause chain and add
             // as a child to the top node
-            DefaultMutableTreeNode throwableNode =
-                new DefaultMutableTreeNode(throwable);
+            DefaultMutableTreeNode throwableNode = new DefaultMutableTreeNode(
+                throwable);
             topNode.add(throwableNode);
 
             StackTraceElement[] stackTrace = throwable.getStackTrace();
 
-            for (int iCnt=0; iCnt < stackTrace.length; iCnt++)
-            {
+            for (int iCnt = 0; iCnt < stackTrace.length; iCnt++) {
                 // Create a node for each stack trace entry and add it
                 // to the throwable node
-                throwableNode.add(
-                    new DefaultMutableTreeNode(stackTrace[iCnt]));
+                throwableNode.add(new DefaultMutableTreeNode(stackTrace[iCnt]));
             }
 
             throwable = throwable.getCause();
@@ -232,23 +231,23 @@ public class DThrowableDetail extends JDialog
      * @param parent Path to node to expand
      */
     /*
-    private void expandTree(JTree tree, TreePath parent)
-    {
-        // Traverse children expending nodes
-        TreeNode node = (TreeNode) parent.getLastPathComponent();
-        if (node.getChildCount() >= 0)
-        {
-            for (Enumeration en = node.children(); en.hasMoreElements();)
-            {
-                TreeNode subNode = (TreeNode) en.nextElement();
-                TreePath path = parent.pathByAddingChild(subNode);
-                expandTree(tree, path);
-            }
-        }
+     private void expandTree(JTree tree, TreePath parent)
+     {
+     // Traverse children expending nodes
+     TreeNode node = (TreeNode) parent.getLastPathComponent();
+     if (node.getChildCount() >= 0)
+     {
+     for (Enumeration en = node.children(); en.hasMoreElements();)
+     {
+     TreeNode subNode = (TreeNode) en.nextElement();
+     TreePath path = parent.pathByAddingChild(subNode);
+     expandTree(tree, path);
+     }
+     }
 
-        tree.expandPath(parent);
-    }
-    */
+     tree.expandPath(parent);
+     }
+     */
 
     /**
      * Copy button pressed - copy throwable stack traces to clipboard.
@@ -260,15 +259,13 @@ public class DThrowableDetail extends JDialog
 
         Throwable throwable = m_throwable;
 
-        while (throwable != null)
-        {
+        while (throwable != null) {
             strBuff.append(throwable);
             strBuff.append('\n');
 
             StackTraceElement[] stackTrace = throwable.getStackTrace();
 
-            for (int iCnt=0; iCnt < stackTrace.length; iCnt++)
-            {
+            for (int iCnt = 0; iCnt < stackTrace.length; iCnt++) {
                 strBuff.append('\t');
                 strBuff.append(stackTrace[iCnt]);
                 strBuff.append('\n');
@@ -276,12 +273,10 @@ public class DThrowableDetail extends JDialog
 
             throwable = throwable.getCause();
 
-            if (throwable != null)
-            {
+            if (throwable != null) {
                 strBuff.append('\n');
             }
         }
-
 
         // Copy to clipboard
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();

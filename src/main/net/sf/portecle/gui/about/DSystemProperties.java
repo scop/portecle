@@ -42,11 +42,11 @@ import javax.swing.table.TableColumn;
 /**
  * A dialog that displays the Java System Properties.
  */
-public class DSystemProperties extends JDialog
+public class DSystemProperties
+    extends JDialog
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
     /** OK button used to dismiss dialog */
     private JButton m_jbOK;
@@ -91,7 +91,7 @@ public class DSystemProperties extends JDialog
      * Initialise the dialog's GUI components.     
      */
     private void initComponents()
-    {       
+    {
         // System Properties table
 
         // Create the table using the appropriate table model
@@ -107,19 +107,17 @@ public class DSystemProperties extends JDialog
 
         // Add custom renderers for the table cells and headers
         int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
-        for (int iCnt=0; iCnt < m_jtSystemProperties.getColumnCount(); iCnt++)
+        for (int iCnt = 0; iCnt < m_jtSystemProperties.getColumnCount(); iCnt++)
         {
-            TableColumn column =
-                m_jtSystemProperties.getColumnModel().getColumn(iCnt);
+            TableColumn column = m_jtSystemProperties.getColumnModel().getColumn(
+                iCnt);
 
-            if (iCnt == 0)
-            {
+            if (iCnt == 0) {
                 int w = 210;
                 column.setPreferredWidth(w); // Property Name
                 tWidth += w;
             }
-            else
-            {
+            else {
                 int w = 320;
                 column.setPreferredWidth(w); // Property Value
                 tWidth += w;
@@ -130,8 +128,7 @@ public class DSystemProperties extends JDialog
         }
 
         // Put the table into a scroll panew
-        m_jspSystemPropertiesTable = new JScrollPane(
-            m_jtSystemProperties,
+        m_jspSystemPropertiesTable = new JScrollPane(m_jtSystemProperties,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         m_jspSystemPropertiesTable.getViewport().setBackground(
@@ -140,25 +137,29 @@ public class DSystemProperties extends JDialog
         // Put the scroll pane into a panel
         m_jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
         m_jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
-        m_jpSystemPropertiesTable.add(
-            m_jspSystemPropertiesTable, BorderLayout.CENTER);
+        m_jpSystemPropertiesTable.add(m_jspSystemPropertiesTable,
+            BorderLayout.CENTER);
         m_jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         m_jbOK = new JButton(m_res.getString("DSystemProperties.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));        
+        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
         m_jpOK.add(m_jbOK);
 
         getContentPane().add(m_jpSystemPropertiesTable, BorderLayout.CENTER);
         getContentPane().add(m_jpOK, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -167,12 +168,14 @@ public class DSystemProperties extends JDialog
 
         pack();
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 m_jbOK.requestFocus();
             }
         });
-    }      
+    }
 
     /**
      * OK button pressed or otherwise activated.

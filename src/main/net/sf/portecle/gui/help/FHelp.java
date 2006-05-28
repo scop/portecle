@@ -53,11 +53,12 @@ import javax.swing.event.HyperlinkListener;
  * and the current help topic.  Ruidimentary naigation is provided
  * using the home, forward and back buttons of the tool bar.
  */
-public class FHelp extends JFrame implements HistoryEventListener
+public class FHelp
+    extends JFrame
+    implements HistoryEventListener
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/help/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/help/resources");
 
     /** Help frame's title */
     private String m_sTitle;
@@ -112,29 +113,24 @@ public class FHelp extends JFrame implements HistoryEventListener
         // Home button
         m_jbHome = new JButton();
         m_jbHome.setFocusable(false);
-        m_jbHome.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FHelp.m_jbHome.image")))));
+        m_jbHome.setIcon(new ImageIcon(
+            Toolkit.getDefaultToolkit().createImage(
+                getClass().getResource(m_res.getString("FHelp.m_jbHome.image")))));
         m_jbHome.setToolTipText(m_res.getString("FHelp.m_jbHome.tooltip"));
         m_jbHome.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
-                try
-                {
+                try {
                     m_jepTopic.setPage(m_home);
                     m_history.visit(m_home);
                 }
-                catch (IOException ex)
-                {
-                    JOptionPane.showMessageDialog(
-                        FHelp.this,
+                catch (IOException ex) {
+                    JOptionPane.showMessageDialog(FHelp.this,
                         MessageFormat.format(
                             m_res.getString("FHelp.NoLocateUrl.message"),
-                            new Object[]{m_home}),
-                        m_sTitle, JOptionPane.ERROR_MESSAGE);
+                            new Object[] { m_home }), m_sTitle,
+                        JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -143,11 +139,9 @@ public class FHelp extends JFrame implements HistoryEventListener
         m_jbBack = new JButton();
         m_jbBack.setFocusable(false);
         m_jbBack.setEnabled(false);
-        m_jbBack.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FHelp.m_jbBack.image")))));
+        m_jbBack.setIcon(new ImageIcon(
+            Toolkit.getDefaultToolkit().createImage(
+                getClass().getResource(m_res.getString("FHelp.m_jbBack.image")))));
         m_jbBack.setToolTipText(m_res.getString("FHelp.m_jbBack.tooltip"));
         m_jbBack.addActionListener(new ActionListener()
         {
@@ -155,20 +149,16 @@ public class FHelp extends JFrame implements HistoryEventListener
             {
                 URL temp = m_history.goBack();
 
-                if (temp != null)
-                {
-                    try
-                    {
+                if (temp != null) {
+                    try {
                         m_jepTopic.setPage(temp);
                     }
-                    catch (IOException ex)
-                    {
-                        JOptionPane.showMessageDialog(
-                            FHelp.this,
+                    catch (IOException ex) {
+                        JOptionPane.showMessageDialog(FHelp.this,
                             MessageFormat.format(
                                 m_res.getString("FHelp.NoLocateUrl.message"),
-                                new Object[]{temp}),
-                            m_sTitle, JOptionPane.ERROR_MESSAGE);
+                                new Object[] { temp }), m_sTitle,
+                            JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -178,32 +168,26 @@ public class FHelp extends JFrame implements HistoryEventListener
         m_jbForward = new JButton();
         m_jbForward.setFocusable(false);
         m_jbForward.setEnabled(false);
-        m_jbForward.setIcon(
-            new ImageIcon(
-                Toolkit.getDefaultToolkit().createImage(
-                    getClass().getResource(
-                        m_res.getString("FHelp.m_jbForward.image")))));
-        m_jbForward.setToolTipText(
-            m_res.getString("FHelp.m_jbForward.tooltip"));
+        m_jbForward.setIcon(new ImageIcon(
+            Toolkit.getDefaultToolkit().createImage(
+                getClass().getResource(
+                    m_res.getString("FHelp.m_jbForward.image")))));
+        m_jbForward.setToolTipText(m_res.getString("FHelp.m_jbForward.tooltip"));
         m_jbForward.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 URL temp = m_history.goForward();
-                if (temp != null)
-                {
-                    try
-                    {
+                if (temp != null) {
+                    try {
                         m_jepTopic.setPage(temp);
                     }
-                    catch (IOException ex)
-                    {
-                        JOptionPane.showMessageDialog(
-                            FHelp.this,
+                    catch (IOException ex) {
+                        JOptionPane.showMessageDialog(FHelp.this,
                             MessageFormat.format(
                                 m_res.getString("FHelp.NoLocateUrl.message"),
-                                new Object[]{temp}),
-                            m_sTitle, JOptionPane.ERROR_MESSAGE);
+                                new Object[] { temp }), m_sTitle,
+                            JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -222,42 +206,34 @@ public class FHelp extends JFrame implements HistoryEventListener
         m_jepContents.setEditable(false);
         m_jepContents.setPreferredSize(new Dimension(300, 400));
 
-        m_jepContents.addHyperlinkListener(new HyperlinkListener() {
+        m_jepContents.addHyperlinkListener(new HyperlinkListener()
+        {
             public void hyperlinkUpdate(HyperlinkEvent evt)
             {
-                try
-                {
-                    if (evt.getEventType() ==
-                        HyperlinkEvent.EventType.ACTIVATED)
+                try {
+                    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
                     {
                         m_jepTopic.setPage(evt.getURL());
                         m_history.visit(evt.getURL());
                     }
                 }
-                catch (IOException ex)
-                {
-                    JOptionPane.showMessageDialog(
-                        FHelp.this,
+                catch (IOException ex) {
+                    JOptionPane.showMessageDialog(FHelp.this,
                         MessageFormat.format(
                             m_res.getString("FHelp.NoLocateUrl.message"),
-                            new Object[]{evt.getURL()}),
-                        m_sTitle, JOptionPane.ERROR_MESSAGE);
+                            new Object[] { evt.getURL() }), m_sTitle,
+                        JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        try
-        {
+        try {
             m_jepContents.setPage(toc);
         }
-        catch (IOException ex)
-        {
-            JOptionPane.showMessageDialog(
-                FHelp.this,
-                MessageFormat.format(
-                    m_res.getString("FHelp.NoLocateUrl.message"),
-                    new Object[]{toc}),
-                m_sTitle, JOptionPane.ERROR_MESSAGE);
+        catch (IOException ex) {
+            JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
+                m_res.getString("FHelp.NoLocateUrl.message"),
+                new Object[] { toc }), m_sTitle, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -270,40 +246,31 @@ public class FHelp extends JFrame implements HistoryEventListener
         {
             public void hyperlinkUpdate(HyperlinkEvent evt)
             {
-                try
-                {
-                    if (evt.getEventType() ==
-                        HyperlinkEvent.EventType.ACTIVATED)
+                try {
+                    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
                     {
                         m_jepTopic.setPage(evt.getURL());
                         m_history.visit(evt.getURL());
                     }
                 }
-                catch (IOException ex)
-                {
-                    JOptionPane.showMessageDialog(
-                        FHelp.this,
+                catch (IOException ex) {
+                    JOptionPane.showMessageDialog(FHelp.this,
                         MessageFormat.format(
                             m_res.getString("FHelp.NoLocateUrl.message"),
-                            new Object[]{evt.getURL()}),
-                        m_sTitle, JOptionPane.ERROR_MESSAGE);
+                            new Object[] { evt.getURL() }), m_sTitle,
+                        JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        try
-        {
+        try {
             m_home = home;
             m_jepTopic.setPage(m_home);
         }
-        catch (IOException ex)
-        {
-            JOptionPane.showMessageDialog(
-                FHelp.this,
-                MessageFormat.format(
-                    m_res.getString("FHelp.NoLocateUrl.message"),
-                    new Object[]{m_home}),
-                m_sTitle, JOptionPane.ERROR_MESSAGE);
+        catch (IOException ex) {
+            JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
+                m_res.getString("FHelp.NoLocateUrl.message"),
+                new Object[] { m_home }), m_sTitle, JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -316,28 +283,28 @@ public class FHelp extends JFrame implements HistoryEventListener
         m_jspContents = new JScrollPane(m_jepContents);
 
         // Put panes into a horizontal split pane
-        m_jspHelp = new JSplitPane(
-            JSplitPane.HORIZONTAL_SPLIT, m_jspContents, m_jspTopic);
+        m_jspHelp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, m_jspContents,
+            m_jspTopic);
         m_jspHelp.setResizeWeight(0.0);
         m_jspHelp.resetToPreferredSizes();
         m_jspHelp.setBorder(new CompoundBorder(new EtchedBorder(),
-                            new EmptyBorder(3, 3, 3, 3)));
+            new EmptyBorder(3, 3, 3, 3)));
 
         // Put it all together
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(m_jtbTools, BorderLayout.NORTH);
         getContentPane().add(m_jspHelp, BorderLayout.CENTER);
 
-        addWindowListener(new WindowAdapter() {
+        addWindowListener(new WindowAdapter()
+        {
             public void windowClosing(WindowEvent evt)
             {
                 setVisible(false);
             }
         });
 
-        setIconImage(
-            Toolkit.getDefaultToolkit().createImage(
-                getClass().getResource(m_res.getString("FHelp.Icon.image"))));
+        setIconImage(Toolkit.getDefaultToolkit().createImage(
+            getClass().getResource(m_res.getString("FHelp.Icon.image"))));
 
         pack();
     }
@@ -349,8 +316,7 @@ public class FHelp extends JFrame implements HistoryEventListener
      */
     public void setVisible(boolean bShow)
     {
-        if (bShow)
-        {
+        if (bShow) {
             // If the frame was minimised during its last display it
             // won't be after this
             setState(Frame.NORMAL);

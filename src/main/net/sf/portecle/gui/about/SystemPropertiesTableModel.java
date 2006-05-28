@@ -33,11 +33,11 @@ import javax.swing.table.AbstractTableModel;
 /**
  * The table model used to System Properties.
  */
-class SystemPropertiesTableModel extends AbstractTableModel
+class SystemPropertiesTableModel
+    extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -52,8 +52,7 @@ class SystemPropertiesTableModel extends AbstractTableModel
     {
         m_columnNames = new String[] {
             m_res.getString("SystemPropertiesTableModel.NameColumn"),
-            m_res.getString("SystemPropertiesTableModel.ValueColumn"),
-        };
+            m_res.getString("SystemPropertiesTableModel.ValueColumn"), };
 
         m_data = new Object[0][0];
     }
@@ -62,34 +61,28 @@ class SystemPropertiesTableModel extends AbstractTableModel
      * Load the SystemPropertiesTableModel with System Properties.          
      */
     public void load()
-    {        
+    {
         // Get system properties
         Properties sysProps = System.getProperties();
         TreeMap sortedSysProps = new TreeMap();
-               
+
         // Place properties in a sorted map
-        for (Enumeration names = sysProps.propertyNames();
-             names.hasMoreElements();)
+        for (Enumeration names = sysProps.propertyNames(); names.hasMoreElements();)
         {
             String sName = (String) names.nextElement();
             String sValue = sysProps.getProperty(sName);
 
             // Convert line.separator property value to be printable
-            if (sName.equals("line.separator"))
-            {
+            if (sName.equals("line.separator")) {
                 StringBuffer sbValue = new StringBuffer();
-                for (int iCnt=0; iCnt < sValue.length(); iCnt++)
-                {
-                    if (sValue.charAt(iCnt) == '\r')
-                    {
+                for (int iCnt = 0; iCnt < sValue.length(); iCnt++) {
+                    if (sValue.charAt(iCnt) == '\r') {
                         sbValue.append("\\r");
                     }
-                    else if (sValue.charAt(iCnt) == '\n')
-                    {
+                    else if (sValue.charAt(iCnt) == '\n') {
                         sbValue.append("\\n");
                     }
-                    else
-                    {
+                    else {
                         sbValue.append(sValue);
                     }
                 }
@@ -98,24 +91,23 @@ class SystemPropertiesTableModel extends AbstractTableModel
 
             sortedSysProps.put(sName, sValue);
         }
-        
+
         // Create one table row per property
-        m_data = new Object[sortedSysProps.size()][2];        
-        
+        m_data = new Object[sortedSysProps.size()][2];
+
         // Load sorted properties into the table
         int iCnt = 0;
-        for (Iterator itrSorted = sortedSysProps.entrySet().iterator();
-             itrSorted.hasNext(); iCnt++)
-        {                        
+        for (Iterator itrSorted = sortedSysProps.entrySet().iterator(); itrSorted.hasNext(); iCnt++)
+        {
             Map.Entry property = (Map.Entry) itrSorted.next();
-            
+
             // Name column
             m_data[iCnt][0] = property.getKey();
-            
+
             // Value column
-            m_data[iCnt][1] = property.getValue();                         
+            m_data[iCnt][1] = property.getValue();
         }
-                              
+
         fireTableDataChanged();
     }
 

@@ -38,8 +38,7 @@ public class DigestType
     public static final DigestType SHA1 = new DigestType("SHA1");
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
     /** Stores Digest Type name */
     private final String m_sType;
@@ -61,22 +60,19 @@ public class DigestType
      * @return The resolved DigestType object
      * @throws ObjectStreamException if the DigestType could not be resolved
      */
-    private Object readResolve () throws ObjectStreamException
+    private Object readResolve()
+        throws ObjectStreamException
     {
-        if (m_sType.equals(MD5.toString()))
-        {
+        if (m_sType.equals(MD5.toString())) {
             return MD5;
         }
-        else if (m_sType.equals(SHA1.toString()))
-        {
+        else if (m_sType.equals(SHA1.toString())) {
             return SHA1;
         }
-        else
-        {
-            throw new InvalidObjectException(
-                MessageFormat.format(
-                    m_res.getString("NoResolveDigesttype.exception.message"),
-                    new Object[]{m_sType}));
+        else {
+            throw new InvalidObjectException(MessageFormat.format(
+                m_res.getString("NoResolveDigesttype.exception.message"),
+                new Object[] { m_sType }));
         }
     }
 

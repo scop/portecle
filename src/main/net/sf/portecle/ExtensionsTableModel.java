@@ -35,11 +35,11 @@ import net.sf.portecle.crypto.X509Ext;
 /**
  * The table model used to display X.509 extensions.
  */
-class ExtensionsTableModel extends AbstractTableModel
+class ExtensionsTableModel
+    extends AbstractTableModel
 {
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Holds the column names */
     private String[] m_columnNames;
@@ -53,8 +53,7 @@ class ExtensionsTableModel extends AbstractTableModel
     public ExtensionsTableModel()
     {
         m_columnNames = new String[3];
-        m_columnNames[0] =
-            m_res.getString("ExtensionsTableModel.CriticalColumn");
+        m_columnNames[0] = m_res.getString("ExtensionsTableModel.CriticalColumn");
         m_columnNames[1] = m_res.getString("ExtensionsTableModel.NameColumn");
         m_columnNames[2] = m_res.getString("ExtensionsTableModel.OidColumn");
 
@@ -78,8 +77,7 @@ class ExtensionsTableModel extends AbstractTableModel
         // Add extensions to sorted map of extensions
 
         // First the critical extensions...
-        for (Iterator itr = critExts.iterator(); itr.hasNext();)
-        {
+        for (Iterator itr = critExts.iterator(); itr.hasNext();) {
             String sExtOid = (String) itr.next();
             byte[] bValue = extensions.getExtensionValue(sExtOid);
 
@@ -89,8 +87,7 @@ class ExtensionsTableModel extends AbstractTableModel
         }
 
         // ...then the critical extensions
-        for (Iterator itr = nonCritExts.iterator(); itr.hasNext();)
-        {
+        for (Iterator itr = nonCritExts.iterator(); itr.hasNext();) {
             String sExtOid = (String) itr.next();
             byte[] bValue = extensions.getExtensionValue(sExtOid);
 
@@ -104,11 +101,9 @@ class ExtensionsTableModel extends AbstractTableModel
 
         // Load rows in extension name order from tree map
         int iCnt = 0;
-        for (Iterator itrSortedExts = sortedExts.entrySet().iterator();
-             itrSortedExts.hasNext();)
+        for (Iterator itrSortedExts = sortedExts.entrySet().iterator(); itrSortedExts.hasNext();)
         {
-            X509Ext ext = (X509Ext)
-                ((Map.Entry) itrSortedExts.next()).getValue();
+            X509Ext ext = (X509Ext) ((Map.Entry) itrSortedExts.next()).getValue();
             loadRow(ext, iCnt);
             iCnt++;
         }

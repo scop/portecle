@@ -56,14 +56,14 @@ import javax.swing.border.EmptyBorder;
  * Dialog to allow the users to configure Portecle options, CA certs keystore,
  * and look & feel.
  */
-class DOptions extends JDialog
+class DOptions
+    extends JDialog
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
     /** Resource bundle */
-    private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
     /** Tabbed Pane to hold the oprions */
     private JTabbedPane m_jtpOptions;
@@ -146,7 +146,7 @@ class DOptions extends JDialog
      * @param fCaCertsFile CA certs keystore file
      */
     public DOptions(JFrame parent, boolean bModal, boolean bUseCaCerts,
-                    File fCaCertsFile)
+        File fCaCertsFile)
     {
         super(parent, bModal);
         m_bUseCaCerts = bUseCaCerts;
@@ -164,8 +164,7 @@ class DOptions extends JDialog
         // CA certs options tab panel
         m_jcbUseCaCerts = new JCheckBox(
             m_res.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
-        m_jcbUseCaCerts.setToolTipText(
-            m_res.getString("DOptions.m_jcbUseCaCerts.tooltip"));
+        m_jcbUseCaCerts.setToolTipText(m_res.getString("DOptions.m_jcbUseCaCerts.tooltip"));
 
         m_jpUseCaCerts = new JPanel(new FlowLayout(FlowLayout.LEFT));
         m_jpUseCaCerts.add(m_jcbUseCaCerts);
@@ -173,8 +172,7 @@ class DOptions extends JDialog
         m_jlCaCertsFile = new JLabel(
             m_res.getString("DOptions.m_jlCaCertsFile.text"));
         m_jtfCaCertsFile = new JTextField(m_fCaCertsFile.toString(), 20);
-        m_jtfCaCertsFile.setToolTipText(
-            m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
+        m_jtfCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
         m_jtfCaCertsFile.setCaretPosition(0);
         m_jtfCaCertsFile.setEditable(false);
         m_jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -183,12 +181,11 @@ class DOptions extends JDialog
 
         m_jbBrowseCaCertsFile = new JButton(
             m_res.getString("DOptions.m_jbBrowseCaCertsFile.text"));
-        m_jbBrowseCaCertsFile.setMnemonic(
-            m_res.getString("DOptions.m_jbBrowseCaCertsFile.mnemonic")
-            .charAt(0));
-        m_jbBrowseCaCertsFile.setToolTipText(
-            m_res.getString("DOptions.m_jbBrowseCaCertsFile.tooltip"));
-        m_jbBrowseCaCertsFile.addActionListener(new ActionListener() {
+        m_jbBrowseCaCertsFile.setMnemonic(m_res.getString(
+            "DOptions.m_jbBrowseCaCertsFile.mnemonic").charAt(0));
+        m_jbBrowseCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jbBrowseCaCertsFile.tooltip"));
+        m_jbBrowseCaCertsFile.addActionListener(new ActionListener()
+        {
             public void actionPerformed(ActionEvent evt)
             {
                 browsePressed();
@@ -213,12 +210,10 @@ class DOptions extends JDialog
 
         // Create and populate combo box with available look & feels
         m_jcbLookFeel = new JComboBox();
-        m_jcbLookFeel.setToolTipText(
-            m_res.getString("DOptions.m_jcbLookFeel.tooltip"));
+        m_jcbLookFeel.setToolTipText(m_res.getString("DOptions.m_jcbLookFeel.tooltip"));
 
         // All Look and Feels (may contain duplicates)
-        UIManager.LookAndFeelInfo[] lookFeelInfos =
-            UIManager.getInstalledLookAndFeels();
+        UIManager.LookAndFeelInfo[] lookFeelInfos = UIManager.getInstalledLookAndFeels();
 
         // Current Look and Feel
         LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
@@ -226,31 +221,26 @@ class DOptions extends JDialog
         // Set of installed and supported Look and Feel class names
         TreeSet lookFeelClasses = new TreeSet();
 
-        for (int iCnt=0; iCnt < lookFeelInfos.length; iCnt++)
-        {
+        for (int iCnt = 0; iCnt < lookFeelInfos.length; iCnt++) {
             UIManager.LookAndFeelInfo lookFeelInfo = lookFeelInfos[iCnt];
             String className = lookFeelInfo.getClassName();
 
             // Avoid duplicates, optimize
-            if (lookFeelClasses.contains(className))
-            {
+            if (lookFeelClasses.contains(className)) {
                 continue;
             }
 
             // Check if it's a supported one (eg. Windows on Linux is not)
             boolean bSupported = false;
-            try
-            {
-                bSupported = ((LookAndFeel) Class.forName(className)
-                              .newInstance()).isSupportedLookAndFeel();
+            try {
+                bSupported = ((LookAndFeel) Class.forName(className).newInstance()).isSupportedLookAndFeel();
             }
-            catch (Exception e) { /* Ignore */ }
-            if (bSupported)
-            {
+            catch (Exception e) { /* Ignore */
+            }
+            if (bSupported) {
                 lookFeelClasses.add(className);
             }
-            else
-            {
+            else {
                 continue;
             }
 
@@ -261,16 +251,15 @@ class DOptions extends JDialog
 
             // Pre-select current look & feel
             /* Note: UIManager.LookAndFeelInfo.getName() and
-               LookAndFeel.getName() can be different for the same L&F (one
-               example is the GTK+ one in J2SE 5 RC2 (Linux), where the former
-               is "GTK+" and the latter is "GTK look and feel"). Therefore,
-               compare the class names instead. */
-            if (currentLookAndFeel != null &&
-                currentLookAndFeel.getClass().getName().equals(
+             LookAndFeel.getName() can be different for the same L&F (one
+             example is the GTK+ one in J2SE 5 RC2 (Linux), where the former
+             is "GTK+" and the latter is "GTK look and feel"). Therefore,
+             compare the class names instead. */
+            if (currentLookAndFeel != null
+                && currentLookAndFeel.getClass().getName().equals(
                     lookFeelInfo.getClassName()))
-                {
-                m_jcbLookFeel.setSelectedIndex(
-                    m_jcbLookFeel.getItemCount() - 1);
+            {
+                m_jcbLookFeel.setSelectedIndex(m_jcbLookFeel.getItemCount() - 1);
             }
         }
 
@@ -282,11 +271,10 @@ class DOptions extends JDialog
         m_jcbLookFeelDecorated = new JCheckBox(
             m_res.getString("DOptions.m_jcbLookFeelDecorated.text"),
             JFrame.isDefaultLookAndFeelDecorated());
-        m_jcbLookFeelDecorated.setToolTipText(
-            m_res.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
+        m_jcbLookFeelDecorated.setToolTipText(m_res.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
 
-        m_jpLookFeelDecoratedControls = new JPanel(
-            new FlowLayout(FlowLayout.LEFT));
+        m_jpLookFeelDecoratedControls = new JPanel(new FlowLayout(
+            FlowLayout.LEFT));
         m_jpLookFeelDecoratedControls.add(m_jcbLookFeelDecorated);
 
         m_jpLookFeel = new JPanel(new BorderLayout());
@@ -296,34 +284,40 @@ class DOptions extends JDialog
 
         // Add the panels to a tabbed pane
         m_jtpOptions = new JTabbedPane();
-        m_jtpOptions.addTab(
-            m_res.getString("DOptions.m_jpCaCerts.text"), null, m_jpCaCerts,
-            m_res.getString("DOptions.m_jpCaCerts.tooltip"));
-        m_jtpOptions.addTab(
-            m_res.getString("DOptions.m_jpLookFeel.text"), null, m_jpLookFeel,
+        m_jtpOptions.addTab(m_res.getString("DOptions.m_jpCaCerts.text"),
+            null, m_jpCaCerts, m_res.getString("DOptions.m_jpCaCerts.tooltip"));
+        m_jtpOptions.addTab(m_res.getString("DOptions.m_jpLookFeel.text"),
+            null, m_jpLookFeel,
             m_res.getString("DOptions.m_jpLookFeel.tooltip"));
         m_jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // OK and Cancel buttons
         m_jbOK = new JButton(m_res.getString("DOptions.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbOK.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 okPressed();
             }
         });
 
         m_jbCancel = new JButton(m_res.getString("DOptions.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        m_jbCancel.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
                 cancelPressed();
             }
         });
         m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction () {
-                public void actionPerformed(ActionEvent evt) {
-                    cancelPressed();
-                }});
+        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                cancelPressed();
+            }
+        });
 
         m_jpButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         m_jpButtons.add(m_jbOK);
@@ -334,8 +328,10 @@ class DOptions extends JDialog
         getContentPane().add(m_jtpOptions, BorderLayout.CENTER);
         getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+        addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent evt)
+            {
                 closeDialog();
             }
         });
@@ -361,8 +357,7 @@ class DOptions extends JDialog
 
         // Store look & feel class name (look up in Vector by choice box index)
         int iSel = m_jcbLookFeel.getSelectedIndex();
-        m_lookFeelInfo =
-            (UIManager.LookAndFeelInfo) m_vLookFeelInfos.get(iSel);
+        m_lookFeelInfo = (UIManager.LookAndFeelInfo) m_vLookFeelInfos.get(iSel);
 
         // Store whether or not look & feel decoration should be used
         m_bLookFeelDecorated = m_jcbLookFeelDecorated.isSelected();
@@ -416,21 +411,17 @@ class DOptions extends JDialog
     {
         JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser();
 
-        if (m_fCaCertsFile.getParentFile().exists())
-        {
+        if (m_fCaCertsFile.getParentFile().exists()) {
             chooser.setCurrentDirectory(m_fCaCertsFile.getParentFile());
         }
 
-        chooser.setDialogTitle(
-            m_res.getString("DOptions.ChooseCACertsKeyStore.Title"));
+        chooser.setDialogTitle(m_res.getString("DOptions.ChooseCACertsKeyStore.Title"));
 
         chooser.setMultiSelectionEnabled(false);
 
-        int iRtnValue = chooser.showDialog(
-            this,
+        int iRtnValue = chooser.showDialog(this,
             m_res.getString("DOptions.CaCertsKeyStoreFileChooser.button"));
-        if (iRtnValue == JFileChooser.APPROVE_OPTION)
-        {
+        if (iRtnValue == JFileChooser.APPROVE_OPTION) {
             m_jtfCaCertsFile.setText(chooser.getSelectedFile().toString());
             m_jtfCaCertsFile.setCaretPosition(0);
         }

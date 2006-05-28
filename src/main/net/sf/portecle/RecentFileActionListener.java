@@ -32,7 +32,8 @@ import javax.swing.JOptionPane;
  * net.sf.portecle.gui.JMenuItemRecentFile class.
  * The ActionListener is used to open a file from the menu item.
  */
-class RecentFileActionListener implements ActionListener
+class RecentFileActionListener
+    implements ActionListener
 {
     /** Recent keystore file */
     File m_fRecentFile;
@@ -64,21 +65,17 @@ class RecentFileActionListener implements ActionListener
         m_fPortecle.setDefaultStatusBarText();
 
         // Does the current keystore contain unsaved changes?
-        if (m_fPortecle.needSave())
-        {
+        if (m_fPortecle.needSave()) {
             // Yes - ask the user if it should be saved
             int iWantSave = m_fPortecle.wantSave();
 
-            if (iWantSave == JOptionPane.YES_OPTION)
-            {
+            if (iWantSave == JOptionPane.YES_OPTION) {
                 // Save it
-                if (!m_fPortecle.saveKeyStore())
-                {
+                if (!m_fPortecle.saveKeyStore()) {
                     return; // Save failed
                 }
             }
-            else if (iWantSave == JOptionPane.CANCEL_OPTION)
-            {
+            else if (iWantSave == JOptionPane.CANCEL_OPTION) {
                 return;
             }
         }
