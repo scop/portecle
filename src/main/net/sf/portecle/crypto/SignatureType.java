@@ -80,10 +80,10 @@ public class SignatureType
         TYPE_MAP.put(RSA_MD2.toString(),       RSA_MD2);
         TYPE_MAP.put(RSA_MD5.toString(),       RSA_MD5);
         TYPE_MAP.put(RSA_SHA1.toString(),      RSA_SHA1);
-        TYPE_MAP.put(RSA_SHA224.toString(),    RSA_SHA1);
-        TYPE_MAP.put(RSA_SHA256.toString(),    RSA_SHA1);
-        TYPE_MAP.put(RSA_SHA384.toString(),    RSA_SHA1);
-        TYPE_MAP.put(RSA_SHA512.toString(),    RSA_SHA1);
+        TYPE_MAP.put(RSA_SHA224.toString(),    RSA_SHA224);
+        TYPE_MAP.put(RSA_SHA256.toString(),    RSA_SHA256);
+        TYPE_MAP.put(RSA_SHA384.toString(),    RSA_SHA384);
+        TYPE_MAP.put(RSA_SHA512.toString(),    RSA_SHA512);
         TYPE_MAP.put(RSA_RIPEMD160.toString(), RSA_RIPEMD160);
         TYPE_MAP.put(DSA_SHA1.toString(),      DSA_SHA1);
         TYPE_MAP.put(ECDSA_SHA1.toString(),    ECDSA_SHA1);
