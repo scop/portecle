@@ -378,7 +378,7 @@ class DGenerateCertificate
      * applicable to the key pair algorithm.  Also set a sane default selected
      * item, and disable the combo box if it has less than 2 items.
      * 
-     * @param key pair type
+     * @param type key pair type
      * @param combo the combo box to populate 
      */
     private static void populateSigAlgs(KeyPairType type, JComboBox combo)
