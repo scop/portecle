@@ -58,8 +58,8 @@ import javax.swing.border.EtchedBorder;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.DigestType;
 import net.sf.portecle.crypto.DigestUtil;
+import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.SignatureType;
-import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -660,7 +660,7 @@ class DViewCertificate extends JDialog
         m_jtfValidUntil.setCaretPosition(0);
 
         // Public Key (algorithm and keysize)
-        int iKeySize = X509CertUtil.getCertificateKeyLength(cert);
+        int iKeySize = KeyPairUtil.getKeyLength(cert.getPublicKey());
         m_jtfPublicKey.setText(cert.getPublicKey().getAlgorithm());
 
         if (iKeySize != -1)

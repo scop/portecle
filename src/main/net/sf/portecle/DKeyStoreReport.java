@@ -70,6 +70,7 @@ import javax.xml.transform.stream.StreamResult;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.DigestType;
 import net.sf.portecle.crypto.DigestUtil;
+import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.error.DThrowable;
@@ -557,7 +558,7 @@ class DKeyStoreReport
 
                         // Public Key (algorithm and keysize)
                         int iKeySize =
-                            X509CertUtil.getCertificateKeyLength(x509Cert);
+                            KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
                         String sKeyAlg =
                             x509Cert.getPublicKey().getAlgorithm();
                         sbReport.append(
@@ -777,7 +778,7 @@ class DKeyStoreReport
 
                         // Public Key (algorithm and keysize)
                         int iKeySize =
-                            X509CertUtil.getCertificateKeyLength(x509Cert);
+                            KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
                         String sKeyAlg =
                             x509Cert.getPublicKey().getAlgorithm();
 
@@ -968,7 +969,7 @@ class DKeyStoreReport
 
                         // Public Key (algorithm and keysize)
                         int iKeySize =
-                            X509CertUtil.getCertificateKeyLength(x509Cert);
+                            KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
                         String sKeyAlg =
                             x509Cert.getPublicKey().getAlgorithm();
                         certNode.add(

@@ -41,8 +41,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.DSAKey;
-import java.security.interfaces.RSAKey;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,8 +52,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
-
-import javax.crypto.interfaces.DHKey;
 
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
@@ -916,33 +912,5 @@ public final class X509CertUtil
         // Alias is the subject CN followed by the issuer CN in brackets
         return MessageFormat.format("{0} ({1})",
                 new String[]{sSubjectCN, sIssuerCN});
-    }
-
-    
-    /**
-     * For a given certificate get the keysize of its public key.
-     *
-     * @param cert The certificate
-     * @return The keysize
-     * @throws CryptoException If there is a problem getting the keysize
-     */
-    public static int getCertificateKeyLength(Certificate cert)
-        throws CryptoException
-    {
-        PublicKey pubKey = cert.getPublicKey();
-
-        if (pubKey instanceof RSAKey) {
-            return ((RSAKey) pubKey).getModulus().bitLength();
-        }
-        else if (pubKey instanceof DSAKey) {
-            return ((DSAKey) pubKey).getParams().getP().bitLength();
-        }
-        else if (pubKey instanceof DHKey) {
-            return ((DHKey) pubKey).getParams().getP().bitLength();
-        }
-        else {
-            throw new CryptoException(
-                m_res.getString("NoCertificatePublicKeysize.exception.message"));
-        }
     }
 }

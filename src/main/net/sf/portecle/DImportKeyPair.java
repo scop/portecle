@@ -62,6 +62,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -380,7 +381,7 @@ class DImportKeyPair extends JDialog
 
             X509Certificate keyPairCert = x509Certs[0];
 
-            int iKeySize = X509CertUtil.getCertificateKeyLength(keyPairCert);
+            int iKeySize = KeyPairUtil.getKeyLength(keyPairCert.getPublicKey());
             m_jtfAlgorithm.setText(keyPairCert.getPublicKey().getAlgorithm());
 
             if (iKeySize != -1)

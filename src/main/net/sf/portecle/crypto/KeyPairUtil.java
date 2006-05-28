@@ -22,13 +22,18 @@
 
 package net.sf.portecle.crypto;
 
+import java.security.InvalidParameterException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.InvalidParameterException;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.SecureRandom;
+import java.security.interfaces.DSAKey;
+import java.security.interfaces.RSAKey;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
+
+import javax.crypto.interfaces.DHKey;
 
 /**
  * Provides utility methods for the generation of keys.
@@ -88,6 +93,31 @@ public final class KeyPairUtil
                 MessageFormat.format(
                     m_res.getString("NoGenerateKeypairParm.exception.message"),
                     new Object[]{keyPairType}), ex);
+        }
+    }
+
+    /**
+     * Get the keysize of a public key.
+     *
+     * @param pubKey The public key
+     * @return The keysize
+     * @throws CryptoException If there is a problem getting the keysize
+     */
+    public static int getKeyLength(PublicKey pubKey)
+        throws CryptoException
+    {
+        if (pubKey instanceof RSAKey) {
+            return ((RSAKey) pubKey).getModulus().bitLength();
+        }
+        else if (pubKey instanceof DSAKey) {
+            return ((DSAKey) pubKey).getParams().getP().bitLength();
+        }
+        else if (pubKey instanceof DHKey) {
+            return ((DHKey) pubKey).getParams().getP().bitLength();
+        }
+        else {
+            throw new CryptoException(
+                m_res.getString("NoPublicKeysize.exception.message"));
         }
     }
 }
