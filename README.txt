@@ -17,7 +17,7 @@ Currently, Portecle can be used to, for example:
 * View the details of certificates contained within keystore entries,
   certificate files, and SSL/TLS connections.
 * Export keystore entries in a variety of formats.
-* Generate certification requests (CSRs).
+* Generate and view certification requests (CSRs).
 * Import Certificate Authority (CA) replies.
 * Change the password of key pair entries and keystores.
 * Delete, clone, and rename keystore entries.

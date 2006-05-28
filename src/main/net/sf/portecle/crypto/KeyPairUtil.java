@@ -35,6 +35,11 @@ import java.util.ResourceBundle;
 
 import javax.crypto.interfaces.DHKey;
 
+import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
+import org.bouncycastle.crypto.params.DHKeyParameters;
+import org.bouncycastle.crypto.params.DSAKeyParameters;
+import org.bouncycastle.crypto.params.RSAKeyParameters;
+
 /**
  * Provides utility methods for the generation of keys.
  */
@@ -114,6 +119,31 @@ public final class KeyPairUtil
         }
         else if (pubKey instanceof DHKey) {
             return ((DHKey) pubKey).getParams().getP().bitLength();
+        }
+        else {
+            throw new CryptoException(
+                m_res.getString("NoPublicKeysize.exception.message"));
+        }
+    }
+    
+    /**
+     * Get the keysize of a key represented by key parameters.
+     *
+     * @param keyParams The key parameters
+     * @return The keysize
+     * @throws CryptoException If there is a problem getting the keysize
+     */
+    public static int getKeyLength(AsymmetricKeyParameter keyParams)
+        throws CryptoException
+    {
+        if (keyParams instanceof RSAKeyParameters) {
+            return ((RSAKeyParameters) keyParams).getModulus().bitLength();
+        }
+        else if (keyParams instanceof DSAKeyParameters) {
+            return ((DSAKeyParameters) keyParams).getParameters().getP().bitLength();
+        }
+        else if (keyParams instanceof DHKeyParameters) {
+            return ((DHKeyParameters) keyParams).getParameters().getP().bitLength();
         }
         else {
             throw new CryptoException(

@@ -127,6 +127,7 @@ import net.sf.portecle.version.JavaVersion;
 //import net.sf.portecle.version.Version;
 import net.sf.portecle.version.VersionException;
 
+import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.openssl.PEMWriter;
 
 /**
@@ -291,6 +292,9 @@ public class FPortecle extends JFrame implements StatusBar
 
     /** Examine Certificate (SSL/TLS connection) menu item of Examine menu */
     private JMenuItem m_jmiExamineCertSSL;
+
+    /** Examine CSR menu item of Examine menu */
+    private JMenuItem m_jmiExamineCsr;
 
     /** Examine CRL menu item of Examine menu */
     private JMenuItem m_jmiExamineCrl;
@@ -460,6 +464,9 @@ public class FPortecle extends JFrame implements StatusBar
     /** Examine SSL/TLS Connection action */
     private final ExamineCertSSLAction m_examineCertSSLAction =
         new ExamineCertSSLAction();
+
+    /** Examine CSR action */
+    private final ExamineCsrAction m_examineCsrAction = new ExamineCsrAction();
 
     /** Examine CRL action */
     private final ExamineCrlAction m_examineCrlAction = new ExamineCrlAction();
@@ -825,6 +832,14 @@ public class FPortecle extends JFrame implements StatusBar
             (String) m_examineCertSSLAction.getValue(Action.LONG_DESCRIPTION),
             this);
         m_jmExamine.add(m_jmiExamineCertSSL);
+
+        m_jmiExamineCsr = new JMenuItem(m_examineCsrAction);
+        m_jmiExamineCsr.setToolTipText(null);
+        new StatusBarChangeHandler(
+            m_jmiExamineCsr,
+            (String) m_examineCsrAction.getValue(Action.LONG_DESCRIPTION),
+            this);
+        m_jmExamine.add(m_jmiExamineCsr);
 
         m_jmiExamineCrl = new JMenuItem(m_examineCrlAction);
         m_jmiExamineCrl.setToolTipText(null);
@@ -2566,6 +2581,47 @@ public class FPortecle extends JFrame implements StatusBar
     }
 
     /**
+     * Let the user examine the contents of a CSR file.
+     *
+     * @return True if the user was able to examine the CSR file,
+     * false otherwise
+     */
+    private boolean examineCSR()
+    {
+        // Let the user choose the certificate file to examine
+        File fCSRFile = chooseExamineCSRFile();
+        if (fCSRFile == null)
+        {
+            return false;
+        }
+
+        // Get the CSR contained within the file
+        PKCS10CertificationRequest csr = openCSR(fCSRFile);
+
+        m_lastDir.updateLastDir(fCSRFile);
+
+        // If a CSR is available then diaply the view CSR dialog with it
+        if (csr != null) {
+        	try {
+	            DViewCSR dViewCSR = new DViewCSR(
+	                this,
+	                MessageFormat.format(
+	                    m_res.getString("FPortecle.CsrDetailsFile.Title"),
+	                    new String[]{fCSRFile.getName()}),
+	                true,
+	                csr);
+	            dViewCSR.setLocationRelativeTo(this);
+	            dViewCSR.setVisible(true);
+	            return true;
+        	}
+        	catch (CryptoException e) {
+        		displayException(e);
+        	}
+        }
+        return false;
+    }
+
+    /**
      * Let the user examine the contents of a CRL file.
      *
      * @return True if the user was able to examine the CRL file,
@@ -2675,6 +2731,34 @@ public class FPortecle extends JFrame implements StatusBar
         d.setLocationRelativeTo(this);
         d.setVisible(true);
         return d.getHostPort();
+    }
+
+    /**
+     * Let the user choose a CSR file to examine.
+     *
+     * @return The chosen file or null if none was chosen
+     */
+    private File chooseExamineCSRFile()
+    {
+        JFileChooser chooser = FileChooserFactory.getCsrFileChooser();
+
+        File fLastDir = m_lastDir.getLastDir();
+        if (fLastDir != null)
+        {
+            chooser.setCurrentDirectory(fLastDir);
+        }
+
+        chooser.setDialogTitle(m_res.getString("FPortecle.ExamineCsr.Title"));
+        chooser.setMultiSelectionEnabled(false);
+
+        int iRtnValue = chooser.showDialog(
+            this, m_res.getString("FPortecle.ExamineCsr.button"));
+        if (iRtnValue == JFileChooser.APPROVE_OPTION)
+        {
+            File fOpenFile = chooser.getSelectedFile();
+            return fOpenFile;
+        }
+        return null;
     }
 
     /**
@@ -2867,6 +2951,38 @@ public class FPortecle extends JFrame implements StatusBar
         }
     }
 
+
+    /**
+     * Open a CSR file.
+     *
+     * @param fCSRFile The CSR file
+     * @return The CSR found in the file or null if there wasn't one
+     */
+    private PKCS10CertificationRequest openCSR(File fCSRFile)
+    {
+        try
+        {
+            return X509CertUtil.loadCSR(fCSRFile);
+        }
+        catch (FileNotFoundException ex)
+        {
+            JOptionPane.showMessageDialog(
+                this,
+                MessageFormat.format(
+                    m_res.getString("FPortecle.NoReadFile.message"),
+                    new Object[]{fCSRFile}),
+                MessageFormat.format(
+                    m_res.getString("FPortecle.CsrDetailsFile.Title"),
+                    new String[]{fCSRFile.getName()}),
+                JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+        catch (Exception ex)
+        {
+            displayException(ex);
+            return null;
+        }
+    }
 
     /**
      * Open a CRL file.
@@ -6688,6 +6804,45 @@ public class FPortecle extends JFrame implements StatusBar
         public void act()
         {
             examineCertSSL();
+        }
+    }
+
+    /**
+     * Action to examine a CSR.
+     */
+    private class ExamineCsrAction
+        extends AbstractAction
+    {
+        /**
+         * Construct action.
+         */
+        public ExamineCsrAction()
+        {
+            putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+                         m_res.getString(
+                             "FPortecle.ExamineCsrAction.accelerator")
+                         .charAt(0), InputEvent.CTRL_MASK));
+            putValue(LONG_DESCRIPTION,
+                     m_res.getString("FPortecle.ExamineCsrAction.statusbar"));
+            putValue(MNEMONIC_KEY, new Integer(
+                         m_res.getString(
+                             "FPortecle.ExamineCsrAction.mnemonic")
+                         .charAt(0)));
+            putValue(NAME, m_res.getString("FPortecle.ExamineCsrAction.text"));
+            putValue(SHORT_DESCRIPTION,
+                     m_res.getString("FPortecle.ExamineCsrAction.tooltip"));
+            putValue(SMALL_ICON,
+                     new ImageIcon(
+                         getResImage("FPortecle.ExamineCsrAction.image")));
+            setEnabled(true);
+        }
+
+        /**
+         * Perform action.
+         */
+        public void act()
+        {
+            examineCSR();
         }
     }
 

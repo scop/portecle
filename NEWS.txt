@@ -3,6 +3,7 @@ New in Portecle x.x (200x-xx-xx):
 
 New features:
 - Support for exporting keys+chains as OpenSSL-style PEM bundles (#1388213).
+- Support for examining certification requests.
 - Recognition and decoding support for some additional certificate
   extensions.
 
