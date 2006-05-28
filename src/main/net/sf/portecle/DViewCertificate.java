@@ -60,6 +60,7 @@ import net.sf.portecle.crypto.DigestType;
 import net.sf.portecle.crypto.DigestUtil;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -803,8 +804,8 @@ class DViewCertificate extends JDialog
 
         try
         {
-            DViewCertPem dViewCertPem =
-                new DViewCertPem(
+            DViewPEM dViewCertPem =
+                new DViewPEM(
                     this,
                     MessageFormat.format(
                         m_res.getString("DViewCertificate.PemEncoding.Title"),

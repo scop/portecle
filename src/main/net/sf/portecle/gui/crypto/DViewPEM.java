@@ -1,8 +1,9 @@
 /*
- * DViewCertPem.java
+ * DViewPEM.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,7 +20,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package net.sf.portecle;
+package net.sf.portecle.gui.crypto;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -31,7 +32,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.security.cert.X509Certificate;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -43,19 +43,19 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import org.bouncycastle.openssl.PEMWriter;
-
 import net.sf.portecle.crypto.CryptoException;
 
+import org.bouncycastle.openssl.PEMWriter;
+
 /**
- * Displays an X.509 certificate's PEM encoding.
+ * Displays an X.509 object's PEM encoding.
  */
-class DViewCertPem
+public class DViewPEM
     extends JDialog
 {
     /** Resource bundle */
     private static ResourceBundle m_res =
-        ResourceBundle.getBundle("net/sf/portecle/resources");
+        ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
     /** Panel to hold OK button */
     private JPanel m_jpOK;
@@ -64,52 +64,50 @@ class DViewCertPem
     private JButton m_jbOK;
 
     /** Panel to hold scroll pane in */
-    private JPanel m_jpCertPem;
+    private JPanel m_jpPEM;
 
     /** Scroll pane to hold text area in */
-    private JScrollPane m_jspCertPem;
+    private JScrollPane m_jspPEM;
 
-    /** Text area to display certificate's PEM encoding in */
-    private JTextArea m_jtaCertPem;
+    /** Text area to display PEM encoding in */
+    private JTextArea m_jtaPEM;
 
-    /** Stores certificate to display */
-    private X509Certificate m_cert;
+    /** Stores object to display */
+    private Object m_object;
 
     /**
-     * Creates new DViewCertPem dialog where the parent is a frame.
+     * Creates new DViewPEM dialog where the parent is a frame.
      *
      * @param parent Parent frame
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
-     * @param cert Certificate to display encoding for
+     * @param obj Object to display encoding for
      * @throws CryptoException A problem was encountered getting the
-     * certificate's PEM encoding
+     * object's PEM encoding
      */
-    public DViewCertPem(JFrame parent, String sTitle, boolean bModal,
-                        X509Certificate cert)
+    public DViewPEM(JFrame parent, String sTitle, boolean bModal, Object obj)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
-        m_cert = cert;
+        m_object = obj;
         initComponents();
     }
 
     /**
-     * Creates new DViewCertPem dialog where the parent is a dialog.
+     * Creates new DViewPEM dialog where the parent is a dialog.
      *
      * @param parent Parent dialog
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
-     * @param cert Certificate to display encoding for
+     * @param obj Object to display encoding for
      * @throws CryptoException A problem was encountered getting the
-     * certificate's PEM encoding
+     * object's PEM encoding
      */
-    public DViewCertPem(JDialog parent, String sTitle, boolean bModal,
-                        X509Certificate cert)
+    public DViewPEM(JDialog parent, String sTitle, boolean bModal, Object obj)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
-        m_cert = cert;
+        m_object = obj;
         initComponents();
     }
 
@@ -117,7 +115,7 @@ class DViewCertPem
      * Initialise the dialog's GUI components.
      *
      * @throws CryptoException A problem was encountered getting the
-     * certificate's PEM encoding
+     * object's PEM encoding
      */
     private void initComponents()
         throws CryptoException
@@ -125,11 +123,11 @@ class DViewCertPem
         StringWriter encoded = new StringWriter();
         PEMWriter pw = new PEMWriter(encoded);
         try {
-            pw.writeObject(m_cert);
+            pw.writeObject(m_object);
         }
         catch (IOException e) {
             throw new CryptoException(
-                m_res.getString("NoPemEncode.exception.message"), e);
+                m_res.getString("DViewPEM.exception.message"), e);
         }
         finally {
             try { pw.close(); }
@@ -138,7 +136,7 @@ class DViewCertPem
         
         m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DViewCertPem.m_jbOK.text"));
+        m_jbOK = new JButton(m_res.getString("DViewPEM.m_jbOK.text"));
         m_jbOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 okPressed();
@@ -147,25 +145,25 @@ class DViewCertPem
 
         m_jpOK.add(m_jbOK);
 
-        m_jpCertPem = new JPanel(new BorderLayout());
-        m_jpCertPem.setBorder(new EmptyBorder(5, 5, 5, 5));
+        m_jpPEM = new JPanel(new BorderLayout());
+        m_jpPEM.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load text area with the PEM encoding
-        m_jtaCertPem = new JTextArea(encoded.toString());
-        m_jtaCertPem.setCaretPosition(0);
-        m_jtaCertPem.setEditable(false);
-        m_jtaCertPem.setFont(
+        m_jtaPEM = new JTextArea(encoded.toString());
+        m_jtaPEM.setCaretPosition(0);
+        m_jtaPEM.setEditable(false);
+        m_jtaPEM.setFont(
             new Font("Monospaced", Font.PLAIN,
-                     m_jtaCertPem.getFont().getSize()));
+                     m_jtaPEM.getFont().getSize()));
 
-        m_jspCertPem = new JScrollPane(
-            m_jtaCertPem,
+        m_jspPEM = new JScrollPane(
+            m_jtaPEM,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        m_jspCertPem.setPreferredSize(new Dimension(500, 300));
-        m_jpCertPem.add(m_jspCertPem, BorderLayout.CENTER);
+        m_jspPEM.setPreferredSize(new Dimension(500, 300));
+        m_jpPEM.add(m_jspPEM, BorderLayout.CENTER);
 
-        getContentPane().add(m_jpCertPem, BorderLayout.CENTER);
+        getContentPane().add(m_jpPEM, BorderLayout.CENTER);
         getContentPane().add(m_jpOK, BorderLayout.SOUTH);
 
         setResizable(true);
