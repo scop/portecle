@@ -27,9 +27,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
@@ -64,7 +61,6 @@ import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.X509Principal;
 import org.bouncycastle.openssl.PEMReader;
-import org.bouncycastle.util.encoders.Base64;
 import org.bouncycastle.x509.X509V1CertificateGenerator;
 
 /**
@@ -229,80 +225,28 @@ public final class X509CertUtil
     public static PKCS10CertificationRequest loadCSR(File fCSRFile)
         throws CryptoException, IOException
     {
-        InputStreamReader isr = null;
-        StringWriter sw = null;
-        LineNumberReader lnr = null;
-
-        try
-        {
-            // Read content of file into a string
-            isr = new InputStreamReader(new FileInputStream(fCSRFile));
-            sw = new StringWriter();
-
-            int iRead;
-            char[] buff = new char[1024];
-
-            while ((iRead = isr.read(buff, 0, buff.length)) != -1)
-            {
-                sw.write(buff, 0, iRead);
-            }
-
-            // Strip out extraneous content such as headers, footers, empty
-            // lines and line breaks
-            StringBuffer strBuff = new StringBuffer();
-
-            lnr = new LineNumberReader(new StringReader(sw.toString()));
-
-            String sLine = null;
-            while ((sLine = lnr.readLine()) != null) // Gets rid of line breaks
-            {
-                if (sLine.length() > 0) // Not interested in empty lines
-                {
-                    char c = sLine.charAt(0);
-
-                    // Not interested in lines that do not start with a
-                    // Base 64 character
-                    if (((c > 'A') && (c <= 'Z')) ||
-                        ((c > 'a') && (c <= 'z')) ||
-                        ((c > '0') && (c <= '9')) ||
-                        (c == '+') || (c == '/') || (c == '='))
-                    {
-                        strBuff.append(sLine);
-                    }
-                }
-            }
-
-            // Decode Base 64 string to byte array
-            byte[] bDecodedReq = Base64.decode(strBuff.toString());
-
-            // Create CSR from decoded byte array
-            PKCS10CertificationRequest csr =
-                new PKCS10CertificationRequest(bDecodedReq);
-
-            // Verify CSR
-            if (!csr.verify())
-            {
+        // TODO: handle DER encoded requests too?
+        PEMReader in = null;
+        try {
+            in = new PEMReader(new InputStreamReader(new FileInputStream(fCSRFile)));
+            PKCS10CertificationRequest csr = (PKCS10CertificationRequest) in.readObject();
+            if (!csr.verify()) {
                 throw new CryptoException(
                     m_res.getString("NoVerifyCsr.exception.message"));
             }
-
-            // Return CSR
             return csr;
         }
-        catch (GeneralSecurityException ex)
-        {
+        catch (ClassCastException ex) {
             throw new CryptoException(
                 m_res.getString("NoLoadCsr.exception.message"), ex);
         }
-
-        finally
-        {
-            if (isr != null) {
-                try { isr.close(); } catch(IOException ex) { /* Ignore */ }}
-            if (sw != null) {
-                try { sw.close();  } catch(IOException ex) { /* Ignore */ }}
-            if (lnr != null) {
-                try { lnr.close(); } catch(IOException ex) { /* Ignore */ }}
+        catch (GeneralSecurityException ex) {
+            throw new CryptoException(
+                m_res.getString("NoLoadCsr.exception.message"), ex);
+        }
+        finally {
+            if (in != null) {
+                try { in.close(); } catch(IOException ex) { /* Ignore */ }}
         }
     }
 
