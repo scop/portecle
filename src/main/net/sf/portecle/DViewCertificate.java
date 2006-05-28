@@ -672,26 +672,7 @@ class DViewCertificate extends JDialog
         m_jtfPublicKey.setCaretPosition(0);
 
         // Signature Algorithm
-        String sigAlgName = cert.getSigAlgName();
-        // TODO: move this mapping someplace else
-        if ("1.2.840.113549.1.1.14".equals(sigAlgName)) {
-            sigAlgName = SignatureType.RSA_SHA224.toString();
-        }
-        else if ("1.2.840.113549.1.1.11".equals(sigAlgName)) {
-            sigAlgName = SignatureType.RSA_SHA256.toString();
-        }
-        else if ("1.2.840.113549.1.1.12".equals(sigAlgName)) {
-            sigAlgName = SignatureType.RSA_SHA384.toString();
-        }
-        else if ("1.2.840.113549.1.1.13".equals(sigAlgName)) {
-            sigAlgName = SignatureType.RSA_SHA512.toString();
-        }
-        else if ("1.3.36.3.3.1.2".equals(sigAlgName)) {
-            sigAlgName = SignatureType.RSA_RIPEMD160.toString();
-        }
-        else if ("1.2.840.10045.4.1".equals(sigAlgName)) {
-            sigAlgName = SignatureType.ECDSA_SHA1.toString();
-        }
+        String sigAlgName = SignatureType.forOid(cert.getSigAlgName()).toString();
         m_jtfSignatureAlgorithm.setText(sigAlgName);
         m_jtfSignatureAlgorithm.setCaretPosition(0);
 

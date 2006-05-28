@@ -89,6 +89,21 @@ public class SignatureType
         TYPE_MAP.put(ECDSA_SHA1.toString(),    ECDSA_SHA1);
     }
 
+    /** OID-to-type map */
+    private static final HashMap OID_MAP = new HashMap();
+    static {
+        OID_MAP.put("1.2.840.113549.1.1.2",    RSA_MD2);
+        OID_MAP.put("1.2.840.113549.1.1.4",    RSA_MD5);
+        OID_MAP.put("1.2.840.113549.1.1.5",    RSA_SHA1);
+        OID_MAP.put("1.2.840.113549.1.1.14",   RSA_SHA224);
+        OID_MAP.put("1.2.840.113549.1.1.11",   RSA_SHA256);
+        OID_MAP.put("1.2.840.113549.1.1.12",   RSA_SHA384);
+        OID_MAP.put("1.2.840.113549.1.1.13",   RSA_SHA512);
+        OID_MAP.put("1.3.36.3.3.1.2",          RSA_RIPEMD160);
+        OID_MAP.put("1.2.840.10040.4.3",       DSA_SHA1);
+        OID_MAP.put("1.2.840.10045.4.1",       ECDSA_SHA1);
+    }
+    
     /** Resource bundle */
     private static ResourceBundle m_res =
         ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
@@ -126,6 +141,18 @@ public class SignatureType
                     new String[]{sType}));
         }
         return st;
+    }
+
+    /**
+     * Gets a SignatureType corresponding to the given OID.
+     *
+     * @param oid the object identifier
+     * @return the corresponding SignatureType
+     */
+    public static SignatureType forOid(String oid)
+    {
+        SignatureType st = (SignatureType) OID_MAP.get(oid);
+        return st == null ? new SignatureType(oid) : st;
     }
 
     /**
