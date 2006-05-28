@@ -88,10 +88,10 @@ class DViewCertificate extends JDialog
     /** Panel to hold the selected certificate's detail */
     private JPanel m_jpCertificate;
 
-    /** Certificate Verison label */
+    /** Certificate version label */
     private JLabel m_jlVersion;
 
-    /** Certificate verison text field */
+    /** Certificate version text field */
     private JTextField m_jtfVersion;
 
     /** Certificate Subject label */
