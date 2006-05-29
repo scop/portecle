@@ -93,7 +93,7 @@ public class DProviderInfo
         JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         final JButton jbOK = new JButton(
-            m_res.getString("DProviderInfo.m_jbOK.text"));
+            m_res.getString("DProviderInfo.jbOK.text"));
         jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -105,10 +105,10 @@ public class DProviderInfo
         jpButtons.add(jbOK);
 
         JButton jbCopy = new JButton(
-            m_res.getString("DProviderInfo.m_jbCopy.text"));
-        jbCopy.setMnemonic(m_res.getString("DProviderInfo.m_jbCopy.mnemonic").charAt(
+            m_res.getString("DProviderInfo.jbCopy.text"));
+        jbCopy.setMnemonic(m_res.getString("DProviderInfo.jbCopy.mnemonic").charAt(
             0));
-        jbCopy.setToolTipText(m_res.getString("DProviderInfo.m_jbCopy.tooltip"));
+        jbCopy.setToolTipText(m_res.getString("DProviderInfo.jbCopy.tooltip"));
         jbCopy.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
