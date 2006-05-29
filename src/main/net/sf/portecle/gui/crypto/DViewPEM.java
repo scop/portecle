@@ -30,13 +30,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -44,6 +50,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.gui.error.DThrowable;
 
 import org.bouncycastle.openssl.PEMWriter;
 
@@ -59,6 +66,12 @@ public class DViewPEM
     /** Stores object to display */
     private Object m_object;
 
+    /** Stores PEM encoding */
+    private String m_pem;
+
+    /** File chooser for saving the PEM encoded object */
+    private JFileChooser m_chooser;
+
     /**
      * Creates new DViewPEM dialog where the parent is a frame.
      *
@@ -66,14 +79,17 @@ public class DViewPEM
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param obj Object to display encoding for
+     * @param chooser File chooser for saving the PEM encoding
      * @throws CryptoException A problem was encountered getting the
      * object's PEM encoding
      */
-    public DViewPEM(JFrame parent, String sTitle, boolean bModal, Object obj)
+    public DViewPEM(JFrame parent, String sTitle, boolean bModal, Object obj,
+        JFileChooser chooser)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
         m_object = obj;
+        m_chooser = chooser;
         initComponents();
     }
 
@@ -84,14 +100,17 @@ public class DViewPEM
      * @param sTitle The dialog title
      * @param bModal Is dialog modal?
      * @param obj Object to display encoding for
+     * @param chooser File chooser for saving the PEM encoding
      * @throws CryptoException A problem was encountered getting the
      * object's PEM encoding
      */
-    public DViewPEM(JDialog parent, String sTitle, boolean bModal, Object obj)
+    public DViewPEM(JDialog parent, String sTitle, boolean bModal, Object obj,
+        JFileChooser chooser)
         throws CryptoException
     {
         super(parent, sTitle, bModal);
         m_object = obj;
+        m_chooser = chooser;
         initComponents();
     }
 
@@ -104,27 +123,29 @@ public class DViewPEM
     private void initComponents()
         throws CryptoException
     {
-        StringWriter encoded = new StringWriter();
-        PEMWriter pw = new PEMWriter(encoded);
-        try {
-            pw.writeObject(m_object);
-        }
-        catch (IOException e) {
-            throw new CryptoException(
-                m_res.getString("DViewPEM.exception.message"), e);
-        }
-        finally {
+        if (m_pem == null) {
+            StringWriter encoded = new StringWriter();
+            PEMWriter pw = new PEMWriter(encoded);
             try {
-                pw.close();
+                pw.writeObject(m_object);
             }
-            catch (IOException e) { /* Ignore */
+            catch (IOException e) {
+                throw new CryptoException(
+                    m_res.getString("DViewPEM.exception.message"), e);
+            }
+            finally {
+                try {
+                    pw.close();
+                }
+                catch (IOException e) { /* Ignore */
+                }
+                m_pem = encoded.toString();
             }
         }
 
-        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        final JButton jbOK = new JButton(
-            m_res.getString("DViewPEM.m_jbOK.text"));
+        final JButton jbOK = new JButton(m_res.getString("DViewPEM.jbOK.text"));
         jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
@@ -133,13 +154,31 @@ public class DViewPEM
             }
         });
 
-        jpOK.add(jbOK);
+        final JButton jbSave = new JButton(
+            m_res.getString("DViewPEM.jbSave.text"));
+        jbSave.setMnemonic(m_res.getString("DViewPEM.jbSave.mnemonic").charAt(
+            0));
+        if (m_chooser == null || m_pem == null) {
+            jbSave.setEnabled(false);
+        }
+        else {
+            jbSave.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent evt)
+                {
+                    savePressed();
+                }
+            });
+        }
+
+        jpButtons.add(jbOK);
+        jpButtons.add(jbSave);
 
         JPanel jpPEM = new JPanel(new BorderLayout());
         jpPEM.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load text area with the PEM encoding
-        JTextArea jtaPEM = new JTextArea(encoded.toString());
+        JTextArea jtaPEM = new JTextArea(m_pem);
         jtaPEM.setCaretPosition(0);
         jtaPEM.setEditable(false);
         jtaPEM.setFont(new Font("Monospaced", Font.PLAIN,
@@ -152,7 +191,7 @@ public class DViewPEM
         jpPEM.add(jspPEM, BorderLayout.CENTER);
 
         getContentPane().add(jpPEM, BorderLayout.CENTER);
-        getContentPane().add(jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         setResizable(true);
 
@@ -186,11 +225,59 @@ public class DViewPEM
     }
 
     /**
+     * Save button pressed or otherwise activated.
+     */
+    private void savePressed()
+    {
+        int iRtnValue = m_chooser.showDialog(this,
+            m_res.getString("DViewPEM.jbSave.text"));
+        if (iRtnValue == JFileChooser.APPROVE_OPTION) {
+            File fExportFile = m_chooser.getSelectedFile();
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(fExportFile);
+                fw.write(m_pem);
+            }
+            catch (FileNotFoundException ex) {
+                String sMessage = MessageFormat.format(
+                    m_res.getString("DViewPEM.NoWriteFile.message"),
+                    new String[] { fExportFile.getName() });
+                JOptionPane.showMessageDialog(this, sMessage, getTitle(),
+                    JOptionPane.WARNING_MESSAGE);
+            }
+            catch (IOException e) {
+                displayException(e);
+            }
+            finally {
+                if (fw != null)
+                    try {
+                        fw.close();
+                    }
+                    catch (IOException e) {
+                        // Ignore
+                    }
+            }
+        }
+    }
+
+    /**
      * Hides the dialog.
      */
     private void closeDialog()
     {
         setVisible(false);
         dispose();
+    }
+
+    /**
+     * Display an exception.
+     *
+     * @param exception Exception to display
+     */
+    private void displayException(Exception exception)
+    {
+        DThrowable dThrowable = new DThrowable(this, true, exception);
+        dThrowable.setLocationRelativeTo(this);
+        dThrowable.setVisible(true);
     }
 }

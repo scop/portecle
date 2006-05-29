@@ -36,6 +36,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -332,9 +333,13 @@ class DViewCSR
      */
     private void pemEncodingPressed()
     {
+        JFileChooser chooser = FileChooserFactory.getCsrFileChooser();
+        // TODO: lastdir
+        chooser.setDialogTitle(m_res.getString("DViewCSR.Save.Title"));
+        chooser.setMultiSelectionEnabled(false);
         try {
             DViewPEM dViewCertPem = new DViewPEM(this,
-                m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req);
+                m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req, chooser);
             dViewCertPem.setLocationRelativeTo(this);
             dViewCertPem.setVisible(true);
         }

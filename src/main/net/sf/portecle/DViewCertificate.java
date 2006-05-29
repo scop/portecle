@@ -46,6 +46,7 @@ import java.util.Set;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -697,11 +698,16 @@ class DViewCertificate
 
         X509Certificate cert = m_certs[m_iSelCert];
 
+        JFileChooser chooser = FileChooserFactory.getPEMFileChooser();
+        // TODO: lastdir
+        chooser.setDialogTitle(m_res.getString("DViewCertificate.Save.Title"));
+        chooser.setMultiSelectionEnabled(false);
+
         try {
             DViewPEM dViewCertPem = new DViewPEM(this, MessageFormat.format(
                 m_res.getString("DViewCertificate.PemEncoding.Title"),
                 new String[] { "" + (m_iSelCert + 1), "" + m_certs.length }),
-                true, cert);
+                true, cert, chooser);
             dViewCertPem.setLocationRelativeTo(this);
             dViewCertPem.setVisible(true);
         }
