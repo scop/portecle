@@ -291,7 +291,7 @@ class DImportKeyPair
                 // Add the alias to the list if the entry has a key
                 // and certificates
                 if (m_pkcs12.isKeyEntry(sAlias)) {
-                    Key key = m_pkcs12.getKey(sAlias, new char[] {});
+                    m_pkcs12.getKey(sAlias, new char[] {}); // XXX: what's this, password check?
                     Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
                     if (certs != null && certs.length != 0) {

@@ -80,29 +80,29 @@ public class X509Ext
     private static final String COMMON_NAME_OID = "2.5.4.3";
 
     /** Authority Key Identifier (old) OID */
-    private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1";
+    //private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1";
 
     /** Primary Key Attributes OID */
     // No info available
-    private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2";
+    //private static final String PRIMARY_KEY_ATTRIBUTES_OID = "2.5.29.2";
 
     /** Certificate Policies (old) OID */
-    private static final String CERTIFICATE_POLICIES_OLD_OID = "2.5.29.3";
+    //private static final String CERTIFICATE_POLICIES_OLD_OID = "2.5.29.3";
 
     /** Primary Key Usage Restriction (old) OID */
     // Old - not to do?
-    private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4";
+    //private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4";
 
     /** Subject Directory Attributes OID */
     // Std todo
-    private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9";
+    //private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9";
 
     /** Basic Constraints (old 0) OID */
-    private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10";
+    //private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10";
 
     /** Basic Constraints (old 1) OID */
     // Old - not to do?
-    private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13";
+    //private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13";
 
     /** Subject Key Identifier OID */
     private static final String SUBJECT_KEY_IDENTIFIER_OID = "2.5.29.14";
@@ -136,21 +136,21 @@ public class X509Ext
 
     /** CRL Distribution Points (old) OID */
     // Old - not to do?
-    private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25";
+    //private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25";
 
     /** Delta CRL Indicator OID */
     private static final String DELTA_CRL_INDICATOR_OID = "2.5.29.27";
 
     /** Issuing Distribution Point OID */
     // Std todo
-    private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28";
+    //private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28";
 
     /** Certificate Issuer OID */
     private static final String CERTIFICATE_ISSUER_OID = "2.5.29.29";
 
     /** Name Constraints OID */
     // Std todo
-    private static final String NAME_CONSTRAINTS_OID = "2.5.29.30";
+    //private static final String NAME_CONSTRAINTS_OID = "2.5.29.30";
 
     /** CRL Distribution Points OID */
     private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31";
@@ -164,7 +164,7 @@ public class X509Ext
 
     /** Policy Constraints (old) OID */
     // Old - not to do?
-    private static final String POLICY_CONSTRAINTS_OLD_OID = "2.5.29.34";
+    //private static final String POLICY_CONSTRAINTS_OLD_OID = "2.5.29.34";
 
     /** Authority Key Identifier OID */
     private static final String AUTHORITY_KEY_IDENTIFIER_OID = "2.5.29.35";
@@ -177,31 +177,31 @@ public class X509Ext
 
     /** CRL Stream Identifier OID */
     // No info available
-    private static final String CRL_STREAM_IDENTIFIER_OID = "2.5.29.40";
+    //private static final String CRL_STREAM_IDENTIFIER_OID = "2.5.29.40";
 
     /** CRL Scope OID */
     // No info available
-    private static final String CRL_SCOPE_OID = "2.5.29.44";
+    //private static final String CRL_SCOPE_OID = "2.5.29.44";
 
     /** Status Referrals OID */
     // No info available
-    private static final String STATUS_REFERRALS_OID = "2.5.29.45";
+    //private static final String STATUS_REFERRALS_OID = "2.5.29.45";
 
     /** Freshest CRL OID */
     // Std todo
-    private static final String FRESHEST_CRL_OID = "2.5.29.46";
+    //private static final String FRESHEST_CRL_OID = "2.5.29.46";
 
     /** Ordered List OID */
     // No info available
-    private static final String ORDERED_LIST_OID = "2.5.29.47";
+    //private static final String ORDERED_LIST_OID = "2.5.29.47";
 
     /** Base Update Time OID */
     // No info available
-    private static final String BASE_UPDATE_TIME_OID = "2.5.29.51";
+    //private static final String BASE_UPDATE_TIME_OID = "2.5.29.51";
 
     /** Delta Information OID */
     // No info available
-    private static final String DELTA_INFORMATION_OID = "2.5.29.53";
+    //private static final String DELTA_INFORMATION_OID = "2.5.29.53";
 
     /** Inhibit Any Policy OID */
     private static final String INHIBIT_ANY_POLICY_OID = "2.5.29.54";
@@ -1664,7 +1664,6 @@ public class X509Ext
         byte[] bytes = ((DERBitString) toDER(bValue)).getBytes();
 
         StringBuffer strBuff = new StringBuffer();
-        boolean bKeyAgreement = false;
 
         if (bytes.length != 0) {
             boolean[] b = new boolean[8];
@@ -1696,8 +1695,9 @@ public class X509Ext
             if (b[4]) {
                 strBuff.append(m_res.getString("ObjectSigningNetscapeCertificateType"));
                 strBuff.append('\n');
-                bKeyAgreement = true;
             }
+
+            // b[3] reserved for future use
 
             if (b[2]) {
                 strBuff.append(m_res.getString("SslCaNetscapeCertificateType"));
@@ -2020,7 +2020,7 @@ public class X509Ext
 
             for (int iCnt = 0, bl = bIpAddress.length; iCnt < bl; iCnt++) {
                 // Convert from (possibly negative) byte to positive int
-                sbIpAddress.append((int) bIpAddress[iCnt] & 0xFF);
+                sbIpAddress.append(bIpAddress[iCnt] & 0xFF);
                 if ((iCnt + 1) < bIpAddress.length) {
                     sbIpAddress.append('.');
                 }
@@ -2042,7 +2042,7 @@ public class X509Ext
             for (int iCnt = 0; iCnt < bRegisteredId.length; iCnt++) {
                 byte b = bRegisteredId[iCnt];
                 // Convert from (possibly negative) byte to positive int
-                sbRegisteredId.append((int) b & 0xFF);
+                sbRegisteredId.append(b & 0xFF);
                 if ((iCnt + 1) < bRegisteredId.length) {
                     sbRegisteredId.append('.');
                 }
@@ -2110,8 +2110,7 @@ public class X509Ext
         // For each byte...
         for (int iCnt = 0; iCnt < iLen; iCnt++) {
             // Convert byte to int
-            byte b = bytes[iCnt];
-            int i = (int) b & 0xFF;
+            int i = bytes[iCnt] & 0xFF;
 
             // First part of byte will be one hex char
             int i1 = (int) Math.floor(i / 16);
