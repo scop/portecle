@@ -254,7 +254,7 @@ public class DViewPEM
                         fw.close();
                     }
                     catch (IOException e) {
-                        // Ignore
+                        displayException(e);
                     }
             }
         }

@@ -4179,15 +4179,15 @@ public class FPortecle
             return false;
         }
 
+        FileOutputStream fos = null;
         try {
             // Get the head certificate
             X509Certificate cert = getHeadCert(sEntryAlias);
 
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertEncodedPkcs7(cert);
-            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos = new FileOutputStream(fExportFile);
             fos.write(bEncoded);
-            fos.close();
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -4208,6 +4208,16 @@ public class FPortecle
         catch (CryptoException ex) {
             displayException(ex);
             return false;
+        }
+        finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                }
+                catch (IOException e) {
+                    displayException(e);
+                }
+            }
         }
     }
 
@@ -4229,15 +4239,15 @@ public class FPortecle
             return false;
         }
 
+        FileOutputStream fos = null;
         try {
             // Get the head certificate
             X509Certificate cert = getHeadCert(sEntryAlias);
 
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertEncodedPkiPath(cert);
-            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos = new FileOutputStream(fExportFile);
             fos.write(bEncoded);
-            fos.close();
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -4258,6 +4268,16 @@ public class FPortecle
         catch (CryptoException ex) {
             displayException(ex);
             return false;
+        }
+        finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                }
+                catch (IOException e) {
+                    displayException(e);
+                }
+            }
         }
     }
 
@@ -4279,6 +4299,7 @@ public class FPortecle
             return false;
         }
 
+        FileOutputStream fos = null;
         try {
             // Get the certificates
             KeyStore keyStore = m_keyStoreWrap.getKeyStore();
@@ -4286,9 +4307,8 @@ public class FPortecle
 
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertsEncodedPkcs7(certChain);
-            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos = new FileOutputStream(fExportFile);
             fos.write(bEncoded);
-            fos.close();
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -4313,6 +4333,16 @@ public class FPortecle
         catch (CryptoException ex) {
             displayException(ex);
             return false;
+        }
+        finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                }
+                catch (IOException e) {
+                    displayException(e);
+                }
+            }
         }
     }
 
@@ -4334,6 +4364,7 @@ public class FPortecle
             return false;
         }
 
+        FileOutputStream fos = null;
         try {
             // Get the certificates
             KeyStore keyStore = m_keyStoreWrap.getKeyStore();
@@ -4341,9 +4372,8 @@ public class FPortecle
 
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertsEncodedPkiPath(certChain);
-            FileOutputStream fos = new FileOutputStream(fExportFile);
+            fos = new FileOutputStream(fExportFile);
             fos.write(bEncoded);
-            fos.close();
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -4368,6 +4398,16 @@ public class FPortecle
         catch (CryptoException ex) {
             displayException(ex);
             return false;
+        }
+        finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                }
+                catch (IOException e) {
+                    displayException(e);
+                }
+            }
         }
     }
 

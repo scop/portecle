@@ -184,7 +184,8 @@ public final class KeyStoreUtil
             try {
                 fis.close();
             }
-            catch (IOException ex) { /* Ignore */
+            catch (IOException ex) {
+                // Ignore
             }
         }
 

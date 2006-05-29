@@ -164,7 +164,8 @@ public final class X509CertUtil
                 try {
                     fis.close();
                 }
-                catch (IOException ex) { /* Ignore */
+                catch (IOException ex) {
+                    // Ignore
                 }
             }
         }
@@ -188,7 +189,6 @@ public final class X509CertUtil
         throws CryptoException, IOException
     {
         FileInputStream fis = null;
-
         try {
             fis = new FileInputStream(fCRLFile);
             CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
@@ -204,7 +204,8 @@ public final class X509CertUtil
                 try {
                     fis.close();
                 }
-                catch (IOException ex) { /* Ignore */
+                catch (IOException ex) {
+                    // Ignore
                 }
             }
         }
@@ -250,7 +251,8 @@ public final class X509CertUtil
                 try {
                     in.close();
                 }
-                catch (IOException ex) { /* Ignore */
+                catch (IOException ex) {
+                    // Ignore
                 }
             }
         }
