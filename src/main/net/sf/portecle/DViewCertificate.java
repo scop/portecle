@@ -74,9 +74,6 @@ class DViewCertificate
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold certificate selector controls */
-    private JPanel m_jpSelector;
-
     /** Move left selector button */
     private JButton m_jbLeft;
 
@@ -86,83 +83,38 @@ class DViewCertificate
     /** Selection status label */
     private JLabel m_jlSelector;
 
-    /** Panel to hold the selected certificate's detail */
-    private JPanel m_jpCertificate;
-
-    /** Certificate version label */
-    private JLabel m_jlVersion;
-
     /** Certificate version text field */
     private JTextField m_jtfVersion;
-
-    /** Certificate Subject label */
-    private JLabel m_jlSubject;
 
     /** Certificate Subject text field */
     private JTextField m_jtfSubject;
 
-    /** Certificate Issuer text label */
-    private JLabel m_jlIssuer;
-
     /** Certificate Issuer text field */
     private JTextField m_jtfIssuer;
-
-    /** Certificate Serial Number label */
-    private JLabel m_jlSerialNumber;
 
     /** Certificate Serial Number text field */
     private JTextField m_jtfSerialNumber;
 
-    /** Certificate Valid From label */
-    private JLabel m_jlValidFrom;
-
     /** Certificate Valid From text field */
     private JTextField m_jtfValidFrom;
-
-    /** Certificate Valid Until label */
-    private JLabel m_jlValidUntil;
 
     /** Certificate Valid Until text field */
     private JTextField m_jtfValidUntil;
 
-    /** Certificate Public Key label */
-    private JLabel m_jlPublicKey;
-
     /** Certificate Public Key text field */
     private JTextField m_jtfPublicKey;
-
-    /** Certificate Signature Algorithm label */
-    private JLabel m_jlSignatureAlgorithm;
 
     /** Certificate Signature Algorithm text field */
     private JTextField m_jtfSignatureAlgorithm;
 
-    /** Certificate MD5 Fingerprint label */
-    private JLabel m_jlMD5Fingerprint;
-
     /** Certificate MD5 Fingerprint text field */
     private JTextField m_jtfMD5Fingerprint;
-
-    /** Certificate SHA-1 Fingerprint label */
-    private JLabel m_jlSHA1Fingerprint;
 
     /** Certificate SHA-1 Fingerprint text field */
     private JTextField m_jtfSHA1Fingerprint;
 
-    /** Panel to hold "Extensions" and "PEM Encoding" buttons */
-    private JPanel m_jpButtons;
-
     /** Button used to display the certificate's extensions */
     private JButton m_jbExtensions;
-
-    /** Button used to display the certificate's PEM encoding */
-    private JButton m_jbPemEncoding;
-
-    /** Panel to hold OK button */
-    private JPanel m_jpOK;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
 
     /** Stores certificate(s) to display */
     private X509Certificate[] m_certs;
@@ -258,10 +210,10 @@ class DViewCertificate
                 getClass().getResource(
                     m_res.getString("DViewCertificate.m_jbRight.image")))));
 
-        m_jpSelector = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpSelector.add(m_jbLeft);
-        m_jpSelector.add(m_jlSelector);
-        m_jpSelector.add(m_jbRight);
+        JPanel jpSelector = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpSelector.add(m_jbLeft);
+        jpSelector.add(m_jlSelector);
+        jpSelector.add(m_jbRight);
 
         // Certificate details:
 
@@ -282,8 +234,8 @@ class DViewCertificate
         gbcTf.anchor = GridBagConstraints.WEST;
 
         // Version
-        m_jlVersion = new JLabel(
-            m_res.getString("DViewCertificate.m_jlVersion.text"));
+        JLabel jlVersion = new JLabel(
+            m_res.getString("DViewCertificate.jlVersion.text"));
         GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
         gbc_jlVersion.gridy = 0;
 
@@ -294,8 +246,8 @@ class DViewCertificate
         gbc_jtfVersion.gridy = 0;
 
         // Subject
-        m_jlSubject = new JLabel(
-            m_res.getString("DViewCertificate.m_jlSubject.text"));
+        JLabel jlSubject = new JLabel(
+            m_res.getString("DViewCertificate.jlSubject.text"));
         GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSubject.gridy = 1;
 
@@ -306,8 +258,8 @@ class DViewCertificate
         gbc_jtfSubject.gridy = 1;
 
         // Issuer
-        m_jlIssuer = new JLabel(
-            m_res.getString("DViewCertificate.m_jlIssuer.text"));
+        JLabel jlIssuer = new JLabel(
+            m_res.getString("DViewCertificate.jlIssuer.text"));
         GridBagConstraints gbc_jlIssuer = (GridBagConstraints) gbcLbl.clone();
         gbc_jlIssuer.gridy = 2;
 
@@ -318,8 +270,8 @@ class DViewCertificate
         gbc_jtfIssuer.gridy = 2;
 
         // Serial Number
-        m_jlSerialNumber = new JLabel(
-            m_res.getString("DViewCertificate.m_jlSerialNumber.text"));
+        JLabel jlSerialNumber = new JLabel(
+            m_res.getString("DViewCertificate.jlSerialNumber.text"));
         GridBagConstraints gbc_jlSerialNumber = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSerialNumber.gridy = 3;
 
@@ -330,8 +282,8 @@ class DViewCertificate
         gbc_jtfSerialNumber.gridy = 3;
 
         // Valid From
-        m_jlValidFrom = new JLabel(
-            m_res.getString("DViewCertificate.m_jlValidFrom.text"));
+        JLabel jlValidFrom = new JLabel(
+            m_res.getString("DViewCertificate.jlValidFrom.text"));
         GridBagConstraints gbc_jlValidFrom = (GridBagConstraints) gbcLbl.clone();
         gbc_jlValidFrom.gridy = 4;
 
@@ -342,8 +294,8 @@ class DViewCertificate
         gbc_jtfValidFrom.gridy = 4;
 
         // Valid Until
-        m_jlValidUntil = new JLabel(
-            m_res.getString("DViewCertificate.m_jlValidUntil.text"));
+        JLabel jlValidUntil = new JLabel(
+            m_res.getString("DViewCertificate.jlValidUntil.text"));
         GridBagConstraints gbc_jlValidUntil = (GridBagConstraints) gbcLbl.clone();
         gbc_jlValidUntil.gridy = 5;
 
@@ -354,8 +306,8 @@ class DViewCertificate
         gbc_jtfValidUntil.gridy = 5;
 
         // Public Key
-        m_jlPublicKey = new JLabel(
-            m_res.getString("DViewCertificate.m_jlPublicKey.text"));
+        JLabel jlPublicKey = new JLabel(
+            m_res.getString("DViewCertificate.jlPublicKey.text"));
         GridBagConstraints gbc_jlPublicKey = (GridBagConstraints) gbcLbl.clone();
         gbc_jlPublicKey.gridy = 6;
 
@@ -366,8 +318,8 @@ class DViewCertificate
         gbc_jtfPublicKey.gridy = 6;
 
         // Signature Algorithm
-        m_jlSignatureAlgorithm = new JLabel(
-            m_res.getString("DViewCertificate.m_jlSignatureAlgorithm.text"));
+        JLabel jlSignatureAlgorithm = new JLabel(
+            m_res.getString("DViewCertificate.jlSignatureAlgorithm.text"));
         GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSignatureAlgorithm.gridy = 7;
 
@@ -378,8 +330,8 @@ class DViewCertificate
         gbc_jtfSignatureAlgorithm.gridy = 7;
 
         // MD5 Fingerprint
-        m_jlMD5Fingerprint = new JLabel(
-            m_res.getString("DViewCertificate.m_jlMD5Fingerprint.text"));
+        JLabel jlMD5Fingerprint = new JLabel(
+            m_res.getString("DViewCertificate.jlMD5Fingerprint.text"));
         GridBagConstraints gbc_jlMD5Fingerprint = (GridBagConstraints) gbcLbl.clone();
         gbc_jlMD5Fingerprint.gridy = 8;
 
@@ -390,8 +342,8 @@ class DViewCertificate
         gbc_jtfMD5Fingerprint.gridy = 8;
 
         // SHA-1 Fingerprint
-        m_jlSHA1Fingerprint = new JLabel(
-            m_res.getString("DViewCertificate.m_jlSHA1Fingerprint.text"));
+        JLabel jlSHA1Fingerprint = new JLabel(
+            m_res.getString("DViewCertificate.jlSHA1Fingerprint.text"));
         GridBagConstraints gbc_jlSHA1Fingerprint = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSHA1Fingerprint.gridy = 9;
 
@@ -417,13 +369,13 @@ class DViewCertificate
         });
 
         // PEM Encoding
-        m_jbPemEncoding = new JButton(
-            m_res.getString("DViewCertificate.m_jbPemEncoding.text"));
+        JButton jbPemEncoding = new JButton(
+            m_res.getString("DViewCertificate.jbPemEncoding.text"));
 
-        m_jbPemEncoding.setMnemonic(m_res.getString(
-            "DViewCertificate.m_jbPemEncoding.mnemonic").charAt(0));
-        m_jbPemEncoding.setToolTipText(m_res.getString("DViewCertificate.m_jbPemEncoding.tooltip"));
-        m_jbPemEncoding.addActionListener(new ActionListener()
+        jbPemEncoding.setMnemonic(m_res.getString(
+            "DViewCertificate.jbPemEncoding.mnemonic").charAt(0));
+        jbPemEncoding.setToolTipText(m_res.getString("DViewCertificate.jbPemEncoding.tooltip"));
+        jbPemEncoding.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -432,12 +384,12 @@ class DViewCertificate
         });
 
         if (m_certs.length == 0) {
-            m_jbPemEncoding.setEnabled(false);
+            jbPemEncoding.setEnabled(false);
         }
 
-        m_jpButtons = new JPanel();
-        m_jpButtons.add(m_jbExtensions);
-        m_jpButtons.add(m_jbPemEncoding);
+        JPanel jpButtons = new JPanel();
+        jpButtons.add(m_jbExtensions);
+        jpButtons.add(jbPemEncoding);
 
         GridBagConstraints gbc_jpButtons = new GridBagConstraints();
         gbc_jpButtons.gridx = 0;
@@ -447,40 +399,41 @@ class DViewCertificate
         gbc_jpButtons.insets = new Insets(5, 5, 5, 5);
         gbc_jpButtons.anchor = GridBagConstraints.EAST;
 
-        m_jpCertificate = new JPanel(new GridBagLayout());
-        m_jpCertificate.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5,
-            5), new EtchedBorder()));
+        JPanel jpCertificate = new JPanel(new GridBagLayout());
+        jpCertificate.setBorder(new CompoundBorder(
+            new EmptyBorder(5, 5, 5, 5), new EtchedBorder()));
 
-        m_jpCertificate.add(m_jlVersion, gbc_jlVersion);
-        m_jpCertificate.add(m_jtfVersion, gbc_jtfVersion);
-        m_jpCertificate.add(m_jlSubject, gbc_jlSubject);
-        m_jpCertificate.add(m_jtfSubject, gbc_jtfSubject);
-        m_jpCertificate.add(m_jlIssuer, gbc_jlIssuer);
-        m_jpCertificate.add(m_jtfIssuer, gbc_jtfIssuer);
-        m_jpCertificate.add(m_jlSerialNumber, gbc_jlSerialNumber);
-        m_jpCertificate.add(m_jtfSerialNumber, gbc_jtfSerialNumber);
-        m_jpCertificate.add(m_jlValidFrom, gbc_jlValidFrom);
-        m_jpCertificate.add(m_jtfValidFrom, gbc_jtfValidFrom);
-        m_jpCertificate.add(m_jlValidUntil, gbc_jlValidUntil);
-        m_jpCertificate.add(m_jtfValidUntil, gbc_jtfValidUntil);
-        m_jpCertificate.add(m_jlPublicKey, gbc_jlPublicKey);
-        m_jpCertificate.add(m_jtfPublicKey, gbc_jtfPublicKey);
-        m_jpCertificate.add(m_jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
-        m_jpCertificate.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
-        m_jpCertificate.add(m_jlMD5Fingerprint, gbc_jlMD5Fingerprint);
-        m_jpCertificate.add(m_jtfMD5Fingerprint, gbc_jtfMD5Fingerprint);
-        m_jpCertificate.add(m_jlSHA1Fingerprint, gbc_jlSHA1Fingerprint);
-        m_jpCertificate.add(m_jtfSHA1Fingerprint, gbc_jtfSHA1Fingerprint);
-        m_jpCertificate.add(m_jpButtons, gbc_jpButtons);
+        jpCertificate.add(jlVersion, gbc_jlVersion);
+        jpCertificate.add(m_jtfVersion, gbc_jtfVersion);
+        jpCertificate.add(jlSubject, gbc_jlSubject);
+        jpCertificate.add(m_jtfSubject, gbc_jtfSubject);
+        jpCertificate.add(jlIssuer, gbc_jlIssuer);
+        jpCertificate.add(m_jtfIssuer, gbc_jtfIssuer);
+        jpCertificate.add(jlSerialNumber, gbc_jlSerialNumber);
+        jpCertificate.add(m_jtfSerialNumber, gbc_jtfSerialNumber);
+        jpCertificate.add(jlValidFrom, gbc_jlValidFrom);
+        jpCertificate.add(m_jtfValidFrom, gbc_jtfValidFrom);
+        jpCertificate.add(jlValidUntil, gbc_jlValidUntil);
+        jpCertificate.add(m_jtfValidUntil, gbc_jtfValidUntil);
+        jpCertificate.add(jlPublicKey, gbc_jlPublicKey);
+        jpCertificate.add(m_jtfPublicKey, gbc_jtfPublicKey);
+        jpCertificate.add(jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
+        jpCertificate.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
+        jpCertificate.add(jlMD5Fingerprint, gbc_jlMD5Fingerprint);
+        jpCertificate.add(m_jtfMD5Fingerprint, gbc_jtfMD5Fingerprint);
+        jpCertificate.add(jlSHA1Fingerprint, gbc_jlSHA1Fingerprint);
+        jpCertificate.add(m_jtfSHA1Fingerprint, gbc_jtfSHA1Fingerprint);
+        jpCertificate.add(jpButtons, gbc_jpButtons);
 
         // Populate the dialog with the first certificate (if any)
         populateDialog();
 
         // OK button
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DViewCertificate.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DViewCertificate.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -488,12 +441,12 @@ class DViewCertificate
             }
         });
 
-        m_jpOK.add(m_jbOK);
+        jpOK.add(jbOK);
 
         // Put it all together
-        getContentPane().add(m_jpSelector, BorderLayout.NORTH);
-        getContentPane().add(m_jpCertificate, BorderLayout.CENTER);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpSelector, BorderLayout.NORTH);
+        getContentPane().add(jpCertificate, BorderLayout.CENTER);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         // Annoying, but resizing wreaks havoc here
         setResizable(false);
@@ -506,7 +459,7 @@ class DViewCertificate
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -514,7 +467,7 @@ class DViewCertificate
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

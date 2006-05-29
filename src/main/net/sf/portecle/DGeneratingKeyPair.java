@@ -61,18 +61,6 @@ class DGeneratingKeyPair
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold generating key pair label */
-    private JPanel m_jpGenKeyPair;
-
-    /** Generating key pair label */
-    private JLabel m_jlGenKeyPair;
-
-    /** Panel to hold cancel button */
-    private JPanel m_jpCancel;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
-
     /** Stores the key pair generation type */
     private KeyPairType m_keyPairType;
 
@@ -129,39 +117,39 @@ class DGeneratingKeyPair
     private void initComponents()
     {
         // Generate key Pair label
-        m_jlGenKeyPair = new JLabel(
-            m_res.getString("DGeneratingKeypair.m_jlGenKeyPair.text"));
+        JLabel jlGenKeyPair = new JLabel(
+            m_res.getString("DGeneratingKeypair.jlGenKeyPair.text"));
         ImageIcon icon = new ImageIcon(getClass().getResource(
             m_res.getString("DGeneratingKeypair.Generating.image")));
-        m_jlGenKeyPair.setIcon(icon);
-        m_jpGenKeyPair = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpGenKeyPair.add(m_jlGenKeyPair);
-        m_jpGenKeyPair.setBorder(new EmptyBorder(5, 5, 5, 5));
+        jlGenKeyPair.setIcon(icon);
+        JPanel jpGenKeyPair = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpGenKeyPair.add(jlGenKeyPair);
+        jpGenKeyPair.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Cancel button
-        m_jbCancel = new JButton(
-            m_res.getString("DGeneratingKeyPair.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGeneratingKeyPair.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jpCancel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpCancel.add(m_jbCancel);
+        JPanel jpCancel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpCancel.add(jbCancel);
 
-        getContentPane().add(m_jpGenKeyPair, BorderLayout.NORTH);
-        getContentPane().add(m_jpCancel, BorderLayout.SOUTH);
+        getContentPane().add(jpGenKeyPair, BorderLayout.NORTH);
+        getContentPane().add(jpCancel, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {

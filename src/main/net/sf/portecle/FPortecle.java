@@ -214,41 +214,11 @@ public class FPortecle
     // Menu bar controls
     ////////////////////////////////////////////////////////////
 
-    /** Menu bar */
-    private JMenuBar m_jmbMenuBar;
-
     /** File menu */
     private JMenuRecentFiles m_jmrfFile;
 
-    /** New keystore menu item of File menu */
-    private JMenuItem m_jmiNewKeyStore;
-
-    /** Open keystore File menu item of File menu */
-    private JMenuItem m_jmiOpenKeyStoreFile;
-
-    /** Open PKCS #11 keystore menu item of File menu */
-    private JMenuItem m_jmiOpenKeyStorePkcs11;
-
-    /** Save keystore menu item of File menu */
-    private JMenuItem m_jmiSaveKeyStore;
-
     /** Save keystore As menu item of File menu */
     private JMenuItem m_jmiSaveKeyStoreAs;
-
-    /** Exit menu item of File menu */
-    private JMenuItem m_jmiExit;
-
-    /** Tools menu */
-    private JMenu m_jmTools;
-
-    /** Generate Key Pair menu item of Tools menu */
-    private JMenuItem m_jmiGenKeyPair;
-
-    /** Import Trusted Certificate menu item of Tools menu */
-    private JMenuItem m_jmiImportTrustCert;
-
-    /** Import Key Pair menu item of Tools menu */
-    private JMenuItem m_jmiImportKeyPair;
 
     /** Change keystore Type menu Tools menu */
     private JMenu m_jmChangeKeyStoreType;
@@ -268,150 +238,17 @@ public class FPortecle
     /** UBER menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeUber;
 
-    /** Set Keystore Password menu item of Tools menu */
-    private JMenuItem m_jmiSetKeyStorePass;
-
-    /** Keystore Report menu item of Tools menu */
-    private JMenuItem m_jmiKeyStoreReport;
-
-    /** Options menu item of Tools menu */
-    private JMenuItem m_jmiOptions;
-
-    /** Examine menu */
-    private JMenu m_jmExamine;
-
-    /** Examine Certificate menu item of Examine menu */
-    private JMenuItem m_jmiExamineCert;
-
-    /** Examine Certificate (SSL/TLS connection) menu item of Examine menu */
-    private JMenuItem m_jmiExamineCertSSL;
-
-    /** Examine CSR menu item of Examine menu */
-    private JMenuItem m_jmiExamineCsr;
-
-    /** Examine CRL menu item of Examine menu */
-    private JMenuItem m_jmiExamineCrl;
-
-    /** Help menu */
-    private JMenu m_jmHelp;
-
-    /** Help menu item of Help menu */
-    private JMenuItem m_jmiHelp;
-
-    /** Online Resources menu of Help menu */
-    private JMenu m_jmOnlineResources;
-
-    /** Website menu item of Online Resources menu */
-    private JMenuItem m_jmiWebsite;
-
-    /** SourceForge.net Project menu item of Online Resources menu */
-    private JMenuItem m_jmiSFNetProject;
-
-    /** Email menu item of Online Resources menu */
-    private JMenuItem m_jmiEmail;
-
-    /** Portecle Mailing Lists menu item of Online Resources menu */
-    private JMenuItem m_jmiMailList;
-
-    /** Check for Update menu item of Online Resources menu */
-    //private JMenuItem m_jmiCheckUpdate;
-    /** Donation menu item of Online Resources menu */
-    private JMenuItem m_jmiDonate;
-
-    /** Security Providers menu item of Help menu */
-    private JMenuItem m_jmiSecurityProviders;
-
-    /** JARs menu item of Help menu */
-    private JMenuItem m_jmiJars;
-
-    /** About menu item of Help menu */
-    private JMenuItem m_jmiAbout;
-
-    ////////////////////////////////////////////////////////////
-    // Toolbar controls
-    ////////////////////////////////////////////////////////////
-
-    /** The Toolbar */
-    private JToolBar m_jtbToolBar;
-
-    /** New Keystore toolbar button */
-    private JButton m_jbNewKeyStore;
-
-    /** Open Keystore File toolbar button */
-    private JButton m_jbOpenKeyStoreFile;
-
-    /** Save Keystore toolbar button */
-    private JButton m_jbSaveKeyStore;
-
-    /** Generate Key Pair toolbar button */
-    private JButton m_jbGenKeyPair;
-
-    /** Import Trusted Certificate toolbar button */
-    private JButton m_jbImportTrustCert;
-
-    /** Import Key Pair toolbar button */
-    private JButton m_jbImportKeyPair;
-
-    /** Set Keystore Password toolbar button */
-    private JButton m_jbSetKeyStorePass;
-
-    /** Keystore Report toolbar button */
-    private JButton m_jbKeyStoreReport;
-
-    /** Examine Certificate toolbar button */
-    private JButton m_jbExamineCert;
-
-    /** Examine CRL toolbar button */
-    private JButton m_jbExamineCrl;
-
-    /** Help toolbar button */
-    private JButton m_jbHelp;
-
     ////////////////////////////////////////////////////////////
     // Pop-up menu controls
     ////////////////////////////////////////////////////////////
-
     /** Key pair entry pop-up menu */
     private JPopupMenu m_jpmKeyPair;
-
-    /** Certificate details menu item of key pair entry pop-up menu */
-    private JMenuItem m_jmiKeyPairCertDetails;
-
-    /** Export Key Pair entry menu item pop-up menu */
-    private JMenuItem m_jmiKeyPairExport;
-
-    /** Generate CSR menu item of key pair entry pop-up menu */
-    private JMenuItem m_jmiGenerateCSR;
-
-    /** Import menu item of key pair entry pop-up menu */
-    private JMenuItem m_jmiImportCAReply;
 
     /** Set Password menu item of key pair entry pop-up menu */
     private JMenuItem m_jmiSetKeyPairPass;
 
-    /** Delete menu item of key pair entry pop-up menu */
-    private JMenuItem m_jmiKeyPairDelete;
-
-    /** Clone menu item of key pair entry pop-up menu */
-    private JMenuItem m_jmiClone;
-
-    /** Rename menu item of key pair entry pop-up menu */
-    private JMenuItem m_jmiKeyPairRename;
-
     /** Trusted Certificate entry pop-up menu */
     private JPopupMenu m_jpmCert;
-
-    /** Details menu item of Trusted Certificate Entry pop-up menu */
-    private JMenuItem m_jmiTrustCertDetails;
-
-    /** Export Trusted Certificate entry menu item pop-up menu */
-    private JMenuItem m_jmiTrustCertExport;
-
-    /** Delete menu item of Trusted Certificate Entry pop-up menu */
-    private JMenuItem m_jmiTrustCertDelete;
-
-    /** Rename menu item of Trusted Certificate entry pop-up menu */
-    private JMenuItem m_jmiTrustCertRename;
 
     ////////////////////////////////////////////////////////////
     // Keystore table controls
@@ -422,9 +259,6 @@ public class FPortecle
 
     /** Keystore entries table */
     private JTable m_jtKeyStore;
-
-    /** Scroll Pane to view keystore entries table */
-    private JScrollPane m_jspKeyStoreTable;
 
     ////////////////////////////////////////////////////////////
     // Status bar controls
@@ -552,7 +386,7 @@ public class FPortecle
         // use actions
 
         // The menu bar
-        m_jmbMenuBar = new JMenuBar();
+        JMenuBar jmbMenuBar = new JMenuBar();
 
         // File menu
         m_jmrfFile = new JMenuRecentFiles(
@@ -561,54 +395,53 @@ public class FPortecle
         m_jmrfFile.setMnemonic(m_res.getString("FPortecle.m_jmrfFile.mnemonic").charAt(
             0));
 
-        m_jmiNewKeyStore = new JMenuItem(m_newKeyStoreAction);
-        m_jmiNewKeyStore.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiNewKeyStore,
+        JMenuItem jmiNewKeyStore = new JMenuItem(m_newKeyStoreAction);
+        jmiNewKeyStore.setToolTipText(null);
+        new StatusBarChangeHandler(jmiNewKeyStore,
             (String) m_newKeyStoreAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmrfFile.add(m_jmiNewKeyStore);
+        m_jmrfFile.add(jmiNewKeyStore);
 
-        m_jmiOpenKeyStoreFile = new JMenuItem(m_openKeyStoreFileAction);
-        m_jmiOpenKeyStoreFile.setToolTipText(null);
+        JMenuItem jmiOpenKeyStoreFile = new JMenuItem(m_openKeyStoreFileAction);
+        jmiOpenKeyStoreFile.setToolTipText(null);
         new StatusBarChangeHandler(
-            m_jmiOpenKeyStoreFile,
+            jmiOpenKeyStoreFile,
             (String) m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmrfFile.add(m_jmiOpenKeyStoreFile);
+        m_jmrfFile.add(jmiOpenKeyStoreFile);
 
         if (EXPERIMENTAL) {
-            m_jmiOpenKeyStorePkcs11 = new JMenuItem(
-                m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.text"),
-                m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.mnemonic").charAt(
+            JMenuItem jmiOpenKeyStorePkcs11 = new JMenuItem(
+                m_res.getString("FPortecle.jmiOpenKeyStorePkcs11.text"),
+                m_res.getString("FPortecle.jmiOpenKeyStorePkcs11.mnemonic").charAt(
                     0));
-            m_jmiOpenKeyStorePkcs11.setIcon(new ImageIcon(
-                getResImage("FPortecle.m_jmiOpenKeyStorePkcs11.image")));
-            m_jmiOpenKeyStorePkcs11.setToolTipText(null);
+            jmiOpenKeyStorePkcs11.setIcon(new ImageIcon(
+                getResImage("FPortecle.jmiOpenKeyStorePkcs11.image")));
+            jmiOpenKeyStorePkcs11.setToolTipText(null);
             if (ProviderUtil.getPkcs11Providers().isEmpty()) {
-                m_jmiOpenKeyStorePkcs11.setEnabled(false);
+                jmiOpenKeyStorePkcs11.setEnabled(false);
             }
-            m_jmrfFile.add(m_jmiOpenKeyStorePkcs11);
-            m_jmiOpenKeyStorePkcs11.addActionListener(new ActionListener()
+            m_jmrfFile.add(jmiOpenKeyStorePkcs11);
+            jmiOpenKeyStorePkcs11.addActionListener(new ActionListener()
             {
                 protected void act()
                 {
                     openKeyStorePkcs11();
                 }
             });
-            new StatusBarChangeHandler(
-                m_jmiOpenKeyStorePkcs11,
-                m_res.getString("FPortecle.m_jmiOpenKeyStorePkcs11.statusbar"),
+            new StatusBarChangeHandler(jmiOpenKeyStorePkcs11,
+                m_res.getString("FPortecle.jmiOpenKeyStorePkcs11.statusbar"),
                 this);
         }
 
         m_jmrfFile.addSeparator();
 
-        m_jmiSaveKeyStore = new JMenuItem(m_saveKeyStoreAction);
-        m_jmiSaveKeyStore.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiSaveKeyStore,
+        JMenuItem jmiSaveKeyStore = new JMenuItem(m_saveKeyStoreAction);
+        jmiSaveKeyStore.setToolTipText(null);
+        new StatusBarChangeHandler(jmiSaveKeyStore,
             (String) m_saveKeyStoreAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmrfFile.add(m_jmiSaveKeyStore);
+        m_jmrfFile.add(jmiSaveKeyStore);
 
         m_jmiSaveKeyStoreAs = new JMenuItem(
             m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.text"),
@@ -639,57 +472,57 @@ public class FPortecle
             }
         }
 
-        m_jmiExit = new JMenuItem(m_res.getString("FPortecle.m_jmiExit.text"),
-            m_res.getString("FPortecle.m_jmiExit.mnemonic").charAt(0));
-        m_jmiExit.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiExit.image")));
-        m_jmrfFile.add(m_jmiExit);
-        m_jmiExit.addActionListener(new ActionListener()
+        JMenuItem jmiExit = new JMenuItem(
+            m_res.getString("FPortecle.jmiExit.text"), m_res.getString(
+                "FPortecle.jmiExit.mnemonic").charAt(0));
+        jmiExit.setIcon(new ImageIcon(getResImage("FPortecle.jmiExit.image")));
+        m_jmrfFile.add(jmiExit);
+        jmiExit.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 exitApplication();
             }
         });
-        new StatusBarChangeHandler(m_jmiExit,
-            m_res.getString("FPortecle.m_jmiExit.statusbar"), this);
+        new StatusBarChangeHandler(jmiExit,
+            m_res.getString("FPortecle.jmiExit.statusbar"), this);
 
         // Tools menu
-        m_jmTools = new JMenu(m_res.getString("FPortecle.m_jmTools.text"));
-        m_jmTools.setMnemonic(m_res.getString("FPortecle.m_jmTools.mnemonic").charAt(
+        JMenu jmTools = new JMenu(m_res.getString("FPortecle.jmTools.text"));
+        jmTools.setMnemonic(m_res.getString("FPortecle.jmTools.mnemonic").charAt(
             0));
 
-        m_jmiGenKeyPair = new JMenuItem(m_genKeyPairAction);
-        m_jmiGenKeyPair.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiGenKeyPair,
+        JMenuItem jmiGenKeyPair = new JMenuItem(m_genKeyPairAction);
+        jmiGenKeyPair.setToolTipText(null);
+        new StatusBarChangeHandler(jmiGenKeyPair,
             (String) m_genKeyPairAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmTools.add(m_jmiGenKeyPair);
+        jmTools.add(jmiGenKeyPair);
 
-        m_jmiImportTrustCert = new JMenuItem(m_importTrustCertAction);
-        m_jmiImportTrustCert.setToolTipText(null);
+        JMenuItem jmiImportTrustCert = new JMenuItem(m_importTrustCertAction);
+        jmiImportTrustCert.setToolTipText(null);
         new StatusBarChangeHandler(
-            m_jmiImportTrustCert,
+            jmiImportTrustCert,
             (String) m_importTrustCertAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmTools.add(m_jmiImportTrustCert);
+        jmTools.add(jmiImportTrustCert);
 
-        m_jmiImportKeyPair = new JMenuItem(m_importKeyPairAction);
-        m_jmiImportKeyPair.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiImportKeyPair,
+        JMenuItem jmiImportKeyPair = new JMenuItem(m_importKeyPairAction);
+        jmiImportKeyPair.setToolTipText(null);
+        new StatusBarChangeHandler(jmiImportKeyPair,
             (String) m_importKeyPairAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmTools.add(m_jmiImportKeyPair);
+        jmTools.add(jmiImportKeyPair);
 
-        m_jmTools.addSeparator();
+        jmTools.addSeparator();
 
-        m_jmiSetKeyStorePass = new JMenuItem(m_setKeyStorePassAction);
-        m_jmiSetKeyStorePass.setToolTipText(null);
+        JMenuItem jmiSetKeyStorePass = new JMenuItem(m_setKeyStorePassAction);
+        jmiSetKeyStorePass.setToolTipText(null);
         new StatusBarChangeHandler(
-            m_jmiSetKeyStorePass,
+            jmiSetKeyStorePass,
             (String) m_setKeyStorePassAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmTools.add(m_jmiSetKeyStorePass);
+        jmTools.add(jmiSetKeyStorePass);
 
         m_jmChangeKeyStoreType = new JMenu(
             m_res.getString("FPortecle.m_jmChangeKeyStoreType.text"));
@@ -698,7 +531,7 @@ public class FPortecle
         m_jmChangeKeyStoreType.setMnemonic(m_res.getString(
             "FPortecle.m_jmChangeKeyStoreType.mnemonic").charAt(0));
         m_jmChangeKeyStoreType.setEnabled(false);
-        m_jmTools.add(m_jmChangeKeyStoreType);
+        jmTools.add(m_jmChangeKeyStoreType);
 
         // Add Change Keystore Type sub-menu of Tools
         m_jmiChangeKeyStoreTypeJks = new JMenuItem(
@@ -789,241 +622,239 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"),
             this);
 
-        m_jmiKeyStoreReport = new JMenuItem(m_keyStoreReportAction);
-        m_jmiKeyStoreReport.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiKeyStoreReport,
+        JMenuItem jmiKeyStoreReport = new JMenuItem(m_keyStoreReportAction);
+        jmiKeyStoreReport.setToolTipText(null);
+        new StatusBarChangeHandler(jmiKeyStoreReport,
             (String) m_keyStoreReportAction.getValue(Action.LONG_DESCRIPTION),
             this);
-        m_jmTools.add(m_jmiKeyStoreReport);
+        jmTools.add(jmiKeyStoreReport);
 
-        m_jmTools.addSeparator();
+        jmTools.addSeparator();
 
-        m_jmiOptions = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiOptions.text"), m_res.getString(
-                "FPortecle.m_jmiOptions.mnemonic").charAt(0));
-        m_jmiOptions.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiOptions.image")));
-        m_jmTools.add(m_jmiOptions);
-        m_jmiOptions.addActionListener(new ActionListener()
+        JMenuItem jmiOptions = new JMenuItem(
+            m_res.getString("FPortecle.jmiOptions.text"), m_res.getString(
+                "FPortecle.jmiOptions.mnemonic").charAt(0));
+        jmiOptions.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiOptions.image")));
+        jmTools.add(jmiOptions);
+        jmiOptions.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 showOptions();
             }
         });
-        new StatusBarChangeHandler(m_jmiOptions,
-            m_res.getString("FPortecle.m_jmiOptions.statusbar"), this);
+        new StatusBarChangeHandler(jmiOptions,
+            m_res.getString("FPortecle.jmiOptions.statusbar"), this);
 
         // Examine menu
-        m_jmExamine = new JMenu(m_res.getString("FPortecle.m_jmExamine.text"));
-        m_jmExamine.setMnemonic(m_res.getString(
-            "FPortecle.m_jmExamine.mnemonic").charAt(0));
-
-        m_jmiExamineCert = new JMenuItem(m_examineCertAction);
-        m_jmiExamineCert.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiExamineCert,
-            (String) m_examineCertAction.getValue(Action.LONG_DESCRIPTION),
-            this);
-        m_jmExamine.add(m_jmiExamineCert);
-
-        m_jmiExamineCertSSL = new JMenuItem(m_examineCertSSLAction);
-        m_jmiExamineCertSSL.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiExamineCertSSL,
-            (String) m_examineCertSSLAction.getValue(Action.LONG_DESCRIPTION),
-            this);
-        m_jmExamine.add(m_jmiExamineCertSSL);
-
-        m_jmiExamineCsr = new JMenuItem(m_examineCsrAction);
-        m_jmiExamineCsr.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiExamineCsr,
-            (String) m_examineCsrAction.getValue(Action.LONG_DESCRIPTION),
-            this);
-        m_jmExamine.add(m_jmiExamineCsr);
-
-        m_jmiExamineCrl = new JMenuItem(m_examineCrlAction);
-        m_jmiExamineCrl.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiExamineCrl,
-            (String) m_examineCrlAction.getValue(Action.LONG_DESCRIPTION),
-            this);
-        m_jmExamine.add(m_jmiExamineCrl);
-
-        // Help menu
-        m_jmHelp = new JMenu(m_res.getString("FPortecle.m_jmHelp.text"));
-        m_jmHelp.setMnemonic(m_res.getString("FPortecle.m_jmHelp.mnemonic").charAt(
+        JMenu jmExamine = new JMenu(
+            m_res.getString("FPortecle.jmExamine.text"));
+        jmExamine.setMnemonic(m_res.getString("FPortecle.jmExamine.mnemonic").charAt(
             0));
 
-        m_jmiHelp = new JMenuItem(m_helpAction);
-        m_jmiHelp.setToolTipText(null);
-        new StatusBarChangeHandler(m_jmiHelp,
+        JMenuItem jmiExamineCert = new JMenuItem(m_examineCertAction);
+        jmiExamineCert.setToolTipText(null);
+        new StatusBarChangeHandler(jmiExamineCert,
+            (String) m_examineCertAction.getValue(Action.LONG_DESCRIPTION),
+            this);
+        jmExamine.add(jmiExamineCert);
+
+        JMenuItem jmiExamineCertSSL = new JMenuItem(m_examineCertSSLAction);
+        jmiExamineCertSSL.setToolTipText(null);
+        new StatusBarChangeHandler(jmiExamineCertSSL,
+            (String) m_examineCertSSLAction.getValue(Action.LONG_DESCRIPTION),
+            this);
+        jmExamine.add(jmiExamineCertSSL);
+
+        JMenuItem jmiExamineCsr = new JMenuItem(m_examineCsrAction);
+        jmiExamineCsr.setToolTipText(null);
+        new StatusBarChangeHandler(jmiExamineCsr,
+            (String) m_examineCsrAction.getValue(Action.LONG_DESCRIPTION),
+            this);
+        jmExamine.add(jmiExamineCsr);
+
+        JMenuItem jmiExamineCrl = new JMenuItem(m_examineCrlAction);
+        jmiExamineCrl.setToolTipText(null);
+        new StatusBarChangeHandler(jmiExamineCrl,
+            (String) m_examineCrlAction.getValue(Action.LONG_DESCRIPTION),
+            this);
+        jmExamine.add(jmiExamineCrl);
+
+        // Help menu
+        JMenu jmHelp = new JMenu(m_res.getString("FPortecle.jmHelp.text"));
+        jmHelp.setMnemonic(m_res.getString("FPortecle.jmHelp.mnemonic").charAt(
+            0));
+
+        JMenuItem jmiHelp = new JMenuItem(m_helpAction);
+        jmiHelp.setToolTipText(null);
+        new StatusBarChangeHandler(jmiHelp,
             (String) m_helpAction.getValue(Action.LONG_DESCRIPTION), this);
-        m_jmHelp.add(m_jmiHelp);
+        jmHelp.add(jmiHelp);
 
         // Online Resources menu (sub-menu of Help)
-        m_jmOnlineResources = new JMenu(
-            m_res.getString("FPortecle.m_jmOnlineResources.text"));
-        m_jmOnlineResources.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmOnlineResources.image")));
-        m_jmOnlineResources.setMnemonic(m_res.getString(
-            "FPortecle.m_jmOnlineResources.mnemonic").charAt(0));
-        m_jmHelp.add(m_jmOnlineResources);
+        JMenu jmOnlineResources = new JMenu(
+            m_res.getString("FPortecle.jmOnlineResources.text"));
+        jmOnlineResources.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmOnlineResources.image")));
+        jmOnlineResources.setMnemonic(m_res.getString(
+            "FPortecle.jmOnlineResources.mnemonic").charAt(0));
+        jmHelp.add(jmOnlineResources);
 
-        m_jmiWebsite = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiWebsite.text"), m_res.getString(
-                "FPortecle.m_jmiWebsite.mnemonic").charAt(0));
-        m_jmiWebsite.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiWebsite.image")));
-        m_jmOnlineResources.add(m_jmiWebsite);
-        m_jmiWebsite.addActionListener(new ActionListener()
+        JMenuItem jmiWebsite = new JMenuItem(
+            m_res.getString("FPortecle.jmiWebsite.text"), m_res.getString(
+                "FPortecle.jmiWebsite.mnemonic").charAt(0));
+        jmiWebsite.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiWebsite.image")));
+        jmOnlineResources.add(jmiWebsite);
+        jmiWebsite.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 visitWebsite();
             }
         });
-        new StatusBarChangeHandler(m_jmiWebsite,
-            m_res.getString("FPortecle.m_jmiWebsite.statusbar"), this);
+        new StatusBarChangeHandler(jmiWebsite,
+            m_res.getString("FPortecle.jmiWebsite.statusbar"), this);
 
-        m_jmiSFNetProject = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiSFNetProject.text"),
-            m_res.getString("FPortecle.m_jmiSFNetProject.mnemonic").charAt(0));
-        m_jmiSFNetProject.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiSFNetProject.image")));
-        m_jmOnlineResources.add(m_jmiSFNetProject);
-        m_jmiSFNetProject.addActionListener(new ActionListener()
+        JMenuItem jmiSFNetProject = new JMenuItem(
+            m_res.getString("FPortecle.jmiSFNetProject.text"),
+            m_res.getString("FPortecle.jmiSFNetProject.mnemonic").charAt(0));
+        jmiSFNetProject.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiSFNetProject.image")));
+        jmOnlineResources.add(jmiSFNetProject);
+        jmiSFNetProject.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 visitSFNetProject();
             }
         });
-        new StatusBarChangeHandler(m_jmiSFNetProject,
-            m_res.getString("FPortecle.m_jmiSFNetProject.statusbar"), this);
+        new StatusBarChangeHandler(jmiSFNetProject,
+            m_res.getString("FPortecle.jmiSFNetProject.statusbar"), this);
 
-        m_jmiEmail = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiEmail.text"), m_res.getString(
-                "FPortecle.m_jmiEmail.mnemonic").charAt(0));
-        m_jmiEmail.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiEmail.image")));
-        m_jmOnlineResources.add(m_jmiEmail);
-        m_jmiEmail.addActionListener(new ActionListener()
+        JMenuItem jmiEmail = new JMenuItem(
+            m_res.getString("FPortecle.jmiEmail.text"), m_res.getString(
+                "FPortecle.jmiEmail.mnemonic").charAt(0));
+        jmiEmail.setIcon(new ImageIcon(getResImage("FPortecle.jmiEmail.image")));
+        jmOnlineResources.add(jmiEmail);
+        jmiEmail.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 composeEmail();
             }
         });
-        new StatusBarChangeHandler(m_jmiEmail,
-            m_res.getString("FPortecle.m_jmiEmail.statusbar"), this);
+        new StatusBarChangeHandler(jmiEmail,
+            m_res.getString("FPortecle.jmiEmail.statusbar"), this);
 
-        m_jmiMailList = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiMailList.text"), m_res.getString(
-                "FPortecle.m_jmiMailList.mnemonic").charAt(0));
-        m_jmiMailList.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiMailList.image")));
-        m_jmOnlineResources.add(m_jmiMailList);
-        m_jmiMailList.addActionListener(new ActionListener()
+        JMenuItem jmiMailList = new JMenuItem(
+            m_res.getString("FPortecle.jmiMailList.text"), m_res.getString(
+                "FPortecle.jmiMailList.mnemonic").charAt(0));
+        jmiMailList.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiMailList.image")));
+        jmOnlineResources.add(jmiMailList);
+        jmiMailList.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 visitMailListSignup();
             }
         });
-        new StatusBarChangeHandler(m_jmiMailList,
-            m_res.getString("FPortecle.m_jmiMailList.statusbar"), this);
+        new StatusBarChangeHandler(jmiMailList,
+            m_res.getString("FPortecle.jmiMailList.statusbar"), this);
 
         /* Update check disabled for now...
-         m_jmiCheckUpdate = new JMenuItem(
-         m_res.getString("FPortecle.m_jmiCheckUpdate.text"),
-         m_res.getString("FPortecle.m_jmiCheckUpdate.mnemonic").charAt(0));
-         m_jmiCheckUpdate.setIcon(
-         new ImageIcon(getResImage("FPortecle.m_jmiCheckUpdate.image")));
-         m_jmOnlineResources.add(m_jmiCheckUpdate);
-         m_jmiCheckUpdate.addActionListener(new ActionListener() {
+         JMenuItem jmiCheckUpdate = new JMenuItem(
+         m_res.getString("FPortecle.jmiCheckUpdate.text"),
+         m_res.getString("FPortecle.jmiCheckUpdate.mnemonic").charAt(0));
+         jmiCheckUpdate.setIcon(
+         new ImageIcon(getResImage("FPortecle.jmiCheckUpdate.image")));
+         jmOnlineResources.add(jmiCheckUpdate);
+         jmiCheckUpdate.addActionListener(new ActionListener() {
          protected void act() { checkForUpdate(); }});
          new StatusBarChangeHandler(
-         m_jmiCheckUpdate,
-         m_res.getString("FPortecle.m_jmiCheckUpdate.statusbar"),
+         jmiCheckUpdate,
+         m_res.getString("FPortecle.jmiCheckUpdate.statusbar"),
          this);
          */
 
-        m_jmiDonate = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiDonate.text"), m_res.getString(
-                "FPortecle.m_jmiDonate.mnemonic").charAt(0));
-        m_jmiDonate.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiDonate.image")));
-        m_jmiDonate.setToolTipText(null);
-        m_jmHelp.add(m_jmiDonate);
-        m_jmiDonate.addActionListener(new ActionListener()
+        JMenuItem jmiDonate = new JMenuItem(
+            m_res.getString("FPortecle.jmiDonate.text"), m_res.getString(
+                "FPortecle.jmiDonate.mnemonic").charAt(0));
+        jmiDonate.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiDonate.image")));
+        jmiDonate.setToolTipText(null);
+        jmHelp.add(jmiDonate);
+        jmiDonate.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 makeDonation();
             }
         });
-        new StatusBarChangeHandler(m_jmiDonate,
-            m_res.getString("FPortecle.m_jmiDonate.statusbar"), this);
+        new StatusBarChangeHandler(jmiDonate,
+            m_res.getString("FPortecle.jmiDonate.statusbar"), this);
 
-        m_jmHelp.addSeparator();
+        jmHelp.addSeparator();
 
-        m_jmiSecurityProviders = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiSecurityProviders.text"),
-            m_res.getString("FPortecle.m_jmiSecurityProviders.mnemonic").charAt(
+        JMenuItem jmiSecurityProviders = new JMenuItem(
+            m_res.getString("FPortecle.jmiSecurityProviders.text"),
+            m_res.getString("FPortecle.jmiSecurityProviders.mnemonic").charAt(
                 0));
-        m_jmiSecurityProviders.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiSecurityProviders.image")));
-        m_jmHelp.add(m_jmiSecurityProviders);
-        m_jmiSecurityProviders.addActionListener(new ActionListener()
+        jmiSecurityProviders.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiSecurityProviders.image")));
+        jmHelp.add(jmiSecurityProviders);
+        jmiSecurityProviders.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 showSecurityProviders();
             }
         });
-        new StatusBarChangeHandler(m_jmiSecurityProviders,
-            m_res.getString("FPortecle.m_jmiSecurityProviders.statusbar"),
-            this);
+        new StatusBarChangeHandler(jmiSecurityProviders,
+            m_res.getString("FPortecle.jmiSecurityProviders.statusbar"), this);
 
-        m_jmiJars = new JMenuItem(m_res.getString("FPortecle.m_jmiJars.text"),
-            m_res.getString("FPortecle.m_jmiJars.mnemonic").charAt(0));
-        m_jmiJars.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiJars.image")));
-        m_jmHelp.add(m_jmiJars);
-        m_jmiJars.addActionListener(new ActionListener()
+        JMenuItem jmiJars = new JMenuItem(
+            m_res.getString("FPortecle.jmiJars.text"), m_res.getString(
+                "FPortecle.jmiJars.mnemonic").charAt(0));
+        jmiJars.setIcon(new ImageIcon(getResImage("FPortecle.jmiJars.image")));
+        jmHelp.add(jmiJars);
+        jmiJars.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 showJarInfo();
             }
         });
-        new StatusBarChangeHandler(m_jmiJars,
-            m_res.getString("FPortecle.m_jmiJars.statusbar"), this);
+        new StatusBarChangeHandler(jmiJars,
+            m_res.getString("FPortecle.jmiJars.statusbar"), this);
 
-        m_jmHelp.addSeparator();
+        jmHelp.addSeparator();
 
-        m_jmiAbout = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiAbout.text"), m_res.getString(
-                "FPortecle.m_jmiAbout.mnemonic").charAt(0));
-        m_jmiAbout.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiAbout.image")));
-        m_jmHelp.add(m_jmiAbout);
-        m_jmiAbout.addActionListener(new ActionListener()
+        JMenuItem jmiAbout = new JMenuItem(
+            m_res.getString("FPortecle.jmiAbout.text"), m_res.getString(
+                "FPortecle.jmiAbout.mnemonic").charAt(0));
+        jmiAbout.setIcon(new ImageIcon(getResImage("FPortecle.jmiAbout.image")));
+        jmHelp.add(jmiAbout);
+        jmiAbout.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 showAbout();
             }
         });
-        new StatusBarChangeHandler(m_jmiAbout,
-            m_res.getString("FPortecle.m_jmiAbout.statusbar"), this);
+        new StatusBarChangeHandler(jmiAbout,
+            m_res.getString("FPortecle.jmiAbout.statusbar"), this);
 
         // Add the menus to the menu bar
-        m_jmbMenuBar.add(m_jmrfFile);
-        m_jmbMenuBar.add(m_jmTools);
-        m_jmbMenuBar.add(m_jmExamine);
-        m_jmbMenuBar.add(m_jmHelp);
+        jmbMenuBar.add(m_jmrfFile);
+        jmbMenuBar.add(jmTools);
+        jmbMenuBar.add(jmExamine);
+        jmbMenuBar.add(jmHelp);
 
         // Add menu bar to application frame
-        setJMenuBar(m_jmbMenuBar);
+        setJMenuBar(jmbMenuBar);
     }
 
     /**
@@ -1052,13 +883,13 @@ public class FPortecle
     private void initToolBar()
     {
         // Create the "new" toolbar button
-        m_jbNewKeyStore = new JButton();
-        m_jbNewKeyStore.setAction(m_newKeyStoreAction);
-        m_jbNewKeyStore.setText(null); // Don't share text from action
+        JButton jbNewKeyStore = new JButton();
+        jbNewKeyStore.setAction(m_newKeyStoreAction);
+        jbNewKeyStore.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbNewKeyStore.setMnemonic(0);
-        m_jbNewKeyStore.setFocusable(false);
-        m_jbNewKeyStore.addMouseListener(new MouseAdapter()
+        jbNewKeyStore.setMnemonic(0);
+        jbNewKeyStore.setFocusable(false);
+        jbNewKeyStore.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1072,13 +903,13 @@ public class FPortecle
         });
 
         // Create the "open" toolbar button
-        m_jbOpenKeyStoreFile = new JButton();
-        m_jbOpenKeyStoreFile.setAction(m_openKeyStoreFileAction);
-        m_jbOpenKeyStoreFile.setText(null); // Don't share text from action
+        JButton jbOpenKeyStoreFile = new JButton();
+        jbOpenKeyStoreFile.setAction(m_openKeyStoreFileAction);
+        jbOpenKeyStoreFile.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbOpenKeyStoreFile.setMnemonic(0);
-        m_jbOpenKeyStoreFile.setFocusable(false);
-        m_jbOpenKeyStoreFile.addMouseListener(new MouseAdapter()
+        jbOpenKeyStoreFile.setMnemonic(0);
+        jbOpenKeyStoreFile.setFocusable(false);
+        jbOpenKeyStoreFile.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1092,13 +923,13 @@ public class FPortecle
         });
 
         // Create the "save" toolbar button
-        m_jbSaveKeyStore = new JButton();
-        m_jbSaveKeyStore.setAction(m_saveKeyStoreAction);
-        m_jbSaveKeyStore.setText(null); // Don't share text from action
+        JButton jbSaveKeyStore = new JButton();
+        jbSaveKeyStore.setAction(m_saveKeyStoreAction);
+        jbSaveKeyStore.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbSaveKeyStore.setMnemonic(0);
-        m_jbSaveKeyStore.setFocusable(false);
-        m_jbSaveKeyStore.addMouseListener(new MouseAdapter()
+        jbSaveKeyStore.setMnemonic(0);
+        jbSaveKeyStore.setFocusable(false);
+        jbSaveKeyStore.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1112,13 +943,13 @@ public class FPortecle
         });
 
         // Create the "generate key pair" toolbar button
-        m_jbGenKeyPair = new JButton();
-        m_jbGenKeyPair.setAction(m_genKeyPairAction);
-        m_jbGenKeyPair.setText(null); // Don't share text from action
+        JButton jbGenKeyPair = new JButton();
+        jbGenKeyPair.setAction(m_genKeyPairAction);
+        jbGenKeyPair.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbGenKeyPair.setMnemonic(0);
-        m_jbGenKeyPair.setFocusable(false);
-        m_jbGenKeyPair.addMouseListener(new MouseAdapter()
+        jbGenKeyPair.setMnemonic(0);
+        jbGenKeyPair.setFocusable(false);
+        jbGenKeyPair.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1132,13 +963,13 @@ public class FPortecle
         });
 
         // Create the "import trusted certificate" toolbar button
-        m_jbImportTrustCert = new JButton();
-        m_jbImportTrustCert.setAction(m_importTrustCertAction);
-        m_jbImportTrustCert.setText(null); // Don't share text from action
+        JButton jbImportTrustCert = new JButton();
+        jbImportTrustCert.setAction(m_importTrustCertAction);
+        jbImportTrustCert.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbImportTrustCert.setMnemonic(0);
-        m_jbImportTrustCert.setFocusable(false);
-        m_jbImportTrustCert.addMouseListener(new MouseAdapter()
+        jbImportTrustCert.setMnemonic(0);
+        jbImportTrustCert.setFocusable(false);
+        jbImportTrustCert.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1152,13 +983,13 @@ public class FPortecle
         });
 
         // Create the "import key pair" toolbar button
-        m_jbImportKeyPair = new JButton();
-        m_jbImportKeyPair.setAction(m_importKeyPairAction);
-        m_jbImportKeyPair.setText(null); // Don't share text from action
+        JButton jbImportKeyPair = new JButton();
+        jbImportKeyPair.setAction(m_importKeyPairAction);
+        jbImportKeyPair.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbImportKeyPair.setMnemonic(0);
-        m_jbImportKeyPair.setFocusable(false);
-        m_jbImportKeyPair.addMouseListener(new MouseAdapter()
+        jbImportKeyPair.setMnemonic(0);
+        jbImportKeyPair.setFocusable(false);
+        jbImportKeyPair.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1172,13 +1003,13 @@ public class FPortecle
         });
 
         // Create the "set keystore password" toolbar button
-        m_jbSetKeyStorePass = new JButton();
-        m_jbSetKeyStorePass.setAction(m_setKeyStorePassAction);
-        m_jbSetKeyStorePass.setText(null); // Don't share text from action
+        JButton jbSetKeyStorePass = new JButton();
+        jbSetKeyStorePass.setAction(m_setKeyStorePassAction);
+        jbSetKeyStorePass.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbSetKeyStorePass.setMnemonic(0);
-        m_jbSetKeyStorePass.setFocusable(false);
-        m_jbSetKeyStorePass.addMouseListener(new MouseAdapter()
+        jbSetKeyStorePass.setMnemonic(0);
+        jbSetKeyStorePass.setFocusable(false);
+        jbSetKeyStorePass.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1192,13 +1023,13 @@ public class FPortecle
         });
 
         // Create the "keystore report" toolbar button
-        m_jbKeyStoreReport = new JButton();
-        m_jbKeyStoreReport.setAction(m_keyStoreReportAction);
-        m_jbKeyStoreReport.setText(null); // Don't share text from action
+        JButton jbKeyStoreReport = new JButton();
+        jbKeyStoreReport.setAction(m_keyStoreReportAction);
+        jbKeyStoreReport.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbKeyStoreReport.setMnemonic(0);
-        m_jbKeyStoreReport.setFocusable(false);
-        m_jbKeyStoreReport.addMouseListener(new MouseAdapter()
+        jbKeyStoreReport.setMnemonic(0);
+        jbKeyStoreReport.setFocusable(false);
+        jbKeyStoreReport.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1212,13 +1043,13 @@ public class FPortecle
         });
 
         // Create the "examine certificate" toolbar button
-        m_jbExamineCert = new JButton();
-        m_jbExamineCert.setAction(m_examineCertAction);
-        m_jbExamineCert.setText(null); // Don't share text from action
+        JButton jbExamineCert = new JButton();
+        jbExamineCert.setAction(m_examineCertAction);
+        jbExamineCert.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbExamineCert.setMnemonic(0);
-        m_jbExamineCert.setFocusable(false);
-        m_jbExamineCert.addMouseListener(new MouseAdapter()
+        jbExamineCert.setMnemonic(0);
+        jbExamineCert.setFocusable(false);
+        jbExamineCert.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1232,13 +1063,13 @@ public class FPortecle
         });
 
         // Create the "examine crl" toolbar button
-        m_jbExamineCrl = new JButton();
-        m_jbExamineCrl.setAction(m_examineCrlAction);
-        m_jbExamineCrl.setText(null); // Don't share text from action
+        JButton jbExamineCrl = new JButton();
+        jbExamineCrl.setAction(m_examineCrlAction);
+        jbExamineCrl.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbExamineCrl.setMnemonic(0);
-        m_jbExamineCrl.setFocusable(false);
-        m_jbExamineCrl.addMouseListener(new MouseAdapter()
+        jbExamineCrl.setMnemonic(0);
+        jbExamineCrl.setFocusable(false);
+        jbExamineCrl.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1252,13 +1083,13 @@ public class FPortecle
         });
 
         // Create the "help" toolbar button
-        m_jbHelp = new JButton();
-        m_jbHelp.setAction(m_helpAction);
-        m_jbHelp.setText(null); // Don't share text from action
+        JButton jbHelp = new JButton();
+        jbHelp.setAction(m_helpAction);
+        jbHelp.setText(null); // Don't share text from action
         // Get around bug with action mnemonics on toolbar buttons
-        m_jbHelp.setMnemonic(0);
-        m_jbHelp.setFocusable(false);
-        m_jbHelp.addMouseListener(new MouseAdapter()
+        jbHelp.setMnemonic(0);
+        jbHelp.setFocusable(false);
+        jbHelp.addMouseListener(new MouseAdapter()
         {
             public void mouseEntered(MouseEvent evt)
             {
@@ -1272,41 +1103,41 @@ public class FPortecle
         });
 
         // The toolbar
-        m_jtbToolBar = new JToolBar();
-        m_jtbToolBar.setFloatable(false);
-        m_jtbToolBar.setRollover(true);
-        m_jtbToolBar.setName(m_res.getString("FPortecle.m_jtbToolBar.name"));
+        JToolBar jtbToolBar = new JToolBar();
+        jtbToolBar.setFloatable(false);
+        jtbToolBar.setRollover(true);
+        jtbToolBar.setName(m_res.getString("FPortecle.jtbToolBar.name"));
 
         // Add the buttons to the toolbar - use visible separators for all L&Fs
-        m_jtbToolBar.add(m_jbNewKeyStore);
-        m_jtbToolBar.add(m_jbOpenKeyStoreFile);
-        m_jtbToolBar.add(m_jbSaveKeyStore);
+        jtbToolBar.add(jbNewKeyStore);
+        jtbToolBar.add(jbOpenKeyStoreFile);
+        jtbToolBar.add(jbSaveKeyStore);
 
         JSeparator separator1 = new JSeparator(SwingConstants.VERTICAL);
         separator1.setMaximumSize(new Dimension(3, 16));
-        m_jtbToolBar.add(separator1);
+        jtbToolBar.add(separator1);
 
-        m_jtbToolBar.add(m_jbGenKeyPair);
-        m_jtbToolBar.add(m_jbImportTrustCert);
-        m_jtbToolBar.add(m_jbImportKeyPair);
-        m_jtbToolBar.add(m_jbSetKeyStorePass);
-        m_jtbToolBar.add(m_jbKeyStoreReport);
+        jtbToolBar.add(jbGenKeyPair);
+        jtbToolBar.add(jbImportTrustCert);
+        jtbToolBar.add(jbImportKeyPair);
+        jtbToolBar.add(jbSetKeyStorePass);
+        jtbToolBar.add(jbKeyStoreReport);
 
         JSeparator separator2 = new JSeparator(SwingConstants.VERTICAL);
         separator2.setMaximumSize(new Dimension(3, 16));
-        m_jtbToolBar.add(separator2);
+        jtbToolBar.add(separator2);
 
-        m_jtbToolBar.add(m_jbExamineCert);
-        m_jtbToolBar.add(m_jbExamineCrl);
+        jtbToolBar.add(jbExamineCert);
+        jtbToolBar.add(jbExamineCrl);
 
         JSeparator separator3 = new JSeparator(SwingConstants.VERTICAL);
         separator3.setMaximumSize(new Dimension(3, 16));
-        m_jtbToolBar.add(separator3);
+        jtbToolBar.add(separator3);
 
-        m_jtbToolBar.add(m_jbHelp);
+        jtbToolBar.add(jbHelp);
 
         // Add the toolbar to the frame
-        getContentPane().add(m_jtbToolBar, BorderLayout.NORTH);
+        getContentPane().add(jtbToolBar, BorderLayout.NORTH);
     }
 
     /**
@@ -1360,10 +1191,10 @@ public class FPortecle
         }
 
         // Put the table into a scroll pane
-        m_jspKeyStoreTable = new JScrollPane(m_jtKeyStore,
+        JScrollPane jspKeyStoreTable = new JScrollPane(m_jtKeyStore,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspKeyStoreTable.getViewport().setBackground(
+        jspKeyStoreTable.getViewport().setBackground(
             m_jtKeyStore.getBackground());
 
         // Get the size of the keystore table panel from the application
@@ -1385,7 +1216,7 @@ public class FPortecle
             m_jpKeyStoreTable.setPreferredSize(new Dimension(iWidth, iHeight));
         }
 
-        m_jpKeyStoreTable.add(m_jspKeyStoreTable, BorderLayout.CENTER);
+        m_jpKeyStoreTable.add(jspKeyStoreTable, BorderLayout.CENTER);
         m_jpKeyStoreTable.setBorder(new EmptyBorder(3, 3, 3, 3));
 
         /* Add mouse listeners to show pop-up menus when table entries are
@@ -1439,68 +1270,67 @@ public class FPortecle
         // and listeners
         m_jpmKeyPair = new JPopupMenu();
 
-        m_jmiKeyPairCertDetails = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiKeyPairCertDetails.text"),
-            m_res.getString("FPortecle.m_jmiKeyPairCertDetails.mnemonic").charAt(
+        JMenuItem jmiKeyPairCertDetails = new JMenuItem(
+            m_res.getString("FPortecle.jmiKeyPairCertDetails.text"),
+            m_res.getString("FPortecle.jmiKeyPairCertDetails.mnemonic").charAt(
                 0));
-        m_jmiKeyPairCertDetails.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiKeyPairCertDetails.image")));
-        m_jmiKeyPairCertDetails.addActionListener(new ActionListener()
+        jmiKeyPairCertDetails.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiKeyPairCertDetails.image")));
+        jmiKeyPairCertDetails.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 showSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairCertDetails,
-            m_res.getString("FPortecle.m_jmiKeyPairCertDetails.statusbar"),
-            this);
+        new StatusBarChangeHandler(jmiKeyPairCertDetails,
+            m_res.getString("FPortecle.jmiKeyPairCertDetails.statusbar"), this);
 
-        m_jmiKeyPairExport = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiKeyPairExport.text"),
-            m_res.getString("FPortecle.m_jmiKeyPairExport.mnemonic").charAt(0));
-        m_jmiKeyPairExport.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiKeyPairExport.image")));
+        JMenuItem jmiKeyPairExport = new JMenuItem(
+            m_res.getString("FPortecle.jmiKeyPairExport.text"),
+            m_res.getString("FPortecle.jmiKeyPairExport.mnemonic").charAt(0));
+        jmiKeyPairExport.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiKeyPairExport.image")));
 
-        m_jmiKeyPairExport.addActionListener(new ActionListener()
+        jmiKeyPairExport.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 exportSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairExport,
-            m_res.getString("FPortecle.m_jmiKeyPairExport.statusbar"), this);
+        new StatusBarChangeHandler(jmiKeyPairExport,
+            m_res.getString("FPortecle.jmiKeyPairExport.statusbar"), this);
 
-        m_jmiGenerateCSR = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiGenerateCSR.text"),
-            m_res.getString("FPortecle.m_jmiGenerateCSR.mnemonic").charAt(0));
-        m_jmiGenerateCSR.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiGenerateCSR.image")));
-        m_jmiGenerateCSR.addActionListener(new ActionListener()
+        JMenuItem jmiGenerateCSR = new JMenuItem(
+            m_res.getString("FPortecle.jmiGenerateCSR.text"), m_res.getString(
+                "FPortecle.jmiGenerateCSR.mnemonic").charAt(0));
+        jmiGenerateCSR.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiGenerateCSR.image")));
+        jmiGenerateCSR.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 generateCsrSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiGenerateCSR,
-            m_res.getString("FPortecle.m_jmiGenerateCSR.statusbar"), this);
+        new StatusBarChangeHandler(jmiGenerateCSR,
+            m_res.getString("FPortecle.jmiGenerateCSR.statusbar"), this);
 
-        m_jmiImportCAReply = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiImportCAReply.text"),
-            m_res.getString("FPortecle.m_jmiImportCAReply.mnemonic").charAt(0));
-        m_jmiImportCAReply.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiImportCAReply.image")));
-        m_jmiImportCAReply.addActionListener(new ActionListener()
+        JMenuItem jmiImportCAReply = new JMenuItem(
+            m_res.getString("FPortecle.jmiImportCAReply.text"),
+            m_res.getString("FPortecle.jmiImportCAReply.mnemonic").charAt(0));
+        jmiImportCAReply.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiImportCAReply.image")));
+        jmiImportCAReply.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 importCAReplySelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiImportCAReply,
-            m_res.getString("FPortecle.m_jmiImportCAReply.statusbar"), this);
+        new StatusBarChangeHandler(jmiImportCAReply,
+            m_res.getString("FPortecle.jmiImportCAReply.statusbar"), this);
 
         m_jmiSetKeyPairPass = new JMenuItem(
             m_res.getString("FPortecle.m_jmiSetKeyPairPass.text"),
@@ -1517,135 +1347,131 @@ public class FPortecle
         new StatusBarChangeHandler(m_jmiSetKeyPairPass,
             m_res.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"), this);
 
-        m_jmiKeyPairDelete = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiKeyPairDelete.text"),
-            m_res.getString("FPortecle.m_jmiKeyPairDelete.mnemonic").charAt(0));
-        m_jmiKeyPairDelete.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiKeyPairDelete.image")));
-        m_jmiKeyPairDelete.addActionListener(new ActionListener()
+        JMenuItem jmiKeyPairDelete = new JMenuItem(
+            m_res.getString("FPortecle.jmiKeyPairDelete.text"),
+            m_res.getString("FPortecle.jmiKeyPairDelete.mnemonic").charAt(0));
+        jmiKeyPairDelete.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiKeyPairDelete.image")));
+        jmiKeyPairDelete.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 deleteSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairDelete,
-            m_res.getString("FPortecle.m_jmiKeyPairDelete.statusbar"), this);
+        new StatusBarChangeHandler(jmiKeyPairDelete,
+            m_res.getString("FPortecle.jmiKeyPairDelete.statusbar"), this);
 
-        m_jmiClone = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiClone.text"), m_res.getString(
-                "FPortecle.m_jmiClone.mnemonic").charAt(0));
-        m_jmiClone.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiClone.image")));
-        m_jmiClone.addActionListener(new ActionListener()
+        JMenuItem jmiClone = new JMenuItem(
+            m_res.getString("FPortecle.jmiClone.text"), m_res.getString(
+                "FPortecle.jmiClone.mnemonic").charAt(0));
+        jmiClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiClone.image")));
+        jmiClone.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 cloneSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiClone,
-            m_res.getString("FPortecle.m_jmiClone.statusbar"), this);
+        new StatusBarChangeHandler(jmiClone,
+            m_res.getString("FPortecle.jmiClone.statusbar"), this);
 
-        m_jmiKeyPairRename = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiKeyPairRename.text"),
-            m_res.getString("FPortecle.m_jmiKeyPairRename.mnemonic").charAt(0));
-        m_jmiKeyPairRename.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiKeyPairRename.image")));
-        m_jmiKeyPairRename.addActionListener(new ActionListener()
+        JMenuItem jmiKeyPairRename = new JMenuItem(
+            m_res.getString("FPortecle.jmiKeyPairRename.text"),
+            m_res.getString("FPortecle.jmiKeyPairRename.mnemonic").charAt(0));
+        jmiKeyPairRename.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiKeyPairRename.image")));
+        jmiKeyPairRename.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 renameSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiKeyPairRename,
-            m_res.getString("FPortecle.m_jmiKeyPairRename.statusbar"), this);
+        new StatusBarChangeHandler(jmiKeyPairRename,
+            m_res.getString("FPortecle.jmiKeyPairRename.statusbar"), this);
 
-        m_jpmKeyPair.add(m_jmiKeyPairCertDetails);
+        m_jpmKeyPair.add(jmiKeyPairCertDetails);
         m_jpmKeyPair.addSeparator();
-        m_jpmKeyPair.add(m_jmiKeyPairExport);
-        m_jpmKeyPair.add(m_jmiGenerateCSR);
-        m_jpmKeyPair.add(m_jmiImportCAReply);
+        m_jpmKeyPair.add(jmiKeyPairExport);
+        m_jpmKeyPair.add(jmiGenerateCSR);
+        m_jpmKeyPair.add(jmiImportCAReply);
         m_jpmKeyPair.addSeparator();
         m_jpmKeyPair.add(m_jmiSetKeyPairPass);
-        m_jpmKeyPair.add(m_jmiKeyPairDelete);
-        m_jpmKeyPair.add(m_jmiClone);
-        m_jpmKeyPair.add(m_jmiKeyPairRename);
+        m_jpmKeyPair.add(jmiKeyPairDelete);
+        m_jpmKeyPair.add(jmiClone);
+        m_jpmKeyPair.add(jmiKeyPairRename);
 
         // Initialise Trusted Certificate entry pop-up menu including
         // mnemonics and listeners
         m_jpmCert = new JPopupMenu();
 
-        m_jmiTrustCertDetails = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiTrustCertDetails.text"),
-            m_res.getString("FPortecle.m_jmiTrustCertDetails.mnemonic").charAt(
-                0));
-        m_jmiTrustCertDetails.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiTrustCertDetails.image")));
-        m_jmiTrustCertDetails.addActionListener(new ActionListener()
+        JMenuItem jmiTrustCertDetails = new JMenuItem(
+            m_res.getString("FPortecle.jmiTrustCertDetails.text"),
+            m_res.getString("FPortecle.jmiTrustCertDetails.mnemonic").charAt(0));
+        jmiTrustCertDetails.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiTrustCertDetails.image")));
+        jmiTrustCertDetails.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 showSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertDetails,
-            m_res.getString("FPortecle.m_jmiTrustCertDetails.statusbar"), this);
+        new StatusBarChangeHandler(jmiTrustCertDetails,
+            m_res.getString("FPortecle.jmiTrustCertDetails.statusbar"), this);
 
-        m_jmiTrustCertExport = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiTrustCertExport.text"),
-            m_res.getString("FPortecle.m_jmTrustCertExport.mnemonic").charAt(0));
-        m_jmiTrustCertExport.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiTrustCertExport.image")));
-        m_jmiTrustCertExport.addActionListener(new ActionListener()
+        JMenuItem jmiTrustCertExport = new JMenuItem(
+            m_res.getString("FPortecle.jmiTrustCertExport.text"),
+            m_res.getString("FPortecle.jmiTrustCertExport.mnemonic").charAt(0));
+        jmiTrustCertExport.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiTrustCertExport.image")));
+        jmiTrustCertExport.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 exportSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertExport,
-            m_res.getString("FPortecle.m_jmiTrustCertExport.statusbar"), this);
+        new StatusBarChangeHandler(jmiTrustCertExport,
+            m_res.getString("FPortecle.jmiTrustCertExport.statusbar"), this);
 
-        m_jmiTrustCertDelete = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiTrustCertDelete.text"),
-            m_res.getString("FPortecle.m_jmiTrustCertDelete.mnemonic").charAt(
-                0));
-        m_jmiTrustCertDelete.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiTrustCertDelete.image")));
-        m_jmiTrustCertDelete.addActionListener(new ActionListener()
+        JMenuItem jmiTrustCertDelete = new JMenuItem(
+            m_res.getString("FPortecle.jmiTrustCertDelete.text"),
+            m_res.getString("FPortecle.jmiTrustCertDelete.mnemonic").charAt(0));
+        jmiTrustCertDelete.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiTrustCertDelete.image")));
+        jmiTrustCertDelete.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 deleteSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertDelete,
-            m_res.getString("FPortecle.m_jmiTrustCertDelete.statusbar"), this);
+        new StatusBarChangeHandler(jmiTrustCertDelete,
+            m_res.getString("FPortecle.jmiTrustCertDelete.statusbar"), this);
 
-        m_jmiTrustCertRename = new JMenuItem(
-            m_res.getString("FPortecle.m_jmiTrustCertRename.text"),
-            m_res.getString("FPortecle.m_jmiTrustCertRename.mnemonic").charAt(
-                0));
-        m_jmiTrustCertRename.setIcon(new ImageIcon(
-            getResImage("FPortecle.m_jmiTrustCertRename.image")));
-        m_jmiTrustCertRename.addActionListener(new ActionListener()
+        JMenuItem jmiTrustCertRename = new JMenuItem(
+            m_res.getString("FPortecle.jmiTrustCertRename.text"),
+            m_res.getString("FPortecle.jmiTrustCertRename.mnemonic").charAt(0));
+        jmiTrustCertRename.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiTrustCertRename.image")));
+        jmiTrustCertRename.addActionListener(new ActionListener()
         {
             protected void act()
             {
                 renameSelectedEntry();
             }
         });
-        new StatusBarChangeHandler(m_jmiTrustCertRename,
-            m_res.getString("FPortecle.m_jmiTrustCertRename.statusbar"), this);
+        new StatusBarChangeHandler(jmiTrustCertRename,
+            m_res.getString("FPortecle.jmiTrustCertRename.statusbar"), this);
 
-        m_jpmCert.add(m_jmiTrustCertDetails);
+        m_jpmCert.add(jmiTrustCertDetails);
         m_jpmCert.addSeparator();
-        m_jpmCert.add(m_jmiTrustCertExport);
+        m_jpmCert.add(jmiTrustCertExport);
         m_jpmCert.addSeparator();
-        m_jpmCert.add(m_jmiTrustCertDelete);
-        m_jpmCert.add(m_jmiTrustCertRename);
+        m_jpmCert.add(jmiTrustCertDelete);
+        m_jpmCert.add(jmiTrustCertRename);
     }
 
     /**

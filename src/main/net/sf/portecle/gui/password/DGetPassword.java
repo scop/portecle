@@ -53,23 +53,8 @@ public class DGetPassword
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
-    /** Password entry label */
-    private JLabel m_jlPassword;
-
     /** Password entry password field */
     private JPasswordField m_jpfPassword;
-
-    /** Panel to hold password entry components */
-    private JPanel m_jpPassword;
-
-    /** OK button to confirm password entry */
-    private JButton m_jbOK;
-
-    /** Cancel to button to cancel password entry */
-    private JButton m_jbCancel;
-
-    /** Panel to hold OK and cancel buttons */
-    private JPanel m_jpButtons;
 
     /** Stores password entered */
     private char[] m_cPassword;
@@ -117,12 +102,12 @@ public class DGetPassword
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlPassword = new JLabel(
-            m_res.getString("DGetPassword.m_jlPassword.text"));
+        JLabel jlPassword = new JLabel(
+            m_res.getString("DGetPassword.jlPassword.text"));
         m_jpfPassword = new JPasswordField(15);
 
-        m_jbOK = new JButton(m_res.getString("DGetPassword.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DGetPassword.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -130,18 +115,18 @@ public class DGetPassword
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DGetNewPassword.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGetNewPassword.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -149,17 +134,17 @@ public class DGetPassword
             }
         });
 
-        m_jpPassword = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpPassword.add(m_jlPassword);
-        m_jpPassword.add(m_jpfPassword);
-        m_jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpPassword = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpPassword.add(jlPassword);
+        jpPassword.add(m_jpfPassword);
+        jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpPassword, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpPassword, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -171,7 +156,7 @@ public class DGetPassword
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

@@ -79,39 +79,11 @@ class DImportKeyPair
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold key pair information */
-    private JPanel m_jpKeyPairs;
-
-    /** Instructions text */
-    private JLabel m_jlInstructions;
-
-    /** List of key pairs availabel for import */
+    /** List of key pairs available for import */
     private JList m_jltKeyPairs;
-
-    /** Scroll pane to contain key pair list */
-    private JScrollPane m_jspKeyPairs;
-
-    /** Panel to hold details specfic to to the selected key pair */
-    private JPanel m_jpKeyPairDetails;
-
-    /** Selected key pair's algorithm label */
-    private JLabel m_jlAlgorithm;
 
     /** Selected key pair's algorithm text field */
     private JTextField m_jtfAlgorithm;
-
-    /** Button to press to display the selected key pair's certificate
-     * details */
-    private JButton m_jbCertificateDetails;
-
-    /** Panel for confirmation button controls */
-    private JPanel m_jpButtons;
-
-    /** Import button to import a key pair */
-    private JButton m_jbImport;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** PKCS #12 keystore */
     private KeyStore m_pkcs12;
@@ -147,8 +119,38 @@ class DImportKeyPair
         throws CryptoException
     {
         // Instructions
-        m_jlInstructions = new JLabel(
-            m_res.getString("DImportKeyPair.m_jlInstructions.text"));
+        JLabel jlInstructions = new JLabel(
+            m_res.getString("DImportKeyPair.jlInstructions.text"));
+
+        // Import button
+        final JButton jbImport = new JButton(
+            m_res.getString("DImportKeyPair.jbImport.text"));
+        jbImport.setEnabled(false);
+        jbImport.setMnemonic(m_res.getString(
+            "DImportKeyPair.jbImport.mnemonic").charAt(0));
+        jbImport.setToolTipText(m_res.getString("DImportKeyPair.jbImport.tooltip"));
+        jbImport.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                importPressed();
+            }
+        });
+
+        // Certificate details button
+        final JButton jbCertificateDetails = new JButton(
+            m_res.getString("DImportKeyPair.jbCertificateDetails.text"));
+        jbCertificateDetails.setMnemonic(m_res.getString(
+            "DImportKeyPair.jbCertificateDetails.mnemonic").charAt(0));
+        jbCertificateDetails.setToolTipText(m_res.getString("DImportKeyPair.jbCertificateDetails.tooltip"));
+        jbCertificateDetails.setEnabled(false);
+        jbCertificateDetails.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent evt)
+            {
+                certificateDetailsPressed();
+            }
+        });
 
         // List to hold keystore's key pair aliases
         m_jltKeyPairs = new JList();
@@ -159,90 +161,62 @@ class DImportKeyPair
             {
                 populateAlgorithm();
                 if (m_jltKeyPairs.getSelectedIndex() == -1) {
-                    m_jbImport.setEnabled(false);
-                    m_jbCertificateDetails.setEnabled(false);
+                    jbImport.setEnabled(false);
+                    jbCertificateDetails.setEnabled(false);
                 }
                 else {
-                    m_jbImport.setEnabled(true);
-                    m_jbCertificateDetails.setEnabled(true);
+                    jbImport.setEnabled(true);
+                    jbCertificateDetails.setEnabled(true);
                 }
             }
         });
 
         // Put the list into a scroll pane
-        m_jspKeyPairs = new JScrollPane(m_jltKeyPairs,
+        JScrollPane jspKeyPairs = new JScrollPane(m_jltKeyPairs,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspKeyPairs.getViewport().setBackground(
-            m_jltKeyPairs.getBackground());
+        jspKeyPairs.getViewport().setBackground(m_jltKeyPairs.getBackground());
 
         // Key pair details (algorithm and button to access
         // certificate details)
-        m_jlAlgorithm = new JLabel(
-            m_res.getString("DImportKeyPair.m_jlAlgorithm.text"));
+        JLabel jlAlgorithm = new JLabel(
+            m_res.getString("DImportKeyPair.jlAlgorithm.text"));
 
         m_jtfAlgorithm = new JTextField(10);
         m_jtfAlgorithm.setText("");
         m_jtfAlgorithm.setToolTipText(m_res.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
         m_jtfAlgorithm.setEditable(false);
 
-        m_jbCertificateDetails = new JButton(
-            m_res.getString("DImportKeyPair.m_jbCertificateDetails.text"));
-        m_jbCertificateDetails.setMnemonic(m_res.getString(
-            "DImportKeyPair.m_jbCertificateDetails.mnemonic").charAt(0));
-        m_jbCertificateDetails.setToolTipText(m_res.getString("DImportKeyPair.m_jbCertificateDetails.tooltip"));
-        m_jbCertificateDetails.setEnabled(false);
-        m_jbCertificateDetails.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                certificateDetailsPressed();
-            }
-        });
-
-        m_jpKeyPairDetails = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpKeyPairDetails.add(m_jlAlgorithm);
-        m_jpKeyPairDetails.add(m_jtfAlgorithm);
-        m_jpKeyPairDetails.add(m_jbCertificateDetails);
+        JPanel jpKeyPairDetails = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpKeyPairDetails.add(jlAlgorithm);
+        jpKeyPairDetails.add(m_jtfAlgorithm);
+        jpKeyPairDetails.add(jbCertificateDetails);
 
         // Put all the key pair components together
-        m_jpKeyPairs = new JPanel(new BorderLayout(10, 10));
-        m_jpKeyPairs.setPreferredSize(new Dimension(400, 200));
-        m_jpKeyPairs.setBorder(new CompoundBorder(new CompoundBorder(
+        JPanel jpKeyPairs = new JPanel(new BorderLayout(10, 10));
+        jpKeyPairs.setPreferredSize(new Dimension(400, 200));
+        jpKeyPairs.setBorder(new CompoundBorder(new CompoundBorder(
             new EmptyBorder(5, 5, 5, 5), new EtchedBorder()), new EmptyBorder(
             5, 5, 5, 5)));
 
-        m_jpKeyPairs.add(m_jlInstructions, BorderLayout.NORTH);
-        m_jpKeyPairs.add(m_jspKeyPairs, BorderLayout.CENTER);
-        m_jpKeyPairs.add(m_jpKeyPairDetails, BorderLayout.SOUTH);
+        jpKeyPairs.add(jlInstructions, BorderLayout.NORTH);
+        jpKeyPairs.add(jspKeyPairs, BorderLayout.CENTER);
+        jpKeyPairs.add(jpKeyPairDetails, BorderLayout.SOUTH);
 
-        // Create import and cancel buttons
-        m_jbImport = new JButton(
-            m_res.getString("DImportKeyPair.m_jbImport.text"));
-        m_jbImport.setEnabled(false);
-        m_jbImport.setMnemonic(m_res.getString(
-            "DImportKeyPair.m_jbImport.mnemonic").charAt(0));
-        m_jbImport.setToolTipText(m_res.getString("DImportKeyPair.m_jbImport.tooltip"));
-        m_jbImport.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                importPressed();
-            }
-        });
+        // Cancel button
 
-        m_jbCancel = new JButton(
-            m_res.getString("DImportKeyPair.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        final JButton jbCancel = new JButton(
+            m_res.getString("DImportKeyPair.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -250,13 +224,13 @@ class DImportKeyPair
             }
         });
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbImport);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbImport);
+        jpButtons.add(jbCancel);
 
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(m_jpKeyPairs, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpKeyPairs, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         // Populate the list
         populateList();
@@ -272,16 +246,16 @@ class DImportKeyPair
         setTitle(m_res.getString("DImportKeyPair.Title"));
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbImport);
+        getRootPane().setDefaultButton(jbImport);
 
         pack();
 
-        if (m_jbImport.isEnabled()) {
+        if (jbImport.isEnabled()) {
             SwingUtilities.invokeLater(new Runnable()
             {
                 public void run()
                 {
-                    m_jbImport.requestFocus();
+                    jbImport.requestFocus();
                 }
             });
         }
@@ -290,7 +264,7 @@ class DImportKeyPair
             {
                 public void run()
                 {
-                    m_jbCancel.requestFocus();
+                    jbCancel.requestFocus();
                 }
             });
         }

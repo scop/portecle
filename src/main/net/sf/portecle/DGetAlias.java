@@ -54,23 +54,8 @@ class DGetAlias
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold the alias entry controls */
-    private JPanel m_jpAlias;
-
-    /** Alias label */
-    private JLabel m_jlAlias;
-
     /** Alias text field */
     private JTextField m_jtfAlias;
-
-    /** Panel to hold confirmation buttons */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** Stores the alias entered by the user */
     private String m_sAlias;
@@ -124,7 +109,7 @@ class DGetAlias
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlAlias = new JLabel(m_res.getString("DGetAlias.m_jlAlias.text"));
+        JLabel jlAlias = new JLabel(m_res.getString("DGetAlias.jlAlias.text"));
         m_jtfAlias = new JTextField(15);
 
         if (sOldAlias != null) {
@@ -132,8 +117,8 @@ class DGetAlias
             m_jtfAlias.setCaretPosition(0);
         }
 
-        m_jbOK = new JButton(m_res.getString("DGetAlias.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DGetAlias.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -141,17 +126,18 @@ class DGetAlias
             }
         });
 
-        m_jbCancel = new JButton(m_res.getString("DGetAlias.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGetAlias.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -159,17 +145,17 @@ class DGetAlias
             }
         });
 
-        m_jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpAlias.add(m_jlAlias);
-        m_jpAlias.add(m_jtfAlias);
-        m_jpAlias.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpAlias.add(jlAlias);
+        jpAlias.add(m_jtfAlias);
+        jpAlias.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpAlias, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpAlias, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -181,7 +167,7 @@ class DGetAlias
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

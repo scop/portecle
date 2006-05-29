@@ -81,71 +81,32 @@ class DGenerateCertificate
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Signature Algorithm label */
-    private JLabel m_jlSigAlg;
-
     /** Signature Algoritm combo box */
     private JComboBox m_jcbSigAlg;
-
-    /** Validity label */
-    private JLabel m_jlValidity;
 
     /** Validity text field */
     private JTextField m_jtfValidity;
 
-    /** Common Name label */
-    private JLabel m_jlCommonName;
-
     /** Common Name text field */
     private JTextField m_jtfCommonName;
-
-    /** Organisation Unit label */
-    private JLabel m_jlOrganisationUnit;
 
     /** Organisation Unit text field */
     private JTextField m_jtfOrganisationUnit;
 
-    /** Organisation Name label */
-    private JLabel m_jlOrganisationName;
-
     /** Organisation Unit Name */
     private JTextField m_jtfOrganisationName;
-
-    /** Locality Name label */
-    private JLabel m_jlLocalityName;
 
     /** Locality Name text field */
     private JTextField m_jtfLocalityName;
 
-    /** State Name label */
-    private JLabel m_jlStateName;
-
     /** State Name text field */
     private JTextField m_jtfStateName;
-
-    /** Country Code label */
-    private JLabel m_jlCountryCode;
 
     /** Country Code text field */
     private JTextField m_jtfCountryCode;
 
-    /** Email Address label */
-    private JLabel m_jlEmailAddress;
-
     /** Email Address text field */
     private JTextField m_jtfEmailAddress;
-
-    /** Panel containing all of the entry controls */
-    private JPanel m_jpOptions;
-
-    /** Panel for confirmation button controls */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** The key pair to generate the certificate from */
     private KeyPair m_keyPair;
@@ -197,8 +158,8 @@ class DGenerateCertificate
         gbcEdCtrl.anchor = GridBagConstraints.WEST;
 
         // Signature Algorithm
-        m_jlSigAlg = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlSigAlg.text"));
+        JLabel jlSigAlg = new JLabel(
+            m_res.getString("DGenerateCertificate.jlSigAlg.text"));
         GridBagConstraints gbc_jlSigAlg = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSigAlg.gridy = 0;
 
@@ -209,8 +170,8 @@ class DGenerateCertificate
         gbc_jcbSigAlg.gridy = 0;
 
         // Validity Period
-        m_jlValidity = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlValidity.text"));
+        JLabel jlValidity = new JLabel(
+            m_res.getString("DGenerateCertificate.jlValidity.text"));
         GridBagConstraints gbc_jlValidity = (GridBagConstraints) gbcLbl.clone();
         gbc_jlValidity.gridy = 1;
 
@@ -220,8 +181,8 @@ class DGenerateCertificate
         gbc_jtfValidity.gridy = 1;
 
         // Common Name
-        m_jlCommonName = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlCommonName.text"));
+        JLabel jlCommonName = new JLabel(
+            m_res.getString("DGenerateCertificate.jlCommonName.text"));
         GridBagConstraints gbc_jlCommonName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlCommonName.gridy = 2;
 
@@ -231,8 +192,8 @@ class DGenerateCertificate
         gbc_jtfCommonName.gridy = 2;
 
         // Organisation Unit
-        m_jlOrganisationUnit = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlOrganisationUnit.text"));
+        JLabel jlOrganisationUnit = new JLabel(
+            m_res.getString("DGenerateCertificate.jlOrganisationUnit.text"));
         GridBagConstraints gbc_jlOrganisationUnit = (GridBagConstraints) gbcLbl.clone();
         gbc_jlOrganisationUnit.gridy = 3;
 
@@ -242,8 +203,8 @@ class DGenerateCertificate
         gbc_jtfOrganisationUnit.gridy = 3;
 
         // Organisation Name
-        m_jlOrganisationName = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlOrganisationName.text"));
+        JLabel jlOrganisationName = new JLabel(
+            m_res.getString("DGenerateCertificate.jlOrganisationName.text"));
         GridBagConstraints gbc_jlOrganisationName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlOrganisationName.gridy = 4;
 
@@ -253,8 +214,8 @@ class DGenerateCertificate
         gbc_jtfOrganisationName.gridy = 4;
 
         // Locality Name
-        m_jlLocalityName = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlLocalityName.text"));
+        JLabel jlLocalityName = new JLabel(
+            m_res.getString("DGenerateCertificate.jlLocalityName.text"));
         GridBagConstraints gbc_jlLocalityName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlLocalityName.gridy = 5;
 
@@ -264,8 +225,8 @@ class DGenerateCertificate
         gbc_jtfLocalityName.gridy = 5;
 
         // State Name
-        m_jlStateName = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlStateName.text"));
+        JLabel jlStateName = new JLabel(
+            m_res.getString("DGenerateCertificate.jlStateName.text"));
         GridBagConstraints gbc_jlStateName = (GridBagConstraints) gbcLbl.clone();
         gbc_jlStateName.gridy = 6;
 
@@ -275,8 +236,8 @@ class DGenerateCertificate
         gbc_jtfStateName.gridy = 6;
 
         // Country Code
-        m_jlCountryCode = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlCountryCode.text"));
+        JLabel jlCountryCode = new JLabel(
+            m_res.getString("DGenerateCertificate.jlCountryCode.text"));
         GridBagConstraints gbc_jlCountryCode = (GridBagConstraints) gbcLbl.clone();
         gbc_jlCountryCode.gridy = 7;
 
@@ -286,8 +247,8 @@ class DGenerateCertificate
         gbc_jtfCountryCode.gridy = 7;
 
         // Email Address
-        m_jlEmailAddress = new JLabel(
-            m_res.getString("DGenerateCertificate.m_jlEmailAddress.text"));
+        JLabel jlEmailAddress = new JLabel(
+            m_res.getString("DGenerateCertificate.jlEmailAddress.text"));
         GridBagConstraints gbc_jlEmailAddress = (GridBagConstraints) gbcLbl.clone();
         gbc_jlEmailAddress.gridy = 8;
 
@@ -297,32 +258,32 @@ class DGenerateCertificate
         gbc_jtfEmailAddress.gridy = 8;
 
         // Put it all together
-        m_jpOptions = new JPanel(new GridBagLayout());
-        m_jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+        JPanel jpOptions = new JPanel(new GridBagLayout());
+        jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
             new EtchedBorder()));
 
-        m_jpOptions.add(m_jlSigAlg, gbc_jlSigAlg);
-        m_jpOptions.add(m_jcbSigAlg, gbc_jcbSigAlg);
-        m_jpOptions.add(m_jlValidity, gbc_jlValidity);
-        m_jpOptions.add(m_jtfValidity, gbc_jtfValidity);
-        m_jpOptions.add(m_jlCommonName, gbc_jlCommonName);
-        m_jpOptions.add(m_jtfCommonName, gbc_jtfCommonName);
-        m_jpOptions.add(m_jlOrganisationUnit, gbc_jlOrganisationUnit);
-        m_jpOptions.add(m_jtfOrganisationUnit, gbc_jtfOrganisationUnit);
-        m_jpOptions.add(m_jlOrganisationName, gbc_jlOrganisationName);
-        m_jpOptions.add(m_jtfOrganisationName, gbc_jtfOrganisationName);
-        m_jpOptions.add(m_jlLocalityName, gbc_jlLocalityName);
-        m_jpOptions.add(m_jtfLocalityName, gbc_jtfLocalityName);
-        m_jpOptions.add(m_jlStateName, gbc_jlStateName);
-        m_jpOptions.add(m_jtfStateName, gbc_jtfStateName);
-        m_jpOptions.add(m_jlCountryCode, gbc_jlCountryCode);
-        m_jpOptions.add(m_jtfCountryCode, gbc_jtfCountryCode);
-        m_jpOptions.add(m_jlEmailAddress, gbc_jlEmailAddress);
-        m_jpOptions.add(m_jtfEmailAddress, gbc_jtfEmailAddress);
+        jpOptions.add(jlSigAlg, gbc_jlSigAlg);
+        jpOptions.add(m_jcbSigAlg, gbc_jcbSigAlg);
+        jpOptions.add(jlValidity, gbc_jlValidity);
+        jpOptions.add(m_jtfValidity, gbc_jtfValidity);
+        jpOptions.add(jlCommonName, gbc_jlCommonName);
+        jpOptions.add(m_jtfCommonName, gbc_jtfCommonName);
+        jpOptions.add(jlOrganisationUnit, gbc_jlOrganisationUnit);
+        jpOptions.add(m_jtfOrganisationUnit, gbc_jtfOrganisationUnit);
+        jpOptions.add(jlOrganisationName, gbc_jlOrganisationName);
+        jpOptions.add(m_jtfOrganisationName, gbc_jtfOrganisationName);
+        jpOptions.add(jlLocalityName, gbc_jlLocalityName);
+        jpOptions.add(m_jtfLocalityName, gbc_jtfLocalityName);
+        jpOptions.add(jlStateName, gbc_jlStateName);
+        jpOptions.add(m_jtfStateName, gbc_jtfStateName);
+        jpOptions.add(jlCountryCode, gbc_jlCountryCode);
+        jpOptions.add(m_jtfCountryCode, gbc_jtfCountryCode);
+        jpOptions.add(jlEmailAddress, gbc_jlEmailAddress);
+        jpOptions.add(m_jtfEmailAddress, gbc_jtfEmailAddress);
 
-        m_jbOK = new JButton(
-            m_res.getString("DGenerateCertificate.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(
+            m_res.getString("DGenerateCertificate.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -330,18 +291,18 @@ class DGenerateCertificate
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DGenerateCertificate.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGenerateCertificate.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -349,13 +310,13 @@ class DGenerateCertificate
             }
         });
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(m_jpOptions, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpOptions, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -368,7 +329,7 @@ class DGenerateCertificate
         setTitle(sTitle);
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

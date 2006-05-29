@@ -45,21 +45,6 @@ public class DThrowable
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
-    /** Panel to hold OK and Details buttons */
-    private JPanel m_jpButtons;
-
-    /** Details button to display the stack trace of the throwable */
-    private JButton m_jbDetails;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel to hold throwable message */
-    private JPanel m_jpThrowable;
-
-    /** Label to display throwable message */
-    private JLabel m_jlThrowable;
-
     /** Stores throwable to display */
     private Throwable m_throwable;
 
@@ -130,14 +115,14 @@ public class DThrowable
      */
     private void initComponents()
     {
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbDetails = new JButton(
-            m_res.getString("DThrowable.m_jbDetails.text"));
-        m_jbDetails.setMnemonic(m_res.getString(
-            "DThrowable.m_jbDetails.mnemonic").charAt(0));
+        JButton jbDetails = new JButton(
+            m_res.getString("DThrowable.jbDetails.text"));
+        jbDetails.setMnemonic(m_res.getString("DThrowable.jbDetails.mnemonic").charAt(
+            0));
 
-        m_jbDetails.addActionListener(new ActionListener()
+        jbDetails.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -145,8 +130,8 @@ public class DThrowable
             }
         });
 
-        m_jbOK = new JButton(m_res.getString("DThrowable.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DThrowable.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -154,16 +139,15 @@ public class DThrowable
             }
         });
 
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbDetails);
+        jpButtons.add(jbOK);
+        jpButtons.add(jbDetails);
 
-        m_jpThrowable = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
-        m_jlThrowable = new JLabel(m_throwable.toString());
-        m_jpThrowable.add(m_jlThrowable);
+        JPanel jpThrowable = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
+        jpThrowable.add(new JLabel(m_throwable.toString()));
 
-        getContentPane().add(m_jpThrowable, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpThrowable, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         setResizable(false);
 
@@ -175,7 +159,7 @@ public class DThrowable
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

@@ -48,21 +48,6 @@ public class DSystemProperties
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-    /** OK button used to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel containing buttons */
-    private JPanel m_jpOK;
-
-    /** Panel to hold System Properties table */
-    private JPanel m_jpSystemPropertiesTable;
-
-    /** Scroll Pane to view System Properties table */
-    private JScrollPane m_jspSystemPropertiesTable;
-
-    /** System Properties table */
-    private JTable m_jtSystemProperties;
-
     /**
      * Creates new DSystemProperties dialog where the parent is a dialog.
      *
@@ -98,18 +83,18 @@ public class DSystemProperties
         SystemPropertiesTableModel spModel = new SystemPropertiesTableModel();
         spModel.load();
 
-        m_jtSystemProperties = new JTable(spModel);
+        JTable jtSystemProperties = new JTable(spModel);
 
-        m_jtSystemProperties.setRowMargin(0);
-        m_jtSystemProperties.getColumnModel().setColumnMargin(0);
-        m_jtSystemProperties.getTableHeader().setReorderingAllowed(false);
-        m_jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jtSystemProperties.setRowMargin(0);
+        jtSystemProperties.getColumnModel().setColumnMargin(0);
+        jtSystemProperties.getTableHeader().setReorderingAllowed(false);
+        jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Add custom renderers for the table cells and headers
         int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
-        for (int iCnt = 0; iCnt < m_jtSystemProperties.getColumnCount(); iCnt++)
+        for (int iCnt = 0; iCnt < jtSystemProperties.getColumnCount(); iCnt++)
         {
-            TableColumn column = m_jtSystemProperties.getColumnModel().getColumn(
+            TableColumn column = jtSystemProperties.getColumnModel().getColumn(
                 iCnt);
 
             if (iCnt == 0) {
@@ -128,21 +113,22 @@ public class DSystemProperties
         }
 
         // Put the table into a scroll panew
-        m_jspSystemPropertiesTable = new JScrollPane(m_jtSystemProperties,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane jspSystemPropertiesTable = new JScrollPane(
+            jtSystemProperties, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspSystemPropertiesTable.getViewport().setBackground(
-            m_jtSystemProperties.getBackground());
+        jspSystemPropertiesTable.getViewport().setBackground(
+            jtSystemProperties.getBackground());
 
         // Put the scroll pane into a panel
-        m_jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
-        m_jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
-        m_jpSystemPropertiesTable.add(m_jspSystemPropertiesTable,
+        JPanel jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
+        jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
+        jpSystemPropertiesTable.add(jspSystemPropertiesTable,
             BorderLayout.CENTER);
-        m_jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
+        jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jbOK = new JButton(m_res.getString("DSystemProperties.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DSystemProperties.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -150,11 +136,11 @@ public class DSystemProperties
             }
         });
 
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpOK.add(m_jbOK);
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpOK.add(jbOK);
 
-        getContentPane().add(m_jpSystemPropertiesTable, BorderLayout.CENTER);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpSystemPropertiesTable, BorderLayout.CENTER);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -164,7 +150,7 @@ public class DSystemProperties
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -172,7 +158,7 @@ public class DSystemProperties
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

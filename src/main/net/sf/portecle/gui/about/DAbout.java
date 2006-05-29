@@ -47,21 +47,6 @@ public class DAbout
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-    /** Label that contains the supplied about text */
-    private JLabel m_jlAbout;
-
-    /** Panel containing the about text */
-    private JPanel m_jpAbout;
-
-    /** OK button used to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Info button used to display system information */
-    private JButton m_jbSystemInformation;
-
-    /** Panel containing buttons */
-    private JPanel m_jpButtons;
-
     /**
      * Creates new DAbout dialog where the parent is a frame.
      *
@@ -93,14 +78,14 @@ public class DAbout
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlAbout = new JLabel(m_res.getString("DAbout.m_jlAbout.text"));
+        JLabel jlAbout = new JLabel(m_res.getString("DAbout.jlAbout.text"));
 
-        m_jpAbout = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
-        m_jpAbout.add(m_jlAbout);
+        JPanel jpAbout = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
+        jpAbout.add(jlAbout);
 
-        m_jbOK = new JButton(m_res.getString("DAbout.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DAbout.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -108,12 +93,12 @@ public class DAbout
             }
         });
 
-        m_jbSystemInformation = new JButton(
-            m_res.getString("DAbout.m_jbSystemInformation.text"));
-        m_jbSystemInformation.setMnemonic(m_res.getString(
-            "DAbout.m_jbSystemInformation.mnemonic").charAt(0));
+        JButton jbSystemInformation = new JButton(
+            m_res.getString("DAbout.jbSystemInformation.text"));
+        jbSystemInformation.setMnemonic(m_res.getString(
+            "DAbout.jbSystemInformation.mnemonic").charAt(0));
 
-        m_jbSystemInformation.addActionListener(new ActionListener()
+        jbSystemInformation.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -121,13 +106,13 @@ public class DAbout
             }
         });
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.setBorder(new EmptyBorder(5, 0, 5, 0));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbSystemInformation);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.setBorder(new EmptyBorder(5, 0, 5, 0));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbSystemInformation);
 
-        getContentPane().add(m_jpAbout, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpAbout, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         setResizable(false);
 
@@ -139,7 +124,7 @@ public class DAbout
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

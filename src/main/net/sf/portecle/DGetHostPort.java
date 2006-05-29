@@ -57,29 +57,11 @@ class DGetHostPort
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold the host+port entry controls */
-    private JPanel m_jpHostPort;
-
-    /** Host label */
-    private JLabel m_jlHost;
-
     /** Host text field */
     private JTextField m_jtfHost;
 
-    /** Port label */
-    private JLabel m_jlPort;
-
     /** Port text field */
     private JTextField m_jtfPort;
-
-    /** Panel to hold confirmation buttons */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** Stores the alias entered by the user */
     private InetSocketAddress m_iAddress;
@@ -133,10 +115,10 @@ class DGetHostPort
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlHost = new JLabel(m_res.getString("DGetHostPort.m_jlHost.text"));
+        JLabel jlHost = new JLabel(m_res.getString("DGetHostPort.jlHost.text"));
         m_jtfHost = new JTextField(15);
 
-        m_jlPort = new JLabel(m_res.getString("DGetHostPort.m_jlPort.text"));
+        JLabel jlPort = new JLabel(m_res.getString("DGetHostPort.jlPort.text"));
         m_jtfPort = new JTextField(5);
 
         if (iOldHostPort != null) {
@@ -146,8 +128,8 @@ class DGetHostPort
             m_jtfPort.setCaretPosition(0);
         }
 
-        m_jbOK = new JButton(m_res.getString("DGetHostPort.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DGetHostPort.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -155,18 +137,18 @@ class DGetHostPort
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DGetHostPort.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGetHostPort.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -174,19 +156,19 @@ class DGetHostPort
             }
         });
 
-        m_jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpHostPort.add(m_jlHost);
-        m_jpHostPort.add(m_jtfHost);
-        m_jpHostPort.add(m_jlPort);
-        m_jpHostPort.add(m_jtfPort);
-        m_jpHostPort.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpHostPort.add(jlHost);
+        jpHostPort.add(m_jtfHost);
+        jpHostPort.add(jlPort);
+        jpHostPort.add(m_jtfPort);
+        jpHostPort.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpHostPort, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpHostPort, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -198,7 +180,7 @@ class DGetHostPort
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

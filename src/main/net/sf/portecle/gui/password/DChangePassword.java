@@ -56,35 +56,14 @@ public class DChangePassword
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
-    /** Panel to hold password entry components */
-    private JPanel m_jpPassword;
-
-    /** Label for old password */
-    private JLabel m_jlOld;
-
     /** Old password entry password field */
     private JPasswordField m_jpfOld;
-
-    /** Label for first password */
-    private JLabel m_jlFirst;
 
     /** First password entry password field */
     private JPasswordField m_jpfFirst;
 
-    /** Label for password confirmation */
-    private JLabel m_jlConfirm;
-
     /** Password confirmation entry password field */
     private JPasswordField m_jpfConfirm;
-
-    /** Panel to hold OK and cancel buttons */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm password entry */
-    private JButton m_jbOK;
-
-    /** Cancel to button to cancel password entry */
-    private JButton m_jbCancel;
 
     /** Stores new password entered */
     private char[] m_cNewPassword;
@@ -177,15 +156,15 @@ public class DChangePassword
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlFirst = new JLabel(
-            m_res.getString("DChangePassword.m_jlFirst.text"));
+        JLabel jlFirst = new JLabel(
+            m_res.getString("DChangePassword.jlFirst.text"));
         m_jpfFirst = new JPasswordField(15);
 
-        m_jlConfirm = new JLabel(
-            m_res.getString("DChangePassword.m_jlConfirm.text"));
+        JLabel jlConfirm = new JLabel(
+            m_res.getString("DChangePassword.jlConfirm.text"));
         m_jpfConfirm = new JPasswordField(15);
 
-        m_jlOld = new JLabel(m_res.getString("DChangePassword.m_jlOld.text"));
+        JLabel jlOld = new JLabel(m_res.getString("DChangePassword.jlOld.text"));
 
         // Old password was supplied - just disable the old password
         // field after filling it with junk
@@ -197,8 +176,8 @@ public class DChangePassword
             m_jpfOld = new JPasswordField(10);
         }
 
-        m_jbOK = new JButton(m_res.getString("DChangePassword.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DChangePassword.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -206,18 +185,18 @@ public class DChangePassword
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DChangePassword.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DChangePassword.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -225,21 +204,21 @@ public class DChangePassword
             }
         });
 
-        m_jpPassword = new JPanel(new GridLayout(3, 2, 5, 5));
-        m_jpPassword.add(m_jlOld);
-        m_jpPassword.add(m_jpfOld);
-        m_jpPassword.add(m_jlFirst);
-        m_jpPassword.add(m_jpfFirst);
-        m_jpPassword.add(m_jlConfirm);
-        m_jpPassword.add(m_jpfConfirm);
-        m_jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpPassword = new JPanel(new GridLayout(3, 2, 5, 5));
+        jpPassword.add(jlOld);
+        jpPassword.add(m_jpfOld);
+        jpPassword.add(jlFirst);
+        jpPassword.add(m_jpfFirst);
+        jpPassword.add(jlConfirm);
+        jpPassword.add(m_jpfConfirm);
+        jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpPassword, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpPassword, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -251,7 +230,7 @@ public class DChangePassword
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

@@ -55,24 +55,6 @@ public class DThrowableDetail
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
-    /** Panel to hold buttons */
-    private JPanel m_jpButtons;
-
-    /** Copy button to copy throwable stack traces to clipboard */
-    private JButton m_jbCopy;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel to hold throwable stack traces */
-    private JPanel m_jpThrowable;
-
-    /** Tree to display throwable stack traces */
-    private JTree m_jtrThrowable;
-
-    /** Scroll pane to place throwable stack traces in */
-    private JScrollPane m_jspThrowable;
-
     /** Stores throwable to display */
     private Throwable m_throwable;
 
@@ -110,60 +92,61 @@ public class DThrowableDetail
     private void initComponents()
     {
         // Buttons
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DThrowableDetail.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DThrowableDetail.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 okPressed();
             }
         });
-        m_jpButtons.add(m_jbOK);
+        jpButtons.add(jbOK);
 
-        m_jbCopy = new JButton(
-            m_res.getString("DThrowableDetail.m_jbCopy.text"));
-        m_jbCopy.setMnemonic(m_res.getString(
-            "DThrowableDetail.m_jbCopy.mnemonic").charAt(0));
-        m_jbCopy.setToolTipText(m_res.getString("DThrowableDetail.m_jbCopy.tooltip"));
-        m_jbCopy.addActionListener(new ActionListener()
+        JButton jbCopy = new JButton(
+            m_res.getString("DThrowableDetail.jbCopy.text"));
+        jbCopy.setMnemonic(m_res.getString("DThrowableDetail.jbCopy.mnemonic").charAt(
+            0));
+        jbCopy.setToolTipText(m_res.getString("DThrowableDetail.jbCopy.tooltip"));
+        jbCopy.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 copyPressed();
             }
         });
-        m_jpButtons.add(m_jbCopy);
+        jpButtons.add(jbCopy);
 
-        m_jpThrowable = new JPanel(new BorderLayout());
-        m_jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpThrowable = new JPanel(new BorderLayout());
+        jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load tree with info on throwable's stack trace
-        m_jtrThrowable = new JTree(createThrowableNodes());
+        JTree jtrThrowable = new JTree(createThrowableNodes());
         // Top accomodate node icons with spare space (they are 16 pixels tall)
-        m_jtrThrowable.setRowHeight(18);
-        m_jtrThrowable.getSelectionModel().setSelectionMode(
+        jtrThrowable.setRowHeight(18);
+        jtrThrowable.getSelectionModel().setSelectionMode(
             TreeSelectionModel.SINGLE_TREE_SELECTION);
         // Allow tooltips in tree
-        ToolTipManager.sharedInstance().registerComponent(m_jtrThrowable);
+        ToolTipManager.sharedInstance().registerComponent(jtrThrowable);
         // Custom tree node renderer
-        m_jtrThrowable.setCellRenderer(new ThrowableTreeCellRend());
+        jtrThrowable.setCellRenderer(new ThrowableTreeCellRend());
 
         // Expand all nodes in tree
         /* ...then again, not.  Too much scary detail.
-         TreeNode topNode = (TreeNode)m_jtrThrowable.getModel().getRoot();
-         expandTree(m_jtrThrowable, new TreePath(topNode));
+         TreeNode topNode = (TreeNode)jtrThrowable.getModel().getRoot();
+         expandTree(jtrThrowable, new TreePath(topNode));
          */
 
-        m_jspThrowable = new JScrollPane(m_jtrThrowable,
+        JScrollPane jspThrowable = new JScrollPane(jtrThrowable,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        m_jspThrowable.setPreferredSize(new Dimension(500, 250));
-        m_jpThrowable.add(m_jspThrowable, BorderLayout.CENTER);
+        jspThrowable.setPreferredSize(new Dimension(500, 250));
+        jpThrowable.add(jspThrowable, BorderLayout.CENTER);
 
-        getContentPane().add(m_jpThrowable, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpThrowable, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         setTitle(m_res.getString("DThrowableDetail.Title"));
         setResizable(true);
@@ -176,7 +159,7 @@ public class DThrowableDetail
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -184,7 +167,7 @@ public class DThrowableDetail
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

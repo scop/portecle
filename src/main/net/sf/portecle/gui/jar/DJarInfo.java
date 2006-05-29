@@ -56,21 +56,6 @@ public class DJarInfo
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
-    /** OK button used to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel containing buttons */
-    private JPanel m_jpOK;
-
-    /** Panel to hold JAR Information table */
-    private JPanel m_jpJarInfoTable;
-
-    /** Scroll Pane to view JAR Information table */
-    private JScrollPane m_jspJarInfoTable;
-
-    /** JAR Information table */
-    private JTable m_jtJarInfo;
-
     /**
      * Creates new DJarInfo dialog where the parent is a frame.
      *
@@ -115,16 +100,16 @@ public class DJarInfo
         JarInfoTableModel jiModel = new JarInfoTableModel();
         jiModel.load(jarFiles);
 
-        m_jtJarInfo = new JTable(jiModel);
+        JTable jtJarInfo = new JTable(jiModel);
 
-        m_jtJarInfo.setRowMargin(0);
-        m_jtJarInfo.getColumnModel().setColumnMargin(0);
-        m_jtJarInfo.getTableHeader().setReorderingAllowed(false);
-        m_jtJarInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        jtJarInfo.setRowMargin(0);
+        jtJarInfo.getColumnModel().setColumnMargin(0);
+        jtJarInfo.getTableHeader().setReorderingAllowed(false);
+        jtJarInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         // Add custom renderers for the table cells and headers
-        for (int iCnt = 0; iCnt < m_jtJarInfo.getColumnCount(); iCnt++) {
-            TableColumn column = m_jtJarInfo.getColumnModel().getColumn(iCnt);
+        for (int iCnt = 0; iCnt < jtJarInfo.getColumnCount(); iCnt++) {
+            TableColumn column = jtJarInfo.getColumnModel().getColumn(iCnt);
 
             column.setPreferredWidth(150);
 
@@ -133,20 +118,19 @@ public class DJarInfo
         }
 
         // Put the table into a scroll panew
-        m_jspJarInfoTable = new JScrollPane(m_jtJarInfo,
+        JScrollPane jspJarInfoTable = new JScrollPane(jtJarInfo,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspJarInfoTable.getViewport().setBackground(
-            m_jtJarInfo.getBackground());
+        jspJarInfoTable.getViewport().setBackground(jtJarInfo.getBackground());
 
         // Put the scroll pane into a panel
-        m_jpJarInfoTable = new JPanel(new BorderLayout(10, 10));
-        m_jpJarInfoTable.setPreferredSize(new Dimension(500, 150));
-        m_jpJarInfoTable.add(m_jspJarInfoTable, BorderLayout.CENTER);
-        m_jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpJarInfoTable = new JPanel(new BorderLayout(10, 10));
+        jpJarInfoTable.setPreferredSize(new Dimension(500, 150));
+        jpJarInfoTable.add(jspJarInfoTable, BorderLayout.CENTER);
+        jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jbOK = new JButton(m_res.getString("DJarInfo.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(m_res.getString("DJarInfo.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -154,11 +138,11 @@ public class DJarInfo
             }
         });
 
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpOK.add(m_jbOK);
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpOK.add(jbOK);
 
-        getContentPane().add(m_jpJarInfoTable, BorderLayout.CENTER);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpJarInfoTable, BorderLayout.CENTER);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         setResizable(false);
 
@@ -170,7 +154,7 @@ public class DJarInfo
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -178,7 +162,7 @@ public class DJarInfo
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

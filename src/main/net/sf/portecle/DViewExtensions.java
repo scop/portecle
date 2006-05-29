@@ -64,38 +64,11 @@ class DViewExtensions
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold extensions controls */
-    private JPanel m_jpExtensions;
-
-    /** Panel to hold Extensions table */
-    private JPanel m_jpExtensionsTable;
-
-    /** Scroll Pane to view Extensions table */
-    private JScrollPane m_jspExtensionsTable;
-
     /** Extensions table */
     private JTable m_jtExtensions;
 
-    /** Panel to hold Extension Value controls */
-    private JPanel m_jpExtensionValue;
-
-    /** Label for Extension Value */
-    private JLabel m_jlExtensionValue;
-
-    /** Panel to hold Extension Value text area */
-    private JPanel m_jpExtensionValueTextArea;
-
-    /** Scroll Pane to view Extension Value text area */
-    private JScrollPane m_jspExtensionValue;
-
     /** Extension value text area */
     private JTextArea m_jtaExtensionValue;
-
-    /** Panel to hold OK button */
-    private JPanel m_jpOK;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
 
     /** Extensions to display */
     private X509Extension m_extensions;
@@ -186,26 +159,26 @@ class DViewExtensions
         });
 
         // Put the table into a scroll pane
-        m_jspExtensionsTable = new JScrollPane(m_jtExtensions,
+        JScrollPane jspExtensionsTable = new JScrollPane(m_jtExtensions,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspExtensionsTable.getViewport().setBackground(
+        jspExtensionsTable.getViewport().setBackground(
             m_jtExtensions.getBackground());
 
         // Put the scroll pane into a panel
-        m_jpExtensionsTable = new JPanel(new BorderLayout(10, 10));
-        m_jpExtensionsTable.setPreferredSize(new Dimension(520, 200));
-        m_jpExtensionsTable.add(m_jspExtensionsTable, BorderLayout.CENTER);
+        JPanel jpExtensionsTable = new JPanel(new BorderLayout(10, 10));
+        jpExtensionsTable.setPreferredSize(new Dimension(520, 200));
+        jpExtensionsTable.add(jspExtensionsTable, BorderLayout.CENTER);
 
         // Panel to hold Extension Value controls
-        m_jpExtensionValue = new JPanel(new BorderLayout(10, 10));
+        JPanel jpExtensionValue = new JPanel(new BorderLayout(10, 10));
 
         // Extension Value label
-        m_jlExtensionValue = new JLabel(
-            m_res.getString("DViewExtensions.m_jlExtensionValue.text"));
+        JLabel jlExtensionValue = new JLabel(
+            m_res.getString("DViewExtensions.jlExtensionValue.text"));
 
         // Put label into panel
-        m_jpExtensionValue.add(m_jlExtensionValue, BorderLayout.NORTH);
+        jpExtensionValue.add(jlExtensionValue, BorderLayout.NORTH);
 
         // Extension Value text area
         m_jtaExtensionValue = new JTextArea();
@@ -216,34 +189,34 @@ class DViewExtensions
         m_jtaExtensionValue.setTabSize(2);
 
         // Put the text area into a scroll pane
-        m_jspExtensionValue = new JScrollPane(m_jtaExtensionValue,
+        JScrollPane jspExtensionValue = new JScrollPane(m_jtaExtensionValue,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         // Put the scroll pane into a panel
-        m_jpExtensionValueTextArea = new JPanel(new BorderLayout(10, 10));
-        m_jpExtensionValueTextArea.setPreferredSize(new Dimension(520, 200));
-        m_jpExtensionValueTextArea.add(m_jspExtensionValue,
-            BorderLayout.CENTER);
+        JPanel jpExtensionValueTextArea = new JPanel(new BorderLayout(10, 10));
+        jpExtensionValueTextArea.setPreferredSize(new Dimension(520, 200));
+        jpExtensionValueTextArea.add(jspExtensionValue, BorderLayout.CENTER);
 
         // Put text area panel into Extension Value controls panel
-        m_jpExtensionValue.add(m_jpExtensionValueTextArea, BorderLayout.CENTER);
+        jpExtensionValue.add(jpExtensionValueTextArea, BorderLayout.CENTER);
 
         // Put Extensions table and Extension Value text area together in
         // extensions panel
-        m_jpExtensions = new JPanel(new GridLayout(2, 1, 5, 5));
-        m_jpExtensions.setBorder(new CompoundBorder(
-            new EmptyBorder(5, 5, 5, 5), new CompoundBorder(
-                new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
+        JPanel jpExtensions = new JPanel(new GridLayout(2, 1, 5, 5));
+        jpExtensions.setBorder(new CompoundBorder(
+            new EmptyBorder(5, 5, 5, 5),
+            new CompoundBorder(new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
 
-        m_jpExtensions.add(m_jpExtensionsTable);
-        m_jpExtensions.add(m_jpExtensionValue);
+        jpExtensions.add(jpExtensionsTable);
+        jpExtensions.add(jpExtensionValue);
 
         // OK button
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DViewExtensions.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DViewExtensions.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -251,7 +224,7 @@ class DViewExtensions
             }
         });
 
-        m_jpOK.add(m_jbOK);
+        jpOK.add(jbOK);
 
         // Populate table with extensions
         extensionsTableModel.load(m_extensions);
@@ -262,8 +235,8 @@ class DViewExtensions
         }
 
         // Put it all together
-        getContentPane().add(m_jpExtensions, BorderLayout.CENTER);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpExtensions, BorderLayout.CENTER);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -273,7 +246,7 @@ class DViewExtensions
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -281,7 +254,7 @@ class DViewExtensions
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

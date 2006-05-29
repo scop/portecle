@@ -56,21 +56,6 @@ public class DViewPEM
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
-    /** Panel to hold OK button */
-    private JPanel m_jpOK;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel to hold scroll pane in */
-    private JPanel m_jpPEM;
-
-    /** Scroll pane to hold text area in */
-    private JScrollPane m_jspPEM;
-
-    /** Text area to display PEM encoding in */
-    private JTextArea m_jtaPEM;
-
     /** Stores object to display */
     private Object m_object;
 
@@ -136,10 +121,11 @@ public class DViewPEM
             }
         }
 
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DViewPEM.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DViewPEM.m_jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -147,26 +133,26 @@ public class DViewPEM
             }
         });
 
-        m_jpOK.add(m_jbOK);
+        jpOK.add(jbOK);
 
-        m_jpPEM = new JPanel(new BorderLayout());
-        m_jpPEM.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpPEM = new JPanel(new BorderLayout());
+        jpPEM.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load text area with the PEM encoding
-        m_jtaPEM = new JTextArea(encoded.toString());
-        m_jtaPEM.setCaretPosition(0);
-        m_jtaPEM.setEditable(false);
-        m_jtaPEM.setFont(new Font("Monospaced", Font.PLAIN,
-            m_jtaPEM.getFont().getSize()));
+        JTextArea jtaPEM = new JTextArea(encoded.toString());
+        jtaPEM.setCaretPosition(0);
+        jtaPEM.setEditable(false);
+        jtaPEM.setFont(new Font("Monospaced", Font.PLAIN,
+            jtaPEM.getFont().getSize()));
 
-        m_jspPEM = new JScrollPane(m_jtaPEM,
+        JScrollPane jspPEM = new JScrollPane(jtaPEM,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        m_jspPEM.setPreferredSize(new Dimension(500, 300));
-        m_jpPEM.add(m_jspPEM, BorderLayout.CENTER);
+        jspPEM.setPreferredSize(new Dimension(500, 300));
+        jpPEM.add(jspPEM, BorderLayout.CENTER);
 
-        getContentPane().add(m_jpPEM, BorderLayout.CENTER);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpPEM, BorderLayout.CENTER);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         setResizable(true);
 
@@ -178,7 +164,7 @@ public class DViewPEM
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -186,7 +172,7 @@ public class DViewPEM
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

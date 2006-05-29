@@ -64,12 +64,6 @@ class DNewKeyStoreType
     /** Stores the selected keystore type */
     private KeyStoreType m_keyStoreType;
 
-    /** Panel containing keystore type controls */
-    private JPanel m_jpKeyStoreType;
-
-    /** Keystore type label */
-    private JLabel m_jlKeyStoreType;
-
     /** JKS keystore type radio button */
     private JRadioButton m_jrbJksKeyStore;
 
@@ -84,15 +78,6 @@ class DNewKeyStoreType
 
     /** UBER keystore type radio button */
     private JRadioButton m_jrbUberKeyStore;
-
-    /** Panel for confirmation button controls */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /**
      * Creates new form DNewKeyStoreType where the parent is a frame.
@@ -114,8 +99,8 @@ class DNewKeyStoreType
     {
         // Create keystore type label and radio buttons and group them
         // in a panel
-        m_jlKeyStoreType = new JLabel(
-            m_res.getString("DNewKeyStoreType.m_jlKeyStoreType.text"));
+        JLabel jlKeyStoreType = new JLabel(
+            m_res.getString("DNewKeyStoreType.jlKeyStoreType.text"));
 
         m_jrbJksKeyStore = new JRadioButton(
             m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.text"), true);
@@ -164,21 +149,22 @@ class DNewKeyStoreType
             m_jrbPkcs12KeyStore.setSelected(true);
         }
 
-        m_jpKeyStoreType = new JPanel(new GridLayout(6, 1));
-        m_jpKeyStoreType.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5,
-            5), new CompoundBorder(new EtchedBorder(), new EmptyBorder(5, 5,
-            5, 5))));
+        JPanel jpKeyStoreType = new JPanel(new GridLayout(6, 1));
+        jpKeyStoreType.setBorder(new CompoundBorder(
+            new EmptyBorder(5, 5, 5, 5), new CompoundBorder(
+                new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
 
-        m_jpKeyStoreType.add(m_jlKeyStoreType);
-        m_jpKeyStoreType.add(m_jrbJksKeyStore);
-        m_jpKeyStoreType.add(m_jrbPkcs12KeyStore);
-        m_jpKeyStoreType.add(m_jrbJceksKeyStore);
-        m_jpKeyStoreType.add(m_jrbBksKeyStore);
-        m_jpKeyStoreType.add(m_jrbUberKeyStore);
+        jpKeyStoreType.add(jlKeyStoreType);
+        jpKeyStoreType.add(m_jrbJksKeyStore);
+        jpKeyStoreType.add(m_jrbPkcs12KeyStore);
+        jpKeyStoreType.add(m_jrbJceksKeyStore);
+        jpKeyStoreType.add(m_jrbBksKeyStore);
+        jpKeyStoreType.add(m_jrbUberKeyStore);
 
         // Create confirmation buttons and place them in a panel
-        m_jbOK = new JButton(m_res.getString("DNewKeyStoreType.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(
+            m_res.getString("DNewKeyStoreType.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -186,18 +172,18 @@ class DNewKeyStoreType
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DNewKeyStoreType.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DNewKeyStoreType.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -205,14 +191,14 @@ class DNewKeyStoreType
             }
         });
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
         // Place both panels on the dialog
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(m_jpKeyStoreType, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpKeyStoreType, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -224,7 +210,7 @@ class DNewKeyStoreType
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

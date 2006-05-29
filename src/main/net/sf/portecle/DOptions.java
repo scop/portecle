@@ -65,62 +65,17 @@ class DOptions
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Tabbed Pane to hold the oprions */
-    private JTabbedPane m_jtpOptions;
-
-    /** Panel for CA certs options components */
-    private JPanel m_jpCaCerts;
-
-    /** Subpanel to hold use CA certs components */
-    private JPanel m_jpUseCaCerts;
-
     /** Use CA certs check box */
     private JCheckBox m_jcbUseCaCerts;
-
-    /** Subpanel to hold use CA certs file components */
-    private JPanel m_jpCaCertsFile;
-
-    /** CA certs file label */
-    private JLabel m_jlCaCertsFile;
 
     /** CA certs file text field */
     private JTextField m_jtfCaCertsFile;
 
-    /** Browse button used to select the CA certs file */
-    private JButton m_jbBrowseCaCertsFile;
-
-    /** Panel for look & feel options components */
-    private JPanel m_jpLookFeel;
-
-    /** Subpanel to hold note regarding look & feel */
-    private JPanel m_jpLookFeelNote;
-
-    /** label to hold note regarding look & feel */
-    private JLabel m_jlLookFeelNote;
-
-    /** Subpanel for look & feel choice controls */
-    private JPanel m_jpLookFeelControls;
-
-    /** Look & feel label */
-    private JLabel m_jlLookFeel;
-
     /** Look & feel combo box */
     private JComboBox m_jcbLookFeel;
 
-    /** Subpanel for look & feel decorated setting controls */
-    private JPanel m_jpLookFeelDecoratedControls;
-
     /** Look & feel decorated check box */
     private JCheckBox m_jcbLookFeelDecorated;
-
-    /** Panel for confirmation button controls */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** Use CA certs keystore file? */
     private boolean m_bUseCaCerts;
@@ -166,47 +121,47 @@ class DOptions
             m_res.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
         m_jcbUseCaCerts.setToolTipText(m_res.getString("DOptions.m_jcbUseCaCerts.tooltip"));
 
-        m_jpUseCaCerts = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpUseCaCerts.add(m_jcbUseCaCerts);
+        JPanel jpUseCaCerts = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpUseCaCerts.add(m_jcbUseCaCerts);
 
-        m_jlCaCertsFile = new JLabel(
-            m_res.getString("DOptions.m_jlCaCertsFile.text"));
+        JLabel jlCaCertsFile = new JLabel(
+            m_res.getString("DOptions.jlCaCertsFile.text"));
         m_jtfCaCertsFile = new JTextField(m_fCaCertsFile.toString(), 20);
         m_jtfCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
         m_jtfCaCertsFile.setCaretPosition(0);
         m_jtfCaCertsFile.setEditable(false);
-        m_jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpCaCertsFile.add(m_jlCaCertsFile);
-        m_jpCaCertsFile.add(m_jtfCaCertsFile);
+        JPanel jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpCaCertsFile.add(jlCaCertsFile);
+        jpCaCertsFile.add(m_jtfCaCertsFile);
 
-        m_jbBrowseCaCertsFile = new JButton(
-            m_res.getString("DOptions.m_jbBrowseCaCertsFile.text"));
-        m_jbBrowseCaCertsFile.setMnemonic(m_res.getString(
-            "DOptions.m_jbBrowseCaCertsFile.mnemonic").charAt(0));
-        m_jbBrowseCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jbBrowseCaCertsFile.tooltip"));
-        m_jbBrowseCaCertsFile.addActionListener(new ActionListener()
+        JButton jbBrowseCaCertsFile = new JButton(
+            m_res.getString("DOptions.jbBrowseCaCertsFile.text"));
+        jbBrowseCaCertsFile.setMnemonic(m_res.getString(
+            "DOptions.jbBrowseCaCertsFile.mnemonic").charAt(0));
+        jbBrowseCaCertsFile.setToolTipText(m_res.getString("DOptions.jbBrowseCaCertsFile.tooltip"));
+        jbBrowseCaCertsFile.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 browsePressed();
             }
         });
-        m_jpCaCertsFile.add(m_jbBrowseCaCertsFile);
+        jpCaCertsFile.add(jbBrowseCaCertsFile);
 
-        m_jpCaCerts = new JPanel(new GridLayout(2, 1));
-        m_jpCaCerts.add(m_jpUseCaCerts);
-        m_jpCaCerts.add(m_jpCaCertsFile);
+        JPanel jpCaCerts = new JPanel(new GridLayout(2, 1));
+        jpCaCerts.add(jpUseCaCerts);
+        jpCaCerts.add(jpCaCertsFile);
 
         // Look & feel tabbed options tab panel
-        m_jlLookFeelNote = new JLabel(
-            m_res.getString("DOptions.m_jlLookFeelNote.text"));
+        JLabel jlLookFeelNote = new JLabel(
+            m_res.getString("DOptions.jlLookFeelNote.text"));
 
         // Note
-        m_jpLookFeelNote = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpLookFeelNote.add(m_jlLookFeelNote);
+        JPanel jpLookFeelNote = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpLookFeelNote.add(jlLookFeelNote);
 
-        m_jlLookFeel = new JLabel(
-            m_res.getString("DOptions.m_jlLookFeel.text"));
+        JLabel jlLookFeel = new JLabel(
+            m_res.getString("DOptions.jlLookFeel.text"));
 
         // Create and populate combo box with available look & feels
         m_jcbLookFeel = new JComboBox();
@@ -263,9 +218,9 @@ class DOptions
             }
         }
 
-        m_jpLookFeelControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpLookFeelControls.add(m_jlLookFeel);
-        m_jpLookFeelControls.add(m_jcbLookFeel);
+        JPanel jpLookFeelControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpLookFeelControls.add(jlLookFeel);
+        jpLookFeelControls.add(m_jcbLookFeel);
 
         // Create and populate check box with look & feel decorated setting
         m_jcbLookFeelDecorated = new JCheckBox(
@@ -273,27 +228,26 @@ class DOptions
             JFrame.isDefaultLookAndFeelDecorated());
         m_jcbLookFeelDecorated.setToolTipText(m_res.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
 
-        m_jpLookFeelDecoratedControls = new JPanel(new FlowLayout(
+        JPanel jpLookFeelDecoratedControls = new JPanel(new FlowLayout(
             FlowLayout.LEFT));
-        m_jpLookFeelDecoratedControls.add(m_jcbLookFeelDecorated);
+        jpLookFeelDecoratedControls.add(m_jcbLookFeelDecorated);
 
-        m_jpLookFeel = new JPanel(new BorderLayout());
-        m_jpLookFeel.add(m_jpLookFeelNote, BorderLayout.NORTH);
-        m_jpLookFeel.add(m_jpLookFeelControls, BorderLayout.CENTER);
-        m_jpLookFeel.add(m_jpLookFeelDecoratedControls, BorderLayout.SOUTH);
+        JPanel jpLookFeel = new JPanel(new BorderLayout());
+        jpLookFeel.add(jpLookFeelNote, BorderLayout.NORTH);
+        jpLookFeel.add(jpLookFeelControls, BorderLayout.CENTER);
+        jpLookFeel.add(jpLookFeelDecoratedControls, BorderLayout.SOUTH);
 
         // Add the panels to a tabbed pane
-        m_jtpOptions = new JTabbedPane();
-        m_jtpOptions.addTab(m_res.getString("DOptions.m_jpCaCerts.text"),
-            null, m_jpCaCerts, m_res.getString("DOptions.m_jpCaCerts.tooltip"));
-        m_jtpOptions.addTab(m_res.getString("DOptions.m_jpLookFeel.text"),
-            null, m_jpLookFeel,
-            m_res.getString("DOptions.m_jpLookFeel.tooltip"));
-        m_jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JTabbedPane jtpOptions = new JTabbedPane();
+        jtpOptions.addTab(m_res.getString("DOptions.jpCaCerts.text"), null,
+            jpCaCerts, m_res.getString("DOptions.jpCaCerts.tooltip"));
+        jtpOptions.addTab(m_res.getString("DOptions.jpLookFeel.text"), null,
+            jpLookFeel, m_res.getString("DOptions.jpLookFeel.tooltip"));
+        jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // OK and Cancel buttons
-        m_jbOK = new JButton(m_res.getString("DOptions.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DOptions.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -301,17 +255,18 @@ class DOptions
             }
         });
 
-        m_jbCancel = new JButton(m_res.getString("DOptions.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DOptions.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -319,14 +274,14 @@ class DOptions
             }
         });
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
         // Put it all together
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(m_jtpOptions, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jtpOptions, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -339,7 +294,7 @@ class DOptions
         setTitle(m_res.getString("DOptions.Title"));
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

@@ -63,23 +63,8 @@ public class DChoosePkcs11Provider
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold the provider choice controls */
-    private JPanel m_jpProvider;
-
-    /** Provider label */
-    private JLabel m_jlProvider;
-
     /** Provider drop-down box */
     private JComboBox m_jcbProvider;
-
-    /** Panel to hold confirmation buttons */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** Stores the provider chosen by the user */
     private String m_sProvider;
@@ -133,8 +118,8 @@ public class DChoosePkcs11Provider
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlProvider = new JLabel(
-            m_res.getString("DChoosePkcs11Provider.m_jlProvider.text"));
+        JLabel jlProvider = new JLabel(
+            m_res.getString("DChoosePkcs11Provider.jlProvider.text"));
         m_jcbProvider = new JComboBox();
         m_jcbProvider.setToolTipText(m_res.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 
@@ -156,10 +141,10 @@ public class DChoosePkcs11Provider
             m_jcbProvider.setEnabled(false);
         }
 
-        m_jbOK = new JButton(
-            m_res.getString("DChoosePkcs11Provider.m_jbOK.text"));
+        JButton jbOK = new JButton(
+            m_res.getString("DChoosePkcs11Provider.jbOK.text"));
         if (providersAvailable) {
-            m_jbOK.addActionListener(new ActionListener()
+            jbOK.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent evt)
                 {
@@ -168,21 +153,21 @@ public class DChoosePkcs11Provider
             });
         }
         else {
-            m_jbOK.setEnabled(false);
+            jbOK.setEnabled(false);
         }
 
-        m_jbCancel = new JButton(
-            m_res.getString("DChoosePkcs11Provider.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DChoosePkcs11Provider.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -190,17 +175,17 @@ public class DChoosePkcs11Provider
             }
         });
 
-        m_jpProvider = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpProvider.add(m_jlProvider);
-        m_jpProvider.add(m_jcbProvider);
-        m_jpProvider.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpProvider = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpProvider.add(jlProvider);
+        jpProvider.add(m_jcbProvider);
+        jpProvider.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpProvider, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpProvider, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -212,8 +197,7 @@ public class DChoosePkcs11Provider
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(
-            providersAvailable ? m_jbOK : m_jbCancel);
+        getRootPane().setDefaultButton(providersAvailable ? jbOK : jbCancel);
 
         pack();
     }

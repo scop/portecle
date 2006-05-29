@@ -69,38 +69,14 @@ class DGenerateKeyPair
     /** Default keysize for the dialog */
     private static String DEFAULT_KEYSIZE = m_res.getString("DGenerateKeyPair.DefaultKeySize");
 
-    /** Panel for key algorithm controls */
-    private JPanel m_jpKeyAlg;
-
-    /** Key algorithm label */
-    private JLabel m_jlKeyAlg;
-
     /** Radio button for the DSA key algorithm */
     private JRadioButton m_jrbDSA;
 
     /** Radio button for the RSA key algorithm */
     private JRadioButton m_jrbRSA;
 
-    /** Panel for key size controls */
-    private JPanel m_jpKeySize;
-
-    /** Key size label */
-    private JLabel m_jlKeySize;
-
     /** Key size text field */
     private JTextField m_jtfKeySize;
-
-    /** Panel for all option controls */
-    private JPanel m_jpOptions;
-
-    /** Panel for confirmation button controls */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm dialog */
-    private JButton m_jbOK;
-
-    /** Cancel button to cancel dialog */
-    private JButton m_jbCancel;
 
     /** Key pair type chosen for generation */
     private KeyPairType m_keyPairType;
@@ -140,8 +116,8 @@ class DGenerateKeyPair
      */
     private void initComponents()
     {
-        m_jlKeyAlg = new JLabel(
-            m_res.getString("DGenerateKeyPair.m_jlKeyAlg.text"));
+        JLabel jlKeyAlg = new JLabel(
+            m_res.getString("DGenerateKeyPair.jlKeyAlg.text"));
         m_jrbDSA = new JRadioButton(
             m_res.getString("DGenerateKeyPair.m_jrbDSA.text"), true);
         m_jrbDSA.setToolTipText(m_res.getString("DGenerateKeyPair.m_jrbDSA.tooltip"));
@@ -151,29 +127,30 @@ class DGenerateKeyPair
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(m_jrbDSA);
         buttonGroup.add(m_jrbRSA);
-        m_jpKeyAlg = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpKeyAlg.add(m_jlKeyAlg);
-        m_jpKeyAlg.add(m_jrbDSA);
-        m_jpKeyAlg.add(m_jrbRSA);
+        JPanel jpKeyAlg = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpKeyAlg.add(jlKeyAlg);
+        jpKeyAlg.add(m_jrbDSA);
+        jpKeyAlg.add(m_jrbRSA);
 
-        m_jlKeySize = new JLabel(
-            m_res.getString("DGenerateKeyPair.m_jlKeySize.text"));
+        JLabel jlKeySize = new JLabel(
+            m_res.getString("DGenerateKeyPair.jlKeySize.text"));
         m_jtfKeySize = new JTextField(5);
         m_jtfKeySize.setText(DEFAULT_KEYSIZE);
         m_jtfKeySize.setToolTipText(m_res.getString("DGenerateKeyPair.m_jtfKeySize.tooltip"));
-        m_jpKeySize = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        m_jpKeySize.add(m_jlKeySize);
-        m_jpKeySize.add(m_jtfKeySize);
+        JPanel jpKeySize = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        jpKeySize.add(jlKeySize);
+        jpKeySize.add(m_jtfKeySize);
 
-        m_jpOptions = new JPanel(new GridLayout(2, 1, 5, 5));
-        m_jpOptions.add(m_jpKeyAlg);
-        m_jpOptions.add(m_jpKeySize);
+        JPanel jpOptions = new JPanel(new GridLayout(2, 1, 5, 5));
+        jpOptions.add(jpKeyAlg);
+        jpOptions.add(jpKeySize);
 
-        m_jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+        jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
             new EtchedBorder()));
 
-        m_jbOK = new JButton(m_res.getString("DGenerateKeyPair.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(
+            m_res.getString("DGenerateKeyPair.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -181,18 +158,18 @@ class DGenerateKeyPair
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DGenerateKeyPair.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGenerateKeyPair.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -200,12 +177,12 @@ class DGenerateKeyPair
             }
         });
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpOptions, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpOptions, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -218,7 +195,7 @@ class DGenerateKeyPair
         setTitle(m_res.getString("DGenerateKeyPair.Title"));
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

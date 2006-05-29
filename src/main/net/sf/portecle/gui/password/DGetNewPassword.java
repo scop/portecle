@@ -55,29 +55,11 @@ public class DGetNewPassword
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
-    /** Panel to hold password entry components */
-    private JPanel m_jpPassword;
-
-    /** Label for first password */
-    private JLabel m_jlFirst;
-
     /** First password entry password field */
     private JPasswordField m_jpfFirst;
 
-    /** Label for confirmation password */
-    private JLabel m_jlConfirm;
-
     /** Password confirmation entry password field */
     private JPasswordField m_jpfConfirm;
-
-    /** Panel to hold OK and cancel buttons */
-    private JPanel m_jpButtons;
-
-    /** OK button to confirm password entry */
-    private JButton m_jbOK;
-
-    /** Cancel to button to cancel password entry */
-    private JButton m_jbCancel;
 
     /** Stores new password entered */
     private char[] m_cPassword;
@@ -147,15 +129,15 @@ public class DGetNewPassword
     {
         getContentPane().setLayout(new BorderLayout());
 
-        m_jlFirst = new JLabel(
-            m_res.getString("DGetNewPassword.m_jlFirst.text"));
-        m_jlConfirm = new JLabel(
-            m_res.getString("DGetNewPassword.m_jlConfirm.text"));
+        JLabel jlFirst = new JLabel(
+            m_res.getString("DGetNewPassword.jlFirst.text"));
+        JLabel jlConfirm = new JLabel(
+            m_res.getString("DGetNewPassword.jlConfirm.text"));
         m_jpfFirst = new JPasswordField(15);
         m_jpfConfirm = new JPasswordField(15);
 
-        m_jbOK = new JButton(m_res.getString("DGetNewPassword.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        JButton jbOK = new JButton(m_res.getString("DGetNewPassword.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -163,18 +145,18 @@ public class DGetNewPassword
             }
         });
 
-        m_jbCancel = new JButton(
-            m_res.getString("DGetNewPassword.m_jbCancel.text"));
-        m_jbCancel.addActionListener(new ActionListener()
+        JButton jbCancel = new JButton(
+            m_res.getString("DGetNewPassword.jbCancel.text"));
+        jbCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 cancelPressed();
             }
         });
-        m_jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
             KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        m_jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -182,19 +164,19 @@ public class DGetNewPassword
             }
         });
 
-        m_jpPassword = new JPanel(new GridLayout(2, 2, 5, 5));
-        m_jpPassword.add(m_jlFirst);
-        m_jpPassword.add(m_jpfFirst);
-        m_jpPassword.add(m_jlConfirm);
-        m_jpPassword.add(m_jpfConfirm);
-        m_jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpPassword = new JPanel(new GridLayout(2, 2, 5, 5));
+        jpPassword.add(jlFirst);
+        jpPassword.add(m_jpfFirst);
+        jpPassword.add(jlConfirm);
+        jpPassword.add(m_jpfConfirm);
+        jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        m_jpButtons.add(m_jbOK);
-        m_jpButtons.add(m_jbCancel);
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        jpButtons.add(jbOK);
+        jpButtons.add(jbCancel);
 
-        getContentPane().add(m_jpPassword, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpPassword, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter()
         {
@@ -206,7 +188,7 @@ public class DGetNewPassword
 
         setResizable(false);
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
     }

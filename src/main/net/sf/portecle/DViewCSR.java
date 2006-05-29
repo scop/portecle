@@ -67,44 +67,17 @@ class DViewCSR
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold the detail */
-    private JPanel m_jpCSR;
-
-    /** Version label */
-    private JLabel m_jlVersion;
-
     /** Version text field */
     private JTextField m_jtfVersion;
-
-    /** Subject label */
-    private JLabel m_jlSubject;
 
     /** Subject text field */
     private JTextField m_jtfSubject;
 
-    /** Certificate Public Key label */
-    private JLabel m_jlPublicKey;
-
     /** Certificate Public Key text field */
     private JTextField m_jtfPublicKey;
 
-    /** Certificate Signature Algorithm label */
-    private JLabel m_jlSignatureAlgorithm;
-
     /** Certificate Signature Algorithm text field */
     private JTextField m_jtfSignatureAlgorithm;
-
-    /** Panel to hold "Extensions" and "PEM Encoding" buttons */
-    private JPanel m_jpButtons;
-
-    /** Button used to display the certificate's PEM encoding */
-    private JButton m_jbPemEncoding;
-
-    /** Panel to hold OK button */
-    private JPanel m_jpOK;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
 
     /** Stores request to display */
     private PKCS10CertificationRequest m_req;
@@ -173,7 +146,8 @@ class DViewCSR
         gbcTf.anchor = GridBagConstraints.WEST;
 
         // Version
-        m_jlVersion = new JLabel(m_res.getString("DViewCSR.m_jlVersion.text"));
+        JLabel jlVersion = new JLabel(
+            m_res.getString("DViewCSR.jlVersion.text"));
         GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
         gbc_jlVersion.gridy = 0;
 
@@ -184,7 +158,8 @@ class DViewCSR
         gbc_jtfVersion.gridy = 0;
 
         // Subject
-        m_jlSubject = new JLabel(m_res.getString("DViewCSR.m_jlSubject.text"));
+        JLabel jlSubject = new JLabel(
+            m_res.getString("DViewCSR.jlSubject.text"));
         GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSubject.gridy = 1;
 
@@ -195,8 +170,8 @@ class DViewCSR
         gbc_jtfSubject.gridy = 1;
 
         // Public Key
-        m_jlPublicKey = new JLabel(
-            m_res.getString("DViewCSR.m_jlPublicKey.text"));
+        JLabel jlPublicKey = new JLabel(
+            m_res.getString("DViewCSR.jlPublicKey.text"));
         GridBagConstraints gbc_jlPublicKey = (GridBagConstraints) gbcLbl.clone();
         gbc_jlPublicKey.gridy = 6;
 
@@ -207,8 +182,8 @@ class DViewCSR
         gbc_jtfPublicKey.gridy = 6;
 
         // Signature Algorithm
-        m_jlSignatureAlgorithm = new JLabel(
-            m_res.getString("DViewCSR.m_jlSignatureAlgorithm.text"));
+        JLabel jlSignatureAlgorithm = new JLabel(
+            m_res.getString("DViewCSR.jlSignatureAlgorithm.text"));
         GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSignatureAlgorithm.gridy = 7;
 
@@ -219,20 +194,20 @@ class DViewCSR
         gbc_jtfSignatureAlgorithm.gridy = 7;
 
         // PEM Encoding
-        m_jbPemEncoding = new JButton(
-            m_res.getString("DViewCSR.m_jbPemEncoding.text"));
-        m_jbPemEncoding.setMnemonic(m_res.getString(
-            "DViewCSR.m_jbPemEncoding.mnemonic").charAt(0));
-        m_jbPemEncoding.setToolTipText(m_res.getString("DViewCSR.m_jbPemEncoding.tooltip"));
-        m_jbPemEncoding.addActionListener(new ActionListener()
+        JButton jbPemEncoding = new JButton(
+            m_res.getString("DViewCSR.jbPemEncoding.text"));
+        jbPemEncoding.setMnemonic(m_res.getString(
+            "DViewCSR.jbPemEncoding.mnemonic").charAt(0));
+        jbPemEncoding.setToolTipText(m_res.getString("DViewCSR.jbPemEncoding.tooltip"));
+        jbPemEncoding.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 pemEncodingPressed();
             }
         });
-        m_jpButtons = new JPanel();
-        m_jpButtons.add(m_jbPemEncoding);
+        JPanel jpButtons = new JPanel();
+        jpButtons.add(jbPemEncoding);
 
         GridBagConstraints gbc_jpButtons = new GridBagConstraints();
         gbc_jpButtons.gridx = 0;
@@ -242,28 +217,28 @@ class DViewCSR
         gbc_jpButtons.insets = new Insets(5, 5, 5, 5);
         gbc_jpButtons.anchor = GridBagConstraints.EAST;
 
-        m_jpCSR = new JPanel(new GridBagLayout());
-        m_jpCSR.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+        JPanel jpCSR = new JPanel(new GridBagLayout());
+        jpCSR.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
             new EtchedBorder()));
 
-        m_jpCSR.add(m_jlVersion, gbc_jlVersion);
-        m_jpCSR.add(m_jtfVersion, gbc_jtfVersion);
-        m_jpCSR.add(m_jlSubject, gbc_jlSubject);
-        m_jpCSR.add(m_jtfSubject, gbc_jtfSubject);
-        m_jpCSR.add(m_jlPublicKey, gbc_jlPublicKey);
-        m_jpCSR.add(m_jtfPublicKey, gbc_jtfPublicKey);
-        m_jpCSR.add(m_jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
-        m_jpCSR.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
-        m_jpCSR.add(m_jpButtons, gbc_jpButtons);
+        jpCSR.add(jlVersion, gbc_jlVersion);
+        jpCSR.add(m_jtfVersion, gbc_jtfVersion);
+        jpCSR.add(jlSubject, gbc_jlSubject);
+        jpCSR.add(m_jtfSubject, gbc_jtfSubject);
+        jpCSR.add(jlPublicKey, gbc_jlPublicKey);
+        jpCSR.add(m_jtfPublicKey, gbc_jtfPublicKey);
+        jpCSR.add(jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
+        jpCSR.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
+        jpCSR.add(jpButtons, gbc_jpButtons);
 
         // Populate the dialog with the first certificate (if any)
         populateDialog();
 
         // OK button
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DViewCSR.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(m_res.getString("DViewCSR.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -271,11 +246,11 @@ class DViewCSR
             }
         });
 
-        m_jpOK.add(m_jbOK);
+        jpOK.add(jbOK);
 
         // Put it all together
-        getContentPane().add(m_jpCSR, BorderLayout.NORTH);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpCSR, BorderLayout.NORTH);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         // Annoying, but resizing wreaks havoc here
         setResizable(false);
@@ -288,7 +263,7 @@ class DViewCSR
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -296,7 +271,7 @@ class DViewCSR
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

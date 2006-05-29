@@ -63,35 +63,14 @@ public class FHelp
     /** Help frame's title */
     private String m_sTitle;
 
-    /** Split pane to hold help contents and current topic */
-    private JSplitPane m_jspHelp;
-
-    /** Editor pane to hold contents */
-    private JEditorPane m_jepContents;
-
-    /** Scroll pane for contents */
-    private JScrollPane m_jspContents;
-
-    /** Editor pane to hold topic */
-    private JEditorPane m_jepTopic;
-
-    /** Scroll pane for topic */
-    private JScrollPane m_jspTopic;
-
-    /** Help toolbar */
-    private JToolBar m_jtbTools;
-
-    /** Home toolbar button */
-    private JButton m_jbHome;
+    /** History home page */
+    private URL m_home;
 
     /** Back toolbar button */
     private JButton m_jbBack;
 
     /** Forward toolbar button */
     private JButton m_jbForward;
-
-    /** History home page */
-    private URL m_home;
 
     /** Help navigation history */
     private History m_history;
@@ -110,19 +89,45 @@ public class FHelp
 
         m_sTitle = sTitle;
 
+        // Help topic pane
+        final JEditorPane jepTopic = new JEditorPane();
+        jepTopic.setEditable(false);
+        jepTopic.setPreferredSize(new Dimension(450, 400));
+
+        jepTopic.addHyperlinkListener(new HyperlinkListener()
+        {
+            public void hyperlinkUpdate(HyperlinkEvent evt)
+            {
+                try {
+                    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+                    {
+                        jepTopic.setPage(evt.getURL());
+                        m_history.visit(evt.getURL());
+                    }
+                }
+                catch (IOException ex) {
+                    JOptionPane.showMessageDialog(FHelp.this,
+                        MessageFormat.format(
+                            m_res.getString("FHelp.NoLocateUrl.message"),
+                            new Object[] { evt.getURL() }), m_sTitle,
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
         // Home button
-        m_jbHome = new JButton();
-        m_jbHome.setFocusable(false);
-        m_jbHome.setIcon(new ImageIcon(
+        JButton jbHome = new JButton();
+        jbHome.setFocusable(false);
+        jbHome.setIcon(new ImageIcon(
             Toolkit.getDefaultToolkit().createImage(
-                getClass().getResource(m_res.getString("FHelp.m_jbHome.image")))));
-        m_jbHome.setToolTipText(m_res.getString("FHelp.m_jbHome.tooltip"));
-        m_jbHome.addActionListener(new ActionListener()
+                getClass().getResource(m_res.getString("FHelp.jbHome.image")))));
+        jbHome.setToolTipText(m_res.getString("FHelp.jbHome.tooltip"));
+        jbHome.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
                 try {
-                    m_jepTopic.setPage(m_home);
+                    jepTopic.setPage(m_home);
                     m_history.visit(m_home);
                 }
                 catch (IOException ex) {
@@ -151,7 +156,7 @@ public class FHelp
 
                 if (temp != null) {
                     try {
-                        m_jepTopic.setPage(temp);
+                        jepTopic.setPage(temp);
                     }
                     catch (IOException ex) {
                         JOptionPane.showMessageDialog(FHelp.this,
@@ -180,7 +185,7 @@ public class FHelp
                 URL temp = m_history.goForward();
                 if (temp != null) {
                     try {
-                        m_jepTopic.setPage(temp);
+                        jepTopic.setPage(temp);
                     }
                     catch (IOException ex) {
                         JOptionPane.showMessageDialog(FHelp.this,
@@ -194,26 +199,26 @@ public class FHelp
         });
 
         // Put buttons in toolbar
-        m_jtbTools = new JToolBar(m_sTitle);
-        m_jtbTools.setFloatable(false);
-        m_jtbTools.setRollover(true);
-        m_jtbTools.add(m_jbHome);
-        m_jtbTools.add(m_jbBack);
-        m_jtbTools.add(m_jbForward);
+        JToolBar jtbTools = new JToolBar(m_sTitle);
+        jtbTools.setFloatable(false);
+        jtbTools.setRollover(true);
+        jtbTools.add(jbHome);
+        jtbTools.add(m_jbBack);
+        jtbTools.add(m_jbForward);
 
         // Table of contents pane
-        m_jepContents = new JEditorPane();
-        m_jepContents.setEditable(false);
-        m_jepContents.setPreferredSize(new Dimension(300, 400));
+        JEditorPane jepContents = new JEditorPane();
+        jepContents.setEditable(false);
+        jepContents.setPreferredSize(new Dimension(300, 400));
 
-        m_jepContents.addHyperlinkListener(new HyperlinkListener()
+        jepContents.addHyperlinkListener(new HyperlinkListener()
         {
             public void hyperlinkUpdate(HyperlinkEvent evt)
             {
                 try {
                     if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
                     {
-                        m_jepTopic.setPage(evt.getURL());
+                        jepTopic.setPage(evt.getURL());
                         m_history.visit(evt.getURL());
                     }
                 }
@@ -228,7 +233,7 @@ public class FHelp
         });
 
         try {
-            m_jepContents.setPage(toc);
+            jepContents.setPage(toc);
         }
         catch (IOException ex) {
             JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
@@ -237,35 +242,11 @@ public class FHelp
             return;
         }
 
-        // Help topic pane
-        m_jepTopic = new JEditorPane();
-        m_jepTopic.setEditable(false);
-        m_jepTopic.setPreferredSize(new Dimension(450, 400));
 
-        m_jepTopic.addHyperlinkListener(new HyperlinkListener()
-        {
-            public void hyperlinkUpdate(HyperlinkEvent evt)
-            {
-                try {
-                    if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
-                    {
-                        m_jepTopic.setPage(evt.getURL());
-                        m_history.visit(evt.getURL());
-                    }
-                }
-                catch (IOException ex) {
-                    JOptionPane.showMessageDialog(FHelp.this,
-                        MessageFormat.format(
-                            m_res.getString("FHelp.NoLocateUrl.message"),
-                            new Object[] { evt.getURL() }), m_sTitle,
-                        JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
-
+        // Initialise navigation history
         try {
             m_home = home;
-            m_jepTopic.setPage(m_home);
+            jepTopic.setPage(m_home);
         }
         catch (IOException ex) {
             JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
@@ -274,26 +255,25 @@ public class FHelp
             return;
         }
 
-        // Initialise navigation history
         m_history = new History(home);
         m_history.addHistoryEventListener(this);
 
         // Make panes scrollable
-        m_jspTopic = new JScrollPane(m_jepTopic);
-        m_jspContents = new JScrollPane(m_jepContents);
+        JScrollPane jspTopic = new JScrollPane(jepTopic);
+        JScrollPane jspContents = new JScrollPane(jepContents);
 
         // Put panes into a horizontal split pane
-        m_jspHelp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, m_jspContents,
-            m_jspTopic);
-        m_jspHelp.setResizeWeight(0.0);
-        m_jspHelp.resetToPreferredSizes();
-        m_jspHelp.setBorder(new CompoundBorder(new EtchedBorder(),
+        JSplitPane jspHelp = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jspContents,
+            jspTopic);
+        jspHelp.setResizeWeight(0.0);
+        jspHelp.resetToPreferredSizes();
+        jspHelp.setBorder(new CompoundBorder(new EtchedBorder(),
             new EmptyBorder(3, 3, 3, 3)));
 
         // Put it all together
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(m_jtbTools, BorderLayout.NORTH);
-        getContentPane().add(m_jspHelp, BorderLayout.CENTER);
+        getContentPane().add(jtbTools, BorderLayout.NORTH);
+        getContentPane().add(jspHelp, BorderLayout.CENTER);
 
         addWindowListener(new WindowAdapter()
         {

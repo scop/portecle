@@ -111,27 +111,6 @@ class DKeyStoreReport
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold buttons */
-    private JPanel m_jpButtons;
-
-    /** Copy report button */
-    private JButton m_jbCopy;
-
-    /** Copy report as XMl button */
-    private JButton m_jbCopyXml;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel to hold report */
-    private JPanel m_jpReport;
-
-    /** Tree to display report  */
-    private JTree m_jtrReport;
-
-    /** Scroll pane to place report in */
-    private JScrollPane m_jspReport;
-
     /** Stores keystore to report on */
     private KeyStore m_keystore;
 
@@ -179,10 +158,11 @@ class DKeyStoreReport
         throws CryptoException
     {
         // Buttons
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DKeyStoreReport.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DKeyStoreReport.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -190,14 +170,14 @@ class DKeyStoreReport
             }
         });
 
-        m_jpButtons.add(m_jbOK);
+        jpButtons.add(jbOK);
 
-        m_jbCopy = new JButton(
-            m_res.getString("DKeyStoreReport.m_jbCopy.text"));
-        m_jbCopy.setMnemonic(m_res.getString(
-            "DKeyStoreReport.m_jbCopy.mnemonic").charAt(0));
-        m_jbCopy.setToolTipText(m_res.getString("DKeyStoreReport.m_jbCopy.tooltip"));
-        m_jbCopy.addActionListener(new ActionListener()
+        JButton jbCopy = new JButton(
+            m_res.getString("DKeyStoreReport.jbCopy.text"));
+        jbCopy.setMnemonic(m_res.getString("DKeyStoreReport.jbCopy.mnemonic").charAt(
+            0));
+        jbCopy.setToolTipText(m_res.getString("DKeyStoreReport.jbCopy.tooltip"));
+        jbCopy.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -205,14 +185,14 @@ class DKeyStoreReport
             }
         });
 
-        m_jpButtons.add(m_jbCopy);
+        jpButtons.add(jbCopy);
 
-        m_jbCopyXml = new JButton(
-            m_res.getString("DKeyStoreReport.m_jbCopyXml.text"));
-        m_jbCopyXml.setMnemonic(m_res.getString(
-            "DKeyStoreReport.m_jbCopyXml.mnemonic").charAt(0));
-        m_jbCopyXml.setToolTipText(m_res.getString("DKeyStoreReport.m_jbCopyXml.tooltip"));
-        m_jbCopyXml.addActionListener(new ActionListener()
+        JButton jbCopyXml = new JButton(
+            m_res.getString("DKeyStoreReport.jbCopyXml.text"));
+        jbCopyXml.setMnemonic(m_res.getString(
+            "DKeyStoreReport.jbCopyXml.mnemonic").charAt(0));
+        jbCopyXml.setToolTipText(m_res.getString("DKeyStoreReport.jbCopyXml.tooltip"));
+        jbCopyXml.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -220,35 +200,35 @@ class DKeyStoreReport
             }
         });
 
-        m_jpButtons.add(m_jbCopyXml);
+        jpButtons.add(jbCopyXml);
 
         // Keystore report
-        m_jpReport = new JPanel(new BorderLayout());
-        m_jpReport.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpReport = new JPanel(new BorderLayout());
+        jpReport.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load tree with keystore report
-        m_jtrReport = new JTree(createReportNodes());
+        JTree jtrReport = new JTree(createReportNodes());
         // Top accomodate node icons with spare space (they are 16 pixels tall)
-        m_jtrReport.setRowHeight(18);
-        m_jtrReport.getSelectionModel().setSelectionMode(
+        jtrReport.setRowHeight(18);
+        jtrReport.getSelectionModel().setSelectionMode(
             TreeSelectionModel.SINGLE_TREE_SELECTION);
         // Allow tooltips in tree
-        ToolTipManager.sharedInstance().registerComponent(m_jtrReport);
+        ToolTipManager.sharedInstance().registerComponent(jtrReport);
         // Custom tree node renderer
-        m_jtrReport.setCellRenderer(new ReportTreeCellRend());
+        jtrReport.setCellRenderer(new ReportTreeCellRend());
 
         // Expand all nodes in tree
-        TreeNode topNode = (TreeNode) m_jtrReport.getModel().getRoot();
-        expandTree(m_jtrReport, new TreePath(topNode));
+        TreeNode topNode = (TreeNode) jtrReport.getModel().getRoot();
+        expandTree(jtrReport, new TreePath(topNode));
 
-        m_jspReport = new JScrollPane(m_jtrReport,
+        JScrollPane jspReport = new JScrollPane(jtrReport,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        m_jspReport.setPreferredSize(new Dimension(350, 200));
-        m_jpReport.add(m_jspReport, BorderLayout.CENTER);
+        jspReport.setPreferredSize(new Dimension(350, 200));
+        jpReport.add(jspReport, BorderLayout.CENTER);
 
-        getContentPane().add(m_jpReport, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpReport, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         setTitle(m_res.getString("DKeyStoreReport.Title"));
         setResizable(true);
@@ -261,7 +241,7 @@ class DKeyStoreReport
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -269,7 +249,7 @@ class DKeyStoreReport
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

@@ -60,24 +60,6 @@ public class DProviderInfo
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
-    /** Panel to hold buttons */
-    private JPanel m_jpButtons;
-
-    /** Copy button to copy provider information to clipboard */
-    private JButton m_jbCopy;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel to hold security providers tree */
-    private JPanel m_jpProviders;
-
-    /** Tree to display security providers  */
-    private JTree m_jtrProviders;
-
-    /** Scroll pane to place security providers tree in */
-    private JScrollPane m_jspProviders;
-
     /**
      * Creates new DProviderInfo dialog where the parent is a frame.
      *
@@ -108,10 +90,11 @@ public class DProviderInfo
     private void initComponents()
     {
         // Buttons
-        m_jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DProviderInfo.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(
+            m_res.getString("DProviderInfo.m_jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -119,13 +102,14 @@ public class DProviderInfo
             }
         });
 
-        m_jpButtons.add(m_jbOK);
+        jpButtons.add(jbOK);
 
-        m_jbCopy = new JButton(m_res.getString("DProviderInfo.m_jbCopy.text"));
-        m_jbCopy.setMnemonic(m_res.getString("DProviderInfo.m_jbCopy.mnemonic").charAt(
+        JButton jbCopy = new JButton(
+            m_res.getString("DProviderInfo.m_jbCopy.text"));
+        jbCopy.setMnemonic(m_res.getString("DProviderInfo.m_jbCopy.mnemonic").charAt(
             0));
-        m_jbCopy.setToolTipText(m_res.getString("DProviderInfo.m_jbCopy.tooltip"));
-        m_jbCopy.addActionListener(new ActionListener()
+        jbCopy.setToolTipText(m_res.getString("DProviderInfo.m_jbCopy.tooltip"));
+        jbCopy.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -133,30 +117,30 @@ public class DProviderInfo
             }
         });
 
-        m_jpButtons.add(m_jbCopy);
+        jpButtons.add(jbCopy);
 
-        m_jpProviders = new JPanel(new BorderLayout());
-        m_jpProviders.setBorder(new EmptyBorder(5, 5, 5, 5));
+        JPanel jpProviders = new JPanel(new BorderLayout());
+        jpProviders.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // Load tree with info on loaded security providers
-        m_jtrProviders = new JTree(createProviderNodes());
+        JTree jtrProviders = new JTree(createProviderNodes());
         // Top accomodate node icons with spare space (they are 16 pixels tall)
-        m_jtrProviders.setRowHeight(18);
-        m_jtrProviders.getSelectionModel().setSelectionMode(
+        jtrProviders.setRowHeight(18);
+        jtrProviders.getSelectionModel().setSelectionMode(
             TreeSelectionModel.SINGLE_TREE_SELECTION);
         // Allow tooltips in tree
-        ToolTipManager.sharedInstance().registerComponent(m_jtrProviders);
+        ToolTipManager.sharedInstance().registerComponent(jtrProviders);
         // Custom tree node renderer
-        m_jtrProviders.setCellRenderer(new ProviderTreeCellRend());
+        jtrProviders.setCellRenderer(new ProviderTreeCellRend());
 
-        m_jspProviders = new JScrollPane(m_jtrProviders,
+        JScrollPane jspProviders = new JScrollPane(jtrProviders,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        m_jspProviders.setPreferredSize(new Dimension(350, 200));
-        m_jpProviders.add(m_jspProviders, BorderLayout.CENTER);
+        jspProviders.setPreferredSize(new Dimension(350, 200));
+        jpProviders.add(jspProviders, BorderLayout.CENTER);
 
-        getContentPane().add(m_jpProviders, BorderLayout.CENTER);
-        getContentPane().add(m_jpButtons, BorderLayout.SOUTH);
+        getContentPane().add(jpProviders, BorderLayout.CENTER);
+        getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
         setTitle(m_res.getString("DProviderInfo.Title"));
         setResizable(true);
@@ -169,7 +153,7 @@ public class DProviderInfo
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -177,7 +161,7 @@ public class DProviderInfo
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }

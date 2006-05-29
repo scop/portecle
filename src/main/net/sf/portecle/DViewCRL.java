@@ -70,41 +70,17 @@ class DViewCRL
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Panel to hold OK button */
-    private JPanel m_jpOK;
-
-    /** OK button to dismiss dialog */
-    private JButton m_jbOK;
-
-    /** Panel to hold CRL detail */
-    private JPanel m_jpCRL;
-
-    /** CRL Verison label */
-    private JLabel m_jlVersion;
-
-    /** CRL Verison text field */
+    /** CRL Version text field */
     private JTextField m_jtfVersion;
-
-    /** CRL Issuer label */
-    private JLabel m_jlIssuer;
 
     /** CRL Issuer text field */
     private JTextField m_jtfIssuer;
 
-    /** CRL EffectiveDate label */
-    private JLabel m_jlEffectiveDate;
-
     /** CRL EffectiveDate text field */
     private JTextField m_jtfEffectiveDate;
 
-    /** CRL Next Update label */
-    private JLabel m_jlNextUpdate;
-
     /** CRL Next Update text field */
     private JTextField m_jtfNextUpdate;
-
-    /** CRL Signature Algorithm label */
-    private JLabel m_jlSignatureAlgorithm;
 
     /** CRL Signature Algorithm text field */
     private JTextField m_jtfSignatureAlgorithm;
@@ -112,17 +88,8 @@ class DViewCRL
     /** Button used to display the CRL's extensions */
     private JButton m_jbCrlExtensions;
 
-    /** Panel to hold Revoked Certficates table */
-    private JPanel m_jpRevokedCertsTable;
-
-    /** Scroll Pane to view Revoked Certificates table */
-    private JScrollPane m_jspRevokedCertsTable;
-
     /** Revoked Certificates table */
     private JTable m_jtRevokedCerts;
-
-    /** Panel to hold CRL's entries' extensions button */
-    private JPanel m_jpCrlEntryExtensions;
 
     /** Button used to display the CRL's entries' extensions */
     private JButton m_jbCrlEntryExtensions;
@@ -184,7 +151,8 @@ class DViewCRL
         gbcTf.anchor = GridBagConstraints.WEST;
 
         // Version
-        m_jlVersion = new JLabel(m_res.getString("DViewCRL.m_jlVersion.text"));
+        JLabel jlVersion = new JLabel(
+            m_res.getString("DViewCRL.jlVersion.text"));
         GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
         gbc_jlVersion.gridy = 0;
 
@@ -195,7 +163,7 @@ class DViewCRL
         gbc_jtfVersion.gridy = 0;
 
         // Issuer
-        m_jlIssuer = new JLabel(m_res.getString("DViewCRL.m_jlIssuer.text"));
+        JLabel jlIssuer = new JLabel(m_res.getString("DViewCRL.jlIssuer.text"));
         GridBagConstraints gbc_jlIssuer = (GridBagConstraints) gbcLbl.clone();
         gbc_jlIssuer.gridy = 1;
 
@@ -206,8 +174,8 @@ class DViewCRL
         gbc_jtfIssuer.gridy = 1;
 
         // Effective Date
-        m_jlEffectiveDate = new JLabel(
-            m_res.getString("DViewCRL.m_jlEffectiveDate.text"));
+        JLabel jlEffectiveDate = new JLabel(
+            m_res.getString("DViewCRL.jlEffectiveDate.text"));
         GridBagConstraints gbc_jlEffectiveDate = (GridBagConstraints) gbcLbl.clone();
         gbc_jlEffectiveDate.gridy = 2;
 
@@ -218,8 +186,8 @@ class DViewCRL
         gbc_jtfEffectiveDate.gridy = 2;
 
         // Next Update
-        m_jlNextUpdate = new JLabel(
-            m_res.getString("DViewCRL.m_jlNextUpdate.text"));
+        JLabel jlNextUpdate = new JLabel(
+            m_res.getString("DViewCRL.jlNextUpdate.text"));
         GridBagConstraints gbc_jlNextUpdate = (GridBagConstraints) gbcLbl.clone();
         gbc_jlNextUpdate.gridy = 3;
 
@@ -230,8 +198,8 @@ class DViewCRL
         gbc_jtfNextUpdate.gridy = 3;
 
         // Signature Algorithm
-        m_jlSignatureAlgorithm = new JLabel(
-            m_res.getString("DViewCRL.m_jlSignatureAlgorithm.text"));
+        JLabel jlSignatureAlgorithm = new JLabel(
+            m_res.getString("DViewCRL.jlSignatureAlgorithm.text"));
         GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
         gbc_jlSignatureAlgorithm.gridy = 4;
 
@@ -303,18 +271,18 @@ class DViewCRL
         });
 
         // Put the table into a scroll pane
-        m_jspRevokedCertsTable = new JScrollPane(m_jtRevokedCerts,
+        JScrollPane jspRevokedCertsTable = new JScrollPane(m_jtRevokedCerts,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        m_jspRevokedCertsTable.getViewport().setBackground(
+        jspRevokedCertsTable.getViewport().setBackground(
             m_jtRevokedCerts.getBackground());
 
         // Put the scroll pane into a panel
-        m_jpRevokedCertsTable = new JPanel(new BorderLayout(10, 10));
+        JPanel jpRevokedCertsTable = new JPanel(new BorderLayout(10, 10));
         // More for the benefit of a reduced height
-        m_jpRevokedCertsTable.setPreferredSize(new Dimension(100, 200));
-        m_jpRevokedCertsTable.add(m_jspRevokedCertsTable, BorderLayout.CENTER);
-        m_jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(
+        jpRevokedCertsTable.setPreferredSize(new Dimension(100, 200));
+        jpRevokedCertsTable.add(jspRevokedCertsTable, BorderLayout.CENTER);
+        jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(
             new EtchedBorder(), m_res.getString("DViewCRL.TableTitle")),
             new EmptyBorder(5, 5, 5, 5)));
 
@@ -334,10 +302,11 @@ class DViewCRL
             }
         });
 
-        m_jpCrlEntryExtensions = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        m_jpCrlEntryExtensions.add(m_jbCrlEntryExtensions);
+        JPanel jpCrlEntryExtensions = new JPanel(new FlowLayout(
+            FlowLayout.RIGHT));
+        jpCrlEntryExtensions.add(m_jbCrlEntryExtensions);
 
-        m_jpRevokedCertsTable.add(m_jpCrlEntryExtensions, BorderLayout.SOUTH);
+        jpRevokedCertsTable.add(jpCrlEntryExtensions, BorderLayout.SOUTH);
 
         GridBagConstraints gbc_jpRevokedCertsTable = new GridBagConstraints();
         gbc_jpRevokedCertsTable.gridx = 0;
@@ -348,32 +317,32 @@ class DViewCRL
         gbc_jpRevokedCertsTable.fill = GridBagConstraints.BOTH;
         gbc_jpRevokedCertsTable.anchor = GridBagConstraints.CENTER;
 
-        m_jpCRL = new JPanel(new GridBagLayout());
-        m_jpCRL.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10),
+        JPanel jpCRL = new JPanel(new GridBagLayout());
+        jpCRL.setBorder(new CompoundBorder(new EmptyBorder(10, 10, 10, 10),
             new EtchedBorder()));
 
         // Put it all together
-        m_jpCRL.add(m_jlVersion, gbc_jlVersion);
-        m_jpCRL.add(m_jtfVersion, gbc_jtfVersion);
-        m_jpCRL.add(m_jlIssuer, gbc_jlIssuer);
-        m_jpCRL.add(m_jtfIssuer, gbc_jtfIssuer);
-        m_jpCRL.add(m_jlEffectiveDate, gbc_jlEffectiveDate);
-        m_jpCRL.add(m_jtfEffectiveDate, gbc_jtfEffectiveDate);
-        m_jpCRL.add(m_jlNextUpdate, gbc_jlNextUpdate);
-        m_jpCRL.add(m_jtfNextUpdate, gbc_jtfNextUpdate);
-        m_jpCRL.add(m_jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
-        m_jpCRL.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
-        m_jpCRL.add(m_jbCrlExtensions, gbc_jbExtensions);
-        m_jpCRL.add(m_jpRevokedCertsTable, gbc_jpRevokedCertsTable);
+        jpCRL.add(jlVersion, gbc_jlVersion);
+        jpCRL.add(m_jtfVersion, gbc_jtfVersion);
+        jpCRL.add(jlIssuer, gbc_jlIssuer);
+        jpCRL.add(m_jtfIssuer, gbc_jtfIssuer);
+        jpCRL.add(jlEffectiveDate, gbc_jlEffectiveDate);
+        jpCRL.add(m_jtfEffectiveDate, gbc_jtfEffectiveDate);
+        jpCRL.add(jlNextUpdate, gbc_jlNextUpdate);
+        jpCRL.add(m_jtfNextUpdate, gbc_jtfNextUpdate);
+        jpCRL.add(jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
+        jpCRL.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
+        jpCRL.add(m_jbCrlExtensions, gbc_jbExtensions);
+        jpCRL.add(jpRevokedCertsTable, gbc_jpRevokedCertsTable);
 
         // Populate the dialog with the CRL
         populateDialog();
 
         // OK button
-        m_jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        m_jbOK = new JButton(m_res.getString("DViewCRL.m_jbOK.text"));
-        m_jbOK.addActionListener(new ActionListener()
+        final JButton jbOK = new JButton(m_res.getString("DViewCRL.jbOK.text"));
+        jbOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent evt)
             {
@@ -381,11 +350,11 @@ class DViewCRL
             }
         });
 
-        m_jpOK.add(m_jbOK);
+        jpOK.add(jbOK);
 
         // Put it all together
-        getContentPane().add(m_jpCRL, BorderLayout.CENTER);
-        getContentPane().add(m_jpOK, BorderLayout.SOUTH);
+        getContentPane().add(jpCRL, BorderLayout.CENTER);
+        getContentPane().add(jpOK, BorderLayout.SOUTH);
 
         setResizable(false);
 
@@ -397,7 +366,7 @@ class DViewCRL
             }
         });
 
-        getRootPane().setDefaultButton(m_jbOK);
+        getRootPane().setDefaultButton(jbOK);
 
         pack();
 
@@ -405,7 +374,7 @@ class DViewCRL
         {
             public void run()
             {
-                m_jbOK.requestFocus();
+                jbOK.requestFocus();
             }
         });
     }
