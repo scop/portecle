@@ -4945,7 +4945,8 @@ public class FPortecle
 
             DGetAlias dGetAlias = new DGetAlias(this,
                 m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"),
-                true, X509CertUtil.getCertificateAlias(x509Certs[0]));
+                true,
+                X509CertUtil.getCertificateAlias(x509Certs[0]).toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
             String sNewAlias = dGetAlias.getAlias();
