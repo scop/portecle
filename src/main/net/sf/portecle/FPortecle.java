@@ -1609,7 +1609,7 @@ public class FPortecle
         // Get the alias
         DGetAlias dGetAlias = new DGetAlias(this,
             m_res.getString("DGenerateCertificate.KeyPairEntryAlias.Title"),
-            true, X509CertUtil.getCertificateAlias(certificate));
+            true, X509CertUtil.getCertificateAlias(certificate).toLowerCase());
         dGetAlias.setLocationRelativeTo(this);
         dGetAlias.setVisible(true);
         sAlias = dGetAlias.getAlias();
@@ -3027,7 +3027,7 @@ public class FPortecle
             // Get the entry alias to put the trusted certificate into
             DGetAlias dGetAlias = new DGetAlias(this,
                 m_res.getString("FPortecle.TrustCertEntryAlias.Title"), true,
-                X509CertUtil.getCertificateAlias(trustCert));
+                X509CertUtil.getCertificateAlias(trustCert).toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
             String sAlias = dGetAlias.getAlias();

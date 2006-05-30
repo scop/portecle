@@ -32,7 +32,6 @@ import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.Principal;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SignatureException;
@@ -52,6 +51,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
+
+import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
@@ -801,60 +802,32 @@ public final class X509CertUtil
      * in a keystore.  For a self-signed certificate this will be the
      * subject's common name (if any).  For a non-self-signed
      * certificate it will be the subject's common name followed by
-     * the issuer's common name in brackets.  Alaises will always be
-     * in lower case.
+     * the issuer's common name in parenthesis.
      *
      * @param cert The certificate
      * @return The alias or a blank string if none could be worked out
      */
     public static String getCertificateAlias(X509Certificate cert)
     {
-        // Get the subject and issuer distinguished names
-        Principal subject = cert.getSubjectDN();
-        Principal issuer = cert.getIssuerDN();
+        X500Principal subject = cert.getSubjectX500Principal();
+        X500Principal issuer = cert.getIssuerX500Principal();
 
-        // Get the subject's common name
-        String sSubject = subject.getName();
-        String sSubjectCN = "";
-        int iCN = sSubject.indexOf("CN=");
-        if (iCN != -1) {
-            iCN += 3;
-            int iEndCN = sSubject.indexOf(", ", iCN);
-            if (iEndCN != -1) {
-                sSubjectCN = sSubject.substring(iCN, iEndCN).toLowerCase();
-            }
-            else {
-                sSubjectCN = sSubject.substring(iCN).toLowerCase();
-            }
-        }
-
-        // Get the issuer's common name
-        String sIssuer = issuer.getName();
-        String sIssuerCN = "";
-        iCN = sIssuer.indexOf("CN=");
-        if (iCN != -1) {
-            iCN += 3;
-            int iEndCN = sIssuer.indexOf(", ", iCN);
-            if (iEndCN != -1) {
-                sIssuerCN = sIssuer.substring(iCN, iEndCN).toLowerCase();
-            }
-            else {
-                sIssuerCN = sIssuer.substring(iCN).toLowerCase();
-            }
-        }
+        String sSubjectCN = NameUtil.getCommonName(subject);
 
         // Could not get a subject CN - return blank
-        if (sSubjectCN.length() == 0) {
+        if (sSubjectCN == null) {
             return "";
         }
 
+        String sIssuerCN = NameUtil.getCommonName(issuer);
+
         // Self-signed certificate or could not get an issuer CN
-        if (subject.equals(issuer) || sIssuerCN.length() == 0) {
+        if (subject.equals(issuer) || sIssuerCN == null) {
             // Alias is the subject CN
             return sSubjectCN;
         }
         // else non-self-signed certificate
-        // Alias is the subject CN followed by the issuer CN in brackets
+        // Alias is the subject CN followed by the issuer CN in parenthesis
         return MessageFormat.format("{0} ({1})", new String[] { sSubjectCN,
             sIssuerCN });
     }
