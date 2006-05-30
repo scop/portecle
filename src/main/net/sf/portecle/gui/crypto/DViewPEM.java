@@ -233,6 +233,17 @@ public class DViewPEM
             m_res.getString("DViewPEM.jbSave.text"));
         if (iRtnValue == JFileChooser.APPROVE_OPTION) {
             File fExportFile = m_chooser.getSelectedFile();
+
+            if (fExportFile.isFile()) {
+                String sMessage = MessageFormat.format(
+                    m_res.getString("DViewPEM.OverWriteFile.message"),
+                    new String[] { fExportFile.getName() });
+                int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
+                    getTitle(), JOptionPane.YES_NO_OPTION);
+                if (iSelected == JOptionPane.NO_OPTION)
+                    return;
+            }
+            
             FileWriter fw = null;
             try {
                 fw = new FileWriter(fExportFile);
