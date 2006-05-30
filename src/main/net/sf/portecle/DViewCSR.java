@@ -49,12 +49,14 @@ import javax.swing.border.EtchedBorder;
 import net.sf.portecle.crypto.AlgorithmType;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairUtil;
+import net.sf.portecle.crypto.NameUtil;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
 import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
@@ -82,6 +84,9 @@ class DViewCSR
 
     /** Stores request to display */
     private PKCS10CertificationRequest m_req;
+
+    /** Default filename for saving */
+    private String m_basename;
 
     /**
      * Creates new DViewCSR dialog where the parent is a frame.
@@ -294,8 +299,11 @@ class DViewCSR
         m_jtfVersion.setCaretPosition(0);
 
         // Subject
-        m_jtfSubject.setText(info.getSubject().toString());
+        X509Name subject = info.getSubject();
+        m_jtfSubject.setText(subject.toString());
         m_jtfSubject.setCaretPosition(0);
+
+        m_basename = NameUtil.getCommonName(subject);
 
         // Public Key (algorithm and keysize)
         SubjectPublicKeyInfo keyInfo = info.getSubjectPublicKeyInfo();
@@ -333,13 +341,14 @@ class DViewCSR
      */
     private void pemEncodingPressed()
     {
-        JFileChooser chooser = FileChooserFactory.getCsrFileChooser();
+        JFileChooser chooser = FileChooserFactory.getCsrFileChooser(m_basename);
         // TODO: lastdir
         chooser.setDialogTitle(m_res.getString("DViewCSR.Save.Title"));
         chooser.setMultiSelectionEnabled(false);
         try {
             DViewPEM dViewCertPem = new DViewPEM(this,
-                m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req, chooser);
+                m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req,
+                chooser);
             dViewCertPem.setLocationRelativeTo(this);
             dViewCertPem.setVisible(true);
         }

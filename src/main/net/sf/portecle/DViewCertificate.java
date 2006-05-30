@@ -61,6 +61,7 @@ import net.sf.portecle.crypto.DigestType;
 import net.sf.portecle.crypto.DigestUtil;
 import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.SignatureType;
+import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -698,7 +699,7 @@ class DViewCertificate
 
         X509Certificate cert = m_certs[m_iSelCert];
 
-        JFileChooser chooser = FileChooserFactory.getPEMFileChooser();
+        JFileChooser chooser = FileChooserFactory.getPEMFileChooser(X509CertUtil.getCertificateAlias(cert));
         // TODO: lastdir
         chooser.setDialogTitle(m_res.getString("DViewCertificate.Save.Title"));
         chooser.setMultiSelectionEnabled(false);

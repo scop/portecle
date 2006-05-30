@@ -2476,7 +2476,7 @@ public class FPortecle
      */
     private File chooseExamineCSRFile()
     {
-        JFileChooser chooser = FileChooserFactory.getCsrFileChooser();
+        JFileChooser chooser = FileChooserFactory.getCsrFileChooser(null);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -2531,7 +2531,7 @@ public class FPortecle
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
 
-        JFileChooser chooser = FileChooserFactory.getX509FileChooser();
+        JFileChooser chooser = FileChooserFactory.getX509FileChooser(null);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -2560,7 +2560,7 @@ public class FPortecle
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
 
-        JFileChooser chooser = FileChooserFactory.getPkcs12FileChooser();
+        JFileChooser chooser = FileChooserFactory.getPkcs12FileChooser(null);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -2582,14 +2582,15 @@ public class FPortecle
     /**
      * Let the user choose a file to generate a CSR in.
      *
+     * @param basename default filename (without extension)
      * @return The chosen file or null if none was chosen
      */
-    private File chooseGenerateCsrFile()
+    private File chooseGenerateCsrFile(String basename)
     {
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
 
-        JFileChooser chooser = FileChooserFactory.getCsrFileChooser();
+        JFileChooser chooser = FileChooserFactory.getCsrFileChooser(basename);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -3144,8 +3145,7 @@ public class FPortecle
             // Get an alias for the new keystore entry
             String sAlias = dImportKeyPair.getAlias();
             if (sAlias == null) {
-                sAlias = X509CertUtil.getCertificateAlias(
-                    X509CertUtil.convertCertificate(certs[0]));
+                sAlias = X509CertUtil.getCertificateAlias(X509CertUtil.convertCertificate(certs[0]));
             }
 
             // Get the alias for the new key pair entry
@@ -4058,8 +4058,22 @@ public class FPortecle
      */
     private boolean exportHeadCertOnlyPem(String sEntryAlias)
     {
+        X509Certificate cert = null;
+        try {
+            cert = getHeadCert(sEntryAlias);
+        }
+        catch (CryptoException ex) {
+            displayException(ex);
+            return false;
+        }
+
+        String basename = X509CertUtil.getCertificateAlias(cert);
+        if (basename.length() == 0) {
+            basename = sEntryAlias;
+        }
+
         // Let the user choose the export cert file
-        File fExportFile = chooseExportCertFile();
+        File fExportFile = chooseExportCertFile(basename);
         if (fExportFile == null) {
             return false;
         }
@@ -4071,7 +4085,7 @@ public class FPortecle
         PEMWriter pw = null;
         try {
             pw = new PEMWriter(new FileWriter(fExportFile));
-            pw.writeObject(getHeadCert(sEntryAlias));
+            pw.writeObject(cert);
             m_lastDir.updateLastDir(fExportFile);
             return true;
         }
@@ -4084,10 +4098,6 @@ public class FPortecle
             return false;
         }
         catch (IOException ex) {
-            displayException(ex);
-            return false;
-        }
-        catch (CryptoException ex) {
             displayException(ex);
             return false;
         }
@@ -4111,8 +4121,23 @@ public class FPortecle
      */
     private boolean exportHeadCertOnlyDER(String sEntryAlias)
     {
+        X509Certificate cert = null;
+        try {
+            // Get the head certificate
+            cert = getHeadCert(sEntryAlias);
+        }
+        catch (CryptoException ex) {
+            displayException(ex);
+            return false;
+        }
+
+        String basename = X509CertUtil.getCertificateAlias(cert);
+        if (basename.length() == 0) {
+            basename = sEntryAlias;
+        }
+
         // Let the user choose the export cert file
-        File fExportFile = chooseExportCertFile();
+        File fExportFile = chooseExportCertFile(basename);
         if (fExportFile == null) {
             return false;
         }
@@ -4123,9 +4148,6 @@ public class FPortecle
 
         FileOutputStream fos = null;
         try {
-            // Get the head certificate
-            X509Certificate cert = getHeadCert(sEntryAlias);
-
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertEncodedDer(cert);
             fos = new FileOutputStream(fExportFile);
@@ -4171,8 +4193,23 @@ public class FPortecle
      */
     private boolean exportHeadCertOnlyPkcs7(String sEntryAlias)
     {
+        X509Certificate cert = null;
+        try {
+            // Get the head certificate
+            cert = getHeadCert(sEntryAlias);
+        }
+        catch (CryptoException ex) {
+            displayException(ex);
+            return false;
+        }
+
+        String basename = X509CertUtil.getCertificateAlias(cert);
+        if (basename.length() == 0) {
+            basename = sEntryAlias;
+        }
+
         // Let the user choose the export PKCS #7 file
-        File fExportFile = chooseExportPKCS7File();
+        File fExportFile = chooseExportPKCS7File(basename);
         if (fExportFile == null) {
             return false;
         }
@@ -4183,9 +4220,6 @@ public class FPortecle
 
         FileOutputStream fos = null;
         try {
-            // Get the head certificate
-            X509Certificate cert = getHeadCert(sEntryAlias);
-
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertEncodedPkcs7(cert);
             fos = new FileOutputStream(fExportFile);
@@ -4231,8 +4265,23 @@ public class FPortecle
      */
     private boolean exportHeadCertOnlyPkiPath(String sEntryAlias)
     {
+        X509Certificate cert = null;
+        try {
+            // Get the head certificate
+            cert = getHeadCert(sEntryAlias);
+        }
+        catch (CryptoException ex) {
+            displayException(ex);
+            return false;
+        }
+
+        String basename = X509CertUtil.getCertificateAlias(cert);
+        if (basename.length() == 0) {
+            basename = sEntryAlias;
+        }
+
         // Let the user choose the export PkiPath file
-        File fExportFile = chooseExportPkiPathFile();
+        File fExportFile = chooseExportPkiPathFile(basename);
         if (fExportFile == null) {
             return false;
         }
@@ -4243,9 +4292,6 @@ public class FPortecle
 
         FileOutputStream fos = null;
         try {
-            // Get the head certificate
-            X509Certificate cert = getHeadCert(sEntryAlias);
-
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertEncodedPkiPath(cert);
             fos = new FileOutputStream(fExportFile);
@@ -4291,8 +4337,31 @@ public class FPortecle
      */
     private boolean exportAllCertsPkcs7(String sEntryAlias)
     {
+        // Get the certificates
+        KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+        X509Certificate[] certChain = null;
+        try {
+            certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
+        }
+        catch (KeyStoreException ex) {
+            displayException(ex);
+            return false;
+        }
+        catch (CryptoException ex) {
+            displayException(ex);
+            return false;
+        }
+
+        String basename = null;
+        if (certChain.length > 0) {
+            basename = X509CertUtil.getCertificateAlias(certChain[0]);
+        }
+        if (basename.length() == 0) {
+            basename = sEntryAlias;
+        }
+
         // Let the user choose the export PKCS #7 file
-        File fExportFile = chooseExportPKCS7File();
+        File fExportFile = chooseExportPKCS7File(basename);
         if (fExportFile == null) {
             return false;
         }
@@ -4303,10 +4372,6 @@ public class FPortecle
 
         FileOutputStream fos = null;
         try {
-            // Get the certificates
-            KeyStore keyStore = m_keyStoreWrap.getKeyStore();
-            X509Certificate[] certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
-
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertsEncodedPkcs7(certChain);
             fos = new FileOutputStream(fExportFile);
@@ -4325,10 +4390,6 @@ public class FPortecle
             return false;
         }
         catch (IOException ex) {
-            displayException(ex);
-            return false;
-        }
-        catch (KeyStoreException ex) {
             displayException(ex);
             return false;
         }
@@ -4356,8 +4417,31 @@ public class FPortecle
      */
     private boolean exportAllCertsPkiPath(String sEntryAlias)
     {
+        // Get the certificates
+        KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+        X509Certificate[] certChain = null;
+        try {
+            certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
+        }
+        catch (KeyStoreException ex) {
+            displayException(ex);
+            return false;
+        }
+        catch (CryptoException ex) {
+            displayException(ex);
+            return false;
+        }
+
+        String basename = null;
+        if (certChain.length > 0) {
+            basename = X509CertUtil.getCertificateAlias(certChain[0]);
+        }
+        if (basename.length() == 0) {
+            basename = sEntryAlias;
+        }
+
         // Let the user choose the export PkiPath file
-        File fExportFile = chooseExportPkiPathFile();
+        File fExportFile = chooseExportPkiPathFile(basename);
         if (fExportFile == null) {
             return false;
         }
@@ -4368,10 +4452,6 @@ public class FPortecle
 
         FileOutputStream fos = null;
         try {
-            // Get the certificates
-            KeyStore keyStore = m_keyStoreWrap.getKeyStore();
-            X509Certificate[] certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
-
             // Do the export
             byte[] bEncoded = X509CertUtil.getCertsEncodedPkiPath(certChain);
             fos = new FileOutputStream(fExportFile);
@@ -4390,10 +4470,6 @@ public class FPortecle
             return false;
         }
         catch (IOException ex) {
-            displayException(ex);
-            return false;
-        }
-        catch (KeyStoreException ex) {
             displayException(ex);
             return false;
         }
@@ -4485,8 +4561,16 @@ public class FPortecle
             Key privKey = keyStore.getKey(sEntryAlias, cPassword);
             Certificate[] certs = keyStore.getCertificateChain(sEntryAlias);
 
+            String basename = null;
+            if (certs.length > 0 && certs[0] instanceof X509Certificate) {
+                basename = X509CertUtil.getCertificateAlias((X509Certificate) certs[0]);
+            }
+            if (basename.length() == 0) {
+                basename = sEntryAlias;
+            }
+
             // Let the user choose the PEM export file
-            fExportFile = chooseExportPEMFile();
+            fExportFile = chooseExportPEMFile(basename);
             if (fExportFile == null) {
                 return false;
             }
@@ -4596,8 +4680,16 @@ public class FPortecle
                 return false;
             }
 
+            String basename = null;
+            if (certs.length > 0 && certs[0] instanceof X509Certificate) {
+                basename = X509CertUtil.getCertificateAlias((X509Certificate) certs[0]);
+            }
+            if (basename.length() == 0) {
+                basename = sEntryAlias;
+            }
+
             // Let the user choose the export PKCS #12 file
-            fExportFile = chooseExportPKCS12File();
+            fExportFile = chooseExportPKCS12File(basename);
             if (fExportFile == null) {
                 return false;
             }
@@ -4638,11 +4730,12 @@ public class FPortecle
     /**
      * Let the user choose a certificate file to export to.
      *
+     * @param basename default filename (without extension)
      * @return The chosen file or null if none was chosen
      */
-    private File chooseExportCertFile()
+    private File chooseExportCertFile(String basename)
     {
-        JFileChooser chooser = FileChooserFactory.getX509FileChooser();
+        JFileChooser chooser = FileChooserFactory.getX509FileChooser(basename);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -4664,11 +4757,12 @@ public class FPortecle
     /**
      * Let the user choose a PKCS #7 file to export to.
      *
+     * @param basename default filename (without extension)
      * @return The chosen file or null if none was chosen
      */
-    private File chooseExportPKCS7File()
+    private File chooseExportPKCS7File(String basename)
     {
-        JFileChooser chooser = FileChooserFactory.getPkcs7FileChooser();
+        JFileChooser chooser = FileChooserFactory.getPkcs7FileChooser(basename);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -4690,11 +4784,12 @@ public class FPortecle
     /**
      * Let the user choose a PkiPath file to export to.
      *
+     * @param basename default filename (without extension)
      * @return The chosen file or null if none was chosen
      */
-    private File chooseExportPkiPathFile()
+    private File chooseExportPkiPathFile(String basename)
     {
-        JFileChooser chooser = FileChooserFactory.getPkiPathFileChooser();
+        JFileChooser chooser = FileChooserFactory.getPkiPathFileChooser(basename);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -4716,11 +4811,12 @@ public class FPortecle
     /**
      * Let the user choose a PKCS #12 file to export to.
      *
+     * @param basename default filename (without extension)
      * @return The chosen file or null if none was chosen
      */
-    private File chooseExportPKCS12File()
+    private File chooseExportPKCS12File(String basename)
     {
-        JFileChooser chooser = FileChooserFactory.getPkcs12FileChooser();
+        JFileChooser chooser = FileChooserFactory.getPkcs12FileChooser(basename);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -4742,11 +4838,12 @@ public class FPortecle
     /**
      * Let the user choose a PEM file to export to.
      *
+     * @param basename default filename (without extension)
      * @return The chosen file or null if none was chosen
      */
-    private File chooseExportPEMFile()
+    private File chooseExportPEMFile(String basename)
     {
-        JFileChooser chooser = FileChooserFactory.getPEMFileChooser();
+        JFileChooser chooser = FileChooserFactory.getPEMFileChooser(basename);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -4828,8 +4925,11 @@ public class FPortecle
             // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
+            // Get the first certficate in the entry's certificate chain
+            X509Certificate cert = X509CertUtil.orderX509CertChain(X509CertUtil.convertCertificates(keyStore.getCertificateChain(sAlias)))[0];
+
             // Let the user choose the file to write the CSR to
-            fCsrFile = chooseGenerateCsrFile();
+            fCsrFile = chooseGenerateCsrFile(X509CertUtil.getCertificateAlias(cert));
             if (fCsrFile == null) {
                 return false;
             }
@@ -4839,9 +4939,6 @@ public class FPortecle
             {
                 return false;
             }
-
-            // Get the first certficate in the entry's certificate chain
-            X509Certificate cert = X509CertUtil.orderX509CertChain(X509CertUtil.convertCertificates(keyStore.getCertificateChain(sAlias)))[0];
 
             // Generate CSR and write it out to file
             pw = new PEMWriter(new FileWriter(fCsrFile));

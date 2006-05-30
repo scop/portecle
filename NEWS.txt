@@ -10,6 +10,8 @@ New features:
 Enhancements:
 - Spelling fixes.
 - Support for entry alias case sensitivity in keystores where applicable.
+- User interface improvements, including better default values for
+  operations involving filenames.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.33.
