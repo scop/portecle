@@ -94,6 +94,9 @@ class DImportKeyPair
     /** Certificate chain part of key pair chosen by the user for import */
     private Certificate[] m_certificateChain;
 
+    /** Key pair alias in the source keystore */
+    private String m_alias;
+    
     /**
      * Creates new form DImportKeyPair where the parent is a frame.
      *
@@ -422,6 +425,16 @@ class DImportKeyPair
     }
 
     /**
+     * Get the alias of the key pair chosen by the user for import.
+     * 
+     * @return the alias
+     */
+    public String getAlias()
+    {
+        return m_alias;
+    }
+    
+    /**
      * Import button pressed by user.  Store the selected key pair's
      * private and public parts and close the dialog.
      */
@@ -434,6 +447,7 @@ class DImportKeyPair
         try {
             m_privateKey = m_pkcs12.getKey(sAlias, new char[] {});
             m_certificateChain = m_pkcs12.getCertificateChain(sAlias);
+            m_alias = sAlias;
         }
         catch (KeyStoreException ex) {
             displayException(ex);

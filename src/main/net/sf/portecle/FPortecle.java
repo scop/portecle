@@ -3142,14 +3142,16 @@ public class FPortecle
             }
 
             // Get an alias for the new keystore entry
-            String sAlias = null;
+            String sAlias = dImportKeyPair.getAlias();
+            if (sAlias == null) {
+                sAlias = X509CertUtil.getCertificateAlias(
+                    X509CertUtil.convertCertificate(certs[0]));
+            }
 
             // Get the alias for the new key pair entry
-            DGetAlias dGetAlias = new DGetAlias(
-                this,
-                m_res.getString("FPortecle.KeyPairEntryAlias.Title"),
-                true,
-                X509CertUtil.getCertificateAlias(X509CertUtil.convertCertificate(certs[0])));
+            DGetAlias dGetAlias = new DGetAlias(this,
+                m_res.getString("FPortecle.KeyPairEntryAlias.Title"), true,
+                sAlias.toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
             dGetAlias.setVisible(true);
             sAlias = dGetAlias.getAlias();
