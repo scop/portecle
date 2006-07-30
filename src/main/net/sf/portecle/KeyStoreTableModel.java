@@ -107,16 +107,16 @@ class KeyStoreTableModel
             // but a custom cell renderer will cause a suitable icon
             // to be displayed
             if (keyStore.isCertificateEntry(sAlias)) {
-                m_data[iCnt][0] = new String(TRUST_CERT_ENTRY);
+                m_data[iCnt][0] = TRUST_CERT_ENTRY;
             }
             else if (keyStore.isKeyEntry(sAlias)
                 && keyStore.getCertificateChain(sAlias) != null
                 && keyStore.getCertificateChain(sAlias).length != 0)
             {
-                m_data[iCnt][0] = new String(KEY_PAIR_ENTRY);
+                m_data[iCnt][0] = KEY_PAIR_ENTRY;
             }
             else {
-                m_data[iCnt][0] = new String(KEY_ENTRY);
+                m_data[iCnt][0] = KEY_ENTRY;
             }
 
             // Populate the alias column

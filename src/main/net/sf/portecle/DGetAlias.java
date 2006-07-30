@@ -179,10 +179,10 @@ class DGetAlias
      */
     private boolean checkAlias()
     {
-        String sAlias = new String(m_jtfAlias.getText().trim().toLowerCase());
+        String sAlias = m_jtfAlias.getText().trim();
 
         if (sAlias.length() > 0) {
-            m_sAlias = m_jtfAlias.getText().trim();
+            m_sAlias = sAlias;
             return true;
         }
 

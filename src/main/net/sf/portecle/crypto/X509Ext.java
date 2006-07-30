@@ -1968,10 +1968,9 @@ public class X509Ext
 
         /* Put both dumps together in one string (hex, clear) with
          approriate padding between them (pad to array length) */
-        StringBuffer strBuff = new StringBuffer();
+        StringBuffer strBuff = new StringBuffer(sbHex.length() + sbClr.length() + 4);
 
-        strBuff.append(sbHex.toString());
-        sbHex = new StringBuffer();
+        strBuff.append(sbHex);
 
         int iMissing = bytes.length - iLen;
         for (int iCnt = 0; iCnt < iMissing; iCnt++) {
@@ -1979,8 +1978,7 @@ public class X509Ext
         }
 
         strBuff.append("   ");
-        strBuff.append(sbClr.toString());
-        sbClr = new StringBuffer();
+        strBuff.append(sbClr);
         strBuff.append('\n');
 
         return strBuff.toString();

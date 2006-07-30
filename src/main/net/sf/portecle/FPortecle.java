@@ -3302,9 +3302,9 @@ public class FPortecle
     {
         // Create the dialog if it does not already exist
         if (m_fHelp == null) {
-            URL toc = getClass().getResource(
+            URL toc = FPortecle.class.getResource(
                 m_res.getString("FPortecle.Help.Contents"));
-            URL home = getClass().getResource(
+            URL home = FPortecle.class.getResource(
                 m_res.getString("FPortecle.Help.Home"));
 
             m_fHelp = new FHelp(m_res.getString("FPortecle.Help.Title"), home,
@@ -5866,7 +5866,7 @@ public class FPortecle
     private Image getResImage(String key)
     {
         return Toolkit.getDefaultToolkit().createImage(
-            getClass().getResource(m_res.getString(key)));
+            FPortecle.class.getResource(m_res.getString(key)));
     }
 
     /**
