@@ -53,6 +53,7 @@ import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
+import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.misc.NetscapeCertType;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.smime.SMIMECapabilities;
@@ -181,38 +182,6 @@ public class X509Ext
     /** Novell Security Attributes OID */
     private static final DERObjectIdentifier NOVELL_SECURITY_ATTRIBUTES_OID =
         new DERObjectIdentifier("2.16.840.1.113719.1.9.4.1");
-
-    /** Netscape Certificate Type OID */
-    private static final DERObjectIdentifier NETSCAPE_CERTIFICATE_TYPE_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.1");
-
-    /** Netscape Base URL OID */
-    private static final DERObjectIdentifier NETSCAPE_BASE_URL_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.2");
-
-    /** Netscape Revocation URL OID */
-    private static final DERObjectIdentifier NETSCAPE_REVOCATION_URL_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.3");
-
-    /** Netscape CA Revocation URL OID */
-    private static final DERObjectIdentifier NETSCAPE_CA_REVOCATION_URL_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.4");
-
-    /** Netscape Certificate Renewal URL OID */
-    private static final DERObjectIdentifier NETSCAPE_CERTIFICATE_RENEWAL_URL_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.7");
-
-    /** Netscape CA Policy URL OID */
-    private static final DERObjectIdentifier NETSCAPE_CA_POLICY_URL_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.8");
-
-    /** Netscape SSL Server Name OID */
-    private static final DERObjectIdentifier NETSCAPE_SSL_SERVER_NAME_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.12");
-
-    /** Netscape Comment OID */
-    private static final DERObjectIdentifier NETSCAPE_COMMENT_OID =
-        new DERObjectIdentifier("2.16.840.1.113730.1.13");
 
     /** D&B D-U-N-S number OID */
     private static final DERObjectIdentifier DNB_DUNS_NUMBER_OID =
@@ -389,16 +358,16 @@ public class X509Ext
         else if (m_Oid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) {
             return getNovellSecurityAttributesStringValue(bOctets);
         }
-        else if (m_Oid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) {
+        else if (m_Oid.equals(MiscObjectIdentifiers.netscapeCertType)) {
             return getNetscapeCertificateTypeStringValue(bOctets);
         }
-        else if (m_Oid.equals(NETSCAPE_BASE_URL_OID)
-            || m_Oid.equals(NETSCAPE_REVOCATION_URL_OID)
-            || m_Oid.equals(NETSCAPE_CA_REVOCATION_URL_OID)
-            || m_Oid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID)
-            || m_Oid.equals(NETSCAPE_CA_POLICY_URL_OID)
-            || m_Oid.equals(NETSCAPE_SSL_SERVER_NAME_OID)
-            || m_Oid.equals(NETSCAPE_COMMENT_OID))
+        else if (m_Oid.equals(MiscObjectIdentifiers.netscapeBaseURL)
+            || m_Oid.equals(MiscObjectIdentifiers.netscapeRevocationURL)
+            || m_Oid.equals(MiscObjectIdentifiers.netscapeCARevocationURL)
+            || m_Oid.equals(MiscObjectIdentifiers.netscapeRenewalURL)
+            || m_Oid.equals(MiscObjectIdentifiers.netscapeCApolicyURL)
+            || m_Oid.equals(MiscObjectIdentifiers.netscapeSSLServerName)
+            || m_Oid.equals(MiscObjectIdentifiers.netscapeCertComment))
         {
             return getNonNetscapeCertificateTypeStringValue(bOctets);
         }
