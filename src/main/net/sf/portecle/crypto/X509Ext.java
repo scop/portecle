@@ -64,6 +64,7 @@ import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.PolicyInformation;
 import org.bouncycastle.asn1.x509.ReasonFlags;
+import org.bouncycastle.asn1.x509.X509Extensions;
 import org.bouncycastle.asn1.x509.X509Name;
 
 /**
@@ -78,9 +79,6 @@ public class X509Ext
     /////////////////////////////////////////////
     // Extension OIDs
     /////////////////////////////////////////////
-
-    /** Common name OID */
-    private static final String COMMON_NAME_OID = "2.5.4.3";
 
     /** Authority Key Identifier (old) OID */
     //private static final String AUTHORITY_KEY_IDENTIFIER_OLD_OID = "2.5.29.1";
@@ -107,76 +105,21 @@ public class X509Ext
     // Old - not to do?
     //private static final String BASIC_CONSTRAINTS_OLD_1_OID = "2.5.29.13";
 
-    /** Subject Key Identifier OID */
-    private static final String SUBJECT_KEY_IDENTIFIER_OID = "2.5.29.14";
-
-    /** Key Usage OID */
-    private static final String KEY_USAGE_OID = "2.5.29.15";
-
-    /** Private Key Usage Period OID */
-    private static final String PRIVATE_KEY_USAGE_PERIOD_OID = "2.5.29.16";
-
-    /** Subject Alternative Name OID */
-    private static final String SUBJECT_ALTERNATIVE_NAME_OID = "2.5.29.17";
-
-    /** Issuer Alternative Name OID */
-    private static final String ISSUER_ALTERNATIVE_NAME_OID = "2.5.29.18";
-
-    /** Basic Constraints OID */
-    private static final String BASIC_CONSTRAINTS_OID = "2.5.29.19";
-
-    /** CRL Number OID */
-    private static final String CRL_NUMBER_OID = "2.5.29.20";
-
-    /** Reason code OID */
-    private static final String REASON_CODE_OID = "2.5.29.21";
-
-    /** Hold Instruction Code OID */
-    private static final String HOLD_INSTRUCTION_CODE_OID = "2.5.29.23";
-
-    /** Invalidity Date OID */
-    private static final String INVALIDITY_DATE_OID = "2.5.29.24";
-
     /** CRL Distribution Points (old) OID */
     // Old - not to do?
     //private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25";
-
-    /** Delta CRL Indicator OID */
-    private static final String DELTA_CRL_INDICATOR_OID = "2.5.29.27";
 
     /** Issuing Distribution Point OID */
     // Std todo
     //private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28";
 
-    /** Certificate Issuer OID */
-    private static final String CERTIFICATE_ISSUER_OID = "2.5.29.29";
-
     /** Name Constraints OID */
     // Std todo
     //private static final String NAME_CONSTRAINTS_OID = "2.5.29.30";
 
-    /** CRL Distribution Points OID */
-    private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31";
-
-    /** Certificate Policies OID */
-    // Std todo
-    private static final String CERTIFICATE_POLICIES_OID = "2.5.29.32";
-
-    /** Policy Mappings OID */
-    private static final String POLICY_MAPPINGS_OID = "2.5.29.33";
-
     /** Policy Constraints (old) OID */
     // Old - not to do?
     //private static final String POLICY_CONSTRAINTS_OLD_OID = "2.5.29.34";
-
-    /** Authority Key Identifier OID */
-    private static final String AUTHORITY_KEY_IDENTIFIER_OID = "2.5.29.35";
-
-    /** Policy Constraints OID */
-    private static final String POLICY_CONSTRAINTS_OID = "2.5.29.36";
-
-    /** Extended Key Usage OID */
-    private static final String EXTENDED_KEY_USAGE_OID = "2.5.29.37";
 
     /** CRL Stream Identifier OID */
     // No info available
@@ -206,71 +149,83 @@ public class X509Ext
     // No info available
     //private static final String DELTA_INFORMATION_OID = "2.5.29.53";
 
-    /** Inhibit Any Policy OID */
-    private static final String INHIBIT_ANY_POLICY_OID = "2.5.29.54";
-
     /** Entrust version extension OID */
-    private static final String ENTRUST_VERSION_EXTENSION_OID = "1.2.840.113533.7.65.0";
+    private static final DERObjectIdentifier ENTRUST_VERSION_EXTENSION_OID =
+        new DERObjectIdentifier("1.2.840.113533.7.65.0");
 
     /** S/MIME capabilities OID */
-    private static final String SMIME_CAPABILITIES_OID = "1.2.840.113549.1.9.15";
+    private static final DERObjectIdentifier SMIME_CAPABILITIES_OID =
+        new DERObjectIdentifier("1.2.840.113549.1.9.15");
 
     /** Microsoft certificate template name OID */
-    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID = "1.3.6.1.4.1.311.20.2";
+    private static final DERObjectIdentifier MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID =
+        new DERObjectIdentifier("1.3.6.1.4.1.311.20.2");
 
     /** Microsoft CA version OID */
-    private static final String MICROSOFT_CA_VERSION_OID = "1.3.6.1.4.1.311.21.1";
+    private static final DERObjectIdentifier MICROSOFT_CA_VERSION_OID =
+        new DERObjectIdentifier("1.3.6.1.4.1.311.21.1");
 
     /** Microsoft previous CA certificate hash */
-    private static final String MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID = "1.3.6.1.4.1.311.21.2";
+    private static final DERObjectIdentifier MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID =
+        new DERObjectIdentifier("1.3.6.1.4.1.311.21.2");
 
     /** Microsoft certificate template (v2) OID */
-    private static final String MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID = "1.3.6.1.4.1.311.21.7";
+    private static final DERObjectIdentifier MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID =
+        new DERObjectIdentifier("1.3.6.1.4.1.311.21.7");
 
     /** Microsoft application policies OID */
-    private static final String MICROSOFT_APPLICATION_POLICIES_OID = "1.3.6.1.4.1.311.21.10";
-
-    /** Authority Information Access OID */
-    private static final String AUTHORITY_INFORMATION_ACCESS_OID = "1.3.6.1.5.5.7.1.1";
+    private static final DERObjectIdentifier MICROSOFT_APPLICATION_POLICIES_OID =
+        new DERObjectIdentifier("1.3.6.1.4.1.311.21.10");
 
     /** Logotype OID */
-    private static final String LOGOTYPE_OID = "1.3.6.1.5.5.7.1.12";
+    private static final DERObjectIdentifier LOGOTYPE_OID =
+        new DERObjectIdentifier("1.3.6.1.5.5.7.1.12");
 
     /** Novell Security Attributes OID */
-    private static final String NOVELL_SECURITY_ATTRIBUTES_OID = "2.16.840.1.113719.1.9.4.1";
+    private static final DERObjectIdentifier NOVELL_SECURITY_ATTRIBUTES_OID =
+        new DERObjectIdentifier("2.16.840.1.113719.1.9.4.1");
 
     /** Netscape Certificate Type OID */
-    private static final String NETSCAPE_CERTIFICATE_TYPE_OID = "2.16.840.1.113730.1.1";
+    private static final DERObjectIdentifier NETSCAPE_CERTIFICATE_TYPE_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.1");
 
     /** Netscape Base URL OID */
-    private static final String NETSCAPE_BASE_URL_OID = "2.16.840.1.113730.1.2";
+    private static final DERObjectIdentifier NETSCAPE_BASE_URL_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.2");
 
     /** Netscape Revocation URL OID */
-    private static final String NETSCAPE_REVOCATION_URL_OID = "2.16.840.1.113730.1.3";
+    private static final DERObjectIdentifier NETSCAPE_REVOCATION_URL_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.3");
 
     /** Netscape CA Revocation URL OID */
-    private static final String NETSCAPE_CA_REVOCATION_URL_OID = "2.16.840.1.113730.1.4";
+    private static final DERObjectIdentifier NETSCAPE_CA_REVOCATION_URL_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.4");
 
     /** Netscape Certificate Renewal URL OID */
-    private static final String NETSCAPE_CERTIFICATE_RENEWAL_URL_OID = "2.16.840.1.113730.1.7";
+    private static final DERObjectIdentifier NETSCAPE_CERTIFICATE_RENEWAL_URL_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.7");
 
     /** Netscape CA Policy URL OID */
-    private static final String NETSCAPE_CA_POLICY_URL_OID = "2.16.840.1.113730.1.8";
+    private static final DERObjectIdentifier NETSCAPE_CA_POLICY_URL_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.8");
 
     /** Netscape SSL Server Name OID */
-    private static final String NETSCAPE_SSL_SERVER_NAME_OID = "2.16.840.1.113730.1.12";
+    private static final DERObjectIdentifier NETSCAPE_SSL_SERVER_NAME_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.12");
 
     /** Netscape Comment OID */
-    private static final String NETSCAPE_COMMENT_OID = "2.16.840.1.113730.1.13";
+    private static final DERObjectIdentifier NETSCAPE_COMMENT_OID =
+        new DERObjectIdentifier("2.16.840.1.113730.1.13");
 
     /** D&B D-U-N-S number OID */
-    private static final String DNB_DUNS_NUMBER_OID = "2.16.840.1.113733.1.6.15";
+    private static final DERObjectIdentifier DNB_DUNS_NUMBER_OID =
+        new DERObjectIdentifier("2.16.840.1.113733.1.6.15");
 
     /** Extension name or OID if unknown */
     private final String m_sName;
 
     /** Extension object identifier */
-    private final String m_sOid;
+    private final DERObjectIdentifier m_Oid;
 
     /** Extension value as a DER-encoded OCTET string */
     private final byte[] m_bValue;
@@ -287,14 +242,14 @@ public class X509Ext
      */
     public X509Ext(String sOid, byte[] bValue, boolean bCritical)
     {
-        m_sOid = sOid;
+        m_Oid = new DERObjectIdentifier(sOid);
 
         m_bValue = new byte[bValue.length];
         System.arraycopy(bValue, 0, m_bValue, 0, bValue.length);
 
         m_bCritical = bCritical;
 
-        m_sName = getRes(m_sOid, "UnrecognisedExtension");
+        m_sName = getRes(m_Oid.getId(), "UnrecognisedExtension");
     }
 
     /**
@@ -304,7 +259,7 @@ public class X509Ext
      */
     public String getOid()
     {
-        return m_sOid;
+        return m_Oid.getId();
     }
 
     /**
@@ -353,110 +308,110 @@ public class X509Ext
         byte[] bOctets = ((DEROctetString) toDER(m_bValue)).getOctets();
 
         // Octet string processed differently depending on extension type
-        if (m_sOid.equals(COMMON_NAME_OID)) {
+        if (m_Oid.equals(X509Name.CN)) {
             return getCommonNameStringValue(bOctets);
         }
-        else if (m_sOid.equals(SUBJECT_KEY_IDENTIFIER_OID)) {
+        else if (m_Oid.equals(X509Extensions.SubjectKeyIdentifier)) {
             return getSubjectKeyIndentifierStringValue(bOctets);
         }
-        else if (m_sOid.equals(KEY_USAGE_OID)) {
+        else if (m_Oid.equals(X509Extensions.KeyUsage)) {
             return getKeyUsageStringValue(bOctets);
         }
-        else if (m_sOid.equals(PRIVATE_KEY_USAGE_PERIOD_OID)) {
+        else if (m_Oid.equals(X509Extensions.PrivateKeyUsagePeriod)) {
             return getPrivateKeyUsagePeriod(bOctets);
         }
-        else if (m_sOid.equals(SUBJECT_ALTERNATIVE_NAME_OID)) {
+        else if (m_Oid.equals(X509Extensions.SubjectAlternativeName)) {
             return getSubjectAlternativeName(bOctets);
         }
-        else if (m_sOid.equals(ISSUER_ALTERNATIVE_NAME_OID)) {
+        else if (m_Oid.equals(X509Extensions.IssuerAlternativeName)) {
             return getIssuerAlternativeName(bOctets);
         }
-        else if (m_sOid.equals(BASIC_CONSTRAINTS_OID)) {
+        else if (m_Oid.equals(X509Extensions.BasicConstraints)) {
             return getBasicConstraintsStringValue(bOctets);
         }
-        else if (m_sOid.equals(CRL_NUMBER_OID)) {
+        else if (m_Oid.equals(X509Extensions.CRLNumber)) {
             return getCrlNumberStringValue(bOctets);
         }
-        else if (m_sOid.equals(REASON_CODE_OID)) {
+        else if (m_Oid.equals(X509Extensions.ReasonCode)) {
             return getReasonCodeStringValue(bOctets);
         }
-        else if (m_sOid.equals(HOLD_INSTRUCTION_CODE_OID)) {
+        else if (m_Oid.equals(X509Extensions.InstructionCode)) {
             return getHoldInstructionCodeStringValue(bOctets);
         }
-        else if (m_sOid.equals(INVALIDITY_DATE_OID)) {
+        else if (m_Oid.equals(X509Extensions.InvalidityDate)) {
             return getInvalidityDateStringValue(bOctets);
         }
-        else if (m_sOid.equals(DELTA_CRL_INDICATOR_OID)) {
+        else if (m_Oid.equals(X509Extensions.DeltaCRLIndicator)) {
             return getDeltaCrlIndicatorStringValue(bOctets);
         }
-        else if (m_sOid.equals(CERTIFICATE_ISSUER_OID)) {
+        else if (m_Oid.equals(X509Extensions.CertificateIssuer)) {
             return getCertificateIssuerStringValue(bOctets);
         }
-        else if (m_sOid.equals(POLICY_MAPPINGS_OID)) {
+        else if (m_Oid.equals(X509Extensions.PolicyMappings)) {
             return getPolicyMappingsStringValue(bOctets);
         }
-        else if (m_sOid.equals(AUTHORITY_KEY_IDENTIFIER_OID)) {
+        else if (m_Oid.equals(X509Extensions.AuthorityKeyIdentifier)) {
             return getAuthorityKeyIdentifierStringValue(bOctets);
         }
-        else if (m_sOid.equals(POLICY_CONSTRAINTS_OID)) {
+        else if (m_Oid.equals(X509Extensions.PolicyConstraints)) {
             return getPolicyConstraintsStringValue(bOctets);
         }
-        else if (m_sOid.equals(EXTENDED_KEY_USAGE_OID)) {
+        else if (m_Oid.equals(X509Extensions.ExtendedKeyUsage)) {
             return getExtendedKeyUsageStringValue(bOctets);
         }
-        else if (m_sOid.equals(INHIBIT_ANY_POLICY_OID)) {
+        else if (m_Oid.equals(X509Extensions.InhibitAnyPolicy)) {
             return getInhibitAnyPolicyStringValue(bOctets);
         }
-        else if (m_sOid.equals(ENTRUST_VERSION_EXTENSION_OID)) {
+        else if (m_Oid.equals(ENTRUST_VERSION_EXTENSION_OID)) {
             return getEntrustVersionExtensionStringValue(bOctets);
         }
-        else if (m_sOid.equals(SMIME_CAPABILITIES_OID)) {
+        else if (m_Oid.equals(SMIME_CAPABILITIES_OID)) {
             return getSmimeCapabilitiesStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID)) {
+        else if (m_Oid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID)) {
             return getMicrosoftCertificateTemplateV1StringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CA_VERSION_OID)) {
+        else if (m_Oid.equals(MICROSOFT_CA_VERSION_OID)) {
             return getMicrosoftCAVersionStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID)) {
+        else if (m_Oid.equals(MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID)) {
             return getMicrosoftPreviousCACertificateHashStringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID)) {
+        else if (m_Oid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID)) {
             return getMicrosoftCertificateTemplateV2StringValue(bOctets);
         }
-        else if (m_sOid.equals(MICROSOFT_APPLICATION_POLICIES_OID)) {
+        else if (m_Oid.equals(MICROSOFT_APPLICATION_POLICIES_OID)) {
             return getUnknownOidStringValue(bOctets); // TODO
         }
-        else if (m_sOid.equals(AUTHORITY_INFORMATION_ACCESS_OID)) {
+        else if (m_Oid.equals(X509Extensions.AuthorityInfoAccess)) {
             return getAuthorityInformationAccessStringValue(bOctets);
         }
-        else if (m_sOid.equals(LOGOTYPE_OID)) {
+        else if (m_Oid.equals(LOGOTYPE_OID)) {
             return getLogotypeStringValue(bOctets);
         }
-        else if (m_sOid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) {
+        else if (m_Oid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) {
             return getNovellSecurityAttributesStringValue(bOctets);
         }
-        else if (m_sOid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) {
+        else if (m_Oid.equals(NETSCAPE_CERTIFICATE_TYPE_OID)) {
             return getNetscapeCertificateTypeStringValue(bOctets);
         }
-        else if (m_sOid.equals(NETSCAPE_BASE_URL_OID)
-            || m_sOid.equals(NETSCAPE_REVOCATION_URL_OID)
-            || m_sOid.equals(NETSCAPE_CA_REVOCATION_URL_OID)
-            || m_sOid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID)
-            || m_sOid.equals(NETSCAPE_CA_POLICY_URL_OID)
-            || m_sOid.equals(NETSCAPE_SSL_SERVER_NAME_OID)
-            || m_sOid.equals(NETSCAPE_COMMENT_OID))
+        else if (m_Oid.equals(NETSCAPE_BASE_URL_OID)
+            || m_Oid.equals(NETSCAPE_REVOCATION_URL_OID)
+            || m_Oid.equals(NETSCAPE_CA_REVOCATION_URL_OID)
+            || m_Oid.equals(NETSCAPE_CERTIFICATE_RENEWAL_URL_OID)
+            || m_Oid.equals(NETSCAPE_CA_POLICY_URL_OID)
+            || m_Oid.equals(NETSCAPE_SSL_SERVER_NAME_OID)
+            || m_Oid.equals(NETSCAPE_COMMENT_OID))
         {
             return getNonNetscapeCertificateTypeStringValue(bOctets);
         }
-        else if (m_sOid.equals(DNB_DUNS_NUMBER_OID)) {
+        else if (m_Oid.equals(DNB_DUNS_NUMBER_OID)) {
             return getDnBDUNSNumberStringValue(bOctets);
         }
-        else if (m_sOid.equals(CRL_DISTRIBUTION_POINTS_OID)) {
+        else if (m_Oid.equals(X509Extensions.CRLDistributionPoints)) {
             return getCrlDistributionPointsStringValue(bOctets);
         }
-        else if (m_sOid.equals(CERTIFICATE_POLICIES_OID)) {
+        else if (m_Oid.equals(X509Extensions.CertificatePolicies)) {
             return getCertificatePoliciesStringValue(bOctets);
         }
 
