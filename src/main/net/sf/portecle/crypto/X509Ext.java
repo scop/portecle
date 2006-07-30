@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -53,12 +53,15 @@ import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
+import org.bouncycastle.asn1.misc.NetscapeCertType;
 import org.bouncycastle.asn1.smime.SMIMECapabilities;
 import org.bouncycastle.asn1.smime.SMIMECapability;
+import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.CRLDistPoint;
 import org.bouncycastle.asn1.x509.DistributionPoint;
 import org.bouncycastle.asn1.x509.DistributionPointName;
 import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.PolicyInformation;
 import org.bouncycastle.asn1.x509.ReasonFlags;
 import org.bouncycastle.asn1.x509.X509Name;
@@ -546,6 +549,19 @@ public class X509Ext
         return strBuff.toString();
     }
 
+    /** Key usages */
+    private static final int[] KEY_USAGES = new int[] {
+        KeyUsage.digitalSignature,
+        KeyUsage.nonRepudiation,
+        KeyUsage.keyEncipherment,
+        KeyUsage.dataEncipherment,
+        KeyUsage.keyAgreement,
+        KeyUsage.keyCertSign,
+        KeyUsage.cRLSign,
+        KeyUsage.encipherOnly,
+        KeyUsage.decipherOnly,
+    };
+    
     /**
      * Get Key Usage (2.5.29.15) extension value as a string.
      *
@@ -569,74 +585,15 @@ public class X509Ext
     private String getKeyUsageStringValue(byte[] bValue)
         throws IOException
     {
-        DERBitString derBitStr = (DERBitString) toDER(bValue);
+        int val = new KeyUsage((DERBitString) toDER(bValue)).intValue();
         StringBuffer strBuff = new StringBuffer();
-
-        byte[] bytes = derBitStr.getBytes();
-
-        boolean bKeyAgreement = false;
-
-        // Loop through bit string appending them to the returned string
-        // value as flags are found true
-        for (int iCnt = 0; iCnt < bytes.length; iCnt++) {
-            boolean[] b = new boolean[8];
-
-            b[7] = (bytes[iCnt] & 0x80) == 0x80;
-            b[6] = (bytes[iCnt] & 0x40) == 0x40;
-            b[5] = (bytes[iCnt] & 0x20) == 0x20;
-            b[4] = (bytes[iCnt] & 0x10) == 0x10;
-            b[3] = (bytes[iCnt] & 0x8) == 0x8;
-            b[2] = (bytes[iCnt] & 0x4) == 0x4;
-            b[1] = (bytes[iCnt] & 0x2) == 0x2;
-            b[0] = (bytes[iCnt] & 0x1) == 0x1;
-
-            // First byte
-            if (iCnt == 0) {
-                if (b[7]) {
-                    strBuff.append(m_res.getString("DigitalSignatureKeyUsageString"));
-                    strBuff.append('\n');
-                }
-                if (b[6]) {
-                    strBuff.append(m_res.getString("NonRepudiationKeyUsageString"));
-                    strBuff.append('\n');
-                }
-                if (b[5]) {
-                    strBuff.append(m_res.getString("KeyEnciphermentKeyUsageString"));
-                    strBuff.append('\n');
-                }
-                if (b[4]) {
-                    strBuff.append(m_res.getString("DataEnciphermentKeyUsageString"));
-                    strBuff.append('\n');
-                }
-                if (b[3]) {
-                    strBuff.append(m_res.getString("KeyAgreementKeyUsageString"));
-                    strBuff.append('\n');
-                    bKeyAgreement = true;
-                }
-                if (b[2]) {
-                    strBuff.append(m_res.getString("KeyCertSignKeyUsageString"));
-                    strBuff.append('\n');
-                }
-                if (b[1]) {
-                    strBuff.append(m_res.getString("CrlSignKeyUsageString"));
-                    strBuff.append('\n');
-                }
-                // Only has meaning if key agreement set
-                if (b[0] && bKeyAgreement) {
-                    strBuff.append(m_res.getString("EncipherOnlyKeyUsageString"));
-                    strBuff.append('\n');
-                }
-            }
-            // Second byte
-            else if (iCnt == 1) {
-                // Only has meaning if key agreement set
-                if (b[7] && bKeyAgreement) {
-                    strBuff.append(m_res.getString("DecipherOnlyKeyUsageString"));
-                    strBuff.append('\n');
-                }
+        for (int i = 0, len = KEY_USAGES.length; i < len; i++) {
+            int type = KEY_USAGES[i];
+            if ((val & type) == type) {
+                strBuff.append(m_res.getString("KeyUsage." + type));
+                strBuff.append('\n');
             }
         }
-
         return strBuff.toString();
     }
 
@@ -740,45 +697,23 @@ public class X509Ext
     private String getBasicConstraintsStringValue(byte[] bValue)
         throws IOException
     {
-        // Get sequence
-        ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
-        int aLen = asn1Seq.size();
-
-        // Default values when none specified in sequence
-        boolean bCa = false;
-        int iPathLengthConstraint = -1;
-
-        // Read CA boolean if present in sequence
-        if (aLen > 0) {
-            DERBoolean derBool = (DERBoolean) asn1Seq.getObjectAt(0);
-            bCa = derBool.isTrue();
-        }
-
-        // Read Path Length Constraint boolean if present in sequence
-        if (aLen > 1) {
-            DERInteger derInt = (DERInteger) asn1Seq.getObjectAt(1);
-            iPathLengthConstraint = derInt.getValue().intValue();
-        }
-
-        // Output information
+        BasicConstraints bc = new BasicConstraints((ASN1Sequence) toDER(bValue));
         StringBuffer strBuff = new StringBuffer();
 
-        // Subject is CA?
-        strBuff.append(m_res.getString(bCa ? "SubjectIsCa" : "SubjectIsNotCa"));
+        strBuff.append(m_res.getString(bc.isCA() ? "SubjectIsCa" : "SubjectIsNotCa"));
         strBuff.append('\n');
-
-        // Path length constraint (only has meaning when CA is true)
-        if (iPathLengthConstraint != -1 && bCa) {
-            strBuff.append(MessageFormat.format(
-                m_res.getString("PathLengthConstraint"), new String[] { ""
-                    + iPathLengthConstraint }));
-        }
-        else {
+        
+        BigInteger pathLen = bc.isCA() ? bc.getPathLenConstraint() : null;
+        if (pathLen == null) {
             strBuff.append(m_res.getString("NoPathLengthConstraint"));
         }
-        strBuff.append('\n');
+        else {
+            strBuff.append(MessageFormat.format(
+                m_res.getString("PathLengthConstraint"), new String[] { ""
+                    + pathLen }));
+        }
 
-        return strBuff.toString();
+        return strBuff.append('\n').toString();
     }
 
     /**
@@ -1649,6 +1584,18 @@ public class X509Ext
         return res;
     }
 
+    /** Netscape certificate types */
+    private static final int[] NETSCAPE_CERT_TYPES = new int[] {
+        NetscapeCertType.sslClient,
+        NetscapeCertType.sslServer,
+        NetscapeCertType.smime,
+        NetscapeCertType.objectSigning,
+        NetscapeCertType.reserved,
+        NetscapeCertType.sslCA,
+        NetscapeCertType.smimeCA,
+        NetscapeCertType.objectSigningCA,
+    };
+    
     /**
      * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value
      * as a string.
@@ -1660,61 +1607,15 @@ public class X509Ext
     private String getNetscapeCertificateTypeStringValue(byte[] bValue)
         throws IOException
     {
-        // Get bits
-        byte[] bytes = ((DERBitString) toDER(bValue)).getBytes();
-
+        int val = new NetscapeCertType((DERBitString) toDER(bValue)).intValue();
         StringBuffer strBuff = new StringBuffer();
-
-        if (bytes.length != 0) {
-            boolean[] b = new boolean[8];
-
-            b[7] = (bytes[0] & 0x80) == 0x80;
-            b[6] = (bytes[0] & 0x40) == 0x40;
-            b[5] = (bytes[0] & 0x20) == 0x20;
-            b[4] = (bytes[0] & 0x10) == 0x10;
-            b[3] = (bytes[0] & 0x8) == 0x8;
-            b[2] = (bytes[0] & 0x4) == 0x4;
-            b[1] = (bytes[0] & 0x2) == 0x2;
-            b[0] = (bytes[0] & 0x1) == 0x1;
-
-            if (b[7]) {
-                strBuff.append(m_res.getString("SslClientNetscapeCertificateType"));
-                strBuff.append('\n');
-            }
-
-            if (b[6]) {
-                strBuff.append(m_res.getString("SslServerNetscapeCertificateType"));
-                strBuff.append('\n');
-            }
-
-            if (b[5]) {
-                strBuff.append(m_res.getString("SmimeNetscapeCertificateType"));
-                strBuff.append('\n');
-            }
-
-            if (b[4]) {
-                strBuff.append(m_res.getString("ObjectSigningNetscapeCertificateType"));
-                strBuff.append('\n');
-            }
-
-            // b[3] reserved for future use
-
-            if (b[2]) {
-                strBuff.append(m_res.getString("SslCaNetscapeCertificateType"));
-                strBuff.append('\n');
-            }
-
-            if (b[1]) {
-                strBuff.append(m_res.getString("SmimeCaNetscapeCertificateType"));
-                strBuff.append('\n');
-            }
-
-            if (b[0]) {
-                strBuff.append(m_res.getString("ObjectSigningCaNetscapeCertificateType"));
+        for (int i = 0, len = NETSCAPE_CERT_TYPES.length; i < len; i++) {
+            int type = NETSCAPE_CERT_TYPES[i];
+            if ((val & type) == type) {
+                strBuff.append(m_res.getString("NetscapeCertificateType." + type));
                 strBuff.append('\n');
             }
         }
-
         return strBuff.toString();
     }
 
