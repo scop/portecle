@@ -54,6 +54,7 @@ import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.misc.NetscapeCertType;
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.smime.SMIMECapabilities;
 import org.bouncycastle.asn1.smime.SMIMECapability;
 import org.bouncycastle.asn1.x509.BasicConstraints;
@@ -152,10 +153,6 @@ public class X509Ext
     /** Entrust version extension OID */
     private static final DERObjectIdentifier ENTRUST_VERSION_EXTENSION_OID =
         new DERObjectIdentifier("1.2.840.113533.7.65.0");
-
-    /** S/MIME capabilities OID */
-    private static final DERObjectIdentifier SMIME_CAPABILITIES_OID =
-        new DERObjectIdentifier("1.2.840.113549.1.9.15");
 
     /** Microsoft certificate template name OID */
     private static final DERObjectIdentifier MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID =
@@ -365,7 +362,7 @@ public class X509Ext
         else if (m_Oid.equals(ENTRUST_VERSION_EXTENSION_OID)) {
             return getEntrustVersionExtensionStringValue(bOctets);
         }
-        else if (m_Oid.equals(SMIME_CAPABILITIES_OID)) {
+        else if (m_Oid.equals(PKCSObjectIdentifiers.pkcs_9_at_smimeCapabilities)) {
             return getSmimeCapabilitiesStringValue(bOctets);
         }
         else if (m_Oid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID)) {
