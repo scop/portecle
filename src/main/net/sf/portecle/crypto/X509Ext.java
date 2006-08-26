@@ -1935,7 +1935,7 @@ public class X509Ext
             int i = bytes[iCnt] & 0xFF;
 
             // First part of byte will be one hex char
-            int i1 = (int) Math.floor(i / 16);
+            int i1 = (int) Math.floor((double) i / 16);
 
             // Second part of byte will be one hex char
             int i2 = i % 16;

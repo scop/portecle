@@ -72,7 +72,7 @@ public final class DigestUtil
             new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
 
         // Odd number of characters so add in a padding "0"
-        if ((strBuff.length() % 2) == 1) {
+        if ((strBuff.length() % 2) != 0) {
             strBuff.insert(0, '0');
         }
 
