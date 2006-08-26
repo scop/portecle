@@ -500,9 +500,8 @@ class DViewCRL
                     }
                 }
 
-                if (x509CrlEntry.hasExtensions()) // Entry has extensions
+                if (x509CrlEntry != null && x509CrlEntry.hasExtensions())
                 {
-                    // Enable "CRL Extensions" button and return
                     m_jbCrlEntryExtensions.setEnabled(true);
                     return;
                 }
@@ -557,7 +556,7 @@ class DViewCRL
                     }
                 }
 
-                if (x509CrlEntry.hasExtensions()) // Entry has extensions
+                if (x509CrlEntry != null && x509CrlEntry.hasExtensions())
                 {
                     DViewExtensions dViewExtensions = new DViewExtensions(
                         this, m_res.getString("DViewCRL."
