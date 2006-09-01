@@ -82,21 +82,6 @@ class DGetHostPort
     }
 
     /**
-     * Creates new DGetHostPort dialog where the parent is a dialog.
-     *
-     * @param parent The parent dialog
-     * @param sTitle The dialog's title
-     * @param bModal Is the dialog modal?
-     * @param iOldHostPort The alias to display initially
-     */
-    public DGetHostPort(JDialog parent, String sTitle, boolean bModal,
-        InetSocketAddress iOldHostPort)
-    {
-        super(parent, sTitle, bModal);
-        initComponents(iOldHostPort);
-    }
-
-    /**
      * Get the host+port entered by the user.
      *
      * @return The host+port, or null if none was entered
