@@ -2,7 +2,7 @@
  * DGetHostPort.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2004-2006 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -54,6 +54,9 @@ class DGetHostPort
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
 
+    /** Default port */
+    private static final int DEFAULT_PORT = 443;
+    
     /** Resource bundle */
     private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
@@ -63,7 +66,7 @@ class DGetHostPort
     /** Port text field */
     private JTextField m_jtfPort;
 
-    /** Stores the alias entered by the user */
+    /** Stores the address entered by the user */
     private InetSocketAddress m_iAddress;
 
     /**
@@ -72,7 +75,7 @@ class DGetHostPort
      * @param parent The parent frame
      * @param sTitle The dialog's title
      * @param bModal Is the dialog modal?
-     * @param iOldHostPort The alias to display initially
+     * @param iOldHostPort The address to display initially
      */
     public DGetHostPort(JFrame parent, String sTitle, boolean bModal,
         InetSocketAddress iOldHostPort)
@@ -110,8 +113,11 @@ class DGetHostPort
             m_jtfHost.setText(iOldHostPort.getHostName());
             m_jtfHost.setCaretPosition(0);
             m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
-            m_jtfPort.setCaretPosition(0);
         }
+        else {
+            m_jtfPort.setText(String.valueOf(DEFAULT_PORT));
+        }
+        m_jtfPort.setCaretPosition(0);
 
         JButton jbOK = new JButton(m_res.getString("DGetHostPort.jbOK.text"));
         jbOK.addActionListener(new ActionListener()
