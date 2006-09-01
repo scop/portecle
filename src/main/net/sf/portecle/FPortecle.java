@@ -6466,12 +6466,16 @@ public class FPortecle
         }
 
         try {
-            // Instantiate the Bouncy Castle provider
-            Class bcProvClass = Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider");
-            Provider bcProv = (Provider) bcProvClass.newInstance();
+            Provider bcProv = Security.getProvider("BC");
+            
+            if (bcProv == null) {
+                // Instantiate the Bouncy Castle provider
+                Class bcProvClass = Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider");
+                bcProv = (Provider) bcProvClass.newInstance();
 
-            // Add BC as a security provider
-            Security.addProvider(bcProv);
+                // Add BC as a security provider
+                Security.addProvider(bcProv);
+            }
 
             // Check BC version
             Double bcVer = new Double(bcProv.getVersion());
