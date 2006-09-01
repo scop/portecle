@@ -51,11 +51,20 @@ public class FileChooserFactory
     /** File extension for Java keystore files */
     private static final String JAVA_KEYSTORE_EXT = "jks";
 
+    /** File extension for JCE keystore files */
+    private static final String JCE_KEYSTORE_EXT = "jceks";
+
     /** File extension for PKCS #12 keystore files */
     private static final String PKCS12_KEYSTORE_EXT_1 = "pfx";
 
     /** File extension for PKCS #12 keystore files */
     private static final String PKCS12_KEYSTORE_EXT_2 = "p12";
+
+    /** File extension for BKS keystore files */
+    private static final String BKS_KEYSTORE_EXT = "bks";
+
+    /** File extension for UBER keystore files */
+    private static final String UBER_KEYSTORE_EXT = "ubr";
 
     /** File extension for GNU Keyring keystore files */
     private static final String GKR_KEYSTORE_EXT = "gkr";
@@ -141,8 +150,13 @@ public class FileChooserFactory
         if (KeyStoreUtil.isAvailable(KeyStoreType.JKS)) {
             exts.add(JAVA_KEYSTORE_EXT);
         }
+        if (KeyStoreUtil.isAvailable(KeyStoreType.JCEKS)) {
+            exts.add(JCE_KEYSTORE_EXT);
+        }
         exts.add(PKCS12_KEYSTORE_EXT_1);
         exts.add(PKCS12_KEYSTORE_EXT_2);
+        exts.add(BKS_KEYSTORE_EXT);
+        exts.add(UBER_KEYSTORE_EXT);
         if (KeyStoreUtil.isAvailable(KeyStoreType.GKR)) {
             exts.add(GKR_KEYSTORE_EXT);
         }
