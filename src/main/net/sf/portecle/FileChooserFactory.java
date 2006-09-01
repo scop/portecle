@@ -24,11 +24,15 @@ package net.sf.portecle;
 
 import java.io.File;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 
+import net.sf.portecle.crypto.KeyStoreType;
+import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.gui.FileExtFilter;
 
 /**
@@ -80,12 +84,6 @@ public class FileChooserFactory
     /** File extension for CRL files */
     private static final String CRL_EXT = "crl";
 
-    /** Description for keystore files */
-    private static final String KEYSTORE_FILE_DESC = MessageFormat.format(
-        m_res.getString("FileChooseFactory.KeyStoreFiles"), new String[] {
-            KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1,
-            PKCS12_KEYSTORE_EXT_2, GKR_KEYSTORE_EXT });
-
     /** Description for PKCS #12 keystore files */
     private static final String PKCS12_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.Pkcs12Files"), new String[] {
@@ -130,16 +128,38 @@ public class FileChooserFactory
     }
 
     /**
-     * Get a JFileChooser filtered for keystore files.
+     * Get a JFileChooser filtered for supported keystore files.
      *
      * @return JFileChooser object
      */
     public static JFileChooser getKeyStoreFileChooser()
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[] {
-            KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1,
-            PKCS12_KEYSTORE_EXT_2, GKR_KEYSTORE_EXT }, KEYSTORE_FILE_DESC));
+
+        ArrayList exts = new ArrayList();
+        exts.add(KEYSTORE_EXT);
+        if (KeyStoreUtil.isAvailable(KeyStoreType.JKS)) {
+            exts.add(JAVA_KEYSTORE_EXT);
+        }
+        exts.add(PKCS12_KEYSTORE_EXT_1);
+        exts.add(PKCS12_KEYSTORE_EXT_2);
+        if (KeyStoreUtil.isAvailable(KeyStoreType.GKR)) {
+            exts.add(GKR_KEYSTORE_EXT);
+        }
+        
+        StringBuffer extStr = new StringBuffer();
+        for (Iterator i = exts.iterator(); i.hasNext(); ) {
+            extStr.append("*.").append(i.next()).append(";");
+        }
+        extStr.setLength(extStr.length() - 1); // Chop trailing ";"
+        
+        String desc = MessageFormat.format(
+            m_res.getString("FileChooseFactory.KeyStoreFiles"),
+            new Object[] { extStr });
+        
+        chooser.addChoosableFileFilter(new FileExtFilter((String[])
+            exts.toArray(new String[exts.size()]), desc));
+
         return chooser;
     }
 
