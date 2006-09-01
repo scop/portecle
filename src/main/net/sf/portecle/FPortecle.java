@@ -6498,6 +6498,23 @@ public class FPortecle
             System.exit(1);
         }
 
+        // Install additional providers
+        String[] additionalProviders =
+            m_res.getString("FPortecle.AdditionalProviders").split("[\\s,]+");
+        for (int i = 0, len = additionalProviders.length; i < len; i++) {
+            String[] prov = additionalProviders[i].split(":+", 2);
+            if (Security.getProvider(prov[0]) == null) {
+                try {
+                    Class provClass = Class.forName(prov[1]);
+                    Security.addProvider((Provider) provClass.newInstance());
+                }
+                catch (Throwable t) {
+                    // TODO: should maybe notify in some cases?
+                    // Eg. Throwable, but not Exception?
+                }
+            }
+        }
+        
         m_bSplashScreen = m_appPrefs.getBoolean(
             m_res.getString("AppPrefs.SplashScreen"), true);
 
