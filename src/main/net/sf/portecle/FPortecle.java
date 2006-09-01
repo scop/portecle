@@ -5755,9 +5755,10 @@ public class FPortecle
         MetalLookAndFeel.setCurrentTheme(METAL_THEME);
 
         // Install extra look and feels (which may or may not be present)
-        installLookFeel("net.sourceforge.mlf.metouia.MetouiaLookAndFeel");
-        installLookFeel("com.incors.plaf.kunststoff.KunststoffLookAndFeel");
-        installLookFeel("org.gtk.java.swing.plaf.gtk.GtkLookAndFeel");
+        String[] plafs = m_res.getString("FPortecle.AdditionalLookAndFeels").split("[\\s,]+");
+        for (int i = 0, len = plafs.length; i < len; i++) {
+            installLookFeel(plafs[i]);
+        }
 
         try {
             // Use the look and feel
