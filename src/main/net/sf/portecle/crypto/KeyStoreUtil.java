@@ -257,13 +257,14 @@ public final class KeyStoreUtil
      * @param keyStore The keystore
      * @param fKeyStoreFile The file to save the keystore to
      * @param cPassword The password to protect the keystore with
+     * @return the saved keystore ready for further use
      * @throws CryptoException Problem encountered saving the keystore
      * @throws FileNotFoundException If the keystore file exists but
      * is a directory rather than a regular file, does not exist but
      * cannot be created, or cannot be opened for any other reason
      * @throws IOException An I/O error occurred
      */
-    public static void saveKeyStore(KeyStore keyStore, File fKeyStoreFile,
+    public static KeyStore saveKeyStore(KeyStore keyStore, File fKeyStoreFile,
         char[] cPassword)
         throws CryptoException, IOException
     {
@@ -282,5 +283,16 @@ public final class KeyStoreUtil
         finally {
             fos.close();
         }
+        
+        // As of GNU classpath 0.92, we need to reload GKR keystores after
+        // storing them, otherwise "masked envelope" IllegalStateExceptions
+        // occur when trying to access things in the stored keystore again.
+        if (KeyStoreType.GKR.equals(
+            KeyStoreType.getInstance(keyStore.getType())))
+        {
+            keyStore = loadKeyStore(fKeyStoreFile, cPassword, KeyStoreType.GKR);
+        }
+        
+        return keyStore;
     }
 }

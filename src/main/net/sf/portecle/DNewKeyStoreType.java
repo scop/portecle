@@ -79,6 +79,9 @@ class DNewKeyStoreType
     /** UBER keystore type radio button */
     private JRadioButton m_jrbUberKeyStore;
 
+    /** GKR keystore type radio button */
+    private JRadioButton m_jrbGkrKeyStore;
+
     /**
      * Creates new form DNewKeyStoreType where the parent is a frame.
      *
@@ -134,6 +137,13 @@ class DNewKeyStoreType
             "DNewKeyStoreType.m_jrbUberKeyStore.mnemonic").charAt(0));
         m_jrbUberKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbUberKeyStore.tooltip"));
 
+        m_jrbGkrKeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbGkrKeyStore.text"));
+        m_jrbGkrKeyStore.setMnemonic(m_res.getString(
+            "DNewKeyStoreType.m_jrbGkrKeyStore.mnemonic").charAt(0));
+        m_jrbGkrKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbGkrKeyStore.tooltip"));
+        m_jrbGkrKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.GKR));
+
         ButtonGroup keyStoreTypes = new ButtonGroup();
 
         keyStoreTypes.add(m_jrbJksKeyStore);
@@ -141,6 +151,7 @@ class DNewKeyStoreType
         keyStoreTypes.add(m_jrbJceksKeyStore);
         keyStoreTypes.add(m_jrbBksKeyStore);
         keyStoreTypes.add(m_jrbUberKeyStore);
+        keyStoreTypes.add(m_jrbGkrKeyStore);
 
         if (m_jrbJksKeyStore.isEnabled()) {
             m_jrbJksKeyStore.setSelected(true);
@@ -149,7 +160,8 @@ class DNewKeyStoreType
             m_jrbPkcs12KeyStore.setSelected(true);
         }
 
-        JPanel jpKeyStoreType = new JPanel(new GridLayout(6, 1));
+        JPanel jpKeyStoreType = new JPanel(
+            new GridLayout(keyStoreTypes.getButtonCount() + 1, 1));
         jpKeyStoreType.setBorder(new CompoundBorder(
             new EmptyBorder(5, 5, 5, 5), new CompoundBorder(
                 new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
@@ -160,6 +172,7 @@ class DNewKeyStoreType
         jpKeyStoreType.add(m_jrbJceksKeyStore);
         jpKeyStoreType.add(m_jrbBksKeyStore);
         jpKeyStoreType.add(m_jrbUberKeyStore);
+        jpKeyStoreType.add(m_jrbGkrKeyStore);
 
         // Create confirmation buttons and place them in a panel
         JButton jbOK = new JButton(
@@ -243,8 +256,11 @@ class DNewKeyStoreType
         else if (m_jrbBksKeyStore.isSelected()) {
             m_keyStoreType = KeyStoreType.BKS;
         }
-        else {
+        else if (m_jrbUberKeyStore.isSelected()) {
             m_keyStoreType = KeyStoreType.UBER;
+        }
+        else if (m_jrbGkrKeyStore.isSelected()) {
+            m_keyStoreType = KeyStoreType.GKR;
         }
 
         closeDialog();

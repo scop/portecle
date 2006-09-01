@@ -53,6 +53,9 @@ public class FileChooserFactory
     /** File extension for PKCS #12 keystore files */
     private static final String PKCS12_KEYSTORE_EXT_2 = "p12";
 
+    /** File extension for GNU Keyring keystore files */
+    private static final String GKR_KEYSTORE_EXT = "gkr";
+    
     /** File extension for X.509 certificate files */
     private static final String X509_EXT_1 = "cer";
 
@@ -81,7 +84,7 @@ public class FileChooserFactory
     private static final String KEYSTORE_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.KeyStoreFiles"), new String[] {
             KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1,
-            PKCS12_KEYSTORE_EXT_2 });
+            PKCS12_KEYSTORE_EXT_2, GKR_KEYSTORE_EXT });
 
     /** Description for PKCS #12 keystore files */
     private static final String PKCS12_FILE_DESC = MessageFormat.format(
@@ -136,7 +139,7 @@ public class FileChooserFactory
         JFileChooser chooser = new JFileChooser();
         chooser.addChoosableFileFilter(new FileExtFilter(new String[] {
             KEYSTORE_EXT, JAVA_KEYSTORE_EXT, PKCS12_KEYSTORE_EXT_1,
-            PKCS12_KEYSTORE_EXT_2 }, KEYSTORE_FILE_DESC));
+            PKCS12_KEYSTORE_EXT_2, GKR_KEYSTORE_EXT }, KEYSTORE_FILE_DESC));
         return chooser;
     }
 

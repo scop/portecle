@@ -56,6 +56,9 @@ public class KeyStoreType
     public static final KeyStoreType UBER = new KeyStoreType("UBER", true,
         true);
 
+    /** GKR keystore Type */
+    public static final KeyStoreType GKR = new KeyStoreType("GKR", true, true);
+
     /** String-to-type map */
     private static final LinkedHashMap TYPE_MAP = new LinkedHashMap();
     static {
@@ -65,6 +68,7 @@ public class KeyStoreType
         TYPE_MAP.put(JCEKS.toString(), JCEKS);
         TYPE_MAP.put(BKS.toString(), BKS);
         TYPE_MAP.put(UBER.toString(), UBER);
+        TYPE_MAP.put(GKR.toString(), GKR);
         TYPE_MAP.put(PKCS11.toString(), PKCS11);
     }
 

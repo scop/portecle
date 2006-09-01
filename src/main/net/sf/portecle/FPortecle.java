@@ -238,6 +238,9 @@ public class FPortecle
     /** UBER menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeUber;
 
+    /** GKR menu item in Change Keystore Type menu */
+    private JMenuItem m_jmiChangeKeyStoreTypeGkr;
+
     ////////////////////////////////////////////////////////////
     // Pop-up menu controls
     ////////////////////////////////////////////////////////////
@@ -620,6 +623,24 @@ public class FPortecle
         new StatusBarChangeHandler(
             m_jmiChangeKeyStoreTypeUber,
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"),
+            this);
+
+        m_jmiChangeKeyStoreTypeGkr = new JMenuItem(
+            m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.text"),
+            m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.mnemonic").charAt(
+                0));
+        m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeGkr);
+        m_jmiChangeKeyStoreTypeGkr.addActionListener(new ActionListener()
+        {
+            protected void act()
+            {
+                changeKeyStoreType(KeyStoreType.GKR);
+            }
+        });
+        new StatusBarChangeHandler(
+            m_jmiChangeKeyStoreTypeGkr,
+            m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.statusbar"),
             this);
 
         JMenuItem jmiKeyStoreReport = new JMenuItem(m_keyStoreReportAction);
@@ -1957,8 +1978,9 @@ public class FPortecle
 
         try {
             // Do the save
-            KeyStoreUtil.saveKeyStore(m_keyStoreWrap.getKeyStore(), fSaveFile,
-                cPassword);
+            m_keyStoreWrap.setKeyStore(
+                KeyStoreUtil.saveKeyStore(m_keyStoreWrap.getKeyStore(),
+                    fSaveFile, cPassword));
 
             // Update the keystore wrapper
             m_keyStoreWrap.setPassword(cPassword);
@@ -2056,8 +2078,9 @@ public class FPortecle
                 }
 
                 // Save the keystore to file
-                KeyStoreUtil.saveKeyStore(m_keyStoreWrap.getKeyStore(),
-                    fSaveFile, cPassword);
+                m_keyStoreWrap.setKeyStore(
+                    KeyStoreUtil.saveKeyStore(m_keyStoreWrap.getKeyStore(),
+                        fSaveFile, cPassword));
 
                 // Update the keystore wrapper
                 m_keyStoreWrap.setPassword(cPassword);
@@ -4705,7 +4728,7 @@ public class FPortecle
             }
 
             // Store the keystore to disk
-            KeyStoreUtil.saveKeyStore(pkcs12, fExportFile, cPKCS12Password);
+            pkcs12 = KeyStoreUtil.saveKeyStore(pkcs12, fExportFile, cPKCS12Password);
 
             m_lastDir.updateLastDir(fExportFile);
 
@@ -5449,6 +5472,7 @@ public class FPortecle
         m_jmiChangeKeyStoreTypePkcs12.setEnabled(true);
         m_jmiChangeKeyStoreTypeBks.setEnabled(true);
         m_jmiChangeKeyStoreTypeUber.setEnabled(true);
+        m_jmiChangeKeyStoreTypeGkr.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.GKR));
 
         // Disable the menu item matching current keystore type
         String sType = keyStore.getType();
@@ -5467,6 +5491,9 @@ public class FPortecle
         }
         else if (sType.equals(KeyStoreType.UBER.toString())) {
             m_jmiChangeKeyStoreTypeUber.setEnabled(false);
+        }
+        else if (sType.equals(KeyStoreType.GKR.toString())) {
+            m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
         }
     }
 

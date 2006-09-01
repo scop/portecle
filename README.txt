@@ -51,6 +51,11 @@ overwriting the existing one already there (if any).  The binary
 distribution also contains icons for use with Portecle (portecle.ico,
 portecle.png).
 
+Portecle can additionally use the GNU Classpath (version 0.90 or later)
+security providers if they are installed.  Support for GNU Keyring (GKR)
+keystores requires these providers.  For more information about GNU
+Classpath, see http://www.gnu.org/software/classpath/
+
 Depending on your Portecle usage patterns, the Bouncy Castle provider
 may require the JCE unlimited strength jurisdiction policy files
 installed to function properly.  See "IMPORTANT NOTES" at
