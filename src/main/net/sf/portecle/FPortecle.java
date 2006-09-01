@@ -1494,16 +1494,13 @@ public class FPortecle
                 m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
 
                 // Show one menu if the keystore entry is of type key pair...
-                if (m_jtKeyStore.getValueAt(iRow, 0).equals(
-                    KeyStoreTableModel.KEY_PAIR_ENTRY))
-                {
+                Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+                if (currEntry.equals(KeyStoreTableModel.KEY_PAIR_ENTRY)) {
                     m_jpmKeyPair.show(evt.getComponent(), evt.getX(),
                         evt.getY());
                 }
                 // ...and another if the type is trusted certificate
-                else if (m_jtKeyStore.getValueAt(iRow, 0).equals(
-                    KeyStoreTableModel.TRUST_CERT_ENTRY))
-                {
+                else if (currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY)) {
                     m_jpmCert.show(evt.getComponent(), evt.getX(), evt.getY());
                 }
             }
@@ -3904,10 +3901,9 @@ public class FPortecle
         }
 
         // Not valid for a key or trusted certificate entry
-        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
-            KeyStoreTableModel.KEY_ENTRY)
-            || m_jtKeyStore.getValueAt(iRow, 0).equals(
-                KeyStoreTableModel.TRUST_CERT_ENTRY))
+        Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+        if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
+            currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
         {
             return false;
         }
@@ -4890,10 +4886,9 @@ public class FPortecle
         }
 
         // Not valid for a key or trusted certificate entry
-        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
-            KeyStoreTableModel.KEY_ENTRY)
-            || m_jtKeyStore.getValueAt(iRow, 0).equals(
-                KeyStoreTableModel.TRUST_CERT_ENTRY))
+        Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+        if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
+            currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
         {
             return false;
         }
@@ -5006,10 +5001,9 @@ public class FPortecle
         }
 
         // Not valid for a key or trusted certificate entry
-        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
-            KeyStoreTableModel.KEY_ENTRY)
-            || m_jtKeyStore.getValueAt(iRow, 0).equals(
-                KeyStoreTableModel.TRUST_CERT_ENTRY))
+        Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+        if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
+            currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
         {
             return false;
         }
