@@ -12,3 +12,6 @@ TODO for later:
   I have a hunch that clipboards may screw up the encoding which is fatal at
   least with XML...
 - Make browser executable configurable.
+- Change keystore filename extension when changing keystore type.
+- Suggest a sane filename when saving a newly created keystore for the
+  first time.
