@@ -33,6 +33,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -138,6 +139,24 @@ public final class KeyStoreUtil
         return ((Boolean) AVAILABLE_TYPES.get(keyStoreType)).booleanValue();
     }
 
+    /**
+     * Get available keystore types.
+     * 
+     * @return available keystore types
+     */
+    public static KeyStoreType[] getAvailableTypes()
+    {
+        KeyStoreType[] known = KeyStoreType.getKnownTypes();
+        ArrayList available = new ArrayList();
+        for (int i = 0, len = known.length; i < len; i++) {
+            if (isAvailable(known[i])) {
+                available.add(known[i]);
+            }
+        }
+        return (KeyStoreType[])
+            available.toArray(new KeyStoreType[available.size()]);
+    }
+    
     /**
      * Load a Keystore from a file accessed by a password.
      *

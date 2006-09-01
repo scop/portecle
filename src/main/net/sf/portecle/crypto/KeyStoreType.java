@@ -25,7 +25,7 @@ package net.sf.portecle.crypto;
 import java.io.InvalidObjectException;
 import java.io.ObjectStreamException;
 import java.text.MessageFormat;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 
 /**
@@ -57,14 +57,15 @@ public class KeyStoreType
         true);
 
     /** String-to-type map */
-    private static final HashMap TYPE_MAP = new HashMap();
+    private static final LinkedHashMap TYPE_MAP = new LinkedHashMap();
     static {
+        // The order is the one in which getKnownTypes() should return these
         TYPE_MAP.put(JKS.toString(), JKS);
-        TYPE_MAP.put(JCEKS.toString(), JCEKS);
-        TYPE_MAP.put(PKCS11.toString(), PKCS11);
         TYPE_MAP.put(PKCS12.toString(), PKCS12);
+        TYPE_MAP.put(JCEKS.toString(), JCEKS);
         TYPE_MAP.put(BKS.toString(), BKS);
         TYPE_MAP.put(UBER.toString(), UBER);
+        TYPE_MAP.put(PKCS11.toString(), PKCS11);
     }
 
     /** Resource bundle */
@@ -114,6 +115,17 @@ public class KeyStoreType
         return kst;
     }
 
+    /**
+     * Gets known KeyStoreTypes.
+     *
+     * @return known keystore types
+     */
+    public static KeyStoreType[] getKnownTypes()
+    {
+        return (KeyStoreType[])
+            TYPE_MAP.values().toArray(new KeyStoreType[TYPE_MAP.size()]);
+    }
+    
     /**
      * Does the keystore type support creation dates?
      *

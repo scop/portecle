@@ -1776,14 +1776,16 @@ public class FPortecle
             KeyStore openedKeyStore = null;
 
             // Types
-            KeyStoreType[] keyStoreTypes = { KeyStoreType.JKS,
-                KeyStoreType.PKCS12, KeyStoreType.JCEKS, KeyStoreType.BKS,
-                KeyStoreType.UBER, };
+            KeyStoreType[] keyStoreTypes = KeyStoreUtil.getAvailableTypes();
 
             // Exceptions
             CryptoException[] cexs = new CryptoException[keyStoreTypes.length];
 
+            // Tried types
+            StringBuffer tried = new StringBuffer(); 
+            
             for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++) {
+                tried.append(", ").append(keyStoreTypes[iCnt].toPrettyString());
                 try {
                     openedKeyStore = KeyStoreUtil.loadKeyStore(fKeyStore,
                         cPassword, keyStoreTypes[iCnt]);
@@ -1796,11 +1798,14 @@ public class FPortecle
 
             if (openedKeyStore == null) {
                 // None of the types worked - show each of the errors?
+                if (tried.length() > 2) {
+                    tried.delete(0, 2); // Chop leading ", "
+                }
                 int iSelected = JOptionPane.showConfirmDialog(
                     this,
                     MessageFormat.format(
                         m_res.getString("FPortecle.NoOpenKeyStoreFile.message"),
-                        new Object[] { fKeyStore }),
+                        new Object[] { fKeyStore, tried }),
                     m_res.getString("FPortecle.OpenKeyStoreFile.Title"),
                     JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION) {
@@ -3243,14 +3248,16 @@ public class FPortecle
             KeyStore caCertsKeyStore = null;
 
             // Types
-            KeyStoreType[] keyStoreTypes = { KeyStoreType.JKS,
-                KeyStoreType.PKCS12, KeyStoreType.JCEKS, KeyStoreType.BKS,
-                KeyStoreType.UBER, };
+            KeyStoreType[] keyStoreTypes = KeyStoreUtil.getAvailableTypes();
 
             // Exceptions
             CryptoException[] cexs = new CryptoException[keyStoreTypes.length];
 
+            // Tried types
+            StringBuffer tried = new StringBuffer();
+            
             for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++) {
+                tried.append(", ").append(keyStoreTypes[iCnt].toPrettyString());
                 try {
                     caCertsKeyStore = KeyStoreUtil.loadKeyStore(
                         m_fCaCertsFile, cPassword, keyStoreTypes[iCnt]);
@@ -3263,11 +3270,14 @@ public class FPortecle
 
             if (caCertsKeyStore == null) {
                 // None of the types worked - show each of the errors?
+                if (tried.length() > 2) {
+                    tried.delete(0, 2); // Chop leading ", "
+                }
                 int iSelected = JOptionPane.showConfirmDialog(
                     this,
                     MessageFormat.format(
                         m_res.getString("FPortecle.NoOpenCaCertsKeyStore.message"),
-                        new Object[] { m_fCaCertsFile }),
+                        new Object[] { m_fCaCertsFile, tried }),
                     m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"),
                     JOptionPane.YES_NO_OPTION);
                 if (iSelected == JOptionPane.YES_OPTION) {
