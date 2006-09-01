@@ -57,7 +57,7 @@ installed to function properly.  See "IMPORTANT NOTES" at
 http://www.bouncycastle.org/documentation.html .  Failures related
 to lack of these policy files usually manifest themselves as errors
 loading keystores with an error message like "Unsupported keysize or
-algorithm parameters".
+algorithm parameters" or "Illegal key size" when trying to import keys.
 
 The default way of running Portecle uses the "java -jar" method, which
 means that the Class-Path defined in portecle.jar's MANIFEST.MF will
