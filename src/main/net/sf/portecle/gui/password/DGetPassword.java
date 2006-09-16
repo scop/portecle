@@ -92,7 +92,12 @@ public class DGetPassword
      */
     public char[] getPassword()
     {
-        return m_cPassword;
+        if (m_cPassword == null) {
+            return null;
+        }
+        char[] copy = new char[m_cPassword.length];
+        System.arraycopy(m_cPassword, 0, copy, 0, copy.length);
+        return copy;
     }
 
     /**

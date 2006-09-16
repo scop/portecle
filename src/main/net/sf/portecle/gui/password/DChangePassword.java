@@ -96,7 +96,7 @@ public class DChangePassword
         char[] cOldPassword)
     {
         super(parent, sTitle, bModal);
-        m_cOldPassword = cOldPassword;
+        m_cOldPassword = arrayCopy(cOldPassword);
         initComponents();
     }
 
@@ -125,7 +125,7 @@ public class DChangePassword
         char[] cOldPassword)
     {
         super(parent, sTitle, bModal);
-        m_cOldPassword = cOldPassword;
+        m_cOldPassword = arrayCopy(cOldPassword);
         initComponents();
     }
 
@@ -136,7 +136,7 @@ public class DChangePassword
      */
     public char[] getNewPassword()
     {
-        return m_cNewPassword;
+        return arrayCopy(m_cNewPassword);
     }
 
     /**
@@ -146,9 +146,25 @@ public class DChangePassword
      */
     public char[] getOldPassword()
     {
-        return m_cOldPassword;
+        return arrayCopy(m_cOldPassword);
     }
 
+    /**
+     * Copies a char array.
+     * 
+     * @param original
+     * @return a copy of the given char array
+     */
+    private static final char[] arrayCopy(char[] original)
+    {
+        char[] copy = null;
+        if (original != null) {
+            copy = new char[original.length];
+            System.arraycopy(original, 0, copy, 0, copy.length);
+        }
+        return copy;
+    }
+    
     /**
      * Initialise the dialog's GUI components.
      */
