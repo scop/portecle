@@ -2058,6 +2058,17 @@ public class X509Ext
             return "[" + tagObj.getTagNo() + "] "
                 + stringify(tagObj.getObject());
         }
+        else if (obj instanceof ASN1Sequence) {
+            ASN1Sequence aObj = (ASN1Sequence) obj;
+            StringBuffer tmp = new StringBuffer("[");
+            for (int i = 0, len = aObj.size(); i < len; i++) {
+                tmp.append(stringify(aObj.getObjectAt(i)));
+                if (i != len - 1) {
+                    tmp.append(", ");
+                }
+            }
+            return tmp.append("]").toString();
+        }
         else {
             String hex = null;
             try {
