@@ -204,24 +204,20 @@ public class History
         if (listeners == null) {
             listeners = new Vector();
         }
-
-        listeners.removeElement(listener);
+        else {
+            listeners.removeElement(listener);
+        }
     }
 
     /**
      * Fires a HistoryEvent to registered listeners notifying them of
      * a change in the History's status.
      */
-    protected void fireHistoryEvent()
+    protected synchronized void fireHistoryEvent()
     {
         if (listeners != null && !listeners.isEmpty()) {
             HistoryEvent evt = new HistoryEvent(this, m_bBack, m_bForward);
-            Vector listenersCopy;
-
-            synchronized (this) {
-                listenersCopy = (Vector) listeners.clone();
-            }
-
+            Vector listenersCopy = (Vector) listeners.clone();
             Enumeration en = listenersCopy.elements();
             while (en.hasMoreElements()) {
                 ((HistoryEventListener) en.nextElement()).historyStatusChanged(evt);
