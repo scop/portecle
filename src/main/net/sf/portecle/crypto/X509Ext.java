@@ -1798,9 +1798,14 @@ public class X509Ext
             ASN1Sequence other = (ASN1Sequence) generalName.getObject();
             String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
             String sVal = stringify(other.getObjectAt(1));
-            strBuff.append(MessageFormat.format(
-                m_res.getString("OtherGeneralName"),
-                new String[] { sOid, sVal }));
+            try {
+                String tmp = m_res.getString(sOid);
+                strBuff.append(MessageFormat.format(tmp, new String[] { sVal }));
+            }
+            catch (MissingResourceException e) {
+                String tmp = m_res.getString("OtherGeneralName");
+                strBuff.append(MessageFormat.format(tmp, new String[] { sOid, sVal }));
+            }
             break;
 
         case 1: // RFC 822 Name
