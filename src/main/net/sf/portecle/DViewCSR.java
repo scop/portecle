@@ -199,6 +199,8 @@ class DViewCSR
         GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
         gbc_jtfSignatureAlgorithm.gridy = 7;
 
+        // TODO: attributes, requested extensions
+
         // PEM Encoding
         JButton jbPemEncoding = new JButton(
             m_res.getString("DViewCSR.jbPemEncoding.text"));
@@ -333,6 +335,8 @@ class DViewCSR
             m_req.getSignatureAlgorithm().getObjectId().toString()).toString();
         m_jtfSignatureAlgorithm.setText(sigAlgName);
         m_jtfSignatureAlgorithm.setCaretPosition(0);
+
+        // TODO: attributes, requested extensions
     }
 
     /**
