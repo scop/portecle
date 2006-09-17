@@ -27,6 +27,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -48,6 +51,15 @@ public class DThrowable
     /** Stores throwable to display */
     private Throwable m_throwable;
 
+    /**
+     * Exception message parts that may indicate that the culprit for the
+     * throwable is lack of unrestricted JCE policy files.
+     */ 
+    private final static String[] POLICY_PROBLEM_HINTS = {
+        "unsupported keysize",
+        "illegal key size",
+    };
+    
     /**
      * Creates new DThrowable dialog where the parent is a frame.
      *
@@ -144,7 +156,37 @@ public class DThrowable
 
         JPanel jpThrowable = new JPanel(new FlowLayout(FlowLayout.CENTER));
         jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
-        jpThrowable.add(new JLabel(m_throwable.toString()));
+        
+        String text = m_throwable.toString();
+
+        // Find out if this problem maybe due to missing unrestricted JCE
+        // policy files.  Ugly?  Definitely.  Better ways to detect this
+        // are welcome...
+        
+        boolean maybePolicyProblem = false;
+        Throwable t = m_throwable;
+        while (!maybePolicyProblem && t != null) {
+            String msg = t.getMessage();
+            if (msg != null) {
+                msg = msg.toLowerCase(Locale.US);
+                for (int i = 0, len = POLICY_PROBLEM_HINTS.length; i < len; i++) {
+                    if (msg.indexOf(POLICY_PROBLEM_HINTS[i]) != -1) {
+                        maybePolicyProblem = true;
+                        break;
+                    }
+                }
+            }
+            t = t.getCause();
+        }
+        if (maybePolicyProblem) {
+            text = "<html>" + text +
+                MessageFormat.format(
+                    m_res.getString("DThrowable.jpThrowable.policy.text"),
+                    new Object[] { new File(System.getProperty("java.home"),
+                        "lib" + File.separator + "security") });
+        }
+
+        jpThrowable.add(new JLabel(text));
 
         getContentPane().add(jpThrowable, BorderLayout.CENTER);
         getContentPane().add(jpButtons, BorderLayout.SOUTH);
