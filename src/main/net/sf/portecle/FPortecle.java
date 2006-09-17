@@ -176,12 +176,9 @@ public class FPortecle
     private static final char[] PKCS12_DUMMY_PASSWORD = "password".toCharArray();
 
     /** Default CA certs keystore file */
-    private static final String DEFAULT_CA_CERTS_FILE;
-    static {
-        String sep = System.getProperty("file.separator");
-        DEFAULT_CA_CERTS_FILE = new File(System.getProperty("java.home"),
-            "lib" + sep + "security" + sep + "cacerts").toString();
-    }
+    private static final String DEFAULT_CA_CERTS_FILE = new File(
+        System.getProperty("java.home"), "lib" + File.separator +
+        "security" + File.separator + "cacerts").toString();
 
     /** The last directory accessed by the application */
     private LastDir m_lastDir = new LastDir();
