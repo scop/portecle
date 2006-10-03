@@ -15,7 +15,7 @@ Enhancements:
 - User interface improvements, including better default values etc.
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to 1.33.
+- Bundled Bouncy Castle provider jar upgraded to 1.34.
 - Some workarounds for running with GNU Classpath, not fully working yet.
 
 New in Portecle 1.1 (2005-07-01):
