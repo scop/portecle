@@ -36,28 +36,31 @@ public class KeyStoreType
 {
     /** JCEKS keystore Type */
     public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true,
-        false);
+        false, new String[] { "jceks" });
 
     /** JKS keystore Type */
-    public static final KeyStoreType JKS = new KeyStoreType("JKS", true, false);
+    public static final KeyStoreType JKS = new KeyStoreType("JKS", true, false,
+        new String[] { "jks" });
 
     /** PKCS #11 keystore Type */
     public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",
-        false, /* TODO: verify */false);
+        false, /* TODO: verify */false, new String[0]);
 
     /** PKCS #12 keystore Type */
     public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",
-        false, true);
+        false, true, new String[] { "p12", "pfx" });
 
     /** BKS keystore Type */
-    public static final KeyStoreType BKS = new KeyStoreType("BKS", true, true);
+    public static final KeyStoreType BKS = new KeyStoreType("BKS", true, true,
+        new String[] { "bks" });
 
     /** UBER keystore Type */
     public static final KeyStoreType UBER = new KeyStoreType("UBER", true,
-        true);
+        true, new String[] { "ubr" });
 
     /** GKR keystore Type */
-    public static final KeyStoreType GKR = new KeyStoreType("GKR", true, true);
+    public static final KeyStoreType GKR = new KeyStoreType("GKR", true, true,
+        new String[] { "gkr" });
 
     /** String-to-type map */
     private static final LinkedHashMap TYPE_MAP = new LinkedHashMap();
@@ -83,6 +86,9 @@ public class KeyStoreType
 
     /** Whether aliases in the keystore type are case sensitive */
     private final boolean m_bCaseSensitive;
+    
+    /** Associated filename extensions */
+    private final String[] m_exts;
 
     /**
      * Construct a KeyStoreType.
@@ -90,14 +96,16 @@ public class KeyStoreType
      *
      * @param sType Keystore type
      * @param bCreationDate Whether the keystore supports creation dates
-     * @param bCaseSensitive Whether aliases in the keystore are case sensitive 
+     * @param bCaseSensitive Whether aliases in the keystore are case sensitive
+     * @param exts associated filename extensions
      */
     private KeyStoreType(String sType, boolean bCreationDate,
-        boolean bCaseSensitive)
+        boolean bCaseSensitive, String[] exts)
     {
         m_sType = sType;
         m_bCreationDate = bCreationDate;
         m_bCaseSensitive = bCaseSensitive;
+        m_exts = exts;
     }
 
     /**
@@ -148,6 +156,18 @@ public class KeyStoreType
     public boolean isCaseSensitive()
     {
         return m_bCaseSensitive;
+    }
+
+    /**
+     * Common filename extensions associated with this type.
+     * 
+     * @return filename extensions (with leading dot), empty if not applicable
+     */
+    public String[] getFilenameExtensions()
+    {
+        String[] exts = new String[m_exts.length];
+        System.arraycopy(m_exts, 0, exts, 0, exts.length);
+        return exts;
     }
 
     /**

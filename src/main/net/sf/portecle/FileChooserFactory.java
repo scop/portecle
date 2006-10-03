@@ -25,7 +25,7 @@ package net.sf.portecle;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -48,27 +48,6 @@ public class FileChooserFactory
     /** File extension for keystore files */
     private static final String KEYSTORE_EXT = "ks";
 
-    /** File extension for Java keystore files */
-    private static final String JAVA_KEYSTORE_EXT = "jks";
-
-    /** File extension for JCE keystore files */
-    private static final String JCE_KEYSTORE_EXT = "jceks";
-
-    /** File extension for PKCS #12 keystore files */
-    private static final String PKCS12_KEYSTORE_EXT_1 = "pfx";
-
-    /** File extension for PKCS #12 keystore files */
-    private static final String PKCS12_KEYSTORE_EXT_2 = "p12";
-
-    /** File extension for BKS keystore files */
-    private static final String BKS_KEYSTORE_EXT = "bks";
-
-    /** File extension for UBER keystore files */
-    private static final String UBER_KEYSTORE_EXT = "ubr";
-
-    /** File extension for GNU Keyring keystore files */
-    private static final String GKR_KEYSTORE_EXT = "gkr";
-    
     /** File extension for X.509 certificate files */
     private static final String X509_EXT_1 = "cer";
 
@@ -95,38 +74,38 @@ public class FileChooserFactory
 
     /** Description for PKCS #12 keystore files */
     private static final String PKCS12_FILE_DESC = MessageFormat.format(
-        m_res.getString("FileChooseFactory.Pkcs12Files"), new String[] {
-            PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2 });
+        m_res.getString("FileChooseFactory.Pkcs12Files"),
+        toWildcards(KeyStoreType.PKCS12.getFilenameExtensions()));
 
     /** Description for X.509 certificate files */
     private static final String X509_FILE_DESC = MessageFormat.format(
-        m_res.getString("FileChooseFactory.CertificateFiles"), new String[] {
-            X509_EXT_1, X509_EXT_2 });
+        m_res.getString("FileChooseFactory.CertificateFiles"),
+        toWildcards(new String[] { X509_EXT_1, X509_EXT_2 }));
 
     /** Description for PKCS #7 certificate files */
     private static final String PKCS7_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.Pkcs7Files"),
-        new String[] { PKCS7_EXT });
+        toWildcards(new String[] { PKCS7_EXT }));
 
     /** Description for PkiPath certificate files */
     private static final String PKIPATH_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.PkiPathFiles"),
-        new String[] { PKIPATH_EXT });
+        toWildcards(new String[] { PKIPATH_EXT }));
 
     /** Description for PEM files */
     private static final String PEM_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.PEMFiles"),
-        new String[] { PEM_EXT });
+        toWildcards(new String[] { PEM_EXT }));
 
     /** Description for PKCS #10 CSR files */
     private static final String CSR_FILE_DESC = MessageFormat.format(
-        m_res.getString("FileChooseFactory.CsrFiles"), new String[] {
-            CSR_EXT_1, CSR_EXT_2 });
+        m_res.getString("FileChooseFactory.CsrFiles"),
+        toWildcards(new String[] { CSR_EXT_1, CSR_EXT_2 }));
 
     /** Description for CRL files */
     private static final String CRL_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.CrlFiles"),
-        new String[] { CRL_EXT });
+        toWildcards(new String[] { CRL_EXT }));
 
     /** Filename filter pattern for getDefaultFile() */
     private static final Pattern FILENAME_FILTER = Pattern.compile("[^\\p{L}_\\-]+");
@@ -148,28 +127,21 @@ public class FileChooserFactory
         ArrayList exts = new ArrayList();
         exts.add(KEYSTORE_EXT);
         if (KeyStoreUtil.isAvailable(KeyStoreType.JKS)) {
-            exts.add(JAVA_KEYSTORE_EXT);
+            exts.addAll(Arrays.asList(KeyStoreType.JKS.getFilenameExtensions()));
         }
         if (KeyStoreUtil.isAvailable(KeyStoreType.JCEKS)) {
-            exts.add(JCE_KEYSTORE_EXT);
+            exts.addAll(Arrays.asList(KeyStoreType.JCEKS.getFilenameExtensions()));
         }
-        exts.add(PKCS12_KEYSTORE_EXT_1);
-        exts.add(PKCS12_KEYSTORE_EXT_2);
-        exts.add(BKS_KEYSTORE_EXT);
-        exts.add(UBER_KEYSTORE_EXT);
+        exts.addAll(Arrays.asList(KeyStoreType.PKCS12.getFilenameExtensions()));
+        exts.addAll(Arrays.asList(KeyStoreType.BKS.getFilenameExtensions()));
+        exts.addAll(Arrays.asList(KeyStoreType.UBER.getFilenameExtensions()));
         if (KeyStoreUtil.isAvailable(KeyStoreType.GKR)) {
-            exts.add(GKR_KEYSTORE_EXT);
+            exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
         }
-        
-        StringBuffer extStr = new StringBuffer();
-        for (Iterator i = exts.iterator(); i.hasNext(); ) {
-            extStr.append("*.").append(i.next()).append(";");
-        }
-        extStr.setLength(extStr.length() - 1); // Chop trailing ";"
-        
+
         String desc = MessageFormat.format(
             m_res.getString("FileChooseFactory.KeyStoreFiles"),
-            new Object[] { extStr });
+            toWildcards((String[]) exts.toArray(new String[exts.size()])));
         
         chooser.addChoosableFileFilter(new FileExtFilter((String[])
             exts.toArray(new String[exts.size()]), desc));
@@ -249,9 +221,11 @@ public class FileChooserFactory
     public static JFileChooser getPkcs12FileChooser(String basename)
     {
         JFileChooser chooser = new JFileChooser();
-        chooser.addChoosableFileFilter(new FileExtFilter(new String[] {
-            PKCS12_KEYSTORE_EXT_1, PKCS12_KEYSTORE_EXT_2 }, PKCS12_FILE_DESC));
-        chooser.setSelectedFile(getDefaultFile(basename, PKCS12_KEYSTORE_EXT_2));
+        String[] exts = KeyStoreType.PKCS12.getFilenameExtensions();
+        assert exts.length > 1;
+        chooser.addChoosableFileFilter(new FileExtFilter(
+            exts, PKCS12_FILE_DESC));
+        chooser.setSelectedFile(getDefaultFile(basename, exts[0]));
         return chooser;
     }
 
@@ -320,5 +294,22 @@ public class FileChooserFactory
             return new File(basename + "." + extension);
         }
         return null;
+    }
+    
+    /**
+     * Converts an array of filename extensions into a (informational)
+     * filename match pattern.
+     * @param exts
+     * @return string array of length 1 (for easy use with message formatting)
+     */
+    private static String[] toWildcards(String[] exts)
+    {
+        final String sep = ";";
+        StringBuffer res = new StringBuffer();
+        for (int i = 0, len = exts.length; i < len; i++) {
+            res.append("*.").append(exts[i]).append(sep);
+        }
+        res.setLength(res.length() - sep.length());
+        return new String[] { res.toString() };
     }
 }
