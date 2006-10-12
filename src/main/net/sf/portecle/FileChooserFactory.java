@@ -72,11 +72,6 @@ public class FileChooserFactory
     /** File extension for CRL files */
     private static final String CRL_EXT = "crl";
 
-    /** Description for PKCS #12 keystore files */
-    private static final String PKCS12_FILE_DESC = MessageFormat.format(
-        m_res.getString("FileChooseFactory.Pkcs12Files"),
-        toWildcards(KeyStoreType.PKCS12.getFilenameExtensions()));
-
     /** Description for X.509 certificate files */
     private static final String X509_FILE_DESC = MessageFormat.format(
         m_res.getString("FileChooseFactory.CertificateFiles"),
@@ -116,35 +111,46 @@ public class FileChooserFactory
     }
 
     /**
-     * Get a JFileChooser filtered for supported keystore files.
+     * Get a JFileChooser filtered for keystore files.
      *
+     * @param ksType Type to filter for, all supported if null
      * @return JFileChooser object
      */
-    public static JFileChooser getKeyStoreFileChooser()
+    public static JFileChooser getKeyStoreFileChooser(KeyStoreType ksType)
     {
         JFileChooser chooser = new JFileChooser();
 
-        ArrayList exts = new ArrayList();
-        exts.add(KEYSTORE_EXT);
-        if (KeyStoreUtil.isAvailable(KeyStoreType.JKS)) {
-            exts.addAll(Arrays.asList(KeyStoreType.JKS.getFilenameExtensions()));
-        }
-        if (KeyStoreUtil.isAvailable(KeyStoreType.JCEKS)) {
-            exts.addAll(Arrays.asList(KeyStoreType.JCEKS.getFilenameExtensions()));
-        }
-        exts.addAll(Arrays.asList(KeyStoreType.PKCS12.getFilenameExtensions()));
-        exts.addAll(Arrays.asList(KeyStoreType.BKS.getFilenameExtensions()));
-        exts.addAll(Arrays.asList(KeyStoreType.UBER.getFilenameExtensions()));
-        if (KeyStoreUtil.isAvailable(KeyStoreType.GKR)) {
-            exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
-        }
-
-        String desc = MessageFormat.format(
-            m_res.getString("FileChooseFactory.KeyStoreFiles"),
-            toWildcards((String[]) exts.toArray(new String[exts.size()])));
+        String[] extensions;
+        String desc;
         
-        chooser.addChoosableFileFilter(new FileExtFilter((String[])
-            exts.toArray(new String[exts.size()]), desc));
+        if (ksType == null) {
+            ArrayList exts = new ArrayList();
+            exts.add(KEYSTORE_EXT);
+            if (KeyStoreUtil.isAvailable(KeyStoreType.JKS)) {
+                exts.addAll(Arrays.asList(KeyStoreType.JKS.getFilenameExtensions()));
+            }
+            if (KeyStoreUtil.isAvailable(KeyStoreType.JCEKS)) {
+                exts.addAll(Arrays.asList(KeyStoreType.JCEKS.getFilenameExtensions()));
+            }
+            exts.addAll(Arrays.asList(KeyStoreType.PKCS12.getFilenameExtensions()));
+            exts.addAll(Arrays.asList(KeyStoreType.BKS.getFilenameExtensions()));
+            exts.addAll(Arrays.asList(KeyStoreType.UBER.getFilenameExtensions()));
+            if (KeyStoreUtil.isAvailable(KeyStoreType.GKR)) {
+                exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
+            }
+            extensions = (String[]) exts.toArray(new String[exts.size()]);
+            desc = MessageFormat.format(
+                m_res.getString("FileChooseFactory.KeyStoreFiles"),
+                toWildcards(extensions));
+        }
+        else {
+            extensions = ksType.getFilenameExtensions();
+            desc = MessageFormat.format(
+                m_res.getString("FileChooseFactory.KeyStoreFiles." + ksType.toString()),
+                toWildcards(extensions));
+        }
+        
+        chooser.addChoosableFileFilter(new FileExtFilter(extensions, desc));
 
         return chooser;
     }
@@ -220,11 +226,9 @@ public class FileChooserFactory
      */
     public static JFileChooser getPkcs12FileChooser(String basename)
     {
-        JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = getKeyStoreFileChooser(KeyStoreType.PKCS12);
         String[] exts = KeyStoreType.PKCS12.getFilenameExtensions();
         assert exts.length > 1;
-        chooser.addChoosableFileFilter(new FileExtFilter(
-            exts, PKCS12_FILE_DESC));
         chooser.setSelectedFile(getDefaultFile(basename, exts[0]));
         return chooser;
     }

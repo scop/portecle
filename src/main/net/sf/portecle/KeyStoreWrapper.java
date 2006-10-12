@@ -172,6 +172,16 @@ class KeyStoreWrapper
     }
 
     /**
+     * Get type of wrapped keystore.
+     * 
+     * @return type of wrapped keystore
+     */
+    public KeyStoreType getKeyStoreType()
+    {
+        return m_keyStoreType;
+    }
+
+    /**
      * Get the keystore password
      *
      * @return The keystore password

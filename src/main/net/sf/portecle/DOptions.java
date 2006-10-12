@@ -364,7 +364,7 @@ class DOptions
      */
     private void browsePressed()
     {
-        JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser();
+        JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser(null);
 
         if (m_fCaCertsFile.getParentFile().exists()) {
             chooser.setCurrentDirectory(m_fCaCertsFile.getParentFile());

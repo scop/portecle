@@ -1723,7 +1723,7 @@ public class FPortecle
         }
 
         // Let the user choose a file to open from
-        JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser();
+        JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser(null);
 
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
@@ -2053,8 +2053,9 @@ public class FPortecle
         }
 
         // Let the user choose a save file
-        JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser();
-
+        JFileChooser chooser = FileChooserFactory.getKeyStoreFileChooser(
+            m_keyStoreWrap.getKeyStoreType());
+       
         File fLastDir = m_lastDir.getLastDir();
         if (fLastDir != null) {
             chooser.setCurrentDirectory(fLastDir);
@@ -3852,7 +3853,29 @@ public class FPortecle
             }
 
             // Successful change of type - put new keystore into wrapper
+            KeyStoreType oldType = m_keyStoreWrap.getKeyStoreType(); 
             m_keyStoreWrap.setKeyStore(newKeyStore);
+            File oldFile = m_keyStoreWrap.getKeyStoreFile(); 
+            if (oldFile != null) {
+                String[] oldExts = oldType.getFilenameExtensions();
+                String[] newExts = keyStoreType.getFilenameExtensions();
+                if (oldExts != null && newExts != null) {
+                    String newExt = newExts[0];
+                    for (int i = 0, len = oldExts.length; i < len; i++) {
+                        String path = oldFile.getPath();
+                        if (path.endsWith("." + oldExts[i])) {
+                            m_keyStoreWrap.setKeyStoreFile(new File(
+                                path.substring(0, path.length() - oldExts[i].length()) + newExt));
+                        }
+                    }
+                    if (oldFile.equals(m_keyStoreWrap.getKeyStoreFile())) {
+                        m_keyStoreWrap.setKeyStoreFile(null);
+                    }
+                }
+                else {
+                    m_keyStoreWrap.setKeyStoreFile(null);
+                }
+            }
             m_keyStoreWrap.setChanged(true);
 
             // Update the frame's components and title
