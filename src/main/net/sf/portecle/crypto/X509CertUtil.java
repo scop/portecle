@@ -107,10 +107,8 @@ public final class X509CertUtil
         FileInputStream fis = null;
 
         try {
-            fis = new FileInputStream(fCertFile);
-
             CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-
+            fis = new FileInputStream(fCertFile);
             Collection coll = null;
 
             if (OPENSSL_PEM_ENCODING.equals(encoding)) {
@@ -189,9 +187,8 @@ public final class X509CertUtil
     public static X509CRL loadCRL(File fCRLFile)
         throws CryptoException, IOException
     {
-        FileInputStream fis = null;
+        FileInputStream fis = new FileInputStream(fCRLFile);
         try {
-            fis = new FileInputStream(fCRLFile);
             CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
             X509CRL crl = (X509CRL) cf.generateCRL(fis);
             return crl;
@@ -201,13 +198,11 @@ public final class X509CertUtil
                 m_res.getString("NoLoadCrl.exception.message"), ex);
         }
         finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                }
-                catch (IOException ex) {
-                    // Ignore
-                }
+            try {
+                fis.close();
+            }
+            catch (IOException ex) {
+                // Ignore
             }
         }
     }
@@ -228,10 +223,8 @@ public final class X509CertUtil
         throws CryptoException, IOException
     {
         // TODO: handle DER encoded requests too?
-        PEMReader in = null;
+        PEMReader in = new PEMReader(new InputStreamReader(new FileInputStream(fCSRFile)));
         try {
-            in = new PEMReader(new InputStreamReader(new FileInputStream(
-                fCSRFile)));
             PKCS10CertificationRequest csr = (PKCS10CertificationRequest) in.readObject();
             if (!csr.verify()) {
                 throw new CryptoException(
@@ -248,13 +241,11 @@ public final class X509CertUtil
                 m_res.getString("NoLoadCsr.exception.message"), ex);
         }
         finally {
-            if (in != null) {
-                try {
-                    in.close();
-                }
-                catch (IOException ex) {
-                    // Ignore
-                }
+            try {
+                in.close();
+            }
+            catch (IOException ex) {
+                // Ignore
             }
         }
     }
