@@ -1,4 +1,4 @@
-New in Portecle x.x (200x-xx-xx):
+New in Portecle 1.2 (2006-11-05):
 ---------------------------------
 
 New features:

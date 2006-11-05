@@ -2,7 +2,7 @@
 
 <project name="portecle" basedir="." default="jar">
 
-  <property name="version" value="1.1" />
+  <property name="version" value="1.2" />
   <property name="main.class" value="net.sf.portecle.FPortecle" />
 
   <property file="build.properties" />
