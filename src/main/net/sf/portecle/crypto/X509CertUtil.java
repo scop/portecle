@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -557,7 +557,7 @@ public final class X509CertUtil
         try {
             // Generate an X.509 certificate, based on the current issuer and
             // subject
-            X509Certificate cert = certGen.generateX509Certificate(privateKey);
+            X509Certificate cert = certGen.generate(privateKey, "BC");
 
             // Return the certificate
             return cert;
