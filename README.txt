@@ -43,13 +43,13 @@ to a directory somewhere on your filesystem.
 
 The binary distribution contains the Portecle jar file (portecle.jar)
 as well as Bouncy Castle provider jar (bcprov.jar) for Java 1.4.x.  If
-you wish to run Portecle with Java 1.5.x, or update the bundled Bouncy
-Castle provider for some other reason, simply download an update for
-your version of Java from http://www.bouncycastle.org/ and place it
-into the same directory as portecle.jar with the name bcprov.jar,
-overwriting the existing one already there (if any).  The binary
-distribution also contains icons for use with Portecle (portecle.ico,
-portecle.png).
+you wish to run Portecle with Java 1.5.x or later, or update the
+bundled Bouncy Castle provider for some other reason, simply download
+an update for your version of Java from http://www.bouncycastle.org/
+and place it into the same directory as portecle.jar with the name
+bcprov.jar, overwriting the existing one already there (if any).  The
+binary distribution also contains icons for use with Portecle
+(portecle.ico, portecle.png).
 
 Portecle can additionally use the GNU Classpath (version 0.90 or later)
 security providers if they are installed.  Support for GNU Keyring (GKR)
@@ -88,9 +88,9 @@ instructed above, Portecle can also be run by double-clicking
 portecle.jar in the Windows Explorer.
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example c:\java\bcprov-jdk15-133.jar, use:
+filesystem, for example c:\java\bcprov-jdk15-135.jar, use:
 
-  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk15-133.jar
+  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk15-135.jar
        net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
@@ -106,9 +106,9 @@ Portecle and Bouncy Castle provider jar files into a directory
   java -jar /usr/share/java/portecle.jar
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example /usr/share/java/bcprov-jdk15-129.jar, use:
+filesystem, for example /usr/share/java/bcprov-jdk15-135.jar, use:
 
-  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk15-129.jar \
+  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk15-135.jar \
        net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
@@ -130,7 +130,7 @@ experimental features.
 
 Copyright © 2004 Wayne Grant
             2004 Mark Majczyk
-            2004-2006 Ville Skyttä
+            2004-2007 Ville Skyttä
 
 This software is available under the terms laid out in the GNU General
 Public License.  This makes it free for you to use and modify if you
