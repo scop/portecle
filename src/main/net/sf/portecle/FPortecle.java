@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -147,7 +147,7 @@ public class FPortecle
     private static final String REQ_JRE_VERSION = "1.4.0";
 
     /** Minimum required BC version */
-    private static final Double REQ_BC_VERSION = new Double(1.26);
+    private static final Double REQ_BC_VERSION = new Double(1.35);
 
     /** Enable experimental features? */
     private static final boolean EXPERIMENTAL = Boolean.getBoolean("portecle.experimental");
