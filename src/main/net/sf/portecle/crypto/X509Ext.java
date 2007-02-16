@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -53,6 +53,7 @@ import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
+import org.bouncycastle.asn1.microsoft.MicrosoftObjectIdentifiers;
 import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.misc.NetscapeCertType;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
@@ -151,41 +152,9 @@ public class X509Ext
     // No info available
     //private static final String DELTA_INFORMATION_OID = "2.5.29.53";
 
-    /** Entrust version extension OID */
-    private static final DERObjectIdentifier ENTRUST_VERSION_EXTENSION_OID =
-        new DERObjectIdentifier("1.2.840.113533.7.65.0");
-
-    /** Microsoft certificate template name OID */
-    private static final DERObjectIdentifier MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID =
-        new DERObjectIdentifier("1.3.6.1.4.1.311.20.2");
-
-    /** Microsoft CA version OID */
-    private static final DERObjectIdentifier MICROSOFT_CA_VERSION_OID =
-        new DERObjectIdentifier("1.3.6.1.4.1.311.21.1");
-
-    /** Microsoft previous CA certificate hash */
-    private static final DERObjectIdentifier MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID =
-        new DERObjectIdentifier("1.3.6.1.4.1.311.21.2");
-
-    /** Microsoft certificate template (v2) OID */
-    private static final DERObjectIdentifier MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID =
-        new DERObjectIdentifier("1.3.6.1.4.1.311.21.7");
-
     /** Microsoft application policies OID */
     private static final DERObjectIdentifier MICROSOFT_APPLICATION_POLICIES_OID =
         new DERObjectIdentifier("1.3.6.1.4.1.311.21.10");
-
-    /** Logotype OID */
-    private static final DERObjectIdentifier LOGOTYPE_OID =
-        new DERObjectIdentifier("1.3.6.1.5.5.7.1.12");
-
-    /** Novell Security Attributes OID */
-    private static final DERObjectIdentifier NOVELL_SECURITY_ATTRIBUTES_OID =
-        new DERObjectIdentifier("2.16.840.1.113719.1.9.4.1");
-
-    /** D&B D-U-N-S number OID */
-    private static final DERObjectIdentifier DNB_DUNS_NUMBER_OID =
-        new DERObjectIdentifier("2.16.840.1.113733.1.6.15");
 
     /** Extension name or OID if unknown */
     private final String m_sName;
@@ -328,34 +297,34 @@ public class X509Ext
         else if (m_Oid.equals(X509Extensions.InhibitAnyPolicy)) {
             return getInhibitAnyPolicyStringValue(bOctets);
         }
-        else if (m_Oid.equals(ENTRUST_VERSION_EXTENSION_OID)) {
+        else if (m_Oid.equals(MiscObjectIdentifiers.entrustVersionExtension)) {
             return getEntrustVersionExtensionStringValue(bOctets);
         }
         else if (m_Oid.equals(PKCSObjectIdentifiers.pkcs_9_at_smimeCapabilities)) {
             return getSmimeCapabilitiesStringValue(bOctets);
         }
-        else if (m_Oid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V1_OID)) {
+        else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCertTemplateV1)) {
             return getMicrosoftCertificateTemplateV1StringValue(bOctets);
         }
-        else if (m_Oid.equals(MICROSOFT_CA_VERSION_OID)) {
+        else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCaVersion)) {
             return getMicrosoftCAVersionStringValue(bOctets);
         }
-        else if (m_Oid.equals(MICROSOFT_PREVIOUS_CA_CERTIFICATE_HASH_OID)) {
+        else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftPrevCaCertHash)) {
             return getMicrosoftPreviousCACertificateHashStringValue(bOctets);
         }
-        else if (m_Oid.equals(MICROSOFT_CERTIFICATE_TEMPLATE_V2_OID)) {
+        else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCertTemplateV2)) {
             return getMicrosoftCertificateTemplateV2StringValue(bOctets);
         }
-        else if (m_Oid.equals(MICROSOFT_APPLICATION_POLICIES_OID)) {
+        else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftAppPolicies)) {
             return getUnknownOidStringValue(bOctets); // TODO
         }
         else if (m_Oid.equals(X509Extensions.AuthorityInfoAccess)) {
             return getAuthorityInformationAccessStringValue(bOctets);
         }
-        else if (m_Oid.equals(LOGOTYPE_OID)) {
+        else if (m_Oid.equals(X509Extensions.LogoType)) {
             return getLogotypeStringValue(bOctets);
         }
-        else if (m_Oid.equals(NOVELL_SECURITY_ATTRIBUTES_OID)) {
+        else if (m_Oid.equals(MiscObjectIdentifiers.novellSecurityAttribs)) {
             return getNovellSecurityAttributesStringValue(bOctets);
         }
         else if (m_Oid.equals(MiscObjectIdentifiers.netscapeCertType)) {
@@ -371,7 +340,7 @@ public class X509Ext
         {
             return getNonNetscapeCertificateTypeStringValue(bOctets);
         }
-        else if (m_Oid.equals(DNB_DUNS_NUMBER_OID)) {
+        else if (m_Oid.equals(MiscObjectIdentifiers.verisignDnbDunsNumber)) {
             return getDnBDUNSNumberStringValue(bOctets);
         }
         else if (m_Oid.equals(X509Extensions.CRLDistributionPoints)) {
