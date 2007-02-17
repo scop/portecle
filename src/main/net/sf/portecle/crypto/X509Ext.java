@@ -35,7 +35,8 @@ import java.util.Iterator;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.ASN1Object;
+import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1TaggedObject;
 import org.bouncycastle.asn1.DERBMPString;
@@ -59,14 +60,20 @@ import org.bouncycastle.asn1.misc.NetscapeCertType;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.smime.SMIMECapabilities;
 import org.bouncycastle.asn1.smime.SMIMECapability;
+import org.bouncycastle.asn1.x509.AccessDescription;
+import org.bouncycastle.asn1.x509.AuthorityInformationAccess;
+import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.CRLDistPoint;
 import org.bouncycastle.asn1.x509.DistributionPoint;
 import org.bouncycastle.asn1.x509.DistributionPointName;
+import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.PolicyInformation;
+import org.bouncycastle.asn1.x509.PrivateKeyUsagePeriod;
 import org.bouncycastle.asn1.x509.ReasonFlags;
+import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
 import org.bouncycastle.asn1.x509.X509Extensions;
 import org.bouncycastle.asn1.x509.X509Name;
 
@@ -240,7 +247,7 @@ public class X509Ext
         throws IOException, ParseException
     {
         // Get octet string from extension
-        byte[] bOctets = ((DEROctetString) toDER(m_bValue)).getOctets();
+        byte[] bOctets = ((ASN1OctetString) ASN1Object.fromByteArray(m_bValue)).getOctets();
 
         // Octet string processed differently depending on extension type
         if (m_Oid.equals(X509Name.CN)) {
@@ -409,7 +416,7 @@ public class X509Ext
     private String getCommonNameStringValue(byte[] bValue)
         throws IOException
     {
-        return stringify(toDER(bValue));
+        return stringify(ASN1Object.fromByteArray(bValue));
     }
 
     /**
@@ -427,10 +434,9 @@ public class X509Ext
     private String getSubjectKeyIndentifierStringValue(byte[] bValue)
         throws IOException
     {
-
-        DEROctetString derOctetStr = (DEROctetString) toDER(bValue);
-
-        byte[] bKeyIdent = derOctetStr.getOctets();
+        SubjectKeyIdentifier ski = SubjectKeyIdentifier.getInstance(
+            ASN1Object.fromByteArray(bValue));
+        byte[] bKeyIdent = ski.getKeyIdentifier();
 
         // Output as a hex string
         StringBuffer strBuff = new StringBuffer();
@@ -475,7 +481,7 @@ public class X509Ext
     private String getKeyUsageStringValue(byte[] bValue)
         throws IOException
     {
-        int val = new KeyUsage((DERBitString) toDER(bValue)).intValue();
+        int val = KeyUsage.getInstance(ASN1Object.fromByteArray(bValue)).intValue();
         StringBuffer strBuff = new StringBuffer();
         for (int i = 0, len = KEY_USAGES.length; i < len; i++) {
             int type = KEY_USAGES[i];
@@ -502,18 +508,22 @@ public class X509Ext
     private String getPrivateKeyUsagePeriod(byte[] bValue)
         throws IOException, ParseException
     {
-        ASN1Sequence times = (ASN1Sequence) toDER(bValue);
+        PrivateKeyUsagePeriod pkup =
+            PrivateKeyUsagePeriod.getInstance(ASN1Object.fromByteArray(bValue));
 
         StringBuffer strBuff = new StringBuffer();
+        DERGeneralizedTime dTime;
 
-        for (int i = 0, len = times.size(); i < len; i++) {
-            DERTaggedObject derTag = (DERTaggedObject) times.getObjectAt(i);
-            DEROctetString dOct = (DEROctetString) derTag.getObject();
-            DERGeneralizedTime dTime = new DERGeneralizedTime(new String(
-                dOct.getOctets()));
-
+        if ((dTime = pkup.getNotBefore()) != null) {
             strBuff.append(MessageFormat.format(
-                m_res.getString("PrivateKeyUsagePeriod." + derTag.getTagNo()),
+                m_res.getString("PrivateKeyUsagePeriodNotBefore"),
+                new String[] { formatGeneralizedTime(dTime) }));
+            strBuff.append('\n');
+        }
+
+        if ((dTime = pkup.getNotAfter()) != null) {
+            strBuff.append(MessageFormat.format(
+                m_res.getString("PrivateKeyUsagePeriodNotAfter"),
                 new String[] { formatGeneralizedTime(dTime) }));
             strBuff.append('\n');
         }
@@ -537,13 +547,8 @@ public class X509Ext
     private String getSubjectAlternativeName(byte[] bValue)
         throws IOException
     {
-        ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
-        StringBuffer strBuff = new StringBuffer();
-        for (int i = 0, len = generalNames.size(); i < len; i++) {
-            strBuff.append(getGeneralNameString((DERTaggedObject) generalNames.getObjectAt(i)));
-            strBuff.append('\n');
-        }
-        return strBuff.toString();
+        return getGeneralNamesString(
+            GeneralNames.getInstance(ASN1Object.fromByteArray(bValue)), "");
     }
 
     /**
@@ -562,13 +567,8 @@ public class X509Ext
     private String getIssuerAlternativeName(byte[] bValue)
         throws IOException
     {
-        ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
-        StringBuffer strBuff = new StringBuffer();
-        for (int i = 0, len = generalNames.size(); i < len; i++) {
-            strBuff.append(getGeneralNameString((DERTaggedObject) generalNames.getObjectAt(i)));
-            strBuff.append('\n');
-        }
-        return strBuff.toString();
+        return getGeneralNamesString(
+            GeneralNames.getInstance(ASN1Object.fromByteArray(bValue)), "");
     }
 
     /**
@@ -587,7 +587,8 @@ public class X509Ext
     private String getBasicConstraintsStringValue(byte[] bValue)
         throws IOException
     {
-        BasicConstraints bc = new BasicConstraints((ASN1Sequence) toDER(bValue));
+        BasicConstraints bc =
+            BasicConstraints.getInstance(ASN1Object.fromByteArray(bValue));
         StringBuffer strBuff = new StringBuffer();
 
         strBuff.append(m_res.getString(bc.isCA() ? "SubjectIsCa" : "SubjectIsNotCa"));
@@ -621,7 +622,7 @@ public class X509Ext
         throws IOException
     {
         // Get CRL number
-        DERInteger derInt = (DERInteger) toDER(bValue);
+        DERInteger derInt = (DERInteger) ASN1Object.fromByteArray(bValue);
 
         // Convert to and return hex string representation of number
         StringBuffer strBuff = new StringBuffer();
@@ -656,7 +657,7 @@ public class X509Ext
     private String getReasonCodeStringValue(byte[] bValue)
         throws IOException
     {
-        int iRc = ((DEREnumerated) toDER(bValue)).getValue().intValue();
+        int iRc = ((DEREnumerated) ASN1Object.fromByteArray(bValue)).getValue().intValue();
         String sRc = getRes("CrlReason." + iRc, "UnrecognisedCrlReasonString");
         return MessageFormat.format(sRc, new String[] { "" + iRc }) + '\n';
     }
@@ -675,7 +676,7 @@ public class X509Ext
     private String getHoldInstructionCodeStringValue(byte[] bValue)
         throws IOException
     {
-        String sHoldIns = ((DERObjectIdentifier) toDER(bValue)).getId();
+        String sHoldIns = ASN1Object.fromByteArray(bValue).toString();
         String res = getRes(sHoldIns, "UnrecognisedHoldInstructionCode");
         return MessageFormat.format(res, new String[] { sHoldIns }) + '\n';
     }
@@ -696,7 +697,8 @@ public class X509Ext
         throws IOException, ParseException
     {
         // Get invalidity date
-        DERGeneralizedTime invalidityDate = (DERGeneralizedTime) toDER(bValue);
+        DERGeneralizedTime invalidityDate =
+            (DERGeneralizedTime) ASN1Object.fromByteArray(bValue);
 
         // Format invalidity date for display
         String sInvalidityTime = formatGeneralizedTime(invalidityDate);
@@ -724,7 +726,7 @@ public class X509Ext
         throws IOException
     {
         // Get CRL number
-        DERInteger derInt = (DERInteger) toDER(bValue);
+        DERInteger derInt = (DERInteger) ASN1Object.fromByteArray(bValue);
 
         // Convert to and return hex string representation of number
         StringBuffer strBuff = new StringBuffer();
@@ -749,13 +751,8 @@ public class X509Ext
     private String getCertificateIssuerStringValue(byte[] bValue)
         throws IOException
     {
-        ASN1Sequence generalNames = (ASN1Sequence) toDER(bValue);
-        StringBuffer strBuff = new StringBuffer();
-        for (int i = 0, len = generalNames.size(); i < len; i++) {
-            strBuff.append(getGeneralNameString((DERTaggedObject) generalNames.getObjectAt(i)));
-            strBuff.append('\n');
-        }
-        return strBuff.toString();
+        return getGeneralNamesString(
+            GeneralNames.getInstance(ASN1Object.fromByteArray(bValue)), "");
     }
 
     /**
@@ -777,7 +774,7 @@ public class X509Ext
         throws IOException
     {
         // Get sequence of policy mappings
-        ASN1Sequence policyMappings = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence policyMappings = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
         StringBuffer strBuff = new StringBuffer();
 
@@ -836,64 +833,31 @@ public class X509Ext
     private String getAuthorityKeyIdentifierStringValue(byte[] bValue)
         throws IOException
     {
-        /* Get sequence of (all optional) a key identifier, an authority
-         cert issuer names and an authority cert serial number */
-        ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
-
-        DEROctetString keyIdentifier = null;
-        ASN1Sequence authorityCertIssuer = null;
-        DEROctetString certificateSerialNumber = null;
-
-        for (int i = 0, len = asn1Seq.size(); i < len; i++) {
-            DERTaggedObject derTagObj = (DERTaggedObject) asn1Seq.getObjectAt(i);
-            DERObject derObj = derTagObj.getObject();
-
-            switch (derTagObj.getTagNo()) {
-            case 0: // Key identifier
-                keyIdentifier = (DEROctetString) derObj;
-                break;
-            case 1: // Authority cert issuer
-                // Many general names
-                if (derObj instanceof ASN1Sequence) {
-                    authorityCertIssuer = (ASN1Sequence) derObj;
-                }
-                // One general name
-                else {
-                    authorityCertIssuer = new DERSequence(derObj);
-                }
-                break;
-            case 2: // Certificate serial number
-                certificateSerialNumber = (DEROctetString) derObj;
-                break;
-            }
-        }
+        AuthorityKeyIdentifier aki =
+            AuthorityKeyIdentifier.getInstance(ASN1Object.fromByteArray(bValue));
 
         StringBuffer strBuff = new StringBuffer();
 
+        byte[] keyIdentifier = aki.getKeyIdentifier();
         if (keyIdentifier != null) {
-            byte[] bKeyIdent = keyIdentifier.getOctets();
             strBuff.append(MessageFormat.format(
                 m_res.getString("KeyIdentifier"),
-                new String[] { convertToHexString(bKeyIdent) }));
+                new String[] { convertToHexString(keyIdentifier) }));
             strBuff.append('\n');
         }
 
-        if (authorityCertIssuer != null) {
+        GeneralNames authorityCertIssuer;
+        if ((authorityCertIssuer = aki.getAuthorityCertIssuer()) != null) {
             strBuff.append(m_res.getString("CertificateIssuer"));
             strBuff.append('\n');
-            for (int i = 0, len = authorityCertIssuer.size(); i < len; i++) {
-                DERTaggedObject generalName = (DERTaggedObject) authorityCertIssuer.getObjectAt(i);
-                strBuff.append('\t');
-                strBuff.append(getGeneralNameString(generalName));
-                strBuff.append('\n');
-            }
+            strBuff.append(getGeneralNamesString(authorityCertIssuer, "\t"));
         }
 
-        if (certificateSerialNumber != null) {
-            byte[] bCertSerialNumber = certificateSerialNumber.getOctets();
+        BigInteger serialNo;
+        if ((serialNo = aki.getAuthorityCertSerialNumber()) != null) {
             strBuff.append(MessageFormat.format(
                 m_res.getString("CertificateSerialNumber"),
-                new String[] { convertToHexString(bCertSerialNumber) }));
+                new String[] { "" + serialNo }));
             strBuff.append('\n');
         }
 
@@ -919,7 +883,7 @@ public class X509Ext
         throws IOException
     {
         // Get sequence of policy constraint
-        ASN1Sequence policyConstraints = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence policyConstraints = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
         StringBuffer strBuff = new StringBuffer();
 
@@ -965,7 +929,7 @@ public class X509Ext
         throws IOException
     {
         // Get sequence of OIDs and return approriate strings
-        ASN1Sequence asn1Seq = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence asn1Seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
         StringBuffer strBuff = new StringBuffer();
 
@@ -996,7 +960,7 @@ public class X509Ext
         throws IOException
     {
         // Get skip certs integer
-        DERInteger skipCerts = (DERInteger) toDER(bValue);
+        DERInteger skipCerts = (DERInteger) ASN1Object.fromByteArray(bValue);
 
         int iSkipCerts = skipCerts.getValue().intValue();
 
@@ -1021,7 +985,7 @@ public class X509Ext
         throws IOException
     {
         // SEQUENCE encapsulated in a OCTET STRING
-        ASN1Sequence as = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence as = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
         // Also has BIT STRING, ignored here
         // http://www.mail-archive.com/openssl-dev@openssl.org/msg06546.html
         return ((DERGeneralString) as.getObjectAt(0)).getString();
@@ -1039,7 +1003,7 @@ public class X509Ext
     private String getMicrosoftCertificateTemplateV1StringValue(byte[] bValue)
         throws IOException
     {
-        return ((DERBMPString) toDER(bValue)).getString() + '\n';
+        return ((DERBMPString) ASN1Object.fromByteArray(bValue)).getString() + '\n';
     }
 
     /**
@@ -1062,7 +1026,7 @@ public class X509Ext
     private String getMicrosoftCertificateTemplateV2StringValue(byte[] bValue)
         throws IOException
     {
-        ASN1Sequence seq = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
         StringBuffer sb = new StringBuffer();
 
         sb.append(MessageFormat.format(
@@ -1098,7 +1062,7 @@ public class X509Ext
     private String getMicrosoftCAVersionStringValue(byte[] bValue)
         throws IOException
     {
-        int ver = ((DERInteger) toDER(bValue)).getValue().intValue();
+        int ver = ((DERInteger) ASN1Object.fromByteArray(bValue)).getValue().intValue();
         String certIx = String.valueOf(ver & 0xffff); // low 16 bits
         String keyIx = String.valueOf(ver >> 16); // high 16 bits
         return MessageFormat.format(m_res.getString("MsftCaVersion"),
@@ -1118,7 +1082,7 @@ public class X509Ext
         byte[] bValue)
         throws IOException
     {
-        DEROctetString derOctetStr = (DEROctetString) toDER(bValue);
+        DEROctetString derOctetStr = (DEROctetString) ASN1Object.fromByteArray(bValue);
         byte[] bKeyIdent = derOctetStr.getOctets();
         StringBuffer strBuff = new StringBuffer();
         return strBuff.append(convertToHexString(bKeyIdent)).append('\n').toString();
@@ -1144,7 +1108,8 @@ public class X509Ext
     private String getSmimeCapabilitiesStringValue(byte[] bValue)
         throws IOException
     {
-        SMIMECapabilities caps = SMIMECapabilities.getInstance(toDER(bValue));
+        SMIMECapabilities caps =
+            SMIMECapabilities.getInstance(ASN1Object.fromByteArray(bValue));
 
         String sParams = m_res.getString("SmimeParameters");
 
@@ -1182,20 +1147,20 @@ public class X509Ext
     private String getAuthorityInformationAccessStringValue(byte[] bValue)
         throws IOException
     {
-        ASN1Sequence accDescs = (ASN1Sequence) toDER(bValue);
+        AuthorityInformationAccess access =
+            AuthorityInformationAccess.getInstance(ASN1Object.fromByteArray(bValue));
 
         StringBuffer sb = new StringBuffer();
         String aia = m_res.getString("AuthorityInformationAccess");
 
-        for (int i = 0, adLen = accDescs.size(); i < adLen; i++) {
-            ASN1Sequence accDesc = (ASN1Sequence) accDescs.getObjectAt(i);
-            String accOid = ((DERObjectIdentifier) accDesc.getObjectAt(0)).getId();
+        AccessDescription[] accDescs = access.getAccessDescriptions();
+        for (int i = 0, adLen = accDescs.length; i < adLen; i++) {
+            String accOid = accDescs[i].getAccessMethod().toString();
             String accMeth = getRes(accOid, "UnrecognisedAccessMethod");
-            String accLoc = getGeneralNameString((DERTaggedObject) accDesc.getObjectAt(1));
             sb.append(MessageFormat.format(aia,
                 new String[] {
                     MessageFormat.format(accMeth, new String[] { accOid }),
-                    accLoc }));
+                    getGeneralNameString(accDescs[i].getAccessLocation()) }));
             sb.append('\n');
         }
 
@@ -1216,7 +1181,7 @@ public class X509Ext
         return getUnknownOidStringValue(bValue);
 
         /* work-in-progress:
-         ASN1Sequence logos = (ASN1Sequence) toDER(bValue);
+         ASN1Sequence logos = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
          StringBuffer sb = new StringBuffer();
 
          for (int i = 0, len = logos.size(); i < len; i++)
@@ -1311,7 +1276,7 @@ public class X509Ext
     {
         // TODO...
 
-        ASN1Sequence attrs = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence attrs = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
         StringBuffer sb = new StringBuffer();
 
         // "Novell Security Attribute(tm)"
@@ -1497,7 +1462,8 @@ public class X509Ext
     private String getNetscapeCertificateTypeStringValue(byte[] bValue)
         throws IOException
     {
-        int val = new NetscapeCertType((DERBitString) toDER(bValue)).intValue();
+        int val = new NetscapeCertType(
+            (DERBitString) ASN1Object.fromByteArray(bValue)).intValue();
         StringBuffer strBuff = new StringBuffer();
         for (int i = 0, len = NETSCAPE_CERT_TYPES.length; i < len; i++) {
             int type = NETSCAPE_CERT_TYPES[i];
@@ -1521,11 +1487,11 @@ public class X509Ext
     private String getNonNetscapeCertificateTypeStringValue(byte[] bValue)
         throws IOException
     {
-        return ((DERIA5String) toDER(bValue)).getString() + '\n';
+        return ((DERIA5String) ASN1Object.fromByteArray(bValue)).getString() + '\n';
     }
 
     /**
-     * Get extension value for D&B D-U-N-S number as a string.
+     * Get extension value for D&amp;B D-U-N-S number as a string.
      *
      * @param bValue The octet string value
      * @return Extension value as a string
@@ -1534,7 +1500,7 @@ public class X509Ext
     private String getDnBDUNSNumberStringValue(byte[] bValue)
         throws IOException
     {
-        return ((DERIA5String) toDER(bValue)).getString() + '\n';
+        return ((DERIA5String) ASN1Object.fromByteArray(bValue)).getString() + '\n';
     }
 
     /**
@@ -1548,7 +1514,8 @@ public class X509Ext
         throws IOException
     {
 
-        CRLDistPoint dps = CRLDistPoint.getInstance(toDER(bValue));
+        CRLDistPoint dps =
+            CRLDistPoint.getInstance(ASN1Object.fromByteArray(bValue));
         DistributionPoint[] points = dps.getDistributionPoints();
 
         StringBuffer sb = new StringBuffer();
@@ -1558,23 +1525,18 @@ public class X509Ext
 
             DistributionPointName dpn;
             if ((dpn = point.getDistributionPoint()) != null) {
-                ASN1TaggedObject tagObj = (ASN1TaggedObject) dpn.toASN1Object();
-                switch (tagObj.getTagNo()) {
+                switch (dpn.getType()) {
                 case DistributionPointName.FULL_NAME:
                     sb.append(m_res.getString("CrlDistributionPoint.0.0"));
                     sb.append('\n');
-                    ASN1Sequence seq = (ASN1Sequence) tagObj.getObject();
-                    for (int j = 0, nLen = seq.size(); j < nLen; j++) {
-                        sb.append('\t');
-                        sb.append(getGeneralNameString((DERTaggedObject) seq.getObjectAt(j)));
-                        sb.append('\n');
-                    }
+                    sb.append(getGeneralNamesString(
+                        (GeneralNames) dpn.getName(), "\t"));
                     break;
                 case DistributionPointName.NAME_RELATIVE_TO_CRL_ISSUER:
                     sb.append(m_res.getString("CrlDistributionPoint.0.1"));
                     // TODO
                     sb.append('\t');
-                    sb.append(tagObj.getObject());
+                    sb.append(dpn.getName());
                     sb.append('\n');
                     break;
                 default:
@@ -1596,12 +1558,7 @@ public class X509Ext
             if ((issuer = point.getCRLIssuer()) != null) {
                 sb.append(m_res.getString("CrlDistributionPoint.2"));
                 sb.append('\n');
-                ASN1Sequence seq = (ASN1Sequence) issuer.getDERObject();
-                for (int j = 0, iLen = seq.size(); j < iLen; j++) {
-                    sb.append('\t');
-                    sb.append(getGeneralNameString((DERTaggedObject) seq.getObjectAt(j)));
-                    sb.append('\n');
-                }
+                sb.append(getGeneralNamesString(issuer, "\t"));
             }
         }
 
@@ -1619,7 +1576,7 @@ public class X509Ext
     private String getCertificatePoliciesStringValue(byte[] bValue)
         throws IOException
     {
-        ASN1Sequence pSeq = (ASN1Sequence) toDER(bValue);
+        ASN1Sequence pSeq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
         StringBuffer sb = new StringBuffer();
 
         for (int i = 0, len = pSeq.size(); i < len; i++) {
@@ -1757,14 +1714,14 @@ public class X509Ext
      * @param generalName The general name
      * @return General name string
      */
-    private String getGeneralNameString(DERTaggedObject generalName)
+    private String getGeneralNameString(GeneralName generalName)
     {
         StringBuffer strBuff = new StringBuffer();
 
         switch (generalName.getTagNo()) {
 
-        case 0: // Other Name
-            ASN1Sequence other = (ASN1Sequence) generalName.getObject();
+        case GeneralName.otherName:
+            ASN1Sequence other = (ASN1Sequence) generalName.getName();
             String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
             String sVal = stringify(other.getObjectAt(1));
             try {
@@ -1777,37 +1734,34 @@ public class X509Ext
             }
             break;
 
-        case 1: // RFC 822 Name
-            DEROctetString rfc822 = (DEROctetString) generalName.getObject();
-            String sRfc822 = new String(rfc822.getOctets());
+        case GeneralName.rfc822Name:
+            String sRfc822 = ((DERIA5String) generalName.getName()).getString();
             strBuff.append(MessageFormat.format(
                 m_res.getString("Rfc822GeneralName"), new String[] { sRfc822 }));
             break;
 
-        case 2: // DNS Name
-            DEROctetString dns = (DEROctetString) generalName.getObject();
-            String sDns = new String(dns.getOctets());
+        case GeneralName.dNSName:
+            String sDns = ((DERIA5String) generalName.getName()).getString();
             strBuff.append(MessageFormat.format(
                 m_res.getString("DnsGeneralName"), new String[] { sDns }));
             break;
 
-        case 4: // Directory Name
-            ASN1Sequence directory = (ASN1Sequence) generalName.getObject();
+        case GeneralName.directoryName:
+            ASN1Sequence directory = (ASN1Sequence) generalName.getName();
             X509Name name = new X509Name(directory);
             strBuff.append(MessageFormat.format(
                 m_res.getString("DirectoryGeneralName"),
                 new String[] { name.toString() }));
             break;
 
-        case 6: // URI
-            DEROctetString uri = (DEROctetString) generalName.getObject();
-            String sUri = new String(uri.getOctets());
+        case GeneralName.uniformResourceIdentifier:
+            String sUri = ((DERIA5String) generalName.getName()).getString();
             strBuff.append(MessageFormat.format(
                 m_res.getString("UriGeneralName"), new String[] { sUri }));
             break;
 
-        case 7: // IP Address
-            DEROctetString ipAddress = (DEROctetString) generalName.getObject();
+        case GeneralName.iPAddress:
+            ASN1OctetString ipAddress = (ASN1OctetString) generalName.getName();
 
             byte[] bIpAddress = ipAddress.getOctets();
 
@@ -1827,28 +1781,14 @@ public class X509Ext
                 new String[] { sbIpAddress.toString() }));
             break;
 
-        case 8: // Registered ID
-            DEROctetString registeredId = (DEROctetString) generalName.getObject();
-
-            byte[] bRegisteredId = registeredId.getOctets();
-
-            // Output the components one at a time separated by dots
-            StringBuffer sbRegisteredId = new StringBuffer();
-
-            for (int iCnt = 0; iCnt < bRegisteredId.length; iCnt++) {
-                byte b = bRegisteredId[iCnt];
-                // Convert from (possibly negative) byte to positive int
-                sbRegisteredId.append(b & 0xFF);
-                if ((iCnt + 1) < bRegisteredId.length) {
-                    sbRegisteredId.append('.');
-                }
-            }
-
+        case GeneralName.registeredID:
             strBuff.append(MessageFormat.format(
                 m_res.getString("RegisteredIdGeneralName"),
-                new String[] { sbRegisteredId.toString() }));
+                new String[] { generalName.getName().toString() }));
             break;
 
+        case GeneralName.x400Address:  // TODO
+        case GeneralName.ediPartyName: // TODO
         default: // Unsupported general name type
             strBuff.append(MessageFormat.format(
                 m_res.getString("UnsupportedGeneralNameType"),
@@ -1856,6 +1796,25 @@ public class X509Ext
             break;
         }
 
+        return strBuff.toString();
+    }
+
+    /**
+     * Get a formatted string value for the supplied general names object.
+     *
+     * @param generalNames General names
+     * @return Formatted string
+     */
+    private String getGeneralNamesString(GeneralNames generalNames, String indent)
+        throws IOException
+    {
+        GeneralName[] names = generalNames.getNames();
+        StringBuffer strBuff = new StringBuffer();
+        for (int i = 0, len = names.length; i < len; i++) {
+            strBuff.append(indent);
+            strBuff.append(getGeneralNameString(names[i]));
+            strBuff.append('\n');
+        }
         return strBuff.toString();
     }
 
@@ -2041,32 +2000,6 @@ public class X509Ext
                 hex = obj.toString();
             }
             return hex;
-        }
-    }
-
-    /**
-     * Gets a DER object from the given byte array.
-     *
-     * @param bytes bytes
-     * @return a DER object
-     * @throws IOException if a conversion error occurs
-     */
-    private static DERObject toDER(byte[] bytes)
-        throws IOException
-    {
-        ASN1InputStream in = new ASN1InputStream(new ByteArrayInputStream(
-            bytes));
-        try {
-            return in.readObject();
-        }
-        finally {
-            if (in != null) {
-                try {
-                    in.close();
-                }
-                catch (IOException e) { /* Ignore */
-                }
-            }
         }
     }
 
