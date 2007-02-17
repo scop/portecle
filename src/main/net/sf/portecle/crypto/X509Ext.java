@@ -1959,45 +1959,32 @@ public class X509Ext
     }
 
     /**
-     * Convert the supplied DER Integer to a hex string sub-divided by spaces
+     * Convert the supplied object to a hex string sub-divided by spaces
      * every four characters.
      *
-     * @param derInt DER Integer
+     * @param obj Object (byte array, BigInteger, DERInteger)
      * @return Hex string
      */
-    private static String convertToHexString(DERInteger derInt)
+    private static String convertToHexString(Object obj)
     {
-        // Convert number to hex string - divide string with a space
-        // every four characters
-        String sHexCrlNumber = derInt.getValue().toString(16).toUpperCase();
-
-        StringBuffer strBuff = new StringBuffer();
-
-        for (int iCnt = 0; iCnt < sHexCrlNumber.length(); iCnt++) {
-            strBuff.append(sHexCrlNumber.charAt(iCnt));
-
-            if ((((iCnt + 1) % 4) == 0)
-                && ((iCnt + 1) != sHexCrlNumber.length()))
-            {
-                strBuff.append(' ');
-            }
+        BigInteger bigInt;
+        if (obj instanceof BigInteger) {
+            bigInt = (BigInteger) obj;
+        }
+        else if (obj instanceof byte[]) {
+            bigInt = new BigInteger(1, (byte[]) obj);
+        }
+        else if (obj instanceof DERInteger) {
+            bigInt = ((DERInteger) obj).getValue();
+        }
+        else {
+            throw new IllegalArgumentException("Don't know how to convert " +
+                obj.getClass().getName() + " to a hex string");
         }
 
-        return strBuff.toString();
-    }
-
-    /**
-     * Convert the supplied byte array to a hex string sub-divided by spaces
-     * every four characters.
-     *
-     * @param bytes Byte array
-     * @return Hex string
-     */
-    private static String convertToHexString(byte[] bytes)
-    {
         // Convert to hex
         StringBuffer strBuff = new StringBuffer(
-            new BigInteger(1, bytes).toString(16).toUpperCase());
+            bigInt.toString(16).toUpperCase());
 
         // Place spaces at every four hex characters
         if (strBuff.length() > 4) {
@@ -2020,11 +2007,9 @@ public class X509Ext
         if (obj instanceof DERString) {
             return ((DERString) obj).getString();
         }
-        else if (obj instanceof DERInteger) {
-            return convertToHexString((DERInteger) obj);
-        }
-        else if (obj instanceof byte[]) {
-            return convertToHexString((byte[]) obj);
+        else if (obj instanceof DERInteger ||
+                 obj instanceof byte[]) {
+            return convertToHexString(obj);
         }
         else if (obj instanceof ASN1TaggedObject) {
             ASN1TaggedObject tagObj = (ASN1TaggedObject) obj;
