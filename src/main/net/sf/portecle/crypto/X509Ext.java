@@ -48,10 +48,8 @@ import org.bouncycastle.asn1.DERGeneralString;
 import org.bouncycastle.asn1.DERGeneralizedTime;
 import org.bouncycastle.asn1.DERIA5String;
 import org.bouncycastle.asn1.DERInteger;
-import org.bouncycastle.asn1.DERObject;
 import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.DERSequence;
 import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.microsoft.MicrosoftObjectIdentifiers;
@@ -158,10 +156,6 @@ public class X509Ext
     /** Delta Information OID */
     // No info available
     //private static final String DELTA_INFORMATION_OID = "2.5.29.53";
-
-    /** Microsoft application policies OID */
-    private static final DERObjectIdentifier MICROSOFT_APPLICATION_POLICIES_OID =
-        new DERObjectIdentifier("1.3.6.1.4.1.311.21.10");
 
     /** Extension name or OID if unknown */
     private final String m_sName;
@@ -1806,7 +1800,6 @@ public class X509Ext
      * @return Formatted string
      */
     private String getGeneralNamesString(GeneralNames generalNames, String indent)
-        throws IOException
     {
         GeneralName[] names = generalNames.getNames();
         StringBuffer strBuff = new StringBuffer();
@@ -1991,7 +1984,7 @@ public class X509Ext
             String hex = null;
             try {
                 Method method = obj.getClass().getMethod("getOctets", null);
-                hex = convertToHexString((byte[]) method.invoke(obj, null));
+                hex = convertToHexString(method.invoke(obj, null));
             }
             catch (Exception e) {
                 // Ignore
