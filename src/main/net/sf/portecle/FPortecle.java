@@ -1284,7 +1284,7 @@ public class FPortecle
      */
     private void initPopupMenus()
     {
-        // Initialiase key pair entry pop-up menu including mnemonics
+        // Initialise key pair entry pop-up menu including mnemonics
         // and listeners
         m_jpmKeyPair = new JPopupMenu();
 

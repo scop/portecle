@@ -56,7 +56,7 @@ class KeyStoreWrapper
     private boolean m_bChanged;
 
     /**
-     * Construst a new KeyStoreWrapper for the supplied keystore.
+     * Construct a new KeyStoreWrapper for the supplied keystore.
      *
      * @param keyStore The keystore
      * @throws CryptoException if the keystore type is not supported
@@ -68,7 +68,7 @@ class KeyStoreWrapper
     }
 
     /**
-     * Construst a new KeyStoreWrapper for the supplied keystore, keystore file
+     * Construct a new KeyStoreWrapper for the supplied keystore, keystore file
      * and keystore password.
      *
      * @param keyStore The keystore
