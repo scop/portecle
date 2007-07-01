@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -105,6 +105,12 @@ public class FileChooserFactory
     /** Filename filter pattern for getDefaultFile() */
     private static final Pattern FILENAME_FILTER = Pattern.compile("[^\\p{L}_\\-]+");
 
+    /** Separator to use in informational file name lists */
+    private static final String FILELIST_SEPARATOR = ";";
+    
+    /** Filename of the default CA certs keystore. */
+    public static final String CACERTS_FILENAME = "cacerts";
+    
     /** Private to prevent construction */
     private FileChooserFactory()
     {
@@ -122,6 +128,8 @@ public class FileChooserFactory
 
         String[] extensions;
         String desc;
+        // Whether we plug in "cacerts"
+        boolean addCaCerts = false;
         
         if (ksType == null) {
             ArrayList exts = new ArrayList();
@@ -139,18 +147,40 @@ public class FileChooserFactory
                 exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
             }
             extensions = (String[]) exts.toArray(new String[exts.size()]);
+            String[] info = toWildcards(extensions);
+            info[0] += FILELIST_SEPARATOR + CACERTS_FILENAME;
             desc = MessageFormat.format(
-                m_res.getString("FileChooseFactory.KeyStoreFiles"),
-                toWildcards(extensions));
+                m_res.getString("FileChooseFactory.KeyStoreFiles"), info);
+            addCaCerts = true;
         }
         else {
             extensions = ksType.getFilenameExtensions();
+            String[] info = toWildcards(extensions);
+            if (ksType.equals(KeyStoreType.JKS)) {
+                info[0] += FILELIST_SEPARATOR + CACERTS_FILENAME;
+                addCaCerts = true;
+            }
             desc = MessageFormat.format(
-                m_res.getString("FileChooseFactory.KeyStoreFiles." + ksType.toString()),
-                toWildcards(extensions));
+                m_res.getString("FileChooseFactory.KeyStoreFiles."
+                    + ksType.toString()), info);
         }
         
-        chooser.addChoosableFileFilter(new FileExtFilter(extensions, desc));
+        FileExtFilter extFilter;
+        if (addCaCerts) {
+            extFilter = new FileExtFilter(extensions, desc)
+            {
+                public boolean accept(File file)
+                {
+                    return super.accept(file)
+                        || file.getName().equalsIgnoreCase(CACERTS_FILENAME);
+                }
+            };
+        }
+        else {
+            extFilter = new FileExtFilter(extensions, desc);
+        }
+        
+        chooser.addChoosableFileFilter(extFilter);
 
         return chooser;
     }
@@ -308,12 +338,11 @@ public class FileChooserFactory
      */
     private static String[] toWildcards(String[] exts)
     {
-        final String sep = ";";
         StringBuffer res = new StringBuffer();
         for (int i = 0, len = exts.length; i < len; i++) {
-            res.append("*.").append(exts[i]).append(sep);
+            res.append("*.").append(exts[i]).append(FILELIST_SEPARATOR);
         }
-        res.setLength(res.length() - sep.length());
+        res.setLength(res.length() - FILELIST_SEPARATOR.length());
         return new String[] { res.toString() };
     }
 }

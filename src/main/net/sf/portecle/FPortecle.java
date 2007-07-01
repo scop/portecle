@@ -177,8 +177,8 @@ public class FPortecle
 
     /** Default CA certs keystore file */
     private static final String DEFAULT_CA_CERTS_FILE = new File(
-        System.getProperty("java.home"), "lib" + File.separator +
-        "security" + File.separator + "cacerts").toString();
+        System.getProperty("java.home"), "lib" + File.separator + "security"
+            + File.separator + FileChooserFactory.CACERTS_FILENAME).toString();
 
     /** The last directory accessed by the application */
     private LastDir m_lastDir = new LastDir();
