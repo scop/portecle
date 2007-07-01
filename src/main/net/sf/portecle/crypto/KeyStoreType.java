@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -34,13 +34,17 @@ import java.util.ResourceBundle;
  */
 public class KeyStoreType
 {
-    /** JCEKS keystore Type */
-    public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true,
-        false, new String[] { "jceks" });
-
     /** JKS keystore Type */
     public static final KeyStoreType JKS = new KeyStoreType("JKS", true, false,
         new String[] { "jks" });
+
+    /** Case sensitive JKS keystore Type */
+    public static final KeyStoreType CaseExactJKS = new KeyStoreType(
+        "CaseExactJKS", true, true, new String[] { "jks" });
+
+    /** JCEKS keystore Type */
+    public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true,
+        false, new String[] { "jceks" });
 
     /** PKCS #11 keystore Type */
     public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",
@@ -69,6 +73,7 @@ public class KeyStoreType
         TYPE_MAP.put(JKS.toString(), JKS);
         TYPE_MAP.put(PKCS12.toString(), PKCS12);
         TYPE_MAP.put(JCEKS.toString(), JCEKS);
+        TYPE_MAP.put(CaseExactJKS.toString(), CaseExactJKS);
         TYPE_MAP.put(BKS.toString(), BKS);
         TYPE_MAP.put(UBER.toString(), UBER);
         TYPE_MAP.put(GKR.toString(), GKR);
@@ -209,6 +214,9 @@ public class KeyStoreType
         }
         if (equals(PKCS12)) {
             return "PKCS #12";
+        }
+        if (equals(CaseExactJKS)) {
+            return "JKS (case sensitive)";
         }
         return toString();
     }

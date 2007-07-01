@@ -136,6 +136,7 @@ public class FileChooserFactory
             exts.add(KEYSTORE_EXT);
             if (KeyStoreUtil.isAvailable(KeyStoreType.JKS)) {
                 exts.addAll(Arrays.asList(KeyStoreType.JKS.getFilenameExtensions()));
+                // Assume includes CaseExactJKS
             }
             if (KeyStoreUtil.isAvailable(KeyStoreType.JCEKS)) {
                 exts.addAll(Arrays.asList(KeyStoreType.JCEKS.getFilenameExtensions()));

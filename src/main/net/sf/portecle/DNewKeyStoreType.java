@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2005-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2005-2007 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -67,6 +67,9 @@ class DNewKeyStoreType
     /** JKS keystore type radio button */
     private JRadioButton m_jrbJksKeyStore;
 
+    /** Case sensitive JKS keystore type radio button */
+    private JRadioButton m_jrbCaseExactJksKeyStore;
+
     /** JCEKS keystore type radio button */
     private JRadioButton m_jrbJceksKeyStore;
 
@@ -112,6 +115,13 @@ class DNewKeyStoreType
         m_jrbJksKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbJksKeyStore.tooltip"));
         m_jrbJksKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JKS));
 
+        m_jrbCaseExactJksKeyStore = new JRadioButton(
+            m_res.getString("DNewKeyStoreType.m_jrbCaseExactJksKeyStore.text"), true);
+        m_jrbCaseExactJksKeyStore.setMnemonic(m_res.getString(
+            "DNewKeyStoreType.m_jrbCaseExactJksKeyStore.mnemonic").charAt(0));
+        m_jrbCaseExactJksKeyStore.setToolTipText(m_res.getString("DNewKeyStoreType.m_jrbCaseExactJksKeyStore.tooltip"));
+        m_jrbCaseExactJksKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.CaseExactJKS));
+
         m_jrbJceksKeyStore = new JRadioButton(
             m_res.getString("DNewKeyStoreType.m_jrbJceksKeyStore.text"));
         m_jrbJceksKeyStore.setMnemonic(m_res.getString(
@@ -149,6 +159,7 @@ class DNewKeyStoreType
         keyStoreTypes.add(m_jrbJksKeyStore);
         keyStoreTypes.add(m_jrbPkcs12KeyStore);
         keyStoreTypes.add(m_jrbJceksKeyStore);
+        keyStoreTypes.add(m_jrbCaseExactJksKeyStore);
         keyStoreTypes.add(m_jrbBksKeyStore);
         keyStoreTypes.add(m_jrbUberKeyStore);
         keyStoreTypes.add(m_jrbGkrKeyStore);
@@ -170,6 +181,7 @@ class DNewKeyStoreType
         jpKeyStoreType.add(m_jrbJksKeyStore);
         jpKeyStoreType.add(m_jrbPkcs12KeyStore);
         jpKeyStoreType.add(m_jrbJceksKeyStore);
+        jpKeyStoreType.add(m_jrbCaseExactJksKeyStore);
         jpKeyStoreType.add(m_jrbBksKeyStore);
         jpKeyStoreType.add(m_jrbUberKeyStore);
         jpKeyStoreType.add(m_jrbGkrKeyStore);
@@ -246,6 +258,9 @@ class DNewKeyStoreType
         // Store selected keystore type
         if (m_jrbJksKeyStore.isSelected()) {
             m_keyStoreType = KeyStoreType.JKS;
+        }
+        else if (m_jrbCaseExactJksKeyStore.isSelected()) {
+            m_keyStoreType = KeyStoreType.CaseExactJKS;
         }
         else if (m_jrbJceksKeyStore.isSelected()) {
             m_keyStoreType = KeyStoreType.JCEKS;

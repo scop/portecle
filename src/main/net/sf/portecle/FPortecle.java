@@ -223,6 +223,9 @@ public class FPortecle
     /** JKS menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeJks;
 
+    /** Case sensitive JKS menu item in Change Keystore Type menu */
+    private JMenuItem m_jmiChangeKeyStoreTypeCaseExactJks;
+
     /** JCEKS menu item in Change Keystore Type menu */
     private JMenuItem m_jmiChangeKeyStoreTypeJceks;
 
@@ -538,12 +541,12 @@ public class FPortecle
         jmTools.add(m_jmChangeKeyStoreType);
 
         // Add Change Keystore Type sub-menu of Tools
+
         m_jmiChangeKeyStoreTypeJks = new JMenuItem(
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.text"),
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.mnemonic").charAt(
                 0));
         m_jmiChangeKeyStoreTypeJks.setEnabled(false);
-        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJks);
         m_jmiChangeKeyStoreTypeJks.addActionListener(new ActionListener()
         {
             protected void act()
@@ -555,12 +558,27 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"),
             this);
 
+        m_jmiChangeKeyStoreTypeCaseExactJks = new JMenuItem(
+            m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.text"),
+            m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.mnemonic").charAt(
+                0));
+        m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(false);
+        m_jmiChangeKeyStoreTypeCaseExactJks.addActionListener(new ActionListener()
+        {
+            protected void act()
+            {
+                changeKeyStoreType(KeyStoreType.CaseExactJKS);
+            }
+        });
+        new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeCaseExactJks,
+            m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.statusbar"),
+            this);
+
         m_jmiChangeKeyStoreTypeJceks = new JMenuItem(
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.text"),
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.mnemonic").charAt(
                 0));
         m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
-        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJceks);
         m_jmiChangeKeyStoreTypeJceks.addActionListener(new ActionListener()
         {
             protected void act()
@@ -578,7 +596,6 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.mnemonic").charAt(
                 0));
         m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
-        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypePkcs12);
         m_jmiChangeKeyStoreTypePkcs12.addActionListener(new ActionListener()
         {
             protected void act()
@@ -596,7 +613,6 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.mnemonic").charAt(
                 0));
         m_jmiChangeKeyStoreTypeBks.setEnabled(false);
-        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeBks);
         m_jmiChangeKeyStoreTypeBks.addActionListener(new ActionListener()
         {
             protected void act()
@@ -613,7 +629,6 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.mnemonic").charAt(
                 0));
         m_jmiChangeKeyStoreTypeUber.setEnabled(false);
-        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeUber);
         m_jmiChangeKeyStoreTypeUber.addActionListener(new ActionListener()
         {
             protected void act()
@@ -631,7 +646,6 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.mnemonic").charAt(
                 0));
         m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
-        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeGkr);
         m_jmiChangeKeyStoreTypeGkr.addActionListener(new ActionListener()
         {
             protected void act()
@@ -644,6 +658,16 @@ public class FPortecle
             m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.statusbar"),
             this);
 
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJks);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypePkcs12);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJceks);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeCaseExactJks);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeBks);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeUber);
+        m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeGkr);
+
+        // Others
+        
         JMenuItem jmiKeyStoreReport = new JMenuItem(m_keyStoreReportAction);
         jmiKeyStoreReport.setToolTipText(null);
         new StatusBarChangeHandler(jmiKeyStoreReport,
@@ -5523,6 +5547,7 @@ public class FPortecle
 
         // Initially enable the menu items for all available types
         m_jmiChangeKeyStoreTypeJks.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JKS));
+        m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.CaseExactJKS));
         m_jmiChangeKeyStoreTypeJceks.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JCEKS));
         m_jmiChangeKeyStoreTypePkcs12.setEnabled(true);
         m_jmiChangeKeyStoreTypeBks.setEnabled(true);
@@ -5534,6 +5559,9 @@ public class FPortecle
 
         if (sType.equals(KeyStoreType.JKS.toString())) {
             m_jmiChangeKeyStoreTypeJks.setEnabled(false);
+        }
+        else if (sType.equals(KeyStoreType.CaseExactJKS.toString())) {
+            m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(false);
         }
         else if (sType.equals(KeyStoreType.JCEKS.toString())) {
             m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
