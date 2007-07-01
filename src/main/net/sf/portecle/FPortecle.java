@@ -241,6 +241,10 @@ public class FPortecle
     ////////////////////////////////////////////////////////////
     // Pop-up menu controls
     ////////////////////////////////////////////////////////////
+
+    /** Key entry pop-up menu */
+    private JPopupMenu m_jpmKey;
+
     /** Key pair entry pop-up menu */
     private JPopupMenu m_jpmKeyPair;
 
@@ -1284,6 +1288,27 @@ public class FPortecle
      */
     private void initPopupMenus()
     {
+        // Initialise key-only entry pop-up menu including mnemonics
+        // and listeners
+        m_jpmKey = new JPopupMenu();
+
+        JMenuItem jmiKeyDelete = new JMenuItem(
+            m_res.getString("FPortecle.jmiKeyDelete.text"),
+            m_res.getString("FPortecle.jmiKeyDelete.mnemonic").charAt(0));
+        jmiKeyDelete.setIcon(new ImageIcon(
+            getResImage("FPortecle.jmiKeyDelete.image")));
+        jmiKeyDelete.addActionListener(new ActionListener()
+        {
+            protected void act()
+            {
+                deleteSelectedEntry();
+            }
+        });
+        new StatusBarChangeHandler(jmiKeyDelete,
+            m_res.getString("FPortecle.jmiKeyDelete.statusbar"), this);
+
+        m_jpmKey.add(jmiKeyDelete);
+
         // Initialise key pair entry pop-up menu including mnemonics
         // and listeners
         m_jpmKeyPair = new JPopupMenu();
@@ -1520,6 +1545,15 @@ public class FPortecle
                 // ...and another if the type is trusted certificate
                 else if (currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY)) {
                     m_jpmCert.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+                // ...and yet another for key-only entries
+                else if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY)) {
+                    m_jpmKey.show(evt.getComponent(), evt.getX(), evt.getY());
+                }
+                // What's this?
+                else {
+                    System.err.println("WARNING: popup context menu requested " +
+                        "for unknown entry: " + currEntry);
                 }
             }
         }
@@ -3942,7 +3976,10 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key or trusted certificate entry
+        // Not valid for a certificate entry, nor a key-only one - we do a
+        // remove-store operation but the KeyStore API won't allow us to
+        // store a PrivateKey without associated certificate chain.
+        // TODO: Maybe it'd work for other Key types? Need testing material.
         Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
         if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
             currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
@@ -3956,8 +3993,8 @@ public class FPortecle
         // Do we already know the current password for the entry?
         char[] cOldPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
-        /* Display the change password dialog supplying the current password to
-         it if it was available */
+        // Display the change password dialog supplying the current password
+        // to it if it was available
         DChangePassword dChangePassword = new DChangePassword(this, true,
             m_res.getString("FPortecle.SetKeyPairPassword.Title"),
             cOldPassword);
@@ -4017,7 +4054,7 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key entry
+        // TODO: implement this for key-only entries
         if (m_jtKeyStore.getValueAt(iRow, 0).equals(
             KeyStoreTableModel.KEY_ENTRY))
         {
@@ -4028,8 +4065,8 @@ public class FPortecle
         String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 
         try {
-            /* Display the Generate Key Pair dialog to get the key pair
-             generation parameters from the user */
+            // Display the Generate Key Pair dialog to get the key pair
+            // generation parameters from the user
             DExport dExport = new DExport(this, true, m_keyStoreWrap, sAlias);
             dExport.setLocationRelativeTo(this);
             dExport.setVisible(true);
@@ -4927,7 +4964,7 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key or trusted certificate entry
+        // Not valid for a key-only or a trusted certificate entry
         Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
         if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
             currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
@@ -5042,7 +5079,10 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key or trusted certificate entry
+        // Not valid for a key-only entry - the KeyStore API won't allow
+        // us to store a PrivateKey without associated certificate chain.
+        // TODO: Maybe it'd work for other Key types? Need testing material.
+        // TODO: Why not for certificate entries?
         Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
         if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
             currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
@@ -5216,7 +5256,7 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key entry
+        // TODO: implement this for key-only entries
         if (m_jtKeyStore.getValueAt(iRow, 0).equals(
             KeyStoreTableModel.KEY_ENTRY))
         {
@@ -5271,13 +5311,6 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key entry
-        if (m_jtKeyStore.getValueAt(iRow, 0).equals(
-            KeyStoreTableModel.KEY_ENTRY))
-        {
-            return false;
-        }
-
         String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
         KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
@@ -5318,7 +5351,10 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key entry
+        // Not valid for a key-only entry - we do a remove-store operation
+        // but the KeyStore API won't allow us to store a PrivateKey without
+        // associated certificate chain.
+        // TODO: Maybe it'd work for other Key types? Need testing material.
         if (m_jtKeyStore.getValueAt(iRow, 0).equals(
             KeyStoreTableModel.KEY_ENTRY))
         {

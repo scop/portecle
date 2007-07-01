@@ -1,6 +1,9 @@
 New in Portecle x.x (xxxx-xx-xx):
 ---------------------------------
 
+New features:
+- Support for deleting key-only keystore entries.
+
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.35, which is also the
   new minimum required version.
