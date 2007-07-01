@@ -3786,12 +3786,11 @@ public class FPortecle
                         // type is not PKCS #12
                         if (!sCurrentType.equals(KeyStoreType.PKCS12.toString()))
                         {
-                            DGetPassword dGetPassword = new DGetPassword(
-                                this,
-                                MessageFormat.format(
-                                    m_res.getString("FPortecle.ChangeKeyStoreTypeKey"
-                                        + "PairEntryPassword.Title"),
-                                    new String[] { sAlias }), true);
+                            String sTitle = MessageFormat.format(
+                                m_res.getString("FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"),
+                                new String[] { sAlias });
+                            DGetPassword dGetPassword = new DGetPassword(this,
+                                sTitle, true);
                             dGetPassword.setLocationRelativeTo(this);
                             dGetPassword.setVisible(true);
                             cPassword = dGetPassword.getPassword();
@@ -3814,8 +3813,7 @@ public class FPortecle
                             JOptionPane.showMessageDialog(
                                 this,
                                 MessageFormat.format(
-                                    m_res.getString("FPortecle."
-                                        + "ChangeFromPkcs12Password.message"),
+                                    m_res.getString("FPortecle.ChangeFromPkcs12Password.message"),
                                     new String[] { new String(
                                         PKCS12_DUMMY_PASSWORD) }),
                                 m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
