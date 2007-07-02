@@ -10,6 +10,12 @@ Enhancements:
 - Add "cacerts" to list of filenames to accept when selecting JKS
   keystores.
 
+Bug fixes:
+- When overwriting an existing entry while creating a new key pair, cloning
+  an existing one, or importing one, canceling the operation when asked for
+  a password for the new entry would already have deleted the entry that was
+  about to be overwritten.
+
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.37, which is also the
   new minimum required version.  This makes treatment of PKCS#12 keystore

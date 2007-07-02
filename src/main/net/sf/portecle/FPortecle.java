@@ -1706,6 +1706,9 @@ public class FPortecle
             return false;
         }
 
+        // Alias to possibly delete before adding new one
+        String sAliasToDelete = null;
+        
         try {
             // Check entry does not already exist in the keystore
             if (keyStore.containsAlias(sAlias)) {
@@ -1724,8 +1727,8 @@ public class FPortecle
                 else if (iSelected == JOptionPane.NO_OPTION) {
                     return false;
                 }
-                // Otherwise carry on - delete entry to be copied over
-                keyStore.deleteEntry(sAlias);
+                // Otherwise carry on - delete old entry later
+                sAliasToDelete = sAlias;
             }
         }
         catch (KeyStoreException ex) {
@@ -1754,6 +1757,11 @@ public class FPortecle
         // Place the private key and certificate into the keystore and update
         // the keystore wrapper
         try {
+            // If needed, delete old entry first
+            if (sAliasToDelete != null) {
+                keyStore.deleteEntry(sAliasToDelete);
+            }
+            // Store the new one
             keyStore.setKeyEntry(sAlias, keyPair.getPrivate(), cPassword,
                 new X509Certificate[] { certificate });
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
@@ -3257,6 +3265,9 @@ public class FPortecle
                 return false;
             }
 
+            // Alias to possibly delete before adding new one
+            String sAliasToDelete = null;
+
             // Check an entry with the selected does not already exist
             // in the keystore
             if (keyStore.containsAlias(sAlias)) {
@@ -3273,8 +3284,8 @@ public class FPortecle
                 else if (iSelected == JOptionPane.NO_OPTION) {
                     return false;
                 }
-                // Otherwise carry on - delete entry to be copied over
-                keyStore.deleteEntry(sAlias);
+                // Otherwise carry on - delete old entry later
+                sAliasToDelete = sAlias;
             }
 
             // Get a password for the new keystore entry (only relevant if
@@ -3291,6 +3302,11 @@ public class FPortecle
                 if (cPassword == null) {
                     return false;
                 }
+            }
+            
+            // If needed, delete old entry first
+            if (sAliasToDelete != null) {
+                keyStore.deleteEntry(sAliasToDelete);
             }
 
             // Place the private key and certificate chain into the keystore
@@ -5187,6 +5203,9 @@ public class FPortecle
                 return false;
             }
 
+            // Alias to possibly delete before adding new one
+            String sAliasToDelete = null;
+
             // Check entry does not already exist in the keystore
             if (keyStore.containsAlias(sNewAlias)) {
                 String sMessage = MessageFormat.format(
@@ -5204,8 +5223,8 @@ public class FPortecle
                 else if (iSelected == JOptionPane.NO_OPTION) {
                     return false;
                 }
-                // Otherwise carry on - delete entry to be copied over
-                keyStore.deleteEntry(sNewAlias);
+                // Otherwise carry on - delete old entry later
+                sAliasToDelete = sNewAlias;
             }
 
             // Get a password for the new keystore entry (only relevant if
@@ -5226,6 +5245,11 @@ public class FPortecle
                 }
             }
 
+            // If needed, delete old entry first
+            if (sAliasToDelete != null) {
+                keyStore.deleteEntry(sAliasToDelete);
+            }
+            
             // Create new entry
             keyStore.setKeyEntry(sNewAlias, key, cNewPassword, certs);
 
