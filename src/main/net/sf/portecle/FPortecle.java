@@ -1429,19 +1429,19 @@ public class FPortecle
         new StatusBarChangeHandler(jmiKeyPairDelete,
             m_res.getString("FPortecle.jmiKeyPairDelete.statusbar"), this);
 
-        JMenuItem jmiClone = new JMenuItem(
-            m_res.getString("FPortecle.jmiClone.text"), m_res.getString(
-                "FPortecle.jmiClone.mnemonic").charAt(0));
-        jmiClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiClone.image")));
-        jmiClone.addActionListener(new ActionListener()
+        JMenuItem jmiKeyPairClone = new JMenuItem(
+            m_res.getString("FPortecle.jmiKeyPairClone.text"), m_res.getString(
+                "FPortecle.jmiKeyPairClone.mnemonic").charAt(0));
+        jmiKeyPairClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairClone.image")));
+        jmiKeyPairClone.addActionListener(new ActionListener()
         {
             protected void act()
             {
-                cloneSelectedEntry();
+                cloneSelectedKeyEntry();
             }
         });
-        new StatusBarChangeHandler(jmiClone,
-            m_res.getString("FPortecle.jmiClone.statusbar"), this);
+        new StatusBarChangeHandler(jmiKeyPairClone,
+            m_res.getString("FPortecle.jmiKeyPairClone.statusbar"), this);
 
         JMenuItem jmiKeyPairRename = new JMenuItem(
             m_res.getString("FPortecle.jmiKeyPairRename.text"),
@@ -1466,7 +1466,7 @@ public class FPortecle
         m_jpmKeyPair.addSeparator();
         m_jpmKeyPair.add(m_jmiSetKeyPairPass);
         m_jpmKeyPair.add(jmiKeyPairDelete);
-        m_jpmKeyPair.add(jmiClone);
+        m_jpmKeyPair.add(jmiKeyPairClone);
         m_jpmKeyPair.add(jmiKeyPairRename);
 
         // Initialise Trusted Certificate entry pop-up menu including
@@ -1518,6 +1518,20 @@ public class FPortecle
         new StatusBarChangeHandler(jmiTrustCertDelete,
             m_res.getString("FPortecle.jmiTrustCertDelete.statusbar"), this);
 
+        JMenuItem jmiTrustCertClone = new JMenuItem(
+            m_res.getString("FPortecle.jmiTrustCertClone.text"), m_res.getString(
+                "FPortecle.jmiTrustCertClone.mnemonic").charAt(0));
+        jmiTrustCertClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertClone.image")));
+        jmiTrustCertClone.addActionListener(new ActionListener()
+        {
+            protected void act()
+            {
+                cloneSelectedCertificateEntry();
+            }
+        });
+        new StatusBarChangeHandler(jmiTrustCertClone,
+            m_res.getString("FPortecle.jmiTrustCertClone.statusbar"), this);
+
         JMenuItem jmiTrustCertRename = new JMenuItem(
             m_res.getString("FPortecle.jmiTrustCertRename.text"),
             m_res.getString("FPortecle.jmiTrustCertRename.mnemonic").charAt(0));
@@ -1538,6 +1552,7 @@ public class FPortecle
         m_jpmCert.add(jmiTrustCertExport);
         m_jpmCert.addSeparator();
         m_jpmCert.add(jmiTrustCertDelete);
+        m_jpmCert.add(jmiTrustCertClone);
         m_jpmCert.add(jmiTrustCertRename);
     }
 
@@ -5087,12 +5102,13 @@ public class FPortecle
     }
 
     /**
-     * Let the user clone the selected key pair entry.
+     * Let the user clone the selected key entry.
      *
      * @return True if the clone is successful, false otherwise
      */
-    private boolean cloneSelectedEntry()
+    private boolean cloneSelectedKeyEntry()
     {
+
         assert m_keyStoreWrap != null;
         assert m_keyStoreWrap.getKeyStore() != null;
 
@@ -5103,14 +5119,11 @@ public class FPortecle
             return false;
         }
 
-        // Not valid for a key-only entry - the KeyStore API won't allow
+        Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+        // Not valid for a PrivateKey-only entry - the KeyStore API won't allow
         // us to store a PrivateKey without associated certificate chain.
         // TODO: Maybe it'd work for other Key types? Need testing material.
-        // TODO: Why not for certificate entries?
-        Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
-        if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
-            currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
-        {
+        if (!currEntry.equals(KeyStoreTableModel.KEY_PAIR_ENTRY)) {
             return false;
         }
 
@@ -5141,15 +5154,15 @@ public class FPortecle
                 }
             }
 
-            // Get private key and certificates from entry
-            PrivateKey privKey = (PrivateKey) keyStore.getKey(sAlias,
-                cPassword);
+            // Get key and certificates from entry
+            Key key = keyStore.getKey(sAlias, cPassword);
             Certificate[] certs = keyStore.getCertificateChain(sAlias);
 
             // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
             // Get the alias of the new entry
+            // TODO: certs can be null
             X509Certificate[] x509Certs = X509CertUtil.orderX509CertChain(X509CertUtil.convertCertificates(certs));
 
             DGetAlias dGetAlias = new DGetAlias(this,
@@ -5169,7 +5182,7 @@ public class FPortecle
                 JOptionPane.showMessageDialog(this, MessageFormat.format(
                     m_res.getString("FPortecle.CloneAliasIdentical.message"),
                     new String[] { sAlias }),
-                    m_res.getString("FPortecle.CloneEntry.Title"),
+                    m_res.getString("FPortecle.CloneKeyPair.Title"),
                     JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -5214,7 +5227,7 @@ public class FPortecle
             }
 
             // Create new entry
-            keyStore.setKeyEntry(sNewAlias, privKey, cNewPassword, certs);
+            keyStore.setKeyEntry(sNewAlias, key, cNewPassword, certs);
 
             // Update the keystore wrapper
             m_keyStoreWrap.setEntryPassword(sNewAlias, cNewPassword);
@@ -5228,6 +5241,104 @@ public class FPortecle
             JOptionPane.showMessageDialog(this,
                 m_res.getString("FPortecle.KeyPairCloningSuccessful.message"),
                 m_res.getString("FPortecle.CloneKeyPair.Title"),
+                JOptionPane.INFORMATION_MESSAGE);
+
+            return true;
+        }
+        catch (Exception ex) {
+            displayException(ex);
+            return false;
+        }
+    }
+
+    /**
+     * Let the user clone the selected certificate entry.
+     *
+     * @return True if the clone is successful, false otherwise
+     */
+    private boolean cloneSelectedCertificateEntry()
+    {
+        assert m_keyStoreWrap != null;
+        assert m_keyStoreWrap.getKeyStore() != null;
+
+        // What entry has been selected?
+        int iRow = m_jtKeyStore.getSelectedRow();
+
+        if (iRow == -1) {
+            return false;
+        }
+
+        // Not valid for non-certificate entries
+        Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+        if (!currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY)) {
+            return false;
+        }
+
+        String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+        KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+
+        try {
+
+            // Get certificate from entry
+            Certificate cert = keyStore.getCertificate(sAlias);
+
+            // Get the alias of the new entry
+            X509Certificate x509Cert = X509CertUtil.convertCertificate(cert);
+
+            DGetAlias dGetAlias = new DGetAlias(this,
+                m_res.getString("FPortecle.ClonedTrustCertEntryAlias.Title"),
+                true,
+                X509CertUtil.getCertificateAlias(x509Cert).toLowerCase());
+            dGetAlias.setLocationRelativeTo(this);
+            dGetAlias.setVisible(true);
+            String sNewAlias = dGetAlias.getAlias();
+
+            if (sNewAlias == null) {
+                return false;
+            }
+
+            // Check new alias differs from the present one
+            if (sNewAlias.equalsIgnoreCase(sAlias)) {
+                JOptionPane.showMessageDialog(this, MessageFormat.format(
+                    m_res.getString("FPortecle.CloneAliasIdentical.message"),
+                    new String[] { sAlias }),
+                    m_res.getString("FPortecle.CloneCertificate.Title"),
+                    JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            // Check entry does not already exist in the keystore
+            if (keyStore.containsAlias(sNewAlias)) {
+                String sMessage = MessageFormat.format(
+                    m_res.getString("FPortecle.OverwriteAlias.message"),
+                    new String[] { sNewAlias });
+
+                int iSelected = JOptionPane.showConfirmDialog(
+                    this,
+                    sMessage,
+                    m_res.getString("FPortecle.ClonedCertificateEntryAlias.Title"),
+                    JOptionPane.YES_NO_CANCEL_OPTION);
+                if (iSelected != JOptionPane.YES_OPTION) {
+                    return false;
+                }
+                // Otherwise carry on - delete entry to be copied over
+                keyStore.deleteEntry(sNewAlias);
+            }
+
+            // Create new entry
+            keyStore.setCertificateEntry(sNewAlias, cert);
+
+            // Update the keystore wrapper
+            m_keyStoreWrap.setChanged(true);
+
+            // ...and update the frame's components and title
+            updateControls();
+            updateTitle();
+
+            // Display success message
+            JOptionPane.showMessageDialog(this,
+                m_res.getString("FPortecle.CertificateCloningSuccessful.message"),
+                m_res.getString("FPortecle.CloneCertificate.Title"),
                 JOptionPane.INFORMATION_MESSAGE);
 
             return true;

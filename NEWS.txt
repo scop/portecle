@@ -3,6 +3,7 @@ New in Portecle x.x (xxxx-xx-xx):
 
 New features:
 - Support for deleting key-only keystore entries.
+- Support for cloning certificate keystore entries.
 - Support for case sensitive JKS keystores.
 
 Enhancements:
