@@ -11,8 +11,9 @@ Enhancements:
   keystores.
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to 1.35, which is also the
-  new minimum required version.
+- Bundled Bouncy Castle provider jar upgraded to 1.37, which is also the
+  new minimum required version.  This makes treatment of PKCS#12 keystore
+  aliases case insensitive.
 
 New in Portecle 1.2 (2006-11-05):
 ---------------------------------

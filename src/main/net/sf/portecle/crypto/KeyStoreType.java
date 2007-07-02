@@ -51,8 +51,9 @@ public class KeyStoreType
         false, /* TODO: verify */false, new String[0]);
 
     /** PKCS #12 keystore Type */
+    // Case sensitive with BC < 1.36, insensitive with Sun and BC >= 1.36.
     public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",
-        false, true, new String[] { "p12", "pfx" });
+        false, false, new String[] { "p12", "pfx" });
 
     /** BKS keystore Type */
     public static final KeyStoreType BKS = new KeyStoreType("BKS", true, true,
