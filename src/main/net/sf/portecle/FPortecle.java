@@ -5335,7 +5335,7 @@ public class FPortecle
                 int iSelected = JOptionPane.showConfirmDialog(
                     this,
                     sMessage,
-                    m_res.getString("FPortecle.ClonedCertificateEntryAlias.Title"),
+                    m_res.getString("FPortecle.ClonedTrustCertEntryAlias.Title"),
                     JOptionPane.YES_NO_OPTION);
                 if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
