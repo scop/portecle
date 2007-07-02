@@ -1720,11 +1720,8 @@ public class FPortecle
                     this,
                     sMessage,
                     m_res.getString("DGenerateCertificate.KeyPairEntryAlias.Title"),
-                    JOptionPane.YES_NO_CANCEL_OPTION);
-                if (iSelected == JOptionPane.CANCEL_OPTION) {
-                    return false;
-                }
-                else if (iSelected == JOptionPane.NO_OPTION) {
+                    JOptionPane.YES_NO_OPTION);
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
                 // Otherwise carry on - delete old entry later
@@ -2215,7 +2212,8 @@ public class FPortecle
      * Ask the user if they want to save the current keystore file.
      *
      * @return JOptionPane.YES_OPTION, JOptionPane.NO_OPTION or
-     * JOptionPane.CANCEL_OPTION
+     * JOptionPane.CANCEL_OPTION; JOptionPane.CLOSED_OPTION is reported
+     * as JOptionPane.CANCEL_OPTION
      */
     /* package private */int wantSave()
     {
@@ -2239,6 +2237,9 @@ public class FPortecle
         int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
             m_res.getString("FPortecle.WantSaveChanges.Title"),
             JOptionPane.YES_NO_CANCEL_OPTION);
+        if (iSelected == JOptionPane.CLOSED_OPTION) {
+            iSelected = JOptionPane.CANCEL_OPTION;
+        }
         return iSelected;
     }
 
@@ -2931,7 +2932,7 @@ public class FPortecle
                         m_res.getString("FPortecle.AcceptCaReply.message"),
                         m_res.getString("FPortecle.ImportCaReply.Title"),
                         JOptionPane.YES_NO_OPTION);
-                    if (iSelected == JOptionPane.NO_OPTION) {
+                    if (iSelected != JOptionPane.YES_OPTION) {
                         return false;
                     }
                     newCertChain = certs;
@@ -3073,7 +3074,7 @@ public class FPortecle
                         new String[] { sMatchAlias }),
                     m_res.getString("FPortecle.ImportTrustCert.Title"),
                     JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION) {
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
             }
@@ -3125,7 +3126,7 @@ public class FPortecle
                     m_res.getString("FPortecle.AcceptTrustCert.message"),
                     m_res.getString("FPortecle.ImportTrustCert.Title"),
                     JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION) {
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
             }
@@ -3151,7 +3152,7 @@ public class FPortecle
                 int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
                     m_res.getString("FPortecle.ImportTrustCert.Title"),
                     JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION) {
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
                 // Otherwise carry on - delete entry to be copied over
@@ -3277,11 +3278,8 @@ public class FPortecle
 
                 int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
                     m_res.getString("FPortecle.KeyPairEntryAlias.Title"),
-                    JOptionPane.YES_NO_CANCEL_OPTION);
-                if (iSelected == JOptionPane.CANCEL_OPTION) {
-                    return false;
-                }
-                else if (iSelected == JOptionPane.NO_OPTION) {
+                    JOptionPane.YES_NO_OPTION);
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
                 // Otherwise carry on - delete old entry later
@@ -3832,7 +3830,7 @@ public class FPortecle
                             m_res.getString("FPortecle.WarnCaseSensitivity.message"),
                             m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                             JOptionPane.YES_NO_OPTION);
-                        if (iSelected == JOptionPane.NO_OPTION) {
+                        if (iSelected != JOptionPane.YES_OPTION) {
                             return false;
                         }
                     }
@@ -3856,7 +3854,7 @@ public class FPortecle
                                 m_res.getString("FPortecle.WarnNoChangeKey.message"),
                                 m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                                 JOptionPane.YES_NO_OPTION);
-                            if (iSelected == JOptionPane.NO_OPTION) {
+                            if (iSelected != JOptionPane.YES_OPTION) {
                                 return false;
                             }
                         }
@@ -3925,7 +3923,7 @@ public class FPortecle
                             m_res.getString("FPortecle.WarnCaseSensitivity.message"),
                             m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                             JOptionPane.YES_NO_OPTION);
-                        if (iSelected == JOptionPane.NO_OPTION) {
+                        if (iSelected != JOptionPane.YES_OPTION) {
                             return false;
                         }
                     }
@@ -5216,11 +5214,8 @@ public class FPortecle
                     this,
                     sMessage,
                     m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"),
-                    JOptionPane.YES_NO_CANCEL_OPTION);
-                if (iSelected == JOptionPane.CANCEL_OPTION) {
-                    return false;
-                }
-                else if (iSelected == JOptionPane.NO_OPTION) {
+                    JOptionPane.YES_NO_OPTION);
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
                 // Otherwise carry on - delete old entry later
@@ -5341,7 +5336,7 @@ public class FPortecle
                     this,
                     sMessage,
                     m_res.getString("FPortecle.ClonedCertificateEntryAlias.Title"),
-                    JOptionPane.YES_NO_CANCEL_OPTION);
+                    JOptionPane.YES_NO_OPTION);
                 if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
@@ -5554,7 +5549,7 @@ public class FPortecle
                 int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
                     m_res.getString("FPortecle.RenameEntry.Title"),
                     JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION) {
+                if (iSelected != JOptionPane.YES_OPTION) {
                     return false;
                 }
             }
@@ -6134,7 +6129,7 @@ public class FPortecle
                 new String[] { file.getName() });
             int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
                 title, JOptionPane.YES_NO_OPTION);
-            return iSelected != JOptionPane.NO_OPTION;
+            return iSelected == JOptionPane.YES_OPTION;
         }
         return true;
     }
