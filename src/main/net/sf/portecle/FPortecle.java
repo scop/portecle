@@ -3481,10 +3481,10 @@ public class FPortecle
         String sEmailAddress = m_res.getString("FPortecle.EmailAddress");
 
         try {
-            // Could not launch email client - tell the user the address
             BrowserLauncher.openURL("mailto:" + sEmailAddress);
         }
         catch (IOException ex) {
+            // Could not launch email client - tell the user the address
             JOptionPane.showMessageDialog(this, MessageFormat.format(
                 m_res.getString("FPortecle.NoLaunchEmail.message"),
                 new String[] { sEmailAddress }),
