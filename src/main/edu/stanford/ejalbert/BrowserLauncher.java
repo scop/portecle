@@ -153,10 +153,6 @@ public class BrowserLauncher {
 	/** JVM constant for any Windows 9x JVM */
 	private static final int WINDOWS_9x = 7;
 
-	/** JVM constant for any Linux JVM */
-	// Portecle addition
-	private static final int LINUX = 8;
-
 	/** JVM constant for any other platform */
 	private static final int OTHER = -1;
 
@@ -254,8 +250,6 @@ public class BrowserLauncher {
 			} else {
 				jvm = WINDOWS_NT;
 			}
-		} else if (osName.startsWith("Linux")) { // Portecle addition
-			jvm = LINUX;
 		} else {
 			jvm = OTHER;
 		}
@@ -498,19 +492,19 @@ public class BrowserLauncher {
 			case WINDOWS_9x:
 				browser = "command.com";
 				break;
-			case LINUX: // Portecle addition
-				browser = "mozilla";
-				break;
 			case OTHER:
 			default:
 				// On systems other than Windows and the Mac, we try via a rather Unix-
 				// specific hack to read the BROWSER environment variable
 				// <http://tuxedo.org/~esr/BROWSER/>. If we can't read that variable or
 				// it isn't set, we use Netscape.
+				// Portecle change: use xdg-open instead, it handles $BROWSER too.
+				// <http://portland.freedesktop.org/wiki/XdgUtils>
+				browser = "xdg-open";
 				// Note: This is commented out for now. It'll work soon.
 //				browser = getEnvironmentBrowser();
 //				if (browser == null) {
-					browser = "netscape";
+//					browser = "netscape";
 //				}
 				break;
 		}
@@ -611,11 +605,13 @@ public class BrowserLauncher {
 					throw new IOException("InterruptedException while launching browser: " + ie.getMessage());
 				}
 				break;
-			case LINUX: // Portecle addition
 			case OTHER:
 				// Assume that we're on Unix and that Netscape is installed
 				
 				// Attempt to open the URL in a currently running session of Netscape
+				// Portecle change: use xdg-open instead
+				process = Runtime.getRuntime().exec(new String[] { (String) browser, url });
+				/*
 				process = Runtime.getRuntime().exec(new String[] { (String) browser,
 													NETSCAPE_REMOTE_PARAMETER,
 													NETSCAPE_OPEN_PARAMETER_START +
@@ -629,6 +625,7 @@ public class BrowserLauncher {
 				} catch (InterruptedException ie) {
 					throw new IOException("InterruptedException while launching browser: " + ie.getMessage());
 				}
+				*/
 				break;
 			default:
 				// This should never occur, but if it does, we'll try the simplest thing possible

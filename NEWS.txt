@@ -9,6 +9,8 @@ New features:
 Enhancements:
 - Add "cacerts" to list of filenames to accept when selecting JKS
   keystores.
+- Use xdg-open for opening URLs on non-Windows/Mac platforms.
+  http://portland.freedesktop.org/wiki/XdgUtils
 
 Bug fixes:
 - When overwriting an existing entry while creating a new key pair, cloning
