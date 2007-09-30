@@ -15,3 +15,5 @@ TODO for later:
 - Suggest a sane filename when saving a newly created keystore for the
   first time.
 - Get rid of all assumptions about keystore alias case sensitivity.
+- Add option to do (IOW, not bypass) hostname and certificate checks when
+  examining SSL/TLS connections.
