@@ -243,7 +243,7 @@ class DGeneratingKeyPair
                 });
             }
             catch (CryptoException ex) {
-                // Store excpetion in member so it can be accessed
+                // Store exception in member so it can be accessed
                 // from inner class
                 m_ex = ex;
 
