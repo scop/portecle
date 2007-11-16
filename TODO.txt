@@ -17,4 +17,4 @@ TODO for later:
 - Get rid of all assumptions about keystore alias case sensitivity.
 - Add option to do (IOW, not bypass) hostname and certificate checks when
   examining SSL/TLS connections.
-- Import keys+certs from PEM (bundle or separate) or DER (separate) files
+- Import/export key+certs from PEM (bundle or separate) or DER (separate) files
