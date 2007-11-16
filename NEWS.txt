@@ -21,7 +21,7 @@ Bug fixes:
   regular option buttons had the same effect as clicking "Yes".
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to 1.37, which is also the
+- Bundled Bouncy Castle provider jar upgraded to 1.38, which is also the
   new minimum required version.  This makes treatment of PKCS#12 keystore
   aliases case insensitive.
 

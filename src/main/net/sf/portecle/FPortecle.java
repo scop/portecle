@@ -147,7 +147,7 @@ public class FPortecle
     private static final String REQ_JRE_VERSION = "1.4.0";
 
     /** Minimum required BC version */
-    private static final Double REQ_BC_VERSION = new Double(1.37);
+    private static final Double REQ_BC_VERSION = new Double(1.38);
 
     /** Enable experimental features? */
     private static final boolean EXPERIMENTAL = Boolean.getBoolean("portecle.experimental");
