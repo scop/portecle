@@ -207,7 +207,7 @@ class DGeneratingKeyPair
     }
 
     /**
-     * Generates a key pair.  Is Runnable so can be run in a seperate thread.
+     * Generates a key pair.  Is Runnable so can be run in a separate thread.
      */
     private class GenerateKeyPair
         implements Runnable
