@@ -356,7 +356,8 @@ class DGenerateCertificate
                 SignatureType.RSA_MD5, SignatureType.RSA_SHA1,
                 SignatureType.RSA_SHA224, SignatureType.RSA_SHA256,
                 SignatureType.RSA_SHA384, SignatureType.RSA_SHA512,
-                SignatureType.RSA_RIPEMD160, };
+                SignatureType.RSA_RIPEMD128, SignatureType.RSA_RIPEMD160,
+                SignatureType.RSA_RIPEMD256, };
             selectedIndex = 2;
         }
 

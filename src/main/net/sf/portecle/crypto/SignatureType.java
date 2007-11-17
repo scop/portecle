@@ -60,9 +60,17 @@ public class SignatureType
     public static final SignatureType RSA_SHA512 = new SignatureType(
         "SHA512withRSA");
 
+    /** RIPEMD128 with RSA Signature Type */
+    public static final SignatureType RSA_RIPEMD128 = new SignatureType(
+        "RIPEMD128withRSA");
+
     /** RIPEMD160 with RSA Signature Type */
     public static final SignatureType RSA_RIPEMD160 = new SignatureType(
         "RIPEMD160withRSA");
+
+    /** RIPEMD256 with RSA Signature Type */
+    public static final SignatureType RSA_RIPEMD256 = new SignatureType(
+        "RIPEMD256withRSA");
 
     /** SHA-1 with DSA Signature Type */
     public static final SignatureType DSA_SHA1 = new SignatureType(
@@ -82,7 +90,9 @@ public class SignatureType
         TYPE_MAP.put(RSA_SHA256.toString(), RSA_SHA256);
         TYPE_MAP.put(RSA_SHA384.toString(), RSA_SHA384);
         TYPE_MAP.put(RSA_SHA512.toString(), RSA_SHA512);
+        TYPE_MAP.put(RSA_RIPEMD128.toString(), RSA_RIPEMD128);
         TYPE_MAP.put(RSA_RIPEMD160.toString(), RSA_RIPEMD160);
+        TYPE_MAP.put(RSA_RIPEMD256.toString(), RSA_RIPEMD256);
         TYPE_MAP.put(DSA_SHA1.toString(), DSA_SHA1);
         TYPE_MAP.put(ECDSA_SHA1.toString(), ECDSA_SHA1);
     }
@@ -97,7 +107,9 @@ public class SignatureType
         OID_MAP.put("1.2.840.113549.1.1.11", RSA_SHA256);
         OID_MAP.put("1.2.840.113549.1.1.12", RSA_SHA384);
         OID_MAP.put("1.2.840.113549.1.1.13", RSA_SHA512);
+        OID_MAP.put("1.3.36.3.3.1.3", RSA_RIPEMD128);
         OID_MAP.put("1.3.36.3.3.1.2", RSA_RIPEMD160);
+        OID_MAP.put("1.3.36.3.3.1.4", RSA_RIPEMD256);
         OID_MAP.put("1.2.840.10040.4.3", DSA_SHA1);
         OID_MAP.put("1.2.840.10045.4.1", ECDSA_SHA1);
     }

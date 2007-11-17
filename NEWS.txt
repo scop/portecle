@@ -5,6 +5,8 @@ New features:
 - Support for deleting key-only keystore entries.
 - Support for cloning certificate keystore entries.
 - Support for case sensitive JKS keystores.
+- Support for RSA certificates using the RIPEMD128withRSA and
+  RIPEMD256withRSA signature algorithms.
 
 Enhancements:
 - Add "cacerts" to list of filenames to accept when selecting JKS
