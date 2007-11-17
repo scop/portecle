@@ -117,7 +117,7 @@ public class DJarInfo
             column.setCellRenderer(new JarInfoTableCellRend());
         }
 
-        // Put the table into a scroll panew
+        // Put the table into a scroll pane
         JScrollPane jspJarInfoTable = new JScrollPane(jtJarInfo,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -179,7 +179,7 @@ public class DJarInfo
         // Store JARs
         ArrayList vJars = new ArrayList();
 
-        // Split classpath into it's components using the path separarator
+        // Split classpath into it's components using the path separator
         String sClassPath = System.getProperty("java.class.path");
         String sPathSeparator = System.getProperty("path.separator");
 
@@ -245,10 +245,9 @@ public class DJarInfo
     private boolean isJarFile(File file)
     {
         if (file.isFile()) {
-            String sName = file.getName();
+            String sName = file.getName().toLowerCase();
 
-            if (sName.endsWith(".jar") || sName.endsWith(".JAR")
-                || sName.endsWith(".zip") || sName.endsWith(".ZIP"))
+            if (sName.endsWith(".jar") || sName.endsWith(".zip"))
             {
                 return true;
             }
