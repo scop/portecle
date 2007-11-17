@@ -39,6 +39,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.portecle.gui.SwingHelper;
+
 /**
  * Displays an throwable message with the option to display the stack trace.
  */
@@ -214,7 +216,7 @@ public class DThrowable
         DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true,
             m_throwable);
         dThrowableDetail.setLocationRelativeTo(this);
-        dThrowableDetail.setVisible(true);
+        SwingHelper.showAndWait(dThrowableDetail);
     }
 
     /**

@@ -22,6 +22,7 @@ Bug fixes:
   about to be overwritten.
 - Closing various confirmation dialog windows without clicking any of the
   regular option buttons had the same effect as clicking "Yes".
+- Fix dialog thread deadlock issues.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.38, which is also the

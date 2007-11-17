@@ -107,6 +107,7 @@ import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.JMenuItemRecentFile;
 import net.sf.portecle.gui.JMenuRecentFiles;
 import net.sf.portecle.gui.LastDir;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.WSplash;
 import net.sf.portecle.gui.about.DAbout;
 import net.sf.portecle.gui.crypto.DProviderInfo;
@@ -1634,7 +1635,7 @@ public class FPortecle
         // Display About Dialog in the centre of the frame
         DAbout dAbout = new DAbout(this, true);
         dAbout.setLocationRelativeTo(this);
-        dAbout.setVisible(true);
+        SwingHelper.showAndWait(dAbout);
     }
 
     /**
@@ -1651,7 +1652,7 @@ public class FPortecle
         // parameters from the user
         DGenerateKeyPair dGenerateKeyPair = new DGenerateKeyPair(this, true);
         dGenerateKeyPair.setLocationRelativeTo(this);
-        dGenerateKeyPair.setVisible(true);
+        SwingHelper.showAndWait(dGenerateKeyPair);
 
         if (!dGenerateKeyPair.isSuccessful()) {
             return false; // User cancelled the dialog
@@ -1665,7 +1666,7 @@ public class FPortecle
             true, keyPairType, iKeySize);
         dGeneratingKeyPair.setLocationRelativeTo(this);
         dGeneratingKeyPair.startKeyPairGeneration();
-        dGeneratingKeyPair.setVisible(true);
+        SwingHelper.showAndWait(dGeneratingKeyPair);
 
         KeyPair keyPair = dGeneratingKeyPair.getKeyPair();
 
@@ -1680,7 +1681,7 @@ public class FPortecle
             this, m_res.getString("FPortecle.GenerateCertificate.Title"),
             true, keyPair, keyPairType);
         dGenerateCertificate.setLocationRelativeTo(this);
-        dGenerateCertificate.setVisible(true);
+        SwingHelper.showAndWait(dGenerateCertificate);
 
         X509Certificate certificate = dGenerateCertificate.getCertificate();
 
@@ -1699,7 +1700,7 @@ public class FPortecle
             m_res.getString("DGenerateCertificate.KeyPairEntryAlias.Title"),
             true, X509CertUtil.getCertificateAlias(certificate).toLowerCase());
         dGetAlias.setLocationRelativeTo(this);
-        dGetAlias.setVisible(true);
+        SwingHelper.showAndWait(dGetAlias);
         sAlias = dGetAlias.getAlias();
 
         if (sAlias == null) {
@@ -1743,7 +1744,7 @@ public class FPortecle
                 m_res.getString("DGenerateCertificate.KeyPairEntryPassword.Title"),
                 true);
             dGetNewPassword.setLocationRelativeTo(this);
-            dGetNewPassword.setVisible(true);
+            SwingHelper.showAndWait(dGetNewPassword);
             cPassword = dGetNewPassword.getPassword();
 
             if (cPassword == null) {
@@ -1856,7 +1857,7 @@ public class FPortecle
                 m_res.getString("FPortecle.GetKeyStorePassword.Title"),
                 new String[] { fKeyStore.getName() }), true);
         dGetPassword.setLocationRelativeTo(this);
-        dGetPassword.setVisible(true);
+        SwingHelper.showAndWait(dGetPassword);
         char[] cPassword = dGetPassword.getPassword();
 
         if (cPassword == null) {
@@ -1963,7 +1964,7 @@ public class FPortecle
             m_res.getString("FPortecle.ChoosePkcs11Provider.Title"), true,
             null);
         chooser.setLocationRelativeTo(this);
-        chooser.setVisible(true);
+        SwingHelper.showAndWait(chooser);
 
         String provider = chooser.getProvider();
         return (provider == null) ? false : openKeyStorePkcs11(provider);
@@ -1983,7 +1984,7 @@ public class FPortecle
                 m_res.getString("FPortecle.GetKeyStorePassword.Title"),
                 new String[] { sPkcs11Provider }), true);
         dGetPassword.setLocationRelativeTo(this);
-        dGetPassword.setVisible(true);
+        SwingHelper.showAndWait(dGetPassword);
         char[] cPassword = dGetPassword.getPassword();
 
         if (cPassword == null) {
@@ -2096,7 +2097,7 @@ public class FPortecle
         DGetNewPassword dGetNewPassword = new DGetNewPassword(this,
             m_res.getString("FPortecle.SetKeyStorePassword.Title"), true);
         dGetNewPassword.setLocationRelativeTo(this);
-        dGetNewPassword.setVisible(true);
+        SwingHelper.showAndWait(dGetNewPassword);
 
         // Dialog returned - retrieve the password and return it
         char[] cPassword = dGetNewPassword.getPassword();
@@ -2271,7 +2272,7 @@ public class FPortecle
             DNewKeyStoreType dNewKeyStoreType = new DNewKeyStoreType(this,
                 true);
             dNewKeyStoreType.setLocationRelativeTo(this);
-            dNewKeyStoreType.setVisible(true);
+            SwingHelper.showAndWait(dNewKeyStoreType);
 
             KeyStoreType keyStoreType = dNewKeyStoreType.getKeyStoreType();
 
@@ -2326,7 +2327,7 @@ public class FPortecle
                         m_res.getString("FPortecle.CertDetailsFile.Title"),
                         new String[] { fCertFile.getName() }), true, certs);
                 dViewCertificate.setLocationRelativeTo(this);
-                dViewCertificate.setVisible(true);
+                SwingHelper.showAndWait(dViewCertificate);
                 return true;
             }
             return false;
@@ -2427,7 +2428,7 @@ public class FPortecle
                         new String[] { ia.getHostName() + ":" + ia.getPort() }),
                     true, certs);
                 dViewCertificate.setLocationRelativeTo(this);
-                dViewCertificate.setVisible(true);
+                SwingHelper.showAndWait(dViewCertificate);
                 return true;
             }
             return false;
@@ -2464,7 +2465,7 @@ public class FPortecle
                     m_res.getString("FPortecle.CsrDetailsFile.Title"),
                     new String[] { fCSRFile.getName() }), true, csr);
                 dViewCSR.setLocationRelativeTo(this);
-                dViewCSR.setVisible(true);
+                SwingHelper.showAndWait(dViewCSR);
                 return true;
             }
             catch (CryptoException e) {
@@ -2499,7 +2500,7 @@ public class FPortecle
                 m_res.getString("FPortecle.CrlDetailsFile.Title"),
                 new String[] { fCRLFile.getName() }), true, crl);
             dViewCRL.setLocationRelativeTo(this);
-            dViewCRL.setVisible(true);
+            SwingHelper.showAndWait(dViewCRL);
             return true;
         }
         return false;
@@ -2571,7 +2572,7 @@ public class FPortecle
             m_res.getString("FPortecle.ExamineCertificateSSL.Title"), true,
             null);
         d.setLocationRelativeTo(this);
-        d.setVisible(true);
+        SwingHelper.showAndWait(d);
         return d.getHostPort();
     }
 
@@ -2924,7 +2925,7 @@ public class FPortecle
                             new String[] { fCertFile.getName() }), true,
                         new X509Certificate[] { rootCert });
                     dViewCertificate.setLocationRelativeTo(this);
-                    dViewCertificate.setVisible(true);
+                    SwingHelper.showAndWait(dViewCertificate);
 
                     // Request confirmation that the certidicate is to
                     // be trusted
@@ -2986,7 +2987,7 @@ public class FPortecle
                         m_res.getString("FPortecle.KeyEntryPassword.Title"),
                         true);
                     dGetPassword.setLocationRelativeTo(this);
-                    dGetPassword.setVisible(true);
+                    SwingHelper.showAndWait(dGetPassword);
                     cPassword = dGetPassword.getPassword();
 
                     if (cPassword == null) {
@@ -3119,7 +3120,7 @@ public class FPortecle
                         new String[] { fCertFile.getName() }), true,
                     new X509Certificate[] { trustCert });
                 dViewCertificate.setLocationRelativeTo(this);
-                dViewCertificate.setVisible(true);
+                SwingHelper.showAndWait(dViewCertificate);
 
                 // Request confirmation that the certidicate is to be trusted
                 int iSelected = JOptionPane.showConfirmDialog(this,
@@ -3136,7 +3137,7 @@ public class FPortecle
                 m_res.getString("FPortecle.TrustCertEntryAlias.Title"), true,
                 X509CertUtil.getCertificateAlias(trustCert).toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
-            dGetAlias.setVisible(true);
+            SwingHelper.showAndWait(dGetAlias);
             String sAlias = dGetAlias.getAlias();
 
             if (sAlias == null) {
@@ -3218,7 +3219,7 @@ public class FPortecle
         DGetPassword dGetPassword = new DGetPassword(this,
             m_res.getString("FPortecle.Pkcs12Password.Title"), true);
         dGetPassword.setLocationRelativeTo(this);
-        dGetPassword.setVisible(true);
+        SwingHelper.showAndWait(dGetPassword);
         char[] cPkcs12Password = dGetPassword.getPassword();
 
         if (cPkcs12Password == null) {
@@ -3237,7 +3238,7 @@ public class FPortecle
             DImportKeyPair dImportKeyPair = new DImportKeyPair(this, true,
                 pkcs12);
             dImportKeyPair.setLocationRelativeTo(this);
-            dImportKeyPair.setVisible(true);
+            SwingHelper.showAndWait(dImportKeyPair);
 
             // Get the private key and certificate chain of the key pair
             Key privateKey = dImportKeyPair.getPrivateKey();
@@ -3259,7 +3260,7 @@ public class FPortecle
                 m_res.getString("FPortecle.KeyPairEntryAlias.Title"), true,
                 sAlias.toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
-            dGetAlias.setVisible(true);
+            SwingHelper.showAndWait(dGetAlias);
             sAlias = dGetAlias.getAlias();
 
             if (sAlias == null) {
@@ -3294,7 +3295,7 @@ public class FPortecle
                 DGetNewPassword dGetNewPassword = new DGetNewPassword(this,
                     m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                 dGetNewPassword.setLocationRelativeTo(this);
-                dGetNewPassword.setVisible(true);
+                SwingHelper.showAndWait(dGetNewPassword);
                 cPassword = dGetNewPassword.getPassword();
 
                 if (cPassword == null) {
@@ -3341,7 +3342,7 @@ public class FPortecle
         DGetPassword dGetPassword = new DGetPassword(this,
             m_res.getString("FPortecle.CaCertsKeyStorePassword.Title"), true);
         dGetPassword.setLocationRelativeTo(this);
-        dGetPassword.setVisible(true);
+        SwingHelper.showAndWait(dGetPassword);
         char[] cPassword = dGetPassword.getPassword();
 
         if (cPassword == null) {
@@ -3426,11 +3427,10 @@ public class FPortecle
             m_fHelp = new FHelp(m_res.getString("FPortecle.Help.Title"), home,
                 toc);
             m_fHelp.setLocation(getX() + 25, getY() + 25);
-            m_fHelp.setVisible(true);
         }
 
         // Show the help dialog
-        m_fHelp.setVisible(true);
+        SwingHelper.showAndWait(m_fHelp);
     }
 
     /**
@@ -3674,7 +3674,7 @@ public class FPortecle
     {
         DProviderInfo dProviderInfo = new DProviderInfo(this, true);
         dProviderInfo.setLocationRelativeTo(this);
-        dProviderInfo.setVisible(true);
+        SwingHelper.showAndWait(dProviderInfo);
     }
 
     /**
@@ -3685,7 +3685,7 @@ public class FPortecle
         try {
             DJarInfo dJarInfo = new DJarInfo(this, true);
             dJarInfo.setLocationRelativeTo(this);
-            dJarInfo.setVisible(true);
+            SwingHelper.showAndWait(dJarInfo);
         }
         catch (IOException ex) {
             displayException(ex);
@@ -3700,7 +3700,7 @@ public class FPortecle
         DOptions dOptions = new DOptions(this, true, m_bUseCaCerts,
             m_fCaCertsFile);
         dOptions.setLocationRelativeTo(this);
-        dOptions.setVisible(true);
+        SwingHelper.showAndWait(dOptions);
 
         // Store/apply the chosen options:
 
@@ -3759,7 +3759,7 @@ public class FPortecle
                         displayException(e);
                     }
                     finally {
-                        setVisible(true);
+                        SwingHelper.showAndWait(this);
                     }
                 }
                 else {
@@ -3879,7 +3879,7 @@ public class FPortecle
                             DGetPassword dGetPassword = new DGetPassword(this,
                                 sTitle, true);
                             dGetPassword.setLocationRelativeTo(this);
-                            dGetPassword.setVisible(true);
+                            SwingHelper.showAndWait(dGetPassword);
                             cPassword = dGetPassword.getPassword();
 
                             if (cPassword == null) {
@@ -4052,7 +4052,7 @@ public class FPortecle
             m_res.getString("FPortecle.SetKeyPairPassword.Title"),
             cOldPassword);
         dChangePassword.setLocationRelativeTo(this);
-        dChangePassword.setVisible(true);
+        SwingHelper.showAndWait(dChangePassword);
 
         // Get the password settings the user made in the dialog
         if (cOldPassword == null) {
@@ -4122,7 +4122,7 @@ public class FPortecle
             // generation parameters from the user
             DExport dExport = new DExport(this, true, m_keyStoreWrap, sAlias);
             dExport.setLocationRelativeTo(this);
-            dExport.setVisible(true);
+            SwingHelper.showAndWait(dExport);
 
             if (!dExport.exportSelected()) {
                 return false; // User cancelled the dialog
@@ -4682,7 +4682,7 @@ public class FPortecle
                 DGetPassword dGetPassword = new DGetPassword(this,
                     m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                 dGetPassword.setLocationRelativeTo(this);
-                dGetPassword.setVisible(true);
+                SwingHelper.showAndWait(dGetPassword);
                 cPassword = dGetPassword.getPassword();
 
                 if (cPassword == null) {
@@ -4780,7 +4780,7 @@ public class FPortecle
                 DGetPassword dGetPassword = new DGetPassword(this,
                     m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
                 dGetPassword.setLocationRelativeTo(this);
-                dGetPassword.setVisible(true);
+                SwingHelper.showAndWait(dGetPassword);
                 cPassword = dGetPassword.getPassword();
 
                 if (cPassword == null) {
@@ -4810,7 +4810,7 @@ public class FPortecle
             DGetNewPassword dGetNewPassword = new DGetNewPassword(this,
                 m_res.getString("FPortecle.Pkcs12Password.Title"), true);
             dGetNewPassword.setLocationRelativeTo(this);
-            dGetNewPassword.setVisible(true);
+            SwingHelper.showAndWait(dGetNewPassword);
 
             char[] cPKCS12Password = dGetNewPassword.getPassword();
 
@@ -5046,7 +5046,7 @@ public class FPortecle
                         m_res.getString("FPortecle.KeyEntryPassword.Title"),
                         true);
                     dGetPassword.setLocationRelativeTo(this);
-                    dGetPassword.setVisible(true);
+                    SwingHelper.showAndWait(dGetPassword);
                     cPassword = dGetPassword.getPassword();
 
                     if (cPassword == null) {
@@ -5159,7 +5159,7 @@ public class FPortecle
                         m_res.getString("FPortecle.KeyEntryPassword.Title"),
                         true);
                     dGetPassword.setLocationRelativeTo(this);
-                    dGetPassword.setVisible(true);
+                    SwingHelper.showAndWait(dGetPassword);
                     cPassword = dGetPassword.getPassword();
 
                     if (cPassword == null) {
@@ -5184,7 +5184,7 @@ public class FPortecle
                 true,
                 X509CertUtil.getCertificateAlias(x509Certs[0]).toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
-            dGetAlias.setVisible(true);
+            SwingHelper.showAndWait(dGetAlias);
             String sNewAlias = dGetAlias.getAlias();
 
             if (sNewAlias == null) {
@@ -5232,7 +5232,7 @@ public class FPortecle
                     m_res.getString("FPortecle.ClonedKeyPairEntryPassword.Title"),
                     true);
                 dGetNewPassword.setLocationRelativeTo(this);
-                dGetNewPassword.setVisible(true);
+                SwingHelper.showAndWait(dGetNewPassword);
                 cNewPassword = dGetNewPassword.getPassword();
 
                 if (cNewPassword == null) {
@@ -5309,7 +5309,7 @@ public class FPortecle
                 true,
                 X509CertUtil.getCertificateAlias(x509Cert).toLowerCase());
             dGetAlias.setLocationRelativeTo(this);
-            dGetAlias.setVisible(true);
+            SwingHelper.showAndWait(dGetAlias);
             String sNewAlias = dGetAlias.getAlias();
 
             if (sNewAlias == null) {
@@ -5383,7 +5383,7 @@ public class FPortecle
             DKeyStoreReport dKeyStoreReport = new DKeyStoreReport(this, true,
                 m_keyStoreWrap.getKeyStore());
             dKeyStoreReport.setLocationRelativeTo(this);
-            dKeyStoreReport.setVisible(true);
+            SwingHelper.showAndWait(dKeyStoreReport);
             return true;
         }
         catch (Exception ex) {
@@ -5439,7 +5439,7 @@ public class FPortecle
                     m_res.getString("FPortecle.CertDetailsEntry.Title"),
                     new String[] { sAlias }), true, certs);
             dViewCertificate.setLocationRelativeTo(this);
-            dViewCertificate.setVisible(true);
+            SwingHelper.showAndWait(dViewCertificate);
             return true;
         }
         catch (Exception ex) {
@@ -5523,7 +5523,7 @@ public class FPortecle
             DGetAlias dGetAlias = new DGetAlias(this,
                 m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias);
             dGetAlias.setLocationRelativeTo(this);
-            dGetAlias.setVisible(true);
+            SwingHelper.showAndWait(dGetAlias);
             String sNewAlias = dGetAlias.getAlias();
 
             if (sNewAlias == null) {
@@ -5576,7 +5576,7 @@ public class FPortecle
                             m_res.getString("FPortecle.KeyEntryPassword.Title"),
                             true);
                         dGetPassword.setLocationRelativeTo(this);
-                        dGetPassword.setVisible(true);
+                        SwingHelper.showAndWait(dGetPassword);
                         cPassword = dGetPassword.getPassword();
 
                         if (cPassword == null) {
@@ -6068,7 +6068,7 @@ public class FPortecle
     {
         DThrowable dThrowable = new DThrowable(this, true, exception);
         dThrowable.setLocationRelativeTo(this);
-        dThrowable.setVisible(true);
+        SwingHelper.showAndWait(dThrowable);
     }
 
     /**

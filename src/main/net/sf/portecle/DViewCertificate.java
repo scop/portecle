@@ -62,6 +62,7 @@ import net.sf.portecle.crypto.DigestUtil;
 import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -638,7 +639,7 @@ class DViewCertificate
             catch (CryptoException ex) {
                 DThrowable dThrowable = new DThrowable(this, true, ex);
                 dThrowable.setLocationRelativeTo(this);
-                dThrowable.setVisible(true);
+                SwingHelper.showAndWait(dThrowable);
                 dispose();
             }
         }
@@ -660,7 +661,7 @@ class DViewCertificate
             catch (CryptoException ex) {
                 DThrowable dThrowable = new DThrowable(this, true, ex);
                 dThrowable.setLocationRelativeTo(this);
-                dThrowable.setVisible(true);
+                SwingHelper.showAndWait(dThrowable);
                 dispose();
             }
         }
@@ -684,7 +685,7 @@ class DViewCertificate
                 new String[] { "" + (m_iSelCert + 1), "" + m_certs.length }),
             true, cert);
         dViewExtensions.setLocationRelativeTo(this);
-        dViewExtensions.setVisible(true);
+        SwingHelper.showAndWait(dViewExtensions);
     }
 
     /**
@@ -710,12 +711,12 @@ class DViewCertificate
                 new String[] { "" + (m_iSelCert + 1), "" + m_certs.length }),
                 true, cert, chooser);
             dViewCertPem.setLocationRelativeTo(this);
-            dViewCertPem.setVisible(true);
+            SwingHelper.showAndWait(dViewCertPem);
         }
         catch (CryptoException ex) {
             DThrowable dThrowable = new DThrowable(this, true, ex);
             dThrowable.setLocationRelativeTo(this);
-            dThrowable.setVisible(true);
+            SwingHelper.showAndWait(dThrowable);
             return;
         }
     }

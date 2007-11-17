@@ -61,6 +61,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 
+import net.sf.portecle.gui.SwingHelper;
+
 /**
  * Displays the details of a Certificate Revocation List (CRL).
  */
@@ -521,7 +523,7 @@ class DViewCRL
         DViewExtensions dViewExtensions = new DViewExtensions(this,
             m_res.getString("DViewCRL.Extensions.Title"), true, m_crl);
         dViewExtensions.setLocationRelativeTo(this);
-        dViewExtensions.setVisible(true);
+        SwingHelper.showAndWait(dViewExtensions);
     }
 
     /**
@@ -562,7 +564,7 @@ class DViewCRL
                         this, m_res.getString("DViewCRL."
                             + "EntryExtensions.Title"), true, x509CrlEntry);
                     dViewExtensions.setLocationRelativeTo(this);
-                    dViewExtensions.setVisible(true);
+                    SwingHelper.showAndWait(dViewExtensions);
                 }
             }
         }

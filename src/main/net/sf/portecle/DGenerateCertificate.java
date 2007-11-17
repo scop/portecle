@@ -56,6 +56,7 @@ import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -430,7 +431,7 @@ class DGenerateCertificate
         catch (CryptoException ex) {
             DThrowable dThrowable = new DThrowable(this, true, ex);
             dThrowable.setLocationRelativeTo(getParent());
-            dThrowable.setVisible(true);
+            SwingHelper.showAndWait(dThrowable);
             closeDialog();
         }
 

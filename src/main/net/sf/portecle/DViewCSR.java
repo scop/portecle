@@ -51,6 +51,7 @@ import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.NameUtil;
 import net.sf.portecle.crypto.SignatureType;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -354,12 +355,12 @@ class DViewCSR
                 m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req,
                 chooser);
             dViewCertPem.setLocationRelativeTo(this);
-            dViewCertPem.setVisible(true);
+            SwingHelper.showAndWait(dViewCertPem);
         }
         catch (CryptoException ex) {
             DThrowable dThrowable = new DThrowable(this, true, ex);
             dThrowable.setLocationRelativeTo(this);
-            dThrowable.setVisible(true);
+            SwingHelper.showAndWait(dThrowable);
             return;
         }
     }

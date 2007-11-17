@@ -53,6 +53,7 @@ import javax.swing.table.TableColumn;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.X509Ext;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -288,7 +289,7 @@ class DViewExtensions
                 m_jtaExtensionValue.setText("");
                 DThrowable dThrowable = new DThrowable(this, true, ex);
                 dThrowable.setLocationRelativeTo(this);
-                dThrowable.setVisible(true);
+                SwingHelper.showAndWait(dThrowable);
             }
             m_jtaExtensionValue.setCaretPosition(0);
         }

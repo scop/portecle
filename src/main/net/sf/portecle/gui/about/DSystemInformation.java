@@ -44,6 +44,8 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import net.sf.portecle.gui.SwingHelper;
+
 /**
  * A dialog which displays general system information:
  * OS, Locale, Java version, Java vendor, Java vendor URL,
@@ -330,7 +332,7 @@ public class DSystemInformation
         // Show System Properties dialog
         DSystemProperties dSystemProperties = new DSystemProperties(this, true);
         dSystemProperties.setLocationRelativeTo(this);
-        dSystemProperties.setVisible(true);
+        SwingHelper.showAndWait(dSystemProperties);
     }
 
     /**

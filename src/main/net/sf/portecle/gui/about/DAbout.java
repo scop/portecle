@@ -37,6 +37,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.portecle.gui.SwingHelper;
+
 /**
  * An About dialog which displays about information and a button
  * to access system information.
@@ -137,7 +139,7 @@ public class DAbout
         DSystemInformation dSystemInformation = new DSystemInformation(this,
             true);
         dSystemInformation.setLocationRelativeTo(this);
-        dSystemInformation.setVisible(true);
+        SwingHelper.showAndWait(dSystemInformation);
     }
 
     /**

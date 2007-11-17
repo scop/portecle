@@ -64,6 +64,7 @@ import javax.swing.event.ListSelectionListener;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -390,7 +391,7 @@ class DImportKeyPair
                     m_res.getString("DImportKeyPair.ViewCertificateDetails.Title"),
                     new String[] { sAlias }), true, certs);
             dViewCertificate.setLocationRelativeTo(this);
-            dViewCertificate.setVisible(true);
+            SwingHelper.showAndWait(dViewCertificate);
         }
         catch (KeyStoreException ex) {
             displayException(ex);
@@ -474,7 +475,7 @@ class DImportKeyPair
     {
         DThrowable dThrowable = new DThrowable(this, true, exception);
         dThrowable.setLocationRelativeTo(this);
-        dThrowable.setVisible(true);
+        SwingHelper.showAndWait(dThrowable);
     }
 
     /**
