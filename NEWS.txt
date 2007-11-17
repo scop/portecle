@@ -11,6 +11,7 @@ Enhancements:
   keystores.
 - Use xdg-open for opening URLs on non-Windows/Mac platforms.
   http://portland.freedesktop.org/wiki/XdgUtils
+- Spelling fixes.
 
 Bug fixes:
 - When overwriting an existing entry while creating a new key pair, cloning
