@@ -13,6 +13,7 @@ Enhancements:
   keystores.
 - Use xdg-open for opening URLs on non-Windows/Mac platforms.
   http://portland.freedesktop.org/wiki/XdgUtils
+- Include Freedesktop.org menu entry.
 - Spelling fixes.
 
 Bug fixes:

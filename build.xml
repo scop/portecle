@@ -125,6 +125,8 @@
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
       <zipfileset prefix="portecle-${version}"
         dir="${src}/icons" includes="portecle.*" />
+      <zipfileset prefix="portecle-${version}"
+        dir="${src}/etc" includes="portecle.desktop" />
       <zipfileset file="${bcprov.jar}"
         fullpath="portecle-${version}/bcprov.jar" />
     </zip>
