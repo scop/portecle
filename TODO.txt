@@ -14,7 +14,6 @@ TODO for later:
 - Make browser executable configurable.
 - Suggest a sane filename when saving a newly created keystore for the
   first time.
-- Get rid of all assumptions about keystore alias case sensitivity.
 - Add option to do (IOW, not bypass) hostname and certificate checks when
   examining SSL/TLS connections.
 - Import/export key+certs from PEM (bundle or separate) or DER (separate) files

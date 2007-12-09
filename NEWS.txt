@@ -26,6 +26,7 @@ Bug fixes:
 - Fix dialog thread deadlock issues.
 
 Miscellaneous:
+- Do not make any internal assumptions about keystore alias case sensitivity.
 - Bundled Bouncy Castle provider jar upgraded to 1.38, which is also the
   new minimum required version.  This makes treatment of PKCS#12 keystore
   aliases case insensitive.
