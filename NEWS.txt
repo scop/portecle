@@ -14,6 +14,7 @@ Enhancements:
 - Use xdg-open for opening URLs on non-Windows/Mac platforms.
   http://portland.freedesktop.org/wiki/XdgUtils
 - Include Freedesktop.org menu entry.
+- Allow per entry selection of overwritten entries in keystore conversion.
 - Spelling fixes.
 
 Bug fixes:
