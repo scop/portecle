@@ -2,7 +2,7 @@
 
 <project name="portecle" basedir="." default="jar">
 
-  <property name="version" value="1.3pre" />
+  <property name="version" value="1.3" />
   <property name="main.class" value="net.sf.portecle.FPortecle" />
 
   <property file="build.properties" />
@@ -125,6 +125,8 @@
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
       <zipfileset prefix="portecle-${version}"
         dir="${src}/icons" includes="portecle.*" />
+      <zipfileset prefix="portecle-${version}"
+        dir="${src}/etc" includes="portecle.desktop" />
       <zipfileset file="${bcprov.jar}"
         fullpath="portecle-${version}/bcprov.jar" />
     </zip>

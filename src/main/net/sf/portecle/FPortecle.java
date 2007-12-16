@@ -3803,10 +3803,6 @@ public class FPortecle
             // not being carried over by the change
             boolean bWarnNoChangeKey = false;
 
-            // Flag used to tell if we have warned the user about alias case
-            // sensitivity issues involved with the conversion
-            boolean bWarnCaseSensitivity = false;
-
             // For every entry in the current keystore transfer it to the new
             // one - get key/key pair entry passwords from the wrapper and if
             // not present there from the user
@@ -3817,24 +3813,22 @@ public class FPortecle
 
                 // Trusted certificate entry
                 if (currentKeyStore.isCertificateEntry(sAlias)) {
-                    // Get trusted certificate and place it in the new keystore
-                    Certificate trustedCertificate = currentKeyStore.getCertificate(sAlias);
 
-                    // Check and ask about case insensitivity issues
-                    if (newKeyStore.containsAlias(sAlias)
-                        && !bWarnCaseSensitivity)
+                    // Check and ask about alias overwriting issues
+                    if (newKeyStore.containsAlias(sAlias))
                     {
-                        bWarnCaseSensitivity = true;
                         int iSelected = JOptionPane.showConfirmDialog(
                             this,
-                            m_res.getString("FPortecle.WarnCaseSensitivity.message"),
+                            m_res.getString("FPortecle.WarnOverwriteAlias.message"),
                             m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                             JOptionPane.YES_NO_OPTION);
                         if (iSelected != JOptionPane.YES_OPTION) {
-                            return false;
+                        	continue;
                         }
                     }
 
+                    // Get trusted certificate and place it in the new keystore
+                    Certificate trustedCertificate = currentKeyStore.getCertificate(sAlias);
                     newKeyStore.setCertificateEntry(sAlias, trustedCertificate);
                 }
                 // Key or Key pair entry
@@ -3913,18 +3907,16 @@ public class FPortecle
                         cPassword = PKCS12_DUMMY_PASSWORD;
                     }
 
-                    // Check and ask about case insensitivity issues
-                    if (newKeyStore.containsAlias(sAlias)
-                        && !bWarnCaseSensitivity)
+                    // Check and ask about alias overwriting issues
+                    if (newKeyStore.containsAlias(sAlias))
                     {
-                        bWarnCaseSensitivity = true;
                         int iSelected = JOptionPane.showConfirmDialog(
                             this,
-                            m_res.getString("FPortecle.WarnCaseSensitivity.message"),
+                            m_res.getString("FPortecle.WarnOverwriteAlias.message"),
                             m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
                             JOptionPane.YES_NO_OPTION);
                         if (iSelected != JOptionPane.YES_OPTION) {
-                            return false;
+                        	continue;
                         }
                     }
 

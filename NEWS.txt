@@ -1,4 +1,4 @@
-New in Portecle x.x (xxxx-xx-xx):
+New in Portecle 1.3 (2007-12-16):
 ---------------------------------
 
 New features:
@@ -13,6 +13,8 @@ Enhancements:
   keystores.
 - Use xdg-open for opening URLs on non-Windows/Mac platforms.
   http://portland.freedesktop.org/wiki/XdgUtils
+- Include Freedesktop.org menu entry.
+- Allow per entry selection of overwritten entries in keystore conversion.
 - Spelling fixes.
 
 Bug fixes:
@@ -25,6 +27,7 @@ Bug fixes:
 - Fix dialog thread deadlock issues.
 
 Miscellaneous:
+- Do not make any internal assumptions about keystore alias case sensitivity.
 - Bundled Bouncy Castle provider jar upgraded to 1.38, which is also the
   new minimum required version.  This makes treatment of PKCS#12 keystore
   aliases case insensitive.

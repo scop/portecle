@@ -35,37 +35,36 @@ import java.util.ResourceBundle;
 public class KeyStoreType
 {
     /** JKS keystore Type */
-    public static final KeyStoreType JKS = new KeyStoreType("JKS", true, false,
-        new String[] { "jks" });
+    public static final KeyStoreType JKS =
+	    new KeyStoreType("JKS", true, new String[] { "jks" });
 
     /** Case sensitive JKS keystore Type */
-    public static final KeyStoreType CaseExactJKS = new KeyStoreType(
-        "CaseExactJKS", true, true, new String[] { "jks" });
+    public static final KeyStoreType CaseExactJKS =
+	    new KeyStoreType("CaseExactJKS", true, new String[] { "jks" });
 
     /** JCEKS keystore Type */
-    public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true,
-        false, new String[] { "jceks" });
+    public static final KeyStoreType JCEKS =
+	    new KeyStoreType("JCEKS", true, new String[] { "jceks" });
 
     /** PKCS #11 keystore Type */
-    public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11",
-        false, /* TODO: verify */false, new String[0]);
+    public static final KeyStoreType PKCS11 =
+	    new KeyStoreType("PKCS11", false, new String[0]);
 
     /** PKCS #12 keystore Type */
-    // Case sensitive with BC < 1.36, insensitive with Sun and BC >= 1.36.
-    public static final KeyStoreType PKCS12 = new KeyStoreType("PKCS12",
-        false, false, new String[] { "p12", "pfx" });
+    public static final KeyStoreType PKCS12 =
+	    new KeyStoreType("PKCS12", false, new String[] { "p12", "pfx" });
 
     /** BKS keystore Type */
-    public static final KeyStoreType BKS = new KeyStoreType("BKS", true, true,
-        new String[] { "bks" });
+    public static final KeyStoreType BKS =
+	    new KeyStoreType("BKS", true, new String[] { "bks" });
 
     /** UBER keystore Type */
-    public static final KeyStoreType UBER = new KeyStoreType("UBER", true,
-        true, new String[] { "ubr" });
+    public static final KeyStoreType UBER =
+	    new KeyStoreType("UBER", true, new String[] { "ubr" });
 
     /** GKR keystore Type */
-    public static final KeyStoreType GKR = new KeyStoreType("GKR", true, true,
-        new String[] { "gkr" });
+    public static final KeyStoreType GKR =
+	    new KeyStoreType("GKR", true, new String[] { "gkr" });
 
     /** String-to-type map */
     private static final LinkedHashMap TYPE_MAP = new LinkedHashMap();
@@ -90,9 +89,6 @@ public class KeyStoreType
     /** Whether the keystore type supports creation dates */
     private final boolean m_bCreationDate;
 
-    /** Whether aliases in the keystore type are case sensitive */
-    private final boolean m_bCaseSensitive;
-    
     /** Associated filename extensions */
     private final String[] m_exts;
 
@@ -102,15 +98,12 @@ public class KeyStoreType
      *
      * @param sType Keystore type
      * @param bCreationDate Whether the keystore supports creation dates
-     * @param bCaseSensitive Whether aliases in the keystore are case sensitive
      * @param exts associated filename extensions
      */
-    private KeyStoreType(String sType, boolean bCreationDate,
-        boolean bCaseSensitive, String[] exts)
+    private KeyStoreType(String sType, boolean bCreationDate, String[] exts)
     {
         m_sType = sType;
         m_bCreationDate = bCreationDate;
-        m_bCaseSensitive = bCaseSensitive;
         m_exts = exts;
     }
 
@@ -152,16 +145,6 @@ public class KeyStoreType
     public boolean supportsCreationDate()
     {
         return m_bCreationDate;
-    }
-
-    /**
-     * Are aliases in the keystore case sensitive?
-     * 
-     * @return true if aliases are case sensitive, false otherwise
-     */
-    public boolean isCaseSensitive()
-    {
-        return m_bCaseSensitive;
     }
 
     /**

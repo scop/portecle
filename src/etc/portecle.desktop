@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Portecle
+Comment=Multipurpose keystore and certificate tool
+Exec=portecle
+Icon=portecle
+Terminal=false
+Type=Application
+MimeType=application/x-pkcs12;application/x-java-keystore;application/x-java-jce-keystore;
+StartupWMClass=net-sf-portecle-FPortecle
+Categories=Utility;Security;Java;
+Version=1.0

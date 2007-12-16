@@ -92,8 +92,7 @@ class KeyStoreWrapper
      */
     public void setEntryPassword(String sAlias, char[] cPassword)
     {
-        String theAlias = m_keyStoreType.isCaseSensitive() ? sAlias : sAlias.toLowerCase();
-        m_mPasswords.put(theAlias, cPassword);
+        m_mPasswords.put(sAlias, cPassword);
     }
 
     /**
@@ -103,8 +102,7 @@ class KeyStoreWrapper
      */
     public void removeEntryPassword(String sAlias)
     {
-        String theAlias = m_keyStoreType.isCaseSensitive() ? sAlias : sAlias.toLowerCase();
-        m_mPasswords.remove(theAlias);
+        m_mPasswords.remove(sAlias);
     }
 
     /**
@@ -115,8 +113,7 @@ class KeyStoreWrapper
      */
     public char[] getEntryPassword(String sAlias)
     {
-        String theAlias = m_keyStoreType.isCaseSensitive() ? sAlias : sAlias.toLowerCase();
-        return (char[]) m_mPasswords.get(theAlias);
+        return (char[]) m_mPasswords.get(sAlias);
     }
 
     /**
@@ -159,16 +156,7 @@ class KeyStoreWrapper
         throws CryptoException
     {
         m_keyStore = keyStore;
-        KeyStoreType newType = KeyStoreType.getInstance(keyStore.getType());
-        if (m_keyStoreType != null
-            && m_keyStoreType.isCaseSensitive() != newType.isCaseSensitive())
-        {
-            // Case sensitivity changed: can no longer trust that
-            // the cached passwords would work.  (Well, we could, if we tried
-            // hard and implemented that, but this'll do for now.)
-            m_mPasswords.clear();
-        }
-        m_keyStoreType = newType;
+        m_keyStoreType = KeyStoreType.getInstance(keyStore.getType());
     }
 
     /**
