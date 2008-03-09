@@ -50,7 +50,7 @@ import javax.swing.event.HyperlinkListener;
 
 /**
  * Simple help system that displays two panes: a table of contents
- * and the current help topic.  Ruidimentary naigation is provided
+ * and the current help topic.  Rudimentary navigation is provided
  * using the home, forward and back buttons of the tool bar.
  */
 public class FHelp
