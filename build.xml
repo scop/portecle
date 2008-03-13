@@ -4,6 +4,7 @@
 
   <property name="version" value="1.3" />
   <property name="main.class" value="net.sf.portecle.FPortecle" />
+  <property name="helpbaseurl.default" value="/doc" />
 
   <property file="build.properties" />
 
@@ -13,6 +14,8 @@
   -->
   <property name="jar.classpath"
     value="bcprov.jar metouia.jar kunststoff.jar gtkswing.jar" />
+
+  <property name="helpbaseurl" value="${helpbaseurl.default}" />
 
   <property name="root" value="." />
   <property name="src" value="${root}/src" />
@@ -52,10 +55,23 @@
       <fileset dir="${src}/main" includes="**/*.properties" />
       <filterset>
         <filter token="VERSION" value="${version}" />
+        <filter token="HELPBASEURL" value="${helpbaseurl}" />
       </filterset>
     </copy>
+    <!-- Clean up possibly previously copied docs -->
+    <delete dir="${build}/classes/doc" />
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.gif" />
+    </copy>
+    <condition property="jar.bundle.docs">
+      <equals arg1="${helpbaseurl}" arg2="${helpbaseurl.default}" />
+    </condition>
+    <antcall target="copy-docs-to-classes" />
+  </target>
+
+  <!-- Internal: copy docs for inclusion in jar. -->
+  <target name="copy-docs-to-classes" if="jar.bundle.docs">
+    <copy todir="${build}/classes">
       <fileset dir="${root}" includes="doc/**"
         excludes="doc/index.html doc/**/keytool.png doc/.htaccess doc/favicon.ico" />
     </copy>
@@ -83,7 +99,7 @@
     <antcall target="jar-classpath" />
   </target>
 
-  <!-- Internal: updates jar's Class-Path if jar.classpath is set. -->
+  <!-- Internal: updates jar's Class-Path. -->
   <target name="jar-classpath" if="jar.classpath.set">
     <jar jarfile="${build}/${jar}" update="true">
       <manifest>

@@ -1,3 +1,9 @@
+New in Portecle x.x (200x-xx-xx):
+---------------------------------
+
+Enhancements:
+- Support online help not bundled in jar (set helpbaseurl at build time).
+
 New in Portecle 1.3 (2007-12-16):
 ---------------------------------
 

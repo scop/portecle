@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.Key;
@@ -3419,10 +3420,34 @@ public class FPortecle
     {
         // Create the dialog if it does not already exist
         if (m_fHelp == null) {
-            URL toc = FPortecle.class.getResource(
-                m_res.getString("FPortecle.Help.Contents"));
-            URL home = FPortecle.class.getResource(
-                m_res.getString("FPortecle.Help.Home"));
+        	URL toc = null;
+        	URL home = null;
+        	String s = m_res.getString("FPortecle.Help.Contents");
+        	if (s.startsWith("/")) {
+            	toc = getClass().getResource(s);
+        	}
+        	else {
+        		try {
+        			toc = new URL(s);
+        		}
+        		catch (MalformedURLException e) {
+        			displayException(e);
+        			return;
+        		}
+        	}
+        	s = m_res.getString("FPortecle.Help.Home");
+        	if (s.startsWith("/")) {
+            	home = getClass().getResource(s);
+        	}
+        	else {
+        		try {
+        			home = new URL(s);
+        		}
+        		catch (MalformedURLException e) {
+        			displayException(e);
+        			return;
+        		}
+        	}
 
             m_fHelp = new FHelp(m_res.getString("FPortecle.Help.Title"), home,
                 toc);
