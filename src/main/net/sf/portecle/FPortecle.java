@@ -3424,7 +3424,7 @@ public class FPortecle
         	URL home = null;
         	String s = m_res.getString("FPortecle.Help.Contents");
         	if (s.startsWith("/")) {
-            	toc = getClass().getResource(s);
+            	toc = FPortecle.class.getResource(s);
         	}
         	else {
         		try {
@@ -3437,7 +3437,7 @@ public class FPortecle
         	}
         	s = m_res.getString("FPortecle.Help.Home");
         	if (s.startsWith("/")) {
-            	home = getClass().getResource(s);
+            	home = FPortecle.class.getResource(s);
         	}
         	else {
         		try {
@@ -4854,7 +4854,7 @@ public class FPortecle
             }
 
             // Store the keystore to disk
-            pkcs12 = KeyStoreUtil.saveKeyStore(pkcs12, fExportFile, cPKCS12Password);
+            KeyStoreUtil.saveKeyStore(pkcs12, fExportFile, cPKCS12Password);
 
             m_lastDir.updateLastDir(fExportFile);
 
