@@ -131,6 +131,7 @@ public final class X509CertUtil
                     }
                     // Skip other stuff, at least for now.
                 }
+                pr.close();
             }
             else if (encoding != null) {
                 // Try it as a certification path of the specified type
