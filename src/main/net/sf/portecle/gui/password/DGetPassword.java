@@ -42,11 +42,14 @@ import javax.swing.JPasswordField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
+import org.bouncycastle.openssl.PasswordFinder;
+
 /**
  * Dialog used for entering a masked password.
  */
 public class DGetPassword
     extends JDialog
+    implements PasswordFinder
 {
     /** Key from input map to action map for the cancel button */
     private static final String CANCEL_KEY = "CANCEL_KEY";
