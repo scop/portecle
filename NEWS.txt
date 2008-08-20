@@ -1,6 +1,10 @@
 New in Portecle x.x (200x-xx-xx):
 ---------------------------------
 
+New features:
+- Recognition and decoding support for some additional certificate
+  extensions.
+
 Enhancements:
 - Support online help not bundled in jar (set helpbaseurl at build time).
 

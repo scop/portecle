@@ -319,8 +319,10 @@ public class X509Ext
         else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftAppPolicies)) {
             return getUnknownOidStringValue(bOctets); // TODO
         }
-        else if (m_Oid.equals(X509Extensions.AuthorityInfoAccess)) {
-            return getAuthorityInformationAccessStringValue(bOctets);
+        else if (m_Oid.equals(X509Extensions.AuthorityInfoAccess)
+        	|| m_Oid.equals(X509Extensions.SubjectInfoAccess))
+        {
+            return getInformationAccessStringValue(bOctets);
         }
         else if (m_Oid.equals(X509Extensions.LogoType)) {
             return getLogotypeStringValue(bOctets);
@@ -1131,21 +1133,21 @@ public class X509Ext
     }
 
     /**
-     * Get Authority Information Access (1.3.6.1.5.5.7.1.1) extension
-     * value as a string.
+     * Get Authority Information Access (1.3.6.1.5.5.7.1.1) or Subject
+     * Information Access (1.3.6.1.5.5.7.1.11) extension value as a string.
      *
      * @param bValue The octet string value
      * @return Extension value as a string
      * @throws IOException If an I/O problem occurs
      */
-    private String getAuthorityInformationAccessStringValue(byte[] bValue)
+    private String getInformationAccessStringValue(byte[] bValue)
         throws IOException
     {
         AuthorityInformationAccess access =
             AuthorityInformationAccess.getInstance(ASN1Object.fromByteArray(bValue));
 
         StringBuffer sb = new StringBuffer();
-        String aia = m_res.getString("AuthorityInformationAccess");
+        String aia = m_res.getString("InformationAccess");
 
         AccessDescription[] accDescs = access.getAccessDescriptions();
         for (int i = 0, adLen = accDescs.length; i < adLen; i++) {
