@@ -36,145 +36,150 @@ import javax.swing.table.AbstractTableModel;
 class SystemPropertiesTableModel
     extends AbstractTableModel
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-    /** Holds the column names */
-    private String[] m_columnNames;
+	/** Holds the column names */
+	private String[] m_columnNames;
 
-    /** Holds the table data */
-    private Object[][] m_data;
+	/** Holds the table data */
+	private Object[][] m_data;
 
-    /**
-     * Construct a new SystemPropertiesTableModel.
-     */
-    public SystemPropertiesTableModel()
-    {
-        m_columnNames = new String[] {
-            m_res.getString("SystemPropertiesTableModel.NameColumn"),
-            m_res.getString("SystemPropertiesTableModel.ValueColumn"), };
+	/**
+	 * Construct a new SystemPropertiesTableModel.
+	 */
+	public SystemPropertiesTableModel()
+	{
+		m_columnNames =
+		    new String[] { m_res.getString("SystemPropertiesTableModel.NameColumn"),
+		        m_res.getString("SystemPropertiesTableModel.ValueColumn"), };
 
-        m_data = new Object[0][0];
-    }
+		m_data = new Object[0][0];
+	}
 
-    /**
-     * Load the SystemPropertiesTableModel with System Properties.          
-     */
-    public void load()
-    {
-        // Get system properties
-        Properties sysProps = System.getProperties();
-        TreeMap sortedSysProps = new TreeMap();
+	/**
+	 * Load the SystemPropertiesTableModel with System Properties.
+	 */
+	public void load()
+	{
+		// Get system properties
+		Properties sysProps = System.getProperties();
+		TreeMap sortedSysProps = new TreeMap();
 
-        // Place properties in a sorted map
-        for (Enumeration names = sysProps.propertyNames(); names.hasMoreElements();)
-        {
-            String sName = (String) names.nextElement();
-            String sValue = sysProps.getProperty(sName);
+		// Place properties in a sorted map
+		for (Enumeration names = sysProps.propertyNames(); names.hasMoreElements();)
+		{
+			String sName = (String) names.nextElement();
+			String sValue = sysProps.getProperty(sName);
 
-            // Convert line.separator property value to be printable
-            if (sName.equals("line.separator")) {
-                StringBuffer sbValue = new StringBuffer();
-                for (int iCnt = 0; iCnt < sValue.length(); iCnt++) {
-                    if (sValue.charAt(iCnt) == '\r') {
-                        sbValue.append("\\r");
-                    }
-                    else if (sValue.charAt(iCnt) == '\n') {
-                        sbValue.append("\\n");
-                    }
-                    else {
-                        sbValue.append(sValue);
-                    }
-                }
-                sValue = sbValue.toString();
-            }
+			// Convert line.separator property value to be printable
+			if (sName.equals("line.separator"))
+			{
+				StringBuffer sbValue = new StringBuffer();
+				for (int iCnt = 0; iCnt < sValue.length(); iCnt++)
+				{
+					if (sValue.charAt(iCnt) == '\r')
+					{
+						sbValue.append("\\r");
+					}
+					else if (sValue.charAt(iCnt) == '\n')
+					{
+						sbValue.append("\\n");
+					}
+					else
+					{
+						sbValue.append(sValue);
+					}
+				}
+				sValue = sbValue.toString();
+			}
 
-            sortedSysProps.put(sName, sValue);
-        }
+			sortedSysProps.put(sName, sValue);
+		}
 
-        // Create one table row per property
-        m_data = new Object[sortedSysProps.size()][2];
+		// Create one table row per property
+		m_data = new Object[sortedSysProps.size()][2];
 
-        // Load sorted properties into the table
-        int iCnt = 0;
-        for (Iterator itrSorted = sortedSysProps.entrySet().iterator(); itrSorted.hasNext(); iCnt++)
-        {
-            Map.Entry property = (Map.Entry) itrSorted.next();
+		// Load sorted properties into the table
+		int iCnt = 0;
+		for (Iterator itrSorted = sortedSysProps.entrySet().iterator(); itrSorted.hasNext(); iCnt++)
+		{
+			Map.Entry property = (Map.Entry) itrSorted.next();
 
-            // Name column
-            m_data[iCnt][0] = property.getKey();
+			// Name column
+			m_data[iCnt][0] = property.getKey();
 
-            // Value column
-            m_data[iCnt][1] = property.getValue();
-        }
+			// Value column
+			m_data[iCnt][1] = property.getValue();
+		}
 
-        fireTableDataChanged();
-    }
+		fireTableDataChanged();
+	}
 
-    /**
-     * Get the number of columns in the table.
-     *
-     * @return The number of columns
-     */
-    public int getColumnCount()
-    {
-        return m_columnNames.length;
-    }
+	/**
+	 * Get the number of columns in the table.
+	 * 
+	 * @return The number of columns
+	 */
+	public int getColumnCount()
+	{
+		return m_columnNames.length;
+	}
 
-    /**
-     * Get the number of rows in the table.
-     *
-     * @return The number of rows
-     */
-    public int getRowCount()
-    {
-        return m_data.length;
-    }
+	/**
+	 * Get the number of rows in the table.
+	 * 
+	 * @return The number of rows
+	 */
+	public int getRowCount()
+	{
+		return m_data.length;
+	}
 
-    /**
-     * Get the name of the column at the given position.
-     *
-     * @param iCol The column position
-     * @return The column name
-     */
-    public String getColumnName(int iCol)
-    {
-        return m_columnNames[iCol];
-    }
+	/**
+	 * Get the name of the column at the given position.
+	 * 
+	 * @param iCol The column position
+	 * @return The column name
+	 */
+	public String getColumnName(int iCol)
+	{
+		return m_columnNames[iCol];
+	}
 
-    /**
-     * Get the cell value at the given row and column position.
-     *
-     * @param iRow The row position
-     * @param iCol The column position
-     * @return The cell value
-     */
-    public Object getValueAt(int iRow, int iCol)
-    {
-        return m_data[iRow][iCol];
-    }
+	/**
+	 * Get the cell value at the given row and column position.
+	 * 
+	 * @param iRow The row position
+	 * @param iCol The column position
+	 * @return The cell value
+	 */
+	public Object getValueAt(int iRow, int iCol)
+	{
+		return m_data[iRow][iCol];
+	}
 
-    /**
-     * Get the class at of the cells at the given column position.
-     *
-     * @param iCol The column position
-     * @return The column cells' class
-     */
-    public Class getColumnClass(int iCol)
-    {
-        return getValueAt(0, iCol).getClass();
-    }
+	/**
+	 * Get the class at of the cells at the given column position.
+	 * 
+	 * @param iCol The column position
+	 * @return The column cells' class
+	 */
+	public Class getColumnClass(int iCol)
+	{
+		return getValueAt(0, iCol).getClass();
+	}
 
-    /**
-     * Is the cell at the given row and column position editable?
-     *
-     * @param iRow The row position
-     * @param iCol The column position
-     * @return True if the cell is editable, false otherwise
-     */
-    public boolean isCellEditable(int iRow, int iCol)
-    {
-        // The table is always read-only
-        return false;
-    }
+	/**
+	 * Is the cell at the given row and column position editable?
+	 * 
+	 * @param iRow The row position
+	 * @param iCol The column position
+	 * @return True if the cell is editable, false otherwise
+	 */
+	public boolean isCellEditable(int iRow, int iCol)
+	{
+		// The table is always read-only
+		return false;
+	}
 }

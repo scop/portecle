@@ -52,205 +52,212 @@ import net.sf.portecle.gui.error.DThrowable;
 class DGetHostPort
     extends JDialog
 {
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
+	/** Key from input map to action map for the cancel button */
+	private static final String CANCEL_KEY = "CANCEL_KEY";
 
-    /** Default port */
-    private static final int DEFAULT_PORT = 443;
-    
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Default port */
+	private static final int DEFAULT_PORT = 443;
 
-    /** Host text field */
-    private JTextField m_jtfHost;
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Port text field */
-    private JTextField m_jtfPort;
+	/** Host text field */
+	private JTextField m_jtfHost;
 
-    /** Stores the address entered by the user */
-    private InetSocketAddress m_iAddress;
+	/** Port text field */
+	private JTextField m_jtfPort;
 
-    /**
-     * Creates new DGetHostPort dialog where the parent is a frame.
-     *
-     * @param parent The parent frame
-     * @param sTitle The dialog's title
-     * @param bModal Is the dialog modal?
-     * @param iOldHostPort The address to display initially
-     */
-    public DGetHostPort(JFrame parent, String sTitle, boolean bModal,
-        InetSocketAddress iOldHostPort)
-    {
-        super(parent, sTitle, bModal);
-        initComponents(iOldHostPort);
-    }
+	/** Stores the address entered by the user */
+	private InetSocketAddress m_iAddress;
 
-    /**
-     * Get the host+port entered by the user.
-     *
-     * @return The host+port, or null if none was entered
-     */
-    public InetSocketAddress getHostPort()
-    {
-        return m_iAddress;
-    }
+	/**
+	 * Creates new DGetHostPort dialog where the parent is a frame.
+	 * 
+	 * @param parent The parent frame
+	 * @param sTitle The dialog's title
+	 * @param bModal Is the dialog modal?
+	 * @param iOldHostPort The address to display initially
+	 */
+	public DGetHostPort(JFrame parent, String sTitle, boolean bModal, InetSocketAddress iOldHostPort)
+	{
+		super(parent, sTitle, bModal);
+		initComponents(iOldHostPort);
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     *
-     * @param iOldHostPort The host+port to display initially
-     */
-    private void initComponents(InetSocketAddress iOldHostPort)
-    {
-        getContentPane().setLayout(new BorderLayout());
+	/**
+	 * Get the host+port entered by the user.
+	 * 
+	 * @return The host+port, or null if none was entered
+	 */
+	public InetSocketAddress getHostPort()
+	{
+		return m_iAddress;
+	}
 
-        JLabel jlHost = new JLabel(m_res.getString("DGetHostPort.jlHost.text"));
-        m_jtfHost = new JTextField(15);
+	/**
+	 * Initialise the dialog's GUI components.
+	 * 
+	 * @param iOldHostPort The host+port to display initially
+	 */
+	private void initComponents(InetSocketAddress iOldHostPort)
+	{
+		getContentPane().setLayout(new BorderLayout());
 
-        JLabel jlPort = new JLabel(m_res.getString("DGetHostPort.jlPort.text"));
-        m_jtfPort = new JTextField(5);
+		JLabel jlHost = new JLabel(m_res.getString("DGetHostPort.jlHost.text"));
+		m_jtfHost = new JTextField(15);
 
-        if (iOldHostPort != null) {
-            m_jtfHost.setText(iOldHostPort.getHostName());
-            m_jtfHost.setCaretPosition(0);
-            m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
-        }
-        else {
-            m_jtfPort.setText(String.valueOf(DEFAULT_PORT));
-        }
-        m_jtfPort.setCaretPosition(0);
+		JLabel jlPort = new JLabel(m_res.getString("DGetHostPort.jlPort.text"));
+		m_jtfPort = new JTextField(5);
 
-        JButton jbOK = new JButton(m_res.getString("DGetHostPort.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		if (iOldHostPort != null)
+		{
+			m_jtfHost.setText(iOldHostPort.getHostName());
+			m_jtfHost.setCaretPosition(0);
+			m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
+		}
+		else
+		{
+			m_jtfPort.setText(String.valueOf(DEFAULT_PORT));
+		}
+		m_jtfPort.setCaretPosition(0);
 
-        JButton jbCancel = new JButton(
-            m_res.getString("DGetHostPort.jbCancel.text"));
-        jbCancel.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                cancelPressed();
-            }
-        });
-        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                cancelPressed();
-            }
-        });
+		JButton jbOK = new JButton(m_res.getString("DGetHostPort.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JPanel jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpHostPort.add(jlHost);
-        jpHostPort.add(m_jtfHost);
-        jpHostPort.add(jlPort);
-        jpHostPort.add(m_jtfPort);
-        jpHostPort.setBorder(new EmptyBorder(5, 5, 5, 5));
+		JButton jbCancel = new JButton(m_res.getString("DGetHostPort.jbCancel.text"));
+		jbCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				cancelPressed();
+			}
+		});
+		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
+		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				cancelPressed();
+			}
+		});
 
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpButtons.add(jbOK);
-        jpButtons.add(jbCancel);
+		JPanel jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpHostPort.add(jlHost);
+		jpHostPort.add(m_jtfHost);
+		jpHostPort.add(jlPort);
+		jpHostPort.add(m_jtfPort);
+		jpHostPort.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        getContentPane().add(jpHostPort, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpButtons.add(jbOK);
+		jpButtons.add(jbCancel);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		getContentPane().add(jpHostPort, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        setResizable(false);
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		setResizable(false);
 
-        pack();
-    }
+		getRootPane().setDefaultButton(jbOK);
 
-    /**
-     * Check that the host+port entered is valid.
-     *
-     * @return True if the host+port is valid, false otherwise
-     */
-    private boolean checkHostPort()
-    {
-        String sHost = m_jtfHost.getText().trim().toLowerCase();
-        if (sHost.length() > 0) {
-            sHost = m_jtfHost.getText().trim();
-        }
-        else {
-            JOptionPane.showMessageDialog(this,
-                m_res.getString("DGetHostPort.HostReq.message"), getTitle(),
-                JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
+		pack();
+	}
 
-        String sPort = m_jtfPort.getText().trim().toLowerCase();
-        if (sPort.length() > 0) {
-            sPort = m_jtfPort.getText().trim();
-        }
-        else {
-            JOptionPane.showMessageDialog(this,
-                m_res.getString("DGetHostPort.PortReq.message"), getTitle(),
-                JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        int port;
-        try {
-            port = Integer.parseInt(sPort);
-        }
-        catch (Exception e) {
-            DThrowable dt = new DThrowable(this, true, e);
-            dt.setLocationRelativeTo(this);
-            SwingHelper.showAndWait(dt);
-            return false;
-        }
+	/**
+	 * Check that the host+port entered is valid.
+	 * 
+	 * @return True if the host+port is valid, false otherwise
+	 */
+	private boolean checkHostPort()
+	{
+		String sHost = m_jtfHost.getText().trim().toLowerCase();
+		if (sHost.length() > 0)
+		{
+			sHost = m_jtfHost.getText().trim();
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this, m_res.getString("DGetHostPort.HostReq.message"), getTitle(),
+			    JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
 
-        try {
-            m_iAddress = new InetSocketAddress(sHost, port);
-        }
-        catch (Exception e) {
-            DThrowable dt = new DThrowable(this, true, e);
-            dt.setLocationRelativeTo(this);
-            SwingHelper.showAndWait(dt);
-            return false;
-        }
+		String sPort = m_jtfPort.getText().trim().toLowerCase();
+		if (sPort.length() > 0)
+		{
+			sPort = m_jtfPort.getText().trim();
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this, m_res.getString("DGetHostPort.PortReq.message"), getTitle(),
+			    JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		int port;
+		try
+		{
+			port = Integer.parseInt(sPort);
+		}
+		catch (Exception e)
+		{
+			DThrowable dt = new DThrowable(this, true, e);
+			dt.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dt);
+			return false;
+		}
 
-        return true;
-    }
+		try
+		{
+			m_iAddress = new InetSocketAddress(sHost, port);
+		}
+		catch (Exception e)
+		{
+			DThrowable dt = new DThrowable(this, true, e);
+			dt.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dt);
+			return false;
+		}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        if (checkHostPort()) {
-            closeDialog();
-        }
-    }
+		return true;
+	}
 
-    /**
-     * Cancel button pressed or otherwise activated.
-     */
-    private void cancelPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		if (checkHostPort())
+		{
+			closeDialog();
+		}
+	}
 
-    /** Closes the dialog */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Cancel button pressed or otherwise activated.
+	 */
+	private void cancelPressed()
+	{
+		closeDialog();
+	}
+
+	/** Closes the dialog */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

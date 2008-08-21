@@ -61,235 +61,240 @@ import org.bouncycastle.openssl.PEMWriter;
 public class DViewPEM
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
-    /** Stores object to display */
-    private Object m_object;
+	/** Stores object to display */
+	private Object m_object;
 
-    /** Stores PEM encoding */
-    private String m_pem;
+	/** Stores PEM encoding */
+	private String m_pem;
 
-    /** File chooser for saving the PEM encoded object */
-    private JFileChooser m_chooser;
+	/** File chooser for saving the PEM encoded object */
+	private JFileChooser m_chooser;
 
-    /**
-     * Creates new DViewPEM dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param sTitle The dialog title
-     * @param bModal Is dialog modal?
-     * @param obj Object to display encoding for
-     * @param chooser File chooser for saving the PEM encoding
-     * @throws CryptoException A problem was encountered getting the
-     * object's PEM encoding
-     */
-    public DViewPEM(JFrame parent, String sTitle, boolean bModal, Object obj,
-        JFileChooser chooser)
-        throws CryptoException
-    {
-        super(parent, sTitle, bModal);
-        m_object = obj;
-        m_chooser = chooser;
-        initComponents();
-    }
+	/**
+	 * Creates new DViewPEM dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param sTitle The dialog title
+	 * @param bModal Is dialog modal?
+	 * @param obj Object to display encoding for
+	 * @param chooser File chooser for saving the PEM encoding
+	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
+	 */
+	public DViewPEM(JFrame parent, String sTitle, boolean bModal, Object obj, JFileChooser chooser)
+	    throws CryptoException
+	{
+		super(parent, sTitle, bModal);
+		m_object = obj;
+		m_chooser = chooser;
+		initComponents();
+	}
 
-    /**
-     * Creates new DViewPEM dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param sTitle The dialog title
-     * @param bModal Is dialog modal?
-     * @param obj Object to display encoding for
-     * @param chooser File chooser for saving the PEM encoding
-     * @throws CryptoException A problem was encountered getting the
-     * object's PEM encoding
-     */
-    public DViewPEM(JDialog parent, String sTitle, boolean bModal, Object obj,
-        JFileChooser chooser)
-        throws CryptoException
-    {
-        super(parent, sTitle, bModal);
-        m_object = obj;
-        m_chooser = chooser;
-        initComponents();
-    }
+	/**
+	 * Creates new DViewPEM dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param sTitle The dialog title
+	 * @param bModal Is dialog modal?
+	 * @param obj Object to display encoding for
+	 * @param chooser File chooser for saving the PEM encoding
+	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
+	 */
+	public DViewPEM(JDialog parent, String sTitle, boolean bModal, Object obj, JFileChooser chooser)
+	    throws CryptoException
+	{
+		super(parent, sTitle, bModal);
+		m_object = obj;
+		m_chooser = chooser;
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     *
-     * @throws CryptoException A problem was encountered getting the
-     * object's PEM encoding
-     */
-    private void initComponents()
-        throws CryptoException
-    {
-        if (m_pem == null) {
-            StringWriter encoded = new StringWriter();
-            PEMWriter pw = new PEMWriter(encoded);
-            try {
-                pw.writeObject(m_object);
-            }
-            catch (IOException e) {
-                throw new CryptoException(
-                    m_res.getString("DViewPEM.exception.message"), e);
-            }
-            finally {
-                try {
-                    pw.close();
-                }
-                catch (IOException e) { /* Ignore */
-                }
-                m_pem = encoded.toString();
-            }
-        }
+	/**
+	 * Initialise the dialog's GUI components.
+	 * 
+	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
+	 */
+	private void initComponents()
+	    throws CryptoException
+	{
+		if (m_pem == null)
+		{
+			StringWriter encoded = new StringWriter();
+			PEMWriter pw = new PEMWriter(encoded);
+			try
+			{
+				pw.writeObject(m_object);
+			}
+			catch (IOException e)
+			{
+				throw new CryptoException(m_res.getString("DViewPEM.exception.message"), e);
+			}
+			finally
+			{
+				try
+				{
+					pw.close();
+				}
+				catch (IOException e)
+				{ /* Ignore */
+				}
+				m_pem = encoded.toString();
+			}
+		}
 
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        final JButton jbOK = new JButton(m_res.getString("DViewPEM.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		final JButton jbOK = new JButton(m_res.getString("DViewPEM.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        final JButton jbSave = new JButton(
-            m_res.getString("DViewPEM.jbSave.text"));
-        jbSave.setMnemonic(m_res.getString("DViewPEM.jbSave.mnemonic").charAt(
-            0));
-        if (m_chooser == null || m_pem == null) {
-            jbSave.setEnabled(false);
-        }
-        else {
-            jbSave.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent evt)
-                {
-                    savePressed();
-                }
-            });
-        }
+		final JButton jbSave = new JButton(m_res.getString("DViewPEM.jbSave.text"));
+		jbSave.setMnemonic(m_res.getString("DViewPEM.jbSave.mnemonic").charAt(0));
+		if (m_chooser == null || m_pem == null)
+		{
+			jbSave.setEnabled(false);
+		}
+		else
+		{
+			jbSave.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent evt)
+				{
+					savePressed();
+				}
+			});
+		}
 
-        jpButtons.add(jbOK);
-        jpButtons.add(jbSave);
+		jpButtons.add(jbOK);
+		jpButtons.add(jbSave);
 
-        JPanel jpPEM = new JPanel(new BorderLayout());
-        jpPEM.setBorder(new EmptyBorder(5, 5, 5, 5));
+		JPanel jpPEM = new JPanel(new BorderLayout());
+		jpPEM.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        // Load text area with the PEM encoding
-        JTextArea jtaPEM = new JTextArea(m_pem);
-        jtaPEM.setCaretPosition(0);
-        jtaPEM.setEditable(false);
-        jtaPEM.setFont(new Font("Monospaced", Font.PLAIN,
-            jtaPEM.getFont().getSize()));
+		// Load text area with the PEM encoding
+		JTextArea jtaPEM = new JTextArea(m_pem);
+		jtaPEM.setCaretPosition(0);
+		jtaPEM.setEditable(false);
+		jtaPEM.setFont(new Font("Monospaced", Font.PLAIN, jtaPEM.getFont().getSize()));
 
-        JScrollPane jspPEM = new JScrollPane(jtaPEM,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jspPEM.setPreferredSize(new Dimension(500, 300));
-        jpPEM.add(jspPEM, BorderLayout.CENTER);
+		JScrollPane jspPEM =
+		    new JScrollPane(jtaPEM, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		jspPEM.setPreferredSize(new Dimension(500, 300));
+		jpPEM.add(jspPEM, BorderLayout.CENTER);
 
-        getContentPane().add(jpPEM, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		getContentPane().add(jpPEM, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        setResizable(true);
+		setResizable(true);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
+		pack();
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                jbOK.requestFocus();
-            }
-        });
-    }
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				jbOK.requestFocus();
+			}
+		});
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Save button pressed or otherwise activated.
-     */
-    private void savePressed()
-    {
-        int iRtnValue = m_chooser.showDialog(this,
-            m_res.getString("DViewPEM.jbSave.text"));
-        if (iRtnValue == JFileChooser.APPROVE_OPTION) {
-            File fExportFile = m_chooser.getSelectedFile();
+	/**
+	 * Save button pressed or otherwise activated.
+	 */
+	private void savePressed()
+	{
+		int iRtnValue = m_chooser.showDialog(this, m_res.getString("DViewPEM.jbSave.text"));
+		if (iRtnValue == JFileChooser.APPROVE_OPTION)
+		{
+			File fExportFile = m_chooser.getSelectedFile();
 
-            if (fExportFile.isFile()) {
-                String sMessage = MessageFormat.format(
-                    m_res.getString("DViewPEM.OverWriteFile.message"),
-                    new String[] { fExportFile.getName() });
-                int iSelected = JOptionPane.showConfirmDialog(this, sMessage,
-                    getTitle(), JOptionPane.YES_NO_OPTION);
-                if (iSelected == JOptionPane.NO_OPTION)
-                    return;
-            }
-            
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(fExportFile);
-                fw.write(m_pem);
-            }
-            catch (FileNotFoundException ex) {
-                String sMessage = MessageFormat.format(
-                    m_res.getString("DViewPEM.NoWriteFile.message"),
-                    new String[] { fExportFile.getName() });
-                JOptionPane.showMessageDialog(this, sMessage, getTitle(),
-                    JOptionPane.WARNING_MESSAGE);
-            }
-            catch (IOException e) {
-                displayException(e);
-            }
-            finally {
-                if (fw != null)
-                    try {
-                        fw.close();
-                    }
-                    catch (IOException e) {
-                        displayException(e);
-                    }
-            }
-        }
-    }
+			if (fExportFile.isFile())
+			{
+				String sMessage =
+				    MessageFormat.format(m_res.getString("DViewPEM.OverWriteFile.message"),
+				        new String[] { fExportFile.getName() });
+				int iSelected =
+				    JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
+				if (iSelected == JOptionPane.NO_OPTION)
+					return;
+			}
 
-    /**
-     * Hides the dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+			FileWriter fw = null;
+			try
+			{
+				fw = new FileWriter(fExportFile);
+				fw.write(m_pem);
+			}
+			catch (FileNotFoundException ex)
+			{
+				String sMessage =
+				    MessageFormat.format(m_res.getString("DViewPEM.NoWriteFile.message"),
+				        new String[] { fExportFile.getName() });
+				JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
+			}
+			catch (IOException e)
+			{
+				displayException(e);
+			}
+			finally
+			{
+				if (fw != null)
+					try
+					{
+						fw.close();
+					}
+					catch (IOException e)
+					{
+						displayException(e);
+					}
+			}
+		}
+	}
 
-    /**
-     * Display an exception.
-     *
-     * @param exception Exception to display
-     */
-    private void displayException(Exception exception)
-    {
-        DThrowable dThrowable = new DThrowable(this, true, exception);
-        dThrowable.setLocationRelativeTo(this);
-        SwingHelper.showAndWait(dThrowable);
-    }
+	/**
+	 * Hides the dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
+
+	/**
+	 * Display an exception.
+	 * 
+	 * @param exception Exception to display
+	 */
+	private void displayException(Exception exception)
+	{
+		DThrowable dThrowable = new DThrowable(this, true, exception);
+		dThrowable.setLocationRelativeTo(this);
+		SwingHelper.showAndWait(dThrowable);
+	}
 }

@@ -29,10 +29,10 @@ import java.util.EventListener;
 public interface HistoryEventListener
     extends EventListener
 {
-    /**
-     * Fired when history changes.
-     *
-     * @param evt Event which caused the change
-     */
-    void historyStatusChanged(HistoryEvent evt);
+	/**
+	 * Fired when history changes.
+	 * 
+	 * @param evt Event which caused the change
+	 */
+	void historyStatusChanged(HistoryEvent evt);
 }

@@ -34,33 +34,34 @@ import javax.swing.table.DefaultTableCellRenderer;
 class JarInfoTableCellRend
     extends DefaultTableCellRenderer
 {
-    /**
-     * Returns the rendered cell for the supplied value and column.
-     *
-     * @param jtJarInfo The JTable
-     * @param value The value to assign to the cell
-     * @param bIsSelected True if cell is selected
-     * @param iRow The row of the cell to render
-     * @param iCol The column of the cell to render
-     * @param bHasFocus If true, render cell appropriately
-     * @return The renderered cell
-     */
-    public Component getTableCellRendererComponent(JTable jtJarInfo,
-        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
-        int iCol)
-    {
-        JLabel cell = (JLabel) super.getTableCellRendererComponent(jtJarInfo,
-            value, bIsSelected, bHasFocus, iRow, iCol);
-        if (cell.getText().length() == 0) {
-            cell.setText("-");
-            cell.setHorizontalAlignment(CENTER);
-        }
-        else {
-            cell.setHorizontalAlignment(LEFT);
-        }
+	/**
+	 * Returns the rendered cell for the supplied value and column.
+	 * 
+	 * @param jtJarInfo The JTable
+	 * @param value The value to assign to the cell
+	 * @param bIsSelected True if cell is selected
+	 * @param iRow The row of the cell to render
+	 * @param iCol The column of the cell to render
+	 * @param bHasFocus If true, render cell appropriately
+	 * @return The renderered cell
+	 */
+	public Component getTableCellRendererComponent(JTable jtJarInfo, Object value, boolean bIsSelected,
+	    boolean bHasFocus, int iRow, int iCol)
+	{
+		JLabel cell =
+		    (JLabel) super.getTableCellRendererComponent(jtJarInfo, value, bIsSelected, bHasFocus, iRow, iCol);
+		if (cell.getText().length() == 0)
+		{
+			cell.setText("-");
+			cell.setHorizontalAlignment(CENTER);
+		}
+		else
+		{
+			cell.setHorizontalAlignment(LEFT);
+		}
 
-        cell.setBorder(new EmptyBorder(0, 5, 0, 5));
+		cell.setBorder(new EmptyBorder(0, 5, 0, 5));
 
-        return cell;
-    }
+		return cell;
+	}
 }

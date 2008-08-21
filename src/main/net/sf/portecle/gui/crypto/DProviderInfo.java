@@ -57,235 +57,229 @@ import javax.swing.tree.TreeSelectionModel;
 public class DProviderInfo
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
-    /**
-     * Creates new DProviderInfo dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param bModal Is dialog modal?
-     */
-    public DProviderInfo(JFrame parent, boolean bModal)
-    {
-        super(parent, bModal);
-        initComponents();
-    }
+	/**
+	 * Creates new DProviderInfo dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param bModal Is dialog modal?
+	 */
+	public DProviderInfo(JFrame parent, boolean bModal)
+	{
+		super(parent, bModal);
+		initComponents();
+	}
 
-    /**
-     * Creates new DProviderInfo dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param bModal Is dialog modal?
-     */
-    public DProviderInfo(JDialog parent, boolean bModal)
-    {
-        super(parent, bModal);
-        initComponents();
-    }
+	/**
+	 * Creates new DProviderInfo dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param bModal Is dialog modal?
+	 */
+	public DProviderInfo(JDialog parent, boolean bModal)
+	{
+		super(parent, bModal);
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     */
-    private void initComponents()
-    {
-        // Buttons
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	/**
+	 * Initialise the dialog's GUI components.
+	 */
+	private void initComponents()
+	{
+		// Buttons
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        final JButton jbOK = new JButton(
-            m_res.getString("DProviderInfo.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		final JButton jbOK = new JButton(m_res.getString("DProviderInfo.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        jpButtons.add(jbOK);
+		jpButtons.add(jbOK);
 
-        JButton jbCopy = new JButton(
-            m_res.getString("DProviderInfo.jbCopy.text"));
-        jbCopy.setMnemonic(m_res.getString("DProviderInfo.jbCopy.mnemonic").charAt(
-            0));
-        jbCopy.setToolTipText(m_res.getString("DProviderInfo.jbCopy.tooltip"));
-        jbCopy.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                copyPressed();
-            }
-        });
+		JButton jbCopy = new JButton(m_res.getString("DProviderInfo.jbCopy.text"));
+		jbCopy.setMnemonic(m_res.getString("DProviderInfo.jbCopy.mnemonic").charAt(0));
+		jbCopy.setToolTipText(m_res.getString("DProviderInfo.jbCopy.tooltip"));
+		jbCopy.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				copyPressed();
+			}
+		});
 
-        jpButtons.add(jbCopy);
+		jpButtons.add(jbCopy);
 
-        JPanel jpProviders = new JPanel(new BorderLayout());
-        jpProviders.setBorder(new EmptyBorder(5, 5, 5, 5));
+		JPanel jpProviders = new JPanel(new BorderLayout());
+		jpProviders.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        // Load tree with info on loaded security providers
-        JTree jtrProviders = new JTree(createProviderNodes());
-        // Top accomodate node icons with spare space (they are 16 pixels tall)
-        jtrProviders.setRowHeight(18);
-        jtrProviders.getSelectionModel().setSelectionMode(
-            TreeSelectionModel.SINGLE_TREE_SELECTION);
-        // Allow tooltips in tree
-        ToolTipManager.sharedInstance().registerComponent(jtrProviders);
-        // Custom tree node renderer
-        jtrProviders.setCellRenderer(new ProviderTreeCellRend());
+		// Load tree with info on loaded security providers
+		JTree jtrProviders = new JTree(createProviderNodes());
+		// Top accomodate node icons with spare space (they are 16 pixels tall)
+		jtrProviders.setRowHeight(18);
+		jtrProviders.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		// Allow tooltips in tree
+		ToolTipManager.sharedInstance().registerComponent(jtrProviders);
+		// Custom tree node renderer
+		jtrProviders.setCellRenderer(new ProviderTreeCellRend());
 
-        JScrollPane jspProviders = new JScrollPane(jtrProviders,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-            JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jspProviders.setPreferredSize(new Dimension(350, 200));
-        jpProviders.add(jspProviders, BorderLayout.CENTER);
+		JScrollPane jspProviders =
+		    new JScrollPane(jtrProviders, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		jspProviders.setPreferredSize(new Dimension(350, 200));
+		jpProviders.add(jspProviders, BorderLayout.CENTER);
 
-        getContentPane().add(jpProviders, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		getContentPane().add(jpProviders, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        setTitle(m_res.getString("DProviderInfo.Title"));
-        setResizable(true);
+		setTitle(m_res.getString("DProviderInfo.Title"));
+		setResizable(true);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
+		pack();
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                jbOK.requestFocus();
-            }
-        });
-    }
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				jbOK.requestFocus();
+			}
+		});
+	}
 
-    /**
-     * Create tree node with information on all loaded providers.
-     *
-     * @return The tree node
-     */
-    private DefaultMutableTreeNode createProviderNodes()
-    {
-        // Top node
-        DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(
-            m_res.getString("DProviderInfo.TopNodeName"));
+	/**
+	 * Create tree node with information on all loaded providers.
+	 * 
+	 * @return The tree node
+	 */
+	private DefaultMutableTreeNode createProviderNodes()
+	{
+		// Top node
+		DefaultMutableTreeNode topNode =
+		    new DefaultMutableTreeNode(m_res.getString("DProviderInfo.TopNodeName"));
 
-        // Get security providers
-        Provider[] providers = Security.getProviders();
+		// Get security providers
+		Provider[] providers = Security.getProviders();
 
-        // For each provider...
-        for (int iCnt = 0; iCnt < providers.length; iCnt++) {
-            Provider provider = providers[iCnt];
+		// For each provider...
+		for (int iCnt = 0; iCnt < providers.length; iCnt++)
+		{
+			Provider provider = providers[iCnt];
 
-            // Create a node with the provider name and add it as a
-            // child of the top node
-            DefaultMutableTreeNode providerNode = new DefaultMutableTreeNode(
-                provider.getName());
-            topNode.add(providerNode);
+			// Create a node with the provider name and add it as a
+			// child of the top node
+			DefaultMutableTreeNode providerNode = new DefaultMutableTreeNode(provider.getName());
+			topNode.add(providerNode);
 
-            // Add child nodes to the provider node for provider
-            // decription and version
-            providerNode.add(new DefaultMutableTreeNode(provider.getInfo()));
-            providerNode.add(new DefaultMutableTreeNode(""
-                + provider.getVersion()));
+			// Add child nodes to the provider node for provider
+			// decription and version
+			providerNode.add(new DefaultMutableTreeNode(provider.getInfo()));
+			providerNode.add(new DefaultMutableTreeNode("" + provider.getVersion()));
 
-            // Create another child node called properties and...
-            DefaultMutableTreeNode providerPropertiesNode = new DefaultMutableTreeNode(
-                m_res.getString("DProviderInfo.ProviderProperties"));
-            providerNode.add(providerPropertiesNode);
+			// Create another child node called properties and...
+			DefaultMutableTreeNode providerPropertiesNode =
+			    new DefaultMutableTreeNode(m_res.getString("DProviderInfo.ProviderProperties"));
+			providerNode.add(providerPropertiesNode);
 
-            // ...add property child nodes to it.
-            // Use a TreeSet for sorting the properties.
-            TreeSet ts = new TreeSet(provider.keySet());
-            for (Iterator i = ts.iterator(); i.hasNext();) {
-                String sKey = (String) i.next();
-                String sValue = provider.getProperty(sKey);
-                providerPropertiesNode.add(new DefaultMutableTreeNode(
-                    MessageFormat.format(
-                        m_res.getString("DProviderInfo.ProviderProperty"),
-                        new String[] { sKey, sValue })));
-            }
-        }
+			// ...add property child nodes to it.
+			// Use a TreeSet for sorting the properties.
+			TreeSet ts = new TreeSet(provider.keySet());
+			for (Iterator i = ts.iterator(); i.hasNext();)
+			{
+				String sKey = (String) i.next();
+				String sValue = provider.getProperty(sKey);
+				providerPropertiesNode.add(new DefaultMutableTreeNode(MessageFormat.format(
+				    m_res.getString("DProviderInfo.ProviderProperty"), new String[] { sKey, sValue })));
+			}
+		}
 
-        return topNode;
-    }
+		return topNode;
+	}
 
-    /**
-     * Copy button pressed - copy provider information to clipboard.
-     */
-    private void copyPressed()
-    {
-        // Put provider information in here
-        StringBuffer strBuff = new StringBuffer();
+	/**
+	 * Copy button pressed - copy provider information to clipboard.
+	 */
+	private void copyPressed()
+	{
+		// Put provider information in here
+		StringBuffer strBuff = new StringBuffer();
 
-        // Get security providers
-        Provider[] providers = Security.getProviders();
+		// Get security providers
+		Provider[] providers = Security.getProviders();
 
-        // For each provider...
-        for (int iCnt = 0; iCnt < providers.length; iCnt++) {
-            Provider provider = providers[iCnt];
+		// For each provider...
+		for (int iCnt = 0; iCnt < providers.length; iCnt++)
+		{
+			Provider provider = providers[iCnt];
 
-            // ...write out the provider name, description and version...
-            strBuff.append(MessageFormat.format(
-                m_res.getString("DProviderInfo.Copy.ProviderName"),
-                new Object[] { provider.getName() }));
-            strBuff.append('\n');
-            strBuff.append(MessageFormat.format(
-                m_res.getString("DProviderInfo.Copy.ProviderVersion"),
-                new Object[] { "" + provider.getVersion() }));
-            strBuff.append('\n');
-            strBuff.append(MessageFormat.format(
-                m_res.getString("DProviderInfo.Copy.ProviderDescription"),
-                new Object[] { provider.getInfo() }));
-            strBuff.append('\n');
-            strBuff.append(m_res.getString("DProviderInfo.Copy.ProviderProperties"));
-            strBuff.append('\n');
+			// ...write out the provider name, description and version...
+			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderName"),
+			    new Object[] { provider.getName() }));
+			strBuff.append('\n');
+			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderVersion"),
+			    new Object[] { "" + provider.getVersion() }));
+			strBuff.append('\n');
+			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderDescription"),
+			    new Object[] { provider.getInfo() }));
+			strBuff.append('\n');
+			strBuff.append(m_res.getString("DProviderInfo.Copy.ProviderProperties"));
+			strBuff.append('\n');
 
-            // ...and it's properties
-            // Use a TreeSet for sorting the properties.
-            TreeSet ts = new TreeSet(provider.keySet());
-            for (Iterator i = ts.iterator(); i.hasNext();) {
-                String sKey = (String) i.next();
-                String sValue = provider.getProperty(sKey);
-                strBuff.append('\t');
-                strBuff.append(sKey);
-                strBuff.append('=');
-                strBuff.append(sValue);
-                strBuff.append('\n');
-            }
+			// ...and it's properties
+			// Use a TreeSet for sorting the properties.
+			TreeSet ts = new TreeSet(provider.keySet());
+			for (Iterator i = ts.iterator(); i.hasNext();)
+			{
+				String sKey = (String) i.next();
+				String sValue = provider.getProperty(sKey);
+				strBuff.append('\t');
+				strBuff.append(sKey);
+				strBuff.append('=');
+				strBuff.append(sValue);
+				strBuff.append('\n');
+			}
 
-            if (iCnt + 1 < providers.length) {
-                strBuff.append('\n');
-            }
-        }
+			if (iCnt + 1 < providers.length)
+			{
+				strBuff.append('\n');
+			}
+		}
 
-        // Copy to clipboard
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        StringSelection copy = new StringSelection(strBuff.toString());
-        clipboard.setContents(copy, copy);
-    }
+		// Copy to clipboard
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		StringSelection copy = new StringSelection(strBuff.toString());
+		clipboard.setContents(copy, copy);
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Hides the dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Hides the dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

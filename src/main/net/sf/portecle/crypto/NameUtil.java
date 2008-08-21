@@ -32,43 +32,44 @@ import org.bouncycastle.asn1.x509.X509Name;
  */
 public final class NameUtil
 {
-    /**
-     * Private to prevent construction.
-     */
-    private NameUtil()
-    {
-    }
+	/**
+	 * Private to prevent construction.
+	 */
+	private NameUtil()
+	{
+	}
 
-    /**
-     * Gets the common name from the given X509Name.
-     * 
-     * @param name the X.509 name
-     * @return the common name, null if not found
-     */
-    public static String getCommonName(X509Name name)
-    {
-        if (name == null)
-            return null;
-        Vector oids = name.getOIDs();
-        int ix;
-        if ((ix = oids.indexOf(X509Name.CN)) != -1) {
-            Object val = name.getValues().get(ix);
-            if (val != null)
-                return val.toString();
-        }
-        return null;
-    }
+	/**
+	 * Gets the common name from the given X509Name.
+	 * 
+	 * @param name the X.509 name
+	 * @return the common name, null if not found
+	 */
+	public static String getCommonName(X509Name name)
+	{
+		if (name == null)
+			return null;
+		Vector oids = name.getOIDs();
+		int ix;
+		if ((ix = oids.indexOf(X509Name.CN)) != -1)
+		{
+			Object val = name.getValues().get(ix);
+			if (val != null)
+				return val.toString();
+		}
+		return null;
+	}
 
-    /**
-     * Gets the common name from the given X500Principal.
-     * 
-     * @param name the X.500 principal
-     * @return the common name, null if not found
-     */
-    public static String getCommonName(X500Principal name)
-    {
-        if (name == null)
-            return null;
-        return getCommonName(new X509Name(name.getName()));
-    }
+	/**
+	 * Gets the common name from the given X500Principal.
+	 * 
+	 * @param name the X.500 principal
+	 * @return the common name, null if not found
+	 */
+	public static String getCommonName(X500Principal name)
+	{
+		if (name == null)
+			return null;
+		return getCommonName(new X509Name(name.getName()));
+	}
 }

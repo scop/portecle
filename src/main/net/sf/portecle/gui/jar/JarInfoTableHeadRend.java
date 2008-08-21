@@ -31,37 +31,34 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the headers of the JAR Information table
- * of DJarInfo.
+ * Custom cell renderer for the headers of the JAR Information table of DJarInfo.
  */
 class JarInfoTableHeadRend
     extends DefaultTableCellRenderer
 {
-    /**
-     * Returns the rendered header cell for the supplied value and column.
-     *
-     * @param jtJarInfo The JTable
-     * @param value The value to assign to the cell
-     * @param bIsSelected True if cell is selected
-     * @param iRow The row of the cell to render
-     * @param iCol The column of the cell to render
-     * @param bHasFocus If true, render cell appropriately
-     * @return The renderered cell
-     */
-    public Component getTableCellRendererComponent(JTable jtJarInfo,
-        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
-        int iCol)
-    {
-        // Get header renderer
-        JLabel header = (JLabel) jtJarInfo.getColumnModel().getColumn(iCol).getHeaderRenderer();
+	/**
+	 * Returns the rendered header cell for the supplied value and column.
+	 * 
+	 * @param jtJarInfo The JTable
+	 * @param value The value to assign to the cell
+	 * @param bIsSelected True if cell is selected
+	 * @param iRow The row of the cell to render
+	 * @param iCol The column of the cell to render
+	 * @param bHasFocus If true, render cell appropriately
+	 * @return The renderered cell
+	 */
+	public Component getTableCellRendererComponent(JTable jtJarInfo, Object value, boolean bIsSelected,
+	    boolean bHasFocus, int iRow, int iCol)
+	{
+		// Get header renderer
+		JLabel header = (JLabel) jtJarInfo.getColumnModel().getColumn(iCol).getHeaderRenderer();
 
-        // The headers contain left-aligned text
-        header.setText(value.toString());
-        header.setHorizontalAlignment(LEFT);
+		// The headers contain left-aligned text
+		header.setText(value.toString());
+		header.setHorizontalAlignment(LEFT);
 
-        header.setBorder(new CompoundBorder(
-            new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
+		header.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
 
-        return header;
-    }
+		return header;
+	}
 }

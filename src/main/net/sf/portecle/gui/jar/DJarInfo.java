@@ -53,223 +53,228 @@ import javax.swing.table.TableColumn;
 public class DJarInfo
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
-    /**
-     * Creates new DJarInfo dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param bModal Is dialog modal?
-     * @throws IOException Problem occurred getting JAR information
-     */
-    public DJarInfo(JFrame parent, boolean bModal)
-        throws IOException
-    {
-        this(parent, m_res.getString("DJarInfo.Title"), bModal);
-    }
+	/**
+	 * Creates new DJarInfo dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param bModal Is dialog modal?
+	 * @throws IOException Problem occurred getting JAR information
+	 */
+	public DJarInfo(JFrame parent, boolean bModal)
+	    throws IOException
+	{
+		this(parent, m_res.getString("DJarInfo.Title"), bModal);
+	}
 
-    /**
-     * Creates new DJarInfo dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param sTitle The title of the dialog
-     * @param bModal Is dialog modal?
-     * @throws IOException Problem occurred getting JAR information
-     */
-    public DJarInfo(JFrame parent, String sTitle, boolean bModal)
-        throws IOException
-    {
-        super(parent, sTitle, bModal);
-        initComponents();
-    }
+	/**
+	 * Creates new DJarInfo dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param sTitle The title of the dialog
+	 * @param bModal Is dialog modal?
+	 * @throws IOException Problem occurred getting JAR information
+	 */
+	public DJarInfo(JFrame parent, String sTitle, boolean bModal)
+	    throws IOException
+	{
+		super(parent, sTitle, bModal);
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     *
-     * @throws IOException Problem occurred getting JAR information
-     */
-    private void initComponents()
-        throws IOException
-    {
-        JarFile[] jarFiles = getClassPathJars();
+	/**
+	 * Initialise the dialog's GUI components.
+	 * 
+	 * @throws IOException Problem occurred getting JAR information
+	 */
+	private void initComponents()
+	    throws IOException
+	{
+		JarFile[] jarFiles = getClassPathJars();
 
-        // JAR Information table
+		// JAR Information table
 
-        // Create the table using the appropriate table model
-        JarInfoTableModel jiModel = new JarInfoTableModel();
-        jiModel.load(jarFiles);
+		// Create the table using the appropriate table model
+		JarInfoTableModel jiModel = new JarInfoTableModel();
+		jiModel.load(jarFiles);
 
-        JTable jtJarInfo = new JTable(jiModel);
+		JTable jtJarInfo = new JTable(jiModel);
 
-        jtJarInfo.setRowMargin(0);
-        jtJarInfo.getColumnModel().setColumnMargin(0);
-        jtJarInfo.getTableHeader().setReorderingAllowed(false);
-        jtJarInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		jtJarInfo.setRowMargin(0);
+		jtJarInfo.getColumnModel().setColumnMargin(0);
+		jtJarInfo.getTableHeader().setReorderingAllowed(false);
+		jtJarInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        // Add custom renderers for the table cells and headers
-        for (int iCnt = 0; iCnt < jtJarInfo.getColumnCount(); iCnt++) {
-            TableColumn column = jtJarInfo.getColumnModel().getColumn(iCnt);
+		// Add custom renderers for the table cells and headers
+		for (int iCnt = 0; iCnt < jtJarInfo.getColumnCount(); iCnt++)
+		{
+			TableColumn column = jtJarInfo.getColumnModel().getColumn(iCnt);
 
-            column.setPreferredWidth(150);
+			column.setPreferredWidth(150);
 
-            column.setHeaderRenderer(new JarInfoTableHeadRend());
-            column.setCellRenderer(new JarInfoTableCellRend());
-        }
+			column.setHeaderRenderer(new JarInfoTableHeadRend());
+			column.setCellRenderer(new JarInfoTableCellRend());
+		}
 
-        // Put the table into a scroll pane
-        JScrollPane jspJarInfoTable = new JScrollPane(jtJarInfo,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jspJarInfoTable.getViewport().setBackground(jtJarInfo.getBackground());
+		// Put the table into a scroll pane
+		JScrollPane jspJarInfoTable =
+		    new JScrollPane(jtJarInfo, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jspJarInfoTable.getViewport().setBackground(jtJarInfo.getBackground());
 
-        // Put the scroll pane into a panel
-        JPanel jpJarInfoTable = new JPanel(new BorderLayout(10, 10));
-        jpJarInfoTable.setPreferredSize(new Dimension(500, 150));
-        jpJarInfoTable.add(jspJarInfoTable, BorderLayout.CENTER);
-        jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
+		// Put the scroll pane into a panel
+		JPanel jpJarInfoTable = new JPanel(new BorderLayout(10, 10));
+		jpJarInfoTable.setPreferredSize(new Dimension(500, 150));
+		jpJarInfoTable.add(jspJarInfoTable, BorderLayout.CENTER);
+		jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        final JButton jbOK = new JButton(m_res.getString("DJarInfo.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		final JButton jbOK = new JButton(m_res.getString("DJarInfo.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpOK.add(jbOK);
+		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpOK.add(jbOK);
 
-        getContentPane().add(jpJarInfoTable, BorderLayout.CENTER);
-        getContentPane().add(jpOK, BorderLayout.SOUTH);
+		getContentPane().add(jpJarInfoTable, BorderLayout.CENTER);
+		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-        setResizable(false);
+		setResizable(false);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
+		pack();
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                jbOK.requestFocus();
-            }
-        });
-    }
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				jbOK.requestFocus();
+			}
+		});
+	}
 
-    /**
-     * Get JARs on classpath.
-     *
-     * @return JARs on classpath
-     * @throws IOException Problem occurred getting JARs
-     */
-    private JarFile[] getClassPathJars()
-        throws IOException
-    {
-        // Store JARs
-        ArrayList vJars = new ArrayList();
+	/**
+	 * Get JARs on classpath.
+	 * 
+	 * @return JARs on classpath
+	 * @throws IOException Problem occurred getting JARs
+	 */
+	private JarFile[] getClassPathJars()
+	    throws IOException
+	{
+		// Store JARs
+		ArrayList vJars = new ArrayList();
 
-        // Split classpath into it's components using the path separator
-        String sClassPath = System.getProperty("java.class.path");
-        String sPathSeparator = System.getProperty("path.separator");
+		// Split classpath into it's components using the path separator
+		String sClassPath = System.getProperty("java.class.path");
+		String sPathSeparator = System.getProperty("path.separator");
 
-        StringTokenizer strTok = new StringTokenizer(sClassPath,
-            sPathSeparator);
+		StringTokenizer strTok = new StringTokenizer(sClassPath, sPathSeparator);
 
-        // Store each JAR found on classpath
-        while (strTok.hasMoreTokens()) {
-            String sClassPathEntry = strTok.nextToken();
+		// Store each JAR found on classpath
+		while (strTok.hasMoreTokens())
+		{
+			String sClassPathEntry = strTok.nextToken();
 
-            File file = new File(sClassPathEntry);
+			File file = new File(sClassPathEntry);
 
-            if (isJarFile(file)) {
-                vJars.add(new JarFile(file));
-            }
-        }
+			if (isJarFile(file))
+			{
+				vJars.add(new JarFile(file));
+			}
+		}
 
-        /* If only one JAR was found assume that application was
-         started using "jar" option - look in JAR manifest's
-         Class-Path entry for the rest of the JARs */
-        if (vJars.size() == 1) {
-            // Get manifest
-            JarFile jarFile = (JarFile) vJars.get(0);
-            Manifest manifest = jarFile.getManifest();
+		/*
+		 * If only one JAR was found assume that application was started using "jar" option - look in JAR
+		 * manifest's Class-Path entry for the rest of the JARs
+		 */
+		if (vJars.size() == 1)
+		{
+			// Get manifest
+			JarFile jarFile = (JarFile) vJars.get(0);
+			Manifest manifest = jarFile.getManifest();
 
-            if (manifest != null) // Manifest may not exist
-            {
-                // Get Class-Path entry
-                Attributes attributes = manifest.getMainAttributes();
-                String sJarClassPath = attributes.getValue("Class-Path");
+			if (manifest != null) // Manifest may not exist
+			{
+				// Get Class-Path entry
+				Attributes attributes = manifest.getMainAttributes();
+				String sJarClassPath = attributes.getValue("Class-Path");
 
-                if (sJarClassPath != null) {
-                    // Split "JAR classpath" using spaces
-                    strTok = new StringTokenizer(sJarClassPath, " ");
+				if (sJarClassPath != null)
+				{
+					// Split "JAR classpath" using spaces
+					strTok = new StringTokenizer(sJarClassPath, " ");
 
-                    // Store each JAR found on "JAR classpath"
-                    while (strTok.hasMoreTokens()) {
-                        String sJarClassPathEntry = strTok.nextToken();
+					// Store each JAR found on "JAR classpath"
+					while (strTok.hasMoreTokens())
+					{
+						String sJarClassPathEntry = strTok.nextToken();
 
-                        File file = new File(
-                            new File(jarFile.getName()).getParent(),
-                            sJarClassPathEntry);
+						File file = new File(new File(jarFile.getName()).getParent(), sJarClassPathEntry);
 
-                        if (isJarFile(file)) {
-                            vJars.add(new JarFile(file));
-                        }
-                    }
-                }
-            }
-        }
+						if (isJarFile(file))
+						{
+							vJars.add(new JarFile(file));
+						}
+					}
+				}
+			}
+		}
 
-        // Return JARs in an array
-        return (JarFile[]) vJars.toArray(new JarFile[vJars.size()]);
-    }
+		// Return JARs in an array
+		return (JarFile[]) vJars.toArray(new JarFile[vJars.size()]);
+	}
 
-    /**
-     * Is supplied file a JAR file?  That is, is it a regular file that
-     * it has an extension of "ZIP" or "JAR".
-     *
-     * @param file The file
-     * @return True if it is, false otherwise
-     */
-    private boolean isJarFile(File file)
-    {
-        if (file.isFile()) {
-            String sName = file.getName().toLowerCase();
+	/**
+	 * Is supplied file a JAR file? That is, is it a regular file that it has an extension of "ZIP" or "JAR".
+	 * 
+	 * @param file The file
+	 * @return True if it is, false otherwise
+	 */
+	private boolean isJarFile(File file)
+	{
+		if (file.isFile())
+		{
+			String sName = file.getName().toLowerCase();
 
-            if (sName.endsWith(".jar") || sName.endsWith(".zip"))
-            {
-                return true;
-            }
-        }
+			if (sName.endsWith(".jar") || sName.endsWith(".zip"))
+			{
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Close the dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Close the dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

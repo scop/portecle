@@ -24,56 +24,55 @@ package net.sf.portecle.gui;
 import java.io.File;
 
 /**
- * Simple class intended to store the last accessed directory for a file
- * centric GUI application.
+ * Simple class intended to store the last accessed directory for a file centric GUI application.
  */
 public class LastDir
 {
-    /** Last directory. */
-    private File m_fLastDir;
+	/** Last directory. */
+	private File m_fLastDir;
 
-    /**
-     * Construct an empty LastDir object.
-     */
-    public LastDir()
-    {
-    }
+	/**
+	 * Construct an empty LastDir object.
+	 */
+	public LastDir()
+	{
+	}
 
-    /**
-     * Construct a LastDir object based on the supplied file.
-     *
-     * @param file Used to set last directory
-     */
-    public LastDir(File file)
-    {
-        m_fLastDir = new File(file.toString());
-    }
+	/**
+	 * Construct a LastDir object based on the supplied file.
+	 * 
+	 * @param file Used to set last directory
+	 */
+	public LastDir(File file)
+	{
+		m_fLastDir = new File(file.toString());
+	}
 
-    /**
-     * Update the LastDir object based on the supplied file.
-     * If the file exists and is a directory it is used,
-     * if it exists and is a regular file then its parent
-     * is used.
-     *
-     * @param file Used to set last directory
-     */
-    public void updateLastDir(File file)
-    {
-        if (file != null && file.exists()) {
-            m_fLastDir = file.isDirectory() ? file : file.getParentFile();
-        }
-    }
+	/**
+	 * Update the LastDir object based on the supplied file. If the file exists and is a directory it is used,
+	 * if it exists and is a regular file then its parent is used.
+	 * 
+	 * @param file Used to set last directory
+	 */
+	public void updateLastDir(File file)
+	{
+		if (file != null && file.exists())
+		{
+			m_fLastDir = file.isDirectory() ? file : file.getParentFile();
+		}
+	}
 
-    /**
-     * Get the last updated directory.
-     *
-     * @return Last directory if the last update still exists, false otherwise
-     */
-    public File getLastDir()
-    {
-        if (m_fLastDir != null && m_fLastDir.exists()) {
-            return new File(m_fLastDir.toString());
-        }
-        return null;
-    }
+	/**
+	 * Get the last updated directory.
+	 * 
+	 * @return Last directory if the last update still exists, false otherwise
+	 */
+	public File getLastDir()
+	{
+		if (m_fLastDir != null && m_fLastDir.exists())
+		{
+			return new File(m_fLastDir.toString());
+		}
+		return null;
+	}
 }

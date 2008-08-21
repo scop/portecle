@@ -31,59 +31,60 @@ import java.util.ResourceBundle;
  */
 public final class DigestUtil
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
-    /**
-     * Private to prevent construction.
-     */
-    private DigestUtil()
-    {
-    }
+	/**
+	 * Private to prevent construction.
+	 */
+	private DigestUtil()
+	{
+	}
 
-    /**
-     * Get the digest of a message as a formatted String.
-     *
-     * @param bMessage The message to digest
-     * @param digestType The message digest algorithm
-     * @return The message digest
-     * @throws CryptoException If there was a problem generating the message
-     * digest
-     */
-    public static String getMessageDigest(byte[] bMessage,
-        DigestType digestType)
-        throws CryptoException
-    {
-        // Create message digest object using the supplied algorithm
-        MessageDigest messageDigest;
-        try {
-            messageDigest = MessageDigest.getInstance(digestType.toString());
-        }
-        catch (NoSuchAlgorithmException ex) {
-            throw new CryptoException(
-                m_res.getString("NoCreateDigest.exception.message"), ex);
-        }
+	/**
+	 * Get the digest of a message as a formatted String.
+	 * 
+	 * @param bMessage The message to digest
+	 * @param digestType The message digest algorithm
+	 * @return The message digest
+	 * @throws CryptoException If there was a problem generating the message digest
+	 */
+	public static String getMessageDigest(byte[] bMessage, DigestType digestType)
+	    throws CryptoException
+	{
+		// Create message digest object using the supplied algorithm
+		MessageDigest messageDigest;
+		try
+		{
+			messageDigest = MessageDigest.getInstance(digestType.toString());
+		}
+		catch (NoSuchAlgorithmException ex)
+		{
+			throw new CryptoException(m_res.getString("NoCreateDigest.exception.message"), ex);
+		}
 
-        // Create raw message digest
-        byte[] bFingerPrint = messageDigest.digest(bMessage);
+		// Create raw message digest
+		byte[] bFingerPrint = messageDigest.digest(bMessage);
 
-        // Place the raw message digest into a StringBuffer as a Hex number
-        StringBuffer strBuff = new StringBuffer(
-            new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
+		// Place the raw message digest into a StringBuffer as a Hex number
+		StringBuffer strBuff = new StringBuffer(new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
 
-        // Odd number of characters so add in a padding "0"
-        if ((strBuff.length() % 2) != 0) {
-            strBuff.insert(0, '0');
-        }
+		// Odd number of characters so add in a padding "0"
+		if ((strBuff.length() % 2) != 0)
+		{
+			strBuff.insert(0, '0');
+		}
 
-        // Place colons at every two hex characters
-        if (strBuff.length() > 2) {
-            for (int iCnt = 2; iCnt < strBuff.length(); iCnt += 3) {
-                strBuff.insert(iCnt, ':');
-            }
-        }
+		// Place colons at every two hex characters
+		if (strBuff.length() > 2)
+		{
+			for (int iCnt = 2; iCnt < strBuff.length(); iCnt += 3)
+			{
+				strBuff.insert(iCnt, ':');
+			}
+		}
 
-        // Return the formatted message digest
-        return strBuff.toString();
-    }
+		// Return the formatted message digest
+		return strBuff.toString();
+	}
 }

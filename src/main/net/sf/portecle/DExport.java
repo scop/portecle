@@ -54,369 +54,360 @@ import javax.swing.border.TitledBorder;
 import net.sf.portecle.crypto.CryptoException;
 
 /**
- * Dialog used to export keystore entries.  A number of export types
- * and formats are available depending on the entries content.
+ * Dialog used to export keystore entries. A number of export types and formats are available depending on the
+ * entries content.
  */
 class DExport
     extends JDialog
 {
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
+	/** Key from input map to action map for the cancel button */
+	private static final String CANCEL_KEY = "CANCEL_KEY";
 
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Head certificate only export type radio button */
-    private JRadioButton m_jrbHeadCertOnly;
+	/** Head certificate only export type radio button */
+	private JRadioButton m_jrbHeadCertOnly;
 
-    /** Certificate chain export type radio button */
-    private JRadioButton m_jrbCertChain;
+	/** Certificate chain export type radio button */
+	private JRadioButton m_jrbCertChain;
 
-    /** Private key and certificate chain export type radio button */
-    private JRadioButton m_jrbPrivKeyCertChain;
+	/** Private key and certificate chain export type radio button */
+	private JRadioButton m_jrbPrivKeyCertChain;
 
-    /** DER Encoded export format radio button */
-    private JRadioButton m_jrbDEREncoded;
+	/** DER Encoded export format radio button */
+	private JRadioButton m_jrbDEREncoded;
 
-    /** PEM Encoded export format radio button */
-    private JRadioButton m_jrbPemEncoded;
+	/** PEM Encoded export format radio button */
+	private JRadioButton m_jrbPemEncoded;
 
-    /** PKCS #7 export format radio button */
-    private JRadioButton m_jrbPKCS7;
+	/** PKCS #7 export format radio button */
+	private JRadioButton m_jrbPKCS7;
 
-    /** PkiPath export format radio button */
-    private JRadioButton m_jrbPkiPath;
+	/** PkiPath export format radio button */
+	private JRadioButton m_jrbPkiPath;
 
-    /** PKCS #12 export format radio button */
-    private JRadioButton m_jrbPKCS12;
+	/** PKCS #12 export format radio button */
+	private JRadioButton m_jrbPKCS12;
 
-    /** The keystore to to export from */
-    private KeyStoreWrapper m_keyStoreWrap;
+	/** The keystore to to export from */
+	private KeyStoreWrapper m_keyStoreWrap;
 
-    /** The keystore entry to export */
-    private String m_sEntryAlias;
+	/** The keystore entry to export */
+	private String m_sEntryAlias;
 
-    /** Records whether or not the an export is selected */
-    private boolean m_bExportSelected;
+	/** Records whether or not the an export is selected */
+	private boolean m_bExportSelected;
 
-    /**
-     * Creates new form DExport where the parent is a frame.
-     *
-     * @param parent The parent frame
-     * @param bModal Is dialog modal?
-     * @param keyStore The keystore to export from
-     * @param sEntryAlias The keystore entry to export
-     * @throws CryptoException Problem accessing the keystore entry
-     */
-    public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore,
-        String sEntryAlias)
-        throws CryptoException
-    {
-        super(parent, bModal);
-        m_keyStoreWrap = keyStore;
-        m_sEntryAlias = sEntryAlias;
-        initComponents();
-    }
+	/**
+	 * Creates new form DExport where the parent is a frame.
+	 * 
+	 * @param parent The parent frame
+	 * @param bModal Is dialog modal?
+	 * @param keyStore The keystore to export from
+	 * @param sEntryAlias The keystore entry to export
+	 * @throws CryptoException Problem accessing the keystore entry
+	 */
+	public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore, String sEntryAlias)
+	    throws CryptoException
+	{
+		super(parent, bModal);
+		m_keyStoreWrap = keyStore;
+		m_sEntryAlias = sEntryAlias;
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     *
-     * @throws CryptoException Problem accessing the keystore entry
-     */
-    private void initComponents()
-        throws CryptoException
-    {
-        // Export type controls
-        JPanel jpExportType = new JPanel(new GridLayout(3, 1));
-        jpExportType.setBorder(new TitledBorder(
-            m_res.getString("DExport.jpExportType.text")));
+	/**
+	 * Initialise the dialog's GUI components.
+	 * 
+	 * @throws CryptoException Problem accessing the keystore entry
+	 */
+	private void initComponents()
+	    throws CryptoException
+	{
+		// Export type controls
+		JPanel jpExportType = new JPanel(new GridLayout(3, 1));
+		jpExportType.setBorder(new TitledBorder(m_res.getString("DExport.jpExportType.text")));
 
-        m_jrbHeadCertOnly = new JRadioButton(
-            m_res.getString("DExport.m_jrbHeadCertOnly.text"), true);
-        m_jrbHeadCertOnly.addItemListener(new ItemListener()
-        {
-            public void itemStateChanged(ItemEvent evt)
-            {
-                m_jrbDEREncoded.setEnabled(true);
-                if (m_jrbPKCS12.isSelected()) {
-                    m_jrbDEREncoded.setSelected(true);
-                }
-                m_jrbPemEncoded.setEnabled(true);
-                m_jrbPKCS7.setEnabled(true);
-                m_jrbPkiPath.setEnabled(true);
-                m_jrbPKCS12.setEnabled(false);
-            }
-        });
+		m_jrbHeadCertOnly = new JRadioButton(m_res.getString("DExport.m_jrbHeadCertOnly.text"), true);
+		m_jrbHeadCertOnly.addItemListener(new ItemListener()
+		{
+			public void itemStateChanged(ItemEvent evt)
+			{
+				m_jrbDEREncoded.setEnabled(true);
+				if (m_jrbPKCS12.isSelected())
+				{
+					m_jrbDEREncoded.setSelected(true);
+				}
+				m_jrbPemEncoded.setEnabled(true);
+				m_jrbPKCS7.setEnabled(true);
+				m_jrbPkiPath.setEnabled(true);
+				m_jrbPKCS12.setEnabled(false);
+			}
+		});
 
-        m_jrbCertChain = new JRadioButton(
-            m_res.getString("DExport.m_jrbCertChain.text"));
-        m_jrbCertChain.addItemListener(new ItemListener()
-        {
-            public void itemStateChanged(ItemEvent evt)
-            {
-                m_jrbDEREncoded.setEnabled(false);
-                m_jrbPemEncoded.setEnabled(false);
-                m_jrbPKCS7.setEnabled(true);
-                if (!m_jrbPkiPath.isSelected()) {
-                    m_jrbPKCS7.setSelected(true);
-                }
-                m_jrbPkiPath.setEnabled(true);
-                m_jrbPKCS12.setEnabled(false);
-            }
-        });
+		m_jrbCertChain = new JRadioButton(m_res.getString("DExport.m_jrbCertChain.text"));
+		m_jrbCertChain.addItemListener(new ItemListener()
+		{
+			public void itemStateChanged(ItemEvent evt)
+			{
+				m_jrbDEREncoded.setEnabled(false);
+				m_jrbPemEncoded.setEnabled(false);
+				m_jrbPKCS7.setEnabled(true);
+				if (!m_jrbPkiPath.isSelected())
+				{
+					m_jrbPKCS7.setSelected(true);
+				}
+				m_jrbPkiPath.setEnabled(true);
+				m_jrbPKCS12.setEnabled(false);
+			}
+		});
 
-        m_jrbPrivKeyCertChain = new JRadioButton(
-            m_res.getString("DExport.m_jrbPrivKeyCertChain.text"));
-        m_jrbPrivKeyCertChain.addItemListener(new ItemListener()
-        {
-            public void itemStateChanged(ItemEvent evt)
-            {
-                m_jrbDEREncoded.setEnabled(false);
-                m_jrbPemEncoded.setEnabled(true);
-                m_jrbPKCS7.setEnabled(false);
-                m_jrbPkiPath.setEnabled(false);
-                m_jrbPKCS12.setEnabled(true);
-                if (!m_jrbPemEncoded.isSelected()) {
-                    m_jrbPKCS12.setSelected(true);
-                }
-            }
-        });
+		m_jrbPrivKeyCertChain = new JRadioButton(m_res.getString("DExport.m_jrbPrivKeyCertChain.text"));
+		m_jrbPrivKeyCertChain.addItemListener(new ItemListener()
+		{
+			public void itemStateChanged(ItemEvent evt)
+			{
+				m_jrbDEREncoded.setEnabled(false);
+				m_jrbPemEncoded.setEnabled(true);
+				m_jrbPKCS7.setEnabled(false);
+				m_jrbPkiPath.setEnabled(false);
+				m_jrbPKCS12.setEnabled(true);
+				if (!m_jrbPemEncoded.isSelected())
+				{
+					m_jrbPKCS12.setSelected(true);
+				}
+			}
+		});
 
-        ButtonGroup typeBG = new ButtonGroup();
-        typeBG.add(m_jrbHeadCertOnly);
-        typeBG.add(m_jrbCertChain);
-        typeBG.add(m_jrbPrivKeyCertChain);
+		ButtonGroup typeBG = new ButtonGroup();
+		typeBG.add(m_jrbHeadCertOnly);
+		typeBG.add(m_jrbCertChain);
+		typeBG.add(m_jrbPrivKeyCertChain);
 
-        jpExportType.add(m_jrbHeadCertOnly);
-        jpExportType.add(m_jrbCertChain);
-        jpExportType.add(m_jrbPrivKeyCertChain);
+		jpExportType.add(m_jrbHeadCertOnly);
+		jpExportType.add(m_jrbCertChain);
+		jpExportType.add(m_jrbPrivKeyCertChain);
 
-        // Export format controls
-        // @@@TODO: add item listeners for these
-        JPanel jpExportFormat = new JPanel(new GridLayout(5, 1));
-        jpExportFormat.setBorder(new TitledBorder(
-            m_res.getString("DExport.jpExportFormat.text")));
+		// Export format controls
+		// @@@TODO: add item listeners for these
+		JPanel jpExportFormat = new JPanel(new GridLayout(5, 1));
+		jpExportFormat.setBorder(new TitledBorder(m_res.getString("DExport.jpExportFormat.text")));
 
-        m_jrbDEREncoded = new JRadioButton(
-            m_res.getString("DExport.m_jrbDEREncoded.text"), true);
-        m_jrbPemEncoded = new JRadioButton(
-            m_res.getString("DExport.m_jrbPemEncoded.text"));
-        m_jrbPKCS7 = new JRadioButton(
-            m_res.getString("DExport.m_jrbPKCS7.text"));
-        m_jrbPkiPath = new JRadioButton(
-            m_res.getString("DExport.m_jrbPkiPath.text"));
-        m_jrbPKCS12 = new JRadioButton(
-            m_res.getString("DExport.m_jrbPKCS12.text"));
-        m_jrbPKCS12.setEnabled(false);
+		m_jrbDEREncoded = new JRadioButton(m_res.getString("DExport.m_jrbDEREncoded.text"), true);
+		m_jrbPemEncoded = new JRadioButton(m_res.getString("DExport.m_jrbPemEncoded.text"));
+		m_jrbPKCS7 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS7.text"));
+		m_jrbPkiPath = new JRadioButton(m_res.getString("DExport.m_jrbPkiPath.text"));
+		m_jrbPKCS12 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS12.text"));
+		m_jrbPKCS12.setEnabled(false);
 
-        ButtonGroup formatBG = new ButtonGroup();
-        formatBG.add(m_jrbDEREncoded);
-        formatBG.add(m_jrbPemEncoded);
-        formatBG.add(m_jrbPKCS7);
-        formatBG.add(m_jrbPkiPath);
-        formatBG.add(m_jrbPKCS12);
+		ButtonGroup formatBG = new ButtonGroup();
+		formatBG.add(m_jrbDEREncoded);
+		formatBG.add(m_jrbPemEncoded);
+		formatBG.add(m_jrbPKCS7);
+		formatBG.add(m_jrbPkiPath);
+		formatBG.add(m_jrbPKCS12);
 
-        jpExportFormat.add(m_jrbDEREncoded);
-        jpExportFormat.add(m_jrbPemEncoded);
-        jpExportFormat.add(m_jrbPKCS7);
-        jpExportFormat.add(m_jrbPkiPath);
-        jpExportFormat.add(m_jrbPKCS12);
+		jpExportFormat.add(m_jrbDEREncoded);
+		jpExportFormat.add(m_jrbPemEncoded);
+		jpExportFormat.add(m_jrbPKCS7);
+		jpExportFormat.add(m_jrbPkiPath);
+		jpExportFormat.add(m_jrbPKCS12);
 
-        // Disable radio boxes depending on entry type
-        KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+		// Disable radio boxes depending on entry type
+		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
-        try {
-            if (keyStore.isCertificateEntry(m_sEntryAlias)) {
-                m_jrbCertChain.setEnabled(false);
-                m_jrbPrivKeyCertChain.setEnabled(false);
-            }
-        }
-        catch (KeyStoreException ex) {
-            String sMessage = MessageFormat.format(
-                m_res.getString("DExport.NoAccessEntry.message"),
-                new String[] { m_sEntryAlias });
-            throw new CryptoException(sMessage, ex);
-        }
+		try
+		{
+			if (keyStore.isCertificateEntry(m_sEntryAlias))
+			{
+				m_jrbCertChain.setEnabled(false);
+				m_jrbPrivKeyCertChain.setEnabled(false);
+			}
+		}
+		catch (KeyStoreException ex)
+		{
+			String sMessage =
+			    MessageFormat.format(m_res.getString("DExport.NoAccessEntry.message"),
+			        new String[] { m_sEntryAlias });
+			throw new CryptoException(sMessage, ex);
+		}
 
-        // Put all export option controls together in one panel
-        JPanel jpOptions = new JPanel(new BorderLayout(10, 0));
-        jpOptions.setBorder(new CompoundBorder(new CompoundBorder(
-            new EmptyBorder(5, 5, 5, 5), new EtchedBorder()), new EmptyBorder(
-            5, 5, 5, 5)));
+		// Put all export option controls together in one panel
+		JPanel jpOptions = new JPanel(new BorderLayout(10, 0));
+		jpOptions.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+		    new EtchedBorder()), new EmptyBorder(5, 5, 5, 5)));
 
-        jpOptions.add(jpExportType, BorderLayout.NORTH);
-        jpOptions.add(jpExportFormat, BorderLayout.SOUTH);
+		jpOptions.add(jpExportType, BorderLayout.NORTH);
+		jpOptions.add(jpExportFormat, BorderLayout.SOUTH);
 
-        // Buttons
-        JButton jbOK = new JButton(m_res.getString("DExport.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		// Buttons
+		JButton jbOK = new JButton(m_res.getString("DExport.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JButton jbCancel = new JButton(
-            m_res.getString("DExport.jbCancel.text"));
-        jbCancel.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                cancelPressed();
-            }
-        });
-        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                cancelPressed();
-            }
-        });
+		JButton jbCancel = new JButton(m_res.getString("DExport.jbCancel.text"));
+		jbCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				cancelPressed();
+			}
+		});
+		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
+		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				cancelPressed();
+			}
+		});
 
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpButtons.add(jbOK);
-        jpButtons.add(jbCancel);
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpButtons.add(jbOK);
+		jpButtons.add(jbCancel);
 
-        // Put it all together
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(jpOptions, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		// Put it all together
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(jpOptions, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        setTitle(MessageFormat.format(m_res.getString("DExport.Title"),
-            new String[] { m_sEntryAlias }));
-        setResizable(false);
+		setTitle(MessageFormat.format(m_res.getString("DExport.Title"), new String[] { m_sEntryAlias }));
+		setResizable(false);
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
-    }
+		pack();
+	}
 
-    /**
-     * Has an export been selected?
-     *
-     * @return True if it has, false otherwise
-     */
-    public boolean exportSelected()
-    {
-        return m_bExportSelected;
-    }
+	/**
+	 * Has an export been selected?
+	 * 
+	 * @return True if it has, false otherwise
+	 */
+	public boolean exportSelected()
+	{
+		return m_bExportSelected;
+	}
 
-    /**
-     * Has the user chosen to export only head certificate?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportHead()
-    {
-        return m_jrbHeadCertOnly.isSelected();
-    }
+	/**
+	 * Has the user chosen to export only head certificate?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportHead()
+	{
+		return m_jrbHeadCertOnly.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export the entire chain of certificates?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportChain()
-    {
-        return m_jrbCertChain.isSelected();
-    }
+	/**
+	 * Has the user chosen to export the entire chain of certificates?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportChain()
+	{
+		return m_jrbCertChain.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export the entire chain of certificates
-     * and the private key?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportKeyChain()
-    {
-        return m_jrbPrivKeyCertChain.isSelected();
-    }
+	/**
+	 * Has the user chosen to export the entire chain of certificates and the private key?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportKeyChain()
+	{
+		return m_jrbPrivKeyCertChain.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export as DER?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportDer()
-    {
-        return m_jrbDEREncoded.isSelected();
-    }
+	/**
+	 * Has the user chosen to export as DER?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportDer()
+	{
+		return m_jrbDEREncoded.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export as PEM?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportPem()
-    {
-        return m_jrbPemEncoded.isSelected();
-    }
+	/**
+	 * Has the user chosen to export as PEM?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportPem()
+	{
+		return m_jrbPemEncoded.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export as PKCS #7?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportPkcs7()
-    {
-        return m_jrbPKCS7.isSelected();
-    }
+	/**
+	 * Has the user chosen to export as PKCS #7?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportPkcs7()
+	{
+		return m_jrbPKCS7.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export as PkiPath?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportPkiPath()
-    {
-        return m_jrbPkiPath.isSelected();
-    }
+	/**
+	 * Has the user chosen to export as PkiPath?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportPkiPath()
+	{
+		return m_jrbPkiPath.isSelected();
+	}
 
-    /**
-     * Has the user chosen to export as PKCS #12?
-     *
-     * @return True if they have, false otherwise
-     */
-    public boolean exportPkcs12()
-    {
-        return m_jrbPKCS12.isSelected();
-    }
+	/**
+	 * Has the user chosen to export as PKCS #12?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean exportPkcs12()
+	{
+		return m_jrbPKCS12.isSelected();
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        m_bExportSelected = true;
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		m_bExportSelected = true;
 
-        closeDialog();
-    }
+		closeDialog();
+	}
 
-    /**
-     * Cancel button pressed or otherwise activated.
-     */
-    private void cancelPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * Cancel button pressed or otherwise activated.
+	 */
+	private void cancelPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Closes the dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Closes the dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

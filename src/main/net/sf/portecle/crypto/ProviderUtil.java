@@ -31,34 +31,35 @@ import java.util.Collection;
  */
 public final class ProviderUtil
 {
-    /**
-     * Private to prevent construction.
-     */
-    private ProviderUtil()
-    {
-    }
+	/**
+	 * Private to prevent construction.
+	 */
+	private ProviderUtil()
+	{
+	}
 
-    /**
-     * Get the PKCS #11 <code>Provider</code>s available on the system.
-     *
-     * @return the (possibly empty) collection of available PKCS #11
-     * <code>Provider</code>s
-     */
-    public static Collection getPkcs11Providers()
-    {
-        Provider[] provs = Security.getProviders();
-        ArrayList p11s = new ArrayList();
-        for (int i = 0, len = provs.length; i < len; i++) {
-            String pName = provs[i].getName();
-            // Is it a PKCS #11 provider?
-            /* TODO: is there a better way to find out?
-             Could try instanceof sun.security.pkcs11.SunPKCS11 but that
-             would require the class to be available?
-             */
-            if (pName.startsWith("SunPKCS11-")) {
-                p11s.add(provs[i]);
-            }
-        }
-        return p11s;
-    }
+	/**
+	 * Get the PKCS #11 <code>Provider</code>s available on the system.
+	 * 
+	 * @return the (possibly empty) collection of available PKCS #11 <code>Provider</code>s
+	 */
+	public static Collection getPkcs11Providers()
+	{
+		Provider[] provs = Security.getProviders();
+		ArrayList p11s = new ArrayList();
+		for (int i = 0, len = provs.length; i < len; i++)
+		{
+			String pName = provs[i].getName();
+			// Is it a PKCS #11 provider?
+			/*
+			 * TODO: is there a better way to find out? Could try instanceof sun.security.pkcs11.SunPKCS11 but
+			 * that would require the class to be available?
+			 */
+			if (pName.startsWith("SunPKCS11-"))
+			{
+				p11s.add(provs[i]);
+			}
+		}
+		return p11s;
+	}
 }

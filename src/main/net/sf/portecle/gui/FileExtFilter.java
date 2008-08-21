@@ -31,95 +31,101 @@ import javax.swing.filechooser.FileFilter;
 public class FileExtFilter
     extends FileFilter
 {
-    /** File extensions to filter against */
-    private String[] m_sExts;
+	/** File extensions to filter against */
+	private String[] m_sExts;
 
-    /** Collective description of the set of extensions */
-    private String m_sDescription;
+	/** Collective description of the set of extensions */
+	private String m_sDescription;
 
-    /**
-     * Construct a FileExtFilter for a single file extension.
-     *
-     * @param sExt The file extension (eg "exe" for a Windows executable)
-     * @param sDescription Short description of the file extension
-     */
-    public FileExtFilter(String sExt, String sDescription)
-    {
-        m_sExts = new String[1];
-        m_sExts[0] = sExt;
-        m_sDescription = sDescription;
-    }
+	/**
+	 * Construct a FileExtFilter for a single file extension.
+	 * 
+	 * @param sExt The file extension (eg "exe" for a Windows executable)
+	 * @param sDescription Short description of the file extension
+	 */
+	public FileExtFilter(String sExt, String sDescription)
+	{
+		m_sExts = new String[1];
+		m_sExts[0] = sExt;
+		m_sDescription = sDescription;
+	}
 
-    /**
-     * Construct a FileExtFilter for a set of related file extension.
-     *
-     * @param sExts The file extension (eg "exe" for a Windows executable)
-     * @param sDescription Short collective description for the file extensions
-     */
-    public FileExtFilter(String[] sExts, String sDescription)
-    {
-        m_sExts = new String[sExts.length];
+	/**
+	 * Construct a FileExtFilter for a set of related file extension.
+	 * 
+	 * @param sExts The file extension (eg "exe" for a Windows executable)
+	 * @param sDescription Short collective description for the file extensions
+	 */
+	public FileExtFilter(String[] sExts, String sDescription)
+	{
+		m_sExts = new String[sExts.length];
 
-        for (int iCnt = 0; iCnt < sExts.length; iCnt++) {
-            m_sExts[iCnt] = sExts[iCnt];
-        }
+		for (int iCnt = 0; iCnt < sExts.length; iCnt++)
+		{
+			m_sExts[iCnt] = sExts[iCnt];
+		}
 
-        m_sDescription = sDescription;
-    }
+		m_sDescription = sDescription;
+	}
 
-    /**
-     * Does the supplied file match the filter?
-     *
-     * @param file The file to filter
-     * @return True if the file matches the filter, false otherwise
-     */
-    public boolean accept(File file)
-    {
-        if (file.isDirectory()) {
-            return true;
-        }
+	/**
+	 * Does the supplied file match the filter?
+	 * 
+	 * @param file The file to filter
+	 * @return True if the file matches the filter, false otherwise
+	 */
+	public boolean accept(File file)
+	{
+		if (file.isDirectory())
+		{
+			return true;
+		}
 
-        String sFileExt = getExtension(file);
+		String sFileExt = getExtension(file);
 
-        if (sFileExt == null) {
-            return false;
-        }
+		if (sFileExt == null)
+		{
+			return false;
+		}
 
-        for (int iCnt = 0; iCnt < m_sExts.length; iCnt++) {
-            String sExt = m_sExts[iCnt];
+		for (int iCnt = 0; iCnt < m_sExts.length; iCnt++)
+		{
+			String sExt = m_sExts[iCnt];
 
-            if (sFileExt.equalsIgnoreCase(sExt)) {
-                return true;
-            }
-        }
-        return false;
-    }
+			if (sFileExt.equalsIgnoreCase(sExt))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * Get the description.
-     *
-     * @return The description
-     */
-    public String getDescription()
-    {
-        return m_sDescription;
-    }
+	/**
+	 * Get the description.
+	 * 
+	 * @return The description
+	 */
+	public String getDescription()
+	{
+		return m_sDescription;
+	}
 
-    /**
-     * Get the supplied file's extension.
-     *
-     * @param file The file
-     * @return The file's extension
-     */
-    private String getExtension(File file)
-    {
-        String sExt = null;
-        String sName = file.getName();
-        int i = sName.lastIndexOf('.');
+	/**
+	 * Get the supplied file's extension.
+	 * 
+	 * @param file The file
+	 * @return The file's extension
+	 */
+	private String getExtension(File file)
+	{
+		String sExt = null;
+		String sName = file.getName();
+		int i = sName.lastIndexOf('.');
 
-        if (i > 0 && i < sName.length() - 1) {
-            sExt = sName.substring(i + 1).toLowerCase();
-        }
-        return sExt;
-    }
+		if (i > 0 && i < sName.length() - 1)
+		{
+			sExt = sName.substring(i + 1).toLowerCase();
+		}
+		return sExt;
+	}
 }

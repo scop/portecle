@@ -28,58 +28,58 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
- * ActionListener intended for use with the
- * net.sf.portecle.gui.JMenuItemRecentFile class.
- * The ActionListener is used to open a keystore file from the menu item.
+ * ActionListener intended for use with the net.sf.portecle.gui.JMenuItemRecentFile class. The ActionListener
+ * is used to open a keystore file from the menu item.
  */
 class RecentKeyStoreFileActionListener
     implements ActionListener
 {
-    /** Recent keystore file */
-    File m_fRecentFile;
+	/** Recent keystore file */
+	File m_fRecentFile;
 
-    /** FPortecle object that contains the recent files menu */
-    FPortecle m_fPortecle;
+	/** FPortecle object that contains the recent files menu */
+	FPortecle m_fPortecle;
 
-    /**
-     * Create an RecentKeyStoreFileActionListener for the supplied
-     * keystore file and fPortecle frame.
-     *
-     * @param fRecentFile Recent keystore file
-     * @param fPortecle FPortecle frame
-     */
-    public RecentKeyStoreFileActionListener(File fRecentFile,
-        FPortecle fPortecle)
-    {
-        m_fRecentFile = fRecentFile;
-        m_fPortecle = fPortecle;
-    }
+	/**
+	 * Create an RecentKeyStoreFileActionListener for the supplied keystore file and fPortecle frame.
+	 * 
+	 * @param fRecentFile Recent keystore file
+	 * @param fPortecle FPortecle frame
+	 */
+	public RecentKeyStoreFileActionListener(File fRecentFile, FPortecle fPortecle)
+	{
+		m_fRecentFile = fRecentFile;
+		m_fPortecle = fPortecle;
+	}
 
-    /**
-     * Action to perform to open the keystore file in response to an
-     * ActionEvent.
-     *
-     * @param evt Action event
-     */
-    public void actionPerformed(ActionEvent evt)
-    {
-        m_fPortecle.setDefaultStatusBarText();
+	/**
+	 * Action to perform to open the keystore file in response to an ActionEvent.
+	 * 
+	 * @param evt Action event
+	 */
+	public void actionPerformed(ActionEvent evt)
+	{
+		m_fPortecle.setDefaultStatusBarText();
 
-        // Does the current keystore contain unsaved changes?
-        if (m_fPortecle.needSave()) {
-            // Yes - ask the user if it should be saved
-            int iWantSave = m_fPortecle.wantSave();
+		// Does the current keystore contain unsaved changes?
+		if (m_fPortecle.needSave())
+		{
+			// Yes - ask the user if it should be saved
+			int iWantSave = m_fPortecle.wantSave();
 
-            if (iWantSave == JOptionPane.YES_OPTION) {
-                // Save it
-                if (!m_fPortecle.saveKeyStore()) {
-                    return; // Save failed
-                }
-            }
-            else if (iWantSave == JOptionPane.CANCEL_OPTION) {
-                return;
-            }
-        }
-        m_fPortecle.openKeyStoreFile(m_fRecentFile);
-    }
+			if (iWantSave == JOptionPane.YES_OPTION)
+			{
+				// Save it
+				if (!m_fPortecle.saveKeyStore())
+				{
+					return; // Save failed
+				}
+			}
+			else if (iWantSave == JOptionPane.CANCEL_OPTION)
+			{
+				return;
+			}
+		}
+		m_fPortecle.openKeyStoreFile(m_fRecentFile);
+	}
 }

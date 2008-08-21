@@ -68,317 +68,305 @@ import org.bouncycastle.jce.PKCS10CertificationRequest;
 class DViewCSR
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Version text field */
-    private JTextField m_jtfVersion;
+	/** Version text field */
+	private JTextField m_jtfVersion;
 
-    /** Subject text field */
-    private JTextField m_jtfSubject;
+	/** Subject text field */
+	private JTextField m_jtfSubject;
 
-    /** Certificate Public Key text field */
-    private JTextField m_jtfPublicKey;
+	/** Certificate Public Key text field */
+	private JTextField m_jtfPublicKey;
 
-    /** Certificate Signature Algorithm text field */
-    private JTextField m_jtfSignatureAlgorithm;
+	/** Certificate Signature Algorithm text field */
+	private JTextField m_jtfSignatureAlgorithm;
 
-    /** Stores request to display */
-    private PKCS10CertificationRequest m_req;
+	/** Stores request to display */
+	private PKCS10CertificationRequest m_req;
 
-    /** Default filename for saving */
-    private String m_basename;
+	/** Default filename for saving */
+	private String m_basename;
 
-    /**
-     * Creates new DViewCSR dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param sTitle The dialog title
-     * @param bModal Is dialog modal?
-     * @param req Certification request to display
-     * @throws CryptoException A problem was encountered getting the
-     * certification request details
-     */
-    public DViewCSR(JFrame parent, String sTitle, boolean bModal,
-        PKCS10CertificationRequest req)
-        throws CryptoException
-    {
-        super(parent, sTitle, bModal);
-        m_req = req;
-        initComponents();
-    }
+	/**
+	 * Creates new DViewCSR dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param sTitle The dialog title
+	 * @param bModal Is dialog modal?
+	 * @param req Certification request to display
+	 * @throws CryptoException A problem was encountered getting the certification request details
+	 */
+	public DViewCSR(JFrame parent, String sTitle, boolean bModal, PKCS10CertificationRequest req)
+	    throws CryptoException
+	{
+		super(parent, sTitle, bModal);
+		m_req = req;
+		initComponents();
+	}
 
-    /**
-     * Creates new DViewCSR dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param sTitle The dialog title
-     * @param bModal Is dialog modal?
-     * @param req Certification request to display
-     * @throws CryptoException A problem was encountered getting the
-     * certification request details
-     */
-    public DViewCSR(JDialog parent, String sTitle, boolean bModal,
-        PKCS10CertificationRequest req)
-        throws CryptoException
-    {
-        super(parent, sTitle, bModal);
-        m_req = req;
-        initComponents();
-    }
+	/**
+	 * Creates new DViewCSR dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param sTitle The dialog title
+	 * @param bModal Is dialog modal?
+	 * @param req Certification request to display
+	 * @throws CryptoException A problem was encountered getting the certification request details
+	 */
+	public DViewCSR(JDialog parent, String sTitle, boolean bModal, PKCS10CertificationRequest req)
+	    throws CryptoException
+	{
+		super(parent, sTitle, bModal);
+		m_req = req;
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     *
-     * @throws CryptoException A problem was encountered getting the
-     * request details
-     */
-    private void initComponents()
-        throws CryptoException
-    {
-        // Grid Bag Constraints templates for labels and text fields
-        // of certificate details
-        GridBagConstraints gbcLbl = new GridBagConstraints();
-        gbcLbl.gridx = 0;
-        gbcLbl.gridwidth = 1;
-        gbcLbl.gridheight = 1;
-        gbcLbl.insets = new Insets(5, 5, 5, 5);
-        gbcLbl.anchor = GridBagConstraints.EAST;
+	/**
+	 * Initialise the dialog's GUI components.
+	 * 
+	 * @throws CryptoException A problem was encountered getting the request details
+	 */
+	private void initComponents()
+	    throws CryptoException
+	{
+		// Grid Bag Constraints templates for labels and text fields
+		// of certificate details
+		GridBagConstraints gbcLbl = new GridBagConstraints();
+		gbcLbl.gridx = 0;
+		gbcLbl.gridwidth = 1;
+		gbcLbl.gridheight = 1;
+		gbcLbl.insets = new Insets(5, 5, 5, 5);
+		gbcLbl.anchor = GridBagConstraints.EAST;
 
-        GridBagConstraints gbcTf = new GridBagConstraints();
-        gbcTf.gridx = 1;
-        gbcTf.gridwidth = 1;
-        gbcTf.gridheight = 1;
-        gbcTf.insets = new Insets(5, 5, 5, 5);
-        gbcTf.anchor = GridBagConstraints.WEST;
+		GridBagConstraints gbcTf = new GridBagConstraints();
+		gbcTf.gridx = 1;
+		gbcTf.gridwidth = 1;
+		gbcTf.gridheight = 1;
+		gbcTf.insets = new Insets(5, 5, 5, 5);
+		gbcTf.anchor = GridBagConstraints.WEST;
 
-        // Version
-        JLabel jlVersion = new JLabel(
-            m_res.getString("DViewCSR.jlVersion.text"));
-        GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
-        gbc_jlVersion.gridy = 0;
+		// Version
+		JLabel jlVersion = new JLabel(m_res.getString("DViewCSR.jlVersion.text"));
+		GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlVersion.gridy = 0;
 
-        m_jtfVersion = new JTextField(3);
-        m_jtfVersion.setEditable(false);
-        m_jtfVersion.setToolTipText(m_res.getString("DViewCSR.m_jtfVersion.tooltip"));
-        GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
-        gbc_jtfVersion.gridy = 0;
+		m_jtfVersion = new JTextField(3);
+		m_jtfVersion.setEditable(false);
+		m_jtfVersion.setToolTipText(m_res.getString("DViewCSR.m_jtfVersion.tooltip"));
+		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfVersion.gridy = 0;
 
-        // Subject
-        JLabel jlSubject = new JLabel(
-            m_res.getString("DViewCSR.jlSubject.text"));
-        GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
-        gbc_jlSubject.gridy = 1;
+		// Subject
+		JLabel jlSubject = new JLabel(m_res.getString("DViewCSR.jlSubject.text"));
+		GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlSubject.gridy = 1;
 
-        m_jtfSubject = new JTextField(36);
-        m_jtfSubject.setEditable(false);
-        m_jtfSubject.setToolTipText(m_res.getString("DViewCSR.m_jtfSubject.tooltip"));
-        GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
-        gbc_jtfSubject.gridy = 1;
+		m_jtfSubject = new JTextField(36);
+		m_jtfSubject.setEditable(false);
+		m_jtfSubject.setToolTipText(m_res.getString("DViewCSR.m_jtfSubject.tooltip"));
+		GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfSubject.gridy = 1;
 
-        // Public Key
-        JLabel jlPublicKey = new JLabel(
-            m_res.getString("DViewCSR.jlPublicKey.text"));
-        GridBagConstraints gbc_jlPublicKey = (GridBagConstraints) gbcLbl.clone();
-        gbc_jlPublicKey.gridy = 6;
+		// Public Key
+		JLabel jlPublicKey = new JLabel(m_res.getString("DViewCSR.jlPublicKey.text"));
+		GridBagConstraints gbc_jlPublicKey = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlPublicKey.gridy = 6;
 
-        m_jtfPublicKey = new JTextField(15);
-        m_jtfPublicKey.setEditable(false);
-        m_jtfPublicKey.setToolTipText(m_res.getString("DViewCSR.m_jtfPublicKey.tooltip"));
-        GridBagConstraints gbc_jtfPublicKey = (GridBagConstraints) gbcTf.clone();
-        gbc_jtfPublicKey.gridy = 6;
+		m_jtfPublicKey = new JTextField(15);
+		m_jtfPublicKey.setEditable(false);
+		m_jtfPublicKey.setToolTipText(m_res.getString("DViewCSR.m_jtfPublicKey.tooltip"));
+		GridBagConstraints gbc_jtfPublicKey = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfPublicKey.gridy = 6;
 
-        // Signature Algorithm
-        JLabel jlSignatureAlgorithm = new JLabel(
-            m_res.getString("DViewCSR.jlSignatureAlgorithm.text"));
-        GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
-        gbc_jlSignatureAlgorithm.gridy = 7;
+		// Signature Algorithm
+		JLabel jlSignatureAlgorithm = new JLabel(m_res.getString("DViewCSR.jlSignatureAlgorithm.text"));
+		GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlSignatureAlgorithm.gridy = 7;
 
-        m_jtfSignatureAlgorithm = new JTextField(15);
-        m_jtfSignatureAlgorithm.setEditable(false);
-        m_jtfSignatureAlgorithm.setToolTipText(m_res.getString("DViewCSR.m_jtfSignatureAlgorithm.tooltip"));
-        GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
-        gbc_jtfSignatureAlgorithm.gridy = 7;
+		m_jtfSignatureAlgorithm = new JTextField(15);
+		m_jtfSignatureAlgorithm.setEditable(false);
+		m_jtfSignatureAlgorithm.setToolTipText(m_res.getString("DViewCSR.m_jtfSignatureAlgorithm.tooltip"));
+		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfSignatureAlgorithm.gridy = 7;
 
-        // TODO: attributes, requested extensions
+		// TODO: attributes, requested extensions
 
-        // PEM Encoding
-        JButton jbPemEncoding = new JButton(
-            m_res.getString("DViewCSR.jbPemEncoding.text"));
-        jbPemEncoding.setMnemonic(m_res.getString(
-            "DViewCSR.jbPemEncoding.mnemonic").charAt(0));
-        jbPemEncoding.setToolTipText(m_res.getString("DViewCSR.jbPemEncoding.tooltip"));
-        jbPemEncoding.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                pemEncodingPressed();
-            }
-        });
-        JPanel jpButtons = new JPanel();
-        jpButtons.add(jbPemEncoding);
+		// PEM Encoding
+		JButton jbPemEncoding = new JButton(m_res.getString("DViewCSR.jbPemEncoding.text"));
+		jbPemEncoding.setMnemonic(m_res.getString("DViewCSR.jbPemEncoding.mnemonic").charAt(0));
+		jbPemEncoding.setToolTipText(m_res.getString("DViewCSR.jbPemEncoding.tooltip"));
+		jbPemEncoding.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				pemEncodingPressed();
+			}
+		});
+		JPanel jpButtons = new JPanel();
+		jpButtons.add(jbPemEncoding);
 
-        GridBagConstraints gbc_jpButtons = new GridBagConstraints();
-        gbc_jpButtons.gridx = 0;
-        gbc_jpButtons.gridy = 10;
-        gbc_jpButtons.gridwidth = 2;
-        gbc_jpButtons.gridheight = 1;
-        gbc_jpButtons.insets = new Insets(5, 5, 5, 5);
-        gbc_jpButtons.anchor = GridBagConstraints.EAST;
+		GridBagConstraints gbc_jpButtons = new GridBagConstraints();
+		gbc_jpButtons.gridx = 0;
+		gbc_jpButtons.gridy = 10;
+		gbc_jpButtons.gridwidth = 2;
+		gbc_jpButtons.gridheight = 1;
+		gbc_jpButtons.insets = new Insets(5, 5, 5, 5);
+		gbc_jpButtons.anchor = GridBagConstraints.EAST;
 
-        JPanel jpCSR = new JPanel(new GridBagLayout());
-        jpCSR.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-            new EtchedBorder()));
+		JPanel jpCSR = new JPanel(new GridBagLayout());
+		jpCSR.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()));
 
-        jpCSR.add(jlVersion, gbc_jlVersion);
-        jpCSR.add(m_jtfVersion, gbc_jtfVersion);
-        jpCSR.add(jlSubject, gbc_jlSubject);
-        jpCSR.add(m_jtfSubject, gbc_jtfSubject);
-        jpCSR.add(jlPublicKey, gbc_jlPublicKey);
-        jpCSR.add(m_jtfPublicKey, gbc_jtfPublicKey);
-        jpCSR.add(jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
-        jpCSR.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
-        jpCSR.add(jpButtons, gbc_jpButtons);
+		jpCSR.add(jlVersion, gbc_jlVersion);
+		jpCSR.add(m_jtfVersion, gbc_jtfVersion);
+		jpCSR.add(jlSubject, gbc_jlSubject);
+		jpCSR.add(m_jtfSubject, gbc_jtfSubject);
+		jpCSR.add(jlPublicKey, gbc_jlPublicKey);
+		jpCSR.add(m_jtfPublicKey, gbc_jtfPublicKey);
+		jpCSR.add(jlSignatureAlgorithm, gbc_jlSignatureAlgorithm);
+		jpCSR.add(m_jtfSignatureAlgorithm, gbc_jtfSignatureAlgorithm);
+		jpCSR.add(jpButtons, gbc_jpButtons);
 
-        // Populate the dialog with the first certificate (if any)
-        populateDialog();
+		// Populate the dialog with the first certificate (if any)
+		populateDialog();
 
-        // OK button
-        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		// OK button
+		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        final JButton jbOK = new JButton(m_res.getString("DViewCSR.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		final JButton jbOK = new JButton(m_res.getString("DViewCSR.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        jpOK.add(jbOK);
+		jpOK.add(jbOK);
 
-        // Put it all together
-        getContentPane().add(jpCSR, BorderLayout.NORTH);
-        getContentPane().add(jpOK, BorderLayout.SOUTH);
+		// Put it all together
+		getContentPane().add(jpCSR, BorderLayout.NORTH);
+		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-        // Annoying, but resizing wreaks havoc here
-        setResizable(false);
+		// Annoying, but resizing wreaks havoc here
+		setResizable(false);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
+		pack();
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                jbOK.requestFocus();
-            }
-        });
-    }
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				jbOK.requestFocus();
+			}
+		});
+	}
 
-    /**
-     * Populate the dialog with the currently selected certificate's details.
-     *
-     * @throws CryptoException A problem was encountered getting the
-     * certificate's details
-     */
-    private void populateDialog()
-        throws CryptoException
-    {
+	/**
+	 * Populate the dialog with the currently selected certificate's details.
+	 * 
+	 * @throws CryptoException A problem was encountered getting the certificate's details
+	 */
+	private void populateDialog()
+	    throws CryptoException
+	{
 
-        CertificationRequestInfo info = m_req.getCertificationRequestInfo();
+		CertificationRequestInfo info = m_req.getCertificationRequestInfo();
 
-        // Version
-        m_jtfVersion.setText(info.getVersion().getValue().toString());
-        m_jtfVersion.setCaretPosition(0);
+		// Version
+		m_jtfVersion.setText(info.getVersion().getValue().toString());
+		m_jtfVersion.setCaretPosition(0);
 
-        // Subject
-        X509Name subject = info.getSubject();
-        m_jtfSubject.setText(subject.toString());
-        m_jtfSubject.setCaretPosition(0);
+		// Subject
+		X509Name subject = info.getSubject();
+		m_jtfSubject.setText(subject.toString());
+		m_jtfSubject.setCaretPosition(0);
 
-        m_basename = NameUtil.getCommonName(subject);
+		m_basename = NameUtil.getCommonName(subject);
 
-        // Public Key (algorithm and keysize)
-        SubjectPublicKeyInfo keyInfo = info.getSubjectPublicKeyInfo();
+		// Public Key (algorithm and keysize)
+		SubjectPublicKeyInfo keyInfo = info.getSubjectPublicKeyInfo();
 
-        AsymmetricKeyParameter keyParams = null;
-        try {
-            keyParams = PublicKeyFactory.createKey(keyInfo);
-        }
-        catch (IOException e) {
-            throw new CryptoException(
-                m_res.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
-        }
+		AsymmetricKeyParameter keyParams = null;
+		try
+		{
+			keyParams = PublicKeyFactory.createKey(keyInfo);
+		}
+		catch (IOException e)
+		{
+			throw new CryptoException(m_res.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
+		}
 
-        m_jtfPublicKey.setText(AlgorithmType.forOid(
-            keyInfo.getAlgorithmId().getObjectId().toString()).toString());
+		m_jtfPublicKey.setText(AlgorithmType.forOid(keyInfo.getAlgorithmId().getObjectId().toString()).toString());
 
-        int iKeySize = KeyPairUtil.getKeyLength(keyParams);
-        if (iKeySize != -1) {
-            m_jtfPublicKey.setText(MessageFormat.format(
-                m_res.getString("DViewCSR.m_jtfPublicKey.text"), new String[] {
-                    m_jtfPublicKey.getText(), "" + iKeySize }));
-        }
-        m_jtfPublicKey.setCaretPosition(0);
+		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
+		if (iKeySize != -1)
+		{
+			m_jtfPublicKey.setText(MessageFormat.format(m_res.getString("DViewCSR.m_jtfPublicKey.text"),
+			    new String[] { m_jtfPublicKey.getText(), "" + iKeySize }));
+		}
+		m_jtfPublicKey.setCaretPosition(0);
 
-        // Signature Algorithm
-        String sigAlgName = SignatureType.forOid(
-            m_req.getSignatureAlgorithm().getObjectId().toString()).toString();
-        m_jtfSignatureAlgorithm.setText(sigAlgName);
-        m_jtfSignatureAlgorithm.setCaretPosition(0);
+		// Signature Algorithm
+		String sigAlgName =
+		    SignatureType.forOid(m_req.getSignatureAlgorithm().getObjectId().toString()).toString();
+		m_jtfSignatureAlgorithm.setText(sigAlgName);
+		m_jtfSignatureAlgorithm.setCaretPosition(0);
 
-        // TODO: attributes, requested extensions
-    }
+		// TODO: attributes, requested extensions
+	}
 
-    /**
-     * PEM Encoding Encoding button pressed or otherwise activated.  Show the
-     * PEM encoding for the certification request.
-     */
-    private void pemEncodingPressed()
-    {
-        JFileChooser chooser = FileChooserFactory.getCsrFileChooser(m_basename);
-        // TODO: lastdir
-        chooser.setDialogTitle(m_res.getString("DViewCSR.Save.Title"));
-        chooser.setMultiSelectionEnabled(false);
-        try {
-            DViewPEM dViewCertPem = new DViewPEM(this,
-                m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req,
-                chooser);
-            dViewCertPem.setLocationRelativeTo(this);
-            SwingHelper.showAndWait(dViewCertPem);
-        }
-        catch (CryptoException ex) {
-            DThrowable dThrowable = new DThrowable(this, true, ex);
-            dThrowable.setLocationRelativeTo(this);
-            SwingHelper.showAndWait(dThrowable);
-            return;
-        }
-    }
+	/**
+	 * PEM Encoding Encoding button pressed or otherwise activated. Show the PEM encoding for the
+	 * certification request.
+	 */
+	private void pemEncodingPressed()
+	{
+		JFileChooser chooser = FileChooserFactory.getCsrFileChooser(m_basename);
+		// TODO: lastdir
+		chooser.setDialogTitle(m_res.getString("DViewCSR.Save.Title"));
+		chooser.setMultiSelectionEnabled(false);
+		try
+		{
+			DViewPEM dViewCertPem =
+			    new DViewPEM(this, m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req, chooser);
+			dViewCertPem.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dViewCertPem);
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable dThrowable = new DThrowable(this, true, ex);
+			dThrowable.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dThrowable);
+			return;
+		}
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Hides the View Certificate dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Hides the View Certificate dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

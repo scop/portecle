@@ -47,192 +47,190 @@ import net.sf.portecle.gui.SwingHelper;
 public class DThrowable
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
-    /** Stores throwable to display */
-    private Throwable m_throwable;
+	/** Stores throwable to display */
+	private Throwable m_throwable;
 
-    /**
-     * Exception message parts that may indicate that the culprit for the
-     * throwable is lack of unrestricted JCE policy files.
-     */ 
-    private final static String[] POLICY_PROBLEM_HINTS = {
-        "unsupported keysize",
-        "illegal key size",
-    };
-    
-    /**
-     * Creates new DThrowable dialog where the parent is a frame.
-     *
-     * @param bModal Create the dialog as modal?
-     * @param parent Parent frame
-     * @param throwable Throwable to display
-     */
-    public DThrowable(JFrame parent, boolean bModal, Throwable throwable)
-    {
-        super(parent, m_res.getString("DThrowable.Title"), bModal);
-        m_throwable = throwable;
-        initComponents();
-    }
+	/**
+	 * Exception message parts that may indicate that the culprit for the throwable is lack of unrestricted
+	 * JCE policy files.
+	 */
+	private final static String[] POLICY_PROBLEM_HINTS = { "unsupported keysize", "illegal key size", };
 
-    /**
-     * Creates new DThrowable dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param bModal Create the dialog as modal?
-     * @param throwable Throwable to display
-     */
-    public DThrowable(JDialog parent, boolean bModal, Throwable throwable)
-    {
-        super(parent, m_res.getString("DThrowable.Title"), bModal);
-        m_throwable = throwable;
-        initComponents();
-    }
+	/**
+	 * Creates new DThrowable dialog where the parent is a frame.
+	 * 
+	 * @param bModal Create the dialog as modal?
+	 * @param parent Parent frame
+	 * @param throwable Throwable to display
+	 */
+	public DThrowable(JFrame parent, boolean bModal, Throwable throwable)
+	{
+		super(parent, m_res.getString("DThrowable.Title"), bModal);
+		m_throwable = throwable;
+		initComponents();
+	}
 
-    /**
-     * Creates new DThrowable dialog where the parent is a frame.
-     *
-     * @param bModal Create the dialog as modal?
-     * @param sTitle Dialog title
-     * @param parent Parent frame
-     * @param throwable Throwable to display
-     */
-    public DThrowable(JFrame parent, String sTitle, boolean bModal,
-        Throwable throwable)
-    {
-        super(parent, bModal);
-        setTitle(sTitle);
-        m_throwable = throwable;
-        initComponents();
-    }
+	/**
+	 * Creates new DThrowable dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param bModal Create the dialog as modal?
+	 * @param throwable Throwable to display
+	 */
+	public DThrowable(JDialog parent, boolean bModal, Throwable throwable)
+	{
+		super(parent, m_res.getString("DThrowable.Title"), bModal);
+		m_throwable = throwable;
+		initComponents();
+	}
 
-    /**
-     * Creates new DThrowable dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param sTitle Dialog title
-     * @param bModal Create the dialog as modal?
-     * @param throwable Throwable to display
-     */
-    public DThrowable(JDialog parent, String sTitle, boolean bModal,
-        Throwable throwable)
-    {
-        super(parent, bModal);
-        setTitle(sTitle);
-        m_throwable = throwable;
-        initComponents();
-    }
+	/**
+	 * Creates new DThrowable dialog where the parent is a frame.
+	 * 
+	 * @param bModal Create the dialog as modal?
+	 * @param sTitle Dialog title
+	 * @param parent Parent frame
+	 * @param throwable Throwable to display
+	 */
+	public DThrowable(JFrame parent, String sTitle, boolean bModal, Throwable throwable)
+	{
+		super(parent, bModal);
+		setTitle(sTitle);
+		m_throwable = throwable;
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     */
-    private void initComponents()
-    {
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	/**
+	 * Creates new DThrowable dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param sTitle Dialog title
+	 * @param bModal Create the dialog as modal?
+	 * @param throwable Throwable to display
+	 */
+	public DThrowable(JDialog parent, String sTitle, boolean bModal, Throwable throwable)
+	{
+		super(parent, bModal);
+		setTitle(sTitle);
+		m_throwable = throwable;
+		initComponents();
+	}
 
-        JButton jbDetails = new JButton(
-            m_res.getString("DThrowable.jbDetails.text"));
-        jbDetails.setMnemonic(m_res.getString("DThrowable.jbDetails.mnemonic").charAt(
-            0));
+	/**
+	 * Initialise the dialog's GUI components.
+	 */
+	private void initComponents()
+	{
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        jbDetails.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                showThrowableDetail();
-            }
-        });
+		JButton jbDetails = new JButton(m_res.getString("DThrowable.jbDetails.text"));
+		jbDetails.setMnemonic(m_res.getString("DThrowable.jbDetails.mnemonic").charAt(0));
 
-        JButton jbOK = new JButton(m_res.getString("DThrowable.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		jbDetails.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				showThrowableDetail();
+			}
+		});
 
-        jpButtons.add(jbOK);
-        jpButtons.add(jbDetails);
+		JButton jbOK = new JButton(m_res.getString("DThrowable.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JPanel jpThrowable = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
-        
-        String text = m_throwable.toString();
+		jpButtons.add(jbOK);
+		jpButtons.add(jbDetails);
 
-        // Find out if this problem maybe due to missing unrestricted JCE
-        // policy files.  Ugly?  Definitely.  Better ways to detect this
-        // are welcome...
-        
-        boolean maybePolicyProblem = false;
-        Throwable t = m_throwable;
-        while (!maybePolicyProblem && t != null) {
-            String msg = t.getMessage();
-            if (msg != null) {
-                msg = msg.toLowerCase(Locale.US);
-                for (int i = 0, len = POLICY_PROBLEM_HINTS.length; i < len; i++) {
-                    if (msg.indexOf(POLICY_PROBLEM_HINTS[i]) != -1) {
-                        maybePolicyProblem = true;
-                        break;
-                    }
-                }
-            }
-            t = t.getCause();
-        }
-        if (maybePolicyProblem) {
-            text = "<html>" + text +
-                MessageFormat.format(
-                    m_res.getString("DThrowable.jpThrowable.policy.text"),
-                    new Object[] { new File(System.getProperty("java.home"),
-                        "lib" + File.separator + "security") });
-        }
+		JPanel jpThrowable = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpThrowable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        jpThrowable.add(new JLabel(text));
+		String text = m_throwable.toString();
 
-        getContentPane().add(jpThrowable, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		// Find out if this problem maybe due to missing unrestricted JCE
+		// policy files. Ugly? Definitely. Better ways to detect this
+		// are welcome...
 
-        setResizable(false);
+		boolean maybePolicyProblem = false;
+		Throwable t = m_throwable;
+		while (!maybePolicyProblem && t != null)
+		{
+			String msg = t.getMessage();
+			if (msg != null)
+			{
+				msg = msg.toLowerCase(Locale.US);
+				for (int i = 0, len = POLICY_PROBLEM_HINTS.length; i < len; i++)
+				{
+					if (msg.indexOf(POLICY_PROBLEM_HINTS[i]) != -1)
+					{
+						maybePolicyProblem = true;
+						break;
+					}
+				}
+			}
+			t = t.getCause();
+		}
+		if (maybePolicyProblem)
+		{
+			text =
+			    "<html>" +
+			        text +
+			        MessageFormat.format(m_res.getString("DThrowable.jpThrowable.policy.text"),
+			            new Object[] { new File(System.getProperty("java.home"), "lib" + File.separator +
+			                "security") });
+		}
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		jpThrowable.add(new JLabel(text));
 
-        getRootPane().setDefaultButton(jbOK);
+		getContentPane().add(jpThrowable, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        pack();
-    }
+		setResizable(false);
 
-    /**
-     * Shows the Throwable Detail dialog.
-     */
-    private void showThrowableDetail()
-    {
-        DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true,
-            m_throwable);
-        dThrowableDetail.setLocationRelativeTo(this);
-        SwingHelper.showAndWait(dThrowableDetail);
-    }
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+		getRootPane().setDefaultButton(jbOK);
 
-    /**
-     * Hides the Throwable dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+		pack();
+	}
+
+	/**
+	 * Shows the Throwable Detail dialog.
+	 */
+	private void showThrowableDetail()
+	{
+		DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true, m_throwable);
+		dThrowableDetail.setLocationRelativeTo(this);
+		SwingHelper.showAndWait(dThrowableDetail);
+	}
+
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
+
+	/**
+	 * Hides the Throwable dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

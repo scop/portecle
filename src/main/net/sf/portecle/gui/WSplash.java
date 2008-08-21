@@ -33,82 +33,83 @@ import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
 /**
- * Splash window that displays a supplied image for the requested time or
- * until the user clicks on it with their mouse.  Runs in a new thread
- * which can facilitate the calling application to initialise itself in
+ * Splash window that displays a supplied image for the requested time or until the user clicks on it with
+ * their mouse. Runs in a new thread which can facilitate the calling application to initialise itself in
  * parallel.
  */
 public class WSplash
     extends JWindow
 {
-    /** Contains the splash image */
-    private JLabel m_jlSplash;
+	/** Contains the splash image */
+	private JLabel m_jlSplash;
 
-    /**
-     * Creates a new Splash window and displays it for the specified period.
-     *
-     * @param splashImg The splash image
-     * @param iDisplayMs Time in milli-seconds to display splash window
-     */
-    public WSplash(Image splashImg, int iDisplayMs)
-    {
-        initComponents(splashImg, iDisplayMs);
-    }
+	/**
+	 * Creates a new Splash window and displays it for the specified period.
+	 * 
+	 * @param splashImg The splash image
+	 * @param iDisplayMs Time in milli-seconds to display splash window
+	 */
+	public WSplash(Image splashImg, int iDisplayMs)
+	{
+		initComponents(splashImg, iDisplayMs);
+	}
 
-    /**
-     * Initialise the window's GUI components and display the splash window
-     * for the specified period of time.
-     *
-     * @param splashImg The splash image
-     * @param iDisplayMs Time in milli-seconds to display splash window
-     */
-    private void initComponents(Image splashImg, int iDisplayMs)
-    {
-        getContentPane().setLayout(new BorderLayout(0, 0));
-        m_jlSplash = new JLabel(new ImageIcon(splashImg));
-        getContentPane().add(m_jlSplash, BorderLayout.CENTER);
+	/**
+	 * Initialise the window's GUI components and display the splash window for the specified period of time.
+	 * 
+	 * @param splashImg The splash image
+	 * @param iDisplayMs Time in milli-seconds to display splash window
+	 */
+	private void initComponents(Image splashImg, int iDisplayMs)
+	{
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		m_jlSplash = new JLabel(new ImageIcon(splashImg));
+		getContentPane().add(m_jlSplash, BorderLayout.CENTER);
 
-        pack();
+		pack();
 
-        setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
-        addMouseListener(new MouseAdapter()
-        {
-            public void mousePressed(MouseEvent e)
-            {
-                setVisible(false);
-                dispose();
-            }
-        });
+		addMouseListener(new MouseAdapter()
+		{
+			public void mousePressed(MouseEvent e)
+			{
+				setVisible(false);
+				dispose();
+			}
+		});
 
-        final int iPauseMs = iDisplayMs;
+		final int iPauseMs = iDisplayMs;
 
-        final Runnable closerRunner = new Runnable()
-        {
-            public void run()
-            {
-                setVisible(false);
-                dispose();
-            }
-        };
+		final Runnable closerRunner = new Runnable()
+		{
+			public void run()
+			{
+				setVisible(false);
+				dispose();
+			}
+		};
 
-        Runnable waitRunner = new Runnable()
-        {
-            public void run()
-            {
-                try {
-                    Thread.sleep(iPauseMs);
-                    SwingUtilities.invokeAndWait(closerRunner);
-                }
-                catch (InterruptedException e) { /* Ignore */
-                }
-                catch (InvocationTargetException e) { /* Ignore */
-                }
-            }
-        };
-        setVisible(true);
-        toFront();
-        Thread splashThread = new Thread(waitRunner, "SplashThread");
-        splashThread.start();
-    }
+		Runnable waitRunner = new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					Thread.sleep(iPauseMs);
+					SwingUtilities.invokeAndWait(closerRunner);
+				}
+				catch (InterruptedException e)
+				{ /* Ignore */
+				}
+				catch (InvocationTargetException e)
+				{ /* Ignore */
+				}
+			}
+		};
+		setVisible(true);
+		toFront();
+		Thread splashThread = new Thread(waitRunner, "SplashThread");
+		splashThread.start();
+	}
 }

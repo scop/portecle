@@ -40,122 +40,118 @@ import javax.swing.border.EmptyBorder;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * An About dialog which displays about information and a button
- * to access system information.
+ * An About dialog which displays about information and a button to access system information.
  */
 public class DAbout
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-    /**
-     * Creates new DAbout dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param bModal Is dialog modal?
-     */
-    public DAbout(JFrame parent, boolean bModal)
-    {
-        this(parent, m_res.getString("DAbout.Title"), bModal);
-    }
+	/**
+	 * Creates new DAbout dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param bModal Is dialog modal?
+	 */
+	public DAbout(JFrame parent, boolean bModal)
+	{
+		this(parent, m_res.getString("DAbout.Title"), bModal);
+	}
 
-    /**
-     * Creates new DAbout dialog where the parent is a frame.
-     *
-     * @param parent Parent frame
-     * @param sTitle The title of the dialog
-     * @param bModal Is dialog modal?
-     */
-    public DAbout(JFrame parent, String sTitle, boolean bModal)
-    {
-        super(parent, sTitle, bModal);
-        initComponents();
-    }
+	/**
+	 * Creates new DAbout dialog where the parent is a frame.
+	 * 
+	 * @param parent Parent frame
+	 * @param sTitle The title of the dialog
+	 * @param bModal Is dialog modal?
+	 */
+	public DAbout(JFrame parent, String sTitle, boolean bModal)
+	{
+		super(parent, sTitle, bModal);
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     */
-    private void initComponents()
-    {
-        getContentPane().setLayout(new BorderLayout());
+	/**
+	 * Initialise the dialog's GUI components.
+	 */
+	private void initComponents()
+	{
+		getContentPane().setLayout(new BorderLayout());
 
-        JLabel jlAbout = new JLabel(m_res.getString("DAbout.jlAbout.text"));
+		JLabel jlAbout = new JLabel(m_res.getString("DAbout.jlAbout.text"));
 
-        JPanel jpAbout = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
-        jpAbout.add(jlAbout);
+		JPanel jpAbout = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
+		jpAbout.add(jlAbout);
 
-        JButton jbOK = new JButton(m_res.getString("DAbout.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		JButton jbOK = new JButton(m_res.getString("DAbout.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JButton jbSystemInformation = new JButton(
-            m_res.getString("DAbout.jbSystemInformation.text"));
-        jbSystemInformation.setMnemonic(m_res.getString(
-            "DAbout.jbSystemInformation.mnemonic").charAt(0));
+		JButton jbSystemInformation = new JButton(m_res.getString("DAbout.jbSystemInformation.text"));
+		jbSystemInformation.setMnemonic(m_res.getString("DAbout.jbSystemInformation.mnemonic").charAt(0));
 
-        jbSystemInformation.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                showSystemInformation();
-            }
-        });
+		jbSystemInformation.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				showSystemInformation();
+			}
+		});
 
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpButtons.setBorder(new EmptyBorder(5, 0, 5, 0));
-        jpButtons.add(jbOK);
-        jpButtons.add(jbSystemInformation);
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpButtons.setBorder(new EmptyBorder(5, 0, 5, 0));
+		jpButtons.add(jbOK);
+		jpButtons.add(jbSystemInformation);
 
-        getContentPane().add(jpAbout, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		getContentPane().add(jpAbout, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        setResizable(false);
+		setResizable(false);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
-    }
+		pack();
+	}
 
-    /**
-     * Shows the System Information dialog.
-     */
-    private void showSystemInformation()
-    {
-        DSystemInformation dSystemInformation = new DSystemInformation(this,
-            true);
-        dSystemInformation.setLocationRelativeTo(this);
-        SwingHelper.showAndWait(dSystemInformation);
-    }
+	/**
+	 * Shows the System Information dialog.
+	 */
+	private void showSystemInformation()
+	{
+		DSystemInformation dSystemInformation = new DSystemInformation(this, true);
+		dSystemInformation.setLocationRelativeTo(this);
+		SwingHelper.showAndWait(dSystemInformation);
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Close the dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Close the dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

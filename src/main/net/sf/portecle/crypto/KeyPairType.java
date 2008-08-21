@@ -32,64 +32,66 @@ import java.util.ResourceBundle;
  */
 public class KeyPairType
 {
-    /** RSA KeyPairType */
-    public static final KeyPairType RSA = new KeyPairType("RSA");
+	/** RSA KeyPairType */
+	public static final KeyPairType RSA = new KeyPairType("RSA");
 
-    /** DSA KeyPairType */
-    public static final KeyPairType DSA = new KeyPairType("DSA");
+	/** DSA KeyPairType */
+	public static final KeyPairType DSA = new KeyPairType("DSA");
 
-    /** ECDSA KeyPairType */
-    public static final KeyPairType ECDSA = new KeyPairType("ECDSA");
+	/** ECDSA KeyPairType */
+	public static final KeyPairType ECDSA = new KeyPairType("ECDSA");
 
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
-    /** Stores KeyPairType name */
-    private final String m_sType;
+	/** Stores KeyPairType name */
+	private final String m_sType;
 
-    /**
-     * Construct a KeyPairType.  Private to prevent construction from outside
-     * this class.
-     *
-     * @param sType Key pair type
-     */
-    private KeyPairType(String sType)
-    {
-        m_sType = sType;
-    }
+	/**
+	 * Construct a KeyPairType. Private to prevent construction from outside this class.
+	 * 
+	 * @param sType Key pair type
+	 */
+	private KeyPairType(String sType)
+	{
+		m_sType = sType;
+	}
 
-    /**
-     * Resolve the KeyPairType Object.
-     *
-     * @return The resolved KeyPairType object
-     * @throws ObjectStreamException if the KeyPairType could not be resolved
-     */
-    private Object readResolve()
-        throws ObjectStreamException
-    {
-        if (m_sType.equals(RSA.toString())) {
-            return RSA;
-        }
-        else if (m_sType.equals(DSA.toString())) {
-            return DSA;
-        }
-        else if (m_sType.equals(ECDSA.toString())) {
-            return ECDSA;
-        }
-        else {
-            throw new InvalidObjectException(MessageFormat.format(
-                m_res.getString("NoResolveKeypairtype.exception.message"),
-                new Object[] { m_sType }));
-        }
-    }
+	/**
+	 * Resolve the KeyPairType Object.
+	 * 
+	 * @return The resolved KeyPairType object
+	 * @throws ObjectStreamException if the KeyPairType could not be resolved
+	 */
+	private Object readResolve()
+	    throws ObjectStreamException
+	{
+		if (m_sType.equals(RSA.toString()))
+		{
+			return RSA;
+		}
+		else if (m_sType.equals(DSA.toString()))
+		{
+			return DSA;
+		}
+		else if (m_sType.equals(ECDSA.toString()))
+		{
+			return ECDSA;
+		}
+		else
+		{
+			throw new InvalidObjectException(MessageFormat.format(
+			    m_res.getString("NoResolveKeypairtype.exception.message"), new Object[] { m_sType }));
+		}
+	}
 
-    /**
-     * Return string representation of KeyPairType compatible with the JCE.
-     *
-     * @return String representation of a KeyPairType
-     */
-    public String toString()
-    {
-        return m_sType;
-    }
+	/**
+	 * Return string representation of KeyPairType compatible with the JCE.
+	 * 
+	 * @return String representation of a KeyPairType
+	 */
+	public String toString()
+	{
+		return m_sType;
+	}
 }

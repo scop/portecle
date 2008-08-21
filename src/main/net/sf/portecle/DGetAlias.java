@@ -48,172 +48,171 @@ import javax.swing.border.EmptyBorder;
 class DGetAlias
     extends JDialog
 {
-    /** Key from input map to action map for the cancel button */
-    private static final String CANCEL_KEY = "CANCEL_KEY";
+	/** Key from input map to action map for the cancel button */
+	private static final String CANCEL_KEY = "CANCEL_KEY";
 
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /** Alias text field */
-    private JTextField m_jtfAlias;
+	/** Alias text field */
+	private JTextField m_jtfAlias;
 
-    /** Stores the alias entered by the user */
-    private String m_sAlias;
+	/** Stores the alias entered by the user */
+	private String m_sAlias;
 
-    /**
-     * Creates new DGetAlias dialog where the parent is a frame.
-     *
-     * @param parent The parent frame
-     * @param sTitle The dialog's title
-     * @param bModal Is the dialog modal?
-     * @param sOldAlias The alias to display initially
-     */
-    public DGetAlias(JFrame parent, String sTitle, boolean bModal,
-        String sOldAlias)
-    {
-        super(parent, sTitle, bModal);
-        initComponents(sOldAlias);
-    }
+	/**
+	 * Creates new DGetAlias dialog where the parent is a frame.
+	 * 
+	 * @param parent The parent frame
+	 * @param sTitle The dialog's title
+	 * @param bModal Is the dialog modal?
+	 * @param sOldAlias The alias to display initially
+	 */
+	public DGetAlias(JFrame parent, String sTitle, boolean bModal, String sOldAlias)
+	{
+		super(parent, sTitle, bModal);
+		initComponents(sOldAlias);
+	}
 
-    /**
-     * Creates new DGetAlias dialog where the parent is a dialog.
-     *
-     * @param parent The parent dialog
-     * @param sTitle The dialog's title
-     * @param bModal Is the dialog modal?
-     * @param sOldAlias The alias to display initially
-     */
-    public DGetAlias(JDialog parent, String sTitle, boolean bModal,
-        String sOldAlias)
-    {
-        super(parent, sTitle, bModal);
-        initComponents(sOldAlias);
-    }
+	/**
+	 * Creates new DGetAlias dialog where the parent is a dialog.
+	 * 
+	 * @param parent The parent dialog
+	 * @param sTitle The dialog's title
+	 * @param bModal Is the dialog modal?
+	 * @param sOldAlias The alias to display initially
+	 */
+	public DGetAlias(JDialog parent, String sTitle, boolean bModal, String sOldAlias)
+	{
+		super(parent, sTitle, bModal);
+		initComponents(sOldAlias);
+	}
 
-    /**
-     * Get the alias eneterd by the user.
-     *
-     * @return The alias, or null if none was entered
-     */
-    public String getAlias()
-    {
-        return m_sAlias;
-    }
+	/**
+	 * Get the alias eneterd by the user.
+	 * 
+	 * @return The alias, or null if none was entered
+	 */
+	public String getAlias()
+	{
+		return m_sAlias;
+	}
 
-    /**
-     * Initialise the dialog's GUI components.
-     *
-     * @param sOldAlias The alias to display initially
-     */
-    private void initComponents(String sOldAlias)
-    {
-        getContentPane().setLayout(new BorderLayout());
+	/**
+	 * Initialise the dialog's GUI components.
+	 * 
+	 * @param sOldAlias The alias to display initially
+	 */
+	private void initComponents(String sOldAlias)
+	{
+		getContentPane().setLayout(new BorderLayout());
 
-        JLabel jlAlias = new JLabel(m_res.getString("DGetAlias.jlAlias.text"));
-        m_jtfAlias = new JTextField(15);
+		JLabel jlAlias = new JLabel(m_res.getString("DGetAlias.jlAlias.text"));
+		m_jtfAlias = new JTextField(15);
 
-        if (sOldAlias != null) {
-            m_jtfAlias.setText(sOldAlias);
-            m_jtfAlias.setCaretPosition(0);
-        }
+		if (sOldAlias != null)
+		{
+			m_jtfAlias.setText(sOldAlias);
+			m_jtfAlias.setCaretPosition(0);
+		}
 
-        JButton jbOK = new JButton(m_res.getString("DGetAlias.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		JButton jbOK = new JButton(m_res.getString("DGetAlias.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JButton jbCancel = new JButton(
-            m_res.getString("DGetAlias.jbCancel.text"));
-        jbCancel.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                cancelPressed();
-            }
-        });
-        jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-        jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                cancelPressed();
-            }
-        });
+		JButton jbCancel = new JButton(m_res.getString("DGetAlias.jbCancel.text"));
+		jbCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				cancelPressed();
+			}
+		});
+		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
+		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				cancelPressed();
+			}
+		});
 
-        JPanel jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpAlias.add(jlAlias);
-        jpAlias.add(m_jtfAlias);
-        jpAlias.setBorder(new EmptyBorder(5, 5, 5, 5));
+		JPanel jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpAlias.add(jlAlias);
+		jpAlias.add(m_jtfAlias);
+		jpAlias.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpButtons.add(jbOK);
-        jpButtons.add(jbCancel);
+		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpButtons.add(jbOK);
+		jpButtons.add(jbCancel);
 
-        getContentPane().add(jpAlias, BorderLayout.CENTER);
-        getContentPane().add(jpButtons, BorderLayout.SOUTH);
+		getContentPane().add(jpAlias, BorderLayout.CENTER);
+		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        setResizable(false);
+		setResizable(false);
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
-    }
+		pack();
+	}
 
-    /**
-     * Check that the alias is valid, ie that it is not blank.
-     *
-     * @return True if the alias is valid, false otherwise
-     */
-    private boolean checkAlias()
-    {
-        String sAlias = m_jtfAlias.getText().trim();
+	/**
+	 * Check that the alias is valid, ie that it is not blank.
+	 * 
+	 * @return True if the alias is valid, false otherwise
+	 */
+	private boolean checkAlias()
+	{
+		String sAlias = m_jtfAlias.getText().trim();
 
-        if (sAlias.length() > 0) {
-            m_sAlias = sAlias;
-            return true;
-        }
+		if (sAlias.length() > 0)
+		{
+			m_sAlias = sAlias;
+			return true;
+		}
 
-        JOptionPane.showMessageDialog(this,
-            m_res.getString("DGetAlias.AliasReq.message"), getTitle(),
-            JOptionPane.WARNING_MESSAGE);
-        return false;
-    }
+		JOptionPane.showMessageDialog(this, m_res.getString("DGetAlias.AliasReq.message"), getTitle(),
+		    JOptionPane.WARNING_MESSAGE);
+		return false;
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        if (checkAlias()) {
-            closeDialog();
-        }
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		if (checkAlias())
+		{
+			closeDialog();
+		}
+	}
 
-    /**
-     * Cancel button pressed or otherwise activated.
-     */
-    private void cancelPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * Cancel button pressed or otherwise activated.
+	 */
+	private void cancelPressed()
+	{
+		closeDialog();
+	}
 
-    /** Closes the dialog */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/** Closes the dialog */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

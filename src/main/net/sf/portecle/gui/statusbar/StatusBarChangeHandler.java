@@ -26,52 +26,52 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Handles change events on a menu item that causes the status bar text
- * to show or hide help text for the menu item.
+ * Handles change events on a menu item that causes the status bar text to show or hide help text for the menu
+ * item.
  */
 public class StatusBarChangeHandler
     implements ChangeListener
 {
-    /** Menu item */
-    private JMenuItem m_jmi;
+	/** Menu item */
+	private JMenuItem m_jmi;
 
-    /** Help text for the menu item */
-    private String m_sHelpText;
+	/** Help text for the menu item */
+	private String m_sHelpText;
 
-    /** The status bar */
-    private StatusBar m_statusBar;
+	/** The status bar */
+	private StatusBar m_statusBar;
 
-    /**
-     * Construct a StatusBarChangeHandler.
-     *
-     * @param jmi The menu item
-     * @param sHelpText Help text for the menu item
-     * @param statusBar The status bar
-     */
-    public StatusBarChangeHandler(JMenuItem jmi, String sHelpText,
-        StatusBar statusBar)
-    {
-        m_jmi = jmi;
-        m_sHelpText = sHelpText;
-        m_statusBar = statusBar;
-        m_jmi.addChangeListener(this);
-    }
+	/**
+	 * Construct a StatusBarChangeHandler.
+	 * 
+	 * @param jmi The menu item
+	 * @param sHelpText Help text for the menu item
+	 * @param statusBar The status bar
+	 */
+	public StatusBarChangeHandler(JMenuItem jmi, String sHelpText, StatusBar statusBar)
+	{
+		m_jmi = jmi;
+		m_sHelpText = sHelpText;
+		m_statusBar = statusBar;
+		m_jmi.addChangeListener(this);
+	}
 
-    /**
-     * Menu item's state has changed - if armed show its help text, otherwise
-     * hide any help text.
-     *
-     * @param evt The change event
-     */
-    public void stateChanged(ChangeEvent evt)
-    {
-        if (m_jmi.isArmed()) {
-            // Display help text
-            m_statusBar.setStatusBarText(m_sHelpText);
-        }
-        else {
-            // Display default status
-            m_statusBar.setDefaultStatusBarText();
-        }
-    }
+	/**
+	 * Menu item's state has changed - if armed show its help text, otherwise hide any help text.
+	 * 
+	 * @param evt The change event
+	 */
+	public void stateChanged(ChangeEvent evt)
+	{
+		if (m_jmi.isArmed())
+		{
+			// Display help text
+			m_statusBar.setStatusBarText(m_sHelpText);
+		}
+		else
+		{
+			// Display default status
+			m_statusBar.setDefaultStatusBarText();
+		}
+	}
 }

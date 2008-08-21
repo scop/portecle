@@ -36,60 +36,65 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 class ThrowableTreeCellRend
     extends DefaultTreeCellRenderer
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
 
-    /**
-     * Returns the rendered cell for the supplied value.
-     *
-     * @param jtrThrowable The JTree
-     * @param value The value to assign to the cell
-     * @param bIsSelected True if cell is selected
-     * @param bIsExpanded True if cell is expanded
-     * @param bLeaf True if cell is a leaf
-     * @param iRow The row of the cell to render
-     * @param bHasFocus If true, render cell appropriately
-     * @return The renderered cell
-     */
+	/**
+	 * Returns the rendered cell for the supplied value.
+	 * 
+	 * @param jtrThrowable The JTree
+	 * @param value The value to assign to the cell
+	 * @param bIsSelected True if cell is selected
+	 * @param bIsExpanded True if cell is expanded
+	 * @param bLeaf True if cell is a leaf
+	 * @param iRow The row of the cell to render
+	 * @param bHasFocus If true, render cell appropriately
+	 * @return The renderered cell
+	 */
 
-    public Component getTreeCellRendererComponent(JTree jtrThrowable,
-        Object value, boolean bIsSelected, boolean bIsExpanded, boolean bLeaf,
-        int iRow, boolean bHasFocus)
-    {
-        JLabel cell = (JLabel) super.getTreeCellRendererComponent(
-            jtrThrowable, value, bIsSelected, bIsExpanded, bLeaf, iRow,
-            bHasFocus);
-        cell.setText(value.toString());
+	public Component getTreeCellRendererComponent(JTree jtrThrowable, Object value, boolean bIsSelected,
+	    boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
+	{
+		JLabel cell =
+		    (JLabel) super.getTreeCellRendererComponent(jtrThrowable, value, bIsSelected, bIsExpanded, bLeaf,
+		        iRow, bHasFocus);
+		cell.setText(value.toString());
 
-        // Sanity check of value
-        if (value instanceof DefaultMutableTreeNode) {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-            Object userValue = node.getUserObject();
-            ImageIcon icon = null;
+		// Sanity check of value
+		if (value instanceof DefaultMutableTreeNode)
+		{
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+			Object userValue = node.getUserObject();
+			ImageIcon icon = null;
 
-            // Each node type has a different icon and tool tip text
-            if (userValue instanceof Throwable) {
-                // Throwable
-                icon = new ImageIcon(getClass().getResource(
-                    m_res.getString("ThrowableTreeCellRend.Throwable.image")));
-                cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Throwable.tooltip"));
-            }
-            else if (userValue instanceof StackTraceElement) {
-                // Stack trace element
-                icon = new ImageIcon(getClass().getResource(
-                    m_res.getString("ThrowableTreeCellRend.StackTrace.image")));
-                cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.StackTrace.tooltip"));
-            }
-            else {
-                // Root node
-                icon = new ImageIcon(getClass().getResource(
-                    m_res.getString("ThrowableTreeCellRend.Root.image")));
-                cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Root.tooltip"));
-            }
+			// Each node type has a different icon and tool tip text
+			if (userValue instanceof Throwable)
+			{
+				// Throwable
+				icon =
+				    new ImageIcon(getClass().getResource(
+				        m_res.getString("ThrowableTreeCellRend.Throwable.image")));
+				cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Throwable.tooltip"));
+			}
+			else if (userValue instanceof StackTraceElement)
+			{
+				// Stack trace element
+				icon =
+				    new ImageIcon(getClass().getResource(
+				        m_res.getString("ThrowableTreeCellRend.StackTrace.image")));
+				cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.StackTrace.tooltip"));
+			}
+			else
+			{
+				// Root node
+				icon =
+				    new ImageIcon(getClass().getResource(m_res.getString("ThrowableTreeCellRend.Root.image")));
+				cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Root.tooltip"));
+			}
 
-            cell.setIcon(icon);
-        }
+			cell.setIcon(icon);
+		}
 
-        return cell;
-    }
+		return cell;
+	}
 }

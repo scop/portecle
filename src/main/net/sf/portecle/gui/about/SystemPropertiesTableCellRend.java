@@ -29,33 +29,32 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the cells of the System Properties table
- * of DSystemProperties.
+ * Custom cell renderer for the cells of the System Properties table of DSystemProperties.
  */
 class SystemPropertiesTableCellRend
     extends DefaultTableCellRenderer
 {
-    /**
-     * Returns the rendered cell for the supplied value and column.
-     *
-     * @param jtSystemProperties The JTable
-     * @param value The value to assign to the cell
-     * @param bIsSelected True if cell is selected
-     * @param iRow The row of the cell to render
-     * @param iCol The column of the cell to render
-     * @param bHasFocus If true, render cell appropriately
-     * @return The renderered cell
-     */
-    public Component getTableCellRendererComponent(JTable jtSystemProperties,
-        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
-        int iCol)
-    {
-        JLabel cell = (JLabel) super.getTableCellRendererComponent(
-            jtSystemProperties, value, bIsSelected, bHasFocus, iRow, iCol);
-        cell.setHorizontalAlignment(LEFT);
+	/**
+	 * Returns the rendered cell for the supplied value and column.
+	 * 
+	 * @param jtSystemProperties The JTable
+	 * @param value The value to assign to the cell
+	 * @param bIsSelected True if cell is selected
+	 * @param iRow The row of the cell to render
+	 * @param iCol The column of the cell to render
+	 * @param bHasFocus If true, render cell appropriately
+	 * @return The renderered cell
+	 */
+	public Component getTableCellRendererComponent(JTable jtSystemProperties, Object value,
+	    boolean bIsSelected, boolean bHasFocus, int iRow, int iCol)
+	{
+		JLabel cell =
+		    (JLabel) super.getTableCellRendererComponent(jtSystemProperties, value, bIsSelected, bHasFocus,
+		        iRow, iCol);
+		cell.setHorizontalAlignment(LEFT);
 
-        cell.setBorder(new EmptyBorder(0, 5, 0, 5));
+		cell.setBorder(new EmptyBorder(0, 5, 0, 5));
 
-        return cell;
-    }
+		return cell;
+	}
 }

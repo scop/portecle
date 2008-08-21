@@ -29,48 +29,43 @@ import java.util.EventObject;
 public class HistoryEvent
     extends EventObject
 {
-    /** Is history back navigabale? */
-    private boolean m_bBackAvailable;
+	/** Is history back navigabale? */
+	private boolean m_bBackAvailable;
 
-    /** Is history forward navigabale? */
-    private boolean m_bForwardAvailable;
+	/** Is history forward navigabale? */
+	private boolean m_bForwardAvailable;
 
-    /**
-     * Constructs a new HistoryEvent.
-     *
-     * @param eventSource The source of the event
-     * @param bBackAvailable Whether there is a document in the
-     * history before the current document
-     * @param bForwardAvailable Whether there is a document in the
-     * history after the current document
-     */
-    public HistoryEvent(Object eventSource, boolean bBackAvailable,
-        boolean bForwardAvailable)
-    {
-        super(eventSource);
-        m_bBackAvailable = bBackAvailable;
-        m_bForwardAvailable = bForwardAvailable;
-    }
+	/**
+	 * Constructs a new HistoryEvent.
+	 * 
+	 * @param eventSource The source of the event
+	 * @param bBackAvailable Whether there is a document in the history before the current document
+	 * @param bForwardAvailable Whether there is a document in the history after the current document
+	 */
+	public HistoryEvent(Object eventSource, boolean bBackAvailable, boolean bForwardAvailable)
+	{
+		super(eventSource);
+		m_bBackAvailable = bBackAvailable;
+		m_bForwardAvailable = bForwardAvailable;
+	}
 
-    /**
-     * Is there is a document in the history before the current document?
-     *
-     * @return True if there is a document in the history before the
-     * current document
-     */
-    public boolean isBackAvailable()
-    {
-        return m_bBackAvailable;
-    }
+	/**
+	 * Is there is a document in the history before the current document?
+	 * 
+	 * @return True if there is a document in the history before the current document
+	 */
+	public boolean isBackAvailable()
+	{
+		return m_bBackAvailable;
+	}
 
-    /**
-     * Is there is a document in the history after the current document?
-     *
-     * @return True if there is a document in the history after the
-     * current document
-     */
-    public boolean isForwardAvailable()
-    {
-        return m_bForwardAvailable;
-    }
+	/**
+	 * Is there is a document in the history after the current document?
+	 * 
+	 * @return True if there is a document in the history after the current document
+	 */
+	public boolean isForwardAvailable()
+	{
+		return m_bForwardAvailable;
+	}
 }

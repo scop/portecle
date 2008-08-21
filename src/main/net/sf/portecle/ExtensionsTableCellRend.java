@@ -31,64 +31,67 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the cells of the Extensions table of
- * DViewExtensions.
+ * Custom cell renderer for the cells of the Extensions table of DViewExtensions.
  */
 class ExtensionsTableCellRend
     extends DefaultTableCellRenderer
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /**
-     * Returns the rendered cell for the supplied entry type and column.
-     *
-     * @param jtExtensions The JTable
-     * @param value The value to assign to the cell
-     * @param bIsSelected True if cell is selected
-     * @param iRow The row of the cell to render
-     * @param iCol The column of the cell to render
-     * @param bHasFocus If true, render cell appropriately
-     * @return The renderered cell
-     */
-    public Component getTableCellRendererComponent(JTable jtExtensions,
-        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
-        int iCol)
-    {
-        JLabel cell = (JLabel) super.getTableCellRendererComponent(
-            jtExtensions, value, bIsSelected, bHasFocus, iRow, iCol);
+	/**
+	 * Returns the rendered cell for the supplied entry type and column.
+	 * 
+	 * @param jtExtensions The JTable
+	 * @param value The value to assign to the cell
+	 * @param bIsSelected True if cell is selected
+	 * @param iRow The row of the cell to render
+	 * @param iCol The column of the cell to render
+	 * @param bHasFocus If true, render cell appropriately
+	 * @return The renderered cell
+	 */
+	public Component getTableCellRendererComponent(JTable jtExtensions, Object value, boolean bIsSelected,
+	    boolean bHasFocus, int iRow, int iCol)
+	{
+		JLabel cell =
+		    (JLabel) super.getTableCellRendererComponent(jtExtensions, value, bIsSelected, bHasFocus, iRow,
+		        iCol);
 
-        // Critical column - display an icon representing criticality
-        // and tool-tip text
-        if (iCol == 0) {
-            ImageIcon icon = null;
+		// Critical column - display an icon representing criticality
+		// and tool-tip text
+		if (iCol == 0)
+		{
+			ImageIcon icon = null;
 
-            if (((Boolean) value).booleanValue()) {
-                icon = new ImageIcon(
-                    getClass().getResource(
-                        m_res.getString("ExtensionsTableCellRend.CriticalExtension.image")));
-                cell.setToolTipText(m_res.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
-            }
-            else {
-                icon = new ImageIcon(getClass().getResource(
-                    m_res.getString("ExtensionsTableCellRend."
-                        + "NonCriticalExtension.image")));
-                cell.setToolTipText(m_res.getString("ExtensionsTableCellRend."
-                    + "NonCriticalExtension.tooltip"));
-            }
+			if (((Boolean) value).booleanValue())
+			{
+				icon =
+				    new ImageIcon(getClass().getResource(
+				        m_res.getString("ExtensionsTableCellRend.CriticalExtension.image")));
+				cell.setToolTipText(m_res.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
+			}
+			else
+			{
+				icon =
+				    new ImageIcon(getClass().getResource(
+				        m_res.getString("ExtensionsTableCellRend." + "NonCriticalExtension.image")));
+				cell.setToolTipText(m_res.getString("ExtensionsTableCellRend."
+				    + "NonCriticalExtension.tooltip"));
+			}
 
-            cell.setIcon(icon);
-            cell.setText("");
-            cell.setVerticalAlignment(CENTER);
-            cell.setHorizontalAlignment(CENTER);
-        }
-        else {
-            // Just use toString of object as text
-            cell.setText(value.toString());
-        }
+			cell.setIcon(icon);
+			cell.setText("");
+			cell.setVerticalAlignment(CENTER);
+			cell.setHorizontalAlignment(CENTER);
+		}
+		else
+		{
+			// Just use toString of object as text
+			cell.setText(value.toString());
+		}
 
-        cell.setBorder(new EmptyBorder(0, 5, 0, 5));
+		cell.setBorder(new EmptyBorder(0, 5, 0, 5));
 
-        return cell;
-    }
+		return cell;
+	}
 }

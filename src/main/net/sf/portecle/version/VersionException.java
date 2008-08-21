@@ -27,45 +27,42 @@ package net.sf.portecle.version;
 public class VersionException
     extends Exception
 {
-    /**
-     * Creates a new VersionException.
-     */
-    public VersionException()
-    {
-        super();
-    }
+	/**
+	 * Creates a new VersionException.
+	 */
+	public VersionException()
+	{
+		super();
+	}
 
-    /**
-     * Creates a new VersionException with the specified message.
-     *
-     * @param sMessage Exception message
-     */
-    public VersionException(String sMessage)
-    {
-        super(sMessage);
-    }
+	/**
+	 * Creates a new VersionException with the specified message.
+	 * 
+	 * @param sMessage Exception message
+	 */
+	public VersionException(String sMessage)
+	{
+		super(sMessage);
+	}
 
-    /**
-     * Creates a new VersionException with the specified message and
-     * cause throwable.
-     *
-     * @param causeThrowable The throwable that caused this exception
-     * to be thrown
-     * @param sMessage Exception message
-     */
-    public VersionException(String sMessage, Throwable causeThrowable)
-    {
-        super(sMessage, causeThrowable);
-    }
+	/**
+	 * Creates a new VersionException with the specified message and cause throwable.
+	 * 
+	 * @param causeThrowable The throwable that caused this exception to be thrown
+	 * @param sMessage Exception message
+	 */
+	public VersionException(String sMessage, Throwable causeThrowable)
+	{
+		super(sMessage, causeThrowable);
+	}
 
-    /**
-     * Creates a new VersionException with the specified cause throwable.
-     *
-     * @param causeThrowable The throwable that caused this exception
-     * to be thrown
-     */
-    public VersionException(Throwable causeThrowable)
-    {
-        super(causeThrowable);
-    }
+	/**
+	 * Creates a new VersionException with the specified cause throwable.
+	 * 
+	 * @param causeThrowable The throwable that caused this exception to be thrown
+	 */
+	public VersionException(Throwable causeThrowable)
+	{
+		super(causeThrowable);
+	}
 }

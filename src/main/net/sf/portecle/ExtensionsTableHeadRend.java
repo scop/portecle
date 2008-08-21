@@ -33,62 +33,63 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the headers of the Extensions table of
- * DViewExtensions.
+ * Custom cell renderer for the headers of the Extensions table of DViewExtensions.
  */
 class ExtensionsTableHeadRend
     extends DefaultTableCellRenderer
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-    /**
-     * Returns the rendered header cell for the supplied value and column.
-     *
-     * @param jtExtensions The JTable
-     * @param value The value to assign to the cell
-     * @param bIsSelected True if cell is selected
-     * @param iRow The row of the cell to render
-     * @param iCol The column of the cell to render
-     * @param bHasFocus If true, render cell appropriately
-     * @return The renderered cell
-     */
-    public Component getTableCellRendererComponent(JTable jtExtensions,
-        Object value, boolean bIsSelected, boolean bHasFocus, int iRow,
-        int iCol)
-    {
-        // Get header renderer
-        JLabel header = (JLabel) jtExtensions.getColumnModel().getColumn(iCol).getHeaderRenderer();
+	/**
+	 * Returns the rendered header cell for the supplied value and column.
+	 * 
+	 * @param jtExtensions The JTable
+	 * @param value The value to assign to the cell
+	 * @param bIsSelected True if cell is selected
+	 * @param iRow The row of the cell to render
+	 * @param iCol The column of the cell to render
+	 * @param bHasFocus If true, render cell appropriately
+	 * @return The renderered cell
+	 */
+	public Component getTableCellRendererComponent(JTable jtExtensions, Object value, boolean bIsSelected,
+	    boolean bHasFocus, int iRow, int iCol)
+	{
+		// Get header renderer
+		JLabel header = (JLabel) jtExtensions.getColumnModel().getColumn(iCol).getHeaderRenderer();
 
-        // The Crtical header contains an icon
-        if (iCol == 0) {
-            header.setText("");
-            ImageIcon icon = new ImageIcon(
-                getClass().getResource(
-                    m_res.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
-            header.setIcon(icon);
-            header.setHorizontalAlignment(CENTER);
-            header.setVerticalAlignment(CENTER);
+		// The Crtical header contains an icon
+		if (iCol == 0)
+		{
+			header.setText("");
+			ImageIcon icon =
+			    new ImageIcon(getClass().getResource(
+			        m_res.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
+			header.setIcon(icon);
+			header.setHorizontalAlignment(CENTER);
+			header.setVerticalAlignment(CENTER);
 
-            header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.CriticalColumn.tooltip"));
-        }
-        // The other headers contain text
-        else {
-            header.setText(value.toString());
-            header.setHorizontalAlignment(LEFT);
+			header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.CriticalColumn.tooltip"));
+		}
+		// The other headers contain text
+		else
+		{
+			header.setText(value.toString());
+			header.setHorizontalAlignment(LEFT);
 
-            // Set tool tips
-            if (iCol == 1) {
-                header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.NameColumn.tooltip"));
-            }
-            else {
-                header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.OidColumn.tooltip"));
-            }
-        }
+			// Set tool tips
+			if (iCol == 1)
+			{
+				header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.NameColumn.tooltip"));
+			}
+			else
+			{
+				header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.OidColumn.tooltip"));
+			}
+		}
 
-        header.setBorder(new CompoundBorder(
-            new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
+		header.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));
 
-        return header;
-    }
+		return header;
+	}
 }

@@ -45,138 +45,136 @@ import javax.swing.table.TableColumn;
 public class DSystemProperties
     extends JDialog
 {
-    /** Resource bundle */
-    private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+	/** Resource bundle */
+	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-    /**
-     * Creates new DSystemProperties dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param bModal Is dialog modal?     
-     */
-    public DSystemProperties(JDialog parent, boolean bModal)
-    {
-        this(parent, m_res.getString("DSystemProperties.Title"), bModal);
-    }
+	/**
+	 * Creates new DSystemProperties dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param bModal Is dialog modal?
+	 */
+	public DSystemProperties(JDialog parent, boolean bModal)
+	{
+		this(parent, m_res.getString("DSystemProperties.Title"), bModal);
+	}
 
-    /**
-     * Creates new DSystemProperties dialog where the parent is a dialog.
-     *
-     * @param parent Parent dialog
-     * @param sTitle The title of the dialog
-     * @param bModal Is dialog modal?     
-     */
-    public DSystemProperties(JDialog parent, String sTitle, boolean bModal)
-    {
-        super(parent, sTitle, bModal);
-        initComponents();
-    }
+	/**
+	 * Creates new DSystemProperties dialog where the parent is a dialog.
+	 * 
+	 * @param parent Parent dialog
+	 * @param sTitle The title of the dialog
+	 * @param bModal Is dialog modal?
+	 */
+	public DSystemProperties(JDialog parent, String sTitle, boolean bModal)
+	{
+		super(parent, sTitle, bModal);
+		initComponents();
+	}
 
-    /**
-     * Initialise the dialog's GUI components.     
-     */
-    private void initComponents()
-    {
-        // System Properties table
+	/**
+	 * Initialise the dialog's GUI components.
+	 */
+	private void initComponents()
+	{
+		// System Properties table
 
-        // Create the table using the appropriate table model
-        SystemPropertiesTableModel spModel = new SystemPropertiesTableModel();
-        spModel.load();
+		// Create the table using the appropriate table model
+		SystemPropertiesTableModel spModel = new SystemPropertiesTableModel();
+		spModel.load();
 
-        JTable jtSystemProperties = new JTable(spModel);
+		JTable jtSystemProperties = new JTable(spModel);
 
-        jtSystemProperties.setRowMargin(0);
-        jtSystemProperties.getColumnModel().setColumnMargin(0);
-        jtSystemProperties.getTableHeader().setReorderingAllowed(false);
-        jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		jtSystemProperties.setRowMargin(0);
+		jtSystemProperties.getColumnModel().setColumnMargin(0);
+		jtSystemProperties.getTableHeader().setReorderingAllowed(false);
+		jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        // Add custom renderers for the table cells and headers
-        int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
-        for (int iCnt = 0; iCnt < jtSystemProperties.getColumnCount(); iCnt++)
-        {
-            TableColumn column = jtSystemProperties.getColumnModel().getColumn(
-                iCnt);
+		// Add custom renderers for the table cells and headers
+		int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
+		for (int iCnt = 0; iCnt < jtSystemProperties.getColumnCount(); iCnt++)
+		{
+			TableColumn column = jtSystemProperties.getColumnModel().getColumn(iCnt);
 
-            if (iCnt == 0) {
-                int w = 210;
-                column.setPreferredWidth(w); // Property Name
-                tWidth += w;
-            }
-            else {
-                int w = 320;
-                column.setPreferredWidth(w); // Property Value
-                tWidth += w;
-            }
+			if (iCnt == 0)
+			{
+				int w = 210;
+				column.setPreferredWidth(w); // Property Name
+				tWidth += w;
+			}
+			else
+			{
+				int w = 320;
+				column.setPreferredWidth(w); // Property Value
+				tWidth += w;
+			}
 
-            column.setHeaderRenderer(new SystemPropertiesTableHeadRend());
-            column.setCellRenderer(new SystemPropertiesTableCellRend());
-        }
+			column.setHeaderRenderer(new SystemPropertiesTableHeadRend());
+			column.setCellRenderer(new SystemPropertiesTableCellRend());
+		}
 
-        // Put the table into a scroll panew
-        JScrollPane jspSystemPropertiesTable = new JScrollPane(
-            jtSystemProperties, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jspSystemPropertiesTable.getViewport().setBackground(
-            jtSystemProperties.getBackground());
+		// Put the table into a scroll panew
+		JScrollPane jspSystemPropertiesTable =
+		    new JScrollPane(jtSystemProperties, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jspSystemPropertiesTable.getViewport().setBackground(jtSystemProperties.getBackground());
 
-        // Put the scroll pane into a panel
-        JPanel jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
-        jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
-        jpSystemPropertiesTable.add(jspSystemPropertiesTable,
-            BorderLayout.CENTER);
-        jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
+		// Put the scroll pane into a panel
+		JPanel jpSystemPropertiesTable = new JPanel(new BorderLayout(10, 10));
+		jpSystemPropertiesTable.setPreferredSize(new Dimension(tWidth, 300));
+		jpSystemPropertiesTable.add(jspSystemPropertiesTable, BorderLayout.CENTER);
+		jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        final JButton jbOK = new JButton(
-            m_res.getString("DSystemProperties.jbOK.text"));
-        jbOK.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent evt)
-            {
-                okPressed();
-            }
-        });
+		final JButton jbOK = new JButton(m_res.getString("DSystemProperties.jbOK.text"));
+		jbOK.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				okPressed();
+			}
+		});
 
-        JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        jpOK.add(jbOK);
+		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpOK.add(jbOK);
 
-        getContentPane().add(jpSystemPropertiesTable, BorderLayout.CENTER);
-        getContentPane().add(jpOK, BorderLayout.SOUTH);
+		getContentPane().add(jpSystemPropertiesTable, BorderLayout.CENTER);
+		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent evt)
-            {
-                closeDialog();
-            }
-        });
+		addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				closeDialog();
+			}
+		});
 
-        getRootPane().setDefaultButton(jbOK);
+		getRootPane().setDefaultButton(jbOK);
 
-        pack();
+		pack();
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                jbOK.requestFocus();
-            }
-        });
-    }
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				jbOK.requestFocus();
+			}
+		});
+	}
 
-    /**
-     * OK button pressed or otherwise activated.
-     */
-    private void okPressed()
-    {
-        closeDialog();
-    }
+	/**
+	 * OK button pressed or otherwise activated.
+	 */
+	private void okPressed()
+	{
+		closeDialog();
+	}
 
-    /**
-     * Close the dialog.
-     */
-    private void closeDialog()
-    {
-        setVisible(false);
-        dispose();
-    }
+	/**
+	 * Close the dialog.
+	 */
+	private void closeDialog()
+	{
+		setVisible(false);
+		dispose();
+	}
 }

@@ -27,44 +27,42 @@ import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 
 /**
- * Very simple Metal theme that simply gets rid of the bold used in the default
- * theme for control and menu text (note: title is left bold).
+ * Very simple Metal theme that simply gets rid of the bold used in the default theme for control and menu
+ * text (note: title is left bold).
  */
 public class LightMetalTheme
     extends DefaultMetalTheme
 {
-    /** Theme name */
-    private static final String THEME_NAME = "Light Metal";
+	/** Theme name */
+	private static final String THEME_NAME = "Light Metal";
 
-    /**
-     * Get theme name.
-     *
-     * @return Theme name
-     */
-    public String getName()
-    {
-        return THEME_NAME;
-    }
+	/**
+	 * Get theme name.
+	 * 
+	 * @return Theme name
+	 */
+	public String getName()
+	{
+		return THEME_NAME;
+	}
 
-    /**
-     * Get control text font - minus the usual bold.
-     *
-     * @return Font
-     */
-    public FontUIResource getControlTextFont()
-    {
-        return new FontUIResource(super.getControlTextFont().deriveFont(
-            Font.PLAIN));
-    }
+	/**
+	 * Get control text font - minus the usual bold.
+	 * 
+	 * @return Font
+	 */
+	public FontUIResource getControlTextFont()
+	{
+		return new FontUIResource(super.getControlTextFont().deriveFont(Font.PLAIN));
+	}
 
-    /**
-     * Get menu text font - minus the usual bold.
-     *
-     * @return Font
-     */
-    public FontUIResource getMenuTextFont()
-    {
-        return new FontUIResource(super.getMenuTextFont().deriveFont(
-            Font.PLAIN));
-    }
+	/**
+	 * Get menu text font - minus the usual bold.
+	 * 
+	 * @return Font
+	 */
+	public FontUIResource getMenuTextFont()
+	{
+		return new FontUIResource(super.getMenuTextFont().deriveFont(Font.PLAIN));
+	}
 }
