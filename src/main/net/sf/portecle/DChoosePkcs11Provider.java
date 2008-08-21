@@ -216,7 +216,7 @@ public class DChoosePkcs11Provider
 		{
 			String msg =
 			    MessageFormat.format(m_res.getString("DChoosePkcs11Provider.InvalidProvider.message"),
-			        new String[] { sProvider });
+			        sProvider);
 			JOptionPane.showMessageDialog(this, msg, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}

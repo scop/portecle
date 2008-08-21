@@ -81,7 +81,7 @@ public class KeyPairType
 		else
 		{
 			throw new InvalidObjectException(MessageFormat.format(
-			    m_res.getString("NoResolveKeypairtype.exception.message"), new Object[] { m_sType }));
+			    m_res.getString("NoResolveKeypairtype.exception.message"), m_sType));
 		}
 	}
 

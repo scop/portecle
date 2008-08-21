@@ -83,12 +83,12 @@ public final class KeyPairUtil
 		catch (NoSuchAlgorithmException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoGenerateKeypair.exception.message"), new Object[] { keyPairType }), ex);
+			    m_res.getString("NoGenerateKeypair.exception.message"), keyPairType), ex);
 		}
 		catch (InvalidParameterException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoGenerateKeypairParm.exception.message"), new Object[] { keyPairType }), ex);
+			    m_res.getString("NoGenerateKeypairParm.exception.message"), keyPairType), ex);
 		}
 	}
 

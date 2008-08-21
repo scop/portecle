@@ -107,8 +107,8 @@ public class FHelp
 				catch (IOException ex)
 				{
 					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { evt.getURL() }),
-					    m_sTitle, JOptionPane.ERROR_MESSAGE);
+					    m_res.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
+					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -131,7 +131,7 @@ public class FHelp
 				catch (IOException ex)
 				{
 					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { m_home }), m_sTitle,
+					    m_res.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle,
 					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -159,7 +159,7 @@ public class FHelp
 					catch (IOException ex)
 					{
 						JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-						    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { temp }), m_sTitle,
+						    m_res.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
 						    JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -187,7 +187,7 @@ public class FHelp
 					catch (IOException ex)
 					{
 						JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-						    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { temp }), m_sTitle,
+						    m_res.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
 						    JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -222,8 +222,8 @@ public class FHelp
 				catch (IOException ex)
 				{
 					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { evt.getURL() }),
-					    m_sTitle, JOptionPane.ERROR_MESSAGE);
+					    m_res.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
+					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -235,8 +235,7 @@ public class FHelp
 		catch (IOException ex)
 		{
 			JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-			    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { toc }), m_sTitle,
-			    JOptionPane.ERROR_MESSAGE);
+			    m_res.getString("FHelp.NoLocateUrl.message"), toc), m_sTitle, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -249,8 +248,7 @@ public class FHelp
 		catch (IOException ex)
 		{
 			JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-			    m_res.getString("FHelp.NoLocateUrl.message"), new Object[] { m_home }), m_sTitle,
-			    JOptionPane.ERROR_MESSAGE);
+			    m_res.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 

@@ -396,9 +396,8 @@ class DGenerateCertificate
 		if (sCountryCode != null && sCountryCode.length() != COUNTRY_CODE_LENGTH)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("DGenerateCertificate.CountryCodeLength.message"),
-			    new String[] { String.valueOf(COUNTRY_CODE_LENGTH) }), getTitle(),
-			    JOptionPane.WARNING_MESSAGE);
+			    m_res.getString("DGenerateCertificate.CountryCodeLength.message"), COUNTRY_CODE_LENGTH),
+			    getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 

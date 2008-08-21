@@ -197,7 +197,7 @@ public final class KeyStoreUtil
 		catch (GeneralSecurityException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoLoadKeystore.exception.message"), new Object[] { keyStoreType }), ex);
+			    m_res.getString("NoLoadKeystore.exception.message"), keyStoreType), ex);
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -206,7 +206,7 @@ public final class KeyStoreUtil
 		catch (IOException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoLoadKeystore.exception.message"), new Object[] { keyStoreType }), ex);
+			    m_res.getString("NoLoadKeystore.exception.message"), keyStoreType), ex);
 		}
 		finally
 		{
@@ -241,7 +241,7 @@ public final class KeyStoreUtil
 			if (Security.getProvider(sPkcs11Provider) == null)
 			{
 				throw new CryptoException(MessageFormat.format(
-				    m_res.getString("NoSuchProvider.exception.message"), new String[] { sPkcs11Provider }));
+				    m_res.getString("NoSuchProvider.exception.message"), sPkcs11Provider));
 			}
 			keyStore = KeyStore.getInstance(KeyStoreType.PKCS11.toString(), sPkcs11Provider);
 		}
@@ -257,8 +257,7 @@ public final class KeyStoreUtil
 		catch (Exception ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoLoadKeystore.exception.message"), new Object[] { KeyStoreType.PKCS11 }),
-			    ex);
+			    m_res.getString("NoLoadKeystore.exception.message"), KeyStoreType.PKCS11), ex);
 		}
 
 		return keyStore;

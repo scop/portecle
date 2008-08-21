@@ -114,7 +114,7 @@ public class KeyStoreType
 		if (kst == null)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoResolveKeystoretype.exception.message"), new String[] { sType }));
+			    m_res.getString("NoResolveKeystoretype.exception.message"), sType));
 		}
 		return kst;
 	}

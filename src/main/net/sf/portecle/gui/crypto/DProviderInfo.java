@@ -204,7 +204,7 @@ public class DProviderInfo
 				String sKey = (String) i.next();
 				String sValue = provider.getProperty(sKey);
 				providerPropertiesNode.add(new DefaultMutableTreeNode(MessageFormat.format(
-				    m_res.getString("DProviderInfo.ProviderProperty"), new String[] { sKey, sValue })));
+				    m_res.getString("DProviderInfo.ProviderProperty"), sKey, sValue)));
 			}
 		}
 
@@ -229,13 +229,13 @@ public class DProviderInfo
 
 			// ...write out the provider name, description and version...
 			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderName"),
-			    new Object[] { provider.getName() }));
+			    provider.getName()));
 			strBuff.append('\n');
 			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderVersion"),
-			    new Object[] { "" + provider.getVersion() }));
+			    provider.getVersion()));
 			strBuff.append('\n');
 			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderDescription"),
-			    new Object[] { provider.getInfo() }));
+			    provider.getInfo()));
 			strBuff.append('\n');
 			strBuff.append(m_res.getString("DProviderInfo.Copy.ProviderProperties"));
 			strBuff.append('\n');

@@ -151,18 +151,17 @@ public class FileChooserFactory
 				exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
 			}
 			extensions = (String[]) exts.toArray(new String[exts.size()]);
-			String[] info = toWildcards(extensions);
-			info[0] += FILELIST_SEPARATOR + CACERTS_FILENAME;
+			String info = toWildcards(extensions) + FILELIST_SEPARATOR + CACERTS_FILENAME;
 			desc = MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles"), info);
 			addCaCerts = true;
 		}
 		else
 		{
 			extensions = ksType.getFilenameExtensions();
-			String[] info = toWildcards(extensions);
+			String info = toWildcards(extensions);
 			if (ksType.equals(KeyStoreType.JKS))
 			{
-				info[0] += FILELIST_SEPARATOR + CACERTS_FILENAME;
+				info += FILELIST_SEPARATOR + CACERTS_FILENAME;
 				addCaCerts = true;
 			}
 			desc =
@@ -332,9 +331,9 @@ public class FileChooserFactory
 	 * Converts an array of filename extensions into a (informational) filename match pattern.
 	 * 
 	 * @param exts
-	 * @return string array of length 1 (for easy use with message formatting)
+	 * @return informational filename match pattern
 	 */
-	private static String[] toWildcards(String[] exts)
+	private static String toWildcards(String[] exts)
 	{
 		StringBuffer res = new StringBuffer();
 		for (int i = 0, len = exts.length; i < len; i++)
@@ -342,6 +341,6 @@ public class FileChooserFactory
 			res.append("*.").append(exts[i]).append(FILELIST_SEPARATOR);
 		}
 		res.setLength(res.length() - FILELIST_SEPARATOR.length());
-		return new String[] { res.toString() };
+		return res.toString();
 	}
 }

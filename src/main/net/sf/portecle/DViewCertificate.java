@@ -467,13 +467,13 @@ class DViewCertificate
 			m_jbLeft.setEnabled(false);
 			m_jbRight.setEnabled(false);
 			m_jlSelector.setText(MessageFormat.format(m_res.getString("DViewCertificate.m_jlSelector.text"),
-			    new String[] { "" + 0, "" + 0 }));
+			    0, 0));
 			return;
 		}
 
 		// Set selection label and buttons
 		m_jlSelector.setText(MessageFormat.format(m_res.getString("DViewCertificate.m_jlSelector.text"),
-		    new String[] { "" + (m_iSelCert + 1), "" + m_certs.length }));
+		    m_iSelCert + 1, m_certs.length));
 
 		if (m_iSelCert == 0)
 		{
@@ -530,8 +530,7 @@ class DViewCertificate
 		if (bNotYetValid)
 		{
 			m_jtfValidFrom.setText(MessageFormat.format(
-			    m_res.getString("DViewCertificate.m_jtfValidFrom.notyetvalid.text"),
-			    new String[] { m_jtfValidFrom.getText() }));
+			    m_res.getString("DViewCertificate.m_jtfValidFrom.notyetvalid.text"), m_jtfValidFrom.getText()));
 			m_jtfValidFrom.setForeground(Color.red);
 		}
 		else
@@ -547,8 +546,7 @@ class DViewCertificate
 		if (bNoLongerValid)
 		{
 			m_jtfValidUntil.setText(MessageFormat.format(
-			    m_res.getString("DViewCertificate.m_jtfValidUntil.expired.text"),
-			    new String[] { m_jtfValidUntil.getText() }));
+			    m_res.getString("DViewCertificate.m_jtfValidUntil.expired.text"), m_jtfValidUntil.getText()));
 			m_jtfValidUntil.setForeground(Color.red);
 		}
 		else
@@ -564,8 +562,7 @@ class DViewCertificate
 		if (iKeySize != -1)
 		{
 			m_jtfPublicKey.setText(MessageFormat.format(
-			    m_res.getString("DViewCertificate.m_jtfPublicKey.text"), new String[] {
-			        m_jtfPublicKey.getText(), "" + iKeySize }));
+			    m_res.getString("DViewCertificate.m_jtfPublicKey.text"), m_jtfPublicKey.getText(), iKeySize));
 		}
 		m_jtfPublicKey.setCaretPosition(0);
 
@@ -669,8 +666,8 @@ class DViewCertificate
 
 		DViewExtensions dViewExtensions =
 		    new DViewExtensions(this, MessageFormat.format(
-		        m_res.getString("DViewCertificate.Extensions.Title"), new String[] { "" + (m_iSelCert + 1),
-		            "" + m_certs.length }), true, cert);
+		        m_res.getString("DViewCertificate.Extensions.Title"), m_iSelCert + 1, m_certs.length), true,
+		        cert);
 		dViewExtensions.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dViewExtensions);
 	}
@@ -697,8 +694,8 @@ class DViewCertificate
 		{
 			DViewPEM dViewCertPem =
 			    new DViewPEM(this, MessageFormat.format(
-			        m_res.getString("DViewCertificate.PemEncoding.Title"), new String[] {
-			            "" + (m_iSelCert + 1), "" + m_certs.length }), true, cert, chooser);
+			        m_res.getString("DViewCertificate.PemEncoding.Title"), m_iSelCert + 1, m_certs.length),
+			        true, cert, chooser);
 			dViewCertPem.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertPem);
 		}

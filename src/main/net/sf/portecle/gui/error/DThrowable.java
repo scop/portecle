@@ -182,9 +182,8 @@ public class DThrowable
 			text =
 			    "<html>" +
 			        text +
-			        MessageFormat.format(m_res.getString("DThrowable.jpThrowable.policy.text"),
-			            new Object[] { new File(System.getProperty("java.home"), "lib" + File.separator +
-			                "security") });
+			        MessageFormat.format(m_res.getString("DThrowable.jpThrowable.policy.text"), new File(
+			            System.getProperty("java.home"), "lib" + File.separator + "security"));
 		}
 
 		jpThrowable.add(new JLabel(text));

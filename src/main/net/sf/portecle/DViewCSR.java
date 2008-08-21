@@ -314,7 +314,7 @@ class DViewCSR
 		if (iKeySize != -1)
 		{
 			m_jtfPublicKey.setText(MessageFormat.format(m_res.getString("DViewCSR.m_jtfPublicKey.text"),
-			    new String[] { m_jtfPublicKey.getText(), "" + iKeySize }));
+			    m_jtfPublicKey.getText(), iKeySize));
 		}
 		m_jtfPublicKey.setCaretPosition(0);
 

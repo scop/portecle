@@ -843,6 +843,6 @@ public final class X509CertUtil
 		}
 		// else non-self-signed certificate
 		// Alias is the subject CN followed by the issuer CN in parenthesis
-		return MessageFormat.format("{0} ({1})", new String[] { sSubjectCN, sIssuerCN });
+		return MessageFormat.format("{0} ({1})", sSubjectCN, sIssuerCN);
 	}
 }

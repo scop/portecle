@@ -362,8 +362,7 @@ class DImportKeyPair
 			if (iKeySize != -1)
 			{
 				m_jtfAlgorithm.setText(MessageFormat.format(
-				    m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"), new String[] {
-				        m_jtfAlgorithm.getText(), "" + iKeySize }));
+				    m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"), m_jtfAlgorithm.getText(), iKeySize));
 			}
 			m_jtfAlgorithm.setCaretPosition(0);
 		}
@@ -394,8 +393,7 @@ class DImportKeyPair
 
 			DViewCertificate dViewCertificate =
 			    new DViewCertificate(this, MessageFormat.format(
-			        m_res.getString("DImportKeyPair.ViewCertificateDetails.Title"), new String[] { sAlias }),
-			        true, certs);
+			        m_res.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), true, certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 		}

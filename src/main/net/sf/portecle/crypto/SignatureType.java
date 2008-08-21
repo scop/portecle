@@ -135,7 +135,7 @@ public class SignatureType
 		if (st == null)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoResolveSignaturetype.exception.message"), new String[] { sType }));
+			    m_res.getString("NoResolveSignaturetype.exception.message"), sType));
 		}
 		return st;
 	}

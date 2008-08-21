@@ -228,8 +228,7 @@ class DExport
 		catch (KeyStoreException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("DExport.NoAccessEntry.message"),
-			        new String[] { m_sEntryAlias });
+			    MessageFormat.format(m_res.getString("DExport.NoAccessEntry.message"), m_sEntryAlias);
 			throw new CryptoException(sMessage, ex);
 		}
 
@@ -286,7 +285,7 @@ class DExport
 			}
 		});
 
-		setTitle(MessageFormat.format(m_res.getString("DExport.Title"), new String[] { m_sEntryAlias }));
+		setTitle(MessageFormat.format(m_res.getString("DExport.Title"), m_sEntryAlias));
 		setResizable(false);
 
 		getRootPane().setDefaultButton(jbOK);

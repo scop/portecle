@@ -404,7 +404,7 @@ class DViewCRL
 		{
 			m_jtfEffectiveDate.setText(MessageFormat.format(
 			    m_res.getString("DViewCRL.m_jtfEffectiveDate.noteffective.text"),
-			    new String[] { m_jtfEffectiveDate.getText() }));
+			    m_jtfEffectiveDate.getText()));
 			m_jtfEffectiveDate.setForeground(Color.red);
 		}
 		else
@@ -420,8 +420,7 @@ class DViewCRL
 		if (bUpdateAvailable)
 		{
 			m_jtfNextUpdate.setText(MessageFormat.format(
-			    m_res.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"),
-			    new String[] { m_jtfNextUpdate.getText() }));
+			    m_res.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"), m_jtfNextUpdate.getText()));
 			m_jtfNextUpdate.setForeground(Color.red);
 		}
 		else

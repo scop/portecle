@@ -854,7 +854,7 @@ public class FPortecle
 		jmirfNew.addActionListener(new RecentKeyStoreFileActionListener(fRecentFile, this));
 
 		new StatusBarChangeHandler(jmirfNew, MessageFormat.format(
-		    m_res.getString("FPortecle.recentfile.statusbar"), new Object[] { fRecentFile }), this);
+		    m_res.getString("FPortecle.recentfile.statusbar"), fRecentFile), this);
 		return jmirfNew;
 	}
 
@@ -1648,7 +1648,7 @@ public class FPortecle
 			{
 				String sMessage =
 				    MessageFormat.format(m_res.getString("DGenerateCertificate.OverwriteAlias.message"),
-				        new String[] { sAlias });
+				        sAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -1776,7 +1776,7 @@ public class FPortecle
 		if (!fKeyStore.exists())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.FileNotFound.message"), new Object[] { fKeyStore }),
+			    m_res.getString("FPortecle.FileNotFound.message"), fKeyStore),
 			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -1784,16 +1784,15 @@ public class FPortecle
 		else if (!fKeyStore.isFile())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NotFile.message"), new Object[] { fKeyStore }),
+			    m_res.getString("FPortecle.NotFile.message"), fKeyStore),
 			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
-		    new DGetPassword(this,
-		        MessageFormat.format(m_res.getString("FPortecle.GetKeyStorePassword.Title"),
-		            new String[] { fKeyStore.getName() }), true);
+		    new DGetPassword(this, MessageFormat.format(
+		        m_res.getString("FPortecle.GetKeyStorePassword.Title"), fKeyStore.getName()), true);
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -1841,9 +1840,8 @@ public class FPortecle
 				}
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenKeyStoreFile.message"), new Object[] { fKeyStore,
-				            tried }), m_res.getString("FPortecle.OpenKeyStoreFile.Title"),
-				        JOptionPane.YES_NO_OPTION);
+				        m_res.getString("FPortecle.NoOpenKeyStoreFile.message"), fKeyStore, tried),
+				        m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (int iCnt = 0; iCnt < cexs.length; iCnt++)
@@ -1873,7 +1871,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), new Object[] { fKeyStore }),
+			    m_res.getString("FPortecle.NoReadFile.message"), fKeyStore),
 			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -1925,8 +1923,7 @@ public class FPortecle
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
 		    new DGetPassword(this, MessageFormat.format(
-		        m_res.getString("FPortecle.GetKeyStorePassword.Title"), new String[] { sPkcs11Provider }),
-		        true);
+		        m_res.getString("FPortecle.GetKeyStorePassword.Title"), sPkcs11Provider), true);
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -1948,8 +1945,7 @@ public class FPortecle
 		{
 			int iSelected =
 			    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-			        m_res.getString("FPortecle.NoOpenKeyStorePkcs11.message"),
-			        new Object[] { sPkcs11Provider }),
+			        m_res.getString("FPortecle.NoOpenKeyStorePkcs11.message"), sPkcs11Provider),
 			        m_res.getString("FPortecle.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
 			if (iSelected == JOptionPane.YES_OPTION)
 			{
@@ -2019,7 +2015,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoWriteFile.message"), new Object[] { fSaveFile }),
+			    m_res.getString("FPortecle.NoWriteFile.message"), fSaveFile),
 			    m_res.getString("FPortecle.SaveKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -2126,7 +2122,7 @@ public class FPortecle
 			catch (FileNotFoundException ex)
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.NoWriteFile.message"), new Object[] { fSaveFile }),
+				    m_res.getString("FPortecle.NoWriteFile.message"), fSaveFile),
 				    m_res.getString("FPortecle.SaveKeyStoreAs.Title"), JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
@@ -2182,8 +2178,7 @@ public class FPortecle
 		}
 
 		String sMessage =
-		    MessageFormat.format(m_res.getString("FPortecle.WantSaveChanges.message"),
-		        new String[] { sKeyStoreName });
+		    MessageFormat.format(m_res.getString("FPortecle.WantSaveChanges.message"), sKeyStoreName);
 
 		int iSelected =
 		    JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FPortecle.WantSaveChanges.Title"),
@@ -2283,8 +2278,7 @@ public class FPortecle
 			{
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetailsFile.Title"),
-				        new String[] { fCertFile.getName() }), true, certs);
+				        m_res.getString("FPortecle.CertDetailsFile.Title"), fCertFile.getName()), true, certs);
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 				return true;
@@ -2391,8 +2385,8 @@ public class FPortecle
 			{
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetailsSSL.Title"), new String[] { ia.getHostName() +
-				            ":" + ia.getPort() }), true, certs);
+				        m_res.getString("FPortecle.CertDetailsSSL.Title"), ia.getHostName() + ":" +
+				            ia.getPort()), true, certs);
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 				return true;
@@ -2432,8 +2426,7 @@ public class FPortecle
 			{
 				DViewCSR dViewCSR =
 				    new DViewCSR(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CsrDetailsFile.Title"),
-				        new String[] { fCSRFile.getName() }), true, csr);
+				        m_res.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()), true, csr);
 				dViewCSR.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCSR);
 				return true;
@@ -2470,7 +2463,7 @@ public class FPortecle
 		{
 			DViewCRL dViewCRL =
 			    new DViewCRL(this, MessageFormat.format(m_res.getString("FPortecle.CrlDetailsFile.Title"),
-			        new String[] { fCRLFile.getName() }), true, crl);
+			        fCRLFile.getName()), true, crl);
 			dViewCRL.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCRL);
 			return true;
@@ -2727,7 +2720,7 @@ public class FPortecle
 				// None of the types worked - show each of the errors?
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenCertificate.message"), new Object[] { fCertFile }),
+				        m_res.getString("FPortecle.NoOpenCertificate.message"), fCertFile),
 				        m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
@@ -2740,7 +2733,7 @@ public class FPortecle
 			else if (certs.length == 0)
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.NoCertsFound.message"), new Object[] { fCertFile }),
+				    m_res.getString("FPortecle.NoCertsFound.message"), fCertFile),
 				    m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
 			}
 
@@ -2768,9 +2761,9 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), new Object[] { fCSRFile }),
-			    MessageFormat.format(m_res.getString("FPortecle.CsrDetailsFile.Title"),
-			        new String[] { fCSRFile.getName() }), JOptionPane.WARNING_MESSAGE);
+			    m_res.getString("FPortecle.NoReadFile.message"), fCSRFile), MessageFormat.format(
+			    m_res.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
+			    JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
 		catch (Exception ex)
@@ -2796,9 +2789,9 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), new Object[] { fCRLFile }),
-			    MessageFormat.format(m_res.getString("FPortecle.CrlDetailsFile.Title"),
-			        new String[] { fCRLFile.getName() }), JOptionPane.WARNING_MESSAGE);
+			    m_res.getString("FPortecle.NoReadFile.message"), fCRLFile), MessageFormat.format(
+			    m_res.getString("FPortecle.CrlDetailsFile.Title"), fCRLFile.getName()),
+			    JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
 		catch (Exception ex)
@@ -2910,8 +2903,8 @@ public class FPortecle
 					// Display the certficate to the user
 					DViewCertificate dViewCertificate =
 					    new DViewCertificate(this, MessageFormat.format(
-					        m_res.getString("FPortecle.CertDetailsFile.Title"),
-					        new String[] { fCertFile.getName() }), true, new X509Certificate[] { rootCert });
+					        m_res.getString("FPortecle.CertDetailsFile.Title"), fCertFile.getName()), true,
+					        new X509Certificate[] { rootCert });
 					dViewCertificate.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewCertificate);
 
@@ -3064,9 +3057,8 @@ public class FPortecle
 			{
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.TrustCertExistsConfirm.message"),
-				        new String[] { sMatchAlias }), m_res.getString("FPortecle.ImportTrustCert.Title"),
-				        JOptionPane.YES_NO_OPTION);
+				        m_res.getString("FPortecle.TrustCertExistsConfirm.message"), sMatchAlias),
+				        m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -3111,8 +3103,8 @@ public class FPortecle
 				// Display the certficate to the user
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetailsFile.Title"),
-				        new String[] { fCertFile.getName() }), true, new X509Certificate[] { trustCert });
+				        m_res.getString("FPortecle.CertDetailsFile.Title"), fCertFile.getName()), true,
+				        new X509Certificate[] { trustCert });
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 
@@ -3143,8 +3135,7 @@ public class FPortecle
 			if (keyStore.containsAlias(sAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"),
-				        new String[] { sAlias });
+				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), sAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -3206,7 +3197,7 @@ public class FPortecle
 		if (!fPkcs12.isFile())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NotFile.message"), new Object[] { fPkcs12 }),
+			    m_res.getString("FPortecle.NotFile.message"), fPkcs12),
 			    m_res.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -3274,8 +3265,7 @@ public class FPortecle
 			if (keyStore.containsAlias(sAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"),
-				        new String[] { sAlias });
+				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), sAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -3392,9 +3382,8 @@ public class FPortecle
 				}
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenCaCertsKeyStore.message"), new Object[] {
-				            m_fCaCertsFile, tried }), m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"),
-				        JOptionPane.YES_NO_OPTION);
+				        m_res.getString("FPortecle.NoOpenCaCertsKeyStore.message"), m_fCaCertsFile, tried),
+				        m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (int iCnt = 0; iCnt < cexs.length; iCnt++)
@@ -3411,7 +3400,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), new Object[] { m_fCaCertsFile }),
+			    m_res.getString("FPortecle.NoReadFile.message"), m_fCaCertsFile),
 			    m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
@@ -3490,7 +3479,7 @@ public class FPortecle
 		{
 			// Could not launch web browser - tell the user the address
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[] { sWebsiteAddress }),
+			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sWebsiteAddress),
 			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
@@ -3510,7 +3499,7 @@ public class FPortecle
 		{
 			// Could not launch web browser - tell the user the address
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[] { sWebsiteAddress }),
+			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sWebsiteAddress),
 			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
@@ -3530,7 +3519,7 @@ public class FPortecle
 		{
 			// Could not launch email client - tell the user the address
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchEmail.message"), new String[] { sEmailAddress }),
+			    m_res.getString("FPortecle.NoLaunchEmail.message"), sEmailAddress),
 			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
@@ -3549,10 +3538,9 @@ public class FPortecle
 		catch (IOException ex)
 		{
 			// Could not launch web browser - tell the user the address
-			JOptionPane.showMessageDialog(this,
-			    MessageFormat.format(m_res.getString("FPortecle.NoLaunchBrowser.message"),
-			        new String[] { sMailListSignupAddress }), m_res.getString("FPortecle.Title"),
-			    JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, MessageFormat.format(
+			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sMailListSignupAddress),
+			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -3568,7 +3556,7 @@ public class FPortecle
 	 * (HttpURLConnection) latestVersionUrl.openConnection(); int iResponseCode = urlConn.getResponseCode();
 	 * if (iResponseCode != HttpURLConnection.HTTP_OK) { // Bad response code from server
 	 * JOptionPane.showMessageDialog( this, MessageFormat.format(
-	 * m_res.getString("FPortecle.Non200Response.message"), new Object[]{""+iResponseCode, latestVersionUrl}),
+	 * m_res.getString("FPortecle.Non200Response.message"), ""+iResponseCode, latestVersionUrl),
 	 * m_res.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE ); return; } // Attempt to read
 	 * serialized Version into an object ois = new ObjectInputStream(urlConn.getInputStream()); Version
 	 * latestVersion = (Version) ois.readObject(); // Construct current version into a Version object for
@@ -3578,8 +3566,8 @@ public class FPortecle
 	 * MessageFormat.format( m_res.getString("FPortecle.HaveLatestVersion.message"), new
 	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else {
 	 * int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
-	 * "FPortecle.NewerVersionAvailable.message"), new Object[]{latestVersion, m_res.getString(
-	 * "FPortecle.DownloadsAddress")}), m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION); if
+	 * "FPortecle.NewerVersionAvailable.message"), latestVersion, m_res.getString(
+	 * "FPortecle.DownloadsAddress")), m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION); if
 	 * (iSelected == JOptionPane.YES_OPTION) { visitDownloads(); } } } // Display errors to user catch
 	 * (VersionException ex) { displayException(ex); } catch (ClassNotFoundException ex) {
 	 * displayException(ex); } catch (IOException ex) { displayException(ex); } finally { // Clean-up if
@@ -3595,7 +3583,7 @@ public class FPortecle
 	 * m_res.getString("FPortecle.DownloadsAddress"); try { BrowserLauncher.openURL(sDownloadsAddress); }
 	 * catch (IOException ex) { // Could not launch web browser - tell the user the address
 	 * JOptionPane.showMessageDialog( this, MessageFormat.format(
-	 * m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[]{sDownloadsAddress}),
+	 * m_res.getString("FPortecle.NoLaunchBrowser.message"), sDownloadsAddress),
 	 * m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } }
 	 */
 
@@ -3613,7 +3601,7 @@ public class FPortecle
 		{
 			// Could not launch web browser - tell the user the address
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), new String[] { sDonateAddress }),
+			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sDonateAddress),
 			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
@@ -3832,7 +3820,7 @@ public class FPortecle
 							String sTitle =
 							    MessageFormat.format(
 							        m_res.getString("FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"),
-							        new String[] { sAlias });
+							        sAlias);
 							DGetPassword dGetPassword = new DGetPassword(this, sTitle, true);
 							dGetPassword.setLocationRelativeTo(this);
 							SwingHelper.showAndWait(dGetPassword);
@@ -3857,8 +3845,8 @@ public class FPortecle
 						{
 							bWarnPkcs12Password = true;
 							JOptionPane.showMessageDialog(this, MessageFormat.format(
-							    m_res.getString("FPortecle.ChangeFromPkcs12Password.message"),
-							    new String[] { new String(PKCS12_DUMMY_PASSWORD) }),
+							    m_res.getString("FPortecle.ChangeFromPkcs12Password.message"), new String(
+							        PKCS12_DUMMY_PASSWORD)),
 							    m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
 							    JOptionPane.INFORMATION_MESSAGE);
 						}
@@ -4215,8 +4203,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4294,8 +4281,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4378,8 +4364,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4462,8 +4447,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4556,8 +4540,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4650,8 +4633,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4713,8 +4695,7 @@ public class FPortecle
 		catch (KeyStoreException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoAccessEntry.message"),
-			        new String[] { sEntryAlias });
+			    MessageFormat.format(m_res.getString("FPortecle.NoAccessEntry.message"), sEntryAlias);
 			throw new CryptoException(sMessage, ex);
 		}
 	}
@@ -4800,8 +4781,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4927,8 +4907,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"),
-			        new String[] { fExportFile.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -5184,7 +5163,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoWriteFile.message"), new Object[] { fCsrFile }),
+			    m_res.getString("FPortecle.NoWriteFile.message"), fCsrFile),
 			    m_res.getString("FPortecle.GenerateCsr.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -5294,7 +5273,7 @@ public class FPortecle
 			if (sNewAlias.equalsIgnoreCase(sAlias))
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.CloneAliasIdentical.message"), new String[] { sAlias }),
+				    m_res.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
 				    m_res.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -5306,8 +5285,7 @@ public class FPortecle
 			if (keyStore.containsAlias(sNewAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"),
-				        new String[] { sNewAlias });
+				    MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -5423,7 +5401,7 @@ public class FPortecle
 			if (sNewAlias.equalsIgnoreCase(sAlias))
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.CloneAliasIdentical.message"), new String[] { sAlias }),
+				    m_res.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
 				    m_res.getString("FPortecle.CloneCertificate.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -5432,8 +5410,7 @@ public class FPortecle
 			if (keyStore.containsAlias(sNewAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"),
-				        new String[] { sNewAlias });
+				    MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -5541,8 +5518,7 @@ public class FPortecle
 			// Supply the certificates to the view certificate dialog
 			DViewCertificate dViewCertificate =
 			    new DViewCertificate(this, MessageFormat.format(
-			        m_res.getString("FPortecle.CertDetailsEntry.Title"), new String[] { sAlias }), true,
-			        certs);
+			        m_res.getString("FPortecle.CertDetailsEntry.Title"), sAlias), true, certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 			return true;
@@ -5645,7 +5621,7 @@ public class FPortecle
 			if (sNewAlias.equalsIgnoreCase(sAlias))
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.RenameAliasIdentical.message"), new String[] { sAlias }),
+				    m_res.getString("FPortecle.RenameAliasIdentical.message"), sAlias),
 				    m_res.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -5654,8 +5630,7 @@ public class FPortecle
 			if (keyStore.containsAlias(sNewAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"),
-				        new String[] { sNewAlias });
+				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), sNewAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -5859,8 +5834,7 @@ public class FPortecle
 			// and app name
 			if (fKeyStore == null)
 			{
-				setTitle(MessageFormat.format("[{0}] - {1}", new Object[] {
-				    m_res.getString("FPortecle.Untitled"), sAppName }));
+				setTitle(MessageFormat.format("[{0}] - {1}", m_res.getString("FPortecle.Untitled"), sAppName));
 			}
 			else
 			{
@@ -5868,13 +5842,13 @@ public class FPortecle
 				// "modified" indicator, and app name
 				if (m_keyStoreWrap.isChanged())
 				{
-					setTitle(MessageFormat.format("{0}{1} - {2}", new Object[] { fKeyStore,
-					    m_res.getString("FPortecle.Modified"), sAppName }));
+					setTitle(MessageFormat.format("{0}{1} - {2}", fKeyStore,
+					    m_res.getString("FPortecle.Modified"), sAppName));
 				}
 				// Saved keystore loaded - display keystore file path and app name
 				else
 				{
-					setTitle(MessageFormat.format("{0} - {1}", new Object[] { fKeyStore, sAppName }));
+					setTitle(MessageFormat.format("{0} - {1}", fKeyStore, sAppName));
 				}
 			}
 		}
@@ -5932,13 +5906,13 @@ public class FPortecle
 
 			if (iSize == 1)
 			{
-				setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entry.statusbar"),
-				    new String[] { sType, sProv }));
+				setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entry.statusbar"), sType,
+				    sProv));
 			}
 			else
 			{
-				setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entries.statusbar"),
-				    new String[] { sType, sProv, "" + iSize }));
+				setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entries.statusbar"), sType,
+				    sProv, iSize));
 			}
 		}
 	}
@@ -6055,8 +6029,7 @@ public class FPortecle
 		{
 			// Could not parse JRE version
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"),
-			        new String[] { sJreVersion });
+			    MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
 			System.err.println(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
@@ -6074,8 +6047,7 @@ public class FPortecle
 		{
 			// Could not parse JRE version
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"),
-			        new String[] { sJreVersion });
+			    MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
 			System.err.println(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
@@ -6087,8 +6059,8 @@ public class FPortecle
 		{
 			// It isn't - warn the user and exit
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.MinJreVersionReq.message"), new Object[] {
-			        actualJreVersion, reqJreVersion });
+			    MessageFormat.format(m_res.getString("FPortecle.MinJreVersionReq.message"), actualJreVersion,
+			        reqJreVersion);
 			System.err.println(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
@@ -6276,8 +6248,7 @@ public class FPortecle
 		if (file.isFile())
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"),
-			        new String[] { file.getName() });
+			    MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), file.getName());
 			int iSelected = JOptionPane.showConfirmDialog(this, sMessage, title, JOptionPane.YES_NO_OPTION);
 			return iSelected == JOptionPane.YES_OPTION;
 		}
@@ -6812,10 +6783,9 @@ public class FPortecle
 			Double bcVer = new Double(bcProv.getVersion());
 			if (REQ_BC_VERSION.compareTo(bcVer) > 0)
 			{
-				JOptionPane.showMessageDialog(new JFrame(),
-				    MessageFormat.format(m_res.getString("FPortecle.NoBcVersion.message"), new Object[] {
-				        REQ_BC_VERSION, bcVer }), m_res.getString("FPortecle.Title"),
-				    JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(new JFrame(), MessageFormat.format(
+				    m_res.getString("FPortecle.NoBcVersion.message"), REQ_BC_VERSION, bcVer),
+				    m_res.getString("FPortecle.Title"), JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		catch (Throwable thw)

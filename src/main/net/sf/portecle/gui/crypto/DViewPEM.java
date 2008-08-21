@@ -238,7 +238,7 @@ public class DViewPEM
 			{
 				String sMessage =
 				    MessageFormat.format(m_res.getString("DViewPEM.OverWriteFile.message"),
-				        new String[] { fExportFile.getName() });
+				        fExportFile.getName());
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.NO_OPTION)
@@ -255,7 +255,7 @@ public class DViewPEM
 			{
 				String sMessage =
 				    MessageFormat.format(m_res.getString("DViewPEM.NoWriteFile.message"),
-				        new String[] { fExportFile.getName() });
+				        fExportFile.getName());
 				JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			}
 			catch (IOException e)

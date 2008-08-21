@@ -125,9 +125,9 @@ public class DSystemInformation
 
 		JTextField jtfOperatingSystem =
 		    new JTextField(MessageFormat.format(
-		        m_res.getString("DSystemInformation.jtfOperatingSystem.text"), new Object[] {
-		            sysProps.getProperty("os.name", ""), sysProps.getProperty("os.version", ""),
-		            sysProps.getProperty("os.arch", "") }), VALUE_WIDTH);
+		        m_res.getString("DSystemInformation.jtfOperatingSystem.text"), sysProps.getProperty(
+		            "os.name", ""), sysProps.getProperty("os.version", ""), sysProps.getProperty("os.arch",
+		            "")), VALUE_WIDTH);
 		jtfOperatingSystem.setEditable(false);
 		jtfOperatingSystem.setCaretPosition(0);
 
@@ -176,8 +176,8 @@ public class DSystemInformation
 
 		JTextField jtfJavaVendor =
 		    new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.jtfJavaVendor.text"),
-		        new String[] { sysProps.getProperty("java.vendor", ""),
-		            sysProps.getProperty("java.vendor.url", "") }), VALUE_WIDTH);
+		        sysProps.getProperty("java.vendor", ""), sysProps.getProperty("java.vendor.url", "")),
+		        VALUE_WIDTH);
 		jtfJavaVendor.setEditable(false);
 		jtfJavaVendor.setCaretPosition(0);
 
@@ -210,8 +210,8 @@ public class DSystemInformation
 
 		JTextField jtfJvmMaximumMemory =
 		    new JTextField(MessageFormat.format(
-		        m_res.getString("DSystemInformation.jtfJvmMaximumMemory.text"), new Object[] { new Long(
-		            Math.round((double) runtime.maxMemory() / 1024)) }), VALUE_WIDTH);
+		        m_res.getString("DSystemInformation.jtfJvmMaximumMemory.text"), new Long(
+		            Math.round((double) runtime.maxMemory() / 1024))), VALUE_WIDTH);
 		jtfJvmMaximumMemory.setEditable(false);
 		jtfJvmMaximumMemory.setCaretPosition(0);
 
@@ -229,7 +229,7 @@ public class DSystemInformation
 
 		JTextField jtfJvmTotalMemory =
 		    new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.jtfJvmTotalMemory.text"),
-		        new Object[] { new Long(Math.round((double) runtime.totalMemory() / 1024)) }), VALUE_WIDTH);
+		        new Long(Math.round((double) runtime.totalMemory() / 1024))), VALUE_WIDTH);
 		jtfJvmTotalMemory.setEditable(false);
 		jtfJvmTotalMemory.setCaretPosition(0);
 
@@ -247,7 +247,7 @@ public class DSystemInformation
 
 		JTextField jtfJvmFreeMemory =
 		    new JTextField(MessageFormat.format(m_res.getString("DSystemInformation.jtfJvmFreeMemory.text"),
-		        new Object[] { new Long(Math.round((double) runtime.freeMemory() / 1024)) }), VALUE_WIDTH);
+		        new Long(Math.round((double) runtime.freeMemory() / 1024))), VALUE_WIDTH);
 		jtfJvmFreeMemory.setEditable(false);
 		jtfJvmFreeMemory.setCaretPosition(0);
 
