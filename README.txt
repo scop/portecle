@@ -25,10 +25,10 @@ Currently, Portecle can be used to, for example:
 
 Getting up and running with Portecle is quick and easy.  Everything
 you need to know is detailed below.  Being written in Java, Portecle
-will run on any machine that has a suitable JVM installed.  Note that
-a prerequisite is that you must have JRE/JDK version 1.4.0 or later on
-your machine.  The latest version of the JRE/JDK is available for free
-from http://java.sun.com/.
+will run on any machine that has a suitable Java runtime environment
+installed.  Note that a prerequisite is that you must have Java SE 5.0
+or later on your machine.  The latest version of the Java SE is
+available from http://java.sun.com/.
 
 You can access the online help of Portecle from within the Portecle
 GUI, or on the Internet at http://portecle.sourceforge.net/#docs
@@ -37,13 +37,13 @@ GUI, or on the Internet at http://portecle.sourceforge.net/#docs
 ------------
 
 The default binary distribution of Portecle contains everything you'll
-need to run Portecle with Java 1.4.x (except the JRE, see above).  The
-easiest way to install it is to unzip the Portecle binary distribution
-to a directory somewhere on your filesystem.
+need to run Portecle with Java SE 5.0 or later (except Java SE itself,
+see above).  The easiest way to install it is to unzip the Portecle
+binary distribution to a directory somewhere on your filesystem.
 
 The binary distribution contains the Portecle jar file (portecle.jar)
-as well as Bouncy Castle provider jar (bcprov.jar) for Java 1.4.x.  If
-you wish to run Portecle with Java 1.5.x or later, or update the
+as well as Bouncy Castle provider jar (bcprov.jar) for Java SE 5.0.
+If you wish to run Portecle with a later Java version, or update the
 bundled Bouncy Castle provider for some other reason, simply download
 an update for your version of Java from http://www.bouncycastle.org/
 and place it into the same directory as portecle.jar with the name

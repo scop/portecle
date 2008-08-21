@@ -146,7 +146,7 @@ public class FPortecle
 	private static boolean m_bSplashScreen;
 
 	/** Minimum required JRE version */
-	private static final String REQ_JRE_VERSION = "1.4.0";
+	private static final String REQ_JRE_VERSION = "1.5.0";
 
 	/** Minimum required BC version */
 	private static final Double REQ_BC_VERSION = new Double(1.38);
@@ -6034,7 +6034,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Check that a JRE with at least version 1.4.0 is being used.
+	 * Check that a recent enough JRE is being used.
 	 * 
 	 * @return True if this is the case, false otherwise
 	 */
@@ -6082,7 +6082,7 @@ public class FPortecle
 			return false;
 		}
 
-		// JRE version < 1.4.0
+		// Recent enough JRE?
 		if (actualJreVersion.compareTo(reqJreVersion) < 0)
 		{
 			// It isn't - warn the user and exit
@@ -6094,7 +6094,7 @@ public class FPortecle
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		// else JRE version => 1.4.0
+		// else OK.
 		return true;
 	}
 

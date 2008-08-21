@@ -13,6 +13,7 @@ Bug fixes:
   certain security provider configurations.
 
 Miscellaneous:
+- Java SE 5.0 or later is now required.
 - Bundled Bouncy Castle provider jar upgraded to 1.40.
 
 New in Portecle 1.3 (2007-12-16):
