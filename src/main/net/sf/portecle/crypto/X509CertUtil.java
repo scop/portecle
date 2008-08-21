@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -47,7 +47,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
@@ -102,56 +101,63 @@ public final class X509CertUtil
         String encoding)
         throws CryptoException
     {
-        ArrayList vCerts = new ArrayList();
-
+        Collection certs;
         FileInputStream fis = null;
 
         try {
-            CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
             fis = new FileInputStream(fCertFile);
-            Collection coll = null;
 
             if (OPENSSL_PEM_ENCODING.equals(encoding)) {
+
                 // Special case; this is not a real JCE supported encoding.
-                PEMReader pr = new PEMReader(new InputStreamReader(fis), null,
-                    cf.getProvider().getName());
+            	// Note: let PEMReader use its default provider (BC as of BC
+            	// 1.40) internally; for example the default "SUN" provider
+            	// may not contain an RSA implementation
+                PEMReader pr = new PEMReader(new InputStreamReader(fis));
+
                 /* These beasts can contain just about anything, and
-                 unfortunately the PEMReader API (as of BC 1.25 to 1.31)
+                 unfortunately the PEMReader API (as of BC 1.25 to 1.40)
                  won't allow us to really skip things we're not interested
                  in; stuff happens already in readObject().  This may cause
                  some weird exception messages for non-certificate objects in
                  the "stream", for example passphrase related ones for
                  protected private keys.  Well, I guess this is better than
                  nothing anyway... :( */
+
+                certs = new ArrayList();
                 Object cert;
+
+                /* Would be nice if there was a way to just skip objects whose
+                   decoding fails (see e.g. above for passphrase stuff), but
+                   as of BC 1.40, readObject() throws everything as
+                   IOException - we don't know if the problem was decoding (in
+                   which case we'd continue with the next object) or during
+                   "normal" stream read (in which case we'd abort) :/ */
                 while ((cert = pr.readObject()) != null) {
                     if (cert instanceof X509Certificate) {
-                        // "Short-circuit" into vCerts, not using coll.
-                        vCerts.add(cert);
+                        certs.add(cert);
                     }
                     // Skip other stuff, at least for now.
                 }
                 pr.close();
             }
-            else if (encoding != null) {
-                // Try it as a certification path of the specified type
-                coll = cf.generateCertPath(fis, encoding).getCertificates();
-            }
             else {
-                // "Normal" certificate(s)
-                coll = cf.generateCertificates(fis);
-            }
+                CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
 
-            if (coll != null) {
-                for (Iterator iter = coll.iterator(); iter.hasNext();) {
-                    X509Certificate cert = (X509Certificate) iter.next();
-                    if (cert != null) {
-                        vCerts.add(cert);
-                    }
+                if (encoding != null) {
+                    // Try it as a certification path of the specified type
+                    certs = cf.generateCertPath(fis, encoding).getCertificates();
                 }
+                else {
+                    // "Normal" certificate(s)
+                    certs = cf.generateCertificates(fis);
+                }
+
+                /* Note that we rely on cf.generateCert*() above to never return
+                   null nor a collection containing nulls */
             }
         }
-        // Some RuntimeExceptions which really ought to be
+        // Some RuntimeExceptions which really should be
         // CertificateExceptions may be thrown from cf.generateCert* above,
         // for example Sun's PKCS #7 parser tends to throw them... :P
         catch (Exception ex) {
@@ -170,7 +176,7 @@ public final class X509CertUtil
             }
         }
 
-        return (X509Certificate[]) vCerts.toArray(new X509Certificate[vCerts.size()]);
+        return (X509Certificate[]) certs.toArray(new X509Certificate[certs.size()]);
     }
 
     /**

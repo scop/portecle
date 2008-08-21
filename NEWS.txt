@@ -8,6 +8,10 @@ New features:
 Enhancements:
 - Support online help not bundled in jar (set helpbaseurl at build time).
 
+Bug fixes:
+- Fix problem with examining certificates from OpenSSL PEM bundles in
+  certain security provider configurations.
+
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to 1.40.
 
