@@ -132,7 +132,7 @@ public class FileChooserFactory
 
 		if (ksType == null)
 		{
-			ArrayList exts = new ArrayList();
+			ArrayList<String> exts = new ArrayList<String>();
 			exts.add(KEYSTORE_EXT);
 			if (KeyStoreUtil.isAvailable(KeyStoreType.JKS))
 			{
@@ -150,7 +150,7 @@ public class FileChooserFactory
 			{
 				exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
 			}
-			extensions = (String[]) exts.toArray(new String[exts.size()]);
+			extensions = exts.toArray(new String[exts.size()]);
 			String info = toWildcards(extensions) + FILELIST_SEPARATOR + CACERTS_FILENAME;
 			desc = MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles"), info);
 			addCaCerts = true;
@@ -174,6 +174,7 @@ public class FileChooserFactory
 		{
 			extFilter = new FileExtFilter(extensions, desc)
 			{
+				@Override
 				public boolean accept(File file)
 				{
 					return super.accept(file) || file.getName().equalsIgnoreCase(CACERTS_FILENAME);
