@@ -68,10 +68,6 @@ public final class KeyPairUtil
 	{
 		try
 		{
-			// We could request BC here in order to gain support for generating
-			// > 2048 bit RSA keys also on Java 1.4. But unless there's a way
-			// to eg. read JKS keystores containing such keys on Java 1.4,
-			// that would just help the user shoot herself in the foot...
 			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(keyPairType.toString());
 
 			// Create a SecureRandom
