@@ -1,4 +1,4 @@
-#Thu Aug 21 22:16:22 EEST 2008
+#Thu Aug 21 22:27:16 EEST 2008
 eclipse.preferences.version=1
 org.eclipse.jdt.core.codeComplete.argumentPrefixes=
 org.eclipse.jdt.core.codeComplete.argumentSuffixes=
@@ -30,7 +30,7 @@ org.eclipse.jdt.core.compiler.problem.finallyBlockNotCompletingNormally=warning
 org.eclipse.jdt.core.compiler.problem.forbiddenReference=error
 org.eclipse.jdt.core.compiler.problem.hiddenCatchBlock=warning
 org.eclipse.jdt.core.compiler.problem.incompatibleNonInheritedInterfaceMethod=warning
-org.eclipse.jdt.core.compiler.problem.incompleteEnumSwitch=ignore
+org.eclipse.jdt.core.compiler.problem.incompleteEnumSwitch=warning
 org.eclipse.jdt.core.compiler.problem.indirectStaticAccess=ignore
 org.eclipse.jdt.core.compiler.problem.localVariableHiding=warning
 org.eclipse.jdt.core.compiler.problem.methodWithConstructorName=warning
