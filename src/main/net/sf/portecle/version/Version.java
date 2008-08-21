@@ -102,7 +102,7 @@ public class Version
 	 */
 	private int[] getSections()
 	{
-		return (int[]) iSections.clone();
+		return iSections.clone();
 	}
 
 	/**

@@ -321,7 +321,7 @@ public final class X509CertUtil
 	public static X509Certificate[] orderX509CertChain(X509Certificate[] certs)
 	{
 		int iOrdered = 0;
-		X509Certificate[] tmpCerts = (X509Certificate[]) certs.clone();
+		X509Certificate[] tmpCerts = certs.clone();
 		X509Certificate[] orderedCerts = new X509Certificate[certs.length];
 
 		X509Certificate issuerCert = null;
