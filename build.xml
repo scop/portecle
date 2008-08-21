@@ -31,6 +31,7 @@
   <property name="build.debug" value="true" />
   <property name="build.debuglevel" value="lines,source" />
   <property name="build.srcver" value="1.5" />
+  <property name="build.targetver" value="1.5" />
 
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
@@ -42,6 +43,7 @@
       srcdir="${src}/main"
       destdir="${build}/classes"
       source="${build.srcver}"
+      target="${build.targetver}"
       debug="${build.debug}"
       debuglevel="${build.debuglevel}"
       encoding="UTF-8">
@@ -195,7 +197,9 @@
     description="Runs static checks" />
 
   <target name="clean">
-    <delete dir="${build}" />
+    <delete dir="${build}/api" />
+    <delete dir="${build}/classes" />
+    <delete file="${build}/${jar}" />
   </target>
 
   <target name="distclean" depends="clean">
