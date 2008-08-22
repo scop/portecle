@@ -22,7 +22,7 @@
 package net.sf.portecle.gui.help;
 
 import java.net.URL;
-import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.Vector;
 
 /**
@@ -31,7 +31,7 @@ import java.util.Vector;
 public class History
 {
 	/** Visited pages */
-	private Vector m_vHistory;
+	private Vector<URL> m_vHistory = new Vector<URL>();
 
 	/** Current navigation location */
 	private int m_iCurrent;
@@ -43,7 +43,7 @@ public class History
 	private boolean m_bBack;
 
 	/** History listeners */
-	private Vector listeners;
+	private LinkedList<HistoryEventListener> listeners;
 
 	/**
 	 * Constructs a new History specifying the first URL.
@@ -52,8 +52,7 @@ public class History
 	 */
 	public History(URL start)
 	{
-		m_vHistory = new Vector();
-		m_vHistory.addElement(start);
+		m_vHistory.add(start);
 		m_iCurrent = 0;
 		m_bForward = false;
 		m_bBack = false;
@@ -64,10 +63,10 @@ public class History
 	 */
 	public void clear()
 	{
-		Object start = m_vHistory.elementAt(0);
+		URL start = m_vHistory.get(0);
 
-		m_vHistory = new Vector();
-		m_vHistory.addElement(start);
+		m_vHistory.clear();
+		m_vHistory.add(start);
 		m_iCurrent = 0;
 		m_bForward = false;
 		m_bBack = false;
@@ -91,42 +90,28 @@ public class History
 		// At end of history...
 		if (!m_bForward)
 		{
-			m_vHistory.addElement(newPage);
+			m_vHistory.add(newPage);
 			m_iCurrent++;
 		}
 		// Not at end of history...
 		else
 		{
-			// Lop off history after the current page
+			// Loop off history after the current page
 			int iRemove = m_vHistory.size() - (m_iCurrent + 1);
 
 			for (int iCnt = 0; iCnt < iRemove; iCnt++)
 			{
-				m_vHistory.removeElementAt(m_vHistory.size() - 1);
+				m_vHistory.remove(m_vHistory.size() - 1);
 			}
 
 			// Add new page to end of history
-			m_vHistory.addElement(newPage);
+			m_vHistory.add(newPage);
 			m_iCurrent++;
 		}
 
-		if (m_iCurrent == 0)
-		{
-			m_bBack = false;
-		}
-		else
-		{
-			m_bBack = true;
-		}
+		m_bBack = (m_iCurrent != 0);
 
-		if (m_iCurrent + 1 == m_vHistory.size())
-		{
-			m_bForward = false;
-		}
-		else
-		{
-			m_bForward = true;
-		}
+		m_bForward = (m_iCurrent + 1 != m_vHistory.size());
 
 		fireHistoryEvent();
 	}
@@ -144,7 +129,7 @@ public class History
 			return null;
 		}
 
-		URL page = (URL) m_vHistory.elementAt(--m_iCurrent);
+		URL page = m_vHistory.get(--m_iCurrent);
 
 		if (m_iCurrent == 0)
 		{
@@ -173,7 +158,7 @@ public class History
 			return null;
 		}
 
-		URL page = (URL) m_vHistory.elementAt(++m_iCurrent);
+		URL page = m_vHistory.get(++m_iCurrent);
 
 		if (m_iCurrent == m_vHistory.size() - 1)
 		{
@@ -199,10 +184,10 @@ public class History
 	{
 		if (listeners == null)
 		{
-			listeners = new Vector();
+			listeners = new LinkedList<HistoryEventListener>();
 		}
 
-		listeners.addElement(listener);
+		listeners.add(listener);
 	}
 
 	/**
@@ -214,11 +199,11 @@ public class History
 	{
 		if (listeners == null)
 		{
-			listeners = new Vector();
+			listeners = new LinkedList<HistoryEventListener>();
 		}
 		else
 		{
-			listeners.removeElement(listener);
+			listeners.remove(listener);
 		}
 	}
 
@@ -230,11 +215,9 @@ public class History
 		if (listeners != null && !listeners.isEmpty())
 		{
 			HistoryEvent evt = new HistoryEvent(this, m_bBack, m_bForward);
-			Vector listenersCopy = (Vector) listeners.clone();
-			Enumeration en = listenersCopy.elements();
-			while (en.hasMoreElements())
+			for (HistoryEventListener listener : listeners)
 			{
-				((HistoryEventListener) en.nextElement()).historyStatusChanged(evt);
+				listener.historyStatusChanged(evt);
 			}
 		}
 	}

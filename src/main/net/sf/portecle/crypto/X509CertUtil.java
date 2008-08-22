@@ -53,6 +53,7 @@ import java.util.Vector;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.X509Principal;
@@ -504,8 +505,8 @@ public final class X509CertUtil
 	    throws CryptoException
 	{
 		// Holds certificate attributes
-		Hashtable attrs = new Hashtable();
-		Vector vOrder = new Vector();
+		Hashtable<DERObjectIdentifier, String> attrs = new Hashtable<DERObjectIdentifier, String>();
+		Vector<DERObjectIdentifier> vOrder = new Vector<DERObjectIdentifier>();
 
 		// Load certificate attributes
 		if (sCommonName != null)
