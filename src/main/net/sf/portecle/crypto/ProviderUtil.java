@@ -43,10 +43,10 @@ public final class ProviderUtil
 	 * 
 	 * @return the (possibly empty) collection of available PKCS #11 <code>Provider</code>s
 	 */
-	public static Collection getPkcs11Providers()
+	public static Collection<Provider> getPkcs11Providers()
 	{
 		Provider[] provs = Security.getProviders();
-		ArrayList p11s = new ArrayList();
+		ArrayList<Provider> p11s = new ArrayList<Provider>();
 		for (int i = 0, len = provs.length; i < len; i++)
 		{
 			String pName = provs[i].getName();

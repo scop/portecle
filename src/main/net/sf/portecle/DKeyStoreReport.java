@@ -233,6 +233,7 @@ class DKeyStoreReport
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();
@@ -353,7 +354,7 @@ class DKeyStoreReport
 		try
 		{
 			// Buffer to hold report
-			StringBuffer sbReport = new StringBuffer(2000);
+			StringBuilder sbReport = new StringBuilder(2000);
 
 			// General keystore information...
 
@@ -372,13 +373,13 @@ class DKeyStoreReport
 			    m_keystore.size()));
 			sbReport.append("\n\n");
 
-			Enumeration aliases = m_keystore.aliases();
+			Enumeration<String> aliases = m_keystore.aliases();
 
 			// Get information on each keystore entry
 			while (aliases.hasMoreElements())
 			{
 				// Alias
-				String sAlias = (String) aliases.nextElement();
+				String sAlias = aliases.nextElement();
 				sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.alias"), sAlias));
 				sbReport.append("\n");
 
@@ -565,12 +566,12 @@ class DKeyStoreReport
 			keystoreElement.setAttribute("provider", sProvider);
 			xmlDoc.appendChild(keystoreElement);
 
-			Enumeration aliases = m_keystore.aliases();
+			Enumeration<String> aliases = m_keystore.aliases();
 
 			// Get information on each keystore entry
 			while (aliases.hasMoreElements())
 			{
-				String sAlias = (String) aliases.nextElement();
+				String sAlias = aliases.nextElement();
 
 				String sCreation = null;
 				if (ksType.supportsCreationDate())
@@ -737,13 +738,13 @@ class DKeyStoreReport
 			        m_res.getString("DKeyStoreReport.TopNodeName"), ksType, sProvider));
 
 			// One sub-node per entry
-			Enumeration aliases = m_keystore.aliases();
+			Enumeration<String> aliases = m_keystore.aliases();
 
 			// Get information on each keystore entry
 			while (aliases.hasMoreElements())
 			{
 				// Entry alias
-				String sAlias = (String) aliases.nextElement();
+				String sAlias = aliases.nextElement();
 
 				Certificate[] certChain = null;
 				DefaultMutableTreeNode entryNode = null;

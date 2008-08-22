@@ -47,7 +47,8 @@ public final class KeyStoreUtil
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
 	/** Map of available keystore types */
-	private static final HashMap AVAILABLE_TYPES = new HashMap();
+	private static final HashMap<KeyStoreType, Boolean> AVAILABLE_TYPES =
+	    new HashMap<KeyStoreType, Boolean>();
 
 	/**
 	 * Private to prevent construction.
@@ -130,9 +131,9 @@ public final class KeyStoreUtil
 	public static boolean isAvailable(KeyStoreType keyStoreType)
 	{
 		Boolean available;
-		if ((available = (Boolean) AVAILABLE_TYPES.get(keyStoreType)) != null)
+		if ((available = AVAILABLE_TYPES.get(keyStoreType)) != null)
 		{
-			return available.booleanValue();
+			return available;
 		}
 		try
 		{
@@ -143,7 +144,7 @@ public final class KeyStoreUtil
 		{
 			// Ignore
 		}
-		return ((Boolean) AVAILABLE_TYPES.get(keyStoreType)).booleanValue();
+		return AVAILABLE_TYPES.get(keyStoreType);
 	}
 
 	/**
@@ -154,7 +155,7 @@ public final class KeyStoreUtil
 	public static KeyStoreType[] getAvailableTypes()
 	{
 		KeyStoreType[] known = KeyStoreType.getKnownTypes();
-		ArrayList available = new ArrayList();
+		ArrayList<KeyStoreType> available = new ArrayList<KeyStoreType>();
 		for (int i = 0, len = known.length; i < len; i++)
 		{
 			if (isAvailable(known[i]))
@@ -162,7 +163,7 @@ public final class KeyStoreUtil
 				available.add(known[i]);
 			}
 		}
-		return (KeyStoreType[]) available.toArray(new KeyStoreType[available.size()]);
+		return available.toArray(new KeyStoreType[available.size()]);
 	}
 
 	/**

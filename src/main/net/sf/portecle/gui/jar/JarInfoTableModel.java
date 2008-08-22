@@ -193,6 +193,7 @@ class JarInfoTableModel
 	 * @param iCol The column position
 	 * @return The column name
 	 */
+	@Override
 	public String getColumnName(int iCol)
 	{
 		return m_columnNames[iCol];
@@ -216,7 +217,8 @@ class JarInfoTableModel
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */
-	public Class getColumnClass(int iCol)
+	@Override
+	public Class<?> getColumnClass(int iCol)
 	{
 		return getValueAt(0, iCol).getClass();
 	}
@@ -228,6 +230,7 @@ class JarInfoTableModel
 	 * @param iCol The column position
 	 * @return True if the cell is editable, false otherwise
 	 */
+	@Override
 	public boolean isCellEditable(int iRow, int iCol)
 	{
 		// The table is always read-only

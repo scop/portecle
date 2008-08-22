@@ -31,7 +31,6 @@ import java.awt.event.WindowEvent;
 import java.security.Provider;
 import java.security.Security;
 import java.text.MessageFormat;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 
@@ -120,15 +119,15 @@ public class DChoosePkcs11Provider
 		m_jcbProvider = new JComboBox();
 		m_jcbProvider.setToolTipText(m_res.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 
-		TreeSet pSet = new TreeSet(ProviderUtil.getPkcs11Providers());
+		TreeSet<Provider> pSet = new TreeSet<Provider>(ProviderUtil.getPkcs11Providers());
 
 		boolean providersAvailable = !pSet.isEmpty();
 
 		if (providersAvailable)
 		{
-			for (Iterator i = pSet.iterator(); i.hasNext();)
+			for (Provider prov : pSet)
 			{
-				String pName = ((Provider) i.next()).getName();
+				String pName = prov.getName();
 				m_jcbProvider.addItem(pName);
 				if (pName.equals(sOldProvider))
 				{
@@ -190,6 +189,7 @@ public class DChoosePkcs11Provider
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();

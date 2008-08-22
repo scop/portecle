@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
  * Sun.
  */
 public class JavaVersion
-    implements Comparable
+    implements Comparable<JavaVersion>
 {
 	/** Java version string */
 	private String m_sJavaVersion;
@@ -261,16 +261,14 @@ public class JavaVersion
 	/**
 	 * Compare this JavaVersion object with another object.
 	 * 
-	 * @param object Object to compare JavaVersion with
+	 * @param cmpJavaVersion Object to compare JavaVersion with
 	 * @return 0 if the equal, -1 if less, 1 if more
 	 * @throws ClassCastException if the specified object's type prevents it from being compared to this
 	 *             Object
 	 */
-	public int compareTo(Object object)
+	public int compareTo(JavaVersion cmpJavaVersion)
 	{
-		JavaVersion cmpJavaVersion = (JavaVersion) object;
-
-		// Comapre major number
+		// Compare major number
 		if (m_iMajor > cmpJavaVersion.getMajor())
 		{
 			return 1;
@@ -333,6 +331,7 @@ public class JavaVersion
 	 * @param object Object to compare Version with
 	 * @return true if the equal, false otherwise
 	 */
+	@Override
 	public boolean equals(Object object)
 	{
 		if (object == this)
@@ -345,7 +344,7 @@ public class JavaVersion
 			return false;
 		}
 
-		return compareTo(object) == 0;
+		return compareTo((JavaVersion) object) == 0;
 	}
 
 	/**
@@ -353,6 +352,7 @@ public class JavaVersion
 	 * 
 	 * @return The hash code
 	 */
+	@Override
 	public int hashCode()
 	{
 		// Initialise hash total to non-zero value
@@ -375,6 +375,7 @@ public class JavaVersion
 	 * 
 	 * @return A string representation of the Java version
 	 */
+	@Override
 	public String toString()
 	{
 		return m_sJavaVersion;

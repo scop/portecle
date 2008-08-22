@@ -237,6 +237,7 @@ class DImportKeyPair
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();
@@ -282,13 +283,13 @@ class DImportKeyPair
 	{
 		try
 		{
-			Vector vKeyPairAliases = new Vector();
+			Vector<String> vKeyPairAliases = new Vector<String>();
 
 			// For each entry in the keystore...
-			for (Enumeration aliases = m_pkcs12.aliases(); aliases.hasMoreElements();)
+			for (Enumeration<String> aliases = m_pkcs12.aliases(); aliases.hasMoreElements();)
 			{
 				// Get alias...
-				String sAlias = (String) aliases.nextElement();
+				String sAlias = aliases.nextElement();
 
 				// Add the alias to the list if the entry has a key
 				// and certificates

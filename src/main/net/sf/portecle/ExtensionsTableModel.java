@@ -22,8 +22,6 @@
 package net.sf.portecle;
 
 import java.security.cert.X509Extension;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeMap;
@@ -68,18 +66,17 @@ class ExtensionsTableModel
 	public void load(X509Extension extensions)
 	{
 		// Get extension OIDs
-		Set critExts = extensions.getCriticalExtensionOIDs();
-		Set nonCritExts = extensions.getNonCriticalExtensionOIDs();
+		Set<String> critExts = extensions.getCriticalExtensionOIDs();
+		Set<String> nonCritExts = extensions.getNonCriticalExtensionOIDs();
 
 		// Rows will be sorted by extension name
-		TreeMap sortedExts = new TreeMap();
+		TreeMap<String, X509Ext> sortedExts = new TreeMap<String, X509Ext>();
 
 		// Add extensions to sorted map of extensions
 
 		// First the critical extensions...
-		for (Iterator itr = critExts.iterator(); itr.hasNext();)
+		for (String sExtOid : critExts)
 		{
-			String sExtOid = (String) itr.next();
 			byte[] bValue = extensions.getExtensionValue(sExtOid);
 
 			X509Ext ext = new X509Ext(sExtOid, bValue, true);
@@ -88,9 +85,8 @@ class ExtensionsTableModel
 		}
 
 		// ...then the critical extensions
-		for (Iterator itr = nonCritExts.iterator(); itr.hasNext();)
+		for (String sExtOid : nonCritExts)
 		{
-			String sExtOid = (String) itr.next();
 			byte[] bValue = extensions.getExtensionValue(sExtOid);
 
 			X509Ext ext = new X509Ext(sExtOid, bValue, false);
@@ -103,9 +99,8 @@ class ExtensionsTableModel
 
 		// Load rows in extension name order from tree map
 		int iCnt = 0;
-		for (Iterator itrSortedExts = sortedExts.entrySet().iterator(); itrSortedExts.hasNext();)
+		for (X509Ext ext : sortedExts.values())
 		{
-			X509Ext ext = (X509Ext) ((Map.Entry) itrSortedExts.next()).getValue();
 			loadRow(ext, iCnt);
 			iCnt++;
 		}
@@ -182,7 +177,7 @@ class ExtensionsTableModel
 	 * @return The column cells' class
 	 */
 	@Override
-	public Class getColumnClass(int iCol)
+	public Class<?> getColumnClass(int iCol)
 	{
 		return getValueAt(0, iCol).getClass();
 	}

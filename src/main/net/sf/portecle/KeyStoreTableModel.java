@@ -24,8 +24,6 @@ package net.sf.portecle;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -82,11 +80,10 @@ class KeyStoreTableModel
 	    throws KeyStoreException, CryptoException
 	{
 		// Place aliases in a tree map to sort them
-		TreeMap sortedAliases = new TreeMap();
-
-		for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
+		TreeMap<String, String> sortedAliases = new TreeMap<String, String>();
+		for (Enumeration<String> en = keyStore.aliases(); en.hasMoreElements();)
 		{
-			String sAlias = (String) en.nextElement();
+			String sAlias = en.nextElement();
 			sortedAliases.put(sAlias, sAlias);
 		}
 
@@ -98,10 +95,8 @@ class KeyStoreTableModel
 		// Iterate through the sorted aliases, retrieving the keystore
 		// entries and populating the table model
 		int iCnt = 0;
-		for (Iterator itr = sortedAliases.entrySet().iterator(); itr.hasNext(); iCnt++)
+		for (String sAlias : sortedAliases.keySet())
 		{
-			String sAlias = (String) ((Map.Entry) itr.next()).getKey();
-
 			// Populate the type column - it is set with an integer
 			// but a custom cell renderer will cause a suitable icon
 			// to be displayed
@@ -131,6 +126,8 @@ class KeyStoreTableModel
 			{
 				m_data[iCnt][2] = "";
 			}
+
+			iCnt++;
 		}
 
 		fireTableDataChanged();
@@ -162,6 +159,7 @@ class KeyStoreTableModel
 	 * @param iCol The column position
 	 * @return The column name
 	 */
+	@Override
 	public String getColumnName(int iCol)
 	{
 		return m_columnNames[iCol];
@@ -185,7 +183,8 @@ class KeyStoreTableModel
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */
-	public Class getColumnClass(int iCol)
+	@Override
+	public Class<?> getColumnClass(int iCol)
 	{
 		return getValueAt(0, iCol).getClass();
 	}
@@ -197,6 +196,7 @@ class KeyStoreTableModel
 	 * @param iCol The column position
 	 * @return True if the cell is editable, false otherwise
 	 */
+	@Override
 	public boolean isCellEditable(int iRow, int iCol)
 	{
 		// The table is always read-only

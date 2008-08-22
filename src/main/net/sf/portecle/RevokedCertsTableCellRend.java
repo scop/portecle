@@ -46,8 +46,9 @@ class RevokedCertsTableCellRend
 	 * @param iRow The row of the cell to render
 	 * @param iCol The column of the cell to render
 	 * @param bHasFocus If true, render cell appropriately
-	 * @return The renderered cell
+	 * @return The rendered cell
 	 */
+	@Override
 	public Component getTableCellRendererComponent(JTable jtRevokedCerts, Object value, boolean bIsSelected,
 	    boolean bHasFocus, int iRow, int iCol)
 	{
@@ -84,7 +85,7 @@ class RevokedCertsTableCellRend
 	{
 		String sHexSerialNumber = serialNumber.toString(16).toUpperCase();
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		for (int iCnt = 0; iCnt < sHexSerialNumber.length(); iCnt++)
 		{

@@ -434,6 +434,7 @@ class DViewCertificate
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();
@@ -589,10 +590,10 @@ class DViewCertificate
 		m_jtfSHA1Fingerprint.setCaretPosition(0);
 
 		// Enable/disable extensions button
-		Set critExts = cert.getCriticalExtensionOIDs();
-		Set nonCritExts = cert.getNonCriticalExtensionOIDs();
+		Set<String> critExts = cert.getCriticalExtensionOIDs();
+		Set<String> nonCritExts = cert.getNonCriticalExtensionOIDs();
 
-		if ((critExts != null && critExts.size() != 0) || (nonCritExts != null && nonCritExts.size() != 0))
+		if ((critExts != null && !critExts.isEmpty()) || (nonCritExts != null && !nonCritExts.isEmpty()))
 		{
 			// Extensions
 			m_jbExtensions.setEnabled(true);

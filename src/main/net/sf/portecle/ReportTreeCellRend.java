@@ -50,8 +50,9 @@ class ReportTreeCellRend
 	 * @param bLeaf True if cell is a leaf
 	 * @param iRow The row of the cell to render
 	 * @param bHasFocus If true, render cell appropriately
-	 * @return The renderered cell
+	 * @return The rendered cell
 	 */
+	@Override
 	public Component getTreeCellRendererComponent(JTree jtrReport, Object value, boolean bIsSelected,
 	    boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
 	{
@@ -322,6 +323,7 @@ class ReportTreeCellRend
 		 * 
 		 * @return Entry alias
 		 */
+		@Override
 		public String toString()
 		{
 			return m_sAlias;

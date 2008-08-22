@@ -348,6 +348,7 @@ public class FPortecle
 		// Handle application close
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				exitApplication();
@@ -430,6 +431,7 @@ public class FPortecle
 			m_jmrfFile.add(jmiOpenKeyStorePkcs11);
 			jmiOpenKeyStorePkcs11.addActionListener(new ActionListener()
 			{
+				@Override
 				protected void act()
 				{
 					openKeyStorePkcs11();
@@ -455,6 +457,7 @@ public class FPortecle
 		m_jmrfFile.add(m_jmiSaveKeyStoreAs);
 		m_jmiSaveKeyStoreAs.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				saveKeyStoreAs();
@@ -483,6 +486,7 @@ public class FPortecle
 		m_jmrfFile.add(jmiExit);
 		jmiExit.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				exitApplication();
@@ -535,6 +539,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeJks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeJks.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.JKS);
@@ -549,6 +554,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeCaseExactJks.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.CaseExactJKS);
@@ -563,6 +569,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeJceks.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.JCEKS);
@@ -577,6 +584,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
 		m_jmiChangeKeyStoreTypePkcs12.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.PKCS12);
@@ -591,6 +599,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeBks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeBks.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.BKS);
@@ -605,6 +614,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeUber.setEnabled(false);
 		m_jmiChangeKeyStoreTypeUber.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.UBER);
@@ -619,6 +629,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
 		m_jmiChangeKeyStoreTypeGkr.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				changeKeyStoreType(KeyStoreType.GKR);
@@ -652,6 +663,7 @@ public class FPortecle
 		jmTools.add(jmiOptions);
 		jmiOptions.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				showOptions();
@@ -709,6 +721,7 @@ public class FPortecle
 		jmOnlineResources.add(jmiWebsite);
 		jmiWebsite.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				visitWebsite();
@@ -723,6 +736,7 @@ public class FPortecle
 		jmOnlineResources.add(jmiSFNetProject);
 		jmiSFNetProject.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				visitSFNetProject();
@@ -738,6 +752,7 @@ public class FPortecle
 		jmOnlineResources.add(jmiEmail);
 		jmiEmail.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				composeEmail();
@@ -752,6 +767,7 @@ public class FPortecle
 		jmOnlineResources.add(jmiMailList);
 		jmiMailList.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				visitMailListSignup();
@@ -777,6 +793,7 @@ public class FPortecle
 		jmHelp.add(jmiDonate);
 		jmiDonate.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				makeDonation();
@@ -793,6 +810,7 @@ public class FPortecle
 		jmHelp.add(jmiSecurityProviders);
 		jmiSecurityProviders.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				showSecurityProviders();
@@ -808,6 +826,7 @@ public class FPortecle
 		jmHelp.add(jmiJars);
 		jmiJars.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				showJarInfo();
@@ -824,6 +843,7 @@ public class FPortecle
 		jmHelp.add(jmiAbout);
 		jmiAbout.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				showAbout();
@@ -872,11 +892,13 @@ public class FPortecle
 		jbNewKeyStore.setFocusable(false);
 		jbNewKeyStore.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_newKeyStoreAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -892,11 +914,13 @@ public class FPortecle
 		jbOpenKeyStoreFile.setFocusable(false);
 		jbOpenKeyStoreFile.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -912,11 +936,13 @@ public class FPortecle
 		jbSaveKeyStore.setFocusable(false);
 		jbSaveKeyStore.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_saveKeyStoreAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -932,11 +958,13 @@ public class FPortecle
 		jbGenKeyPair.setFocusable(false);
 		jbGenKeyPair.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_genKeyPairAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -952,11 +980,13 @@ public class FPortecle
 		jbImportTrustCert.setFocusable(false);
 		jbImportTrustCert.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_importTrustCertAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -972,11 +1002,13 @@ public class FPortecle
 		jbImportKeyPair.setFocusable(false);
 		jbImportKeyPair.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_importKeyPairAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -992,11 +1024,13 @@ public class FPortecle
 		jbSetKeyStorePass.setFocusable(false);
 		jbSetKeyStorePass.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_setKeyStorePassAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -1012,11 +1046,13 @@ public class FPortecle
 		jbKeyStoreReport.setFocusable(false);
 		jbKeyStoreReport.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_keyStoreReportAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -1032,11 +1068,13 @@ public class FPortecle
 		jbExamineCert.setFocusable(false);
 		jbExamineCert.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_examineCertAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -1052,11 +1090,13 @@ public class FPortecle
 		jbExamineCrl.setFocusable(false);
 		jbExamineCrl.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_examineCrlAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -1072,11 +1112,13 @@ public class FPortecle
 		jbHelp.setFocusable(false);
 		jbHelp.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseEntered(MouseEvent evt)
 			{
 				setStatusBarText((String) m_helpAction.getValue(Action.LONG_DESCRIPTION));
 			}
 
+			@Override
 			public void mouseExited(MouseEvent evt)
 			{
 				setDefaultStatusBarText();
@@ -1209,16 +1251,19 @@ public class FPortecle
 		 */
 		m_jtKeyStore.addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mouseClicked(MouseEvent evt)
 			{
 				keyStoreTableDoubleClick(evt);
 			}
 
+			@Override
 			public void mousePressed(MouseEvent evt)
 			{
 				maybeShowPopup(evt);
 			}
 
+			@Override
 			public void mouseReleased(MouseEvent evt)
 			{
 				maybeShowPopup(evt);
@@ -1258,6 +1303,7 @@ public class FPortecle
 		jmiKeyDelete.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyDelete.image")));
 		jmiKeyDelete.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				deleteSelectedEntry();
@@ -1277,6 +1323,7 @@ public class FPortecle
 		jmiKeyPairCertDetails.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairCertDetails.image")));
 		jmiKeyPairCertDetails.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				showSelectedEntry();
@@ -1292,6 +1339,7 @@ public class FPortecle
 
 		jmiKeyPairExport.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				exportSelectedEntry();
@@ -1306,6 +1354,7 @@ public class FPortecle
 		jmiGenerateCSR.setIcon(new ImageIcon(getResImage("FPortecle.jmiGenerateCSR.image")));
 		jmiGenerateCSR.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				generateCsrSelectedEntry();
@@ -1320,6 +1369,7 @@ public class FPortecle
 		jmiImportCAReply.setIcon(new ImageIcon(getResImage("FPortecle.jmiImportCAReply.image")));
 		jmiImportCAReply.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				importCAReplySelectedEntry();
@@ -1334,6 +1384,7 @@ public class FPortecle
 		m_jmiSetKeyPairPass.setIcon(new ImageIcon(getResImage("FPortecle.m_jmiSetKeyPairPass.image")));
 		m_jmiSetKeyPairPass.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				setPasswordSelectedEntry();
@@ -1348,6 +1399,7 @@ public class FPortecle
 		jmiKeyPairDelete.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairDelete.image")));
 		jmiKeyPairDelete.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				deleteSelectedEntry();
@@ -1362,6 +1414,7 @@ public class FPortecle
 		jmiKeyPairClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairClone.image")));
 		jmiKeyPairClone.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				cloneSelectedKeyEntry();
@@ -1376,6 +1429,7 @@ public class FPortecle
 		jmiKeyPairRename.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairRename.image")));
 		jmiKeyPairRename.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				renameSelectedEntry();
@@ -1405,6 +1459,7 @@ public class FPortecle
 		jmiTrustCertDetails.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertDetails.image")));
 		jmiTrustCertDetails.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				showSelectedEntry();
@@ -1419,6 +1474,7 @@ public class FPortecle
 		jmiTrustCertExport.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertExport.image")));
 		jmiTrustCertExport.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				exportSelectedEntry();
@@ -1433,6 +1489,7 @@ public class FPortecle
 		jmiTrustCertDelete.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertDelete.image")));
 		jmiTrustCertDelete.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				deleteSelectedEntry();
@@ -1447,6 +1504,7 @@ public class FPortecle
 		jmiTrustCertClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertClone.image")));
 		jmiTrustCertClone.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				cloneSelectedCertificateEntry();
@@ -1461,6 +1519,7 @@ public class FPortecle
 		jmiTrustCertRename.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertRename.image")));
 		jmiTrustCertRename.addActionListener(new ActionListener()
 		{
+			@Override
 			protected void act()
 			{
 				renameSelectedEntry();
@@ -1815,7 +1874,7 @@ public class FPortecle
 			CryptoException[] cexs = new CryptoException[keyStoreTypes.length];
 
 			// Tried types
-			StringBuffer tried = new StringBuffer();
+			StringBuilder tried = new StringBuilder();
 
 			for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++)
 			{
@@ -3356,7 +3415,7 @@ public class FPortecle
 			CryptoException[] cexs = new CryptoException[keyStoreTypes.length];
 
 			// Tried types
-			StringBuffer tried = new StringBuffer();
+			StringBuilder tried = new StringBuilder();
 
 			for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++)
 			{
@@ -3751,10 +3810,10 @@ public class FPortecle
 			// For every entry in the current keystore transfer it to the new
 			// one - get key/key pair entry passwords from the wrapper and if
 			// not present there from the user
-			for (Enumeration aliases = currentKeyStore.aliases(); aliases.hasMoreElements();)
+			for (Enumeration<String> aliases = currentKeyStore.aliases(); aliases.hasMoreElements();)
 			{
 				// Entry alias
-				String sAlias = (String) aliases.nextElement();
+				String sAlias = aliases.nextElement();
 
 				// Trusted certificate entry
 				if (currentKeyStore.isCertificateEntry(sAlias))
@@ -6280,6 +6339,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			newKeyStore();
@@ -6311,6 +6371,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			saveKeyStore();
@@ -6342,6 +6403,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			openKeyStoreFile();
@@ -6373,6 +6435,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			generateKeyPair();
@@ -6404,6 +6467,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			importTrustedCert();
@@ -6435,6 +6499,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			importKeyPair();
@@ -6466,6 +6531,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			setKeyStorePassword();
@@ -6497,6 +6563,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			keyStoreReport();
@@ -6528,6 +6595,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			examineCert();
@@ -6559,6 +6627,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			examineCertSSL();
@@ -6590,6 +6659,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			examineCSR();
@@ -6621,6 +6691,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			examineCRL();
@@ -6650,6 +6721,7 @@ public class FPortecle
 		/**
 		 * Perform action.
 		 */
+		@Override
 		public void act()
 		{
 			showHelp();

@@ -149,6 +149,7 @@ public class DJarInfo
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();
@@ -178,7 +179,7 @@ public class DJarInfo
 	    throws IOException
 	{
 		// Store JARs
-		ArrayList vJars = new ArrayList();
+		ArrayList<JarFile> vJars = new ArrayList<JarFile>();
 
 		// Split classpath into it's components using the path separator
 		String sClassPath = System.getProperty("java.class.path");
@@ -206,7 +207,7 @@ public class DJarInfo
 		if (vJars.size() == 1)
 		{
 			// Get manifest
-			JarFile jarFile = (JarFile) vJars.get(0);
+			JarFile jarFile = vJars.get(0);
 			Manifest manifest = jarFile.getManifest();
 
 			if (manifest != null) // Manifest may not exist
@@ -237,7 +238,7 @@ public class DJarInfo
 		}
 
 		// Return JARs in an array
-		return (JarFile[]) vJars.toArray(new JarFile[vJars.size()]);
+		return vJars.toArray(new JarFile[vJars.size()]);
 	}
 
 	/**

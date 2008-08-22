@@ -83,7 +83,7 @@ class DOptions
 	private File m_fCaCertsFile;
 
 	/** Available Look and Feel information - reflects what is in choice box */
-	private Vector m_vLookFeelInfos = new Vector();
+	private Vector<UIManager.LookAndFeelInfo> m_vLookFeelInfos = new Vector<UIManager.LookAndFeelInfo>();
 
 	/** Chosen look & feel information */
 	private UIManager.LookAndFeelInfo m_lookFeelInfo;
@@ -166,7 +166,7 @@ class DOptions
 		LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
 
 		// Set of installed and supported Look and Feel class names
-		TreeSet lookFeelClasses = new TreeSet();
+		TreeSet<String> lookFeelClasses = new TreeSet<String>();
 
 		for (int iCnt = 0; iCnt < lookFeelInfos.length; iCnt++)
 		{
@@ -280,6 +280,7 @@ class DOptions
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();
@@ -307,7 +308,7 @@ class DOptions
 
 		// Store look & feel class name (look up in Vector by choice box index)
 		int iSel = m_jcbLookFeel.getSelectedIndex();
-		m_lookFeelInfo = (UIManager.LookAndFeelInfo) m_vLookFeelInfos.get(iSel);
+		m_lookFeelInfo = m_vLookFeelInfos.get(iSel);
 
 		// Store whether or not look & feel decoration should be used
 		m_bLookFeelDecorated = m_jcbLookFeelDecorated.isSelected();

@@ -39,7 +39,6 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -353,6 +352,7 @@ class DViewCRL
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				closeDialog();
@@ -434,8 +434,8 @@ class DViewCRL
 		m_jtfSignatureAlgorithm.setCaretPosition(0);
 
 		// Enable/disable extensions button
-		Set critExts = m_crl.getCriticalExtensionOIDs();
-		Set nonCritExts = m_crl.getNonCriticalExtensionOIDs();
+		Set<String> critExts = m_crl.getCriticalExtensionOIDs();
+		Set<String> nonCritExts = m_crl.getNonCriticalExtensionOIDs();
 
 		if ((critExts != null && critExts.size() != 0) || (nonCritExts != null && nonCritExts.size() != 0))
 		{
@@ -449,13 +449,12 @@ class DViewCRL
 		}
 
 		// Populate Revoked Certificates table
-		Set revokedCertsSet = m_crl.getRevokedCertificates();
+		Set<? extends X509CRLEntry> revokedCertsSet = m_crl.getRevokedCertificates();
 		if (revokedCertsSet == null)
 		{
-			revokedCertsSet = new HashSet();
+			revokedCertsSet = new HashSet<X509CRLEntry>();
 		}
-		X509CRLEntry[] revokedCerts =
-		    (X509CRLEntry[]) revokedCertsSet.toArray(new X509CRLEntry[revokedCertsSet.size()]);
+		X509CRLEntry[] revokedCerts = revokedCertsSet.toArray(new X509CRLEntry[revokedCertsSet.size()]);
 		RevokedCertsTableModel revokedCertsTableModel = (RevokedCertsTableModel) m_jtRevokedCerts.getModel();
 		revokedCertsTableModel.load(revokedCerts);
 
@@ -485,13 +484,10 @@ class DViewCRL
 				    (BigInteger) ((RevokedCertsTableModel) m_jtRevokedCerts.getModel()).getValueAt(iRow, 0);
 
 				// Find CRL entry using serial number
-				Set revokedCertsSet = m_crl.getRevokedCertificates();
-
+				Set<? extends X509CRLEntry> revokedCertsSet = m_crl.getRevokedCertificates();
 				X509CRLEntry x509CrlEntry = null;
-
-				for (Iterator itr = revokedCertsSet.iterator(); itr.hasNext();)
+				for (X509CRLEntry entry : revokedCertsSet)
 				{
-					X509CRLEntry entry = (X509CRLEntry) itr.next();
 					if (serialNumber.equals(entry.getSerialNumber()))
 					{
 						x509CrlEntry = entry;
@@ -541,13 +537,10 @@ class DViewCRL
 				    (BigInteger) ((RevokedCertsTableModel) m_jtRevokedCerts.getModel()).getValueAt(iRow, 0);
 
 				// Find CRL entry using serial number
-				Set revokedCertsSet = m_crl.getRevokedCertificates();
-
+				Set<? extends X509CRLEntry> revokedCertsSet = m_crl.getRevokedCertificates();
 				X509CRLEntry x509CrlEntry = null;
-
-				for (Iterator itr = revokedCertsSet.iterator(); itr.hasNext();)
+				for (X509CRLEntry entry : revokedCertsSet)
 				{
-					X509CRLEntry entry = (X509CRLEntry) itr.next();
 					if (serialNumber.equals(entry.getSerialNumber()))
 					{
 						x509CrlEntry = entry;

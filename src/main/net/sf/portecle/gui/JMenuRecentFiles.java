@@ -212,18 +212,18 @@ public class JMenuRecentFiles
 	 */
 	public File[] getRecentFiles()
 	{
-		ArrayList arrList = new ArrayList();
+		ArrayList<File> arrList = new ArrayList<File>();
 
-		for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++)
+		for (JMenuItemRecentFile rf : m_jmirf)
 		{
-			if (m_jmirf[iCnt] == null)
+			if (rf == null)
 			{
 				break;
 			}
 
-			arrList.add(m_jmirf[iCnt].getFile());
+			arrList.add(rf.getFile());
 		}
 
-		return (File[]) arrList.toArray(new File[arrList.size()]);
+		return arrList.toArray(new File[arrList.size()]);
 	}
 }

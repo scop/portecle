@@ -30,7 +30,7 @@ import java.util.StringTokenizer;
  * versions strings made up of >= 0 integers separated by dots or something similar.
  */
 public class Version
-    implements Comparable, Serializable
+    implements Comparable<Version>, Serializable
 {
 	/** Holds the version "sections" that make up the version number. */
 	private int[] iSections;
@@ -59,7 +59,7 @@ public class Version
 	{
 		StringTokenizer strTok = new StringTokenizer(sVersion, sDelimiters);
 
-		ArrayList vSections = new ArrayList();
+		ArrayList<Integer> vSections = new ArrayList<Integer>();
 
 		while (strTok.hasMoreTokens())
 		{
@@ -89,7 +89,7 @@ public class Version
 
 			for (int iCnt = 0; iCnt < vSections.size(); iCnt++)
 			{
-				iSections[iCnt] = Math.abs(((Integer) vSections.get(iCnt)).intValue());
+				iSections[iCnt] = Math.abs(vSections.get(iCnt));
 			}
 		}
 	}
@@ -108,13 +108,11 @@ public class Version
 	/**
 	 * Compare this Version object with another object.
 	 * 
-	 * @param object Object to compare Version with.
+	 * @param cmpVersion Object to compare Version with.
 	 * @return 0 if the equal, -1 if less, 1 if more.
 	 */
-	public int compareTo(Object object)
+	public int compareTo(Version cmpVersion)
 	{
-		Version cmpVersion = (Version) object;
-
 		int[] iCmpSections = cmpVersion.getSections();
 
 		for (int iCnt = 0; iCnt < iSections.length && iCnt < iCmpSections.length; iCnt++)
@@ -160,6 +158,7 @@ public class Version
 	 * @param object Object to compare Version with.
 	 * @return true if the equal, false otherwise.
 	 */
+	@Override
 	public boolean equals(Object object)
 	{
 		if (object == this)
@@ -172,7 +171,7 @@ public class Version
 			return false;
 		}
 
-		return compareTo(object) == 0;
+		return compareTo((Version) object) == 0;
 	}
 
 	/**
@@ -180,6 +179,7 @@ public class Version
 	 * 
 	 * @return The hash code.
 	 */
+	@Override
 	public int hashCode()
 	{
 		// Initialise hash total to non-zero value
@@ -201,6 +201,7 @@ public class Version
 	 * 
 	 * @return A string representation of the version.
 	 */
+	@Override
 	public String toString()
 	{
 		StringBuffer strBuff = new StringBuffer();

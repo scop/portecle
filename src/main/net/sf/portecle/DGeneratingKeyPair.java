@@ -149,6 +149,7 @@ class DGeneratingKeyPair
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				if (m_generator != null && m_generator.isAlive())

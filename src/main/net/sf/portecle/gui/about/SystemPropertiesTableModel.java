@@ -64,7 +64,7 @@ class SystemPropertiesTableModel
 	{
 		// Get system properties
 		Properties sysProps = System.getProperties();
-		TreeMap sortedSysProps = new TreeMap();
+		TreeMap<String, String> sortedSysProps = new TreeMap<String, String>();
 
 		// Place properties in a sorted map
 		for (Enumeration names = sysProps.propertyNames(); names.hasMoreElements();)
@@ -102,15 +102,15 @@ class SystemPropertiesTableModel
 
 		// Load sorted properties into the table
 		int iCnt = 0;
-		for (Iterator itrSorted = sortedSysProps.entrySet().iterator(); itrSorted.hasNext(); iCnt++)
+		for (Map.Entry property : sortedSysProps.entrySet())
 		{
-			Map.Entry property = (Map.Entry) itrSorted.next();
-
 			// Name column
 			m_data[iCnt][0] = property.getKey();
 
 			// Value column
 			m_data[iCnt][1] = property.getValue();
+
+			iCnt++;
 		}
 
 		fireTableDataChanged();
@@ -142,6 +142,7 @@ class SystemPropertiesTableModel
 	 * @param iCol The column position
 	 * @return The column name
 	 */
+	@Override
 	public String getColumnName(int iCol)
 	{
 		return m_columnNames[iCol];
@@ -165,7 +166,8 @@ class SystemPropertiesTableModel
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */
-	public Class getColumnClass(int iCol)
+	@Override
+	public Class<?> getColumnClass(int iCol)
 	{
 		return getValueAt(0, iCol).getClass();
 	}
@@ -177,6 +179,7 @@ class SystemPropertiesTableModel
 	 * @param iCol The column position
 	 * @return True if the cell is editable, false otherwise
 	 */
+	@Override
 	public boolean isCellEditable(int iRow, int iCol)
 	{
 		// The table is always read-only

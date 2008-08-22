@@ -49,9 +49,9 @@ class ThrowableTreeCellRend
 	 * @param bLeaf True if cell is a leaf
 	 * @param iRow The row of the cell to render
 	 * @param bHasFocus If true, render cell appropriately
-	 * @return The renderered cell
+	 * @return The rendered cell
 	 */
-
+	@Override
 	public Component getTreeCellRendererComponent(JTree jtrThrowable, Object value, boolean bIsSelected,
 	    boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
 	{

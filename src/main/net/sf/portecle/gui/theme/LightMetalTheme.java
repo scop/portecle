@@ -41,6 +41,7 @@ public class LightMetalTheme
 	 * 
 	 * @return Theme name
 	 */
+	@Override
 	public String getName()
 	{
 		return THEME_NAME;
@@ -51,6 +52,7 @@ public class LightMetalTheme
 	 * 
 	 * @return Font
 	 */
+	@Override
 	public FontUIResource getControlTextFont()
 	{
 		return new FontUIResource(super.getControlTextFont().deriveFont(Font.PLAIN));
@@ -61,6 +63,7 @@ public class LightMetalTheme
 	 * 
 	 * @return Font
 	 */
+	@Override
 	public FontUIResource getMenuTextFont()
 	{
 		return new FontUIResource(super.getMenuTextFont().deriveFont(Font.PLAIN));

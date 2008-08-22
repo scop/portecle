@@ -74,6 +74,7 @@ public class FileExtFilter
 	 * @param file The file to filter
 	 * @return True if the file matches the filter, false otherwise
 	 */
+	@Override
 	public boolean accept(File file)
 	{
 		if (file.isDirectory())
@@ -105,6 +106,7 @@ public class FileExtFilter
 	 * 
 	 * @return The description
 	 */
+	@Override
 	public String getDescription()
 	{
 		return m_sDescription;

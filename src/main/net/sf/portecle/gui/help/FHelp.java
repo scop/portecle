@@ -272,6 +272,7 @@ public class FHelp
 
 		addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent evt)
 			{
 				setVisible(false);
@@ -289,6 +290,7 @@ public class FHelp
 	 * 
 	 * @param bShow If true show the help window otherwise hide it
 	 */
+	@Override
 	public void setVisible(boolean bShow)
 	{
 		if (bShow)

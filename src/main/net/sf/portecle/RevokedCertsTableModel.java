@@ -21,9 +21,8 @@
 
 package net.sf.portecle;
 
+import java.math.BigInteger;
 import java.security.cert.X509CRLEntry;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -64,8 +63,7 @@ class RevokedCertsTableModel
 	public void load(X509CRLEntry[] revokedCerts)
 	{
 		// Place revoked certs in a tree map to sort them by serial number
-		TreeMap sortedRevokedCerts = new TreeMap();
-
+		TreeMap<BigInteger, X509CRLEntry> sortedRevokedCerts = new TreeMap<BigInteger, X509CRLEntry>();
 		for (int iCnt = 0; iCnt < revokedCerts.length; iCnt++)
 		{
 			sortedRevokedCerts.put(revokedCerts[iCnt].getSerialNumber(), revokedCerts[iCnt]);
@@ -77,10 +75,8 @@ class RevokedCertsTableModel
 		// Iterate through the sorted revoked certificates populating
 		// the table model
 		int iCnt = 0;
-		for (Iterator itr = sortedRevokedCerts.entrySet().iterator(); itr.hasNext(); iCnt++)
+		for (X509CRLEntry x509CrlEntry : sortedRevokedCerts.values())
 		{
-			X509CRLEntry x509CrlEntry = (X509CRLEntry) ((Map.Entry) itr.next()).getValue();
-
 			// Populate the serial number column
 			m_data[iCnt][0] = x509CrlEntry.getSerialNumber();
 
@@ -117,6 +113,7 @@ class RevokedCertsTableModel
 	 * @param iCol The column position
 	 * @return The column name
 	 */
+	@Override
 	public String getColumnName(int iCol)
 	{
 		return m_columnNames[iCol];
@@ -140,7 +137,8 @@ class RevokedCertsTableModel
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */
-	public Class getColumnClass(int iCol)
+	@Override
+	public Class<?> getColumnClass(int iCol)
 	{
 		return getValueAt(0, iCol).getClass();
 	}
@@ -152,6 +150,7 @@ class RevokedCertsTableModel
 	 * @param iCol The column position
 	 * @return True if the cell is editable, false otherwise
 	 */
+	@Override
 	public boolean isCellEditable(int iRow, int iCol)
 	{
 		// The table is always read-only
