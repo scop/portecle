@@ -275,9 +275,9 @@ class DViewCSR
 	}
 
 	/**
-	 * Populate the dialog with the currently selected certificate's details.
+	 * Populate the dialog with the currently selected certificate request's details.
 	 * 
-	 * @throws CryptoException A problem was encountered getting the certificate's details
+	 * @throws CryptoException A problem was encountered getting the certificate request's details
 	 */
 	private void populateDialog()
 	    throws CryptoException
