@@ -6048,8 +6048,7 @@ public class FPortecle
 			if (m_bLookFeelDecorationOptions != null)
 			{
 				// Setting made in options
-				m_appPrefs.putBoolean(m_res.getString("AppPrefs.LookFeelDecor"),
-				    m_bLookFeelDecorationOptions.booleanValue());
+				m_appPrefs.putBoolean(m_res.getString("AppPrefs.LookFeelDecor"), m_bLookFeelDecorationOptions);
 			}
 			else
 			{

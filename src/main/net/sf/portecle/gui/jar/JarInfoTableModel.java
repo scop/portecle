@@ -142,8 +142,8 @@ class JarInfoTableModel
 
 			// Populate the size column
 			m_data[iCnt][1] =
-			    MessageFormat.format(m_res.getString("JarInfoTableModel.Size"), new Long(
-			        Math.round((double) file.length() / 1024)));
+			    MessageFormat.format(m_res.getString("JarInfoTableModel.Size"),
+			        Math.round((double) file.length() / 1024));
 
 			// Populate the implementation title column
 			m_data[iCnt][2] = sSpecificationTitle;

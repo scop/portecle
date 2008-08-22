@@ -64,7 +64,7 @@ class ExtensionsTableCellRend
 		{
 			ImageIcon icon = null;
 
-			if (((Boolean) value).booleanValue())
+			if (((Boolean) value))
 			{
 				icon =
 				    new ImageIcon(getClass().getResource(

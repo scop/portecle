@@ -67,7 +67,7 @@ public class Version
 			{
 				Integer i = new Integer(strTok.nextToken());
 
-				if (i.intValue() < 0)
+				if (i < 0)
 				{
 					throw new VersionException(); // Less then 0
 				}
