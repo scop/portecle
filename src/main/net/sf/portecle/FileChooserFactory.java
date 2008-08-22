@@ -94,7 +94,7 @@ public class FileChooserFactory
 	/** Description for PKCS #10 CSR files */
 	private static final String CSR_FILE_DESC =
 	    MessageFormat.format(m_res.getString("FileChooseFactory.CsrFiles"), toWildcards(new String[] {
-	        CSR_EXT_1, CSR_EXT_2 }));
+	        CSR_EXT_1, CSR_EXT_2, PEM_EXT }));
 
 	/** Description for CRL files */
 	private static final String CRL_FILE_DESC =
@@ -287,7 +287,8 @@ public class FileChooserFactory
 	public static JFileChooser getCsrFileChooser(String basename)
 	{
 		JFileChooser chooser = new JFileChooser();
-		chooser.addChoosableFileFilter(new FileExtFilter(new String[] { CSR_EXT_1, CSR_EXT_2 }, CSR_FILE_DESC));
+		chooser.addChoosableFileFilter(new FileExtFilter(new String[] { CSR_EXT_1, CSR_EXT_2, PEM_EXT },
+		    CSR_FILE_DESC));
 		chooser.setSelectedFile(getDefaultFile(basename, CSR_EXT_2));
 		return chooser;
 	}
