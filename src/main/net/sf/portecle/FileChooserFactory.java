@@ -336,7 +336,7 @@ public class FileChooserFactory
 	 */
 	private static String toWildcards(String[] exts)
 	{
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 		for (int i = 0, len = exts.length; i < len; i++)
 		{
 			res.append("*.").append(exts[i]).append(FILELIST_SEPARATOR);

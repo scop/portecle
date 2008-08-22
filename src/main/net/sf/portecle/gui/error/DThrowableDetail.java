@@ -222,7 +222,7 @@ public class DThrowableDetail
 	private void copyPressed()
 	{
 		// Put provider information in here
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		Throwable throwable = m_throwable;
 

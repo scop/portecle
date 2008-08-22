@@ -22,7 +22,6 @@
 package net.sf.portecle.gui.about;
 
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -75,7 +74,7 @@ class SystemPropertiesTableModel
 			// Convert line.separator property value to be printable
 			if (sName.equals("line.separator"))
 			{
-				StringBuffer sbValue = new StringBuffer();
+				StringBuilder sbValue = new StringBuilder();
 				for (int iCnt = 0; iCnt < sValue.length(); iCnt++)
 				{
 					if (sValue.charAt(iCnt) == '\r')

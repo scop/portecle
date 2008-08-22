@@ -66,8 +66,8 @@ public final class DigestUtil
 		// Create raw message digest
 		byte[] bFingerPrint = messageDigest.digest(bMessage);
 
-		// Place the raw message digest into a StringBuffer as a Hex number
-		StringBuffer strBuff = new StringBuffer(new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
+		// Place the raw message digest into a StringBuilder as a Hex number
+		StringBuilder strBuff = new StringBuilder(new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
 
 		// Odd number of characters so add in a padding "0"
 		if ((strBuff.length() % 2) != 0)

@@ -395,7 +395,7 @@ public class X509Ext
 		try
 		{
 			// Divide dump into 16 byte lines
-			StringBuffer strBuff = new StringBuffer();
+			StringBuilder strBuff = new StringBuilder();
 
 			bais = new ByteArrayInputStream(bValue);
 			byte[] bLine = new byte[nBytes];
@@ -453,7 +453,7 @@ public class X509Ext
 		byte[] bKeyIdent = ski.getKeyIdentifier();
 
 		// Output as a hex string
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		strBuff.append(convertToHexString(bKeyIdent));
 		strBuff.append('\n');
 		return strBuff.toString();
@@ -489,7 +489,7 @@ public class X509Ext
 	    throws IOException
 	{
 		int val = KeyUsage.getInstance(ASN1Object.fromByteArray(bValue)).intValue();
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		for (int i = 0, len = KEY_USAGES.length; i < len; i++)
 		{
 			int type = KEY_USAGES[i];
@@ -521,7 +521,7 @@ public class X509Ext
 	{
 		PrivateKeyUsagePeriod pkup = PrivateKeyUsagePeriod.getInstance(ASN1Object.fromByteArray(bValue));
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		DERGeneralizedTime dTime;
 
 		if ((dTime = pkup.getNotBefore()) != null)
@@ -594,7 +594,7 @@ public class X509Ext
 	    throws IOException
 	{
 		BasicConstraints bc = BasicConstraints.getInstance(ASN1Object.fromByteArray(bValue));
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		strBuff.append(m_res.getString(bc.isCA() ? "SubjectIsCa" : "SubjectIsNotCa"));
 		strBuff.append('\n');
@@ -630,7 +630,7 @@ public class X509Ext
 		DERInteger derInt = (DERInteger) ASN1Object.fromByteArray(bValue);
 
 		// Convert to and return hex string representation of number
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		strBuff.append(convertToHexString(derInt));
 		strBuff.append('\n');
 		return strBuff.toString();
@@ -706,7 +706,7 @@ public class X509Ext
 		// Format invalidity date for display
 		String sInvalidityTime = formatGeneralizedTime(invalidityDate);
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		strBuff.append(sInvalidityTime);
 		strBuff.append('\n');
 		return strBuff.toString();
@@ -731,7 +731,7 @@ public class X509Ext
 		DERInteger derInt = (DERInteger) ASN1Object.fromByteArray(bValue);
 
 		// Convert to and return hex string representation of number
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		strBuff.append(convertToHexString(derInt));
 		strBuff.append('\n');
 		return strBuff.toString();
@@ -775,7 +775,7 @@ public class X509Ext
 		// Get sequence of policy mappings
 		ASN1Sequence policyMappings = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		// Get each policy mapping
 		for (int i = 0, len = policyMappings.size(); i < len; i++)
@@ -830,7 +830,7 @@ public class X509Ext
 	{
 		AuthorityKeyIdentifier aki = AuthorityKeyIdentifier.getInstance(ASN1Object.fromByteArray(bValue));
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		byte[] keyIdentifier = aki.getKeyIdentifier();
 		if (keyIdentifier != null)
@@ -878,7 +878,7 @@ public class X509Ext
 		// Get sequence of policy constraint
 		ASN1Sequence policyConstraints = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		for (int i = 0, len = policyConstraints.size(); i < len; i++)
 		{
@@ -923,7 +923,7 @@ public class X509Ext
 		// Get sequence of OIDs and return approriate strings
 		ASN1Sequence asn1Seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		for (int i = 0, len = asn1Seq.size(); i < len; i++)
 		{
@@ -957,7 +957,7 @@ public class X509Ext
 		int iSkipCerts = skipCerts.getValue().intValue();
 
 		// Return inhibit any policy extension
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		strBuff.append(MessageFormat.format(m_res.getString("InhibitAnyPolicy"), iSkipCerts));
 		strBuff.append('\n');
 		return strBuff.toString();
@@ -1016,7 +1016,7 @@ public class X509Ext
 	    throws IOException
 	{
 		ASN1Sequence seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		sb.append(MessageFormat.format(m_res.getString("MsftCertTemplateId"),
 		    ((DERObjectIdentifier) seq.getObjectAt(0)).getId()));
@@ -1066,7 +1066,7 @@ public class X509Ext
 	{
 		DEROctetString derOctetStr = (DEROctetString) ASN1Object.fromByteArray(bValue);
 		byte[] bKeyIdent = derOctetStr.getOctets();
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		return strBuff.append(convertToHexString(bKeyIdent)).append('\n').toString();
 	}
 
@@ -1092,7 +1092,7 @@ public class X509Ext
 
 		String sParams = m_res.getString("SmimeParameters");
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		for (Iterator i = caps.getCapabilities(null).iterator(); i.hasNext();)
 		{
@@ -1129,7 +1129,7 @@ public class X509Ext
 		AuthorityInformationAccess access =
 		    AuthorityInformationAccess.getInstance(ASN1Object.fromByteArray(bValue));
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		String aia = m_res.getString("InformationAccess");
 
 		AccessDescription[] accDescs = access.getAccessDescriptions();
@@ -1160,7 +1160,7 @@ public class X509Ext
 
 		/*
 		 * work-in-progress: ASN1Sequence logos = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
-		 * StringBuffer sb = new StringBuffer(); for (int i = 0, len = logos.size(); i < len; i++) {
+		 * StringBuilder sb = new StringBuilder(); for (int i = 0, len = logos.size(); i < len; i++) {
 		 * DERTaggedObject derTag = (DERTaggedObject) logos.getObjectAt(i); switch (derTag.getTagNo()) { case
 		 * 0: sb.append(m_res.getString("CommunityLogos")); break; case 1:
 		 * sb.append(m_res.getString("IssuerLogo")); DERTaggedObject ltInfo = (DERTaggedObject)
@@ -1199,7 +1199,7 @@ public class X509Ext
 		// TODO...
 
 		ASN1Sequence attrs = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		// "Novell Security Attribute(tm)"
 		String sTM = ((DERString) attrs.getObjectAt(2)).getString();
@@ -1289,7 +1289,7 @@ public class X509Ext
 	 */
 	private CharSequence getNovellQualityAttr(ASN1Sequence seq)
 	{
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 
 		boolean enforceQuality = ((DERBoolean) seq.getObjectAt(0)).isTrue();
 		res.append("\t\t").append(m_res.getString("NovellQualityEnforce"));
@@ -1365,7 +1365,7 @@ public class X509Ext
 	    throws IOException
 	{
 		int val = new NetscapeCertType((DERBitString) ASN1Object.fromByteArray(bValue)).intValue();
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		for (int i = 0, len = NETSCAPE_CERT_TYPES.length; i < len; i++)
 		{
 			int type = NETSCAPE_CERT_TYPES[i];
@@ -1419,7 +1419,7 @@ public class X509Ext
 		CRLDistPoint dps = CRLDistPoint.getInstance(ASN1Object.fromByteArray(bValue));
 		DistributionPoint[] points = dps.getDistributionPoints();
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0, len = points.length; i < len; i++)
 		{
@@ -1482,7 +1482,7 @@ public class X509Ext
 	    throws IOException
 	{
 		ASN1Sequence pSeq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0, len = pSeq.size(); i < len; i++)
 		{
@@ -1548,7 +1548,7 @@ public class X509Ext
 									ASN1Sequence nr = (ASN1Sequence) de;
 									String orgstr = stringify(nr.getObjectAt(0));
 									ASN1Sequence nrs = (ASN1Sequence) nr.getObjectAt(1);
-									StringBuffer nrstr = new StringBuffer();
+									StringBuilder nrstr = new StringBuilder();
 									for (int m = 0, nlen = nrs.size(); m < nlen; m++)
 									{
 										nrstr.append(stringify(nrs.getObjectAt(m)));
@@ -1624,7 +1624,7 @@ public class X509Ext
 	 */
 	private String getGeneralNameString(GeneralName generalName)
 	{
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		switch (generalName.getTagNo())
 		{
@@ -1672,7 +1672,7 @@ public class X509Ext
 				byte[] bIpAddress = ipAddress.getOctets();
 
 				// Output the IP Address components one at a time separated by dots
-				StringBuffer sbIpAddress = new StringBuffer();
+				StringBuilder sbIpAddress = new StringBuilder();
 
 				for (int iCnt = 0, bl = bIpAddress.length; iCnt < bl; iCnt++)
 				{
@@ -1713,7 +1713,7 @@ public class X509Ext
 	private String getGeneralNamesString(GeneralNames generalNames, String indent)
 	{
 		GeneralName[] names = generalNames.getNames();
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 		for (int i = 0, len = names.length; i < len; i++)
 		{
 			strBuff.append(indent);
@@ -1758,10 +1758,10 @@ public class X509Ext
 	private String getHexClearDump(byte[] bytes, int iLen)
 	{
 		// Buffer for hex
-		StringBuffer sbHex = new StringBuffer();
+		StringBuilder sbHex = new StringBuilder();
 
 		// Buffer for clear text
-		StringBuffer sbClr = new StringBuffer();
+		StringBuilder sbClr = new StringBuilder();
 
 		// Populate buffers for hex and clear text
 
@@ -1807,7 +1807,7 @@ public class X509Ext
 		 * Put both dumps together in one string (hex, clear) with approriate padding between them (pad to
 		 * array length)
 		 */
-		StringBuffer strBuff = new StringBuffer(sbHex.length() + sbClr.length() + 4);
+		StringBuilder strBuff = new StringBuilder(sbHex.length() + sbClr.length() + 4);
 
 		strBuff.append(sbHex);
 
@@ -1852,7 +1852,7 @@ public class X509Ext
 		}
 
 		// Convert to hex
-		StringBuffer strBuff = new StringBuffer(bigInt.toString(16).toUpperCase());
+		StringBuilder strBuff = new StringBuilder(bigInt.toString(16).toUpperCase());
 
 		// Place spaces at every four hex characters
 		if (strBuff.length() > 4)
@@ -1891,7 +1891,7 @@ public class X509Ext
 		else if (obj instanceof ASN1Sequence)
 		{
 			ASN1Sequence aObj = (ASN1Sequence) obj;
-			StringBuffer tmp = new StringBuffer("[");
+			StringBuilder tmp = new StringBuilder("[");
 			for (int i = 0, len = aObj.size(); i < len; i++)
 			{
 				tmp.append(stringify(aObj.getObjectAt(i)));

@@ -218,7 +218,7 @@ public class DProviderInfo
 	private void copyPressed()
 	{
 		// Put provider information in here
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		// Get security providers
 		Provider[] providers = Security.getProviders();

@@ -204,7 +204,7 @@ public class Version
 	@Override
 	public String toString()
 	{
-		StringBuffer strBuff = new StringBuffer();
+		StringBuilder strBuff = new StringBuilder();
 
 		for (int iCnt = 0; iCnt < iSections.length; iCnt++)
 		{
