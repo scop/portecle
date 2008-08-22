@@ -2,7 +2,7 @@
  * NameUtil.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2006 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2006-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -48,16 +48,17 @@ public final class NameUtil
 	public static String getCommonName(X509Name name)
 	{
 		if (name == null)
-			return null;
-		Vector oids = name.getOIDs();
-		int ix;
-		if ((ix = oids.indexOf(X509Name.CN)) != -1)
 		{
-			Object val = name.getValues().get(ix);
-			if (val != null)
-				return val.toString();
+			return null;
 		}
-		return null;
+
+		Vector values = name.getValues(X509Name.CN);
+		if (values == null || values.isEmpty())
+		{
+			return null;
+		}
+
+		return values.get(0).toString();
 	}
 
 	/**
@@ -69,7 +70,10 @@ public final class NameUtil
 	public static String getCommonName(X500Principal name)
 	{
 		if (name == null)
+		{
 			return null;
+		}
+
 		return getCommonName(new X509Name(name.getName()));
 	}
 }
