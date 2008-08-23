@@ -1906,8 +1906,8 @@ public class X509Ext
 			String hex = null;
 			try
 			{
-				Method method = obj.getClass().getMethod("getOctets", null);
-				hex = convertToHexString(method.invoke(obj, null));
+				Method method = obj.getClass().getMethod("getOctets", (Class[]) null);
+				hex = convertToHexString(method.invoke(obj, (Object[]) null));
 			}
 			catch (Exception e)
 			{
