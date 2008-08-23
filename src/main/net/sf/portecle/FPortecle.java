@@ -98,7 +98,6 @@ import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.table.TableColumn;
 
 import net.sf.portecle.crypto.CryptoException;
@@ -122,7 +121,6 @@ import net.sf.portecle.gui.password.DGetNewPassword;
 import net.sf.portecle.gui.password.DGetPassword;
 import net.sf.portecle.gui.statusbar.StatusBar;
 import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
-import net.sf.portecle.gui.theme.LightMetalTheme;
 import net.sf.portecle.version.JavaVersion;
 import net.sf.portecle.version.VersionException;
 
@@ -171,9 +169,6 @@ public class FPortecle
 
 	/** Default look & feel class name */
 	private static final String DEFAULT_LOOK_FEEL = UIManager.getCrossPlatformLookAndFeelClassName();
-
-	/** Our light metal theme */
-	private static final LightMetalTheme METAL_THEME = new LightMetalTheme();
 
 	/**
 	 * Dummy password to use for PKCS #12 keystore entries (passwords are not applicable for these).
@@ -3748,7 +3743,6 @@ public class FPortecle
 				{
 					saveAppPrefs();
 					setVisible(false);
-					MetalLookAndFeel.setCurrentTheme(METAL_THEME);
 					/*
 					 * Can't get these to apply on the fly ???
 					 * JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
@@ -6146,12 +6140,6 @@ public class FPortecle
 	 */
 	private static void initLookAndFeel()
 	{
-		/*
-		 * Set the theme used by the Metal look and feel to be "Light Metal" - this gets rid of the naff bold
-		 * text used by the default Metal theme
-		 */
-		MetalLookAndFeel.setCurrentTheme(METAL_THEME);
-
 		// Install extra look and feels (which may or may not be present)
 		String[] plafs = m_res.getString("FPortecle.AdditionalLookAndFeels").split("[\\s,]+");
 		for (String plaf : plafs)
@@ -6816,6 +6804,9 @@ public class FPortecle
 		{
 			System.exit(1);
 		}
+
+		// Make Metal theme use non-bold fonts (see javax.swing.plaf.metal.MetalLookAndFeel javadoc)
+		UIManager.put("swing.boldMetal", Boolean.FALSE);
 
 		try
 		{
