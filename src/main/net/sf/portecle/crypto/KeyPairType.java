@@ -2,8 +2,7 @@
  * KeyPairType.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,76 +21,18 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.InvalidObjectException;
-import java.io.ObjectStreamException;
-import java.text.MessageFormat;
-import java.util.ResourceBundle;
-
 /**
- * Type safe enumeration of KeyPairTypes supported by the KeyPairUtil class.
+ * Key pair type. Enum constant names are compatible with JCA standard names.
+ * 
+ * @see <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
-public class KeyPairType
+public enum KeyPairType
 {
-	/** RSA KeyPairType */
-	public static final KeyPairType RSA = new KeyPairType("RSA");
-
-	/** DSA KeyPairType */
-	public static final KeyPairType DSA = new KeyPairType("DSA");
-
-	/** ECDSA KeyPairType */
-	public static final KeyPairType ECDSA = new KeyPairType("ECDSA");
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
-	/** Stores KeyPairType name */
-	private final String m_sType;
-
-	/**
-	 * Construct a KeyPairType. Private to prevent construction from outside this class.
-	 * 
-	 * @param sType Key pair type
-	 */
-	private KeyPairType(String sType)
-	{
-		m_sType = sType;
-	}
-
-	/**
-	 * Resolve the KeyPairType Object.
-	 * 
-	 * @return The resolved KeyPairType object
-	 * @throws ObjectStreamException if the KeyPairType could not be resolved
-	 */
-	private Object readResolve()
-	    throws ObjectStreamException
-	{
-		if (m_sType.equals(RSA.toString()))
-		{
-			return RSA;
-		}
-		else if (m_sType.equals(DSA.toString()))
-		{
-			return DSA;
-		}
-		else if (m_sType.equals(ECDSA.toString()))
-		{
-			return ECDSA;
-		}
-		else
-		{
-			throw new InvalidObjectException(MessageFormat.format(
-			    m_res.getString("NoResolveKeypairtype.exception.message"), m_sType));
-		}
-	}
-
-	/**
-	 * Return string representation of KeyPairType compatible with the JCE.
-	 * 
-	 * @return String representation of a KeyPairType
-	 */
-	public String toString()
-	{
-		return m_sType;
-	}
+	/** RSA key pair type. */
+	RSA,
+	/** DSA key pair type. */
+	DSA,
+	/** ECDSA key pair type. */
+	ECDSA;
 }

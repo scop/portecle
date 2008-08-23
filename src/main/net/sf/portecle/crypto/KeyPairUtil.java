@@ -68,7 +68,7 @@ public final class KeyPairUtil
 	{
 		try
 		{
-			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(keyPairType.toString());
+			KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(keyPairType.name());
 
 			// Create a SecureRandom
 			SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
