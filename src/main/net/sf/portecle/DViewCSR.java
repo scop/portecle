@@ -309,7 +309,7 @@ class DViewCSR
 			throw new CryptoException(m_res.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
 		}
 
-		m_jtfPublicKey.setText(AlgorithmType.forOid(keyInfo.getAlgorithmId().getObjectId().toString()).toString());
+		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithmId().getObjectId().toString()));
 
 		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
 		if (iKeySize != -1)

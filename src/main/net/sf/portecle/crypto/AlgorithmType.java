@@ -2,7 +2,7 @@
  * AlgorithmType.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2006 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2006-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,82 +21,57 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.ObjectStreamException;
 import java.util.HashMap;
 
 /**
- * Type safe enumeration of algorithm types.
+ * Algorithm type.
  */
-public class AlgorithmType
+public enum AlgorithmType
 {
-	/** DSA algorithm type */
-	public static final AlgorithmType DSA = new AlgorithmType("DSA");
-
-	/** RSA algorithm type */
-	public static final AlgorithmType RSA = new AlgorithmType("RSA");
+	DSA("1.2.840.10040.4.1"),
+	RSA("1.2.840.113549.1.1.1");
 
 	/** OID-to-type map */
-	private static final HashMap OID_MAP = new HashMap();
+	private static final HashMap<String, AlgorithmType> OID_MAP = new HashMap<String, AlgorithmType>();
 	static
 	{
-		OID_MAP.put("1.2.840.10040.4.1", DSA);
-		OID_MAP.put("1.2.840.113549.1.1.1", RSA);
+		for (AlgorithmType at : values())
+		{
+			OID_MAP.put(at.oid, at);
+		}
 	}
 
-	/** Stores algorithm type name */
-	private final String m_sType;
+	private final String oid;
 
-	/**
-	 * Construct a AlgorithmType. Private to prevent construction from outside this class.
-	 * 
-	 * @param sType Algorithm type
-	 */
-	private AlgorithmType(String sType)
+	private AlgorithmType(String oid)
 	{
-		m_sType = sType;
+		this.oid = oid;
 	}
 
 	/**
-	 * Gets an AlgorithmType corresponding to the given OID.
+	 * Gets an AlgorithmType corresponding to the given object identifier.
 	 * 
 	 * @param oid the object identifier
-	 * @return the corresponding AlgorithmType
+	 * @return the corresponding AlgorithmType, <code>null</code> if unknown
 	 */
 	public static AlgorithmType forOid(String oid)
 	{
-		AlgorithmType at = (AlgorithmType) OID_MAP.get(oid);
-		return at == null ? new AlgorithmType(oid) : at;
+		return OID_MAP.get(oid);
 	}
 
 	/**
-	 * Resolve the AlgorithmType Object.
+	 * Gets a string representation of algorithm type corresponding to the given object identifier.
 	 * 
-	 * @return The resolved AlgorithmType object
-	 * @throws ObjectStreamException if the AlgorithmType could not be resolved
+	 * @param oid the object identifier
+	 * @return the corresponding algorithm type as string, <code>oid</code> itself if unknown
 	 */
-	private Object readResolve()
+	public static String toString(String oid)
 	{
-		if (m_sType.equals(DSA.toString()))
+		AlgorithmType type = forOid(oid);
+		if (type != null)
 		{
-			return DSA;
+			return type.toString();
 		}
-		else if (m_sType.equals(RSA.toString()))
-		{
-			return RSA;
-		}
-		else
-		{
-			return new AlgorithmType(m_sType);
-		}
-	}
-
-	/**
-	 * Return string representation of algorithm type.
-	 * 
-	 * @return String representation of a algorithm type
-	 */
-	public String toString()
-	{
-		return m_sType;
+		return oid;
 	}
 }
