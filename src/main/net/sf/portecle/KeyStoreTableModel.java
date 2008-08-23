@@ -87,7 +87,7 @@ class KeyStoreTableModel
 			sortedAliases.put(sAlias, sAlias);
 		}
 
-		boolean cdSupport = KeyStoreType.getInstance(keyStore.getType()).supportsCreationDate();
+		boolean cdSupport = KeyStoreType.valueOf(keyStore.getType()).supportsCreationDate();
 
 		// Create one table row for each keystore entry
 		m_data = new Object[sortedAliases.size()][3];

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,111 +22,68 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.InvalidObjectException;
-import java.io.ObjectStreamException;
-import java.text.MessageFormat;
-import java.util.LinkedHashMap;
-import java.util.ResourceBundle;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * Type safe enumeration of keystore types supported by the KeyStoreUtil class.
+ * KeyStore type. Enum constant names are compatible with JCA names.
+ * 
+ * @see <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
-public class KeyStoreType
+public enum KeyStoreType
 {
 	/** JKS keystore Type */
-	public static final KeyStoreType JKS = new KeyStoreType("JKS", true, new String[] { "jks" });
-
-	/** Case sensitive JKS keystore Type */
-	public static final KeyStoreType CaseExactJKS =
-	    new KeyStoreType("CaseExactJKS", true, new String[] { "jks" });
-
-	/** JCEKS keystore Type */
-	public static final KeyStoreType JCEKS = new KeyStoreType("JCEKS", true, new String[] { "jceks" });
-
-	/** PKCS #11 keystore Type */
-	public static final KeyStoreType PKCS11 = new KeyStoreType("PKCS11", false, new String[0]);
-
+	JKS("JKS", true, new String[] { "jks" }),
 	/** PKCS #12 keystore Type */
-	public static final KeyStoreType PKCS12 =
-	    new KeyStoreType("PKCS12", false, new String[] { "p12", "pfx" });
-
+	PKCS12("PKCS #12", false, new String[] { "p12", "pfx" }),
+	/** JCEKS keystore Type */
+	JCEKS("JCEKS", true, new String[] { "jceks" }),
+	/** Case sensitive JKS keystore Type */
+	CaseExactJKS("JKS (case sensitive)", true, new String[] { "jks" }),
 	/** BKS keystore Type */
-	public static final KeyStoreType BKS = new KeyStoreType("BKS", true, new String[] { "bks" });
-
+	BKS("BKS", true, new String[] { "bks" }),
 	/** UBER keystore Type */
-	public static final KeyStoreType UBER = new KeyStoreType("UBER", true, new String[] { "ubr" });
-
+	UBER("UBER", true, new String[] { "ubr" }),
 	/** GKR keystore Type */
-	public static final KeyStoreType GKR = new KeyStoreType("GKR", true, new String[] { "gkr" });
+	GKR("GKR", true, new String[] { "gkr" }),
+	/** PKCS #11 keystore Type */
+	PKCS11("PKCS #11", false, new String[0]);
 
-	/** String-to-type map */
-	private static final LinkedHashMap TYPE_MAP = new LinkedHashMap();
-	static
-	{
-		// The order is the one in which getKnownTypes() should return these
-		TYPE_MAP.put(JKS.toString(), JKS);
-		TYPE_MAP.put(PKCS12.toString(), PKCS12);
-		TYPE_MAP.put(JCEKS.toString(), JCEKS);
-		TYPE_MAP.put(CaseExactJKS.toString(), CaseExactJKS);
-		TYPE_MAP.put(BKS.toString(), BKS);
-		TYPE_MAP.put(UBER.toString(), UBER);
-		TYPE_MAP.put(GKR.toString(), GKR);
-		TYPE_MAP.put(PKCS11.toString(), PKCS11);
-	}
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
-	/** Stores keystore type name */
-	private final String m_sType;
+	/** Keystore "pretty" name */
+	private final String prettyName;
 
 	/** Whether the keystore type supports creation dates */
-	private final boolean m_bCreationDate;
+	private final boolean supportsCreationDate;
 
 	/** Associated filename extensions */
-	private final String[] m_exts;
+	private final Set<String> filenameExtensions;
 
 	/**
 	 * Construct a KeyStoreType. Private to prevent construction from outside this class.
 	 * 
 	 * @param sType Keystore type
-	 * @param bCreationDate Whether the keystore supports creation dates
-	 * @param exts associated filename extensions
+	 * @param supportsCreationDates Whether the keystore supports creation dates
+	 * @param filenameExtensions associated filename extensions
 	 */
-	private KeyStoreType(String sType, boolean bCreationDate, String[] exts)
+	private KeyStoreType(String prettyName, boolean supportsCreationDate, String[] filenameExtensions)
 	{
-		m_sType = sType;
-		m_bCreationDate = bCreationDate;
-		m_exts = exts;
-	}
-
-	/**
-	 * Gets a KeyStoreType corresponding to the given type String.
-	 * 
-	 * @param sType the keystore type name
-	 * @return the corresponding KeyStoreType
-	 * @throws CryptoException if the type is not known
-	 */
-	public static KeyStoreType getInstance(String sType)
-	    throws CryptoException
-	{
-		KeyStoreType kst = (KeyStoreType) TYPE_MAP.get(sType);
-		if (kst == null)
+		this.prettyName = prettyName;
+		this.supportsCreationDate = supportsCreationDate;
+		switch (filenameExtensions.length)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoResolveKeystoretype.exception.message"), sType));
+			case 0:
+				this.filenameExtensions = Collections.emptySet();
+				break;
+			case 1:
+				this.filenameExtensions = Collections.singleton(filenameExtensions[0]);
+				break;
+			default:
+				LinkedHashSet<String> exts = new LinkedHashSet<String>(filenameExtensions.length);
+				Collections.addAll(exts, filenameExtensions);
+				this.filenameExtensions = Collections.unmodifiableSet(exts);
 		}
-		return kst;
-	}
-
-	/**
-	 * Gets known KeyStoreTypes.
-	 * 
-	 * @return known keystore types
-	 */
-	public static KeyStoreType[] getKnownTypes()
-	{
-		return (KeyStoreType[]) TYPE_MAP.values().toArray(new KeyStoreType[TYPE_MAP.size()]);
 	}
 
 	/**
@@ -136,69 +93,27 @@ public class KeyStoreType
 	 */
 	public boolean supportsCreationDate()
 	{
-		return m_bCreationDate;
+		return supportsCreationDate;
 	}
 
 	/**
 	 * Common filename extensions associated with this type.
 	 * 
-	 * @return filename extensions (with leading dot), empty if not applicable
+	 * @return filename extensions (without leading dot, in lowercase), empty if not applicable
 	 */
-	public String[] getFilenameExtensions()
+	public Set<String> getFilenameExtensions()
 	{
-		String[] exts = new String[m_exts.length];
-		System.arraycopy(m_exts, 0, exts, 0, exts.length);
-		return exts;
+		return filenameExtensions;
 	}
 
 	/**
-	 * Resolve the KeyStoreType Object.
-	 * 
-	 * @return The resolved KeyStoreType object
-	 * @throws ObjectStreamException if the KeyStoreType could not be resolved
-	 */
-	private Object readResolve()
-	    throws ObjectStreamException
-	{
-		try
-		{
-			return getInstance(m_sType);
-		}
-		catch (CryptoException e)
-		{
-			throw new InvalidObjectException(e.getMessage());
-		}
-	}
-
-	/**
-	 * Return string representation of keystore type compatible with the JCE.
+	 * Return string representation of keystore type.
 	 * 
 	 * @return String representation of a keystore type
 	 */
+	@Override
 	public String toString()
 	{
-		return m_sType;
-	}
-
-	/**
-	 * Return a "pretty", human readable representation of the keystore type.
-	 * 
-	 * @return human readable String representation of the keystore type
-	 */
-	public String toPrettyString()
-	{
-		if (equals(PKCS11))
-		{
-			return "PKCS #11";
-		}
-		if (equals(PKCS12))
-		{
-			return "PKCS #12";
-		}
-		if (equals(CaseExactJKS))
-		{
-			return "JKS (case sensitive)";
-		}
-		return toString();
+		return prettyName;
 	}
 }

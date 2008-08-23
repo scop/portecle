@@ -359,8 +359,9 @@ class DKeyStoreReport
 			// General keystore information...
 
 			// Keystore type
-			KeyStoreType ksType = KeyStoreType.getInstance(m_keystore.getType());
-			sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.type"), ksType));
+			KeyStoreType ksType = KeyStoreType.valueOf(m_keystore.getType());
+			sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.type"),
+			    ksType.name()));
 			sbReport.append("\n");
 
 			// Keystore provider
@@ -558,11 +559,11 @@ class DKeyStoreReport
 			Document xmlDoc = docBuilder.newDocument();
 
 			// General keystore information
-			KeyStoreType ksType = KeyStoreType.getInstance(m_keystore.getType());
+			KeyStoreType ksType = KeyStoreType.valueOf(m_keystore.getType());
 			String sProvider = m_keystore.getProvider().getName();
 
 			Element keystoreElement = xmlDoc.createElement("keystore");
-			keystoreElement.setAttribute("type", ksType.toString());
+			keystoreElement.setAttribute("type", ksType.name());
 			keystoreElement.setAttribute("provider", sProvider);
 			xmlDoc.appendChild(keystoreElement);
 
@@ -727,7 +728,7 @@ class DKeyStoreReport
 		try
 		{
 			// Keystore type
-			KeyStoreType ksType = KeyStoreType.getInstance(m_keystore.getType());
+			KeyStoreType ksType = KeyStoreType.valueOf(m_keystore.getType());
 
 			// Keystore provider
 			String sProvider = m_keystore.getProvider().getName();
@@ -735,7 +736,7 @@ class DKeyStoreReport
 			// Top node
 			DefaultMutableTreeNode topNode =
 			    new DefaultMutableTreeNode(MessageFormat.format(
-			        m_res.getString("DKeyStoreReport.TopNodeName"), ksType, sProvider));
+			        m_res.getString("DKeyStoreReport.TopNodeName"), ksType.name(), sProvider));
 
 			// One sub-node per entry
 			Enumeration<String> aliases = m_keystore.aliases();

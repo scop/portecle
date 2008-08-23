@@ -25,8 +25,8 @@ package net.sf.portecle;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
@@ -136,19 +136,19 @@ public class FileChooserFactory
 			exts.add(KEYSTORE_EXT);
 			if (KeyStoreUtil.isAvailable(KeyStoreType.JKS))
 			{
-				exts.addAll(Arrays.asList(KeyStoreType.JKS.getFilenameExtensions()));
+				exts.addAll(KeyStoreType.JKS.getFilenameExtensions());
 				// Assume includes CaseExactJKS
 			}
 			if (KeyStoreUtil.isAvailable(KeyStoreType.JCEKS))
 			{
-				exts.addAll(Arrays.asList(KeyStoreType.JCEKS.getFilenameExtensions()));
+				exts.addAll(KeyStoreType.JCEKS.getFilenameExtensions());
 			}
-			exts.addAll(Arrays.asList(KeyStoreType.PKCS12.getFilenameExtensions()));
-			exts.addAll(Arrays.asList(KeyStoreType.BKS.getFilenameExtensions()));
-			exts.addAll(Arrays.asList(KeyStoreType.UBER.getFilenameExtensions()));
+			exts.addAll(KeyStoreType.PKCS12.getFilenameExtensions());
+			exts.addAll(KeyStoreType.BKS.getFilenameExtensions());
+			exts.addAll(KeyStoreType.UBER.getFilenameExtensions());
 			if (KeyStoreUtil.isAvailable(KeyStoreType.GKR))
 			{
-				exts.addAll(Arrays.asList(KeyStoreType.GKR.getFilenameExtensions()));
+				exts.addAll(KeyStoreType.GKR.getFilenameExtensions());
 			}
 			extensions = exts.toArray(new String[exts.size()]);
 			String info = toWildcards(extensions) + FILELIST_SEPARATOR + CACERTS_FILENAME;
@@ -157,7 +157,7 @@ public class FileChooserFactory
 		}
 		else
 		{
-			extensions = ksType.getFilenameExtensions();
+			extensions = ksType.getFilenameExtensions().toArray(new String[0]);
 			String info = toWildcards(extensions);
 			if (ksType.equals(KeyStoreType.JKS))
 			{
@@ -165,7 +165,7 @@ public class FileChooserFactory
 				addCaCerts = true;
 			}
 			desc =
-			    MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles." + ksType.toString()),
+			    MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles." + ksType.name()),
 			        info);
 		}
 
@@ -258,9 +258,9 @@ public class FileChooserFactory
 	public static JFileChooser getPkcs12FileChooser(String basename)
 	{
 		JFileChooser chooser = getKeyStoreFileChooser(KeyStoreType.PKCS12);
-		String[] exts = KeyStoreType.PKCS12.getFilenameExtensions();
-		assert exts.length > 1;
-		chooser.setSelectedFile(getDefaultFile(basename, exts[0]));
+		Set<String> exts = KeyStoreType.PKCS12.getFilenameExtensions();
+		assert exts.size() > 1;
+		chooser.setSelectedFile(getDefaultFile(basename, exts.iterator().next()));
 		return chooser;
 	}
 
@@ -338,9 +338,9 @@ public class FileChooserFactory
 	private static String toWildcards(String[] exts)
 	{
 		StringBuilder res = new StringBuilder();
-		for (int i = 0, len = exts.length; i < len; i++)
+		for (String ext : exts)
 		{
-			res.append("*.").append(exts[i]).append(FILELIST_SEPARATOR);
+			res.append("*.").append(ext).append(FILELIST_SEPARATOR);
 		}
 		res.setLength(res.length() - FILELIST_SEPARATOR.length());
 		return res.toString();

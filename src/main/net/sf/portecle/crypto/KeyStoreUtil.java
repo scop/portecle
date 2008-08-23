@@ -75,7 +75,7 @@ public final class KeyStoreUtil
 			// in how they handle empty/missing passwords (null vs char[0]).
 			try
 			{
-				keyStore = KeyStore.getInstance(keyStoreType.toString(), "BC");
+				keyStore = KeyStore.getInstance(keyStoreType.name(), "BC");
 			}
 			catch (NoSuchProviderException ex)
 			{
@@ -86,7 +86,7 @@ public final class KeyStoreUtil
 		{
 			try
 			{
-				keyStore = KeyStore.getInstance(keyStoreType.toString());
+				keyStore = KeyStore.getInstance(keyStoreType.name());
 			}
 			catch (KeyStoreException e)
 			{
@@ -117,7 +117,8 @@ public final class KeyStoreUtil
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
+			throw new CryptoException(MessageFormat.format(
+			    m_res.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 		return keyStore;
 	}
@@ -154,13 +155,14 @@ public final class KeyStoreUtil
 	 */
 	public static KeyStoreType[] getAvailableTypes()
 	{
-		KeyStoreType[] known = KeyStoreType.getKnownTypes();
+		// TODO: populate only once
+		KeyStoreType[] known = KeyStoreType.values();
 		ArrayList<KeyStoreType> available = new ArrayList<KeyStoreType>();
-		for (int i = 0, len = known.length; i < len; i++)
+		for (KeyStoreType type : known)
 		{
-			if (isAvailable(known[i]))
+			if (isAvailable(type))
 			{
-				available.add(known[i]);
+				available.add(type);
 			}
 		}
 		return available.toArray(new KeyStoreType[available.size()]);
@@ -187,7 +189,8 @@ public final class KeyStoreUtil
 		}
 		catch (KeyStoreException ex)
 		{
-			throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
+			throw new CryptoException(MessageFormat.format(
+			    m_res.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 
 		FileInputStream fis = new FileInputStream(fKeyStore);
@@ -244,11 +247,12 @@ public final class KeyStoreUtil
 				throw new CryptoException(MessageFormat.format(
 				    m_res.getString("NoSuchProvider.exception.message"), sPkcs11Provider));
 			}
-			keyStore = KeyStore.getInstance(KeyStoreType.PKCS11.toString(), sPkcs11Provider);
+			keyStore = KeyStore.getInstance(KeyStoreType.PKCS11.name(), sPkcs11Provider);
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoCreateKeystore.exception.message"), ex);
+			throw new CryptoException(MessageFormat.format(
+			    m_res.getString("NoCreateKeystore.exception.message"), KeyStoreType.PKCS11), ex);
 		}
 
 		try
@@ -300,7 +304,7 @@ public final class KeyStoreUtil
 		// As of GNU classpath 0.92, we need to reload GKR keystores after
 		// storing them, otherwise "masked envelope" IllegalStateExceptions
 		// occur when trying to access things in the stored keystore again.
-		if (KeyStoreType.GKR.equals(KeyStoreType.getInstance(keyStore.getType())))
+		if (KeyStoreType.valueOf(keyStore.getType()) == KeyStoreType.GKR)
 		{
 			keyStore = loadKeyStore(fKeyStoreFile, cPassword, KeyStoreType.GKR);
 		}

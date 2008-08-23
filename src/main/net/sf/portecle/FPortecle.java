@@ -61,7 +61,9 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.prefs.Preferences;
 
 import javax.net.ssl.SSLContext;
@@ -1731,7 +1733,7 @@ public class FPortecle
 		// the keystore is not PKCS #12)
 		char[] cPassword = PKCS12_DUMMY_PASSWORD;
 
-		if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+		if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 		{
 			DGetNewPassword dGetNewPassword =
 			    new DGetNewPassword(this, m_res.getString("DGenerateCertificate.KeyPairEntryPassword.Title"),
@@ -1878,7 +1880,7 @@ public class FPortecle
 
 			for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++)
 			{
-				tried.append(", ").append(keyStoreTypes[iCnt].toPrettyString());
+				tried.append(", ").append(keyStoreTypes[iCnt].toString());
 				try
 				{
 					openedKeyStore = KeyStoreUtil.loadKeyStore(fKeyStore, cPassword, keyStoreTypes[iCnt]);
@@ -3026,7 +3028,7 @@ public class FPortecle
 				cPassword = PKCS12_DUMMY_PASSWORD;
 
 				// Password is only relevant if the keystore is not PKCS #12
-				if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -3341,7 +3343,7 @@ public class FPortecle
 			// the keystore is not PKCS #12)
 			char[] cPassword = PKCS12_DUMMY_PASSWORD;
 
-			if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
 				DGetNewPassword dGetNewPassword =
 				    new DGetNewPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -3419,7 +3421,7 @@ public class FPortecle
 
 			for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++)
 			{
-				tried.append(", ").append(keyStoreTypes[iCnt].toPrettyString());
+				tried.append(", ").append(keyStoreTypes[iCnt].toString());
 				try
 				{
 					caCertsKeyStore =
@@ -3788,13 +3790,13 @@ public class FPortecle
 	{
 		assert m_keyStoreWrap.getKeyStore() != null;
 		// Cannot change type to current type
-		assert !m_keyStoreWrap.getKeyStore().getType().equals(keyStoreType.toString());
+		assert !m_keyStoreWrap.getKeyStore().getType().equals(keyStoreType.name());
 
 		try
 		{
 			// Get current keystore and type
 			KeyStore currentKeyStore = m_keyStoreWrap.getKeyStore();
-			String sCurrentType = m_keyStoreWrap.getKeyStore().getType();
+			KeyStoreType currentType = m_keyStoreWrap.getKeyStoreType();
 
 			// Create empty keystore of new type
 			KeyStore newKeyStore = KeyStoreUtil.createKeyStore(keyStoreType);
@@ -3874,7 +3876,7 @@ public class FPortecle
 
 						// Password is only relevant if the current keystore
 						// type is not PKCS #12
-						if (!sCurrentType.equals(KeyStoreType.PKCS12.toString()))
+						if (currentType != KeyStoreType.PKCS12)
 						{
 							String sTitle =
 							    MessageFormat.format(
@@ -3897,7 +3899,7 @@ public class FPortecle
 
 					// The current keystore type is PKCS #12 so entry password
 					// will be set to the PKCS #12 "dummy value" password
-					if (sCurrentType.equals(KeyStoreType.PKCS12.toString()))
+					if (currentType == KeyStoreType.PKCS12)
 					{
 						// Warn the user about this
 						if (!bWarnPkcs12Password)
@@ -3941,23 +3943,22 @@ public class FPortecle
 			}
 
 			// Successful change of type - put new keystore into wrapper
-			KeyStoreType oldType = m_keyStoreWrap.getKeyStoreType();
 			m_keyStoreWrap.setKeyStore(newKeyStore);
 			File oldFile = m_keyStoreWrap.getKeyStoreFile();
 			if (oldFile != null)
 			{
-				String[] oldExts = oldType.getFilenameExtensions();
-				String[] newExts = keyStoreType.getFilenameExtensions();
-				if (oldExts != null && newExts != null)
+				Set<String> oldExts = m_keyStoreWrap.getKeyStoreType().getFilenameExtensions();
+				Set<String> newExts = keyStoreType.getFilenameExtensions();
+				if (!oldExts.isEmpty() && !newExts.isEmpty())
 				{
-					String newExt = newExts[0];
-					for (int i = 0, len = oldExts.length; i < len; i++)
+					String newExt = newExts.iterator().next();
+					for (String oldExt : oldExts)
 					{
-						String path = oldFile.getPath();
-						if (path.endsWith("." + oldExts[i]))
+						String path = oldFile.getPath().toLowerCase(Locale.ENGLISH);
+						if (path.endsWith("." + oldExt))
 						{
 							m_keyStoreWrap.setKeyStoreFile(new File(path.substring(0, path.length() -
-							    oldExts[i].length()) +
+							    oldExt.length()) +
 							    newExt));
 						}
 					}
@@ -4028,7 +4029,7 @@ public class FPortecle
 	{
 		assert m_keyStoreWrap.getKeyStore() != null;
 		// Not relevant for a PKCS #12 keystore
-		assert !m_keyStoreWrap.getKeyStore().getType().equals(KeyStoreType.PKCS12.toString());
+		assert m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12;
 
 		// What entry has been selected?
 		int iRow = m_jtKeyStore.getSelectedRow();
@@ -4777,7 +4778,7 @@ public class FPortecle
 			cPassword = PKCS12_DUMMY_PASSWORD;
 
 			// Password is only relevant if the keystore is not PKCS #12
-			if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
 				DGetPassword dGetPassword =
 				    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -4888,7 +4889,7 @@ public class FPortecle
 			cPassword = PKCS12_DUMMY_PASSWORD;
 
 			// Password is only relevant if the keystore is not PKCS #12
-			if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
 				DGetPassword dGetPassword =
 				    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5170,7 +5171,7 @@ public class FPortecle
 				cPassword = PKCS12_DUMMY_PASSWORD;
 
 				// Password is only relevant if the keystore is not PKCS #12
-				if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5277,6 +5278,7 @@ public class FPortecle
 
 		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+		KeyStoreType ksType = m_keyStoreWrap.getKeyStoreType();
 
 		try
 		{
@@ -5289,7 +5291,7 @@ public class FPortecle
 				cPassword = PKCS12_DUMMY_PASSWORD;
 
 				// Password is only relevant if the keystore is not PKCS #12
-				if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+				if (ksType != KeyStoreType.PKCS12)
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5361,7 +5363,7 @@ public class FPortecle
 			// the keystore is not PKCS #12)
 			char[] cNewPassword = PKCS12_DUMMY_PASSWORD;
 
-			if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+			if (ksType != KeyStoreType.PKCS12)
 			{
 				DGetNewPassword dGetNewPassword =
 				    new DGetNewPassword(this, m_res.getString("FPortecle.ClonedKeyPairEntryPassword.Title"),
@@ -5700,23 +5702,20 @@ public class FPortecle
 				}
 			}
 
-			// Create the new entry with the new name and copy the old
-			// entry across
+			// Create the new entry with the new name and copy the old entry across
 
 			// If the entry is a key pair...
 			if (keyStore.isKeyEntry(sAlias))
 			{
-				// Get the entry's password (we may already know it from
-				// the wrapper)
+				// Get the entry's password (we may already know it from the wrapper)
 				char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
 				if (cPassword == null)
 				{
 					cPassword = PKCS12_DUMMY_PASSWORD;
 
-					// Password is only relevant if the keystore is not
-					// PKCS #12
-					if (!keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+					// Password is only relevant if the keystore is not PKCS #12
+					if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 					{
 						DGetPassword dGetPassword =
 						    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5800,11 +5799,12 @@ public class FPortecle
 
 		// Get keystore
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+		KeyStoreType ksType = m_keyStoreWrap.getKeyStoreType();
 
 		try
 		{
 			// Update keystore entries table
-			((KeyStoreTableModel) m_jtKeyStore.getModel()).load(m_keyStoreWrap.getKeyStore());
+			((KeyStoreTableModel) m_jtKeyStore.getModel()).load(keyStore);
 		}
 		catch (CryptoException ex)
 		{
@@ -5816,7 +5816,7 @@ public class FPortecle
 		}
 
 		// Passwords are not relevant for PKCS #12 keystores
-		if (keyStore.getType().equals(KeyStoreType.PKCS12.toString()))
+		if (ksType != KeyStoreType.PKCS12)
 		{
 			m_jmiSetKeyPairPass.setEnabled(false);
 		}
@@ -5840,35 +5840,31 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeGkr.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.GKR));
 
 		// Disable the menu item matching current keystore type
-		String sType = keyStore.getType();
-
-		if (sType.equals(KeyStoreType.JKS.toString()))
+		switch (ksType)
 		{
-			m_jmiChangeKeyStoreTypeJks.setEnabled(false);
-		}
-		else if (sType.equals(KeyStoreType.CaseExactJKS.toString()))
-		{
-			m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(false);
-		}
-		else if (sType.equals(KeyStoreType.JCEKS.toString()))
-		{
-			m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
-		}
-		else if (sType.equals(KeyStoreType.PKCS12.toString()))
-		{
-			m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
-		}
-		else if (sType.equals(KeyStoreType.BKS.toString()))
-		{
-			m_jmiChangeKeyStoreTypeBks.setEnabled(false);
-		}
-		else if (sType.equals(KeyStoreType.UBER.toString()))
-		{
-			m_jmiChangeKeyStoreTypeUber.setEnabled(false);
-		}
-		else if (sType.equals(KeyStoreType.GKR.toString()))
-		{
-			m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
+			case JKS:
+				m_jmiChangeKeyStoreTypeJks.setEnabled(false);
+				break;
+			case CaseExactJKS:
+				m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(false);
+				break;
+			case JCEKS:
+				m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
+				break;
+			case PKCS12:
+				m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
+				break;
+			case BKS:
+				m_jmiChangeKeyStoreTypeBks.setEnabled(false);
+				break;
+			case UBER:
+				m_jmiChangeKeyStoreTypeUber.setEnabled(false);
+				break;
+			case GKR:
+				m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
+				break;
+			default:
+				// Nothing
 		}
 	}
 
@@ -5951,16 +5947,7 @@ public class FPortecle
 				return;
 			}
 
-			String sType = ksLoaded.getType();
-			try
-			{
-				sType = KeyStoreType.getInstance(sType).toPrettyString();
-			}
-			catch (CryptoException e)
-			{
-				// Ignore
-			}
-
+			String sType = KeyStoreType.valueOf(ksLoaded.getType()).toString();
 			String sProv = ksLoaded.getProvider().getName();
 
 			if (iSize == 1)

@@ -26,7 +26,6 @@ import java.io.File;
 import java.security.KeyStore;
 import java.util.HashMap;
 
-import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyStoreType;
 
 /**
@@ -60,10 +59,8 @@ class KeyStoreWrapper
 	 * Construct a new KeyStoreWrapper for the supplied keystore.
 	 * 
 	 * @param keyStore The keystore
-	 * @throws CryptoException if the keystore type is not supported
 	 */
 	public KeyStoreWrapper(KeyStore keyStore)
-	    throws CryptoException
 	{
 		setKeyStore(keyStore);
 	}
@@ -74,10 +71,8 @@ class KeyStoreWrapper
 	 * @param keyStore The keystore
 	 * @param fKeyStore The keystore file
 	 * @param cPassword The keystore password
-	 * @throws CryptoException if the keystore type is not supported
 	 */
 	public KeyStoreWrapper(KeyStore keyStore, File fKeyStore, char[] cPassword)
-	    throws CryptoException
 	{
 		this(keyStore);
 		m_fKeyStore = fKeyStore;
@@ -150,13 +145,11 @@ class KeyStoreWrapper
 	 * Set the keystore.
 	 * 
 	 * @param keyStore The keystore
-	 * @throws CryptoException if the keystore type is not supported
 	 */
 	public void setKeyStore(KeyStore keyStore)
-	    throws CryptoException
 	{
 		m_keyStore = keyStore;
-		m_keyStoreType = KeyStoreType.getInstance(keyStore.getType());
+		m_keyStoreType = KeyStoreType.valueOf(keyStore.getType());
 	}
 
 	/**

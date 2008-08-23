@@ -82,13 +82,13 @@ public enum SignatureType
 		HashMap<KeyPairType, Collection<SignatureType>> kpMap =
 		    new HashMap<KeyPairType, Collection<SignatureType>>();
 
-		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(EnumSet.of(SHA1withDSA)));
+		kpMap.put(KeyPairType.DSA, Collections.singleton(SHA1withDSA));
 
 		kpMap.put(KeyPairType.RSA, Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA,
 		    SHA1withRSA, SHA224withRSA, SHA256withRSA, SHA384withRSA, SHA512withRSA, RIPEMD128withRSA,
 		    RIPEMD160withRSA, RIPEMD256withRSA)));
 
-		kpMap.put(KeyPairType.ECDSA, Collections.unmodifiableSet(EnumSet.of(SHA1withECDSA)));
+		kpMap.put(KeyPairType.ECDSA, Collections.singleton(SHA1withECDSA));
 
 		KEYPAIR_MAP = Collections.unmodifiableMap(kpMap);
 	}
