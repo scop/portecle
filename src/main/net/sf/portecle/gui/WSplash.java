@@ -72,6 +72,7 @@ public class WSplash
 
 		addMouseListener(new MouseAdapter()
 		{
+			@Override
 			public void mousePressed(MouseEvent e)
 			{
 				setVisible(false);

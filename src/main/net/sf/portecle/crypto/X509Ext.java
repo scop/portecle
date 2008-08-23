@@ -31,7 +31,6 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -1094,9 +1093,9 @@ public class X509Ext
 
 		StringBuilder sb = new StringBuilder();
 
-		for (Iterator i = caps.getCapabilities(null).iterator(); i.hasNext();)
+		for (Object o : caps.getCapabilities(null))
 		{
-			SMIMECapability cap = (SMIMECapability) i.next();
+			SMIMECapability cap = (SMIMECapability) o;
 
 			String sCapId = cap.getCapabilityID().getId();
 			String sCap = getRes(sCapId, "UnrecognisedSmimeCapability");

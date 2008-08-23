@@ -66,7 +66,7 @@ class SystemPropertiesTableModel
 		TreeMap<String, String> sortedSysProps = new TreeMap<String, String>();
 
 		// Place properties in a sorted map
-		for (Enumeration names = sysProps.propertyNames(); names.hasMoreElements();)
+		for (Enumeration<?> names = sysProps.propertyNames(); names.hasMoreElements();)
 		{
 			String sName = (String) names.nextElement();
 			String sValue = sysProps.getProperty(sName);
@@ -101,7 +101,7 @@ class SystemPropertiesTableModel
 
 		// Load sorted properties into the table
 		int iCnt = 0;
-		for (Map.Entry property : sortedSysProps.entrySet())
+		for (Map.Entry<String, String> property : sortedSysProps.entrySet())
 		{
 			// Name column
 			m_data[iCnt][0] = property.getKey();

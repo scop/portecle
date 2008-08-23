@@ -52,7 +52,7 @@ public final class NameUtil
 			return null;
 		}
 
-		Vector values = name.getValues(X509Name.CN);
+		Vector<?> values = name.getValues(X509Name.CN);
 		if (values == null || values.isEmpty())
 		{
 			return null;

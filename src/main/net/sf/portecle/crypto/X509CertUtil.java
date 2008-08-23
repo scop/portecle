@@ -681,10 +681,10 @@ public final class X509CertUtil
 	    throws CryptoException
 	{
 		// Extract all certificates from the Keystores creating
-		ArrayList ksCerts = new ArrayList();
-		for (int iCnt = 0; iCnt < keyStores.length; iCnt++)
+		ArrayList<X509Certificate> ksCerts = new ArrayList<X509Certificate>();
+		for (KeyStore ks : keyStores)
 		{
-			ksCerts.addAll(extractCertificates(keyStores[iCnt]));
+			ksCerts.addAll(extractCertificates(ks));
 		}
 
 		// Try and establish trust against the set of all certificates
@@ -701,14 +701,12 @@ public final class X509CertUtil
 	 * @param vCompCerts The comparison set of certificates
 	 * @throws CryptoException If there is a problem establishing trust
 	 */
-	private static X509Certificate[] establishTrust(List vCompCerts, X509Certificate cert)
+	private static X509Certificate[] establishTrust(List<X509Certificate> vCompCerts, X509Certificate cert)
 	    throws CryptoException
 	{
 		// For each comparison certificate...
-		for (int iCnt = 0; iCnt < vCompCerts.size(); iCnt++)
+		for (X509Certificate compCert : vCompCerts)
 		{
-			X509Certificate compCert = (X509Certificate) vCompCerts.get(iCnt);
-
 			// Check if the Comparison certificate's subject is the same as the
 			// certificate's issuer
 			if (cert.getIssuerDN().equals(compCert.getSubjectDN()))
@@ -752,17 +750,16 @@ public final class X509CertUtil
 	 * @return The extracted certificates
 	 * @throws CryptoException If a problem is encountered extracting the certificates
 	 */
-	private static Collection extractCertificates(KeyStore keyStore)
+	private static Collection<X509Certificate> extractCertificates(KeyStore keyStore)
 	    throws CryptoException
 	{
 		try
 		{
-			ArrayList vCerts = new ArrayList();
+			ArrayList<X509Certificate> vCerts = new ArrayList<X509Certificate>();
 
-			for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
+			for (Enumeration<String> en = keyStore.aliases(); en.hasMoreElements();)
 			{
-				String sAlias = (String) en.nextElement();
-
+				String sAlias = en.nextElement();
 				if (keyStore.isCertificateEntry(sAlias))
 				{
 					vCerts.add(X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias)));
@@ -791,9 +788,9 @@ public final class X509CertUtil
 	{
 		try
 		{
-			for (Enumeration en = keyStore.aliases(); en.hasMoreElements();)
+			for (Enumeration<String> en = keyStore.aliases(); en.hasMoreElements();)
 			{
-				String sAlias = (String) en.nextElement();
+				String sAlias = en.nextElement();
 				if (keyStore.isCertificateEntry(sAlias))
 				{
 					X509Certificate compCert =

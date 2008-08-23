@@ -29,7 +29,6 @@ import java.util.TreeMap;
 
 import javax.swing.table.AbstractTableModel;
 
-import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyStoreType;
 
 /**
@@ -74,10 +73,9 @@ class KeyStoreTableModel
 	 * 
 	 * @param keyStore The keystore
 	 * @throws KeyStoreException A problem is encountered accessing the keystore's entries
-	 * @throws CryptoException A problem is encountered accessing the keystore's entries
 	 */
 	public void load(KeyStore keyStore)
-	    throws KeyStoreException, CryptoException
+	    throws KeyStoreException
 	{
 		// Place aliases in a tree map to sort them
 		TreeMap<String, String> sortedAliases = new TreeMap<String, String>();

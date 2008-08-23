@@ -5806,10 +5806,6 @@ public class FPortecle
 			// Update keystore entries table
 			((KeyStoreTableModel) m_jtKeyStore.getModel()).load(keyStore);
 		}
-		catch (CryptoException ex)
-		{
-			displayException(ex);
-		}
 		catch (KeyStoreException ex)
 		{
 			displayException(ex);
@@ -6204,9 +6200,9 @@ public class FPortecle
 		{
 			// Get the name of the Look and Feel by instantiating an instance
 			// of the class
-			Class lookFeelClass = Class.forName(sLookFeelClassName);
-			Constructor lookFeelConstructor = lookFeelClass.getConstructor(new Class[] {});
-			LookAndFeel lookAndFeel = (LookAndFeel) lookFeelConstructor.newInstance(new Object[] {});
+			Class<?> lookFeelClass = Class.forName(sLookFeelClassName);
+			Constructor<?> lookFeelConstructor = lookFeelClass.getConstructor(new Class[0]);
+			LookAndFeel lookAndFeel = (LookAndFeel) lookFeelConstructor.newInstance(new Object[0]);
 
 			// Install Look and Feel
 			UIManager.installLookAndFeel(lookAndFeel.getName(), sLookFeelClassName);
@@ -6830,7 +6826,7 @@ public class FPortecle
 			if (bcProv == null)
 			{
 				// Instantiate the Bouncy Castle provider
-				Class bcProvClass = Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider");
+				Class<?> bcProvClass = Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider");
 				bcProv = (Provider) bcProvClass.newInstance();
 
 				// Add BC as a security provider
@@ -6865,7 +6861,7 @@ public class FPortecle
 			{
 				try
 				{
-					Class provClass = Class.forName(prov[1]);
+					Class<?> provClass = Class.forName(prov[1]);
 					Security.addProvider((Provider) provClass.newInstance());
 				}
 				catch (Throwable t)

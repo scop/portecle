@@ -35,7 +35,6 @@ import java.awt.event.WindowEvent;
 import java.security.Provider;
 import java.security.Security;
 import java.text.MessageFormat;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.TreeSet;
 
@@ -199,10 +198,9 @@ public class DProviderInfo
 
 			// ...add property child nodes to it.
 			// Use a TreeSet for sorting the properties.
-			TreeSet ts = new TreeSet(provider.keySet());
-			for (Iterator i = ts.iterator(); i.hasNext();)
+			for (Object o : new TreeSet<Object>(provider.keySet()))
 			{
-				String sKey = (String) i.next();
+				String sKey = String.valueOf(o);
 				String sValue = provider.getProperty(sKey);
 				providerPropertiesNode.add(new DefaultMutableTreeNode(MessageFormat.format(
 				    m_res.getString("DProviderInfo.ProviderProperty"), sKey, sValue)));
@@ -243,10 +241,9 @@ public class DProviderInfo
 
 			// ...and it's properties
 			// Use a TreeSet for sorting the properties.
-			TreeSet ts = new TreeSet(provider.keySet());
-			for (Iterator i = ts.iterator(); i.hasNext();)
+			for (Object o : new TreeSet<Object>(provider.keySet()))
 			{
-				String sKey = (String) i.next();
+				String sKey = String.valueOf(o);
 				String sValue = provider.getProperty(sKey);
 				strBuff.append('\t');
 				strBuff.append(sKey);
