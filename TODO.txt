@@ -18,4 +18,3 @@ TODO for later:
   examining SSL/TLS connections.
 - Import/export key+certs from PEM (bundle or separate) or DER (separate) files
 - Confirmation dialog when deleting a keystore entry
-- Optionally unbundle help files? https://bugzilla.redhat.com/425834#c5
