@@ -570,7 +570,7 @@ public final class X509CertUtil
 		certGen.setPublicKey(publicKey);
 
 		// Set the algorithm
-		certGen.setSignatureAlgorithm(signatureType.toString());
+		certGen.setSignatureAlgorithm(signatureType.name());
 
 		// Set the serial number
 		certGen.setSerialNumber(generateX509SerialNumber());

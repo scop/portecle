@@ -2,8 +2,7 @@
  * SignatureType.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,162 +21,146 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.InvalidObjectException;
-import java.io.ObjectStreamException;
-import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.Map;
+
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.bouncycastle.asn1.teletrust.TeleTrusTObjectIdentifiers;
+import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
 
 /**
- * Type safe enumeration of Signature Types supported by the X509CertUtil class.
+ * Signature type. Enum constant names are compatible with JCA standard names.
+ * 
+ * @see <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
-public class SignatureType
+public enum SignatureType
 {
 	/** MD2 with RSA Signature Type */
-	public static final SignatureType RSA_MD2 = new SignatureType("MD2withRSA");
-
+	MD2withRSA(PKCSObjectIdentifiers.md2WithRSAEncryption.getId()),
 	/** MD5 with RSA Signature Type */
-	public static final SignatureType RSA_MD5 = new SignatureType("MD5withRSA");
-
+	MD5withRSA(PKCSObjectIdentifiers.md5WithRSAEncryption.getId()),
 	/** SHA-1 with RSA Signature Type */
-	public static final SignatureType RSA_SHA1 = new SignatureType("SHA1withRSA");
-
+	SHA1withRSA(PKCSObjectIdentifiers.sha1WithRSAEncryption.getId()),
 	/** SHA-224 with RSA Signature Type */
-	public static final SignatureType RSA_SHA224 = new SignatureType("SHA224withRSA");
-
+	SHA224withRSA(PKCSObjectIdentifiers.sha224WithRSAEncryption.getId()),
 	/** SHA-256 with RSA Signature Type */
-	public static final SignatureType RSA_SHA256 = new SignatureType("SHA256withRSA");
-
+	SHA256withRSA(PKCSObjectIdentifiers.sha256WithRSAEncryption.getId()),
 	/** SHA-384 with RSA Signature Type */
-	public static final SignatureType RSA_SHA384 = new SignatureType("SHA384withRSA");
-
+	SHA384withRSA(PKCSObjectIdentifiers.sha384WithRSAEncryption.getId()),
 	/** SHA-512 with RSA Signature Type */
-	public static final SignatureType RSA_SHA512 = new SignatureType("SHA512withRSA");
-
+	SHA512withRSA(PKCSObjectIdentifiers.sha512WithRSAEncryption.getId()),
 	/** RIPEMD128 with RSA Signature Type */
-	public static final SignatureType RSA_RIPEMD128 = new SignatureType("RIPEMD128withRSA");
-
+	RIPEMD128withRSA(TeleTrusTObjectIdentifiers.rsaSignatureWithripemd128.getId()),
 	/** RIPEMD160 with RSA Signature Type */
-	public static final SignatureType RSA_RIPEMD160 = new SignatureType("RIPEMD160withRSA");
-
+	RIPEMD160withRSA(TeleTrusTObjectIdentifiers.rsaSignatureWithripemd160.getId()),
 	/** RIPEMD256 with RSA Signature Type */
-	public static final SignatureType RSA_RIPEMD256 = new SignatureType("RIPEMD256withRSA");
-
+	RIPEMD256withRSA(TeleTrusTObjectIdentifiers.rsaSignatureWithripemd256.getId()),
 	/** SHA-1 with DSA Signature Type */
-	public static final SignatureType DSA_SHA1 = new SignatureType("SHA1withDSA");
-
+	SHA1withDSA(X9ObjectIdentifiers.id_dsa_with_sha1.getId()),
 	/** SHA-1 with ECDSA Signature Type */
-	public static final SignatureType ECDSA_SHA1 = new SignatureType("SHA1withECDSA");
-
-	/** String-to-type map */
-	private static final HashMap TYPE_MAP = new HashMap();
-	static
-	{
-		TYPE_MAP.put(RSA_MD2.toString(), RSA_MD2);
-		TYPE_MAP.put(RSA_MD5.toString(), RSA_MD5);
-		TYPE_MAP.put(RSA_SHA1.toString(), RSA_SHA1);
-		TYPE_MAP.put(RSA_SHA224.toString(), RSA_SHA224);
-		TYPE_MAP.put(RSA_SHA256.toString(), RSA_SHA256);
-		TYPE_MAP.put(RSA_SHA384.toString(), RSA_SHA384);
-		TYPE_MAP.put(RSA_SHA512.toString(), RSA_SHA512);
-		TYPE_MAP.put(RSA_RIPEMD128.toString(), RSA_RIPEMD128);
-		TYPE_MAP.put(RSA_RIPEMD160.toString(), RSA_RIPEMD160);
-		TYPE_MAP.put(RSA_RIPEMD256.toString(), RSA_RIPEMD256);
-		TYPE_MAP.put(DSA_SHA1.toString(), DSA_SHA1);
-		TYPE_MAP.put(ECDSA_SHA1.toString(), ECDSA_SHA1);
-	}
+	SHA1withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA1.getId());
 
 	/** OID-to-type map */
-	private static final HashMap OID_MAP = new HashMap();
+	private static final Map<String, SignatureType> OID_MAP;
 	static
 	{
-		OID_MAP.put("1.2.840.113549.1.1.2", RSA_MD2);
-		OID_MAP.put("1.2.840.113549.1.1.4", RSA_MD5);
-		OID_MAP.put("1.2.840.113549.1.1.5", RSA_SHA1);
-		OID_MAP.put("1.2.840.113549.1.1.14", RSA_SHA224);
-		OID_MAP.put("1.2.840.113549.1.1.11", RSA_SHA256);
-		OID_MAP.put("1.2.840.113549.1.1.12", RSA_SHA384);
-		OID_MAP.put("1.2.840.113549.1.1.13", RSA_SHA512);
-		OID_MAP.put("1.3.36.3.3.1.3", RSA_RIPEMD128);
-		OID_MAP.put("1.3.36.3.3.1.2", RSA_RIPEMD160);
-		OID_MAP.put("1.3.36.3.3.1.4", RSA_RIPEMD256);
-		OID_MAP.put("1.2.840.10040.4.3", DSA_SHA1);
-		OID_MAP.put("1.2.840.10045.4.1", ECDSA_SHA1);
-	}
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
-	/** Stores Signature Type name */
-	private final String m_sType;
-
-	/**
-	 * Construct a SignatureType. Private to prevent construction from outside this class.
-	 * 
-	 * @param sType Signature type
-	 */
-	private SignatureType(String sType)
-	{
-		m_sType = sType;
-	}
-
-	/**
-	 * Gets a SignatureType corresponding to the given type String.
-	 * 
-	 * @param sType the signature type name
-	 * @return the corresponding SignatureType
-	 * @throws CryptoException if the type is not known
-	 */
-	public static SignatureType getInstance(String sType)
-	    throws CryptoException
-	{
-		SignatureType st = (SignatureType) TYPE_MAP.get(sType);
-		if (st == null)
+		HashMap<String, SignatureType> oidMap = new HashMap<String, SignatureType>();
+		for (SignatureType st : values())
 		{
-			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoResolveSignaturetype.exception.message"), sType));
+			oidMap.put(st.oid, st);
 		}
-		return st;
+		OID_MAP = Collections.unmodifiableMap(oidMap);
+	}
+
+	private static final Map<KeyPairType, Collection<SignatureType>> KEYPAIR_MAP;
+	static
+	{
+		HashMap<KeyPairType, Collection<SignatureType>> kpMap =
+		    new HashMap<KeyPairType, Collection<SignatureType>>();
+
+		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(EnumSet.of(SHA1withDSA)));
+
+		kpMap.put(KeyPairType.RSA, Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA,
+		    SHA1withRSA, SHA224withRSA, SHA256withRSA, SHA384withRSA, SHA512withRSA, RIPEMD128withRSA,
+		    RIPEMD160withRSA, RIPEMD256withRSA)));
+
+		kpMap.put(KeyPairType.ECDSA, Collections.unmodifiableSet(EnumSet.of(SHA1withECDSA)));
+
+		KEYPAIR_MAP = Collections.unmodifiableMap(kpMap);
+	}
+
+	private final String oid;
+
+	private SignatureType(String oid)
+	{
+		this.oid = oid;
 	}
 
 	/**
-	 * Gets a SignatureType corresponding to the given OID.
+	 * Gets supported signature types for given key pair type.
+	 * 
+	 * @param keyPairType
+	 * @return signature types for key pair type
+	 */
+	public static Collection<SignatureType> valuesFor(KeyPairType keyPairType)
+	{
+		Collection<SignatureType> values = KEYPAIR_MAP.get(keyPairType);
+		if (values == null)
+		{
+			values = Collections.emptySet();
+		}
+		return values;
+	}
+
+	/**
+	 * Gets a default signature type for given key pair type.
+	 * 
+	 * @param keyPairType
+	 * @return default signature type for key pair type
+	 */
+	public static SignatureType defaultFor(KeyPairType keyPairType)
+	{
+		switch (keyPairType)
+		{
+			case RSA:
+				return SHA1withRSA;
+			case DSA:
+				return SHA1withDSA;
+			case ECDSA:
+				return SHA1withECDSA;
+			default:
+				return null;
+		}
+	}
+
+	/**
+	 * Gets a SignatureType corresponding to the given object identifier.
 	 * 
 	 * @param oid the object identifier
-	 * @return the corresponding SignatureType
+	 * @return the corresponding SignatureType, <code>null</code> if unknown
 	 */
-	public static SignatureType forOid(String oid)
+	public static SignatureType valueOfOid(String oid)
 	{
-		SignatureType st = (SignatureType) OID_MAP.get(oid);
-		return st == null ? new SignatureType(oid) : st;
+		return OID_MAP.get(oid);
 	}
 
 	/**
-	 * Resolve the SignatureType Object.
+	 * Gets a string representation of signature type corresponding to the given object identifier.
 	 * 
-	 * @return The resolved SignatureType object
-	 * @throws ObjectStreamException if the SignatureType could not be resolved
+	 * @param oid the object identifier
+	 * @return the corresponding signature type as string, <code>oid</code> itself if unknown
 	 */
-	private Object readResolve()
-	    throws ObjectStreamException
+	public static String toString(String oid)
 	{
-		try
+		SignatureType type = valueOfOid(oid);
+		if (type != null)
 		{
-			return getInstance(m_sType);
+			return type.toString();
 		}
-		catch (CryptoException e)
-		{
-			throw new InvalidObjectException(e.getMessage());
-		}
-	}
-
-	/**
-	 * Return string representation of Signature Type compatible with the JCE.
-	 * 
-	 * @return String representation of a Signature Type
-	 */
-	public String toString()
-	{
-		return m_sType;
+		return oid;
 	}
 }

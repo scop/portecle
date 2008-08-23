@@ -568,7 +568,7 @@ class DViewCertificate
 		m_jtfPublicKey.setCaretPosition(0);
 
 		// Signature Algorithm
-		String sigAlgName = SignatureType.forOid(cert.getSigAlgName()).toString();
+		String sigAlgName = SignatureType.toString(cert.getSigAlgName());
 		m_jtfSignatureAlgorithm.setText(sigAlgName);
 		m_jtfSignatureAlgorithm.setCaretPosition(0);
 

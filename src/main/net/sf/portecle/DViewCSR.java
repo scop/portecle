@@ -320,8 +320,7 @@ class DViewCSR
 		m_jtfPublicKey.setCaretPosition(0);
 
 		// Signature Algorithm
-		String sigAlgName =
-		    SignatureType.forOid(m_req.getSignatureAlgorithm().getObjectId().toString()).toString();
+		String sigAlgName = SignatureType.toString(m_req.getSignatureAlgorithm().getObjectId().toString());
 		m_jtfSignatureAlgorithm.setText(sigAlgName);
 		m_jtfSignatureAlgorithm.setCaretPosition(0);
 

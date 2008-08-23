@@ -80,7 +80,7 @@ class DGenerateCertificate
 	/** Resource bundle */
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-	/** Signature Algoritm combo box */
+	/** Signature Algorithm combo box */
 	private JComboBox m_jcbSigAlg;
 
 	/** Validity text field */
@@ -334,31 +334,14 @@ class DGenerateCertificate
 	 */
 	private static void populateSigAlgs(KeyPairType type, JComboBox combo)
 	{
-		Object[] sigAlgs;
-		int selectedIndex;
-
-		if (type == KeyPairType.DSA)
-		{
-			sigAlgs = new Object[] { SignatureType.DSA_SHA1, };
-			selectedIndex = 0;
-		}
-		else
-		{
-			sigAlgs =
-			    new Object[] { SignatureType.RSA_MD2, SignatureType.RSA_MD5, SignatureType.RSA_SHA1,
-			        SignatureType.RSA_SHA224, SignatureType.RSA_SHA256, SignatureType.RSA_SHA384,
-			        SignatureType.RSA_SHA512, SignatureType.RSA_RIPEMD128, SignatureType.RSA_RIPEMD160,
-			        SignatureType.RSA_RIPEMD256, };
-			selectedIndex = 2;
-		}
-
 		combo.removeAllItems();
-		for (int iCnt = 0; iCnt < sigAlgs.length; iCnt++)
+		for (SignatureType st : SignatureType.valuesFor(type))
 		{
-			combo.addItem(sigAlgs[iCnt]);
+			combo.addItem(st);
 		}
 
-		combo.setSelectedIndex(selectedIndex);
+		combo.setSelectedItem(SignatureType.defaultFor(type));
+
 		combo.setEnabled(combo.getItemCount() > 1);
 	}
 
