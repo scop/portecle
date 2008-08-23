@@ -57,7 +57,7 @@ public enum AlgorithmType
 	 * @param oid the object identifier
 	 * @return the corresponding AlgorithmType, <code>null</code> if unknown
 	 */
-	public static AlgorithmType forOid(String oid)
+	public static AlgorithmType valueOfOid(String oid)
 	{
 		return OID_MAP.get(oid);
 	}
@@ -70,7 +70,7 @@ public enum AlgorithmType
 	 */
 	public static String toString(String oid)
 	{
-		AlgorithmType type = forOid(oid);
+		AlgorithmType type = valueOfOid(oid);
 		if (type != null)
 		{
 			return type.toString();
