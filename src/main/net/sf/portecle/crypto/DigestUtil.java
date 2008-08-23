@@ -24,6 +24,7 @@ package net.sf.portecle.crypto;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
@@ -56,11 +57,12 @@ public final class DigestUtil
 		MessageDigest messageDigest;
 		try
 		{
-			messageDigest = MessageDigest.getInstance(digestType.toString());
+			messageDigest = MessageDigest.getInstance(digestType.name());
 		}
 		catch (NoSuchAlgorithmException ex)
 		{
-			throw new CryptoException(m_res.getString("NoCreateDigest.exception.message"), ex);
+			throw new CryptoException(MessageFormat.format(
+			    m_res.getString("NoCreateDigest.exception.message"), digestType), ex);
 		}
 
 		// Create raw message digest

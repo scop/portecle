@@ -2,7 +2,7 @@
  * DigestType.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ * Copyright © 2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,69 +21,17 @@
 
 package net.sf.portecle.crypto;
 
-import java.io.InvalidObjectException;
-import java.io.ObjectStreamException;
-import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 /**
- * Type safe enumeration of Digest Types supported by the DigestUtil class.
+ * Digest type. Enum constant names are compatible with JCA standard names.
+ * 
+ * @see <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
-public class DigestType
+public enum DigestType
 {
 	/** MD5 Digest Type */
-	public static final DigestType MD5 = new DigestType("MD5");
-
+	MD5,
 	/** SHA-1 Digest Type */
-	public static final DigestType SHA1 = new DigestType("SHA1");
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
-	/** Stores Digest Type name */
-	private final String m_sType;
-
-	/**
-	 * Construct a DigestType. Private to prevent construction from outside this class.
-	 * 
-	 * @param sType Digest type
-	 */
-	private DigestType(String sType)
-	{
-		m_sType = sType;
-	}
-
-	/**
-	 * Resolve the DigestType Object.
-	 * 
-	 * @return The resolved DigestType object
-	 * @throws ObjectStreamException if the DigestType could not be resolved
-	 */
-	private Object readResolve()
-	    throws ObjectStreamException
-	{
-		if (m_sType.equals(MD5.toString()))
-		{
-			return MD5;
-		}
-		else if (m_sType.equals(SHA1.toString()))
-		{
-			return SHA1;
-		}
-		else
-		{
-			throw new InvalidObjectException(MessageFormat.format(
-			    m_res.getString("NoResolveDigesttype.exception.message"), m_sType));
-		}
-	}
-
-	/**
-	 * Return string representation of Digest Type compatible with the JCE.
-	 * 
-	 * @return String representation of a Digest Type
-	 */
-	public String toString()
-	{
-		return m_sType;
-	}
+	SHA1;
 }
