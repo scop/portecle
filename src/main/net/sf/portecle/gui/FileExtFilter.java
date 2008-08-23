@@ -45,8 +45,7 @@ public class FileExtFilter
 	 */
 	public FileExtFilter(String sExt, String sDescription)
 	{
-		m_sExts = new String[1];
-		m_sExts[0] = sExt;
+		m_sExts = new String[] { sExt };
 		m_sDescription = sDescription;
 	}
 
@@ -59,12 +58,7 @@ public class FileExtFilter
 	public FileExtFilter(String[] sExts, String sDescription)
 	{
 		m_sExts = new String[sExts.length];
-
-		for (int iCnt = 0; iCnt < sExts.length; iCnt++)
-		{
-			m_sExts[iCnt] = sExts[iCnt];
-		}
-
+		System.arraycopy(sExts, 0, m_sExts, 0, m_sExts.length);
 		m_sDescription = sDescription;
 	}
 
