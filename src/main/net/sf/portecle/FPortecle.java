@@ -1905,9 +1905,9 @@ public class FPortecle
 				        m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
-					for (int iCnt = 0; iCnt < cexs.length; iCnt++)
+					for (CryptoException cex : cexs)
 					{
-						displayException(cexs[iCnt]);
+						displayException(cex);
 					}
 				}
 
@@ -2785,9 +2785,9 @@ public class FPortecle
 				        m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
-					for (int iCnt = 0; iCnt < exs.length; iCnt++)
+					for (Exception e : exs)
 					{
-						displayException(exs[iCnt]);
+						displayException(e);
 					}
 				}
 			}
@@ -3447,9 +3447,9 @@ public class FPortecle
 				        m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
-					for (int iCnt = 0; iCnt < cexs.length; iCnt++)
+					for (CryptoException cex : cexs)
 					{
-						displayException(cexs[iCnt]);
+						displayException(cex);
 					}
 				}
 
@@ -4828,9 +4828,9 @@ public class FPortecle
 			pw = new PEMWriter(new FileWriter(fExportFile));
 			// TODO: private key encryption?
 			pw.writeObject(privKey);
-			for (int i = 0, len = certs.length; i < len; i++)
+			for (Certificate cert : certs)
 			{
-				pw.writeObject(certs[i]);
+				pw.writeObject(cert);
 			}
 			pw.flush();
 
@@ -6012,10 +6012,8 @@ public class FPortecle
 				{
 					UIManager.LookAndFeelInfo[] lookFeelInfos = UIManager.getInstalledLookAndFeels();
 
-					for (int iCnt = 0; iCnt < lookFeelInfos.length; iCnt++)
+					for (UIManager.LookAndFeelInfo lookFeelInfo : lookFeelInfos)
 					{
-						UIManager.LookAndFeelInfo lookFeelInfo = lookFeelInfos[iCnt];
-
 						// Store current look & feel class name
 						if (currentLookAndFeel != null &&
 						    currentLookAndFeel.getName().equals(lookFeelInfo.getName()))
@@ -6156,9 +6154,9 @@ public class FPortecle
 
 		// Install extra look and feels (which may or may not be present)
 		String[] plafs = m_res.getString("FPortecle.AdditionalLookAndFeels").split("[\\s,]+");
-		for (int i = 0, len = plafs.length; i < len; i++)
+		for (String plaf : plafs)
 		{
-			installLookFeel(plafs[i]);
+			installLookFeel(plaf);
 		}
 
 		try
@@ -6854,9 +6852,9 @@ public class FPortecle
 
 		// Install additional providers
 		String[] additionalProviders = m_res.getString("FPortecle.AdditionalProviders").split("[\\s,]+");
-		for (int i = 0, len = additionalProviders.length; i < len; i++)
+		for (String addProv : additionalProviders)
 		{
-			String[] prov = additionalProviders[i].split(":+", 2);
+			String[] prov = addProv.split(":+", 2);
 			if (Security.getProvider(prov[0]) == null)
 			{
 				try

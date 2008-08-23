@@ -489,9 +489,8 @@ public class X509Ext
 	{
 		int val = KeyUsage.getInstance(ASN1Object.fromByteArray(bValue)).intValue();
 		StringBuilder strBuff = new StringBuilder();
-		for (int i = 0, len = KEY_USAGES.length; i < len; i++)
+		for (int type : KEY_USAGES)
 		{
-			int type = KEY_USAGES[i];
 			if ((val & type) == type)
 			{
 				strBuff.append(m_res.getString("KeyUsage." + type));
@@ -881,7 +880,6 @@ public class X509Ext
 
 		for (int i = 0, len = policyConstraints.size(); i < len; i++)
 		{
-
 			DERTaggedObject policyConstraint = (DERTaggedObject) policyConstraints.getObjectAt(i);
 			DERInteger skipCerts =
 			    new DERInteger(((DEROctetString) policyConstraint.getObject()).getOctets());
@@ -1132,12 +1130,12 @@ public class X509Ext
 		String aia = m_res.getString("InformationAccess");
 
 		AccessDescription[] accDescs = access.getAccessDescriptions();
-		for (int i = 0, adLen = accDescs.length; i < adLen; i++)
+		for (AccessDescription accDesc : accDescs)
 		{
-			String accOid = accDescs[i].getAccessMethod().toString();
+			String accOid = accDesc.getAccessMethod().toString();
 			String accMeth = getRes(accOid, "UnrecognisedAccessMethod");
 			sb.append(MessageFormat.format(aia, MessageFormat.format(accMeth, accOid),
-			    getGeneralNameString(accDescs[i].getAccessLocation())));
+			    getGeneralNameString(accDesc.getAccessLocation())));
 			sb.append('\n');
 		}
 
@@ -1365,9 +1363,8 @@ public class X509Ext
 	{
 		int val = new NetscapeCertType((DERBitString) ASN1Object.fromByteArray(bValue)).intValue();
 		StringBuilder strBuff = new StringBuilder();
-		for (int i = 0, len = NETSCAPE_CERT_TYPES.length; i < len; i++)
+		for (int type : NETSCAPE_CERT_TYPES)
 		{
-			int type = NETSCAPE_CERT_TYPES[i];
 			if ((val & type) == type)
 			{
 				strBuff.append(m_res.getString("NetscapeCertificateType." + type));
@@ -1420,10 +1417,8 @@ public class X509Ext
 
 		StringBuilder sb = new StringBuilder();
 
-		for (int i = 0, len = points.length; i < len; i++)
+		for (DistributionPoint point : points)
 		{
-			DistributionPoint point = points[i];
-
 			DistributionPointName dpn;
 			if ((dpn = point.getDistributionPoint()) != null)
 			{
@@ -1713,10 +1708,10 @@ public class X509Ext
 	{
 		GeneralName[] names = generalNames.getNames();
 		StringBuilder strBuff = new StringBuilder();
-		for (int i = 0, len = names.length; i < len; i++)
+		for (GeneralName name : names)
 		{
 			strBuff.append(indent);
-			strBuff.append(getGeneralNameString(names[i]));
+			strBuff.append(getGeneralNameString(name));
 			strBuff.append('\n');
 		}
 		return strBuff.toString();

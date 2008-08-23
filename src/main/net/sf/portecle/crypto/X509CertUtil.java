@@ -329,9 +329,8 @@ public final class X509CertUtil
 
 		// Find the root issuer (ie certificate where issuer is the same
 		// as subject)
-		for (int iCnt = 0; iCnt < tmpCerts.length; iCnt++)
+		for (X509Certificate aCert : tmpCerts)
 		{
-			X509Certificate aCert = tmpCerts[iCnt];
 			if (aCert.getIssuerDN().equals(aCert.getSubjectDN()))
 			{
 				issuerCert = aCert;
@@ -351,10 +350,8 @@ public final class X509CertUtil
 		while (true)
 		{
 			boolean bFoundNext = false;
-			for (int iCnt = 0; iCnt < tmpCerts.length; iCnt++)
+			for (X509Certificate aCert : tmpCerts)
 			{
-				X509Certificate aCert = tmpCerts[iCnt];
-
 				// Is this certificate the next in the chain?
 				if (aCert.getIssuerDN().equals(issuerCert.getSubjectDN()) && aCert != issuerCert)
 				{
