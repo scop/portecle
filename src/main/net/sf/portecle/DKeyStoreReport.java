@@ -386,7 +386,7 @@ class DKeyStoreReport
 
 				// Creation date
 
-				if (ksType.supportsCreationDate())
+				if (ksType.isEntryCreationDateUseful())
 				{
 					Date dCreation = m_keystore.getCreationDate(sAlias);
 
@@ -575,7 +575,7 @@ class DKeyStoreReport
 				String sAlias = aliases.nextElement();
 
 				String sCreation = null;
-				if (ksType.supportsCreationDate())
+				if (ksType.isEntryCreationDateUseful())
 				{
 					Date dCreation = m_keystore.getCreationDate(sAlias);
 					sCreation =
@@ -782,7 +782,7 @@ class DKeyStoreReport
 				topNode.add(entryNode);
 
 				// Creation date, if applicable
-				if (ksType.supportsCreationDate())
+				if (ksType.isEntryCreationDateUseful())
 				{
 					Date dCreation = m_keystore.getCreationDate(sAlias);
 					String sCreation =

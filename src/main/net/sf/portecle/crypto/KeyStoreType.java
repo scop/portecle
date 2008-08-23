@@ -54,8 +54,8 @@ public enum KeyStoreType
 	/** Keystore "pretty" name */
 	private final String prettyName;
 
-	/** Whether the keystore type supports creation dates */
-	private final boolean supportsCreationDate;
+	/** Whether the keystore type provides useful values for entry creation dates */
+	private final boolean entryCreationDateUseful;
 
 	/** Associated filename extensions */
 	private final Set<String> filenameExtensions;
@@ -67,10 +67,10 @@ public enum KeyStoreType
 	 * @param supportsCreationDates Whether the keystore supports creation dates
 	 * @param filenameExtensions associated filename extensions
 	 */
-	private KeyStoreType(String prettyName, boolean supportsCreationDate, String[] filenameExtensions)
+	private KeyStoreType(String prettyName, boolean entryCreationDateUseful, String[] filenameExtensions)
 	{
 		this.prettyName = prettyName;
-		this.supportsCreationDate = supportsCreationDate;
+		this.entryCreationDateUseful = entryCreationDateUseful;
 		switch (filenameExtensions.length)
 		{
 			case 0:
@@ -87,19 +87,20 @@ public enum KeyStoreType
 	}
 
 	/**
-	 * Does the keystore type support creation dates?
+	 * Does the keystore type provide useful values for entry creation dates? Some keystores return the
+	 * keystore load time as creation date for all entries, this is not considered useful by this class.
 	 * 
-	 * @return true if creation dates are supported, false otherwise
+	 * @return true if creation dates are useful, false otherwise
 	 */
-	public boolean supportsCreationDate()
+	public boolean isEntryCreationDateUseful()
 	{
-		return supportsCreationDate;
+		return entryCreationDateUseful;
 	}
 
 	/**
 	 * Common filename extensions associated with this type.
 	 * 
-	 * @return filename extensions (without leading dot, in lowercase), empty if not applicable
+	 * @return filename extensions (without leading dot, in lower case), empty if not applicable
 	 */
 	public Set<String> getFilenameExtensions()
 	{
