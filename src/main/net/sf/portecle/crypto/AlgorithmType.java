@@ -24,7 +24,10 @@ package net.sf.portecle.crypto;
 import java.util.HashMap;
 
 /**
- * Algorithm type.
+ * Algorithm type. Enum constant names are compatible with JCA standard names.
+ * 
+ * @see <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
 public enum AlgorithmType
 {
