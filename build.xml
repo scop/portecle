@@ -62,7 +62,7 @@
     <!-- Clean up possibly previously copied docs -->
     <delete dir="${build}/classes/doc" />
     <copy todir="${build}/classes">
-      <fileset dir="${src}/main" includes="**/*.gif" />
+      <fileset dir="${src}/main" includes="**/*.gif,**/*.png" />
     </copy>
     <condition property="jar.bundle.docs">
       <equals arg1="${helpbaseurl}" arg2="${helpbaseurl.default}" />
@@ -83,7 +83,7 @@
     <jar jarfile="${build}/${jar}" index="false">
       <manifest>
         <attribute name="Main-Class" value="net.sf.portecle.FPortecle" />
-        <attribute name="SplashScreen-Image" value="net/sf/portecle/images/splash.gif" />
+        <attribute name="SplashScreen-Image" value="net/sf/portecle/images/splash.png" />
         <attribute name="Implementation-Title" value="Portecle" />
         <attribute name="Implementation-Version" value="${version}" />
         <attribute name="Implementation-Vendor" value="The Portecle Project" />
