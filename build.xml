@@ -30,8 +30,8 @@
 
   <property name="build.debug" value="true" />
   <property name="build.debuglevel" value="lines,source" />
-  <property name="build.srcver" value="1.5" />
-  <property name="build.targetver" value="1.5" />
+  <property name="build.srcver" value="1.6" />
+  <property name="build.targetver" value="1.6" />
 
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />

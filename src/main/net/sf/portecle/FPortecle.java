@@ -146,7 +146,7 @@ public class FPortecle
 	private static boolean m_bSplashScreen;
 
 	/** Minimum required JRE version */
-	private static final String REQ_JRE_VERSION = "1.5.0";
+	private static final String REQ_JRE_VERSION = "1.6.0";
 
 	/** Minimum required BC version */
 	private static final Double REQ_BC_VERSION = new Double(1.38);

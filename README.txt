@@ -26,7 +26,7 @@ Currently, Portecle can be used to, for example:
 Getting up and running with Portecle is quick and easy.  Everything
 you need to know is detailed below.  Being written in Java, Portecle
 will run on any machine that has a suitable Java runtime environment
-installed.  Note that a prerequisite is that you must have Java SE 5.0
+installed.  Note that a prerequisite is that you must have Java SE 6
 or later on your machine.  The latest version of the Java SE is
 available from http://java.sun.com/.
 
@@ -37,12 +37,12 @@ GUI, or on the Internet at http://portecle.sourceforge.net/#docs
 ------------
 
 The default binary distribution of Portecle contains everything you'll
-need to run Portecle with Java SE 5.0 or later (except Java SE itself,
+need to run Portecle with Java SE 6 or later (except Java SE itself,
 see above).  The easiest way to install it is to unzip the Portecle
 binary distribution to a directory somewhere on your filesystem.
 
 The binary distribution contains the Portecle jar file (portecle.jar)
-as well as Bouncy Castle provider jar (bcprov.jar) for Java SE 5.0.
+as well as Bouncy Castle provider jar (bcprov.jar) for Java SE 6.
 If you wish to run Portecle with a later Java version, or update the
 bundled Bouncy Castle provider for some other reason, simply download
 an update for your version of Java from http://www.bouncycastle.org/
@@ -88,9 +88,9 @@ instructed above, Portecle can also be run by double-clicking
 portecle.jar in the Windows Explorer.
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example c:\java\bcprov-jdk15-135.jar, use:
+filesystem, for example c:\java\bcprov-jdk16-140.jar, use:
 
-  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk15-135.jar
+  java -cp c:\java\portecle.jar;c:\java\bcprov-jdk16-140.jar
        net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
@@ -106,9 +106,9 @@ Portecle and Bouncy Castle provider jar files into a directory
   java -jar /usr/share/java/portecle.jar
 
 If you wish to use a Bouncy Castle provider somewhere else on your
-filesystem, for example /usr/share/java/bcprov-jdk15-135.jar, use:
+filesystem, for example /usr/share/java/bcprov-jdk16-140.jar, use:
 
-  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk15-135.jar \
+  java -cp /usr/share/java/portecle.jar:/usr/share/java/bcprov-jdk16-140.jar \
        net.sf.portecle.FPortecle
 
 Note that the above command should be on one line; it has been line
