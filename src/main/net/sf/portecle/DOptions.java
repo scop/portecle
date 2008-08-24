@@ -31,9 +31,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.TreeSet;
-import java.util.Vector;
+import java.util.TreeMap;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -83,10 +83,11 @@ class DOptions
 	private File m_fCaCertsFile;
 
 	/** Available Look and Feel information - reflects what is in choice box */
-	private Vector<UIManager.LookAndFeelInfo> m_vLookFeelInfos = new Vector<UIManager.LookAndFeelInfo>();
+	private TreeMap<String, UIManager.LookAndFeelInfo> lookFeelInfos =
+	    new TreeMap<String, UIManager.LookAndFeelInfo>();
 
 	/** Chosen look & feel information */
-	private UIManager.LookAndFeelInfo m_lookFeelInfo;
+	private String lookFeelClassName;
 
 	/** Use look & feel for window decoration? */
 	private boolean m_bLookFeelDecorated;
@@ -151,22 +152,13 @@ class DOptions
 		m_jcbLookFeel = new JComboBox();
 		m_jcbLookFeel.setToolTipText(m_res.getString("DOptions.m_jcbLookFeel.tooltip"));
 
-		// All Look and Feels (may contain duplicates)
-		UIManager.LookAndFeelInfo[] lookFeelInfos = UIManager.getInstalledLookAndFeels();
-
 		// Current Look and Feel
 		LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
 
-		// Set of installed and supported Look and Feel class names
-		TreeSet<String> lookFeelClasses = new TreeSet<String>();
-
-		for (int iCnt = 0; iCnt < lookFeelInfos.length; iCnt++)
+		for (UIManager.LookAndFeelInfo lookFeelInfo : UIManager.getInstalledLookAndFeels())
 		{
-			UIManager.LookAndFeelInfo lookFeelInfo = lookFeelInfos[iCnt];
-			String className = lookFeelInfo.getClassName();
-
-			// Avoid duplicates, optimize
-			if (lookFeelClasses.contains(className))
+			String name = lookFeelInfo.getName();
+			if (lookFeelInfos.containsKey(name))
 			{
 				continue;
 			}
@@ -175,33 +167,30 @@ class DOptions
 			boolean bSupported = false;
 			try
 			{
-				bSupported = ((LookAndFeel) Class.forName(className).newInstance()).isSupportedLookAndFeel();
+				LookAndFeel laf = (LookAndFeel) Class.forName(lookFeelInfo.getClassName()).newInstance();
+				bSupported = laf.isSupportedLookAndFeel();
 			}
-			catch (Exception e)
-			{ /* Ignore */
-			}
-			if (bSupported)
+			catch (Exception ignored)
 			{
-				lookFeelClasses.add(className);
 			}
-			else
+			if (!bSupported)
 			{
 				continue;
 			}
 
-			// Add Look and Feel to vector and choice box (so we can look up
-			// Look and Feel in Vector by choice box index).
-			m_vLookFeelInfos.add(lookFeelInfo);
-			m_jcbLookFeel.addItem(lookFeelInfo.getName());
+			lookFeelInfos.put(name, lookFeelInfo);
+		}
 
-			// Pre-select current look & feel
-			/*
-			 * Note: UIManager.LookAndFeelInfo.getName() and LookAndFeel.getName() can be different for the
-			 * same L&F (one example is the GTK+ one in J2SE 5 RC2 (Linux), where the former is "GTK+" and the
-			 * latter is "GTK look and feel"). Therefore, compare the class names instead.
-			 */
+		// Populate combo
+		for (Map.Entry<String, UIManager.LookAndFeelInfo> entry : lookFeelInfos.entrySet())
+		{
+			UIManager.LookAndFeelInfo info = entry.getValue();
+			m_jcbLookFeel.addItem(info.getName());
+
+			// Pre-select current look and feel. UIManager.LookAndFeelInfo.getName() and LookAndFeel.getName()
+			// can return different strings for the same look and feel, so we compare class names.
 			if (currentLookAndFeel != null &&
-			    currentLookAndFeel.getClass().getName().equals(lookFeelInfo.getClassName()))
+			    currentLookAndFeel.getClass().getName().equals(info.getClassName()))
 			{
 				m_jcbLookFeel.setSelectedIndex(m_jcbLookFeel.getItemCount() - 1);
 			}
@@ -301,9 +290,8 @@ class DOptions
 		// Store whether or not to use CA certs keystore
 		m_bUseCaCerts = m_jcbUseCaCerts.isSelected();
 
-		// Store look & feel class name (look up in Vector by choice box index)
-		int iSel = m_jcbLookFeel.getSelectedIndex();
-		m_lookFeelInfo = m_vLookFeelInfos.get(iSel);
+		// Store look & feel class name
+		lookFeelClassName = lookFeelInfos.get(m_jcbLookFeel.getSelectedItem()).getClassName();
 
 		// Store whether or not look & feel decoration should be used
 		m_bLookFeelDecorated = m_jcbLookFeelDecorated.isSelected();
@@ -330,13 +318,13 @@ class DOptions
 	}
 
 	/**
-	 * Get the chosen look & feel information.
+	 * Get the chosen look & feel class name.
 	 * 
-	 * @return The chosen look & feel information
+	 * @return The chosen look & feel class name
 	 */
-	public UIManager.LookAndFeelInfo getLookFeelInfo()
+	public String getLookFeelClassName()
 	{
-		return m_lookFeelInfo;
+		return lookFeelClassName;
 	}
 
 	/**

@@ -202,7 +202,7 @@ public class FPortecle
 	private FHelp m_fHelp;
 
 	/** Look & Feel setting made in options (picked up by saveAppPrefs) */
-	private UIManager.LookAndFeelInfo m_lookFeelOptions;
+	private String lookFeelClassName;
 
 	/** Look & Feel setting made in options (picked up by saveAppPrefs) */
 	private Boolean m_bLookFeelDecorationOptions;
@@ -3694,7 +3694,7 @@ public class FPortecle
 		m_bUseCaCerts = dOptions.getUseCaCerts();
 
 		// Look & feel
-		UIManager.LookAndFeelInfo lookFeelInfo = dOptions.getLookFeelInfo();
+		String lookFeelClassName = dOptions.getLookFeelClassName();
 
 		// Look & feel decoration
 		boolean bLookFeelDecoration = dOptions.getLookFeelDecoration();
@@ -3705,13 +3705,13 @@ public class FPortecle
 		 * L&F (one example is the GTK+ one in J2SE 5 RC2 (Linux), where the former is "GTK+" and the latter
 		 * is "GTK look and feel"). Therefore, compare the class names instead.
 		 */
-		if (lookFeelInfo != null)
+		if (lookFeelClassName != null)
 		{
-			if (!lookFeelInfo.getClassName().equals(UIManager.getLookAndFeel().getClass().getName()) ||
+			if (!lookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) ||
 			    bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated())
 			{
 				// Yes - save selections to be picked up by app preferences,
-				m_lookFeelOptions = lookFeelInfo;
+				this.lookFeelClassName = lookFeelClassName;
 				m_bLookFeelDecorationOptions = bLookFeelDecoration;
 				saveAppPrefs();
 
@@ -3719,7 +3719,7 @@ public class FPortecle
 				JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
 				try
 				{
-					UIManager.setLookAndFeel(lookFeelInfo.getClassName());
+					UIManager.setLookAndFeel(lookFeelClassName);
 					SwingUtilities.updateComponentTreeUI(getRootPane());
 					pack();
 				}
@@ -5948,10 +5948,10 @@ public class FPortecle
 			// Look & feel
 			LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
 
-			if (m_lookFeelOptions != null)
+			if (lookFeelClassName != null)
 			{
 				// Setting made in options
-				m_appPrefs.put(m_res.getString("AppPrefs.LookFeel"), m_lookFeelOptions.getClassName());
+				m_appPrefs.put(m_res.getString("AppPrefs.LookFeel"), lookFeelClassName);
 			}
 			else
 			{
@@ -6076,7 +6076,7 @@ public class FPortecle
 			else if (iWantSave == JOptionPane.CANCEL_OPTION)
 			{
 				// May be exiting because of L&F change
-				m_lookFeelOptions = null;
+				lookFeelClassName = null;
 				m_bLookFeelDecorationOptions = null;
 
 				return;
