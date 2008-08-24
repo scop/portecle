@@ -6066,20 +6066,14 @@ public class FPortecle
 		if (needSave())
 		{
 			// Yes - ask the user if it should be saved
-			int iWantSave = wantSave();
-
-			if (iWantSave == JOptionPane.YES_OPTION)
+			switch (wantSave())
 			{
-				// Save it
-				saveKeyStore();
-			}
-			else if (iWantSave == JOptionPane.CANCEL_OPTION)
-			{
-				// May be exiting because of L&F change
-				lookFeelClassName = null;
-				m_bLookFeelDecorationOptions = null;
-
-				return;
+				case JOptionPane.YES_OPTION:
+					// Save it
+					saveKeyStore();
+					break;
+				case JOptionPane.CANCEL_OPTION:
+					return;
 			}
 		}
 
