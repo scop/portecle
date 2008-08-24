@@ -1,5 +1,4 @@
 TODO for later:
-- UI + docs for setting the "show splash screen" option
 - http://www.microsoft.com/technet/prodtechnol/windowsserver2003/technologies/security/ws03qswp.mspx
 - Add "Close keystore" functionality (see also PKCS #11 stuff)
 - Fix and clean up or really get rid of "check for update" functionality.
