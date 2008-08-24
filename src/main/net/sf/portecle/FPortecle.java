@@ -6278,8 +6278,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.NewKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.NewKeyStoreAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.NewKeyStoreAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.NewKeyStoreAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.NewKeyStoreAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.NewKeyStoreAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.NewKeyStoreAction.image")));
@@ -6310,8 +6310,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.SaveKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.SaveKeyStoreAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.SaveKeyStoreAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.SaveKeyStoreAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.SaveKeyStoreAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.SaveKeyStoreAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.SaveKeyStoreAction.image")));
@@ -6342,8 +6342,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStoreFileAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.OpenKeyStoreFileAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY, Integer.valueOf(m_res.getString(
+			    "FPortecle.OpenKeyStoreFileAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.OpenKeyStoreFileAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStoreFileAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.OpenKeyStoreFileAction.image")));
@@ -6374,8 +6374,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.GenKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.GenKeyPairAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.GenKeyPairAction.mnemonic").charAt(
-			    0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.GenKeyPairAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.GenKeyPairAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.GenKeyPairAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.GenKeyPairAction.image")));
@@ -6406,8 +6406,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.ImportTrustCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ImportTrustCertAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.ImportTrustCertAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.ImportTrustCertAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.ImportTrustCertAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ImportTrustCertAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ImportTrustCertAction.image")));
@@ -6438,8 +6438,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.ImportKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ImportKeyPairAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.ImportKeyPairAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.ImportKeyPairAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.ImportKeyPairAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ImportKeyPairAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ImportKeyPairAction.image")));
@@ -6470,8 +6470,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.SetKeyStorePassAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.SetKeyStorePassAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.SetKeyStorePassAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.SetKeyStorePassAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.SetKeyStorePassAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.SetKeyStorePassAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.SetKeyStorePassAction.image")));
@@ -6502,8 +6502,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.KeyStoreReportAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.KeyStoreReportAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.KeyStoreReportAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.KeyStoreReportAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.KeyStoreReportAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.KeyStoreReportAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.KeyStoreReportAction.image")));
@@ -6534,8 +6534,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.ExamineCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCertAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.ExamineCertAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.ExamineCertAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.ExamineCertAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCertAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCertAction.image")));
@@ -6566,8 +6566,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCertSSLAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(
-			    m_res.getString("FPortecle.ExamineCertSSLAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.ExamineCertSSLAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.ExamineCertSSLAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCertSSLAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCertSSLAction.image")));
@@ -6598,8 +6598,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.ExamineCsrAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCsrAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ExamineCsrAction.mnemonic").charAt(
-			    0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.ExamineCsrAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.ExamineCsrAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCsrAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCsrAction.image")));
@@ -6630,8 +6630,8 @@ public class FPortecle
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
 			    "FPortecle.ExamineCrlAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCrlAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.ExamineCrlAction.mnemonic").charAt(
-			    0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.ExamineCrlAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.ExamineCrlAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCrlAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCrlAction.image")));
@@ -6661,7 +6661,8 @@ public class FPortecle
 		{
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.HelpAction.statusbar"));
-			putValue(MNEMONIC_KEY, new Integer(m_res.getString("FPortecle.HelpAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(m_res.getString("FPortecle.HelpAction.mnemonic").charAt(0)));
 			putValue(NAME, m_res.getString("FPortecle.HelpAction.text"));
 			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.HelpAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.HelpAction.image")));
