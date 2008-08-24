@@ -726,10 +726,7 @@ public final class X509CertUtil
 					{
 						X509Certificate[] trustChain = new X509Certificate[tmpChain.length + 1];
 						trustChain[0] = cert;
-						for (int j = 1; j <= tmpChain.length; j++)
-						{
-							trustChain[j] = tmpChain[j - 1];
-						}
+						System.arraycopy(tmpChain, 0, trustChain, 1, tmpChain.length);
 						return trustChain;
 					}
 				}
