@@ -9,6 +9,7 @@ Enhancements:
 - Support online help not bundled in jar (set helpbaseurl at build time).
 - User interface improvements, including use of Java Desktop API to
   launch browsers and mail clients.
+- Support changing look and feel without restarting the app.
 
 Bug fixes:
 - Fix problem with examining certificates from OpenSSL PEM bundles in

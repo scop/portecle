@@ -3710,43 +3710,22 @@ public class FPortecle
 			if (!lookFeelInfo.getClassName().equals(UIManager.getLookAndFeel().getClass().getName()) ||
 			    bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated())
 			{
-				// TODO: offer a choice to keep working without making the
-				// change
-
 				// Yes - save selections to be picked up by app preferences,
 				m_lookFeelOptions = lookFeelInfo;
-				m_bLookFeelDecorationOptions = Boolean.valueOf(bLookFeelDecoration);
+				m_bLookFeelDecorationOptions = bLookFeelDecoration;
+				saveAppPrefs();
 
-				if (EXPERIMENTAL)
+				JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
+				JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
+				try
 				{
-					saveAppPrefs();
-					setVisible(false);
-					/*
-					 * Can't get these to apply on the fly ???
-					 * JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
-					 * JDialog.setDefaultLookAndFeelDecorated( bLookFeelDecoration);
-					 */
-					try
-					{
-						UIManager.setLookAndFeel(lookFeelInfo.getClassName());
-						SwingUtilities.updateComponentTreeUI(getRootPane());
-						pack();
-					}
-					catch (Exception e)
-					{
-						displayException(e);
-					}
-					finally
-					{
-						SwingHelper.showAndWait(this);
-					}
+					UIManager.setLookAndFeel(lookFeelInfo.getClassName());
+					SwingUtilities.updateComponentTreeUI(getRootPane());
+					pack();
 				}
-				else
+				catch (Exception e)
 				{
-					// Save and exit application
-					JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.LookFeelChanged.message"),
-					    m_res.getString("FPortecle.LookFeelChanged.Title"), JOptionPane.INFORMATION_MESSAGE);
-					exitApplication();
+					displayException(e);
 				}
 			}
 		}

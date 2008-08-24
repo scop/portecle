@@ -121,13 +121,12 @@ class DOptions
 		JPanel jpUseCaCerts = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpUseCaCerts.add(m_jcbUseCaCerts);
 
-		JLabel jlCaCertsFile = new JLabel(m_res.getString("DOptions.jlCaCertsFile.text"));
 		m_jtfCaCertsFile = new JTextField(m_fCaCertsFile.toString(), 20);
 		m_jtfCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
 		m_jtfCaCertsFile.setCaretPosition(0);
 		m_jtfCaCertsFile.setEditable(false);
 		JPanel jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpCaCertsFile.add(jlCaCertsFile);
+		jpCaCertsFile.add(new JLabel(m_res.getString("DOptions.jlCaCertsFile.text")));
 		jpCaCertsFile.add(m_jtfCaCertsFile);
 
 		JButton jbBrowseCaCertsFile = new JButton(m_res.getString("DOptions.jbBrowseCaCertsFile.text"));
@@ -147,13 +146,6 @@ class DOptions
 		jpCaCerts.add(jpCaCertsFile);
 
 		// Look & feel tabbed options tab panel
-		JLabel jlLookFeelNote = new JLabel(m_res.getString("DOptions.jlLookFeelNote.text"));
-
-		// Note
-		JPanel jpLookFeelNote = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpLookFeelNote.add(jlLookFeelNote);
-
-		JLabel jlLookFeel = new JLabel(m_res.getString("DOptions.jlLookFeel.text"));
 
 		// Create and populate combo box with available look & feels
 		m_jcbLookFeel = new JComboBox();
@@ -216,7 +208,7 @@ class DOptions
 		}
 
 		JPanel jpLookFeelControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpLookFeelControls.add(jlLookFeel);
+		jpLookFeelControls.add(new JLabel(m_res.getString("DOptions.jlLookFeel.text")));
 		jpLookFeelControls.add(m_jcbLookFeel);
 
 		// Create and populate check box with look & feel decorated setting
@@ -228,10 +220,13 @@ class DOptions
 		JPanel jpLookFeelDecoratedControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpLookFeelDecoratedControls.add(m_jcbLookFeelDecorated);
 
+		JPanel jpDecorationNote = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		jpDecorationNote.add(new JLabel(m_res.getString("DOptions.jlDecorationNote.text")));
+
 		JPanel jpLookFeel = new JPanel(new BorderLayout());
-		jpLookFeel.add(jpLookFeelNote, BorderLayout.NORTH);
-		jpLookFeel.add(jpLookFeelControls, BorderLayout.CENTER);
-		jpLookFeel.add(jpLookFeelDecoratedControls, BorderLayout.SOUTH);
+		jpLookFeel.add(jpLookFeelControls, BorderLayout.NORTH);
+		jpLookFeel.add(jpLookFeelDecoratedControls, BorderLayout.CENTER);
+		jpLookFeel.add(jpDecorationNote, BorderLayout.SOUTH);
 
 		// Add the panels to a tabbed pane
 		JTabbedPane jtpOptions = new JTabbedPane();
