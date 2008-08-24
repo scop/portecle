@@ -84,6 +84,7 @@
     <jar jarfile="${build}/${jar}" index="false">
       <manifest>
         <attribute name="Main-Class" value="${main.class}" />
+        <attribute name="SplashScreen-Image: net/sf/portecle/images/splash.gif" />
         <attribute name="Implementation-Title" value="Portecle" />
         <attribute name="Implementation-Version" value="${version}" />
         <attribute name="Implementation-Vendor" value="The Portecle Project" />

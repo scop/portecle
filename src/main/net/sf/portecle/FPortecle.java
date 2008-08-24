@@ -113,7 +113,6 @@ import net.sf.portecle.gui.JMenuItemRecentFile;
 import net.sf.portecle.gui.JMenuRecentFiles;
 import net.sf.portecle.gui.LastDir;
 import net.sf.portecle.gui.SwingHelper;
-import net.sf.portecle.gui.WSplash;
 import net.sf.portecle.gui.about.DAbout;
 import net.sf.portecle.gui.crypto.DProviderInfo;
 import net.sf.portecle.gui.error.DThrowable;
@@ -142,9 +141,6 @@ public class FPortecle
 
 	/** Application preferences */
 	private static Preferences m_appPrefs = Preferences.userNodeForPackage(FPortecle.class);
-
-	/** Whether to show the splash screen */
-	private static boolean m_bSplashScreen;
 
 	/** Minimum required JRE version */
 	private static final String REQ_JRE_VERSION = "1.6.0";
@@ -5962,9 +5958,6 @@ public class FPortecle
 			// CA Certificates file
 			m_appPrefs.put(m_res.getString("AppPrefs.CaCertsFile"), m_fCaCertsFile.toString());
 
-			// Show splash screen?
-			m_appPrefs.putBoolean(m_res.getString("AppPrefs.SplashScreen"), m_bSplashScreen);
-
 			// Recent files
 			File[] fRecentFiles = m_jmrfFile.getRecentFiles();
 			for (int iCnt = 0; iCnt < fRecentFiles.length; iCnt++)
@@ -6840,28 +6833,6 @@ public class FPortecle
 				{
 					// TODO: should maybe notify in some cases?
 					// Eg. Throwable, but not Exception?
-				}
-			}
-		}
-
-		m_bSplashScreen = m_appPrefs.getBoolean(m_res.getString("AppPrefs.SplashScreen"), true);
-
-		if (m_bSplashScreen)
-		{
-			// Create and display a splash screen
-			WSplash wSplash =
-			    new WSplash(Toolkit.getDefaultToolkit().createImage(
-			        ClassLoader.getSystemResource(m_res.getString("FPortecle.Splash.image"))), 3000);
-			// Wait for the splash screen to disappear
-			while (wSplash.isVisible())
-			{
-				try
-				{
-					Thread.sleep(500);
-				}
-				catch (InterruptedException ex)
-				{
-					// Do nothing
 				}
 			}
 		}
