@@ -19,5 +19,4 @@ TODO for later:
 - Import/export key+certs from PEM (bundle or separate) or DER (separate) files
 - Confirmation dialog when deleting a keystore entry
 - Improve exception show dialog to display multiple exceptions
-- http://java.sun.com/developer/technicalArticles/J2SE/Desktop/javase6/splashscreen/
 - java 1.6 better iconimage etc PNG (transparent?) support
