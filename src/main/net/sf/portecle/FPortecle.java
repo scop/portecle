@@ -25,6 +25,7 @@ package net.sf.portecle;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -46,7 +47,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyPair;
@@ -127,8 +130,6 @@ import net.sf.portecle.version.VersionException;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.openssl.PEMWriter;
 
-import edu.stanford.ejalbert.BrowserLauncher;
-
 /**
  * Start class and main frame of the keystore GUI application.
  */
@@ -179,6 +180,9 @@ public class FPortecle
 	private static final String DEFAULT_CA_CERTS_FILE =
 	    new File(System.getProperty("java.home"), "lib" + File.separator + "security" + File.separator +
 	        FileChooserFactory.CACERTS_FILENAME).toString();
+
+	/** Desktop */
+	private static final Desktop DESKTOP = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 
 	/** The last directory accessed by the application */
 	private LastDir m_lastDir = new LastDir();
@@ -3520,24 +3524,54 @@ public class FPortecle
 		SwingHelper.showAndWait(m_fHelp);
 	}
 
+	private void browse(String url)
+	{
+		if (DESKTOP != null)
+		{
+			try
+			{
+				DESKTOP.browse(new URI(url));
+				return;
+			}
+			catch (Exception ignored)
+			{
+			}
+		}
+
+		// Could not launch - tell the user the address
+		JOptionPane.showMessageDialog(this, MessageFormat.format(
+		    m_res.getString("FPortecle.NoLaunchBrowser.message"), url), m_res.getString("FPortecle.Title"),
+		    JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	private void mail(String address)
+	{
+		if (DESKTOP != null)
+		{
+			try
+			{
+				DESKTOP.mail(new URI("mailto:" + URLEncoder.encode(address, "ISO-8859-1")));
+				return;
+			}
+			catch (Exception ignored)
+			{
+				System.err.println(ignored);
+				ignored.printStackTrace();
+			}
+		}
+
+		// Could not launch - tell the user the address
+		JOptionPane.showMessageDialog(this, MessageFormat.format(
+		    m_res.getString("FPortecle.NoLaunchEmail.message"), address), m_res.getString("FPortecle.Title"),
+		    JOptionPane.INFORMATION_MESSAGE);
+	}
+
 	/**
 	 * Display application's website.
 	 */
 	private void visitWebsite()
 	{
-		String sWebsiteAddress = m_res.getString("FPortecle.WebsiteAddress");
-
-		try
-		{
-			BrowserLauncher.openURL(sWebsiteAddress);
-		}
-		catch (IOException ex)
-		{
-			// Could not launch web browser - tell the user the address
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sWebsiteAddress),
-			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
-		}
+		browse(m_res.getString("FPortecle.WebsiteAddress"));
 	}
 
 	/**
@@ -3545,19 +3579,7 @@ public class FPortecle
 	 */
 	private void visitSFNetProject()
 	{
-		String sWebsiteAddress = m_res.getString("FPortecle.SFNetProjectAddress");
-
-		try
-		{
-			BrowserLauncher.openURL(sWebsiteAddress);
-		}
-		catch (IOException ex)
-		{
-			// Could not launch web browser - tell the user the address
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sWebsiteAddress),
-			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
-		}
+		browse(m_res.getString("FPortecle.SFNetProjectAddress"));
 	}
 
 	/**
@@ -3565,19 +3587,7 @@ public class FPortecle
 	 */
 	private void composeEmail()
 	{
-		String sEmailAddress = m_res.getString("FPortecle.EmailAddress");
-
-		try
-		{
-			BrowserLauncher.openURL("mailto:" + sEmailAddress);
-		}
-		catch (IOException ex)
-		{
-			// Could not launch email client - tell the user the address
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchEmail.message"), sEmailAddress),
-			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
-		}
+		mail(m_res.getString("FPortecle.EmailAddress"));
 	}
 
 	/**
@@ -3585,24 +3595,12 @@ public class FPortecle
 	 */
 	private void visitMailListSignup()
 	{
-		String sMailListSignupAddress = m_res.getString("FPortecle.MailListSignupAddress");
-
-		try
-		{
-			BrowserLauncher.openURL(sMailListSignupAddress);
-		}
-		catch (IOException ex)
-		{
-			// Could not launch web browser - tell the user the address
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sMailListSignupAddress),
-			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
-		}
+		browse(m_res.getString("FPortecle.MailListSignupAddress"));
 	}
 
-	/**
-	 * Check if a more up-to-date version of Portecle exists by querying a properties file on the internet.
-	 */
+// /**
+// * Check if a more up-to-date version of Portecle exists by querying a properties file on the internet.
+// */
 	/*
 	 * private void checkForUpdate() { // Get the version number of this Portecle String sCurrentVersion =
 	 * m_res.getString("FPortecle.Version"); HttpURLConnection urlConn = null; ObjectInputStream ois = null;
@@ -3631,35 +3629,19 @@ public class FPortecle
 	 * ex) {} } } }
 	 */
 
-	/**
-	 * Display the Portecle downloads web page.
-	 */
-	/*
-	 * private void visitDownloads() { String sDownloadsAddress =
-	 * m_res.getString("FPortecle.DownloadsAddress"); try { BrowserLauncher.openURL(sDownloadsAddress); }
-	 * catch (IOException ex) { // Could not launch web browser - tell the user the address
-	 * JOptionPane.showMessageDialog( this, MessageFormat.format(
-	 * m_res.getString("FPortecle.NoLaunchBrowser.message"), sDownloadsAddress),
-	 * m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } }
-	 */
-
+// /**
+// * Display the Portecle downloads web page.
+// */
+// private void visitDownloads()
+// {
+// desktopAction("browse", m_res.getString("FPortecle.DownloadsAddress"));
+// }
 	/**
 	 * Display donation web page.
 	 */
 	private void makeDonation()
 	{
-		String sDonateAddress = m_res.getString("FPortecle.DonateAddress");
-		try
-		{
-			BrowserLauncher.openURL(sDonateAddress);
-		}
-		catch (IOException ex)
-		{
-			// Could not launch web browser - tell the user the address
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoLaunchBrowser.message"), sDonateAddress),
-			    m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
-		}
+		browse(m_res.getString("FPortecle.DonateAddress"));
 	}
 
 	/**
