@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -231,7 +232,7 @@ public class X509Ext
 		}
 		else if (m_Oid.equals(X509Extensions.SubjectKeyIdentifier))
 		{
-			return getSubjectKeyIndentifierStringValue(bOctets);
+			return getSubjectKeyIdentifierStringValue(bOctets);
 		}
 		else if (m_Oid.equals(X509Extensions.KeyUsage))
 		{
@@ -434,7 +435,7 @@ public class X509Ext
 	}
 
 	/**
-	 * Get Subject Key Indentifier (2.5.29.14) extension value as a string.
+	 * Get Subject Key Identifier (2.5.29.14) extension value as a string.
 	 * 
 	 * <pre>
 	 * SubjectKeyIdentifier ::= KeyIdentifier
@@ -445,7 +446,7 @@ public class X509Ext
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
 	 */
-	private String getSubjectKeyIndentifierStringValue(byte[] bValue)
+	private String getSubjectKeyIdentifierStringValue(byte[] bValue)
 	    throws IOException
 	{
 		SubjectKeyIdentifier ski = SubjectKeyIdentifier.getInstance(ASN1Object.fromByteArray(bValue));
@@ -624,14 +625,7 @@ public class X509Ext
 	private String getCrlNumberStringValue(byte[] bValue)
 	    throws IOException
 	{
-		// Get CRL number
-		DERInteger derInt = (DERInteger) ASN1Object.fromByteArray(bValue);
-
-		// Convert to and return hex string representation of number
-		StringBuilder strBuff = new StringBuilder();
-		strBuff.append(convertToHexString(derInt));
-		strBuff.append('\n');
-		return strBuff.toString();
+		return NumberFormat.getInstance().format(((DERInteger) ASN1Object.fromByteArray(bValue)).getValue());
 	}
 
 	/**
@@ -917,7 +911,7 @@ public class X509Ext
 	private String getExtendedKeyUsageStringValue(byte[] bValue)
 	    throws IOException
 	{
-		// Get sequence of OIDs and return approriate strings
+		// Get sequence of OIDs and return appropriate strings
 		ASN1Sequence asn1Seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 
 		StringBuilder strBuff = new StringBuilder();
@@ -1411,7 +1405,6 @@ public class X509Ext
 	private String getCrlDistributionPointsStringValue(byte[] bValue)
 	    throws IOException
 	{
-
 		CRLDistPoint dps = CRLDistPoint.getInstance(ASN1Object.fromByteArray(bValue));
 		DistributionPoint[] points = dps.getDistributionPoints();
 
