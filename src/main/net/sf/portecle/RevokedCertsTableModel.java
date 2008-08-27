@@ -82,6 +82,8 @@ class RevokedCertsTableModel
 
 			// Populate the modified date column
 			m_data[iCnt][1] = x509CrlEntry.getRevocationDate();
+
+			iCnt++;
 		}
 
 		fireTableDataChanged();
