@@ -78,7 +78,6 @@ public class DSystemProperties
 		jtSystemProperties.setRowMargin(0);
 		jtSystemProperties.getColumnModel().setColumnMargin(0);
 		jtSystemProperties.getTableHeader().setReorderingAllowed(false);
-		jtSystemProperties.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		// Add custom renderers for the table cells and headers
 		int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
@@ -103,7 +102,7 @@ public class DSystemProperties
 			column.setCellRenderer(new SystemPropertiesTableCellRend());
 		}
 
-		// Put the table into a scroll panew
+		// Put the table into a scroll pane
 		JScrollPane jspSystemPropertiesTable =
 		    new JScrollPane(jtSystemProperties, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
