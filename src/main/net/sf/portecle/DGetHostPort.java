@@ -2,7 +2,7 @@
  * DGetHostPort.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +22,9 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,7 +37,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -70,16 +71,16 @@ class DGetHostPort
 	private InetSocketAddress m_iAddress;
 
 	/**
-	 * Creates new DGetHostPort dialog where the parent is a frame.
+	 * Creates new DGetHostPort dialog.
 	 * 
-	 * @param parent The parent frame
+	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param bModal Is the dialog modal?
+	 * @param modal Is the dialog modal?
 	 * @param iOldHostPort The address to display initially
 	 */
-	public DGetHostPort(JFrame parent, String sTitle, boolean bModal, InetSocketAddress iOldHostPort)
+	public DGetHostPort(Window parent, String sTitle, boolean modal, InetSocketAddress iOldHostPort)
 	{
-		super(parent, sTitle, bModal);
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		initComponents(iOldHostPort);
 	}
 

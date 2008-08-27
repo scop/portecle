@@ -22,7 +22,9 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,7 +38,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
@@ -78,32 +79,16 @@ class DGeneratingKeyPair
 	private Thread m_generator;
 
 	/**
-	 * Creates new DGeneratingKeyPair dialog where the parent is a frame.
+	 * Creates new DGeneratingKeyPair dialog.
 	 * 
-	 * @param parent The parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent The parent window
+	 * @param modal Is dialog modal?
 	 * @param keyPairType The key pair generation type
 	 * @param iKeySize The key size to generate
 	 */
-	public DGeneratingKeyPair(JFrame parent, boolean bModal, KeyPairType keyPairType, int iKeySize)
+	public DGeneratingKeyPair(Window parent, boolean modal, KeyPairType keyPairType, int iKeySize)
 	{
-		super(parent, bModal);
-		m_keyPairType = keyPairType;
-		m_iKeySize = iKeySize;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DGeneratingKeyPair dialog where the parent is a dialog.
-	 * 
-	 * @param parent The parent dialog
-	 * @param bModal Is dialog modal?
-	 * @param keyPairType The key pair generation type
-	 * @param iKeySize The key size to generate
-	 */
-	public DGeneratingKeyPair(JDialog parent, boolean bModal, KeyPairType keyPairType, int iKeySize)
-	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_keyPairType = keyPairType;
 		m_iKeySize = iKeySize;
 		initComponents();

@@ -22,8 +22,10 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,7 +38,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -87,26 +88,14 @@ class DGenerateKeyPair
 	private boolean m_bSuccess;
 
 	/**
-	 * Creates new DGenerateKeyPair dialog where the parent is a frame.
+	 * Creates new DGenerateKeyPair dialog.
 	 * 
-	 * @param parent The parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent The parent window
+	 * @param modal Is dialog modal?
 	 */
-	public DGenerateKeyPair(JFrame parent, boolean bModal)
+	public DGenerateKeyPair(Window parent, boolean modal)
 	{
-		super(parent, bModal);
-		initComponents();
-	}
-
-	/**
-	 * Creates new DGenerateKeyPair dialog where the parent is a dialog.
-	 * 
-	 * @param parent The parent dialog
-	 * @param bModal Is dialog modal?
-	 */
-	public DGenerateKeyPair(JDialog parent, boolean bModal)
-	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
 

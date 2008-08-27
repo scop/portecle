@@ -22,7 +22,9 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -34,7 +36,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,35 +62,21 @@ class DGetAlias
 	private String m_sAlias;
 
 	/**
-	 * Creates new DGetAlias dialog where the parent is a frame.
+	 * Creates new DGetAlias dialog.
 	 * 
-	 * @param parent The parent frame
+	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param bModal Is the dialog modal?
+	 * @param modal Is the dialog modal?
 	 * @param sOldAlias The alias to display initially
 	 */
-	public DGetAlias(JFrame parent, String sTitle, boolean bModal, String sOldAlias)
+	public DGetAlias(Window parent, String sTitle, boolean modal, String sOldAlias)
 	{
-		super(parent, sTitle, bModal);
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		initComponents(sOldAlias);
 	}
 
 	/**
-	 * Creates new DGetAlias dialog where the parent is a dialog.
-	 * 
-	 * @param parent The parent dialog
-	 * @param sTitle The dialog's title
-	 * @param bModal Is the dialog modal?
-	 * @param sOldAlias The alias to display initially
-	 */
-	public DGetAlias(JDialog parent, String sTitle, boolean bModal, String sOldAlias)
-	{
-		super(parent, sTitle, bModal);
-		initComponents(sOldAlias);
-	}
-
-	/**
-	 * Get the alias eneterd by the user.
+	 * Get the alias entered by the user.
 	 * 
 	 * @return The alias, or null if none was entered
 	 */

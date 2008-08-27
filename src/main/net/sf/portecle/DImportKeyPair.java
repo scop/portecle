@@ -22,8 +22,10 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -46,7 +48,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -99,17 +100,17 @@ class DImportKeyPair
 	private String m_alias;
 
 	/**
-	 * Creates new form DImportKeyPair where the parent is a frame.
+	 * Creates new DImportKeyPair.
 	 * 
-	 * @param parent The parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent The parent window
+	 * @param modal Is dialog modal?
 	 * @param pkcs12 The PKCS #12 keystore to list key pairs from
 	 * @throws CryptoException A problem was encountered importing a key pair.
 	 */
-	public DImportKeyPair(JFrame parent, boolean bModal, KeyStore pkcs12)
+	public DImportKeyPair(Window parent, boolean modal, KeyStore pkcs12)
 	    throws CryptoException
 	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_pkcs12 = pkcs12;
 		initComponents();
 	}

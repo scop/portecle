@@ -22,9 +22,11 @@
 package net.sf.portecle.gui.error;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -35,7 +37,6 @@ import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -58,29 +59,15 @@ public class DThrowableDetail
 	private Throwable m_throwable;
 
 	/**
-	 * Creates new DThrowableDetail dialog where the parent is a frame.
+	 * Creates new DThrowableDetail dialog.
 	 * 
-	 * @param parent Parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent Parent window
+	 * @param modal Is dialog modal?
 	 * @param throwable Throwable to display
 	 */
-	public DThrowableDetail(JFrame parent, boolean bModal, Throwable throwable)
+	public DThrowableDetail(Window parent, boolean modal, Throwable throwable)
 	{
-		super(parent, bModal);
-		m_throwable = throwable;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DThrowableDetail dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param bModal Is dialog modal?
-	 * @param throwable Throwable to display
-	 */
-	public DThrowableDetail(JDialog parent, boolean bModal, Throwable throwable)
-	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_throwable = throwable;
 		initComponents();
 	}

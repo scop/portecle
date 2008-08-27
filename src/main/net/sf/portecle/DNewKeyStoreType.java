@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2005-2007 Ville Skyttä, ville.skytta@iki.fi
+ *             2005-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,8 +23,10 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,7 +39,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -86,14 +87,14 @@ class DNewKeyStoreType
 	private JRadioButton m_jrbGkrKeyStore;
 
 	/**
-	 * Creates new form DNewKeyStoreType where the parent is a frame.
+	 * Creates new DNewKeyStoreType dialog.
 	 * 
-	 * @param parent The parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent The parent window
+	 * @param modal Is dialog modal?
 	 */
-	public DNewKeyStoreType(JFrame parent, boolean bModal)
+	public DNewKeyStoreType(Window parent, boolean modal)
 	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		setTitle(m_res.getString("DNewKeyStoreType.Title"));
 		initComponents();
 	}

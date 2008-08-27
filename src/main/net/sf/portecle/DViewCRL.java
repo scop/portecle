@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,11 +24,13 @@ package net.sf.portecle;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -44,7 +47,6 @@ import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -99,31 +101,16 @@ class DViewCRL
 	private X509CRL m_crl;
 
 	/**
-	 * Creates new DViewCRL dialog where the parent is a frame.
+	 * Creates new DViewCRL dialog.
 	 * 
-	 * @param parent Parent frame
+	 * @param parent Parent window
 	 * @param sTitle The dialog title
-	 * @param bModal Is dialog modal?
+	 * @param modal Is dialog modal?
 	 * @param crl CRL to display
 	 */
-	public DViewCRL(JFrame parent, String sTitle, boolean bModal, X509CRL crl)
+	public DViewCRL(Window parent, String sTitle, boolean modal, X509CRL crl)
 	{
-		super(parent, sTitle, bModal);
-		m_crl = crl;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DViewCRL dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param sTitle The dialog title
-	 * @param bModal Is dialog modal?
-	 * @param crl CRL to display
-	 */
-	public DViewCRL(JDialog parent, String sTitle, boolean bModal, X509CRL crl)
-	{
-		super(parent, sTitle, bModal);
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_crl = crl;
 		initComponents();
 	}

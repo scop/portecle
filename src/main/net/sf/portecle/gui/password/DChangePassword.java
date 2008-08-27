@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2006-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,8 +23,10 @@
 package net.sf.portecle.gui.password;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -36,7 +38,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -73,55 +74,17 @@ public class DChangePassword
 	private char[] m_cOldPassword;
 
 	/**
-	 * Creates new DChangePassword dialog where the parent is a frame.
+	 * Creates new DChangePassword dialog.
 	 * 
-	 * @param parent Parent frame
-	 * @param bModal The dialog's title
-	 * @param cOldPassword The password to be changed
-	 */
-	public DChangePassword(JFrame parent, boolean bModal, char[] cOldPassword)
-	{
-		this(parent, bModal, m_res.getString("DChangePassword.Title"), cOldPassword);
-	}
-
-	/**
-	 * Creates new DChangePassword dialog where the parent is a frame.
-	 * 
-	 * @param parent Parent frame
-	 * @param bModal The dialog's title
+	 * @param parent Parent window
+	 * @param modal The dialog's title
 	 * @param sTitle Is dialog modal?
 	 * @param cOldPassword The password to be changed
 	 */
-	public DChangePassword(JFrame parent, boolean bModal, String sTitle, char[] cOldPassword)
+	public DChangePassword(Window parent, boolean modal, String sTitle, char[] cOldPassword)
 	{
-		super(parent, sTitle, bModal);
-		m_cOldPassword = arrayCopy(cOldPassword);
-		initComponents();
-	}
-
-	/**
-	 * Creates new DChangePassword dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent frame
-	 * @param bModal Is dialog modal?
-	 * @param cOldPassword The password to be changed
-	 */
-	public DChangePassword(JDialog parent, boolean bModal, char[] cOldPassword)
-	{
-		this(parent, m_res.getString("DChangePassword.Title"), bModal, cOldPassword);
-	}
-
-	/**
-	 * Creates new DChangePassword dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent frame
-	 * @param sTitle The dialog's title
-	 * @param bModal Is dialog modal?
-	 * @param cOldPassword The password to be changed
-	 */
-	public DChangePassword(JDialog parent, String sTitle, boolean bModal, char[] cOldPassword)
-	{
-		super(parent, sTitle, bModal);
+		super(parent, (sTitle == null) ? m_res.getString("DChangePassword.Title") : sTitle, (modal
+		    ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_cOldPassword = arrayCopy(cOldPassword);
 		initComponents();
 	}

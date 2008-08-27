@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,8 +23,10 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -93,16 +95,16 @@ class DOptions
 	private boolean m_bLookFeelDecorated;
 
 	/**
-	 * Creates new form DOptions where the parent is a frame.
+	 * Creates new DOptions dialog.
 	 * 
-	 * @param parent The parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent The parent window
+	 * @param modal Is dialog modal?
 	 * @param bUseCaCerts Use CA certs keystore file?
 	 * @param fCaCertsFile CA certs keystore file
 	 */
-	public DOptions(JFrame parent, boolean bModal, boolean bUseCaCerts, File fCaCertsFile)
+	public DOptions(Window parent, boolean modal, boolean bUseCaCerts, File fCaCertsFile)
 	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_bUseCaCerts = bUseCaCerts;
 		m_fCaCertsFile = fCaCertsFile;
 		initComponents();

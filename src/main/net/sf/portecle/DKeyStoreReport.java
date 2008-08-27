@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,6 +23,7 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -121,33 +122,17 @@ class DKeyStoreReport
 	private KeyStore m_keystore;
 
 	/**
-	 * Creates new DKeyStoreReport dialog where the parent is a frame.
+	 * Creates new DKeyStoreReport dialog.
 	 * 
-	 * @param parent Parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent Parent window
+	 * @param modal Is dialog modal?
 	 * @param keystore Keystore to display report on
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 */
-	public DKeyStoreReport(JFrame parent, boolean bModal, KeyStore keystore)
+	public DKeyStoreReport(JFrame parent, boolean modal, KeyStore keystore)
 	    throws CryptoException
 	{
-		super(parent, bModal);
-		m_keystore = keystore;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DKeyStoreReport dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param bModal Is dialog modal?
-	 * @param keystore Keystore to display report on
-	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
-	 */
-	public DKeyStoreReport(JDialog parent, boolean bModal, KeyStore keystore)
-	    throws CryptoException
-	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_keystore = keystore;
 		initComponents();
 	}

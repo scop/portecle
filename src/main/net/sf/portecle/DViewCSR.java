@@ -2,7 +2,7 @@
  * DViewCSR.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2006 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2006-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,10 +22,12 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -37,7 +39,6 @@ import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -90,35 +91,18 @@ class DViewCSR
 	private String m_basename;
 
 	/**
-	 * Creates new DViewCSR dialog where the parent is a frame.
+	 * Creates new DViewCSR dialog.
 	 * 
-	 * @param parent Parent frame
+	 * @param parent Parent window
 	 * @param sTitle The dialog title
-	 * @param bModal Is dialog modal?
+	 * @param modal Is dialog modal?
 	 * @param req Certification request to display
 	 * @throws CryptoException A problem was encountered getting the certification request details
 	 */
-	public DViewCSR(JFrame parent, String sTitle, boolean bModal, PKCS10CertificationRequest req)
+	public DViewCSR(Window parent, String sTitle, boolean modal, PKCS10CertificationRequest req)
 	    throws CryptoException
 	{
-		super(parent, sTitle, bModal);
-		m_req = req;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DViewCSR dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param sTitle The dialog title
-	 * @param bModal Is dialog modal?
-	 * @param req Certification request to display
-	 * @throws CryptoException A problem was encountered getting the certification request details
-	 */
-	public DViewCSR(JDialog parent, String sTitle, boolean bModal, PKCS10CertificationRequest req)
-	    throws CryptoException
-	{
-		super(parent, sTitle, bModal);
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_req = req;
 		initComponents();
 	}

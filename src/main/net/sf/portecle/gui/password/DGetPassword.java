@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2006-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +23,9 @@
 package net.sf.portecle.gui.password;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,7 +37,6 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -64,28 +65,15 @@ public class DGetPassword
 	private char[] m_cPassword;
 
 	/**
-	 * Creates new DGetPassword dialog where the parent is a frame.
+	 * Creates new DGetPassword dialog.
 	 * 
 	 * @param parent Parent frame
 	 * @param sTitle The dialog's title
-	 * @param bModal Is dialog modal?
+	 * @param modal Is dialog modal?
 	 */
-	public DGetPassword(JFrame parent, String sTitle, boolean bModal)
+	public DGetPassword(Window parent, String sTitle, boolean modal)
 	{
-		super(parent, sTitle, bModal);
-		initComponents();
-	}
-
-	/**
-	 * Creates new DGetPassword dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param sTitle The dialog's title
-	 * @param bModal Is dialog modal?
-	 */
-	public DGetPassword(JDialog parent, String sTitle, boolean bModal)
-	{
-		super(parent, sTitle, bModal);
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
 

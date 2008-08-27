@@ -22,8 +22,10 @@
 package net.sf.portecle.gui.jar;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -39,7 +41,6 @@ import java.util.jar.Manifest;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,30 +58,17 @@ public class DJarInfo
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
 	/**
-	 * Creates new DJarInfo dialog where the parent is a frame.
+	 * Creates new DJarInfo dialog.
 	 * 
-	 * @param parent Parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent Parent window
+	 * @param modal Is dialog modal?
 	 * @throws IOException Problem occurred getting JAR information
 	 */
-	public DJarInfo(JFrame parent, boolean bModal)
+	public DJarInfo(Window parent, boolean modal)
 	    throws IOException
 	{
-		this(parent, m_res.getString("DJarInfo.Title"), bModal);
-	}
-
-	/**
-	 * Creates new DJarInfo dialog where the parent is a frame.
-	 * 
-	 * @param parent Parent frame
-	 * @param sTitle The title of the dialog
-	 * @param bModal Is dialog modal?
-	 * @throws IOException Problem occurred getting JAR information
-	 */
-	public DJarInfo(JFrame parent, String sTitle, boolean bModal)
-	    throws IOException
-	{
-		super(parent, sTitle, bModal);
+		super(parent, m_res.getString("DJarInfo.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
+		    : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
 

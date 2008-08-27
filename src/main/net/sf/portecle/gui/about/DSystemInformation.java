@@ -22,6 +22,7 @@
 package net.sf.portecle.gui.about;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -60,26 +61,15 @@ public class DSystemInformation
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
 	/**
-	 * Creates new DSystemInformation dialog where the parent is a dialog.
+	 * Creates new DSystemInformation dialog.
 	 * 
-	 * @param parent Parent dialog
-	 * @param bModal Is dialog modal?
+	 * @param parent Parent window
+	 * @param modal Is dialog modal?
 	 */
-	public DSystemInformation(JDialog parent, boolean bModal)
+	public DSystemInformation(JDialog parent, boolean modal)
 	{
-		this(parent, m_res.getString("DSystemInformation.Title"), bModal);
-	}
-
-	/**
-	 * Creates new DSystemInformation dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param sTitle The title of the dialog
-	 * @param bModal Is dialog modal?
-	 */
-	public DSystemInformation(JDialog parent, String sTitle, boolean bModal)
-	{
-		super(parent, sTitle, bModal);
+		super(parent, m_res.getString("DSystemInformation.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
+		    : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
 

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,10 +23,12 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,7 +44,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -117,18 +118,18 @@ class DGenerateCertificate
 	private X509Certificate m_certificate;
 
 	/**
-	 * Creates new form DGenerateCertificate where the parent is a frame.
+	 * Creates new DGenerateCertificate dialog.
 	 * 
-	 * @param parent The parent frame
+	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param bModal Is dialog modal?
+	 * @param modal Is dialog modal?
 	 * @param keyPair The key pair to generate the certificate from
 	 * @param keyPairType The key pair type
 	 */
-	public DGenerateCertificate(JFrame parent, String sTitle, boolean bModal, KeyPair keyPair,
+	public DGenerateCertificate(Window parent, String sTitle, boolean modal, KeyPair keyPair,
 	    KeyPairType keyPairType)
 	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_keyPair = keyPair;
 		m_keyPairType = keyPairType;
 		initComponents(sTitle);

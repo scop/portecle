@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +23,11 @@
 package net.sf.portecle.gui.crypto;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -40,7 +42,6 @@ import java.util.TreeSet;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -60,26 +61,14 @@ public class DProviderInfo
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
 
 	/**
-	 * Creates new DProviderInfo dialog where the parent is a frame.
+	 * Creates new DProviderInfo dialog.
 	 * 
-	 * @param parent Parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent Parent window
+	 * @param modal Is dialog modal?
 	 */
-	public DProviderInfo(JFrame parent, boolean bModal)
+	public DProviderInfo(Window parent, boolean modal)
 	{
-		super(parent, bModal);
-		initComponents();
-	}
-
-	/**
-	 * Creates new DProviderInfo dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param bModal Is dialog modal?
-	 */
-	public DProviderInfo(JDialog parent, boolean bModal)
-	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
 

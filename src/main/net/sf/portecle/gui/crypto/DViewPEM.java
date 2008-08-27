@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2006-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,9 +23,11 @@
 package net.sf.portecle.gui.crypto;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -41,7 +43,6 @@ import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -73,38 +74,19 @@ public class DViewPEM
 	private JFileChooser m_chooser;
 
 	/**
-	 * Creates new DViewPEM dialog where the parent is a frame.
+	 * Creates new DViewPEM dialog.
 	 * 
-	 * @param parent Parent frame
+	 * @param parent Parent windiw
 	 * @param sTitle The dialog title
-	 * @param bModal Is dialog modal?
+	 * @param modal Is dialog modal?
 	 * @param obj Object to display encoding for
 	 * @param chooser File chooser for saving the PEM encoding
 	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
 	 */
-	public DViewPEM(JFrame parent, String sTitle, boolean bModal, Object obj, JFileChooser chooser)
+	public DViewPEM(Window parent, String sTitle, boolean modal, Object obj, JFileChooser chooser)
 	    throws CryptoException
 	{
-		super(parent, sTitle, bModal);
-		m_object = obj;
-		m_chooser = chooser;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DViewPEM dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param sTitle The dialog title
-	 * @param bModal Is dialog modal?
-	 * @param obj Object to display encoding for
-	 * @param chooser File chooser for saving the PEM encoding
-	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
-	 */
-	public DViewPEM(JDialog parent, String sTitle, boolean bModal, Object obj, JFileChooser chooser)
-	    throws CryptoException
-	{
-		super(parent, sTitle, bModal);
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_object = obj;
 		m_chooser = chooser;
 		initComponents();

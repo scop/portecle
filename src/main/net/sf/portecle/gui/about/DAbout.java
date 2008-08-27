@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +23,9 @@
 package net.sf.portecle.gui.about;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -32,7 +34,6 @@ import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -49,26 +50,15 @@ public class DAbout
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
 	/**
-	 * Creates new DAbout dialog where the parent is a frame.
+	 * Creates new DAbout dialog.
 	 * 
 	 * @param parent Parent frame
-	 * @param bModal Is dialog modal?
+	 * @param modal Is dialog modal?
 	 */
-	public DAbout(JFrame parent, boolean bModal)
+	public DAbout(Window parent, boolean modal)
 	{
-		this(parent, m_res.getString("DAbout.Title"), bModal);
-	}
-
-	/**
-	 * Creates new DAbout dialog where the parent is a frame.
-	 * 
-	 * @param parent Parent frame
-	 * @param sTitle The title of the dialog
-	 * @param bModal Is dialog modal?
-	 */
-	public DAbout(JFrame parent, String sTitle, boolean bModal)
-	{
-		super(parent, sTitle, bModal);
+		super(parent, m_res.getString("DAbout.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
+		    : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
 

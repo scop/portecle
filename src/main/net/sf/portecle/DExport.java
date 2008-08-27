@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2006 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,8 +23,10 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -42,7 +44,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
@@ -100,18 +101,18 @@ class DExport
 	private boolean m_bExportSelected;
 
 	/**
-	 * Creates new form DExport where the parent is a frame.
+	 * Creates new DExport dialog.
 	 * 
-	 * @param parent The parent frame
-	 * @param bModal Is dialog modal?
+	 * @param parent The parent window
+	 * @param modal Is dialog modal?
 	 * @param keyStore The keystore to export from
 	 * @param sEntryAlias The keystore entry to export
 	 * @throws CryptoException Problem accessing the keystore entry
 	 */
-	public DExport(JFrame parent, boolean bModal, KeyStoreWrapper keyStore, String sEntryAlias)
+	public DExport(Window parent, boolean modal, KeyStoreWrapper keyStore, String sEntryAlias)
 	    throws CryptoException
 	{
-		super(parent, bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_keyStoreWrap = keyStore;
 		m_sEntryAlias = sEntryAlias;
 		initComponents();
