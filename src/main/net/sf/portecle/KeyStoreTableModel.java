@@ -88,7 +88,7 @@ class KeyStoreTableModel
 		boolean cdSupport = KeyStoreType.valueOf(keyStore.getType()).isEntryCreationDateUseful();
 
 		// Create one table row for each keystore entry
-		m_data = new Object[sortedAliases.size()][3];
+		m_data = new Object[sortedAliases.size()][getColumnCount()];
 
 		// Iterate through the sorted aliases, retrieving the keystore
 		// entries and populating the table model
