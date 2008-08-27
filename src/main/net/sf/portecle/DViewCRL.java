@@ -278,8 +278,6 @@ class DViewCRL
 		// More for the benefit of a reduced height
 		jpRevokedCertsTable.setPreferredSize(new Dimension(100, 200));
 		jpRevokedCertsTable.add(jspRevokedCertsTable, BorderLayout.CENTER);
-		jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(new EtchedBorder(),
-		    m_res.getString("DViewCRL.TableTitle")), new EmptyBorder(5, 5, 5, 5)));
 
 		// CRL Entry Extensions
 		m_jbCrlEntryExtensions = new JButton(m_res.getString("DViewCRL.m_jbCrlEntryExtensions.text"));
@@ -329,6 +327,11 @@ class DViewCRL
 
 		// Populate the dialog with the CRL
 		populateDialog();
+
+		// Add border with number of entries in CRL
+		jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(new EtchedBorder(),
+		    MessageFormat.format(m_res.getString("DViewCRL.TableTitle"), m_jtRevokedCerts.getRowCount())),
+		    new EmptyBorder(5, 5, 5, 5)));
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
