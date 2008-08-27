@@ -43,7 +43,6 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
-import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -215,9 +214,7 @@ class DGetHostPort
 		}
 		catch (Exception e)
 		{
-			DThrowable dt = new DThrowable(this, true, e);
-			dt.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dt);
+			DThrowable.showAndWait(this, null, e);
 			return false;
 		}
 
@@ -227,9 +224,7 @@ class DGetHostPort
 		}
 		catch (Exception e)
 		{
-			DThrowable dt = new DThrowable(this, true, e);
-			dt.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dt);
+			DThrowable.showAndWait(this, null, e);
 			return false;
 		}
 

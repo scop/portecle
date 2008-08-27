@@ -620,9 +620,7 @@ class DViewCertificate
 			}
 			catch (CryptoException ex)
 			{
-				DThrowable dThrowable = new DThrowable(this, true, ex);
-				dThrowable.setLocationRelativeTo(this);
-				SwingHelper.showAndWait(dThrowable);
+				DThrowable.showAndWait(this, null, ex);
 				dispose();
 			}
 		}
@@ -644,9 +642,7 @@ class DViewCertificate
 			}
 			catch (CryptoException ex)
 			{
-				DThrowable dThrowable = new DThrowable(this, true, ex);
-				dThrowable.setLocationRelativeTo(this);
-				SwingHelper.showAndWait(dThrowable);
+				DThrowable.showAndWait(this, null, ex);
 				dispose();
 			}
 		}
@@ -702,9 +698,7 @@ class DViewCertificate
 		}
 		catch (CryptoException ex)
 		{
-			DThrowable dThrowable = new DThrowable(this, true, ex);
-			dThrowable.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dThrowable);
+			DThrowable.showAndWait(this, null, ex);
 			return;
 		}
 	}

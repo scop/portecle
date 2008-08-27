@@ -50,7 +50,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import net.sf.portecle.crypto.CryptoException;
-import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 import org.bouncycastle.openssl.PEMWriter;
@@ -261,7 +260,7 @@ public class DViewPEM
 			}
 			catch (IOException e)
 			{
-				displayException(e);
+				DThrowable.showAndWait(this, null, e);
 			}
 			finally
 			{
@@ -272,7 +271,7 @@ public class DViewPEM
 					}
 					catch (IOException e)
 					{
-						displayException(e);
+						DThrowable.showAndWait(this, null, e);
 					}
 			}
 		}
@@ -285,17 +284,5 @@ public class DViewPEM
 	{
 		setVisible(false);
 		dispose();
-	}
-
-	/**
-	 * Display an exception.
-	 * 
-	 * @param exception Exception to display
-	 */
-	private void displayException(Exception exception)
-	{
-		DThrowable dThrowable = new DThrowable(this, true, exception);
-		dThrowable.setLocationRelativeTo(this);
-		SwingHelper.showAndWait(dThrowable);
 	}
 }

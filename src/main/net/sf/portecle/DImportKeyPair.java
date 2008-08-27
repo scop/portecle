@@ -369,12 +369,12 @@ class DImportKeyPair
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 	}
@@ -400,12 +400,12 @@ class DImportKeyPair
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 	}
@@ -458,33 +458,21 @@ class DImportKeyPair
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 		catch (NoSuchAlgorithmException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 		catch (UnrecoverableKeyException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
 		}
 
 		closeDialog();
-	}
-
-	/**
-	 * Display an exception.
-	 * 
-	 * @param exception Exception to display
-	 */
-	private void displayException(Exception exception)
-	{
-		DThrowable dThrowable = new DThrowable(this, true, exception);
-		dThrowable.setLocationRelativeTo(this);
-		SwingHelper.showAndWait(dThrowable);
 	}
 
 	/**

@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,7 +23,9 @@
 package net.sf.portecle.gui.error;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -34,7 +37,6 @@ import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -60,63 +62,33 @@ public class DThrowable
 	private final static String[] POLICY_PROBLEM_HINTS = { "unsupported keysize", "illegal key size", };
 
 	/**
-	 * Creates new DThrowable dialog where the parent is a frame.
+	 * Creates new DThrowable dialog with the given title.
 	 * 
-	 * @param bModal Create the dialog as modal?
-	 * @param parent Parent frame
+	 * @param parent Parent window
+	 * @param title Dialog title; if null, application default for DThrowables is used
+	 * @param modal Create the dialog as modal?
 	 * @param throwable Throwable to display
 	 */
-	public DThrowable(JFrame parent, boolean bModal, Throwable throwable)
+	public DThrowable(Window parent, String title, boolean modal, Throwable throwable)
 	{
-		super(parent, m_res.getString("DThrowable.Title"), bModal);
+		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		setTitle((title == null) ? m_res.getString("DThrowable.Title") : title);
 		m_throwable = throwable;
 		initComponents();
 	}
 
 	/**
-	 * Creates new DThrowable dialog where the parent is a dialog.
+	 * Create, show, and wait for a new modal DThrowable dialog.
 	 * 
-	 * @param parent Parent dialog
-	 * @param bModal Create the dialog as modal?
+	 * @param parent Parent window
+	 * @param title Dialog title; if null, application default for DThrowables is used
 	 * @param throwable Throwable to display
 	 */
-	public DThrowable(JDialog parent, boolean bModal, Throwable throwable)
+	public static void showAndWait(Window parent, String title, Throwable throwable)
 	{
-		super(parent, m_res.getString("DThrowable.Title"), bModal);
-		m_throwable = throwable;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DThrowable dialog where the parent is a frame.
-	 * 
-	 * @param bModal Create the dialog as modal?
-	 * @param sTitle Dialog title
-	 * @param parent Parent frame
-	 * @param throwable Throwable to display
-	 */
-	public DThrowable(JFrame parent, String sTitle, boolean bModal, Throwable throwable)
-	{
-		super(parent, bModal);
-		setTitle(sTitle);
-		m_throwable = throwable;
-		initComponents();
-	}
-
-	/**
-	 * Creates new DThrowable dialog where the parent is a dialog.
-	 * 
-	 * @param parent Parent dialog
-	 * @param sTitle Dialog title
-	 * @param bModal Create the dialog as modal?
-	 * @param throwable Throwable to display
-	 */
-	public DThrowable(JDialog parent, String sTitle, boolean bModal, Throwable throwable)
-	{
-		super(parent, bModal);
-		setTitle(sTitle);
-		m_throwable = throwable;
-		initComponents();
+		DThrowable dt = new DThrowable(parent, title, true, throwable);
+		dt.setLocationRelativeTo(parent);
+		SwingHelper.showAndWait(dt);
 	}
 
 	/**

@@ -255,7 +255,7 @@ class DGeneratingKeyPair
 					{
 						if (dialog.isShowing())
 						{
-							DThrowable dThrowable = new DThrowable(dialog, true, m_ex);
+							DThrowable dThrowable = new DThrowable(dialog, null, true, m_ex);
 							dThrowable.setLocationRelativeTo(DGeneratingKeyPair.this);
 							dThrowable.setVisible(true);
 							closeDialog();

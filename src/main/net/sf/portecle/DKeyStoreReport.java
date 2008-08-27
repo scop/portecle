@@ -73,7 +73,6 @@ import net.sf.portecle.crypto.DigestUtil;
 import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.X509CertUtil;
-import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 import org.w3c.dom.Document;
@@ -306,21 +305,15 @@ class DKeyStoreReport
 		}
 		catch (CryptoException ex)
 		{
-			DThrowable dThrowable = new DThrowable(this, true, ex);
-			dThrowable.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dThrowable);
+			DThrowable.showAndWait(this, null, ex);
 		}
 		catch (ParserConfigurationException ex)
 		{
-			DThrowable dThrowable = new DThrowable(this, true, ex);
-			dThrowable.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dThrowable);
+			DThrowable.showAndWait(this, null, ex);
 		}
 		catch (TransformerException ex)
 		{
-			DThrowable dThrowable = new DThrowable(this, true, ex);
-			dThrowable.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dThrowable);
+			DThrowable.showAndWait(this, null, ex);
 		}
 	}
 

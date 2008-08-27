@@ -289,9 +289,7 @@ class DViewExtensions
 			catch (Exception ex)
 			{
 				m_jtaExtensionValue.setText("");
-				DThrowable dThrowable = new DThrowable(this, true, ex);
-				dThrowable.setLocationRelativeTo(this);
-				SwingHelper.showAndWait(dThrowable);
+				DThrowable.showAndWait(this, null, ex);
 			}
 			m_jtaExtensionValue.setCaretPosition(0);
 		}

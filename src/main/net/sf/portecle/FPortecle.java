@@ -1716,7 +1716,7 @@ public class FPortecle
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -1756,7 +1756,7 @@ public class FPortecle
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -1898,7 +1898,7 @@ public class FPortecle
 				{
 					for (CryptoException cex : cexs)
 					{
-						displayException(cex);
+						DThrowable.showAndWait(this, null, cex);
 					}
 				}
 
@@ -1929,7 +1929,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -2001,7 +2001,7 @@ public class FPortecle
 			        m_res.getString("FPortecle.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
 			if (iSelected == JOptionPane.YES_OPTION)
 			{
-				displayException(e);
+				DThrowable.showAndWait(this, null, e);
 			}
 			return false;
 		}
@@ -2073,7 +2073,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -2180,7 +2180,7 @@ public class FPortecle
 			}
 			catch (Exception ex)
 			{
-				displayException(ex);
+				DThrowable.showAndWait(this, null, ex);
 				return false;
 			}
 		}
@@ -2299,7 +2299,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -2339,7 +2339,7 @@ public class FPortecle
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -2410,7 +2410,7 @@ public class FPortecle
 		}
 		catch (Exception e)
 		{
-			displayException(e);
+			DThrowable.showAndWait(this, null, e);
 			return false;
 		}
 		finally
@@ -2423,7 +2423,7 @@ public class FPortecle
 				}
 				catch (IOException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 				}
 			}
 		}
@@ -2447,7 +2447,7 @@ public class FPortecle
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -2485,7 +2485,7 @@ public class FPortecle
 			}
 			catch (CryptoException e)
 			{
-				displayException(e);
+				DThrowable.showAndWait(this, null, e);
 			}
 		}
 		return false;
@@ -2778,7 +2778,7 @@ public class FPortecle
 				{
 					for (Exception e : exs)
 					{
-						displayException(e);
+						DThrowable.showAndWait(this, null, e);
 					}
 				}
 			}
@@ -2793,7 +2793,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return null;
 		}
 	}
@@ -2820,7 +2820,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return null;
 		}
 	}
@@ -2848,7 +2848,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return null;
 		}
 	}
@@ -3057,7 +3057,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -3221,7 +3221,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -3371,7 +3371,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -3440,7 +3440,7 @@ public class FPortecle
 				{
 					for (CryptoException cex : cexs)
 					{
-						displayException(cex);
+						DThrowable.showAndWait(this, null, cex);
 					}
 				}
 
@@ -3458,7 +3458,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return null;
 		}
 	}
@@ -3486,7 +3486,7 @@ public class FPortecle
 				}
 				catch (MalformedURLException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 					return;
 				}
 			}
@@ -3503,7 +3503,7 @@ public class FPortecle
 				}
 				catch (MalformedURLException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 					return;
 				}
 			}
@@ -3617,7 +3617,7 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 		}
 	}
 
@@ -3679,7 +3679,7 @@ public class FPortecle
 				}
 				catch (Exception e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 				}
 			}
 		}
@@ -3891,7 +3891,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -3998,7 +3998,7 @@ public class FPortecle
 		}
 		catch (GeneralSecurityException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4113,7 +4113,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4135,7 +4135,7 @@ public class FPortecle
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4174,7 +4174,7 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4187,7 +4187,7 @@ public class FPortecle
 				}
 				catch (IOException ex)
 				{
-					displayException(ex);
+					DThrowable.showAndWait(this, null, ex);
 				}
 			}
 		}
@@ -4209,7 +4209,7 @@ public class FPortecle
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4252,12 +4252,12 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4270,7 +4270,7 @@ public class FPortecle
 				}
 				catch (IOException ex)
 				{
-					displayException(ex);
+					DThrowable.showAndWait(this, null, ex);
 				}
 			}
 		}
@@ -4292,7 +4292,7 @@ public class FPortecle
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4335,12 +4335,12 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4353,7 +4353,7 @@ public class FPortecle
 				}
 				catch (IOException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 				}
 			}
 		}
@@ -4375,7 +4375,7 @@ public class FPortecle
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4418,12 +4418,12 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4436,7 +4436,7 @@ public class FPortecle
 				}
 				catch (IOException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 				}
 			}
 		}
@@ -4459,12 +4459,12 @@ public class FPortecle
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4511,12 +4511,12 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4529,7 +4529,7 @@ public class FPortecle
 				}
 				catch (IOException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 				}
 			}
 		}
@@ -4552,12 +4552,12 @@ public class FPortecle
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -4604,12 +4604,12 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4622,7 +4622,7 @@ public class FPortecle
 				}
 				catch (IOException e)
 				{
-					displayException(e);
+					DThrowable.showAndWait(this, null, e);
 				}
 			}
 		}
@@ -4752,12 +4752,12 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (GeneralSecurityException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -4770,7 +4770,7 @@ public class FPortecle
 				}
 				catch (IOException ex)
 				{
-					displayException(ex);
+					DThrowable.showAndWait(this, null, ex);
 				}
 			}
 		}
@@ -4878,17 +4878,17 @@ public class FPortecle
 		}
 		catch (IOException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (GeneralSecurityException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		catch (CryptoException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -5134,7 +5134,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 		finally
@@ -5147,7 +5147,7 @@ public class FPortecle
 				}
 				catch (IOException ex)
 				{
-					displayException(ex);
+					DThrowable.showAndWait(this, null, ex);
 				}
 			}
 		}
@@ -5309,7 +5309,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -5409,7 +5409,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -5433,7 +5433,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -5491,7 +5491,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 	}
@@ -5528,7 +5528,7 @@ public class FPortecle
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -5660,7 +5660,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 			return false;
 		}
 
@@ -5713,7 +5713,7 @@ public class FPortecle
 		}
 		catch (KeyStoreException ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 		}
 
 		// Passwords are not relevant for PKCS #12 keystores
@@ -5844,7 +5844,7 @@ public class FPortecle
 			catch (KeyStoreException ex)
 			{
 				setStatusBarText("");
-				displayException(ex);
+				DThrowable.showAndWait(this, null, ex);
 				return;
 			}
 
@@ -5944,7 +5944,7 @@ public class FPortecle
 		}
 		catch (Exception ex)
 		{
-			displayException(ex);
+			DThrowable.showAndWait(this, null, ex);
 		}
 	}
 
@@ -6110,18 +6110,6 @@ public class FPortecle
 		catch (InvocationTargetException e)
 		{
 		}
-	}
-
-	/**
-	 * Display an exception.
-	 * 
-	 * @param exception Exception to display
-	 */
-	private void displayException(Exception exception)
-	{
-		DThrowable dThrowable = new DThrowable(this, true, exception);
-		dThrowable.setLocationRelativeTo(this);
-		SwingHelper.showAndWait(dThrowable);
 	}
 
 	/**

@@ -397,7 +397,7 @@ class DGenerateCertificate
 		}
 		catch (CryptoException ex)
 		{
-			DThrowable dThrowable = new DThrowable(this, true, ex);
+			DThrowable dThrowable = new DThrowable(this, null, true, ex);
 			dThrowable.setLocationRelativeTo(getParent());
 			SwingHelper.showAndWait(dThrowable);
 			closeDialog();
