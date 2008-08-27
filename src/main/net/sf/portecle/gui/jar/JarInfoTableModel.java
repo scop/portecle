@@ -74,7 +74,7 @@ class JarInfoTableModel
 	    throws IOException
 	{
 		// Create one table row for each JAR file
-		m_data = new Object[jarFiles.length][8];
+		m_data = new Object[jarFiles.length][getColumnCount()];
 
 		for (int iCnt = 0; iCnt < jarFiles.length; iCnt++)
 		{

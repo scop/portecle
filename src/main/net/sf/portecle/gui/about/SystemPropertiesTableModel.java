@@ -97,7 +97,7 @@ class SystemPropertiesTableModel
 		}
 
 		// Create one table row per property
-		m_data = new Object[sortedSysProps.size()][2];
+		m_data = new Object[sortedSysProps.size()][getColumnCount()];
 
 		// Load sorted properties into the table
 		int iCnt = 0;

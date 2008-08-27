@@ -50,10 +50,10 @@ class ExtensionsTableModel
 	 */
 	public ExtensionsTableModel()
 	{
-		m_columnNames = new String[3];
-		m_columnNames[0] = m_res.getString("ExtensionsTableModel.CriticalColumn");
-		m_columnNames[1] = m_res.getString("ExtensionsTableModel.NameColumn");
-		m_columnNames[2] = m_res.getString("ExtensionsTableModel.OidColumn");
+		m_columnNames =
+		    new String[] { m_res.getString("ExtensionsTableModel.CriticalColumn"),
+		        m_res.getString("ExtensionsTableModel.NameColumn"),
+		        m_res.getString("ExtensionsTableModel.OidColumn") };
 
 		m_data = new Object[0][0];
 	}
@@ -95,7 +95,7 @@ class ExtensionsTableModel
 		}
 
 		// Create one table row for each extension
-		m_data = new Object[sortedExts.size()][3];
+		m_data = new Object[sortedExts.size()][getColumnCount()];
 
 		// Load rows in extension name order from tree map
 		int iCnt = 0;
@@ -116,14 +116,16 @@ class ExtensionsTableModel
 	 */
 	private void loadRow(X509Ext extension, int iRow)
 	{
+		int col = 0;
+
 		// Populate the Critical columnsExtname
-		m_data[iRow][0] = Boolean.valueOf(extension.isCriticalExtension());
+		m_data[iRow][col++] = Boolean.valueOf(extension.isCriticalExtension());
 
 		// Populate the Name column
-		m_data[iRow][1] = extension.getName();
+		m_data[iRow][col++] = extension.getName();
 
 		// Populate the OID column
-		m_data[iRow][2] = extension.getOid();
+		m_data[iRow][col++] = extension.getOid();
 	}
 
 	/**
