@@ -37,8 +37,8 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509CRLEntry;
 import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -455,8 +455,9 @@ class DViewCRL
 		Set<? extends X509CRLEntry> revokedCertsSet = m_crl.getRevokedCertificates();
 		if (revokedCertsSet == null)
 		{
-			revokedCertsSet = new HashSet<X509CRLEntry>();
+			revokedCertsSet = Collections.emptySet();
 		}
+
 		X509CRLEntry[] revokedCerts = revokedCertsSet.toArray(new X509CRLEntry[revokedCertsSet.size()]);
 		RevokedCertsTableModel revokedCertsTableModel = (RevokedCertsTableModel) m_jtRevokedCerts.getModel();
 		revokedCertsTableModel.load(revokedCerts);
