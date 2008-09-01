@@ -739,21 +739,6 @@ public class FPortecle
 		new StatusBarChangeHandler(jmiSFNetProject, m_res.getString("FPortecle.jmiSFNetProject.statusbar"),
 		    this);
 
-		JMenuItem jmiEmail =
-		    new JMenuItem(m_res.getString("FPortecle.jmiEmail.text"), m_res.getString(
-		        "FPortecle.jmiEmail.mnemonic").charAt(0));
-		jmiEmail.setIcon(new ImageIcon(getResImage("FPortecle.jmiEmail.image")));
-		jmOnlineResources.add(jmiEmail);
-		jmiEmail.addActionListener(new ActionListener()
-		{
-			@Override
-			protected void act()
-			{
-				composeEmail();
-			}
-		});
-		new StatusBarChangeHandler(jmiEmail, m_res.getString("FPortecle.jmiEmail.statusbar"), this);
-
 		JMenuItem jmiMailList =
 		    new JMenuItem(m_res.getString("FPortecle.jmiMailList.text"), m_res.getString(
 		        "FPortecle.jmiMailList.mnemonic").charAt(0));
@@ -784,7 +769,7 @@ public class FPortecle
 		        "FPortecle.jmiDonate.mnemonic").charAt(0));
 		jmiDonate.setIcon(new ImageIcon(getResImage("FPortecle.jmiDonate.image")));
 		jmiDonate.setToolTipText(null);
-		jmHelp.add(jmiDonate);
+		jmOnlineResources.add(jmiDonate);
 		jmiDonate.addActionListener(new ActionListener()
 		{
 			@Override
@@ -3537,14 +3522,6 @@ public class FPortecle
 	private void visitSFNetProject()
 	{
 		DesktopUtil.browse(this, URI.create(m_res.getString("FPortecle.SFNetProjectAddress")));
-	}
-
-	/**
-	 * Compose email to application author.
-	 */
-	private void composeEmail()
-	{
-		DesktopUtil.mail(this, m_res.getString("FPortecle.EmailAddress"));
 	}
 
 	/**
