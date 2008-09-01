@@ -61,6 +61,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.gui.SwingHelper;
 
@@ -253,6 +254,9 @@ class DViewCRL
 				}
 			}
 		});
+
+		// Make the table sortable
+		m_jtRevokedCerts.setRowSorter(new TableRowSorter<RevokedCertsTableModel>(rcModel));
 
 		// Put the table into a scroll pane
 		JScrollPane jspRevokedCertsTable =
@@ -471,8 +475,7 @@ class DViewCRL
 			{
 				// Get serial number of entry
 				int iRow = listSelectionModel.getMinSelectionIndex();
-				BigInteger serialNumber =
-				    (BigInteger) ((RevokedCertsTableModel) m_jtRevokedCerts.getModel()).getValueAt(iRow, 0);
+				BigInteger serialNumber = (BigInteger) m_jtRevokedCerts.getValueAt(iRow, 0);
 
 				// Find CRL entry using serial number
 				Set<? extends X509CRLEntry> revokedCertsSet = m_crl.getRevokedCertificates();

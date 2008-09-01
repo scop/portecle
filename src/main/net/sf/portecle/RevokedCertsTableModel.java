@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,13 +24,14 @@ package net.sf.portecle;
 
 import java.math.BigInteger;
 import java.security.cert.X509CRLEntry;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javax.swing.table.AbstractTableModel;
 
 /**
- * The table model used to display an array of X.509 CRL entries sorted by serial number.
+ * The table model used to display an array of X.509 CRL entries.
  */
 class RevokedCertsTableModel
     extends AbstractTableModel
@@ -38,10 +40,13 @@ class RevokedCertsTableModel
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Holds the column names */
-	private String[] m_columnNames;
+	private final String[] m_columnNames;
 
 	/** Holds the table data */
 	private Object[][] m_data;
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES = { BigInteger.class, Date.class };
 
 	/**
 	 * Construct a new RevokedCertsTableModel.
@@ -52,7 +57,7 @@ class RevokedCertsTableModel
 		    new String[] { m_res.getString("RevokedCertsTableModel.SerialNumberColumn"),
 		        m_res.getString("RevokedCertsTableModel.RevocationDateColumn"), };
 
-		m_data = new Object[0][0];
+		m_data = new Object[0][getColumnCount()];
 	}
 
 	/**
@@ -62,7 +67,7 @@ class RevokedCertsTableModel
 	 */
 	public void load(X509CRLEntry[] revokedCerts)
 	{
-		// Place revoked certs in a tree map to sort them by serial number
+		// Place revoked certs in a tree map to sort them by serial number by default
 		TreeMap<BigInteger, X509CRLEntry> sortedRevokedCerts = new TreeMap<BigInteger, X509CRLEntry>();
 		for (int iCnt = 0; iCnt < revokedCerts.length; iCnt++)
 		{
@@ -77,11 +82,13 @@ class RevokedCertsTableModel
 		int iCnt = 0;
 		for (X509CRLEntry x509CrlEntry : sortedRevokedCerts.values())
 		{
+			int col = 0;
+
 			// Populate the serial number column
-			m_data[iCnt][0] = x509CrlEntry.getSerialNumber();
+			m_data[iCnt][col++] = x509CrlEntry.getSerialNumber();
 
 			// Populate the modified date column
-			m_data[iCnt][1] = x509CrlEntry.getRevocationDate();
+			m_data[iCnt][col++] = x509CrlEntry.getRevocationDate();
 
 			iCnt++;
 		}
@@ -96,7 +103,7 @@ class RevokedCertsTableModel
 	 */
 	public int getColumnCount()
 	{
-		return m_columnNames.length;
+		return COLUMN_CLASSES.length;
 	}
 
 	/**
@@ -142,7 +149,7 @@ class RevokedCertsTableModel
 	@Override
 	public Class<?> getColumnClass(int iCol)
 	{
-		return getValueAt(0, iCol).getClass();
+		return COLUMN_CLASSES[iCol];
 	}
 
 	/**
