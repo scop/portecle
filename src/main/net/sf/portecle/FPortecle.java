@@ -100,6 +100,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
@@ -1209,6 +1210,9 @@ public class FPortecle
 		{
 			aliasCol.setPreferredWidth(iAliasWidth);
 		}
+
+		// Make the table sortable
+		m_jtKeyStore.setRowSorter(new TableRowSorter<KeyStoreTableModel>(ksModel));
 
 		// Put the table into a scroll pane
 		JScrollPane jspKeyStoreTable =

@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -33,7 +34,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Custom cell renderer for the cells of the keystore table of FKewyToolGUI.
+ * Custom cell renderer for the cells of the keystore table of FPortecle.
  */
 class KeyStoreTableCellRend
     extends DefaultTableCellRenderer
@@ -96,17 +97,20 @@ class KeyStoreTableCellRend
 		// Last Modified column - format date (if date supplied)
 		else if (iCol == 2)
 		{
-			if (value instanceof Date)
+			if (value != null)
 			{
-				// Include timezone
-				cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-				    (Date) value));
+				if (value instanceof Date)
+				{
+					// Include timezone
+					cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
+					    (Date) value));
+				}
+				else
+				{
+					cell.setText(value.toString());
+				}
+				cell.setToolTipText(getText());
 			}
-			else
-			{
-				cell.setText(value.toString());
-			}
-			cell.setToolTipText(getText());
 		}
 		// Alias column - just use alias text
 		else

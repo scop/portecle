@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,6 +24,7 @@ package net.sf.portecle;
 
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
@@ -50,10 +52,19 @@ class KeyStoreTableModel
 	public static String KEY_ENTRY = m_res.getString("KeyStoreTableModel.KeyEntry");
 
 	/** Holds the column names */
-	private String[] m_columnNames;
+	private final String[] m_columnNames;
 
 	/** Holds the table data */
 	private Object[][] m_data;
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES = new Class<?>[3];
+	static
+	{
+		COLUMN_CLASSES[0] = String.class;
+		COLUMN_CLASSES[1] = String.class;
+		COLUMN_CLASSES[2] = Date.class;
+	}
 
 	/**
 	 * Construct a new KeyStoreTableModel.
@@ -65,7 +76,7 @@ class KeyStoreTableModel
 		        m_res.getString("KeyStoreTableModel.AliasColumn"),
 		        m_res.getString("KeyStoreTableModel.LastModifiedDateColumn"), };
 
-		m_data = new Object[0][0];
+		m_data = new Object[0][getColumnCount()];
 	}
 
 	/**
@@ -120,10 +131,6 @@ class KeyStoreTableModel
 			{
 				m_data[iCnt][2] = keyStore.getCreationDate(sAlias);
 			}
-			else
-			{
-				m_data[iCnt][2] = "";
-			}
 
 			iCnt++;
 		}
@@ -138,7 +145,7 @@ class KeyStoreTableModel
 	 */
 	public int getColumnCount()
 	{
-		return m_columnNames.length;
+		return COLUMN_CLASSES.length;
 	}
 
 	/**
@@ -184,7 +191,7 @@ class KeyStoreTableModel
 	@Override
 	public Class<?> getColumnClass(int iCol)
 	{
-		return getValueAt(0, iCol).getClass();
+		return COLUMN_CLASSES[iCol];
 	}
 
 	/**
