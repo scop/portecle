@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +23,7 @@
 package net.sf.portecle;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
@@ -37,6 +39,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 class RevokedCertsTableCellRend
     extends DefaultTableCellRenderer
 {
+	/** Cached monospace font instance */
+	private final Font monospace;
+
+	/**
+	 * Creates a new revoked certificates table cell renderer.
+	 * 
+	 * @param table Parent table
+	 */
+	public RevokedCertsTableCellRend(JTable table)
+	{
+		monospace = new Font(Font.MONOSPACED, Font.PLAIN, table.getFont().getSize());
+	}
+
 	/**
 	 * Returns the rendered cell for the supplied entry type and column.
 	 * 
@@ -59,6 +74,7 @@ class RevokedCertsTableCellRend
 		// Serial Number column - format to a hex string
 		if (iCol == 0)
 		{
+			cell.setFont(monospace);
 			cell.setText(formatSerialNumber((BigInteger) value));
 		}
 		// Revocation Date column - format date

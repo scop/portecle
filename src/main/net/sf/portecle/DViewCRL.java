@@ -239,7 +239,7 @@ class DViewCRL
 			}
 
 			column.setHeaderRenderer(new RevokedCertsTableHeadRend());
-			column.setCellRenderer(new RevokedCertsTableCellRend());
+			column.setCellRenderer(new RevokedCertsTableCellRend(m_jtRevokedCerts));
 		}
 
 		ListSelectionModel listSelectionModel = m_jtRevokedCerts.getSelectionModel();
