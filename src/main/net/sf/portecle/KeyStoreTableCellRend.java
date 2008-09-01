@@ -61,8 +61,7 @@ class KeyStoreTableCellRend
 		    (JLabel) super.getTableCellRendererComponent(jtKeyStore, value, bIsSelected, bHasFocus, iRow,
 		        iCol);
 
-		// Entry column - display an icon representing the type and
-		// tool-tip text
+		// Entry column - display an icon representing the type and tool tip text
 		if (iCol == 0)
 		{
 			ImageIcon icon = null;
@@ -109,14 +108,12 @@ class KeyStoreTableCellRend
 				{
 					cell.setText(value.toString());
 				}
-				cell.setToolTipText(getText());
 			}
 		}
 		// Alias column - just use alias text
 		else
 		{
 			cell.setText(value.toString());
-			cell.setToolTipText(getText());
 		}
 
 		cell.setBorder(new EmptyBorder(0, 5, 0, 5));
