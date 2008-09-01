@@ -205,6 +205,7 @@ class KeyStoreTableModel
 	public boolean isCellEditable(int iRow, int iCol)
 	{
 		// The table is always read-only
+		// TODO: could make alias column editable (--> rename)
 		return false;
 	}
 }
