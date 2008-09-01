@@ -25,7 +25,6 @@ package net.sf.portecle;
 import java.security.cert.X509Extension;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -74,40 +73,26 @@ class ExtensionsTableModel
 		Set<String> critExts = extensions.getCriticalExtensionOIDs();
 		Set<String> nonCritExts = extensions.getNonCriticalExtensionOIDs();
 
-		// Rows will be sorted by extension name by default
-		TreeMap<String, X509Ext> sortedExts = new TreeMap<String, X509Ext>();
+		// Create one table row for each extension
+		m_data = new Object[critExts.size() + nonCritExts.size()][getColumnCount()];
 
-		// Add extensions to sorted map of extensions
-
-		// First the critical extensions...
+		// Load rows
+		int iCnt = 0;
 		for (String sExtOid : critExts)
 		{
 			byte[] bValue = extensions.getExtensionValue(sExtOid);
 
 			X509Ext ext = new X509Ext(sExtOid, bValue, true);
 
-			sortedExts.put(ext.getName(), ext);
+			loadRow(ext, iCnt++);
 		}
-
-		// ...then the critical extensions
 		for (String sExtOid : nonCritExts)
 		{
 			byte[] bValue = extensions.getExtensionValue(sExtOid);
 
 			X509Ext ext = new X509Ext(sExtOid, bValue, false);
 
-			sortedExts.put(ext.getName(), ext);
-		}
-
-		// Create one table row for each extension
-		m_data = new Object[sortedExts.size()][getColumnCount()];
-
-		// Load rows in extension name order from tree map
-		int iCnt = 0;
-		for (X509Ext ext : sortedExts.values())
-		{
-			loadRow(ext, iCnt);
-			iCnt++;
+			loadRow(ext, iCnt++);
 		}
 
 		fireTableDataChanged();

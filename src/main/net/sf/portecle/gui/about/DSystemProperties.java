@@ -104,7 +104,11 @@ public class DSystemProperties
 		}
 
 		// Make the table sortable
-		jtSystemProperties.setRowSorter(new TableRowSorter<SystemPropertiesTableModel>(spModel));
+		TableRowSorter<SystemPropertiesTableModel> sorter =
+		    new TableRowSorter<SystemPropertiesTableModel>(spModel);
+		jtSystemProperties.setRowSorter(sorter);
+		// ...and sort it by property name by default
+		sorter.toggleSortOrder(0);
 
 		// Put the table into a scroll pane
 		JScrollPane jspSystemPropertiesTable =

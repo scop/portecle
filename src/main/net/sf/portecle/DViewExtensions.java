@@ -146,7 +146,11 @@ class DViewExtensions
 		});
 
 		// Make the table sortable
-		m_jtExtensions.setRowSorter(new TableRowSorter<ExtensionsTableModel>(extensionsTableModel));
+		TableRowSorter<ExtensionsTableModel> sorter =
+		    new TableRowSorter<ExtensionsTableModel>(extensionsTableModel);
+		m_jtExtensions.setRowSorter(sorter);
+		// ...and sort it by extension name by default
+		sorter.toggleSortOrder(1);
 
 		// Put the table into a scroll pane
 		JScrollPane jspExtensionsTable =

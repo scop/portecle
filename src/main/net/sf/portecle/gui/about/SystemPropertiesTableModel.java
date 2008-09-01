@@ -23,10 +23,8 @@
 package net.sf.portecle.gui.about;
 
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -68,9 +66,12 @@ class SystemPropertiesTableModel
 	{
 		// Get system properties
 		Properties sysProps = System.getProperties();
-		TreeMap<String, String> sortedSysProps = new TreeMap<String, String>();
 
-		// Place properties in a sorted map
+		// Create one table row per property
+		m_data = new Object[sysProps.size()][getColumnCount()];
+
+		// Load properties into the table
+		int iCnt = 0;
 		for (Enumeration<?> names = sysProps.propertyNames(); names.hasMoreElements();)
 		{
 			String sName = (String) names.nextElement();
@@ -79,42 +80,17 @@ class SystemPropertiesTableModel
 			// Convert line.separator property value to be printable
 			if (sName.equals("line.separator"))
 			{
-				StringBuilder sbValue = new StringBuilder();
-				for (int iCnt = 0; iCnt < sValue.length(); iCnt++)
-				{
-					if (sValue.charAt(iCnt) == '\r')
-					{
-						sbValue.append("\\r");
-					}
-					else if (sValue.charAt(iCnt) == '\n')
-					{
-						sbValue.append("\\n");
-					}
-					else
-					{
-						sbValue.append(sValue);
-					}
-				}
-				sValue = sbValue.toString();
+				sValue = sValue.replace("\r", "\\r");
+				sValue = sValue.replace("\n", "\\n");
 			}
 
-			sortedSysProps.put(sName, sValue);
-		}
-
-		// Create one table row per property
-		m_data = new Object[sortedSysProps.size()][getColumnCount()];
-
-		// Load sorted properties into the table
-		int iCnt = 0;
-		for (Map.Entry<String, String> property : sortedSysProps.entrySet())
-		{
 			int col = 0;
 
 			// Name column
-			m_data[iCnt][col++] = property.getKey();
+			m_data[iCnt][col++] = sName;
 
 			// Value column
-			m_data[iCnt][col++] = property.getValue();
+			m_data[iCnt][col++] = sValue;
 
 			iCnt++;
 		}

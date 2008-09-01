@@ -1212,7 +1212,10 @@ public class FPortecle
 		}
 
 		// Make the table sortable
-		m_jtKeyStore.setRowSorter(new TableRowSorter<KeyStoreTableModel>(ksModel));
+		TableRowSorter<KeyStoreTableModel> sorter = new TableRowSorter<KeyStoreTableModel>(ksModel);
+		m_jtKeyStore.setRowSorter(sorter);
+		// ...and sort it by alias by default
+		sorter.toggleSortOrder(1);
 
 		// Put the table into a scroll pane
 		JScrollPane jspKeyStoreTable =

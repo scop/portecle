@@ -108,7 +108,10 @@ public class DJarInfo
 		}
 
 		// Make the table sortable
-		jtJarInfo.setRowSorter(new TableRowSorter<JarInfoTableModel>(jiModel));
+		TableRowSorter<JarInfoTableModel> sorter = new TableRowSorter<JarInfoTableModel>(jiModel);
+		jtJarInfo.setRowSorter(sorter);
+		// ...and sort it by jar file by default
+		sorter.toggleSortOrder(0);
 
 		// Put the table into a scroll pane
 		JScrollPane jspJarInfoTable =

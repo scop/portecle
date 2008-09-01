@@ -27,7 +27,6 @@ import java.security.KeyStoreException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -88,24 +87,18 @@ class KeyStoreTableModel
 	public void load(KeyStore keyStore)
 	    throws KeyStoreException
 	{
-		// Place aliases in a tree map to sort them
-		TreeMap<String, String> sortedAliases = new TreeMap<String, String>();
-		for (Enumeration<String> en = keyStore.aliases(); en.hasMoreElements();)
-		{
-			String sAlias = en.nextElement();
-			sortedAliases.put(sAlias, sAlias);
-		}
-
+		// Does the keystore support creation dates?
 		boolean cdSupport = KeyStoreType.valueOf(keyStore.getType()).isEntryCreationDateUseful();
 
 		// Create one table row for each keystore entry
-		m_data = new Object[sortedAliases.size()][getColumnCount()];
+		m_data = new Object[keyStore.size()][getColumnCount()];
 
-		// Iterate through the sorted aliases, retrieving the keystore
-		// entries and populating the table model
+		// Iterate through the aliases, retrieving the keystore entries and populating the table model
 		int iCnt = 0;
-		for (String sAlias : sortedAliases.keySet())
+		for (Enumeration<String> en = keyStore.aliases(); en.hasMoreElements();)
 		{
+			String sAlias = en.nextElement();
+
 			// Populate the type column - it is set with an integer
 			// but a custom cell renderer will cause a suitable icon
 			// to be displayed

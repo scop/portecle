@@ -256,7 +256,10 @@ class DViewCRL
 		});
 
 		// Make the table sortable
-		m_jtRevokedCerts.setRowSorter(new TableRowSorter<RevokedCertsTableModel>(rcModel));
+		TableRowSorter<RevokedCertsTableModel> sorter = new TableRowSorter<RevokedCertsTableModel>(rcModel);
+		m_jtRevokedCerts.setRowSorter(sorter);
+		// ...and sort it by serial number by default
+		sorter.toggleSortOrder(0);
 
 		// Put the table into a scroll pane
 		JScrollPane jspRevokedCertsTable =

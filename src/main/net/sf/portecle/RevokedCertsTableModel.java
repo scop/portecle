@@ -26,7 +26,6 @@ import java.math.BigInteger;
 import java.security.cert.X509CRLEntry;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -67,20 +66,13 @@ class RevokedCertsTableModel
 	 */
 	public void load(X509CRLEntry[] revokedCerts)
 	{
-		// Place revoked certs in a tree map to sort them by serial number by default
-		TreeMap<BigInteger, X509CRLEntry> sortedRevokedCerts = new TreeMap<BigInteger, X509CRLEntry>();
-		for (int iCnt = 0; iCnt < revokedCerts.length; iCnt++)
-		{
-			sortedRevokedCerts.put(revokedCerts[iCnt].getSerialNumber(), revokedCerts[iCnt]);
-		}
-
 		// Create one table row for each revoked certificate
-		m_data = new Object[sortedRevokedCerts.size()][getColumnCount()];
+		m_data = new Object[revokedCerts.length][getColumnCount()];
 
 		// Iterate through the sorted revoked certificates populating
 		// the table model
 		int iCnt = 0;
-		for (X509CRLEntry x509CrlEntry : sortedRevokedCerts.values())
+		for (X509CRLEntry x509CrlEntry : revokedCerts)
 		{
 			int col = 0;
 
