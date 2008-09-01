@@ -37,34 +37,29 @@ import net.sf.portecle.crypto.X509Ext;
 class ExtensionsTableModel
     extends AbstractTableModel
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Column names */
+	private static final String[] COLUMN_NAMES;
+	static
+	{
+		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/resources");
 
-	/** Holds the column names */
-	private final String[] m_columnNames;
+		COLUMN_NAMES =
+		    new String[] { rb.getString("ExtensionsTableModel.CriticalColumn"),
+		        rb.getString("ExtensionsTableModel.NameColumn"),
+		        rb.getString("ExtensionsTableModel.OidColumn") };
+	}
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES = { Boolean.class, String.class, String.class };
 
 	/** Holds the table data */
 	private Object[][] m_data;
-
-	/** Column classes */
-	private static final Class<?>[] COLUMN_CLASSES = new Class<?>[3];
-	static
-	{
-		COLUMN_CLASSES[0] = Boolean.class;
-		COLUMN_CLASSES[1] = String.class;
-		COLUMN_CLASSES[2] = String.class;
-	}
 
 	/**
 	 * Construct a new ExtensionsTableModel.
 	 */
 	public ExtensionsTableModel()
 	{
-		m_columnNames =
-		    new String[] { m_res.getString("ExtensionsTableModel.CriticalColumn"),
-		        m_res.getString("ExtensionsTableModel.NameColumn"),
-		        m_res.getString("ExtensionsTableModel.OidColumn") };
-
 		m_data = new Object[0][getColumnCount()];
 	}
 
@@ -167,7 +162,7 @@ class ExtensionsTableModel
 	@Override
 	public String getColumnName(int iCol)
 	{
-		return m_columnNames[iCol];
+		return COLUMN_NAMES[iCol];
 	}
 
 	/**

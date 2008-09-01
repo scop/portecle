@@ -39,43 +39,43 @@ import net.sf.portecle.crypto.KeyStoreType;
 class KeyStoreTableModel
     extends AbstractTableModel
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	/** Column names */
+	private static final String[] COLUMN_NAMES;
 
 	/** Value to place in the type column for a key pair entry */
-	public static String KEY_PAIR_ENTRY = m_res.getString("KeyStoreTableModel.KeyPairEntry");
+	public static final String KEY_PAIR_ENTRY;
 
 	/** Value to place in the type column for a trusted certificate entry */
-	public static String TRUST_CERT_ENTRY = m_res.getString("KeyStoreTableModel.TrustCertEntry");
+	public static final String TRUST_CERT_ENTRY;
 
 	/** Value to place in the type column for a key entry */
-	public static String KEY_ENTRY = m_res.getString("KeyStoreTableModel.KeyEntry");
+	public static final String KEY_ENTRY;
 
-	/** Holds the column names */
-	private final String[] m_columnNames;
+	static
+	{
+		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/resources");
+
+		COLUMN_NAMES =
+		    new String[] { rb.getString("KeyStoreTableModel.TypeColumn"),
+		        rb.getString("KeyStoreTableModel.AliasColumn"),
+		        rb.getString("KeyStoreTableModel.LastModifiedDateColumn") };
+
+		KEY_PAIR_ENTRY = rb.getString("KeyStoreTableModel.KeyPairEntry");
+		TRUST_CERT_ENTRY = rb.getString("KeyStoreTableModel.TrustCertEntry");
+		KEY_ENTRY = rb.getString("KeyStoreTableModel.KeyEntry");
+	}
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES = { String.class, String.class, Date.class };
 
 	/** Holds the table data */
 	private Object[][] m_data;
-
-	/** Column classes */
-	private static final Class<?>[] COLUMN_CLASSES = new Class<?>[3];
-	static
-	{
-		COLUMN_CLASSES[0] = String.class;
-		COLUMN_CLASSES[1] = String.class;
-		COLUMN_CLASSES[2] = Date.class;
-	}
 
 	/**
 	 * Construct a new KeyStoreTableModel.
 	 */
 	public KeyStoreTableModel()
 	{
-		m_columnNames =
-		    new String[] { m_res.getString("KeyStoreTableModel.TypeColumn"),
-		        m_res.getString("KeyStoreTableModel.AliasColumn"),
-		        m_res.getString("KeyStoreTableModel.LastModifiedDateColumn"), };
-
 		m_data = new Object[0][getColumnCount()];
 	}
 
@@ -167,7 +167,7 @@ class KeyStoreTableModel
 	@Override
 	public String getColumnName(int iCol)
 	{
-		return m_columnNames[iCol];
+		return COLUMN_NAMES[iCol];
 	}
 
 	/**

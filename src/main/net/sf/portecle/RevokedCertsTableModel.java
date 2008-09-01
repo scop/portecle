@@ -36,27 +36,27 @@ import javax.swing.table.AbstractTableModel;
 class RevokedCertsTableModel
     extends AbstractTableModel
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
-	/** Holds the column names */
-	private final String[] m_columnNames;
-
-	/** Holds the table data */
-	private Object[][] m_data;
+	/** Column names */
+	private static final String[] COLUMN_NAMES;
+	static
+	{
+		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/resources");
+		COLUMN_NAMES =
+		    new String[] { rb.getString("RevokedCertsTableModel.SerialNumberColumn"),
+		        rb.getString("RevokedCertsTableModel.RevocationDateColumn") };
+	}
 
 	/** Column classes */
 	private static final Class<?>[] COLUMN_CLASSES = { BigInteger.class, Date.class };
+
+	/** Holds the table data */
+	private Object[][] m_data;
 
 	/**
 	 * Construct a new RevokedCertsTableModel.
 	 */
 	public RevokedCertsTableModel()
 	{
-		m_columnNames =
-		    new String[] { m_res.getString("RevokedCertsTableModel.SerialNumberColumn"),
-		        m_res.getString("RevokedCertsTableModel.RevocationDateColumn"), };
-
 		m_data = new Object[0][getColumnCount()];
 	}
 
@@ -125,7 +125,7 @@ class RevokedCertsTableModel
 	@Override
 	public String getColumnName(int iCol)
 	{
-		return m_columnNames[iCol];
+		return COLUMN_NAMES[iCol];
 	}
 
 	/**
