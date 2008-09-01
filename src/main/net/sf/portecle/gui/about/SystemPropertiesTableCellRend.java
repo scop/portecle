@@ -1,5 +1,5 @@
 /*
- * JarInfoTableCellRend.java
+ * SystemPropertiesTableCellRend.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
