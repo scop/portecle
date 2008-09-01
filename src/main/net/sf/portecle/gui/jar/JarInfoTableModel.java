@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,7 +24,6 @@ package net.sf.portecle.gui.jar;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
@@ -37,11 +37,27 @@ import javax.swing.table.AbstractTableModel;
 class JarInfoTableModel
     extends AbstractTableModel
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
+	/** Column names */
+	private static final String[] COLUMN_NAMES;
+	static
+	{
+		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
 
-	/** Holds the column names */
-	private String[] m_columnNames;
+		COLUMN_NAMES =
+		    new String[] { rb.getString("JarInfoTableModel.JarFileColumn"),
+		        rb.getString("JarInfoTableModel.SizeColumn"),
+		        rb.getString("JarInfoTableModel.SpecificationTitleColumn"),
+		        rb.getString("JarInfoTableModel.SpecificationVersionColumn"),
+		        rb.getString("JarInfoTableModel.SpecificationVendorColumn"),
+		        rb.getString("JarInfoTableModel.ImplementationTitleColumn"),
+		        rb.getString("JarInfoTableModel.ImplementationVersionColumn"),
+		        rb.getString("JarInfoTableModel.ImplementationVendorColumn") };
+	}
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES =
+	    { String.class, Long.class, String.class, String.class, String.class, String.class, String.class,
+	        String.class };
 
 	/** Holds the table data */
 	private Object[][] m_data;
@@ -51,17 +67,7 @@ class JarInfoTableModel
 	 */
 	public JarInfoTableModel()
 	{
-		m_columnNames =
-		    new String[] { m_res.getString("JarInfoTableModel.JarFileColumn"),
-		        m_res.getString("JarInfoTableModel.SizeColumn"),
-		        m_res.getString("JarInfoTableModel.SpecificationTitleColumn"),
-		        m_res.getString("JarInfoTableModel.SpecificationVersionColumn"),
-		        m_res.getString("JarInfoTableModel.SpecificationVendorColumn"),
-		        m_res.getString("JarInfoTableModel.ImplementationTitleColumn"),
-		        m_res.getString("JarInfoTableModel.ImplementationVersionColumn"),
-		        m_res.getString("JarInfoTableModel.ImplementationVendorColumn"), };
-
-		m_data = new Object[0][0];
+		m_data = new Object[0][getColumnCount()];
 	}
 
 	/**
@@ -137,31 +143,31 @@ class JarInfoTableModel
 				}
 			}
 
+			int col = 0;
+
 			// Populate the file column
-			m_data[iCnt][0] = file.getName();
+			m_data[iCnt][col++] = file.getName();
 
 			// Populate the size column
-			m_data[iCnt][1] =
-			    MessageFormat.format(m_res.getString("JarInfoTableModel.Size"),
-			        Math.round((double) file.length() / 1024));
+			m_data[iCnt][col++] = file.length();
 
 			// Populate the implementation title column
-			m_data[iCnt][2] = sSpecificationTitle;
+			m_data[iCnt][col++] = sSpecificationTitle;
 
 			// Populate the implementation version column
-			m_data[iCnt][3] = sSpecificationVersion;
+			m_data[iCnt][col++] = sSpecificationVersion;
 
 			// Populate the implementation vendor column
-			m_data[iCnt][4] = sSpecificationVendor;
+			m_data[iCnt][col++] = sSpecificationVendor;
 
 			// Populate the specification title column
-			m_data[iCnt][5] = sImplementationTitle;
+			m_data[iCnt][col++] = sImplementationTitle;
 
 			// Populate the specification version column
-			m_data[iCnt][6] = sImplementationVersion;
+			m_data[iCnt][col++] = sImplementationVersion;
 
 			// Populate the specification vendor column
-			m_data[iCnt][7] = sImplementationVendor;
+			m_data[iCnt][col++] = sImplementationVendor;
 		}
 
 		fireTableDataChanged();
@@ -174,7 +180,7 @@ class JarInfoTableModel
 	 */
 	public int getColumnCount()
 	{
-		return m_columnNames.length;
+		return COLUMN_CLASSES.length;
 	}
 
 	/**
@@ -196,7 +202,7 @@ class JarInfoTableModel
 	@Override
 	public String getColumnName(int iCol)
 	{
-		return m_columnNames[iCol];
+		return COLUMN_NAMES[iCol];
 	}
 
 	/**
@@ -220,7 +226,7 @@ class JarInfoTableModel
 	@Override
 	public Class<?> getColumnClass(int iCol)
 	{
-		return getValueAt(0, iCol).getClass();
+		return COLUMN_CLASSES[iCol];
 	}
 
 	/**

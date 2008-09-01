@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +23,8 @@
 package net.sf.portecle.gui.jar;
 
 import java.awt.Component;
+import java.text.MessageFormat;
+import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -34,6 +37,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 class JarInfoTableCellRend
     extends DefaultTableCellRenderer
 {
+	/** Size column message format */
+	private static final String SIZE_COL_FORMAT =
+	    ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources").getString("JarInfoTableModel.Size");
+
 	/**
 	 * Returns the rendered cell for the supplied value and column.
 	 * 
@@ -51,14 +58,9 @@ class JarInfoTableCellRend
 	{
 		JLabel cell =
 		    (JLabel) super.getTableCellRendererComponent(jtJarInfo, value, bIsSelected, bHasFocus, iRow, iCol);
-		if (cell.getText().length() == 0)
+		if (iCol == 1)
 		{
-			cell.setText("-");
-			cell.setHorizontalAlignment(CENTER);
-		}
-		else
-		{
-			cell.setHorizontalAlignment(LEFT);
+			cell.setText(MessageFormat.format(SIZE_COL_FORMAT, Math.round((Long) value / (double) 1024)));
 		}
 
 		cell.setBorder(new EmptyBorder(0, 5, 0, 5));

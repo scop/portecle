@@ -47,6 +47,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 /**
  * A dialog that displays information about the JAR files on the classpath.
@@ -105,6 +106,9 @@ public class DJarInfo
 			column.setHeaderRenderer(new JarInfoTableHeadRend());
 			column.setCellRenderer(new JarInfoTableCellRend());
 		}
+
+		// Make the table sortable
+		jtJarInfo.setRowSorter(new TableRowSorter<JarInfoTableModel>(jiModel));
 
 		// Put the table into a scroll pane
 		JScrollPane jspJarInfoTable =
