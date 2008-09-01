@@ -51,6 +51,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.X509Ext;
@@ -143,6 +144,9 @@ class DViewExtensions
 				}
 			}
 		});
+
+		// Make the table sortable
+		m_jtExtensions.setRowSorter(new TableRowSorter<ExtensionsTableModel>(extensionsTableModel));
 
 		// Put the table into a scroll pane
 		JScrollPane jspExtensionsTable =
@@ -259,7 +263,7 @@ class DViewExtensions
 		else
 		{
 			// Extension selected - get value for extension
-			String sOid = m_jtExtensions.getModel().getValueAt(iSelectedRow, 2).toString();
+			String sOid = m_jtExtensions.getValueAt(iSelectedRow, 2).toString();
 
 			byte[] bValue = m_extensions.getExtensionValue(sOid);
 

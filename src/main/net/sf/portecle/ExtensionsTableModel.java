@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -40,10 +41,19 @@ class ExtensionsTableModel
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Holds the column names */
-	private String[] m_columnNames;
+	private final String[] m_columnNames;
 
 	/** Holds the table data */
 	private Object[][] m_data;
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES = new Class<?>[3];
+	static
+	{
+		COLUMN_CLASSES[0] = Boolean.class;
+		COLUMN_CLASSES[1] = String.class;
+		COLUMN_CLASSES[2] = String.class;
+	}
 
 	/**
 	 * Construct a new ExtensionsTableModel.
@@ -55,7 +65,7 @@ class ExtensionsTableModel
 		        m_res.getString("ExtensionsTableModel.NameColumn"),
 		        m_res.getString("ExtensionsTableModel.OidColumn") };
 
-		m_data = new Object[0][0];
+		m_data = new Object[0][getColumnCount()];
 	}
 
 	/**
@@ -69,7 +79,7 @@ class ExtensionsTableModel
 		Set<String> critExts = extensions.getCriticalExtensionOIDs();
 		Set<String> nonCritExts = extensions.getNonCriticalExtensionOIDs();
 
-		// Rows will be sorted by extension name
+		// Rows will be sorted by extension name by default
 		TreeMap<String, X509Ext> sortedExts = new TreeMap<String, X509Ext>();
 
 		// Add extensions to sorted map of extensions
@@ -119,7 +129,7 @@ class ExtensionsTableModel
 		int col = 0;
 
 		// Populate the Critical columnsExtname
-		m_data[iRow][col++] = Boolean.valueOf(extension.isCriticalExtension());
+		m_data[iRow][col++] = extension.isCriticalExtension();
 
 		// Populate the Name column
 		m_data[iRow][col++] = extension.getName();
@@ -135,7 +145,7 @@ class ExtensionsTableModel
 	 */
 	public int getColumnCount()
 	{
-		return m_columnNames.length;
+		return COLUMN_CLASSES.length;
 	}
 
 	/**
@@ -181,7 +191,7 @@ class ExtensionsTableModel
 	@Override
 	public Class<?> getColumnClass(int iCol)
 	{
-		return getValueAt(0, iCol).getClass();
+		return COLUMN_CLASSES[iCol];
 	}
 
 	/**
