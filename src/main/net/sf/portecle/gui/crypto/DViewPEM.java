@@ -163,7 +163,7 @@ public class DViewPEM
 		JTextArea jtaPEM = new JTextArea(m_pem);
 		jtaPEM.setCaretPosition(0);
 		jtaPEM.setEditable(false);
-		jtaPEM.setFont(new Font("Monospaced", Font.PLAIN, jtaPEM.getFont().getSize()));
+		jtaPEM.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jtaPEM.getFont().getSize()));
 
 		JScrollPane jspPEM =
 		    new JScrollPane(jtaPEM, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
