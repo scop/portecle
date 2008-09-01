@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -35,11 +36,19 @@ import javax.swing.table.AbstractTableModel;
 class SystemPropertiesTableModel
     extends AbstractTableModel
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
+	/** Column names */
+	private static final String[] COLUMN_NAMES;
+	static
+	{
+		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
 
-	/** Holds the column names */
-	private String[] m_columnNames;
+		COLUMN_NAMES =
+		    new String[] { rb.getString("SystemPropertiesTableModel.NameColumn"),
+		        rb.getString("SystemPropertiesTableModel.ValueColumn") };
+	}
+
+	/** Column classes */
+	private static final Class<?>[] COLUMN_CLASSES = { String.class, String.class };
 
 	/** Holds the table data */
 	private Object[][] m_data;
@@ -49,11 +58,7 @@ class SystemPropertiesTableModel
 	 */
 	public SystemPropertiesTableModel()
 	{
-		m_columnNames =
-		    new String[] { m_res.getString("SystemPropertiesTableModel.NameColumn"),
-		        m_res.getString("SystemPropertiesTableModel.ValueColumn"), };
-
-		m_data = new Object[0][0];
+		m_data = new Object[0][getColumnCount()];
 	}
 
 	/**
@@ -103,11 +108,13 @@ class SystemPropertiesTableModel
 		int iCnt = 0;
 		for (Map.Entry<String, String> property : sortedSysProps.entrySet())
 		{
+			int col = 0;
+
 			// Name column
-			m_data[iCnt][0] = property.getKey();
+			m_data[iCnt][col++] = property.getKey();
 
 			// Value column
-			m_data[iCnt][1] = property.getValue();
+			m_data[iCnt][col++] = property.getValue();
 
 			iCnt++;
 		}
@@ -122,7 +129,7 @@ class SystemPropertiesTableModel
 	 */
 	public int getColumnCount()
 	{
-		return m_columnNames.length;
+		return COLUMN_CLASSES.length;
 	}
 
 	/**
@@ -144,7 +151,7 @@ class SystemPropertiesTableModel
 	@Override
 	public String getColumnName(int iCol)
 	{
-		return m_columnNames[iCol];
+		return COLUMN_NAMES[iCol];
 	}
 
 	/**
@@ -168,7 +175,7 @@ class SystemPropertiesTableModel
 	@Override
 	public Class<?> getColumnClass(int iCol)
 	{
-		return getValueAt(0, iCol).getClass();
+		return COLUMN_CLASSES[iCol];
 	}
 
 	/**

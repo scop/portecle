@@ -39,6 +39,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 /**
  * A dialog that displays the Java System Properties.
@@ -101,6 +102,9 @@ public class DSystemProperties
 			column.setHeaderRenderer(new SystemPropertiesTableHeadRend());
 			column.setCellRenderer(new SystemPropertiesTableCellRend());
 		}
+
+		// Make the table sortable
+		jtSystemProperties.setRowSorter(new TableRowSorter<SystemPropertiesTableModel>(spModel));
 
 		// Put the table into a scroll pane
 		JScrollPane jspSystemPropertiesTable =
