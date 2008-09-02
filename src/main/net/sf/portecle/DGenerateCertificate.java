@@ -37,6 +37,7 @@ import java.awt.event.WindowEvent;
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
@@ -249,7 +250,7 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jlCountryCode = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlCountryCode.gridy = gridy++;
 
-		m_jtfCountryCode = new JTextField(COUNTRY_CODE_LENGTH);
+		m_jtfCountryCode = new JTextField(Locale.getDefault().getCountry(), COUNTRY_CODE_LENGTH);
 		doc = m_jtfCountryCode.getDocument();
 		if (doc instanceof AbstractDocument)
 		{
