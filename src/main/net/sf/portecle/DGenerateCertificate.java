@@ -160,98 +160,100 @@ class DGenerateCertificate
 		gbcEdCtrl.insets = new Insets(5, 5, 5, 5);
 		gbcEdCtrl.anchor = GridBagConstraints.WEST;
 
+		int gridy = 0;
+
 		// Signature Algorithm
 		JLabel jlSigAlg = new JLabel(m_res.getString("DGenerateCertificate.jlSigAlg.text"));
 		GridBagConstraints gbc_jlSigAlg = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlSigAlg.gridy = 0;
+		gbc_jlSigAlg.gridy = gridy++;
 
 		m_jcbSigAlg = new JComboBox();
 		populateSigAlgs(m_keyPairType, m_jcbSigAlg);
 		m_jcbSigAlg.setToolTipText(m_res.getString("DGenerateCertificate.m_jcbSigAlg.tooltip"));
 		GridBagConstraints gbc_jcbSigAlg = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jcbSigAlg.gridy = 0;
+		gbc_jcbSigAlg.gridy = gbc_jlSigAlg.gridy;
 
 		// Validity Period
 		JLabel jlValidity = new JLabel(m_res.getString("DGenerateCertificate.jlValidity.text"));
 		GridBagConstraints gbc_jlValidity = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlValidity.gridy = 1;
+		gbc_jlValidity.gridy = gridy++;
 
 		m_jtfValidity = new JTextField(DEFAULT_VALIDITY, 4);
 		m_jtfValidity.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfValidity.tooltip"));
 		GridBagConstraints gbc_jtfValidity = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfValidity.gridy = 1;
+		gbc_jtfValidity.gridy = gbc_jlValidity.gridy;
 
 		// Common Name
 		JLabel jlCommonName = new JLabel(m_res.getString("DGenerateCertificate.jlCommonName.text"));
 		GridBagConstraints gbc_jlCommonName = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlCommonName.gridy = 2;
+		gbc_jlCommonName.gridy = gridy++;
 
 		m_jtfCommonName = new JTextField(15);
 		m_jtfCommonName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfCommonName.tooltip"));
 		GridBagConstraints gbc_jtfCommonName = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfCommonName.gridy = 2;
+		gbc_jtfCommonName.gridy = gbc_jlCommonName.gridy;
 
 		// Organisation Unit
 		JLabel jlOrganisationUnit =
 		    new JLabel(m_res.getString("DGenerateCertificate.jlOrganisationUnit.text"));
 		GridBagConstraints gbc_jlOrganisationUnit = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlOrganisationUnit.gridy = 3;
+		gbc_jlOrganisationUnit.gridy = gridy++;
 
 		m_jtfOrganisationUnit = new JTextField(15);
 		m_jtfOrganisationUnit.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfOrganisationUnit.tooltip"));
 		GridBagConstraints gbc_jtfOrganisationUnit = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfOrganisationUnit.gridy = 3;
+		gbc_jtfOrganisationUnit.gridy = gbc_jlOrganisationUnit.gridy;
 
 		// Organisation Name
 		JLabel jlOrganisationName =
 		    new JLabel(m_res.getString("DGenerateCertificate.jlOrganisationName.text"));
 		GridBagConstraints gbc_jlOrganisationName = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlOrganisationName.gridy = 4;
+		gbc_jlOrganisationName.gridy = gridy++;
 
 		m_jtfOrganisationName = new JTextField(15);
 		m_jtfOrganisationName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfOrganisationName.tooltip"));
 		GridBagConstraints gbc_jtfOrganisationName = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfOrganisationName.gridy = 4;
+		gbc_jtfOrganisationName.gridy = gbc_jlOrganisationName.gridy;
 
 		// Locality Name
 		JLabel jlLocalityName = new JLabel(m_res.getString("DGenerateCertificate.jlLocalityName.text"));
 		GridBagConstraints gbc_jlLocalityName = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlLocalityName.gridy = 5;
+		gbc_jlLocalityName.gridy = gridy++;
 
 		m_jtfLocalityName = new JTextField(15);
 		m_jtfLocalityName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfLocalityName.tooltip"));
 		GridBagConstraints gbc_jtfLocalityName = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfLocalityName.gridy = 5;
+		gbc_jtfLocalityName.gridy = gbc_jlLocalityName.gridy;
 
 		// State Name
 		JLabel jlStateName = new JLabel(m_res.getString("DGenerateCertificate.jlStateName.text"));
 		GridBagConstraints gbc_jlStateName = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlStateName.gridy = 6;
+		gbc_jlStateName.gridy = gridy++;
 
 		m_jtfStateName = new JTextField(15);
 		m_jtfStateName.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfStateName.tooltip"));
 		GridBagConstraints gbc_jtfStateName = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfStateName.gridy = 6;
+		gbc_jtfStateName.gridy = gbc_jlStateName.gridy;
 
 		// Country Code
 		JLabel jlCountryCode = new JLabel(m_res.getString("DGenerateCertificate.jlCountryCode.text"));
 		GridBagConstraints gbc_jlCountryCode = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlCountryCode.gridy = 7;
+		gbc_jlCountryCode.gridy = gridy++;
 
 		m_jtfCountryCode = new JTextField(COUNTRY_CODE_LENGTH);
 		m_jtfCountryCode.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfCountryCode.tooltip"));
 		GridBagConstraints gbc_jtfCountryCode = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfCountryCode.gridy = 7;
+		gbc_jtfCountryCode.gridy = gbc_jlCountryCode.gridy;
 
 		// Email Address
 		JLabel jlEmailAddress = new JLabel(m_res.getString("DGenerateCertificate.jlEmailAddress.text"));
 		GridBagConstraints gbc_jlEmailAddress = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlEmailAddress.gridy = 8;
+		gbc_jlEmailAddress.gridy = gridy++;
 
 		m_jtfEmailAddress = new JTextField(15);
 		m_jtfEmailAddress.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfEmailAddress.tooltip"));
 		GridBagConstraints gbc_jtfEmailAddress = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfEmailAddress.gridy = 8;
+		gbc_jtfEmailAddress.gridy = gbc_jlEmailAddress.gridy;
 
 		// Put it all together
 		JPanel jpOptions = new JPanel(new GridBagLayout());
