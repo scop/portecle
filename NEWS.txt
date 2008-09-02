@@ -6,10 +6,10 @@ New features:
   extensions.
 
 Enhancements:
-- Support online help not bundled in jar (set helpbaseurl at build time).
 - User interface improvements, including use of Java Desktop API to
   launch browsers and mail clients.
 - Support changing look and feel without restarting the app.
+- Support online help not bundled in jar (set helpbaseurl at build time).
 
 Bug fixes:
 - Fix problem with examining certificates from OpenSSL PEM bundles in
@@ -18,6 +18,9 @@ Bug fixes:
 Miscellaneous:
 - Java SE 6 or later is now required.
 - Bundled Bouncy Castle provider jar upgraded to 1.40.
+- Removed built in support code for additional external look and feels;
+  users who want them can have a look at Java's built in facilities for
+  installing them.
 
 New in Portecle 1.3 (2007-12-16):
 ---------------------------------

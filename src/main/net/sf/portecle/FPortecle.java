@@ -42,8 +42,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -6026,13 +6024,6 @@ public class FPortecle
 	 */
 	private static void initLookAndFeel()
 	{
-		// Install extra look and feels (which may or may not be present)
-		String[] plafs = m_res.getString("FPortecle.AdditionalLookAndFeels").split("[\\s,]+");
-		for (String plaf : plafs)
-		{
-			installLookFeel(plaf);
-		}
-
 		try
 		{
 			// Use the look and feel
@@ -6058,42 +6049,6 @@ public class FPortecle
 
 		JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
 		JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
-	}
-
-	/**
-	 * Install the look and feel represented by the supplied class.
-	 * 
-	 * @param sLookFeelClassName Name of look and feel class to install
-	 */
-	private static void installLookFeel(String sLookFeelClassName)
-	{
-		// Install extra look and feel (if the class is present)
-		try
-		{
-			// Get the name of the Look and Feel by instantiating an instance
-			// of the class
-			Class<?> lookFeelClass = Class.forName(sLookFeelClassName);
-			Constructor<?> lookFeelConstructor = lookFeelClass.getConstructor(new Class[0]);
-			LookAndFeel lookAndFeel = (LookAndFeel) lookFeelConstructor.newInstance(new Object[0]);
-
-			// Install Look and Feel
-			UIManager.installLookAndFeel(lookAndFeel.getName(), sLookFeelClassName);
-		}
-		catch (ClassNotFoundException e)
-		{
-		}
-		catch (NoSuchMethodException e)
-		{
-		}
-		catch (InstantiationException e)
-		{
-		}
-		catch (IllegalAccessException e)
-		{
-		}
-		catch (InvocationTargetException e)
-		{
-		}
 	}
 
 	/**

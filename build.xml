@@ -11,8 +11,7 @@
   To build portecle.jar with no Class-Path MANIFEST.MF attribute,
   set jar.classpath to an empty value in build.properties or command line.
   -->
-  <property name="jar.classpath"
-    value="bcprov.jar metouia.jar kunststoff.jar gtkswing.jar" />
+  <property name="jar.classpath" value="bcprov.jar" />
 
   <property name="helpbaseurl" value="${helpbaseurl.default}" />
 
