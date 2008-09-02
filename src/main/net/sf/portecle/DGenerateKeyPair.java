@@ -53,6 +53,7 @@ import javax.swing.text.Document;
 
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.gui.IntegerDocumentFilter;
+import net.sf.portecle.gui.SwingHelper;
 
 /**
  * Dialog used to choose the parameters required for key pair generation. The user may select an asymmetric
@@ -205,6 +206,7 @@ class DGenerateKeyPair
 		int iKeySize = validateKeySize();
 		if (iKeySize == BAD_KEYSIZE)
 		{
+			SwingHelper.selectAndFocus(m_jtfKeySize);
 			return false; // Invalid
 		}
 		m_iKeySize = iKeySize;

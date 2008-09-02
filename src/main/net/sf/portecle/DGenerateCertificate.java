@@ -370,7 +370,14 @@ class DGenerateCertificate
 	private boolean generateCertificate()
 	{
 		// Validate dialog's field values
+
 		int iValidity = validateValidity(m_jtfValidity.getText());
+		if (iValidity == BAD_VALIDITY)
+		{
+			SwingHelper.selectAndFocus(m_jtfValidity);
+			return false;
+		}
+
 		String sCommonName = validateCommonName(m_jtfCommonName.getText());
 		String sOrganisationUnit = validateOrganisationUnit(m_jtfOrganisationUnit.getText());
 		String sOrganisationName = validateOrganisationName(m_jtfOrganisationName.getText());
@@ -378,11 +385,6 @@ class DGenerateCertificate
 		String sStateName = validateStateName(m_jtfStateName.getText());
 		String sCountryCode = validateCountryCode(m_jtfCountryCode.getText());
 		String sEmailAddress = validateEmailAddress(m_jtfEmailAddress.getText());
-
-		if (iValidity == BAD_VALIDITY)
-		{
-			return false;
-		}
 
 		if (sCommonName == null && sOrganisationUnit == null && sOrganisationName == null &&
 		    sLocalityName == null && sStateName == null && sCountryCode == null && sEmailAddress == null)
@@ -399,6 +401,7 @@ class DGenerateCertificate
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
 			    m_res.getString("DGenerateCertificate.CountryCodeLength.message"), COUNTRY_CODE_LENGTH),
 			    getTitle(), JOptionPane.WARNING_MESSAGE);
+			SwingHelper.selectAndFocus(m_jtfCountryCode);
 			return false;
 		}
 
