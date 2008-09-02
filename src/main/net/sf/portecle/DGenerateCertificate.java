@@ -59,6 +59,7 @@ import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.DocumentMaxLengthFilter;
 import net.sf.portecle.gui.IntegerDocumentFilter;
 import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
@@ -249,6 +250,12 @@ class DGenerateCertificate
 		gbc_jlCountryCode.gridy = gridy++;
 
 		m_jtfCountryCode = new JTextField(COUNTRY_CODE_LENGTH);
+		doc = m_jtfCountryCode.getDocument();
+		if (doc instanceof AbstractDocument)
+		{
+			((AbstractDocument) doc).setDocumentFilter(new DocumentMaxLengthFilter(
+			    m_jtfCountryCode.getColumns()));
+		}
 		m_jtfCountryCode.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfCountryCode.tooltip"));
 		GridBagConstraints gbc_jtfCountryCode = (GridBagConstraints) gbcEdCtrl.clone();
 		gbc_jtfCountryCode.gridy = gbc_jlCountryCode.gridy;
