@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -47,8 +48,11 @@ import javax.swing.KeyStroke;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.Document;
 
 import net.sf.portecle.crypto.KeyPairType;
+import net.sf.portecle.gui.IntegerDocumentFilter;
 
 /**
  * Dialog used to choose the parameters required for key pair generation. The user may select an asymmetric
@@ -60,7 +64,7 @@ class DGenerateKeyPair
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
 
-	/** Indicator for an invalid keysize */
+	/** Indicator for an invalid key size */
 	private static final int BAD_KEYSIZE = -1;
 
 	/** Resource bundle */
@@ -112,15 +116,21 @@ class DGenerateKeyPair
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(m_jrbDSA);
 		buttonGroup.add(m_jrbRSA);
+
 		JPanel jpKeyAlg = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpKeyAlg.add(jlKeyAlg);
 		jpKeyAlg.add(m_jrbDSA);
 		jpKeyAlg.add(m_jrbRSA);
 
 		JLabel jlKeySize = new JLabel(m_res.getString("DGenerateKeyPair.jlKeySize.text"));
-		m_jtfKeySize = new JTextField(5);
-		m_jtfKeySize.setText(DEFAULT_KEYSIZE);
+		m_jtfKeySize = new JTextField(DEFAULT_KEYSIZE, 5);
 		m_jtfKeySize.setToolTipText(m_res.getString("DGenerateKeyPair.m_jtfKeySize.tooltip"));
+		Document doc = m_jtfKeySize.getDocument();
+		if (doc instanceof AbstractDocument)
+		{
+			((AbstractDocument) doc).setDocumentFilter(new IntegerDocumentFilter(m_jtfKeySize.getColumns()));
+		}
+
 		JPanel jpKeySize = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpKeySize.add(jlKeySize);
 		jpKeySize.add(m_jtfKeySize);
@@ -187,7 +197,7 @@ class DGenerateKeyPair
 	/**
 	 * Validate the chosen key pair generation parameters.
 	 * 
-	 * @return True if the key pair generation paremeters are valid, false otherwise
+	 * @return True if the key pair generation parameters are valid, false otherwise
 	 */
 	private boolean validateKeyGenParameters()
 	{

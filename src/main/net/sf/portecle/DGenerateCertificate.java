@@ -52,11 +52,14 @@ import javax.swing.KeyStroke;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.Document;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.IntegerDocumentFilter;
 import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -178,7 +181,12 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jlValidity = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlValidity.gridy = gridy++;
 
-		m_jtfValidity = new JTextField(DEFAULT_VALIDITY, 4);
+		m_jtfValidity = new JTextField(DEFAULT_VALIDITY, 5);
+		Document doc = m_jtfValidity.getDocument();
+		if (doc instanceof AbstractDocument)
+		{
+			((AbstractDocument) doc).setDocumentFilter(new IntegerDocumentFilter(m_jtfValidity.getColumns()));
+		}
 		m_jtfValidity.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfValidity.tooltip"));
 		GridBagConstraints gbc_jtfValidity = (GridBagConstraints) gbcEdCtrl.clone();
 		gbc_jtfValidity.gridy = gbc_jlValidity.gridy;
