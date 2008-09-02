@@ -1,5 +1,5 @@
 /*
- * IntegerDocumentFilter.java
+ * DocumentMaxLengthFilter.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2008 Ville Skyttä, ville.skytta@iki.fi
@@ -25,44 +25,40 @@ import java.awt.Toolkit;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 /**
- * Document filter for non-negative integer only input.
+ * Document filter which restricts maximum input length.
  */
-public class IntegerDocumentFilter
-    extends DocumentMaxLengthFilter
+public class DocumentMaxLengthFilter
+    extends DocumentFilter
 {
+	/** Maximum accepted value length */
+	private final int maxLength;
+
 	/**
-	 * Create a new integer document filter.
+	 * Create a new document max length filter.
 	 * 
 	 * @param maxLength maximum accepted document length
 	 */
-	public IntegerDocumentFilter(int maxLength)
+	public DocumentMaxLengthFilter(int maxLength)
 	{
-		super(maxLength);
+		this.maxLength = maxLength;
 	}
 
 	@Override
 	public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
 	    throws BadLocationException
 	{
-		if (string == null || string.length() == 0)
+		int strLen;
+		if (string == null || (strLen = string.length()) == 0)
 		{
 			// Always allow empty inserts
 			super.insertString(fb, offset, string, attr);
 			return;
 		}
 
-		boolean accepted = false;
-		try
-		{
-			accepted = (Integer.valueOf(string) >= 0);
-		}
-		catch (NumberFormatException ignored)
-		{
-		}
-
-		if (!accepted)
+		if (fb.getDocument().getLength() + strLen > maxLength)
 		{
 			Toolkit.getDefaultToolkit().beep();
 			return;
@@ -75,23 +71,16 @@ public class IntegerDocumentFilter
 	public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
 	    throws BadLocationException
 	{
-		if (text == null || text.length() == 0)
+		int textLen;
+		if (text == null || (textLen = text.length()) == 0)
 		{
 			// Always allow removal
 			super.replace(fb, offset, length, text, attrs);
 			return;
 		}
 
-		boolean accepted = false;
-		try
-		{
-			accepted = (Integer.valueOf(text) >= 0);
-		}
-		catch (NumberFormatException ignored)
-		{
-		}
-
-		if (!accepted)
+		int numAdded = textLen - length;
+		if (fb.getDocument().getLength() + numAdded > maxLength)
 		{
 			Toolkit.getDefaultToolkit().beep();
 			return;
