@@ -25,6 +25,7 @@ import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
+import javax.swing.text.JTextComponent;
 
 /**
  * Swing helper.
@@ -68,5 +69,16 @@ public class SwingHelper
 				e.printStackTrace(); // TODO?
 			}
 		}
+	}
+
+	/**
+	 * Select all text in a text component and focus it.
+	 * 
+	 * @param component the text component
+	 */
+	public static void selectAndFocus(JTextComponent component)
+	{
+		component.select(0, component.getText().length());
+		component.requestFocusInWindow();
 	}
 }

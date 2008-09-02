@@ -31,6 +31,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.InetSocketAddress;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
@@ -43,7 +44,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.Document;
 
+import net.sf.portecle.gui.IntegerDocumentFilter;
+import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -56,7 +61,7 @@ class DGetHostPort
 	private static final String CANCEL_KEY = "CANCEL_KEY";
 
 	/** Default port */
-	private static final int DEFAULT_PORT = 443;
+	private static final String DEFAULT_PORT = "443";
 
 	/** Resource bundle */
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
@@ -107,17 +112,18 @@ class DGetHostPort
 		m_jtfHost = new JTextField(15);
 
 		JLabel jlPort = new JLabel(m_res.getString("DGetHostPort.jlPort.text"));
-		m_jtfPort = new JTextField(5);
+		m_jtfPort = new JTextField(DEFAULT_PORT, 5);
+		Document doc = m_jtfPort.getDocument();
+		if (doc instanceof AbstractDocument)
+		{
+			((AbstractDocument) doc).setDocumentFilter(new IntegerDocumentFilter(m_jtfPort.getColumns()));
+		}
 
 		if (iOldHostPort != null)
 		{
 			m_jtfHost.setText(iOldHostPort.getHostName());
 			m_jtfHost.setCaretPosition(0);
 			m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
-		}
-		else
-		{
-			m_jtfPort.setText(String.valueOf(DEFAULT_PORT));
 		}
 		m_jtfPort.setCaretPosition(0);
 
@@ -185,27 +191,21 @@ class DGetHostPort
 	 */
 	private boolean checkHostPort()
 	{
-		String sHost = m_jtfHost.getText().trim().toLowerCase();
-		if (sHost.length() > 0)
-		{
-			sHost = m_jtfHost.getText().trim();
-		}
-		else
+		String sHost = m_jtfHost.getText().trim().toLowerCase(Locale.ENGLISH);
+		if (sHost.length() == 0)
 		{
 			JOptionPane.showMessageDialog(this, m_res.getString("DGetHostPort.HostReq.message"), getTitle(),
 			    JOptionPane.WARNING_MESSAGE);
+			SwingHelper.selectAndFocus(m_jtfHost);
 			return false;
 		}
 
-		String sPort = m_jtfPort.getText().trim().toLowerCase();
-		if (sPort.length() > 0)
-		{
-			sPort = m_jtfPort.getText().trim();
-		}
-		else
+		String sPort = m_jtfPort.getText().trim();
+		if (sPort.length() == 0)
 		{
 			JOptionPane.showMessageDialog(this, m_res.getString("DGetHostPort.PortReq.message"), getTitle(),
 			    JOptionPane.WARNING_MESSAGE);
+			SwingHelper.selectAndFocus(m_jtfPort);
 			return false;
 		}
 		int port;
@@ -216,6 +216,7 @@ class DGetHostPort
 		catch (Exception e)
 		{
 			DThrowable.showAndWait(this, null, e);
+			SwingHelper.selectAndFocus(m_jtfPort);
 			return false;
 		}
 
@@ -226,6 +227,8 @@ class DGetHostPort
 		catch (Exception e)
 		{
 			DThrowable.showAndWait(this, null, e);
+			// Most likely port out of range...
+			SwingHelper.selectAndFocus(m_jtfPort);
 			return false;
 		}
 
