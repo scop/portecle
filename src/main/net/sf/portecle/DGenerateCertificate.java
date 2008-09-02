@@ -78,6 +78,9 @@ class DGenerateCertificate
 	/** Required country code length in characters */
 	private static final int COUNTRY_CODE_LENGTH = 2;
 
+	/** Default validity period */
+	private static final String DEFAULT_VALIDITY = "365";
+
 	/** Resource bundle */
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
@@ -173,7 +176,7 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jlValidity = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlValidity.gridy = 1;
 
-		m_jtfValidity = new JTextField(4);
+		m_jtfValidity = new JTextField(DEFAULT_VALIDITY, 4);
 		m_jtfValidity.setToolTipText(m_res.getString("DGenerateCertificate.m_jtfValidity.tooltip"));
 		GridBagConstraints gbc_jtfValidity = (GridBagConstraints) gbcEdCtrl.clone();
 		gbc_jtfValidity.gridy = 1;
@@ -323,6 +326,9 @@ class DGenerateCertificate
 		getRootPane().setDefaultButton(jbOK);
 
 		pack();
+
+		// Focus common name input by default
+		m_jtfCommonName.requestFocusInWindow();
 	}
 
 	/**
