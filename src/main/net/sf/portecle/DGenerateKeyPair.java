@@ -105,9 +105,9 @@ class DGenerateKeyPair
 	private void initComponents()
 	{
 		JLabel jlKeyAlg = new JLabel(m_res.getString("DGenerateKeyPair.jlKeyAlg.text"));
-		m_jrbDSA = new JRadioButton(m_res.getString("DGenerateKeyPair.m_jrbDSA.text"), true);
+		m_jrbDSA = new JRadioButton(m_res.getString("DGenerateKeyPair.m_jrbDSA.text"), false);
 		m_jrbDSA.setToolTipText(m_res.getString("DGenerateKeyPair.m_jrbDSA.tooltip"));
-		m_jrbRSA = new JRadioButton(m_res.getString("DGenerateKeyPair.m_jrbRSA.text"), false);
+		m_jrbRSA = new JRadioButton(m_res.getString("DGenerateKeyPair.m_jrbRSA.text"), true);
 		m_jrbRSA.setToolTipText(m_res.getString("DGenerateKeyPair.m_jrbRSA.tooltip"));
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(m_jrbDSA);
@@ -180,6 +180,8 @@ class DGenerateKeyPair
 		getRootPane().setDefaultButton(jbOK);
 
 		pack();
+
+		m_jtfKeySize.requestFocusInWindow();
 	}
 
 	/**
