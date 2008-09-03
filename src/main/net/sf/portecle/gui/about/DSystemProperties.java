@@ -36,6 +36,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
@@ -79,6 +80,7 @@ public class DSystemProperties
 		jtSystemProperties.setRowMargin(0);
 		jtSystemProperties.getColumnModel().setColumnMargin(0);
 		jtSystemProperties.getTableHeader().setReorderingAllowed(false);
+		jtSystemProperties.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		// Add custom renderers for the table cells and headers
 		int tWidth = 30; // arbitrary # of pixels for vertical scrollbar

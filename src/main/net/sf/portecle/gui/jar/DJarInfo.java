@@ -44,6 +44,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
@@ -95,6 +96,7 @@ public class DJarInfo
 		jtJarInfo.getColumnModel().setColumnMargin(0);
 		jtJarInfo.getTableHeader().setReorderingAllowed(false);
 		jtJarInfo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		jtJarInfo.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		// Add custom renderers for the table cells and headers
 		for (int iCnt = 0; iCnt < jtJarInfo.getColumnCount(); iCnt++)
