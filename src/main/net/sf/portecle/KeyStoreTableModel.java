@@ -70,12 +70,16 @@ class KeyStoreTableModel
 	/** Holds the table data */
 	private Object[][] m_data;
 
+	/** Parent Portecle object */
+	private final FPortecle portecle;
+
 	/**
 	 * Construct a new KeyStoreTableModel.
 	 */
-	public KeyStoreTableModel()
+	public KeyStoreTableModel(FPortecle portecle)
 	{
 		m_data = new Object[0][getColumnCount()];
+		this.portecle = portecle;
 	}
 
 	/**
@@ -175,6 +179,15 @@ class KeyStoreTableModel
 		return m_data[iRow][iCol];
 	}
 
+	@Override
+	public void setValueAt(Object value, int rowIndex, int columnIndex)
+	{
+		if (isCellEditable(rowIndex, columnIndex))
+		{
+			portecle.renameEntry(m_data[rowIndex][columnIndex].toString(), value.toString(), true);
+		}
+	}
+
 	/**
 	 * Get the class at of the cells at the given column position.
 	 * 
@@ -197,8 +210,15 @@ class KeyStoreTableModel
 	@Override
 	public boolean isCellEditable(int iRow, int iCol)
 	{
-		// The table is always read-only
-		// TODO: could make alias column editable (--> rename)
-		return false;
+		if (iCol != 1)
+		{
+			return false;
+		}
+
+		// Key-only entries are not renameable - we do a remove-store operation
+		// but the KeyStore API won't allow us to store a PrivateKey without
+		// associated certificate chain.
+		// TODO: Maybe it'd work for other Key types? Need testing material.
+		return !KEY_ENTRY.equals(m_data[iRow][0]);
 	}
 }

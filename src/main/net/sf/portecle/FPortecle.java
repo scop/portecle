@@ -71,6 +71,7 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 import javax.swing.Action;
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -97,6 +98,7 @@ import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
@@ -1146,7 +1148,7 @@ public class FPortecle
 	private void initTable()
 	{
 		// The table data model
-		KeyStoreTableModel ksModel = new KeyStoreTableModel();
+		KeyStoreTableModel ksModel = new KeyStoreTableModel(this);
 
 		// The table itself
 		m_jtKeyStore = new JTable(ksModel);
@@ -1199,6 +1201,14 @@ public class FPortecle
 		m_jtKeyStore.setRowSorter(sorter);
 		// ...and sort it by alias by default
 		sorter.toggleSortOrder(1);
+
+		// Get usual double click edit start out of the way - we want double click to show the
+		// entry, even in editable columns. In-place edit can be invoked with F2.
+		TableCellEditor cellEditor = m_jtKeyStore.getDefaultEditor(String.class);
+		if (cellEditor instanceof DefaultCellEditor)
+		{
+			((DefaultCellEditor) cellEditor).setClickCountToStart(1000);
+		}
 
 		// Put the table into a scroll pane
 		JScrollPane jspKeyStoreTable =
@@ -1576,17 +1586,12 @@ public class FPortecle
 	{
 		if (evt.getClickCount() > 1)
 		{
-			// What row and column were clicked upon (if any)?
+			// What row was clicked upon (if any)?
 			Point point = new Point(evt.getX(), evt.getY());
 			int iRow = m_jtKeyStore.rowAtPoint(point);
 
-			// Entry clicked upon
 			if (iRow != -1)
 			{
-				// Get the entry type of the row
-				// KeyStoreTableModel tableModel =
-				// (KeyStoreTableModel) m_jtKeyStore.getModel();
-
 				// Make the row that was clicked upon the selected one
 				m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
 
@@ -5534,51 +5539,61 @@ public class FPortecle
 		// What entry has been selected?
 		int iRow = m_jtKeyStore.getSelectedRow();
 
-		if (iRow == -1)
-		{
-			return false;
-		}
-
-		// Not valid for a key-only entry - we do a remove-store operation
-		// but the KeyStore API won't allow us to store a PrivateKey without
-		// associated certificate chain.
-		// TODO: Maybe it'd work for other Key types? Need testing material.
-		if (m_jtKeyStore.getValueAt(iRow, 0).equals(KeyStoreTableModel.KEY_ENTRY))
+		if (!m_jtKeyStore.getModel().isCellEditable(iRow, 1))
 		{
 			return false;
 		}
 
 		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+
+		// Get the new entry alias
+		DGetAlias dGetAlias =
+		    new DGetAlias(this, m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias);
+		dGetAlias.setLocationRelativeTo(this);
+		SwingHelper.showAndWait(dGetAlias);
+
+		return renameEntry(sAlias, dGetAlias.getAlias(), false);
+	}
+
+	/**
+	 * Let the user rename the selected keystore entry.
+	 * 
+	 * @param silent if true, attempt to rename to same name will be ignored without popping up an error
+	 *            dialog
+	 * @return True if the rename is successful, false otherwise
+	 */
+	/* package private */boolean renameEntry(String oldAlias, String newAlias, boolean silent)
+	{
+		if (newAlias == null)
+		{
+			return false;
+		}
+
+		assert m_keyStoreWrap != null;
+		assert m_keyStoreWrap.getKeyStore() != null;
+
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		try
 		{
-			// Get the new entry alias
-			DGetAlias dGetAlias =
-			    new DGetAlias(this, m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias);
-			dGetAlias.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dGetAlias);
-			String sNewAlias = dGetAlias.getAlias();
-
-			if (sNewAlias == null)
-			{
-				return false;
-			}
 
 			// Check new alias differs from the present one
-			if (sNewAlias.equalsIgnoreCase(sAlias))
+			if (newAlias.equalsIgnoreCase(oldAlias))
 			{
-				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.RenameAliasIdentical.message"), sAlias),
-				    m_res.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
+				if (!silent)
+				{
+					JOptionPane.showMessageDialog(this, MessageFormat.format(
+					    m_res.getString("FPortecle.RenameAliasIdentical.message"), oldAlias),
+					    m_res.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
+				}
 				return false;
 			}
 
 			// Check entry does not already exist in the keystore
-			if (keyStore.containsAlias(sNewAlias))
+			if (keyStore.containsAlias(newAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), sNewAlias);
+				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), newAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
@@ -5592,10 +5607,10 @@ public class FPortecle
 			// Create the new entry with the new name and copy the old entry across
 
 			// If the entry is a key pair...
-			if (keyStore.isKeyEntry(sAlias))
+			if (keyStore.isKeyEntry(oldAlias))
 			{
 				// Get the entry's password (we may already know it from the wrapper)
-				char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
+				char[] cPassword = m_keyStoreWrap.getEntryPassword(oldAlias);
 
 				if (cPassword == null)
 				{
@@ -5618,26 +5633,26 @@ public class FPortecle
 				}
 
 				// Do the copy
-				Key key = keyStore.getKey(sAlias, cPassword);
-				Certificate[] certs = keyStore.getCertificateChain(sAlias);
-				keyStore.setKeyEntry(sNewAlias, key, cPassword, certs);
+				Key key = keyStore.getKey(oldAlias, cPassword);
+				Certificate[] certs = keyStore.getCertificateChain(oldAlias);
+				keyStore.setKeyEntry(newAlias, key, cPassword, certs);
 
 				// Update the keystore wrapper
-				m_keyStoreWrap.setEntryPassword(sNewAlias, cPassword);
+				m_keyStoreWrap.setEntryPassword(newAlias, cPassword);
 			}
 			// ...if the entry is a trusted certificate
 			else
 			{
 				// Do the copy
-				Certificate cert = keyStore.getCertificate(sAlias);
-				keyStore.setCertificateEntry(sNewAlias, cert);
+				Certificate cert = keyStore.getCertificate(oldAlias);
+				keyStore.setCertificateEntry(newAlias, cert);
 			}
 
 			// Delete the old entry
-			keyStore.deleteEntry(sAlias);
+			keyStore.deleteEntry(oldAlias);
 
 			// Update the keystore wrapper
-			m_keyStoreWrap.removeEntryPassword(sAlias);
+			m_keyStoreWrap.removeEntryPassword(oldAlias);
 			m_keyStoreWrap.setChanged(true);
 		}
 		catch (Exception ex)
