@@ -1591,18 +1591,9 @@ public class FPortecle
 	{
 		if (evt.getClickCount() > 1)
 		{
-			// What row was clicked upon (if any)?
-			Point point = new Point(evt.getX(), evt.getY());
-			int iRow = m_jtKeyStore.rowAtPoint(point);
-
-			if (iRow != -1)
-			{
-				// Make the row that was clicked upon the selected one
-				m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
-
-				// Show the selected entry
-				showSelectedEntry();
-			}
+			// Due to the way click events work, at this point we've already received a previous single click
+			// event which has selected a row for us and we can just show the selected entry.
+			showSelectedEntry();
 		}
 	}
 
