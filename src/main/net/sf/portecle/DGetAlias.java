@@ -43,6 +43,8 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.portecle.gui.SwingHelper;
+
 /**
  * Dialog used for entering a keystore alias.
  */
@@ -68,11 +70,12 @@ class DGetAlias
 	 * @param sTitle The dialog's title
 	 * @param modal Is the dialog modal?
 	 * @param sOldAlias The alias to display initially
+	 * @param select Whether to pre-select the initially displayed alias
 	 */
-	public DGetAlias(Window parent, String sTitle, boolean modal, String sOldAlias)
+	public DGetAlias(Window parent, String sTitle, boolean modal, String sOldAlias, boolean select)
 	{
 		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
-		initComponents(sOldAlias);
+		initComponents(sOldAlias, select);
 	}
 
 	/**
@@ -89,8 +92,9 @@ class DGetAlias
 	 * Initialise the dialog's GUI components.
 	 * 
 	 * @param sOldAlias The alias to display initially
+	 * @param select Whether to pre-select the initially displayed alias
 	 */
-	private void initComponents(String sOldAlias)
+	private void initComponents(String sOldAlias, boolean select)
 	{
 		getContentPane().setLayout(new BorderLayout());
 
@@ -156,6 +160,11 @@ class DGetAlias
 		getRootPane().setDefaultButton(jbOK);
 
 		pack();
+
+		if (select)
+		{
+			SwingHelper.selectAndFocus(m_jtfAlias);
+		}
 	}
 
 	/**
@@ -175,6 +184,8 @@ class DGetAlias
 
 		JOptionPane.showMessageDialog(this, m_res.getString("DGetAlias.AliasReq.message"), getTitle(),
 		    JOptionPane.WARNING_MESSAGE);
+
+		SwingHelper.selectAndFocus(m_jtfAlias);
 		return false;
 	}
 

@@ -1671,7 +1671,7 @@ public class FPortecle
 		// Get the alias
 		DGetAlias dGetAlias =
 		    new DGetAlias(this, m_res.getString("DGenerateCertificate.KeyPairEntryAlias.Title"), true,
-		        X509CertUtil.getCertificateAlias(certificate).toLowerCase());
+		        X509CertUtil.getCertificateAlias(certificate).toLowerCase(), false);
 		dGetAlias.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetAlias);
 		sAlias = dGetAlias.getAlias();
@@ -3165,7 +3165,7 @@ public class FPortecle
 			// Get the entry alias to put the trusted certificate into
 			DGetAlias dGetAlias =
 			    new DGetAlias(this, m_res.getString("FPortecle.TrustCertEntryAlias.Title"), true,
-			        X509CertUtil.getCertificateAlias(trustCert).toLowerCase());
+			        X509CertUtil.getCertificateAlias(trustCert).toLowerCase(), false);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
 			String sAlias = dGetAlias.getAlias();
@@ -3292,7 +3292,7 @@ public class FPortecle
 			// Get the alias for the new key pair entry
 			DGetAlias dGetAlias =
 			    new DGetAlias(this, m_res.getString("FPortecle.KeyPairEntryAlias.Title"), true,
-			        sAlias.toLowerCase());
+			        sAlias.toLowerCase(), false);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
 			sAlias = dGetAlias.getAlias();
@@ -5161,21 +5161,13 @@ public class FPortecle
 				}
 			}
 
-			// Get key and certificates from entry
-			Key key = keyStore.getKey(sAlias, cPassword);
-			Certificate[] certs = keyStore.getCertificateChain(sAlias);
-
 			// Update the keystore wrapper
 			m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
 			// Get the alias of the new entry
-			// TODO: certs can be null
-			X509Certificate[] x509Certs =
-			    X509CertUtil.orderX509CertChain(X509CertUtil.convertCertificates(certs));
-
 			DGetAlias dGetAlias =
-			    new DGetAlias(this, m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), true,
-			        X509CertUtil.getCertificateAlias(x509Certs[0]).toLowerCase());
+			    new DGetAlias(this, m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), true, sAlias,
+			        true);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
 			String sNewAlias = dGetAlias.getAlias();
@@ -5193,6 +5185,10 @@ public class FPortecle
 				    m_res.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
+
+			// Get key and certificates from entry
+			Key key = keyStore.getKey(sAlias, cPassword);
+			Certificate[] certs = keyStore.getCertificateChain(sAlias);
 
 			// Alias to possibly delete before adding new one
 			String sAliasToDelete = null;
@@ -5286,16 +5282,11 @@ public class FPortecle
 
 		try
 		{
-
-			// Get certificate from entry
-			Certificate cert = keyStore.getCertificate(sAlias);
-
 			// Get the alias of the new entry
-			X509Certificate x509Cert = X509CertUtil.convertCertificate(cert);
 
 			DGetAlias dGetAlias =
 			    new DGetAlias(this, m_res.getString("FPortecle.ClonedTrustCertEntryAlias.Title"), true,
-			        X509CertUtil.getCertificateAlias(x509Cert).toLowerCase());
+			        sAlias, true);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
 			String sNewAlias = dGetAlias.getAlias();
@@ -5313,6 +5304,9 @@ public class FPortecle
 				    m_res.getString("FPortecle.CloneCertificate.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
+
+			// Get certificate from entry
+			Certificate cert = keyStore.getCertificate(sAlias);
 
 			// Check entry does not already exist in the keystore
 			if (keyStore.containsAlias(sNewAlias))
@@ -5495,7 +5489,7 @@ public class FPortecle
 
 		// Get the new entry alias
 		DGetAlias dGetAlias =
-		    new DGetAlias(this, m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias);
+		    new DGetAlias(this, m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias, true);
 		dGetAlias.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetAlias);
 
