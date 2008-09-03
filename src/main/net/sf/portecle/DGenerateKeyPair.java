@@ -192,7 +192,7 @@ class DGenerateKeyPair
 
 		pack();
 
-		m_jtfKeySize.requestFocusInWindow();
+		SwingHelper.selectAndFocus(m_jtfKeySize);
 	}
 
 	/**
