@@ -100,12 +100,8 @@ class DGetAlias
 		getContentPane().setLayout(new BorderLayout());
 
 		JLabel jlAlias = new JLabel(m_res.getString("DGetAlias.jlAlias.text"));
-		m_jtfAlias = new JTextField(15);
-
-		if (sOldAlias != null)
-		{
-			m_jtfAlias.setText(sOldAlias);
-		}
+		m_jtfAlias = new JTextField(sOldAlias, 15);
+		m_jtfAlias.setCaretPosition(sOldAlias.length());
 
 		JButton jbOK = new JButton(m_res.getString("DGetAlias.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
