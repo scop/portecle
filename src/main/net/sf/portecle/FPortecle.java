@@ -5439,6 +5439,15 @@ public class FPortecle
 			return false;
 		}
 
+		int iSelected =
+		    JOptionPane.showConfirmDialog(this, MessageFormat.format(
+		        m_res.getString("FPortecle.DeleteEntry.message"), sAlias),
+		        m_res.getString("FPortecle.DeleteEntry.Title"), JOptionPane.YES_NO_OPTION);
+		if (iSelected != JOptionPane.YES_OPTION)
+		{
+			return false;
+		}
+
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
