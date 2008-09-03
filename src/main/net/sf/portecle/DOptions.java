@@ -126,7 +126,6 @@ class DOptions
 
 		m_jtfCaCertsFile = new JTextField(m_fCaCertsFile.toString(), 20);
 		m_jtfCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
-		m_jtfCaCertsFile.setCaretPosition(0);
 		m_jtfCaCertsFile.setEditable(false);
 		JPanel jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpCaCertsFile.add(new JLabel(m_res.getString("DOptions.jlCaCertsFile.text")));

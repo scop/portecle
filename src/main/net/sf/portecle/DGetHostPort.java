@@ -122,10 +122,8 @@ class DGetHostPort
 		if (iOldHostPort != null)
 		{
 			m_jtfHost.setText(iOldHostPort.getHostName());
-			m_jtfHost.setCaretPosition(0);
 			m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
 		}
-		m_jtfPort.setCaretPosition(0);
 
 		JButton jbOK = new JButton(m_res.getString("DGetHostPort.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
