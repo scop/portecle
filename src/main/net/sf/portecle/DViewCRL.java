@@ -243,6 +243,7 @@ class DViewCRL
 		}
 
 		ListSelectionModel listSelectionModel = m_jtRevokedCerts.getSelectionModel();
+		listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSelectionModel.addListSelectionListener(new ListSelectionListener()
 		{
 			public void valueChanged(ListSelectionEvent evt)
