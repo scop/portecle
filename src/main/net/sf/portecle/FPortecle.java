@@ -89,6 +89,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.ListSelectionModel;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -98,6 +99,8 @@ import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
@@ -204,6 +207,9 @@ public class FPortecle
 	/** Look & Feel setting made in options (picked up by saveAppPrefs) */
 	private Boolean m_bLookFeelDecorationOptions;
 
+	/** Currently selected alias */
+	private String selectedAlias;
+
 	// //////////////////////////////////////////////////////////
 	// Menu bar controls
 	// //////////////////////////////////////////////////////////
@@ -262,7 +268,7 @@ public class FPortecle
 	private JPanel m_jpKeyStoreTable;
 
 	/** Keystore entries table */
-	private JTable m_jtKeyStore;
+	private KeyStoreTable m_jtKeyStore;
 
 	// //////////////////////////////////////////////////////////
 	// Status bar controls
@@ -1151,7 +1157,7 @@ public class FPortecle
 		KeyStoreTableModel ksModel = new KeyStoreTableModel(this);
 
 		// The table itself
-		m_jtKeyStore = new JTable(ksModel);
+		m_jtKeyStore = new KeyStoreTable(ksModel);
 
 		m_jtKeyStore.setShowGrid(false);
 		m_jtKeyStore.setRowMargin(0);
@@ -1540,10 +1546,9 @@ public class FPortecle
 	{
 		if (evt.isPopupTrigger())
 		{
-			// What row and column were clicked upon (if any)?
+			// What row was clicked upon (if any)?
 			Point point = new Point(evt.getX(), evt.getY());
 			int iRow = m_jtKeyStore.rowAtPoint(point);
-			// int iCol = m_jtKeyStore.columnAtPoint(point);
 
 			if (iRow != -1)
 			{
@@ -1551,7 +1556,7 @@ public class FPortecle
 				m_jtKeyStore.setRowSelectionInterval(iRow, iRow);
 
 				// Show one menu if the keystore entry is of type key pair...
-				Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
+				String currEntry = m_jtKeyStore.getSelectedType();
 				if (currEntry.equals(KeyStoreTableModel.KEY_PAIR_ENTRY))
 				{
 					m_jpmKeyPair.show(evt.getComponent(), evt.getX(), evt.getY());
@@ -1756,6 +1761,7 @@ public class FPortecle
 		}
 
 		// Update the frame's components and title
+		selectedAlias = sAlias;
 		updateControls();
 		updateTitle();
 
@@ -1904,6 +1910,7 @@ public class FPortecle
 			m_keyStoreWrap = new KeyStoreWrapper(openedKeyStore, fKeyStore, cPassword);
 
 			// Update the frame's components and title
+			selectedAlias = null;
 			updateControls();
 			updateTitle();
 
@@ -2002,6 +2009,7 @@ public class FPortecle
 		}
 
 		// Update the frame's components and title
+		selectedAlias = null;
 		updateControls();
 		updateTitle();
 
@@ -2287,6 +2295,7 @@ public class FPortecle
 			m_keyStoreWrap.setChanged(true);
 
 			// Update the frame's components and title
+			selectedAlias = null;
 			updateControls();
 			updateTitle();
 
@@ -2859,14 +2868,11 @@ public class FPortecle
 		assert m_keyStoreWrap.getKeyStore() != null;
 
 		// What entry is selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
+		String sAlias = m_jtKeyStore.getSelectedAlias();
+		if (sAlias == null)
 		{
 			return false;
 		}
-
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
 
 		// Get the keystore
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
@@ -3202,6 +3208,7 @@ public class FPortecle
 			m_keyStoreWrap.setChanged(true);
 
 			// Update the frame's components and title
+			selectedAlias = sAlias;
 			updateControls();
 			updateTitle();
 
@@ -3356,6 +3363,7 @@ public class FPortecle
 			m_keyStoreWrap.setChanged(true);
 
 			// Update the frame's components and title
+			selectedAlias = sAlias;
 			updateControls();
 			updateTitle();
 
@@ -3923,27 +3931,17 @@ public class FPortecle
 		// Not relevant for a PKCS #12 keystore
 		assert m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12;
 
-		// What entry has been selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
-		{
-			return false;
-		}
-
 		// Not valid for a certificate entry, nor a key-only one - we do a
 		// remove-store operation but the KeyStore API won't allow us to
 		// store a PrivateKey without associated certificate chain.
 		// TODO: Maybe it'd work for other Key types? Need testing material.
-		Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
-		if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
-		    currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
+		if (!KeyStoreTableModel.KEY_PAIR_ENTRY.equals(m_jtKeyStore.getSelectedType()))
 		{
 			return false;
 		}
 
 		// Get entry alias
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 
 		// Do we already know the current password for the entry?
 		char[] cOldPassword = m_keyStoreWrap.getEntryPassword(sAlias);
@@ -4006,22 +4004,15 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// What entry has been selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
-		{
-			return false;
-		}
-
 		// TODO: implement this for key-only entries
-		if (m_jtKeyStore.getValueAt(iRow, 0).equals(KeyStoreTableModel.KEY_ENTRY))
+		String selectedType = m_jtKeyStore.getSelectedType();
+		if (selectedType == null || selectedType.equals(KeyStoreTableModel.KEY_ENTRY))
 		{
 			return false;
 		}
 
 		// Get the entry
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 
 		try
 		{
@@ -5030,23 +5021,13 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// What entry is selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
-		{
-			return false;
-		}
-
 		// Not valid for a key-only or a trusted certificate entry
-		Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
-		if (currEntry.equals(KeyStoreTableModel.KEY_ENTRY) ||
-		    currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
+		if (!KeyStoreTableModel.KEY_PAIR_ENTRY.equals(m_jtKeyStore.getSelectedType()))
 		{
 			return false;
 		}
 
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		File fCsrFile = null;
@@ -5151,24 +5132,15 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// What entry has been selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
-		{
-			return false;
-		}
-
-		Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
 		// Not valid for a PrivateKey-only entry - the KeyStore API won't allow
 		// us to store a PrivateKey without associated certificate chain.
 		// TODO: Maybe it'd work for other Key types? Need testing material.
-		if (!currEntry.equals(KeyStoreTableModel.KEY_PAIR_ENTRY))
+		if (!KeyStoreTableModel.KEY_PAIR_ENTRY.equals(m_jtKeyStore.getSelectedType()))
 		{
 			return false;
 		}
 
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 		KeyStoreType ksType = m_keyStoreWrap.getKeyStoreType();
 
@@ -5284,6 +5256,7 @@ public class FPortecle
 			m_keyStoreWrap.setChanged(true);
 
 			// ...and update the frame's components and title
+			selectedAlias = sNewAlias;
 			updateControls();
 			updateTitle();
 
@@ -5311,22 +5284,13 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// What entry has been selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
-		{
-			return false;
-		}
-
 		// Not valid for non-certificate entries
-		Object currEntry = m_jtKeyStore.getValueAt(iRow, 0);
-		if (!currEntry.equals(KeyStoreTableModel.TRUST_CERT_ENTRY))
+		if (!KeyStoreTableModel.TRUST_CERT_ENTRY.equals(m_jtKeyStore.getSelectedType()))
 		{
 			return false;
 		}
 
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		try
@@ -5384,6 +5348,7 @@ public class FPortecle
 			m_keyStoreWrap.setChanged(true);
 
 			// ...and update the frame's components and title
+			selectedAlias = sNewAlias;
 			updateControls();
 			updateTitle();
 
@@ -5435,21 +5400,14 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// What entry has been selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
-		{
-			return false;
-		}
-
 		// TODO: implement this for key-only entries
-		if (m_jtKeyStore.getValueAt(iRow, 0).equals(KeyStoreTableModel.KEY_ENTRY))
+		String selectedType = m_jtKeyStore.getSelectedType();
+		if (selectedType == null || selectedType.equals(KeyStoreTableModel.KEY_ENTRY))
 		{
 			return false;
 		}
 
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		try
@@ -5490,18 +5448,15 @@ public class FPortecle
 	 */
 	private boolean deleteSelectedEntry()
 	{
-		assert m_keyStoreWrap != null;
-		assert m_keyStoreWrap.getKeyStore() != null;
-
-		// What entry has been selected?
-		int iRow = m_jtKeyStore.getSelectedRow();
-
-		if (iRow == -1)
+		String sAlias = m_jtKeyStore.getSelectedAlias();
+		if (sAlias == null)
 		{
 			return false;
 		}
 
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		assert m_keyStoreWrap != null;
+		assert m_keyStoreWrap.getKeyStore() != null;
+
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		try
@@ -5520,6 +5475,7 @@ public class FPortecle
 		}
 
 		// Update the frame's components and title
+		selectedAlias = null;
 		updateControls();
 		updateTitle();
 
@@ -5544,7 +5500,7 @@ public class FPortecle
 			return false;
 		}
 
-		String sAlias = (String) m_jtKeyStore.getValueAt(iRow, 1);
+		String sAlias = m_jtKeyStore.getSelectedAlias();
 
 		// Get the new entry alias
 		DGetAlias dGetAlias =
@@ -5662,6 +5618,7 @@ public class FPortecle
 		}
 
 		// Update the frame's components and title
+		selectedAlias = newAlias;
 		updateControls();
 		updateTitle();
 
@@ -5763,6 +5720,19 @@ public class FPortecle
 				break;
 			default:
 				// Nothing
+		}
+
+		m_jtKeyStore.clearSelection();
+		if (selectedAlias != null)
+		{
+			for (int i = 0, len = m_jtKeyStore.getRowCount(); i < len; i++)
+			{
+				if (selectedAlias.equals(m_jtKeyStore.getValueAt(i, 1)))
+				{
+					m_jtKeyStore.setRowSelectionInterval(i, i);
+					break;
+				}
+			}
 		}
 	}
 
@@ -6598,6 +6568,46 @@ public class FPortecle
 					}
 				}
 			}).start();
+		}
+	}
+
+	private class KeyStoreTable
+	    extends JTable
+	{
+		private KeyStoreTable(KeyStoreTableModel model)
+		{
+			super(model);
+
+			getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+			// Install listener to keep track of last selected alias
+			getSelectionModel().addListSelectionListener(new ListSelectionListener()
+			{
+				@Override
+				public void valueChanged(ListSelectionEvent e)
+				{
+					if (!e.getValueIsAdjusting())
+					{
+						String alias = getSelectedAlias();
+						if (alias != null)
+						{
+							selectedAlias = alias;
+						}
+					}
+				}
+			});
+		}
+
+		private String getSelectedType()
+		{
+			int selectedRow = getSelectedRow();
+			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, 0) : null;
+		}
+
+		private String getSelectedAlias()
+		{
+			int selectedRow = getSelectedRow();
+			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, 1) : null;
 		}
 	}
 
