@@ -30,6 +30,7 @@
   <property name="build.debuglevel" value="lines,source" />
   <property name="build.srcver" value="1.6" />
   <property name="build.targetver" value="1.6" />
+  <property name="build.encoding" value="UTF-8" />
 
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
@@ -44,7 +45,7 @@
       target="${build.targetver}"
       debug="${build.debug}"
       debuglevel="${build.debuglevel}"
-      encoding="UTF-8">
+      encoding="${build.encoding}">
       <classpath refid="build.classpath" />
       <compilerarg compiler="javac1.5" value="-Xlint:all,-serial" />
       <compilerarg compiler="jikes" value="+P" />
@@ -115,7 +116,9 @@
       destdir="${build}/api"
       source="${build.srcver}"
       classpathref="build.classpath"
-      private="yes">
+      private="yes"
+      encoding="${build.encoding}"
+      charset="${build.encoding}">
       <packageset dir="${src}/main" defaultexcludes="yes">
         <include name="net/sf/portecle/**" />
       </packageset>
