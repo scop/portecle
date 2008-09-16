@@ -44,6 +44,12 @@ public class NetUtil
 	/** Logger */
 	private static final Logger LOG = Logger.getLogger(NetUtil.class.getCanonicalName());
 
+	// TODO: make this configurable
+	private static final int CONNECT_TIMEOUT = 10000;
+
+	// TODO: make this configurable
+	private static final int READ_TIMEOUT = 20000;
+
 	/**
 	 * Private to prevent construction.
 	 */
@@ -63,9 +69,8 @@ public class NetUtil
 	{
 		URLConnection conn = url.openConnection();
 
-		// TODO: make these configurable
-		conn.setConnectTimeout(10000);
-		conn.setReadTimeout(20000);
+		conn.setConnectTimeout(CONNECT_TIMEOUT);
+		conn.setReadTimeout(READ_TIMEOUT);
 
 		// TODO: User-Agent?
 
@@ -89,9 +94,8 @@ public class NetUtil
 		URLConnection conn = url.openConnection();
 		conn.setDoOutput(true);
 
-		// TODO: make these configurable
-		conn.setConnectTimeout(10000);
-		conn.setReadTimeout(20000);
+		conn.setConnectTimeout(CONNECT_TIMEOUT);
+		conn.setReadTimeout(READ_TIMEOUT);
 
 		// TODO: User-Agent?
 
