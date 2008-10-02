@@ -18,7 +18,7 @@ Bug fixes:
 
 Miscellaneous:
 - Java SE 6 or later is now required.
-- Bundled Bouncy Castle provider jar upgraded to 1.40.
+- Bundled Bouncy Castle provider jar upgraded to 1.41.
 - Removed built in support code for additional external look and feels;
   users who want them can have a look at Java's built in facilities for
   installing them.
