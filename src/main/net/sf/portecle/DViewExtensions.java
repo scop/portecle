@@ -23,38 +23,48 @@
 package net.sf.portecle;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.cert.X509Extension;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTML;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.X509Ext;
+import net.sf.portecle.crypto.X509Ext.LinkClass;
+import net.sf.portecle.gui.DesktopUtil;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
@@ -70,7 +80,7 @@ class DViewExtensions
 	private JTable m_jtExtensions;
 
 	/** Extension value text area */
-	private JTextArea m_jtaExtensionValue;
+	private JEditorPane m_jtaExtensionValue;
 
 	/** Extensions to display */
 	private X509Extension m_extensions;
@@ -172,13 +182,116 @@ class DViewExtensions
 		// Put label into panel
 		jpExtensionValue.add(jlExtensionValue, BorderLayout.NORTH);
 
-		// Extension Value text area
-		m_jtaExtensionValue = new JTextArea();
-		m_jtaExtensionValue.setFont(new Font("Monospaced", Font.PLAIN,
-		    m_jtaExtensionValue.getFont().getSize()));
+		// Extension value area
+
+		m_jtaExtensionValue = new JEditorPane("text/html", "");
+		m_jtaExtensionValue.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
+		m_jtaExtensionValue.setFont(m_jtExtensions.getFont());
 		m_jtaExtensionValue.setEditable(false);
 		m_jtaExtensionValue.setToolTipText(m_res.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
-		m_jtaExtensionValue.setTabSize(2);
+
+		final JEditorPane editorPane = m_jtaExtensionValue;
+
+		m_jtaExtensionValue.addHyperlinkListener(new HyperlinkListener()
+		{
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent evt)
+			{
+				if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+				{
+					LinkClass linkClass = LinkClass.BROWSER;
+					URL url = evt.getURL();
+
+					Element el = evt.getSourceElement();
+					AttributeSet attrs = el.getAttributes();
+					if (attrs != null)
+					{
+						attrs = (AttributeSet) attrs.getAttribute(HTML.Tag.A);
+						if (attrs != null)
+						{
+							try
+							{
+								linkClass =
+								    LinkClass.valueOf((String) attrs.getAttribute(HTML.Attribute.CLASS));
+							}
+							catch (RuntimeException ignored)
+							{
+							}
+
+							if (url == null)
+							{
+								// Can happen e.g. for ldap:// URLs
+								Object href = attrs.getAttribute(HTML.Attribute.HREF);
+								if (href instanceof CharSequence)
+								{
+									try
+									{
+										url = new URL(href.toString());
+									}
+									catch (MalformedURLException e)
+									{
+										DThrowable.showAndWait(DViewExtensions.this, null, e);
+									}
+								}
+							}
+						}
+					}
+
+					if (url == null)
+					{
+						return;
+					}
+
+					boolean tryBrowser = false;
+
+					try
+					{
+						editorPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+						switch (linkClass)
+						{
+							case CRL:
+								// View in CRL viewer dialog
+								if (!DViewCRL.showAndWait(DViewExtensions.this, url))
+								{
+									// TODO: ask user if she wants to try loading it with a browser
+								}
+								break;
+
+							case CERTIFICATE:
+								// View in certificate viewer dialog
+								if (!DViewCertificate.showAndWait(DViewExtensions.this, url))
+								{
+									// TODO: ask user if she wants to try loading it with a browser
+								}
+								break;
+
+							case OCSP:
+								// TODO: check it
+							default:
+								tryBrowser = true;
+						}
+
+						if (tryBrowser)
+						{
+							try
+							{
+								DesktopUtil.browse(DViewExtensions.this, evt.getURL().toURI());
+							}
+							catch (URISyntaxException e)
+							{
+								DThrowable.showAndWait(DViewExtensions.this, null, e);
+							}
+						}
+
+					}
+					finally
+					{
+						editorPane.setCursor(Cursor.getDefaultCursor());
+					}
+				}
+			}
+		});
 
 		// Put the text area into a scroll pane
 		JScrollPane jspExtensionValue =
@@ -274,9 +387,14 @@ class DViewExtensions
 			// Don't care about criticality
 			X509Ext ext = new X509Ext(sOid, bValue, false);
 
+			final String HEADER =
+			    "<html><head><style type=\"text/css\">ul { list-style-type: none; margin: 0; }\n"
+			        + "li ul { margin-left: 10px; }\n</style></head><body>";
+			final String FOOTER = "</body></html>";
+
 			try
 			{
-				m_jtaExtensionValue.setText(ext.getStringValue());
+				m_jtaExtensionValue.setText(HEADER + ext.getStringValue() + FOOTER);
 			}
 			// Don't like this but *anything* could go wrong in there
 			catch (Exception ex)

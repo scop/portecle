@@ -7,8 +7,9 @@ New features:
 
 Enhancements:
 - Significant user interface improvements, including among others use of
-  Java Desktop API to launch browsers and mail clients, and more and
-  improved default values in forms.
+  Java Desktop API to launch browsers and mail clients, more and improved
+  default values in forms, and improved extension viewer dialog with hyperlink
+  support for other resources in them (CRLs, certificates etc).
 - Support changing look and feel without restarting the app.
 - Support online help not bundled in jar (set helpbaseurl at build time).
 
