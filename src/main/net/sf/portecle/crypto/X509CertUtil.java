@@ -23,6 +23,7 @@
 package net.sf.portecle.crypto;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -206,7 +207,7 @@ public final class X509CertUtil
 				}
 
 				/*
-				 * Note that we rely on cf.generateCert*() above to never return null nor a collection
+				 * Note that we rely on cf.generateCert() above to never return null nor a collection
 				 * containing nulls
 				 */
 			}
@@ -240,7 +241,7 @@ public final class X509CertUtil
 	 * @param url The URL to load CRL from
 	 * @return The CRL
 	 * @throws CryptoException Problem encountered while loading the CRL
-	 * @throws java.io.FileNotFoundException If the CRL file does not exist, is a directory rather than a regular
+	 * @throws FileNotFoundException If the CRL file does not exist, is a directory rather than a regular
 	 *             file, or for some other reason cannot be opened for reading
 	 * @throws IOException An I/O error occurred
 	 */
