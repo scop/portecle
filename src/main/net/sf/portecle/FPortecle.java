@@ -1916,7 +1916,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), fKeyStore),
+			    m_res.getString("FPortecle.NoRead.message"), fKeyStore),
 			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -2760,7 +2760,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), fCSRFile), MessageFormat.format(
+			    m_res.getString("FPortecle.NoRead.message"), fCSRFile), MessageFormat.format(
 			    m_res.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
 			    JOptionPane.WARNING_MESSAGE);
 			return null;
@@ -2871,7 +2871,7 @@ public class FPortecle
 					// Display the certficate to the user
 					DViewCertificate dViewCertificate =
 					    new DViewCertificate(this, MessageFormat.format(
-					        m_res.getString("FPortecle.CertDetailsFile.Title"), fCertFile.getName()), true,
+					        m_res.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
 					        new X509Certificate[] { rootCert });
 					dViewCertificate.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewCertificate);
@@ -3071,7 +3071,7 @@ public class FPortecle
 				// Display the certficate to the user
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetailsFile.Title"), fCertFile.getName()), true,
+				        m_res.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
 				        new X509Certificate[] { trustCert });
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
@@ -3370,7 +3370,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), m_fCaCertsFile),
+			    m_res.getString("FPortecle.NoRead.message"), m_fCaCertsFile),
 			    m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
