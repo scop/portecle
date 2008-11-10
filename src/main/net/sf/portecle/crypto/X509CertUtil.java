@@ -23,8 +23,6 @@
 package net.sf.portecle.crypto;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -274,23 +272,23 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Load a CSR from the specified file.
+	 * Load a CSR from the specified URL.
 	 * 
-	 * @param fCSRFile The file to load CSR from
+	 * @param url The URL to load CSR from
 	 * @return The CSR
 	 * @throws CryptoException Problem encountered while loading the CSR
-	 * @throws java.io.FileNotFoundException If the CSR file does not exist, is a directory rather than a
-	 *             regular file, or for some other reason cannot be opened for reading
+	 * @throws FileNotFoundException If the CSR file does not exist, is a directory rather than a regular
+	 *             file, or for some other reason cannot be opened for reading
 	 * @throws IOException An I/O error occurred
 	 */
-	public static PKCS10CertificationRequest loadCSR(File fCSRFile)
+	public static PKCS10CertificationRequest loadCSR(URL url)
 	    throws CryptoException, IOException
 	{
 		// TODO: handle DER encoded requests too?
-		PEMReader in = new PEMReader(new InputStreamReader(new FileInputStream(fCSRFile)));
+		PEMReader pr = new PEMReader(new InputStreamReader(NetUtil.openGetStream(url)));
 		try
 		{
-			PKCS10CertificationRequest csr = (PKCS10CertificationRequest) in.readObject();
+			PKCS10CertificationRequest csr = (PKCS10CertificationRequest) pr.readObject();
 			if (!csr.verify())
 			{
 				throw new CryptoException(m_res.getString("NoVerifyCsr.exception.message"));
@@ -309,11 +307,11 @@ public final class X509CertUtil
 		{
 			try
 			{
-				in.close();
+				pr.close();
 			}
-			catch (IOException ex)
+			catch (IOException e)
 			{
-				// Ignore
+				LOG.log(Level.WARNING, "Could not close input stream from " + url, e);
 			}
 		}
 	}

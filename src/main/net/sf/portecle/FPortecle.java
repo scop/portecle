@@ -2754,7 +2754,7 @@ public class FPortecle
 	{
 		try
 		{
-			return X509CertUtil.loadCSR(fCSRFile);
+			return X509CertUtil.loadCSR(fCSRFile.toURI().toURL());
 		}
 		catch (FileNotFoundException ex)
 		{
