@@ -35,7 +35,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.cert.X509CRL;
 import java.security.cert.X509CRLEntry;
 import java.text.DateFormat;
@@ -48,6 +50,7 @@ import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -63,7 +66,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
+import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.SwingHelper;
+import net.sf.portecle.gui.error.DThrowable;
 
 /**
  * Displays the details of a Certificate Revocation List (CRL).
@@ -109,10 +114,59 @@ class DViewCRL
 	 * @param modal Is dialog modal?
 	 * @param crl CRL to display
 	 */
-	public DViewCRL(Window parent, String sTitle, boolean modal, X509CRL crl)
+	private DViewCRL(Window parent, String sTitle, boolean modal, X509CRL crl)
 	{
 		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_crl = crl;
+		initComponents();
+	}
+
+	/**
+	 * Create, show, and wait for a new modal DViewCRL dialog.
+	 * 
+	 * @param parent Parent window
+	 * @param url URL, URI or file to load CRL from
+	 */
+	public static boolean showAndWait(Window parent, Object url)
+	{
+		String title = MessageFormat.format(m_res.getString("FPortecle.CrlDetails.Title"), url);
+
+		X509CRL crl;
+		try
+		{
+			crl = X509CertUtil.loadCRL(NetUtil.toURL(url));
+		}
+		catch (FileNotFoundException ex)
+		{
+			JOptionPane.showMessageDialog(parent, MessageFormat.format(
+			    m_res.getString("FPortecle.NoRead.message"), url), title, JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		catch (Exception ex)
+		{
+			DThrowable.showAndWait(parent, null, ex);
+			return false;
+		}
+
+		DViewCRL dialog = new DViewCRL(parent, title, true, crl);
+		dialog.setLocationRelativeTo(parent);
+		SwingHelper.showAndWait(dialog);
+
+		return true;
+	}
+
+	/**
+	 * Creates new DViewCRL dialog.
+	 * 
+	 * @param parent Parent window
+	 * @param sTitle The dialog title
+	 * @param modal Is dialog modal?
+	 * @param url URL to fetch CRL from
+	 */
+	public DViewCRL(Window parent, String sTitle, boolean modal, URL url)
+	{
+		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+
 		initComponents();
 	}
 
@@ -123,8 +177,7 @@ class DViewCRL
 	{
 		// CRL Details:
 
-		// Grid Bag Constraints templates for labels and text fields
-		// of CRL details
+		// Grid Bag Constraints templates for labels and text fields of CRL details
 		GridBagConstraints gbcLbl = new GridBagConstraints();
 		gbcLbl.gridx = 0;
 		gbcLbl.gridwidth = 1;
@@ -472,9 +525,10 @@ class DViewCRL
 	{
 		ListSelectionModel listSelectionModel = m_jtRevokedCerts.getSelectionModel();
 
-		if (!listSelectionModel.isSelectionEmpty()) // Enry must be selected
+		if (!listSelectionModel.isSelectionEmpty()) // Entry must be selected
 		{
 			// Only one entry though
+			// TODO: probably no longer necessary?
 			if (listSelectionModel.getMinSelectionIndex() == listSelectionModel.getMaxSelectionIndex())
 			{
 				// Get serial number of entry
@@ -527,12 +581,12 @@ class DViewCRL
 		if (!listSelectionModel.isSelectionEmpty()) // Entry must be selected
 		{
 			// Only one entry though
+			// TODO: probably no longer necessary?
 			if (listSelectionModel.getMinSelectionIndex() == listSelectionModel.getMaxSelectionIndex())
 			{
 				// Get serial number of entry
 				int iRow = listSelectionModel.getMinSelectionIndex();
-				BigInteger serialNumber =
-				    (BigInteger) ((RevokedCertsTableModel) m_jtRevokedCerts.getModel()).getValueAt(iRow, 0);
+				BigInteger serialNumber = (BigInteger) m_jtRevokedCerts.getValueAt(iRow, 0);
 
 				// Find CRL entry using serial number
 				Set<? extends X509CRLEntry> revokedCertsSet = m_crl.getRevokedCertificates();
@@ -549,8 +603,8 @@ class DViewCRL
 				if (x509CrlEntry != null && x509CrlEntry.hasExtensions())
 				{
 					DViewExtensions dViewExtensions =
-					    new DViewExtensions(this, m_res.getString("DViewCRL." + "EntryExtensions.Title"),
-					        true, x509CrlEntry);
+					    new DViewExtensions(this, m_res.getString("DViewCRL.EntryExtensions.Title"), true,
+					        x509CrlEntry);
 					dViewExtensions.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewExtensions);
 				}

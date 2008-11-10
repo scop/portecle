@@ -56,7 +56,6 @@ import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.Certificate;
-import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Enumeration;
@@ -2488,34 +2487,20 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a CRL file.
-	 * 
-	 * @return True if the user was able to examine the CRL file, false otherwise
 	 */
-	private boolean examineCRL()
+	private void examineCRL()
 	{
 		// Let the user choose the certificate file to examine
 		File fCRLFile = chooseExamineCRLFile();
 		if (fCRLFile == null)
 		{
-			return false;
+			return;
 		}
-
-		// Get the CRL contained within the file
-		X509CRL crl = openCRL(fCRLFile);
 
 		m_lastDir.updateLastDir(fCRLFile);
 
-		// If a CRL is available then diaply the view CRL dialog with it
-		if (crl != null)
-		{
-			DViewCRL dViewCRL =
-			    new DViewCRL(this, MessageFormat.format(m_res.getString("FPortecle.CrlDetailsFile.Title"),
-			        fCRLFile.getName()), true, crl);
-			dViewCRL.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dViewCRL);
-			return true;
-		}
-		return false;
+		// Show the CRL
+		DViewCRL.showAndWait(this, fCRLFile);
 	}
 
 	/**
@@ -2810,34 +2795,6 @@ public class FPortecle
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
 			    m_res.getString("FPortecle.NoReadFile.message"), fCSRFile), MessageFormat.format(
 			    m_res.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
-			    JOptionPane.WARNING_MESSAGE);
-			return null;
-		}
-		catch (Exception ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return null;
-		}
-	}
-
-	/**
-	 * Open a CRL file.
-	 * 
-	 * @param fCRLFile The CRL file
-	 * @return The CRL found in the file or null if there wasn't one
-	 */
-	private X509CRL openCRL(File fCRLFile)
-	{
-		try
-		{
-			X509CRL crl = X509CertUtil.loadCRL(fCRLFile);
-			return crl;
-		}
-		catch (FileNotFoundException ex)
-		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoReadFile.message"), fCRLFile), MessageFormat.format(
-			    m_res.getString("FPortecle.CrlDetailsFile.Title"), fCRLFile.getName()),
 			    JOptionPane.WARNING_MESSAGE);
 			return null;
 		}

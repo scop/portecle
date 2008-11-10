@@ -26,8 +26,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
@@ -50,8 +52,12 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.security.auth.x500.X500Principal;
+
+import net.sf.portecle.NetUtil;
 
 import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.x509.X509Name;
@@ -65,6 +71,9 @@ import org.bouncycastle.x509.X509V1CertificateGenerator;
  */
 public final class X509CertUtil
 {
+	/** Logger */
+	private static final Logger LOG = Logger.getLogger(X509CertUtil.class.getCanonicalName());
+
 	/** PKCS #7 encoding name */
 	public static final String PKCS7_ENCODING = "PKCS7";
 
@@ -190,23 +199,23 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Load a CRL from the specified file.
+	 * Load a CRL from the specified URL.
 	 * 
-	 * @param fCRLFile The file to load CRL from
+	 * @param url The URL to load CRL from
 	 * @return The CRL
 	 * @throws CryptoException Problem encountered while loading the CRL
-	 * @throws java.io.FileNotFoundException If the CRL file does not exist, is a directory rather than a
-	 *             regular file, or for some other reason cannot be opened for reading
+	 * @throws java.io.FileNotFoundException If the CRL file does not exist, is a directory rather than a regular
+	 *             file, or for some other reason cannot be opened for reading
 	 * @throws IOException An I/O error occurred
 	 */
-	public static X509CRL loadCRL(File fCRLFile)
+	public static X509CRL loadCRL(URL url)
 	    throws CryptoException, IOException
 	{
-		FileInputStream fis = new FileInputStream(fCRLFile);
+		InputStream in = NetUtil.openGetStream(url);
 		try
 		{
 			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-			X509CRL crl = (X509CRL) cf.generateCRL(fis);
+			X509CRL crl = (X509CRL) cf.generateCRL(in);
 			return crl;
 		}
 		catch (GeneralSecurityException ex)
@@ -217,11 +226,11 @@ public final class X509CertUtil
 		{
 			try
 			{
-				fis.close();
+				in.close();
 			}
-			catch (IOException ex)
+			catch (IOException e)
 			{
-				// Ignore
+				LOG.log(Level.WARNING, "Could not close input stream from " + url, e);
 			}
 		}
 	}
