@@ -3478,8 +3478,8 @@ public class FPortecle
 	 * currentVersion.compareTo(latestVersion); if (iCmp >= 0) { // Latest version same (or less!) then
 	 * current version - // tell user they are up-to-date JOptionPane.showMessageDialog( this,
 	 * MessageFormat.format( m_res.getString("FPortecle.HaveLatestVersion.message"), new
-	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else {
-	 * int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
+	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else
+	 * { int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
 	 * "FPortecle.NewerVersionAvailable.message"), latestVersion, m_res.getString(
 	 * "FPortecle.DownloadsAddress")), m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION); if
 	 * (iSelected == JOptionPane.YES_OPTION) { visitDownloads(); } } } // Display errors to user catch
@@ -3558,7 +3558,7 @@ public class FPortecle
 		m_bUseCaCerts = dOptions.getUseCaCerts();
 
 		// Look & feel
-		String lookFeelClassName = dOptions.getLookFeelClassName();
+		String newLookFeelClassName = dOptions.getLookFeelClassName();
 
 		// Look & feel decoration
 		boolean bLookFeelDecoration = dOptions.getLookFeelDecoration();
@@ -3569,13 +3569,13 @@ public class FPortecle
 		 * L&F (one example is the GTK+ one in J2SE 5 RC2 (Linux), where the former is "GTK+" and the latter
 		 * is "GTK look and feel"). Therefore, compare the class names instead.
 		 */
-		if (lookFeelClassName != null)
+		if (newLookFeelClassName != null)
 		{
-			if (!lookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) ||
+			if (!newLookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) ||
 			    bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated())
 			{
 				// Yes - save selections to be picked up by app preferences,
-				this.lookFeelClassName = lookFeelClassName;
+				lookFeelClassName = newLookFeelClassName;
 				m_bLookFeelDecorationOptions = bLookFeelDecoration;
 				saveAppPrefs();
 
