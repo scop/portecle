@@ -75,13 +75,13 @@ public final class X509CertUtil
 	private static final Logger LOG = Logger.getLogger(X509CertUtil.class.getCanonicalName());
 
 	/** PKCS #7 encoding name */
-	public static final String PKCS7_ENCODING = "PKCS7";
+	private static final String PKCS7_ENCODING = "PKCS7";
 
 	/** PkiPath encoding name */
-	public static final String PKIPATH_ENCODING = "PkiPath";
+	private static final String PKIPATH_ENCODING = "PkiPath";
 
 	/** OpenSSL PEM encoding name */
-	public static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
+	private static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
 
 	/** Resource bundle */
 	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
@@ -97,24 +97,65 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Load one or more certificates from the specified file.
+	 * Load one or more certificates from the specified URL, trying a built in list of certification
+	 * encodings.
 	 * 
-	 * @param fCertFile The file to load certificates from
+	 * @param url The URL to load certificates from
+	 * @param exceptions Collection where exceptions occurred will be added
+	 * @return The certificates
+	 * @throws IOException if an error accessing the URL occurs
+	 */
+	public static X509Certificate[] loadCertificates(URL url, Collection<Exception> exceptions)
+	    throws IOException
+	{
+		URL downloadedUrl = NetUtil.download(url);
+
+		X509Certificate[] certs = null;
+		String[] certTypes = { PKCS7_ENCODING, PKIPATH_ENCODING, null, OPENSSL_PEM_ENCODING, };
+		for (int iCnt = 0; iCnt < certTypes.length; iCnt++)
+		{
+			try
+			{
+				certs = loadCertificates(downloadedUrl, certTypes[iCnt]);
+				break; // Success!
+			}
+			catch (FileNotFoundException e)
+			{
+				// Don't bother with rest of the types, just show the exception once
+				exceptions.add(e);
+				break;
+			}
+			catch (Exception e)
+			{
+				exceptions.add(e);
+			}
+		}
+
+		return certs;
+	}
+
+	/**
+	 * Load one or more certificates from the specified URL.
+	 * 
+	 * @param url The URL to load certificates from
 	 * @param encoding The certification path encoding. If null, treat as a normal certificate, not
 	 *            certification path. Use one of the <code>*_ENCODING</code> constants here.
 	 * @return The certificates
 	 * @throws CryptoException Problem encountered while loading the certificate(s)
+	 * @throws FileNotFoundException If the certificate file does not exist, is a directory rather than a
+	 *             regular file, or for some other reason cannot be opened for reading
+	 * @throws IOException An I/O error occurred
 	 */
-	public static X509Certificate[] loadCertificates(File fCertFile, String encoding)
-	    throws CryptoException
+	private static X509Certificate[] loadCertificates(URL url, String encoding)
+	    throws CryptoException, IOException
 	{
+		// TODO: connect/read timeouts
+
+		InputStream in = NetUtil.openGetStream(url);
 		Collection certs;
-		FileInputStream fis = null;
 
 		try
 		{
-			fis = new FileInputStream(fCertFile);
-
 			if (OPENSSL_PEM_ENCODING.equals(encoding))
 			{
 
@@ -122,7 +163,7 @@ public final class X509CertUtil
 				// Note: let PEMReader use its default provider (BC as of BC
 				// 1.40) internally; for example the default "SUN" provider
 				// may not contain an RSA implementation
-				PEMReader pr = new PEMReader(new InputStreamReader(fis));
+				PEMReader pr = new PEMReader(new InputStreamReader(in));
 
 				/*
 				 * These beasts can contain just about anything, and unfortunately the PEMReader API (as of BC
@@ -158,12 +199,12 @@ public final class X509CertUtil
 				if (encoding != null)
 				{
 					// Try it as a certification path of the specified type
-					certs = cf.generateCertPath(fis, encoding).getCertificates();
+					certs = cf.generateCertPath(in, encoding).getCertificates();
 				}
 				else
 				{
 					// "Normal" certificate(s)
-					certs = cf.generateCertificates(fis);
+					certs = cf.generateCertificates(in);
 				}
 
 				/*
@@ -182,16 +223,13 @@ public final class X509CertUtil
 		}
 		finally
 		{
-			if (fis != null)
+			try
 			{
-				try
-				{
-					fis.close();
-				}
-				catch (IOException ex)
-				{
-					// Ignore
-				}
+				in.close();
+			}
+			catch (IOException e)
+			{
+				LOG.log(Level.WARNING, "Could not close input stream from " + url, e);
 			}
 		}
 

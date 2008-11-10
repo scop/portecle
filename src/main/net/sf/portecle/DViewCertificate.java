@@ -41,6 +41,7 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -50,6 +51,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -140,6 +142,60 @@ class DViewCertificate
 		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_certs = certs;
 		initComponents();
+	}
+
+	/**
+	 * Create, show, and wait for a new modal DViewCertificate dialog.
+	 * 
+	 * @param parent Parent window
+	 * @param url URL, URI or file to load CRL from
+	 */
+	public static boolean showAndWait(Window parent, Object url)
+	{
+		ArrayList<Exception> exs = new ArrayList<Exception>();
+		X509Certificate[] certs;
+
+		try
+		{
+			certs = X509CertUtil.loadCertificates(NetUtil.toURL(url), exs);
+
+			if (certs == null)
+			{
+				// None of the types worked - show each of the errors?
+				int iSelected =
+				    JOptionPane.showConfirmDialog(parent, MessageFormat.format(
+				        m_res.getString("FPortecle.NoOpenCertificate.message"), url),
+				        m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+				if (iSelected == JOptionPane.YES_OPTION)
+				{
+					for (Exception e : exs)
+					{
+						DThrowable.showAndWait(parent, null, e);
+					}
+				}
+				return false;
+			}
+			else if (certs.length == 0)
+			{
+				JOptionPane.showMessageDialog(parent, MessageFormat.format(
+				    m_res.getString("FPortecle.NoCertsFound.message"), url),
+				    m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
+				return false;
+			}
+
+			DViewCertificate dialog =
+			    new DViewCertificate(parent, MessageFormat.format(
+			        m_res.getString("FPortecle.CertDetails.Title"), url), true, certs);
+			dialog.setLocationRelativeTo(parent);
+			SwingHelper.showAndWait(dialog);
+		}
+		catch (Exception ex)
+		{
+			DThrowable.showAndWait(parent, null, ex);
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

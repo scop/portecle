@@ -2300,42 +2300,20 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a certificate file.
-	 * 
-	 * @return True if the user was able to examine the certificate file, false otherwise
 	 */
-	private boolean examineCert()
+	private void examineCert()
 	{
 		// Let the user choose the certificate file to examine
 		File fCertFile = chooseExamineCertFile();
 		if (fCertFile == null)
 		{
-			return false;
+			return;
 		}
-
-		// Get the certificates contained within the file
-		X509Certificate[] certs = openCert(fCertFile);
 
 		m_lastDir.updateLastDir(fCertFile);
 
-		try
-		{
-			// If there are any display the view certificate dialog with them
-			if (certs != null && certs.length != 0)
-			{
-				DViewCertificate dViewCertificate =
-				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetailsFile.Title"), fCertFile.getName()), true, certs);
-				dViewCertificate.setLocationRelativeTo(this);
-				SwingHelper.showAndWait(dViewCertificate);
-				return true;
-			}
-			return false;
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
+		// Show the certificates
+		DViewCertificate.showAndWait(this, fCertFile);
 	}
 
 	/**
@@ -2729,23 +2707,10 @@ public class FPortecle
 	{
 		try
 		{
-			X509Certificate[] certs = null;
-			String[] certTypes =
-			    { X509CertUtil.PKCS7_ENCODING, X509CertUtil.PKIPATH_ENCODING, null,
-			        X509CertUtil.OPENSSL_PEM_ENCODING, };
-			Exception[] exs = new Exception[certTypes.length];
-			for (int iCnt = 0; iCnt < certTypes.length; iCnt++)
-			{
-				try
-				{
-					certs = X509CertUtil.loadCertificates(fCertFile, certTypes[iCnt]);
-					break; // Success!
-				}
-				catch (Exception ex)
-				{
-					exs[iCnt] = ex;
-				}
-			}
+			URL url = fCertFile.toURI().toURL();
+
+			ArrayList<Exception> exs = new ArrayList<Exception>();
+			X509Certificate[] certs = X509CertUtil.loadCertificates(url, exs);
 
 			if (certs == null)
 			{
