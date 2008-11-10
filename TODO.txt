@@ -10,7 +10,6 @@ TODO for later:
 - Change "Copy" and "Copy as XML" in keystore report to "Save as (XML)".
   I have a hunch that clipboards may screw up the encoding which is fatal at
   least with XML...
-- Make browser executable configurable.
 - Suggest a sane filename when saving a newly created keystore for the
   first time.
 - Add option to do (IOW, not bypass) hostname and certificate checks when
@@ -18,3 +17,18 @@ TODO for later:
 - Import/export key+certs from PEM (bundle or separate) or DER (separate) files
 - Improve exception show dialog to display multiple exceptions
 - java 1.6 better iconimage etc PNG (transparent?) support
+- Configurable URLConnection timeouts
+- use concurrent package when creating key pair (+ elsewhere?) 
+- Check JCE keystores created with IBM's Java ("JCEKS", "IBMJCE")
+- Make resource bundles final, static
+- Direct import for cert view dialog (maybe CA certs only?)
+- Enable multiselection in keystore table with appropriate popup menu
+  (delete only?)
+- Allow editing fields of self signed certs in keystores?
+- XML, Jar, etc signing
+- Save (as .properties) button to system properties view?
+- Use logging on fine level for exceptions not shown to user
+- User-Agent for internal HTTP requests?
+- URLConnection caching API?
+- Show used handshake stuff in SSL examine dialog
+- Support typing URLs to file choosers
