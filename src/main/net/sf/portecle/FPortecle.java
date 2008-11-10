@@ -2376,8 +2376,9 @@ public class FPortecle
 			ss.setSoTimeout(timeOut);
 			ss.connect(ia, timeOut);
 			SSLSession sess = ss.getSession();
-			// @@@TODO: fails with GNU Classpath: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=29692
+			// TODO: fails with GNU Classpath: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=29692
 			certs = (X509Certificate[]) sess.getPeerCertificates();
+			// TODO: include sess.getProtocol() and sess.getCipherSuite() in viewer dialog
 			sess.invalidate();
 		}
 		catch (Exception e)
