@@ -166,7 +166,7 @@ public class FPortecle
 
 	/** Menu index in the file menu for recent files to be inserted at */
 	// EXPERIMENTAL enables/disables the PKCS #11 menu item
-	private static final int RECENT_FILES_INDEX = EXPERIMENTAL ? 6 : 5;
+	private static final int RECENT_FILES_INDEX = EXPERIMENTAL ? 7 : 6;
 
 	/** Default look & feel class name */
 	private static final String DEFAULT_LOOK_FEEL = UIManager.getCrossPlatformLookAndFeelClassName();
