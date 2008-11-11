@@ -36,6 +36,16 @@ public class LastDir
 	 */
 	public LastDir()
 	{
+		// Default last dir to current dir if it exists
+		String currentDir = System.getProperty("user.dir");
+		if (currentDir != null)
+		{
+			m_fLastDir = new File(currentDir);
+			if (!m_fLastDir.exists())
+			{
+				m_fLastDir = null;
+			}
+		}
 	}
 
 	/**
