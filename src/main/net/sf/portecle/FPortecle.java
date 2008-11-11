@@ -2363,6 +2363,8 @@ public class FPortecle
 
 		// Get the certificates received from the connection
 		X509Certificate[] certs = null;
+		String protocol = null;
+		String cipherSuite = null;
 		SSLSocket ss = null;
 
 		try
@@ -2406,7 +2408,8 @@ public class FPortecle
 			SSLSession sess = ss.getSession();
 			// TODO: fails with GNU Classpath: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=29692
 			certs = (X509Certificate[]) sess.getPeerCertificates();
-			// TODO: include sess.getProtocol() and sess.getCipherSuite() in viewer dialog
+			protocol = sess.getProtocol();
+			cipherSuite = sess.getCipherSuite();
 			sess.invalidate();
 		}
 		catch (Exception e)
@@ -2430,6 +2433,8 @@ public class FPortecle
 		}
 
 		// Check what we got
+
+		// TODO: put protocol, cipherSuite to dialog
 
 		try
 		{
