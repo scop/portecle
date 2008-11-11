@@ -177,9 +177,9 @@ public class FPortecle
 	private static final char[] PKCS12_DUMMY_PASSWORD = "password".toCharArray();
 
 	/** Default CA certs keystore file */
-	private static final String DEFAULT_CA_CERTS_FILE =
+	/* package private */static final File DEFAULT_CA_CERTS_FILE =
 	    new File(System.getProperty("java.home"), "lib" + File.separator + "security" + File.separator +
-	        FileChooserFactory.CACERTS_FILENAME).toString();
+	        FileChooserFactory.CACERTS_FILENAME);
 
 	/** The last directory accessed by the application */
 	private LastDir m_lastDir = new LastDir();
@@ -288,6 +288,9 @@ public class FPortecle
 	/** Open Keystore File action */
 	private final OpenKeyStoreFileAction m_openKeyStoreFileAction = new OpenKeyStoreFileAction();
 
+	/** Open CA certs keystore File action */
+	private final OpenCaCertsKeyStoreAction m_openCaCertsKeyStoreFileAction = new OpenCaCertsKeyStoreAction();
+
 	/** Save Keystore action */
 	private final SaveKeyStoreAction m_saveKeyStoreAction = new SaveKeyStoreAction();
 
@@ -328,7 +331,8 @@ public class FPortecle
 	{
 		// Get and store non-GUI related application properties
 		m_bUseCaCerts = PREFS.getBoolean(RB.getString("AppPrefs.UseCaCerts"), false);
-		m_fCaCertsFile = new File(PREFS.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE));
+		m_fCaCertsFile =
+		    new File(PREFS.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE.getAbsolutePath()));
 
 		// Initialise GUI components
 		initComponents();
@@ -440,6 +444,12 @@ public class FPortecle
 			new StatusBarChangeHandler(jmiOpenKeyStorePkcs11,
 			    RB.getString("FPortecle.jmiOpenKeyStorePkcs11.statusbar"), this);
 		}
+
+		JMenuItem jmiOpenCaCertsKeyStoreFile = new JMenuItem(m_openCaCertsKeyStoreFileAction);
+		jmiOpenCaCertsKeyStoreFile.setToolTipText(null);
+		new StatusBarChangeHandler(jmiOpenCaCertsKeyStoreFile,
+		    (String) m_openCaCertsKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this);
+		m_jmrfFile.add(jmiOpenCaCertsKeyStoreFile);
 
 		m_jmrfFile.addSeparator();
 
@@ -1801,6 +1811,29 @@ public class FPortecle
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Open a CA certs keystore file from disk.
+	 * 
+	 * @return True if a keystore is opened, false otherwise
+	 */
+	private boolean openCaCertsKeyStoreFile()
+	{
+		// Does the current keystore contain unsaved changes?
+		if (needSave())
+		{
+			// Yes - ask the user if it should be saved
+			int iWantSave = wantSave();
+
+			if ((iWantSave == JOptionPane.YES_OPTION && !saveKeyStore()) ||
+			    iWantSave == JOptionPane.CANCEL_OPTION)
+			{
+				return false;
+			}
+		}
+
+		return openKeyStoreFile(m_fCaCertsFile);
 	}
 
 	/**
@@ -6088,6 +6121,38 @@ public class FPortecle
 		public void act()
 		{
 			openKeyStoreFile();
+		}
+	}
+
+	/**
+	 * Action to open a keystore file.
+	 */
+	private class OpenCaCertsKeyStoreAction
+	    extends AbstractAction
+	{
+		/**
+		 * Construct action.
+		 */
+		public OpenCaCertsKeyStoreAction()
+		{
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
+			    "FPortecle.OpenCaCertsKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.OpenCaCertsKeyStoreAction.statusbar"));
+			putValue(MNEMONIC_KEY, Integer.valueOf(RB.getString(
+			    "FPortecle.OpenCaCertsKeyStoreAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.OpenCaCertsKeyStoreAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.OpenCaCertsKeyStoreAction.tooltip"));
+			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.OpenCaCertsKeyStoreAction.image")));
+			setEnabled(true);
+		}
+
+		/**
+		 * Perform action.
+		 */
+		@Override
+		public void act()
+		{
+			openCaCertsKeyStoreFile();
 		}
 	}
 

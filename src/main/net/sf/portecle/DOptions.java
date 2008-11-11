@@ -141,6 +141,18 @@ class DOptions
 		});
 		jpCaCertsFile.add(jbBrowseCaCertsFile);
 
+		JButton jbResetCaCertsFile = new JButton(RB.getString("DOptions.jbResetCaCertsFile.text"));
+		jbResetCaCertsFile.setMnemonic(RB.getString("DOptions.jbResetCaCertsFile.mnemonic").charAt(0));
+		jbResetCaCertsFile.setToolTipText(RB.getString("DOptions.jbResetCaCertsFile.tooltip"));
+		jbResetCaCertsFile.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt)
+			{
+				resetPressed();
+			}
+		});
+		jpCaCertsFile.add(jbResetCaCertsFile);
+
 		JPanel jpCaCerts = new JPanel(new GridLayout(2, 1));
 		jpCaCerts.add(jpUseCaCerts);
 		jpCaCerts.add(jpCaCertsFile);
@@ -358,6 +370,16 @@ class DOptions
 			m_jtfCaCertsFile.setText(chooser.getSelectedFile().toString());
 			m_jtfCaCertsFile.setCaretPosition(0);
 		}
+	}
+
+	/**
+	 * Reset CA certs file to default button pressed or otherwise activated.
+	 */
+	private void resetPressed()
+	{
+		m_fCaCertsFile = FPortecle.DEFAULT_CA_CERTS_FILE;
+		m_jtfCaCertsFile.setText(m_fCaCertsFile.getAbsolutePath());
+		m_jtfCaCertsFile.setCaretPosition(0);
 	}
 
 	/**
