@@ -133,7 +133,7 @@ import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.openssl.PEMWriter;
 
 /**
- * Start class and main frame of the keystore GUI application.
+ * Start class and main frame of Portecle.
  */
 public class FPortecle
     extends JFrame
