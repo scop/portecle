@@ -85,8 +85,7 @@ class DGenerateCertificate
 	private static final int COUNTRY_CODE_LENGTH = 2;
 
 	/** Default validity period */
-	// TODO: move to resources
-	private static final String DEFAULT_VALIDITY = "365";
+	private static final String DEFAULT_VALIDITY = RB.getString("DGenerateCertificate.defaultValidityPeriod");
 
 	/** Signature Algorithm combo box */
 	private JComboBox m_jcbSigAlg;
