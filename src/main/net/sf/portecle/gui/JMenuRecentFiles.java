@@ -39,13 +39,13 @@ public class JMenuRecentFiles
 	public static final int MAX_LENGTH = 9;
 
 	/** Recent file list menu items */
-	private JMenuItemRecentFile[] m_jmirf;
+	private final JMenuItemRecentFile[] m_jmirf;
 
 	/** Index in menu to show recent file menu items */
-	private int m_iIndex;
+	private final int m_iIndex;
 
 	/** Length of list */
-	private int m_iLength;
+	private final int m_iLength;
 
 	/**
 	 * Construct a JMenuRecentFiles.
