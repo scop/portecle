@@ -24,13 +24,18 @@ package net.sf.portecle;
 
 import static net.sf.portecle.FPortecle.RB;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileView;
 
 import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.KeyStoreUtil;
@@ -79,6 +84,9 @@ public class FileChooserFactory
 	/** File extensions for certificate request files */
 	private static final String[] CSR_EXTS = new String[] { CSR_EXT_1, CSR_EXT_2, PEM_EXT };
 
+	/** File extensions for certificate revocation list files */
+	private static final String[] CRL_EXTS = new String[] { CRL_EXT };
+
 	/** Description for X.509 certificate files */
 	private static final String X509_FILE_DESC =
 	    MessageFormat.format(RB.getString("FileChooseFactory.X509Files"), toWildcards(X509_EXTS));
@@ -104,8 +112,7 @@ public class FileChooserFactory
 
 	/** Description for CRL files */
 	private static final String CRL_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.CrlFiles"),
-	        toWildcards(new String[] { CRL_EXT }));
+	    MessageFormat.format(RB.getString("FileChooseFactory.CrlFiles"), toWildcards(CRL_EXTS));
 
 	/** Description for certificate files */
 	private static final String CERT_FILE_DESC =
@@ -197,6 +204,7 @@ public class FileChooserFactory
 
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
+		chooser.setFileView(new PortecleFileView());
 
 		return chooser;
 	}
@@ -214,6 +222,7 @@ public class FileChooserFactory
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
 		chooser.setSelectedFile(getDefaultFile(basename, X509_EXT_1));
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -230,6 +239,7 @@ public class FileChooserFactory
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
 		chooser.setSelectedFile(getDefaultFile(basename, PKCS7_EXT));
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -246,6 +256,7 @@ public class FileChooserFactory
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
 		chooser.setSelectedFile(getDefaultFile(basename, PKIPATH_EXT));
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -260,6 +271,7 @@ public class FileChooserFactory
 		FileExtFilter extFilter = new FileExtFilter(CERT_EXTS, CERT_FILE_DESC);
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -275,6 +287,7 @@ public class FileChooserFactory
 		Set<String> exts = KeyStoreType.PKCS12.getFilenameExtensions();
 		assert exts.size() > 1;
 		chooser.setSelectedFile(getDefaultFile(basename, exts.iterator().next()));
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -291,6 +304,7 @@ public class FileChooserFactory
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
 		chooser.setSelectedFile(getDefaultFile(basename, PEM_EXT));
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -307,6 +321,7 @@ public class FileChooserFactory
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
 		chooser.setSelectedFile(getDefaultFile(basename, CSR_EXT_2));
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -318,9 +333,10 @@ public class FileChooserFactory
 	public static JFileChooser getCrlFileChooser()
 	{
 		JFileChooser chooser = new JFileChooser();
-		FileExtFilter extFilter = new FileExtFilter(CRL_EXT, CRL_FILE_DESC);
+		FileExtFilter extFilter = new FileExtFilter(CRL_EXTS, CRL_FILE_DESC);
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
+		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
 
@@ -363,5 +379,73 @@ public class FileChooserFactory
 		}
 		res.setLength(res.length() - FILELIST_SEPARATOR.length());
 		return res.toString();
+	}
+
+	/**
+	 * FileView for showing keystore, certificate etc files.
+	 */
+	private static class PortecleFileView
+	    extends FileView
+	{
+		private static final Icon CERTIFICATE_ICON =
+		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CertificateImage"))));
+
+		private static final Icon KEYSTORE_ICON =
+		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.KeyStoreImage"))));
+
+		private static final Icon CRL_ICON =
+		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CrlImage"))));
+
+		private static final Icon CSR_ICON =
+		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CsrImage"))));
+
+		@Override
+		public Icon getIcon(File f)
+		{
+			if (!f.isFile())
+			{
+				return super.getIcon(f);
+			}
+
+			String fn = f.getName().toLowerCase(Locale.ENGLISH);
+
+			for (String ext : KeyStoreType.getKeyStoreFilenameExtensions())
+			{
+				if (fn.endsWith("." + ext) || fn.equals("cacerts"))
+				{
+					return KEYSTORE_ICON;
+				}
+			}
+
+			for (String ext : CERT_EXTS)
+			{
+				if (fn.endsWith("." + ext))
+				{
+					return CERTIFICATE_ICON;
+				}
+			}
+
+			for (String ext : CSR_EXTS)
+			{
+				if (fn.endsWith("." + ext))
+				{
+					return CSR_ICON;
+				}
+			}
+
+			for (String ext : CRL_EXTS)
+			{
+				if (fn.endsWith("." + ext))
+				{
+					return CRL_ICON;
+				}
+			}
+
+			return super.getIcon(f);
+		}
 	}
 }

@@ -23,6 +23,7 @@
 package net.sf.portecle.crypto;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -116,5 +117,23 @@ public enum KeyStoreType
 	public String toString()
 	{
 		return prettyName;
+	}
+
+	/**
+	 * Get set of all known keystore filename extensions.
+	 * 
+	 * @return
+	 */
+	public static Set<String> getKeyStoreFilenameExtensions()
+	{
+		HashSet<String> exts = new HashSet<String>();
+		for (KeyStoreType ksType : values())
+		{
+			for (String ext : ksType.getFilenameExtensions())
+			{
+				exts.add(ext);
+			}
+		}
+		return exts;
 	}
 }
