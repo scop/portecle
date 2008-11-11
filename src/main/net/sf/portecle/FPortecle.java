@@ -144,7 +144,7 @@ public class FPortecle
 	    ResourceBundle.getBundle(FPortecle.class.getPackage().getName() + "/resources");
 
 	/** Application preferences */
-	private static Preferences m_appPrefs = Preferences.userNodeForPackage(FPortecle.class);
+	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
 
 	/** Minimum required JRE version */
 	private static final String REQ_JRE_VERSION = "1.6.0";
@@ -327,9 +327,8 @@ public class FPortecle
 	public FPortecle()
 	{
 		// Get and store non-GUI related application properties
-		m_bUseCaCerts = m_appPrefs.getBoolean(RB.getString("AppPrefs.UseCaCerts"), false);
-		m_fCaCertsFile =
-		    new File(m_appPrefs.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE));
+		m_bUseCaCerts = PREFS.getBoolean(RB.getString("AppPrefs.UseCaCerts"), false);
+		m_fCaCertsFile = new File(PREFS.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE));
 
 		// Initialise GUI components
 		initComponents();
@@ -362,8 +361,8 @@ public class FPortecle
 
 		// Set application position according to application preferences
 		// unless the relevant preferences are not present or are invalid
-		int iXPos = m_appPrefs.getInt(RB.getString("AppPrefs.XPos"), 0);
-		int iYPos = m_appPrefs.getInt(RB.getString("AppPrefs.YPos"), 0);
+		int iXPos = PREFS.getInt(RB.getString("AppPrefs.XPos"), 0);
+		int iYPos = PREFS.getInt(RB.getString("AppPrefs.YPos"), 0);
 
 		if (iXPos <= 0 || iYPos <= 0)
 		{
@@ -472,7 +471,7 @@ public class FPortecle
 		// Add recent files to file menu
 		for (int iCnt = RECENT_FILES_LENGTH; iCnt > 0; iCnt--)
 		{
-			String sRecentFile = m_appPrefs.get(RB.getString("AppPrefs.RecentFile") + iCnt, null);
+			String sRecentFile = PREFS.get(RB.getString("AppPrefs.RecentFile") + iCnt, null);
 
 			if (sRecentFile != null)
 			{
@@ -1186,7 +1185,7 @@ public class FPortecle
 
 		// Set alias columns width according to the relevant application
 		// property unless the property is not present or is invalid.
-		int iAliasWidth = m_appPrefs.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
+		int iAliasWidth = PREFS.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
 
 		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(1);
 		aliasCol.setMinWidth(20);
@@ -1223,8 +1222,8 @@ public class FPortecle
 
 		// Get the size of the keystore table panel from the application
 		// preferences
-		int iWidth = m_appPrefs.getInt(RB.getString("AppPrefs.TableWidth"), 0);
-		int iHeight = m_appPrefs.getInt(RB.getString("AppPrefs.TableHeight"), 0);
+		int iWidth = PREFS.getInt(RB.getString("AppPrefs.TableWidth"), 0);
+		int iHeight = PREFS.getInt(RB.getString("AppPrefs.TableHeight"), 0);
 
 		// Put the scroll pane into a panel. The preferred size of the panel
 		// dictates the size of the entire frame
@@ -5742,30 +5741,29 @@ public class FPortecle
 		{
 			// The size of the keystore table panel - determines the size
 			// of the main frame
-			m_appPrefs.putInt(RB.getString("AppPrefs.TableWidth"), m_jpKeyStoreTable.getWidth());
-			m_appPrefs.putInt(RB.getString("AppPrefs.TableHeight"), m_jpKeyStoreTable.getHeight());
+			PREFS.putInt(RB.getString("AppPrefs.TableWidth"), m_jpKeyStoreTable.getWidth());
+			PREFS.putInt(RB.getString("AppPrefs.TableHeight"), m_jpKeyStoreTable.getHeight());
 
 			// The size of the keystore table's alias column - determines
 			// the size of all of the table's columns
-			m_appPrefs.putInt(RB.getString("AppPrefs.AliasWidth"),
+			PREFS.putInt(RB.getString("AppPrefs.AliasWidth"),
 			    m_jtKeyStore.getColumnModel().getColumn(1).getWidth());
 
 			// Application's position on the desktop
-			m_appPrefs.putInt(RB.getString("AppPrefs.XPos"), this.getX());
-			m_appPrefs.putInt(RB.getString("AppPrefs.YPos"), this.getY());
+			PREFS.putInt(RB.getString("AppPrefs.XPos"), this.getX());
+			PREFS.putInt(RB.getString("AppPrefs.YPos"), this.getY());
 
 			// Use CA certificates file?
-			m_appPrefs.putBoolean(RB.getString("AppPrefs.UseCaCerts"), m_bUseCaCerts);
+			PREFS.putBoolean(RB.getString("AppPrefs.UseCaCerts"), m_bUseCaCerts);
 
 			// CA Certificates file
-			m_appPrefs.put(RB.getString("AppPrefs.CaCertsFile"), m_fCaCertsFile.toString());
+			PREFS.put(RB.getString("AppPrefs.CaCertsFile"), m_fCaCertsFile.toString());
 
 			// Recent files
 			File[] fRecentFiles = m_jmrfFile.getRecentFiles();
 			for (int iCnt = 0; iCnt < fRecentFiles.length; iCnt++)
 			{
-				m_appPrefs.put(RB.getString("AppPrefs.RecentFile") + (iCnt + 1),
-				    fRecentFiles[iCnt].toString());
+				PREFS.put(RB.getString("AppPrefs.RecentFile") + (iCnt + 1), fRecentFiles[iCnt].toString());
 			}
 
 			// Look & feel
@@ -5774,7 +5772,7 @@ public class FPortecle
 			if (lookFeelClassName != null)
 			{
 				// Setting made in options
-				m_appPrefs.put(RB.getString("AppPrefs.LookFeel"), lookFeelClassName);
+				PREFS.put(RB.getString("AppPrefs.LookFeel"), lookFeelClassName);
 			}
 			else
 			{
@@ -5789,7 +5787,7 @@ public class FPortecle
 						if (currentLookAndFeel != null &&
 						    currentLookAndFeel.getName().equals(lookFeelInfo.getName()))
 						{
-							m_appPrefs.put(RB.getString("AppPrefs.LookFeel"), lookFeelInfo.getClassName());
+							PREFS.put(RB.getString("AppPrefs.LookFeel"), lookFeelInfo.getClassName());
 							break;
 						}
 					}
@@ -5800,16 +5798,16 @@ public class FPortecle
 			if (m_bLookFeelDecorationOptions != null)
 			{
 				// Setting made in options
-				m_appPrefs.putBoolean(RB.getString("AppPrefs.LookFeelDecor"), m_bLookFeelDecorationOptions);
+				PREFS.putBoolean(RB.getString("AppPrefs.LookFeelDecor"), m_bLookFeelDecorationOptions);
 			}
 			else
 			{
 				// Current setting
-				m_appPrefs.putBoolean(RB.getString("AppPrefs.LookFeelDecor"),
+				PREFS.putBoolean(RB.getString("AppPrefs.LookFeelDecor"),
 				    JFrame.isDefaultLookAndFeelDecorated());
 			}
 
-			m_appPrefs.sync();
+			PREFS.sync();
 		}
 		catch (Exception ex)
 		{
@@ -5914,8 +5912,7 @@ public class FPortecle
 		try
 		{
 			// Use the look and feel
-			UIManager.setLookAndFeel(m_appPrefs.get(RB.getString("AppPrefs.LookFeel"),
-			    FPortecle.DEFAULT_LOOK_FEEL));
+			UIManager.setLookAndFeel(PREFS.get(RB.getString("AppPrefs.LookFeel"), FPortecle.DEFAULT_LOOK_FEEL));
 		}
 		// Didn't work - no matter
 		catch (UnsupportedLookAndFeelException e)
@@ -5932,7 +5929,7 @@ public class FPortecle
 		}
 
 		// Use look & feel's decoration?
-		boolean bLookFeelDecorated = m_appPrefs.getBoolean(RB.getString("AppPrefs.LookFeelDecor"), false);
+		boolean bLookFeelDecorated = PREFS.getBoolean(RB.getString("AppPrefs.LookFeelDecor"), false);
 
 		JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
 		JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
