@@ -21,6 +21,8 @@
 
 package net.sf.portecle.gui.jar;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -33,7 +35,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
@@ -56,9 +57,6 @@ import javax.swing.table.TableRowSorter;
 public class DJarInfo
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
-
 	/**
 	 * Creates new DJarInfo dialog.
 	 * 
@@ -69,7 +67,7 @@ public class DJarInfo
 	public DJarInfo(Window parent, boolean modal)
 	    throws IOException
 	{
-		super(parent, m_res.getString("DJarInfo.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
+		super(parent, RB.getString("DJarInfo.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
 		    : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
@@ -127,7 +125,7 @@ public class DJarInfo
 		jpJarInfoTable.add(jspJarInfoTable, BorderLayout.CENTER);
 		jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		final JButton jbOK = new JButton(m_res.getString("DJarInfo.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DJarInfo.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)

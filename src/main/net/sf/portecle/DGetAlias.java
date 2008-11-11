@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -31,7 +33,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -54,9 +55,6 @@ class DGetAlias
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Alias text field */
 	private JTextField m_jtfAlias;
@@ -99,11 +97,11 @@ class DGetAlias
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlAlias = new JLabel(m_res.getString("DGetAlias.jlAlias.text"));
+		JLabel jlAlias = new JLabel(RB.getString("DGetAlias.jlAlias.text"));
 		m_jtfAlias = new JTextField(sOldAlias, 15);
 		m_jtfAlias.setCaretPosition(sOldAlias.length());
 
-		JButton jbOK = new JButton(m_res.getString("DGetAlias.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DGetAlias.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -112,7 +110,7 @@ class DGetAlias
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DGetAlias.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DGetAlias.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -178,7 +176,7 @@ class DGetAlias
 			return true;
 		}
 
-		JOptionPane.showMessageDialog(this, m_res.getString("DGetAlias.AliasReq.message"), getTitle(),
+		JOptionPane.showMessageDialog(this, RB.getString("DGetAlias.AliasReq.message"), getTitle(),
 		    JOptionPane.WARNING_MESSAGE);
 
 		SwingHelper.selectAndFocus(m_jtfAlias);

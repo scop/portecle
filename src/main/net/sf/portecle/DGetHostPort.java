@@ -21,6 +21,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -32,7 +34,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.InetSocketAddress;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -61,10 +62,8 @@ class DGetHostPort
 	private static final String CANCEL_KEY = "CANCEL_KEY";
 
 	/** Default port */
+	// TODO: move to resources
 	private static final String DEFAULT_PORT = "443";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Host text field */
 	private JTextField m_jtfHost;
@@ -108,10 +107,10 @@ class DGetHostPort
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlHost = new JLabel(m_res.getString("DGetHostPort.jlHost.text"));
+		JLabel jlHost = new JLabel(RB.getString("DGetHostPort.jlHost.text"));
 		m_jtfHost = new JTextField(15);
 
-		JLabel jlPort = new JLabel(m_res.getString("DGetHostPort.jlPort.text"));
+		JLabel jlPort = new JLabel(RB.getString("DGetHostPort.jlPort.text"));
 		m_jtfPort = new JTextField(DEFAULT_PORT, 5);
 		Document doc = m_jtfPort.getDocument();
 		if (doc instanceof AbstractDocument)
@@ -125,7 +124,7 @@ class DGetHostPort
 			m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
 		}
 
-		JButton jbOK = new JButton(m_res.getString("DGetHostPort.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DGetHostPort.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -134,7 +133,7 @@ class DGetHostPort
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DGetHostPort.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DGetHostPort.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -192,7 +191,7 @@ class DGetHostPort
 		String sHost = m_jtfHost.getText().trim().toLowerCase(Locale.ENGLISH);
 		if (sHost.length() == 0)
 		{
-			JOptionPane.showMessageDialog(this, m_res.getString("DGetHostPort.HostReq.message"), getTitle(),
+			JOptionPane.showMessageDialog(this, RB.getString("DGetHostPort.HostReq.message"), getTitle(),
 			    JOptionPane.WARNING_MESSAGE);
 			SwingHelper.selectAndFocus(m_jtfHost);
 			return false;
@@ -201,7 +200,7 @@ class DGetHostPort
 		String sPort = m_jtfPort.getText().trim();
 		if (sPort.length() == 0)
 		{
-			JOptionPane.showMessageDialog(this, m_res.getString("DGetHostPort.PortReq.message"), getTitle(),
+			JOptionPane.showMessageDialog(this, RB.getString("DGetHostPort.PortReq.message"), getTitle(),
 			    JOptionPane.WARNING_MESSAGE);
 			SwingHelper.selectAndFocus(m_jtfPort);
 			return false;

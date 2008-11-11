@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.error;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -33,7 +35,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -49,9 +50,6 @@ import net.sf.portecle.gui.SwingHelper;
 public class DThrowable
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
-
 	/** Stores throwable to display */
 	private Throwable m_throwable;
 
@@ -72,7 +70,7 @@ public class DThrowable
 	public DThrowable(Window parent, String title, boolean modal, Throwable throwable)
 	{
 		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
-		setTitle((title == null) ? m_res.getString("DThrowable.Title") : title);
+		setTitle((title == null) ? RB.getString("DThrowable.Title") : title);
 		m_throwable = throwable;
 		initComponents();
 	}
@@ -98,8 +96,8 @@ public class DThrowable
 	{
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JButton jbDetails = new JButton(m_res.getString("DThrowable.jbDetails.text"));
-		jbDetails.setMnemonic(m_res.getString("DThrowable.jbDetails.mnemonic").charAt(0));
+		JButton jbDetails = new JButton(RB.getString("DThrowable.jbDetails.text"));
+		jbDetails.setMnemonic(RB.getString("DThrowable.jbDetails.mnemonic").charAt(0));
 
 		jbDetails.addActionListener(new ActionListener()
 		{
@@ -109,7 +107,7 @@ public class DThrowable
 			}
 		});
 
-		JButton jbOK = new JButton(m_res.getString("DThrowable.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DThrowable.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -154,7 +152,7 @@ public class DThrowable
 			text =
 			    "<html>" +
 			        text +
-			        MessageFormat.format(m_res.getString("DThrowable.jpThrowable.policy.text"), new File(
+			        MessageFormat.format(RB.getString("DThrowable.jpThrowable.policy.text"), new File(
 			            System.getProperty("java.home"), "lib" + File.separator + "security"));
 		}
 

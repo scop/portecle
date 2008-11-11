@@ -21,6 +21,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -31,7 +33,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.security.KeyPair;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -57,9 +58,6 @@ class DGeneratingKeyPair
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Stores the key pair generation type */
 	private KeyPairType m_keyPairType;
@@ -100,16 +98,16 @@ class DGeneratingKeyPair
 	private void initComponents()
 	{
 		// Generate key Pair label
-		JLabel jlGenKeyPair = new JLabel(m_res.getString("DGeneratingKeypair.jlGenKeyPair.text"));
+		JLabel jlGenKeyPair = new JLabel(RB.getString("DGeneratingKeypair.jlGenKeyPair.text"));
 		ImageIcon icon =
-		    new ImageIcon(getClass().getResource(m_res.getString("DGeneratingKeypair.Generating.image")));
+		    new ImageIcon(getClass().getResource(RB.getString("DGeneratingKeypair.Generating.image")));
 		jlGenKeyPair.setIcon(icon);
 		JPanel jpGenKeyPair = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpGenKeyPair.add(jlGenKeyPair);
 		jpGenKeyPair.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// Cancel button
-		JButton jbCancel = new JButton(m_res.getString("DGeneratingKeyPair.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DGeneratingKeyPair.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -145,7 +143,7 @@ class DGeneratingKeyPair
 			}
 		});
 
-		setTitle(m_res.getString("DGeneratingKeyPair.Title"));
+		setTitle(RB.getString("DGeneratingKeyPair.Title"));
 		setResizable(false);
 
 		pack();

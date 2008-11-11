@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -44,7 +46,6 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -115,9 +116,6 @@ class DKeyStoreReport
 		}
 	}
 
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/** Stores keystore to report on */
 	private KeyStore m_keystore;
 
@@ -148,7 +146,7 @@ class DKeyStoreReport
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DKeyStoreReport.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DKeyStoreReport.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -159,9 +157,9 @@ class DKeyStoreReport
 
 		jpButtons.add(jbOK);
 
-		JButton jbCopy = new JButton(m_res.getString("DKeyStoreReport.jbCopy.text"));
-		jbCopy.setMnemonic(m_res.getString("DKeyStoreReport.jbCopy.mnemonic").charAt(0));
-		jbCopy.setToolTipText(m_res.getString("DKeyStoreReport.jbCopy.tooltip"));
+		JButton jbCopy = new JButton(RB.getString("DKeyStoreReport.jbCopy.text"));
+		jbCopy.setMnemonic(RB.getString("DKeyStoreReport.jbCopy.mnemonic").charAt(0));
+		jbCopy.setToolTipText(RB.getString("DKeyStoreReport.jbCopy.tooltip"));
 		jbCopy.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -172,9 +170,9 @@ class DKeyStoreReport
 
 		jpButtons.add(jbCopy);
 
-		JButton jbCopyXml = new JButton(m_res.getString("DKeyStoreReport.jbCopyXml.text"));
-		jbCopyXml.setMnemonic(m_res.getString("DKeyStoreReport.jbCopyXml.mnemonic").charAt(0));
-		jbCopyXml.setToolTipText(m_res.getString("DKeyStoreReport.jbCopyXml.tooltip"));
+		JButton jbCopyXml = new JButton(RB.getString("DKeyStoreReport.jbCopyXml.text"));
+		jbCopyXml.setMnemonic(RB.getString("DKeyStoreReport.jbCopyXml.mnemonic").charAt(0));
+		jbCopyXml.setToolTipText(RB.getString("DKeyStoreReport.jbCopyXml.tooltip"));
 		jbCopyXml.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -212,7 +210,7 @@ class DKeyStoreReport
 		getContentPane().add(jpReport, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		setTitle(m_res.getString("DKeyStoreReport.Title"));
+		setTitle(RB.getString("DKeyStoreReport.Title"));
 		setResizable(true);
 
 		addWindowListener(new WindowAdapter()
@@ -338,17 +336,16 @@ class DKeyStoreReport
 
 			// Keystore type
 			KeyStoreType ksType = KeyStoreType.valueOf(m_keystore.getType());
-			sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.type"),
-			    ksType.name()));
+			sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.type"), ksType.name()));
 			sbReport.append("\n");
 
 			// Keystore provider
-			sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.provider"),
+			sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.provider"),
 			    m_keystore.getProvider().getName()));
 			sbReport.append("\n");
 
 			// Keystore size (entries)
-			sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.entries"),
+			sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.entries"),
 			    m_keystore.size()));
 			sbReport.append("\n\n");
 
@@ -359,7 +356,7 @@ class DKeyStoreReport
 			{
 				// Alias
 				String sAlias = aliases.nextElement();
-				sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.alias"), sAlias));
+				sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.alias"), sAlias));
 				sbReport.append("\n");
 
 				// Creation date
@@ -371,7 +368,7 @@ class DKeyStoreReport
 					// Include timezone
 					String sCreation =
 					    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(dCreation);
-					sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.creation"),
+					sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.creation"),
 					    sCreation));
 					sbReport.append("\n");
 				}
@@ -385,18 +382,18 @@ class DKeyStoreReport
 
 					if (certChain == null || certChain.length == 0)
 					{
-						sbReport.append(m_res.getString("DKeyStoreReport.report.key"));
+						sbReport.append(RB.getString("DKeyStoreReport.report.key"));
 						sbReport.append("\n");
 					}
 					else
 					{
-						sbReport.append(m_res.getString("DKeyStoreReport.report.keypair"));
+						sbReport.append(RB.getString("DKeyStoreReport.report.keypair"));
 						sbReport.append("\n");
 					}
 				}
 				else
 				{
-					sbReport.append(m_res.getString("DKeyStoreReport.report.trustcert"));
+					sbReport.append(RB.getString("DKeyStoreReport.report.trustcert"));
 					sbReport.append("\n");
 
 					Certificate cert = m_keystore.getCertificate(sAlias);
@@ -410,7 +407,7 @@ class DKeyStoreReport
 				if (certChain == null || certChain.length == 0)
 				{
 					// Zero certificates
-					sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.certs"), 0));
+					sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.certs"), 0));
 					sbReport.append("\n\n");
 				}
 				else
@@ -419,39 +416,39 @@ class DKeyStoreReport
 
 					// One or more certificates
 					int iChainLen = x509CertChain.length;
-					sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.certs"),
+					sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.certs"),
 					    iChainLen));
 					sbReport.append("\n\n");
 
 					for (int iCnt = 0; iCnt < iChainLen; iCnt++)
 					{
 						// Get information on an individual certificate
-						sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.cert"),
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.cert"),
 						    iCnt + 1, iChainLen));
 						sbReport.append("\n");
 
 						X509Certificate x509Cert = x509CertChain[iCnt];
 
 						// Version
-						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.version"), x509Cert.getVersion()));
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.version"),
+						    x509Cert.getVersion()));
 						sbReport.append("\n");
 
 						// Subject
-						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.subject"), x509Cert.getSubjectDN()));
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.subject"),
+						    x509Cert.getSubjectDN()));
 						sbReport.append("\n");
 
 						// Issuer
-						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.issuer"), x509Cert.getIssuerDN()));
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.issuer"),
+						    x509Cert.getIssuerDN()));
 						sbReport.append("\n");
 
 						// Serial Number
 						String sSerialNumber =
 						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase();
-						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.serial"), sSerialNumber));
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.serial"),
+						    sSerialNumber));
 						sbReport.append("\n");
 
 						// Valid From
@@ -460,7 +457,7 @@ class DKeyStoreReport
 						    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(
 						        dValidFrom);
 						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.validfrom"), sValidFrom));
+						    RB.getString("DKeyStoreReport.report.validfrom"), sValidFrom));
 						sbReport.append("\n");
 
 						// Valid Until
@@ -469,30 +466,30 @@ class DKeyStoreReport
 						    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(
 						        dValidTo);
 						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.validuntil"), sValidTo));
+						    RB.getString("DKeyStoreReport.report.validuntil"), sValidTo));
 						sbReport.append("\n");
 
 						// Public Key (algorithm and keysize)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
-						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.pubkey"), sKeyAlg, iKeySize));
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.pubkey"),
+						    sKeyAlg, iKeySize));
 						sbReport.append("\n");
 
 						// Signature Algorithm
-						sbReport.append(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.report.sigalg"), x509Cert.getSigAlgName()));
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.sigalg"),
+						    x509Cert.getSigAlgName()));
 						sbReport.append("\n");
 
 						byte[] bCert = x509Cert.getEncoded();
 
 						// MD5 Fingerprint
-						sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.md5"),
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.md5"),
 						    DigestUtil.getMessageDigest(bCert, DigestType.MD5)));
 						sbReport.append("\n");
 
 						// SHA-1 Fingerprint
-						sbReport.append(MessageFormat.format(m_res.getString("DKeyStoreReport.report.sha1"),
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.sha1"),
 						    DigestUtil.getMessageDigest(bCert, DigestType.SHA1)));
 						sbReport.append("\n");
 
@@ -514,8 +511,7 @@ class DKeyStoreReport
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("DKeyStoreReport.NoGenerateReport.exception.message"),
-			    ex);
+			throw new CryptoException(RB.getString("DKeyStoreReport.NoGenerateReport.exception.message"), ex);
 		}
 	}
 
@@ -689,8 +685,7 @@ class DKeyStoreReport
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("DKeyStoreReport.NoGenerateReport.exception.message"),
-			    ex);
+			throw new CryptoException(RB.getString("DKeyStoreReport.NoGenerateReport.exception.message"), ex);
 		}
 	}
 
@@ -713,8 +708,8 @@ class DKeyStoreReport
 
 			// Top node
 			DefaultMutableTreeNode topNode =
-			    new DefaultMutableTreeNode(MessageFormat.format(
-			        m_res.getString("DKeyStoreReport.TopNodeName"), ksType.name(), sProvider));
+			    new DefaultMutableTreeNode(MessageFormat.format(RB.getString("DKeyStoreReport.TopNodeName"),
+			        ksType.name(), sProvider));
 
 			// One sub-node per entry
 			Enumeration<String> aliases = m_keystore.aliases();
@@ -772,7 +767,7 @@ class DKeyStoreReport
 				if (certChain != null && certChain.length != 0)
 				{
 					DefaultMutableTreeNode certsNode =
-					    new DefaultMutableTreeNode(m_res.getString("DKeyStoreReport.Certificates"));
+					    new DefaultMutableTreeNode(RB.getString("DKeyStoreReport.Certificates"));
 					entryNode.add(certsNode);
 
 					// Get information on each certificate in entry
@@ -784,7 +779,7 @@ class DKeyStoreReport
 					{
 						DefaultMutableTreeNode certNode =
 						    new DefaultMutableTreeNode(MessageFormat.format(
-						        m_res.getString("DKeyStoreReport.Certificate"), iCnt + 1, iChainLen));
+						        RB.getString("DKeyStoreReport.Certificate"), iCnt + 1, iChainLen));
 						certsNode.add(certNode);
 
 						X509Certificate x509Cert = x509CertChain[iCnt];
@@ -821,7 +816,7 @@ class DKeyStoreReport
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
 						certNode.add(new DefaultMutableTreeNode(MessageFormat.format(
-						    m_res.getString("DKeyStoreReport.KeyAlg"), sKeyAlg, iKeySize)));
+						    RB.getString("DKeyStoreReport.KeyAlg"), sKeyAlg, iKeySize)));
 
 						// Signature Algorithm
 						certNode.add(new DefaultMutableTreeNode(x509Cert.getSigAlgName()));
@@ -843,8 +838,7 @@ class DKeyStoreReport
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("DKeyStoreReport.NoGenerateReport.exception.message"),
-			    ex);
+			throw new CryptoException(RB.getString("DKeyStoreReport.NoGenerateReport.exception.message"), ex);
 		}
 	}
 

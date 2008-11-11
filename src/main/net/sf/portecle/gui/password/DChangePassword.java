@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.password;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -32,7 +34,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -54,9 +55,6 @@ public class DChangePassword
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
 	/** Old password entry password field */
 	private JPasswordField m_jpfOld;
@@ -83,7 +81,7 @@ public class DChangePassword
 	 */
 	public DChangePassword(Window parent, boolean modal, String sTitle, char[] cOldPassword)
 	{
-		super(parent, (sTitle == null) ? m_res.getString("DChangePassword.Title") : sTitle, (modal
+		super(parent, (sTitle == null) ? RB.getString("DChangePassword.Title") : sTitle, (modal
 		    ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_cOldPassword = arrayCopy(cOldPassword);
 		initComponents();
@@ -133,13 +131,13 @@ public class DChangePassword
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlFirst = new JLabel(m_res.getString("DChangePassword.jlFirst.text"));
+		JLabel jlFirst = new JLabel(RB.getString("DChangePassword.jlFirst.text"));
 		m_jpfFirst = new JPasswordField(15);
 
-		JLabel jlConfirm = new JLabel(m_res.getString("DChangePassword.jlConfirm.text"));
+		JLabel jlConfirm = new JLabel(RB.getString("DChangePassword.jlConfirm.text"));
 		m_jpfConfirm = new JPasswordField(15);
 
-		JLabel jlOld = new JLabel(m_res.getString("DChangePassword.jlOld.text"));
+		JLabel jlOld = new JLabel(RB.getString("DChangePassword.jlOld.text"));
 
 		// Old password was supplied - just disable the old password
 		// field after filling it with junk
@@ -153,7 +151,7 @@ public class DChangePassword
 			m_jpfOld = new JPasswordField(10);
 		}
 
-		JButton jbOK = new JButton(m_res.getString("DChangePassword.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DChangePassword.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -162,7 +160,7 @@ public class DChangePassword
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DChangePassword.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DChangePassword.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -240,7 +238,7 @@ public class DChangePassword
 			return true;
 		}
 
-		JOptionPane.showMessageDialog(this, m_res.getString("PasswordsNoMatch.message"), getTitle(),
+		JOptionPane.showMessageDialog(this, RB.getString("PasswordsNoMatch.message"), getTitle(),
 		    JOptionPane.WARNING_MESSAGE);
 
 		return false;

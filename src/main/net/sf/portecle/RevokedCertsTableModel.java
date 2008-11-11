@@ -25,7 +25,6 @@ package net.sf.portecle;
 import java.math.BigInteger;
 import java.security.cert.X509CRLEntry;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -39,10 +38,9 @@ class RevokedCertsTableModel
 	private static final String[] COLUMN_NAMES;
 	static
 	{
-		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/resources");
 		COLUMN_NAMES =
-		    new String[] { rb.getString("RevokedCertsTableModel.SerialNumberColumn"),
-		        rb.getString("RevokedCertsTableModel.RevocationDateColumn") };
+		    new String[] { FPortecle.RB.getString("RevokedCertsTableModel.SerialNumberColumn"),
+		        FPortecle.RB.getString("RevokedCertsTableModel.RevocationDateColumn") };
 	}
 
 	/** Column classes */

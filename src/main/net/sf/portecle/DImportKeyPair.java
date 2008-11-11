@@ -21,6 +21,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -41,7 +43,6 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Enumeration;
-import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.swing.AbstractAction;
@@ -77,9 +78,6 @@ class DImportKeyPair
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** List of key pairs available for import */
 	private JList m_jltKeyPairs;
@@ -124,13 +122,13 @@ class DImportKeyPair
 	    throws CryptoException
 	{
 		// Instructions
-		JLabel jlInstructions = new JLabel(m_res.getString("DImportKeyPair.jlInstructions.text"));
+		JLabel jlInstructions = new JLabel(RB.getString("DImportKeyPair.jlInstructions.text"));
 
 		// Import button
-		final JButton jbImport = new JButton(m_res.getString("DImportKeyPair.jbImport.text"));
+		final JButton jbImport = new JButton(RB.getString("DImportKeyPair.jbImport.text"));
 		jbImport.setEnabled(false);
-		jbImport.setMnemonic(m_res.getString("DImportKeyPair.jbImport.mnemonic").charAt(0));
-		jbImport.setToolTipText(m_res.getString("DImportKeyPair.jbImport.tooltip"));
+		jbImport.setMnemonic(RB.getString("DImportKeyPair.jbImport.mnemonic").charAt(0));
+		jbImport.setToolTipText(RB.getString("DImportKeyPair.jbImport.tooltip"));
 		jbImport.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -141,10 +139,10 @@ class DImportKeyPair
 
 		// Certificate details button
 		final JButton jbCertificateDetails =
-		    new JButton(m_res.getString("DImportKeyPair.jbCertificateDetails.text"));
-		jbCertificateDetails.setMnemonic(m_res.getString("DImportKeyPair.jbCertificateDetails.mnemonic").charAt(
+		    new JButton(RB.getString("DImportKeyPair.jbCertificateDetails.text"));
+		jbCertificateDetails.setMnemonic(RB.getString("DImportKeyPair.jbCertificateDetails.mnemonic").charAt(
 		    0));
-		jbCertificateDetails.setToolTipText(m_res.getString("DImportKeyPair.jbCertificateDetails.tooltip"));
+		jbCertificateDetails.setToolTipText(RB.getString("DImportKeyPair.jbCertificateDetails.tooltip"));
 		jbCertificateDetails.setEnabled(false);
 		jbCertificateDetails.addActionListener(new ActionListener()
 		{
@@ -183,11 +181,11 @@ class DImportKeyPair
 
 		// Key pair details (algorithm and button to access
 		// certificate details)
-		JLabel jlAlgorithm = new JLabel(m_res.getString("DImportKeyPair.jlAlgorithm.text"));
+		JLabel jlAlgorithm = new JLabel(RB.getString("DImportKeyPair.jlAlgorithm.text"));
 
 		m_jtfAlgorithm = new JTextField(10);
 		m_jtfAlgorithm.setText("");
-		m_jtfAlgorithm.setToolTipText(m_res.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
+		m_jtfAlgorithm.setToolTipText(RB.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
 		m_jtfAlgorithm.setEditable(false);
 
 		JPanel jpKeyPairDetails = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -207,7 +205,7 @@ class DImportKeyPair
 
 		// Cancel button
 
-		final JButton jbCancel = new JButton(m_res.getString("DImportKeyPair.jbCancel.text"));
+		final JButton jbCancel = new JButton(RB.getString("DImportKeyPair.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -245,7 +243,7 @@ class DImportKeyPair
 			}
 		});
 
-		setTitle(m_res.getString("DImportKeyPair.Title"));
+		setTitle(RB.getString("DImportKeyPair.Title"));
 		setResizable(false);
 
 		getRootPane().setDefaultButton(jbImport);
@@ -314,14 +312,14 @@ class DImportKeyPair
 			else
 			{
 				// No key pairs available...
-				m_jltKeyPairs.setListData(new String[] { m_res.getString("DImportKeyPair.m_jltKeyPairs.empty") });
+				m_jltKeyPairs.setListData(new String[] { RB.getString("DImportKeyPair.m_jltKeyPairs.empty") });
 				m_jltKeyPairs.setEnabled(false);
 			}
 		}
 		catch (GeneralSecurityException ex)
 		{
 			throw new CryptoException(
-			    m_res.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
+			    RB.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
 		}
 	}
 
@@ -364,7 +362,7 @@ class DImportKeyPair
 			if (iKeySize != -1)
 			{
 				m_jtfAlgorithm.setText(MessageFormat.format(
-				    m_res.getString("DImportKeyPair.m_jtfAlgorithm.text"), m_jtfAlgorithm.getText(), iKeySize));
+				    RB.getString("DImportKeyPair.m_jtfAlgorithm.text"), m_jtfAlgorithm.getText(), iKeySize));
 			}
 			m_jtfAlgorithm.setCaretPosition(0);
 		}
@@ -395,7 +393,7 @@ class DImportKeyPair
 
 			DViewCertificate dViewCertificate =
 			    new DViewCertificate(this, MessageFormat.format(
-			        m_res.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), true, certs);
+			        RB.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), true, certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 		}

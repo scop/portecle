@@ -21,8 +21,9 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
-import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -37,9 +38,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 class RevokedCertsTableHeadRend
     extends DefaultTableCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/**
 	 * Returns the rendered header cell for the supplied value and column.
 	 * 
@@ -65,11 +63,11 @@ class RevokedCertsTableHeadRend
 		// Set tool tips
 		if (iCol == 0)
 		{
-			header.setToolTipText(m_res.getString("RevokedCertsTableHeadRend.SerialNumberColumn.tooltip"));
+			header.setToolTipText(RB.getString("RevokedCertsTableHeadRend.SerialNumberColumn.tooltip"));
 		}
 		else
 		{
-			header.setToolTipText(m_res.getString("RevokedCertsTableHeadRend.RevocationDateColumn.tooltip"));
+			header.setToolTipText(RB.getString("RevokedCertsTableHeadRend.RevocationDateColumn.tooltip"));
 		}
 
 		header.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new EmptyBorder(0, 5, 0, 5)));

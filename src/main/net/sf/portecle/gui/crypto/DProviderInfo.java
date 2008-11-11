@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -37,7 +39,6 @@ import java.awt.event.WindowEvent;
 import java.security.Provider;
 import java.security.Security;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 import java.util.TreeSet;
 
 import javax.swing.JButton;
@@ -57,9 +58,6 @@ import javax.swing.tree.TreeSelectionModel;
 public class DProviderInfo
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
-
 	/**
 	 * Creates new DProviderInfo dialog.
 	 * 
@@ -80,7 +78,7 @@ public class DProviderInfo
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DProviderInfo.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DProviderInfo.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -91,9 +89,9 @@ public class DProviderInfo
 
 		jpButtons.add(jbOK);
 
-		JButton jbCopy = new JButton(m_res.getString("DProviderInfo.jbCopy.text"));
-		jbCopy.setMnemonic(m_res.getString("DProviderInfo.jbCopy.mnemonic").charAt(0));
-		jbCopy.setToolTipText(m_res.getString("DProviderInfo.jbCopy.tooltip"));
+		JButton jbCopy = new JButton(RB.getString("DProviderInfo.jbCopy.text"));
+		jbCopy.setMnemonic(RB.getString("DProviderInfo.jbCopy.mnemonic").charAt(0));
+		jbCopy.setToolTipText(RB.getString("DProviderInfo.jbCopy.tooltip"));
 		jbCopy.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -126,7 +124,7 @@ public class DProviderInfo
 		getContentPane().add(jpProviders, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		setTitle(m_res.getString("DProviderInfo.Title"));
+		setTitle(RB.getString("DProviderInfo.Title"));
 		setResizable(true);
 
 		addWindowListener(new WindowAdapter()
@@ -160,7 +158,7 @@ public class DProviderInfo
 	{
 		// Top node
 		DefaultMutableTreeNode topNode =
-		    new DefaultMutableTreeNode(m_res.getString("DProviderInfo.TopNodeName"));
+		    new DefaultMutableTreeNode(RB.getString("DProviderInfo.TopNodeName"));
 
 		// Get security providers
 		Provider[] providers = Security.getProviders();
@@ -182,7 +180,7 @@ public class DProviderInfo
 
 			// Create another child node called properties and...
 			DefaultMutableTreeNode providerPropertiesNode =
-			    new DefaultMutableTreeNode(m_res.getString("DProviderInfo.ProviderProperties"));
+			    new DefaultMutableTreeNode(RB.getString("DProviderInfo.ProviderProperties"));
 			providerNode.add(providerPropertiesNode);
 
 			// ...add property child nodes to it.
@@ -192,7 +190,7 @@ public class DProviderInfo
 				String sKey = String.valueOf(o);
 				String sValue = provider.getProperty(sKey);
 				providerPropertiesNode.add(new DefaultMutableTreeNode(MessageFormat.format(
-				    m_res.getString("DProviderInfo.ProviderProperty"), sKey, sValue)));
+				    RB.getString("DProviderInfo.ProviderProperty"), sKey, sValue)));
 			}
 		}
 
@@ -216,16 +214,16 @@ public class DProviderInfo
 			Provider provider = providers[iCnt];
 
 			// ...write out the provider name, description and version...
-			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderName"),
+			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderName"),
 			    provider.getName()));
 			strBuff.append('\n');
-			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderVersion"),
+			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderVersion"),
 			    provider.getVersion()));
 			strBuff.append('\n');
-			strBuff.append(MessageFormat.format(m_res.getString("DProviderInfo.Copy.ProviderDescription"),
+			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderDescription"),
 			    provider.getInfo()));
 			strBuff.append('\n');
-			strBuff.append(m_res.getString("DProviderInfo.Copy.ProviderProperties"));
+			strBuff.append(RB.getString("DProviderInfo.Copy.ProviderProperties"));
 			strBuff.append('\n');
 
 			// ...and it's properties

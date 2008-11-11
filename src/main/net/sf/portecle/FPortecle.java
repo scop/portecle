@@ -140,7 +140,8 @@ public class FPortecle
     implements StatusBar
 {
 	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
+	public static final ResourceBundle RB =
+	    ResourceBundle.getBundle(FPortecle.class.getPackage().getName() + "/resources");
 
 	/** Application preferences */
 	private static Preferences m_appPrefs = Preferences.userNodeForPackage(FPortecle.class);
@@ -326,9 +327,9 @@ public class FPortecle
 	public FPortecle()
 	{
 		// Get and store non-GUI related application properties
-		m_bUseCaCerts = m_appPrefs.getBoolean(m_res.getString("AppPrefs.UseCaCerts"), false);
+		m_bUseCaCerts = m_appPrefs.getBoolean(RB.getString("AppPrefs.UseCaCerts"), false);
 		m_fCaCertsFile =
-		    new File(m_appPrefs.get(m_res.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE));
+		    new File(m_appPrefs.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE));
 
 		// Initialise GUI components
 		initComponents();
@@ -361,8 +362,8 @@ public class FPortecle
 
 		// Set application position according to application preferences
 		// unless the relevant preferences are not present or are invalid
-		int iXPos = m_appPrefs.getInt(m_res.getString("AppPrefs.XPos"), 0);
-		int iYPos = m_appPrefs.getInt(m_res.getString("AppPrefs.YPos"), 0);
+		int iXPos = m_appPrefs.getInt(RB.getString("AppPrefs.XPos"), 0);
+		int iYPos = m_appPrefs.getInt(RB.getString("AppPrefs.YPos"), 0);
 
 		if (iXPos <= 0 || iYPos <= 0)
 		{
@@ -401,9 +402,9 @@ public class FPortecle
 
 		// File menu
 		m_jmrfFile =
-		    new JMenuRecentFiles(m_res.getString("FPortecle.m_jmrfFile.text"), RECENT_FILES_LENGTH,
+		    new JMenuRecentFiles(RB.getString("FPortecle.m_jmrfFile.text"), RECENT_FILES_LENGTH,
 		        RECENT_FILES_INDEX);
-		m_jmrfFile.setMnemonic(m_res.getString("FPortecle.m_jmrfFile.mnemonic").charAt(0));
+		m_jmrfFile.setMnemonic(RB.getString("FPortecle.m_jmrfFile.mnemonic").charAt(0));
 
 		JMenuItem jmiNewKeyStore = new JMenuItem(m_newKeyStoreAction);
 		jmiNewKeyStore.setToolTipText(null);
@@ -420,7 +421,7 @@ public class FPortecle
 		if (EXPERIMENTAL)
 		{
 			JMenuItem jmiOpenKeyStorePkcs11 =
-			    new JMenuItem(m_res.getString("FPortecle.jmiOpenKeyStorePkcs11.text"), m_res.getString(
+			    new JMenuItem(RB.getString("FPortecle.jmiOpenKeyStorePkcs11.text"), RB.getString(
 			        "FPortecle.jmiOpenKeyStorePkcs11.mnemonic").charAt(0));
 			jmiOpenKeyStorePkcs11.setIcon(new ImageIcon(getResImage("FPortecle.jmiOpenKeyStorePkcs11.image")));
 			jmiOpenKeyStorePkcs11.setToolTipText(null);
@@ -438,7 +439,7 @@ public class FPortecle
 				}
 			});
 			new StatusBarChangeHandler(jmiOpenKeyStorePkcs11,
-			    m_res.getString("FPortecle.jmiOpenKeyStorePkcs11.statusbar"), this);
+			    RB.getString("FPortecle.jmiOpenKeyStorePkcs11.statusbar"), this);
 		}
 
 		m_jmrfFile.addSeparator();
@@ -450,7 +451,7 @@ public class FPortecle
 		m_jmrfFile.add(jmiSaveKeyStore);
 
 		m_jmiSaveKeyStoreAs =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiSaveKeyStoreAs.text"), RB.getString(
 		        "FPortecle.m_jmiSaveKeyStoreAs.mnemonic").charAt(0));
 		m_jmiSaveKeyStoreAs.setIcon(new ImageIcon(getResImage("FPortecle.m_jmiSaveKeyStoreAs.image")));
 		m_jmiSaveKeyStoreAs.setEnabled(false);
@@ -464,14 +465,14 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiSaveKeyStoreAs,
-		    m_res.getString("FPortecle.m_jmiSaveKeyStoreAs.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiSaveKeyStoreAs.statusbar"), this);
 
 		m_jmrfFile.addSeparator();
 
 		// Add recent files to file menu
 		for (int iCnt = RECENT_FILES_LENGTH; iCnt > 0; iCnt--)
 		{
-			String sRecentFile = m_appPrefs.get(m_res.getString("AppPrefs.RecentFile") + iCnt, null);
+			String sRecentFile = m_appPrefs.get(RB.getString("AppPrefs.RecentFile") + iCnt, null);
 
 			if (sRecentFile != null)
 			{
@@ -480,8 +481,8 @@ public class FPortecle
 		}
 
 		JMenuItem jmiExit =
-		    new JMenuItem(m_res.getString("FPortecle.jmiExit.text"), m_res.getString(
-		        "FPortecle.jmiExit.mnemonic").charAt(0));
+		    new JMenuItem(RB.getString("FPortecle.jmiExit.text"),
+		        RB.getString("FPortecle.jmiExit.mnemonic").charAt(0));
 		jmiExit.setIcon(new ImageIcon(getResImage("FPortecle.jmiExit.image")));
 		m_jmrfFile.add(jmiExit);
 		jmiExit.addActionListener(new ActionListener()
@@ -492,11 +493,11 @@ public class FPortecle
 				exitApplication();
 			}
 		});
-		new StatusBarChangeHandler(jmiExit, m_res.getString("FPortecle.jmiExit.statusbar"), this);
+		new StatusBarChangeHandler(jmiExit, RB.getString("FPortecle.jmiExit.statusbar"), this);
 
 		// Tools menu
-		JMenu jmTools = new JMenu(m_res.getString("FPortecle.jmTools.text"));
-		jmTools.setMnemonic(m_res.getString("FPortecle.jmTools.mnemonic").charAt(0));
+		JMenu jmTools = new JMenu(RB.getString("FPortecle.jmTools.text"));
+		jmTools.setMnemonic(RB.getString("FPortecle.jmTools.mnemonic").charAt(0));
 
 		JMenuItem jmiGenKeyPair = new JMenuItem(m_genKeyPairAction);
 		jmiGenKeyPair.setToolTipText(null);
@@ -524,17 +525,16 @@ public class FPortecle
 		    (String) m_setKeyStorePassAction.getValue(Action.LONG_DESCRIPTION), this);
 		jmTools.add(jmiSetKeyStorePass);
 
-		m_jmChangeKeyStoreType = new JMenu(m_res.getString("FPortecle.m_jmChangeKeyStoreType.text"));
+		m_jmChangeKeyStoreType = new JMenu(RB.getString("FPortecle.m_jmChangeKeyStoreType.text"));
 		m_jmChangeKeyStoreType.setIcon(new ImageIcon(getResImage("FPortecle.m_jmChangeKeyStoreType.image")));
-		m_jmChangeKeyStoreType.setMnemonic(m_res.getString("FPortecle.m_jmChangeKeyStoreType.mnemonic").charAt(
-		    0));
+		m_jmChangeKeyStoreType.setMnemonic(RB.getString("FPortecle.m_jmChangeKeyStoreType.mnemonic").charAt(0));
 		m_jmChangeKeyStoreType.setEnabled(false);
 		jmTools.add(m_jmChangeKeyStoreType);
 
 		// Add Change Keystore Type sub-menu of Tools
 
 		m_jmiChangeKeyStoreTypeJks =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypeJks.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypeJks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeJks.addActionListener(new ActionListener()
@@ -546,11 +546,11 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJks,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"), this);
 
 		m_jmiChangeKeyStoreTypeCaseExactJks =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.text"),
-		        m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.mnemonic").charAt(0));
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.text"), RB.getString(
+		        "FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypeCaseExactJks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeCaseExactJks.addActionListener(new ActionListener()
 		{
@@ -561,10 +561,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeCaseExactJks,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.statusbar"), this);
 
 		m_jmiChangeKeyStoreTypeJceks =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypeJceks.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypeJceks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeJceks.addActionListener(new ActionListener()
@@ -576,10 +576,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJceks,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.statusbar"), this);
 
 		m_jmiChangeKeyStoreTypePkcs12 =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypePkcs12.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypePkcs12.setEnabled(false);
 		m_jmiChangeKeyStoreTypePkcs12.addActionListener(new ActionListener()
@@ -591,10 +591,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypePkcs12,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.statusbar"), this);
 
 		m_jmiChangeKeyStoreTypeBks =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypeBks.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypeBks.setEnabled(false);
 		m_jmiChangeKeyStoreTypeBks.addActionListener(new ActionListener()
@@ -606,10 +606,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeBks,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"), this);
 
 		m_jmiChangeKeyStoreTypeUber =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypeUber.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypeUber.setEnabled(false);
 		m_jmiChangeKeyStoreTypeUber.addActionListener(new ActionListener()
@@ -621,10 +621,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeUber,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"), this);
 
 		m_jmiChangeKeyStoreTypeGkr =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypeGkr.mnemonic").charAt(0));
 		m_jmiChangeKeyStoreTypeGkr.setEnabled(false);
 		m_jmiChangeKeyStoreTypeGkr.addActionListener(new ActionListener()
@@ -636,7 +636,7 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeGkr,
-		    m_res.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.statusbar"), this);
 
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJks);
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypePkcs12);
@@ -657,7 +657,7 @@ public class FPortecle
 		jmTools.addSeparator();
 
 		JMenuItem jmiOptions =
-		    new JMenuItem(m_res.getString("FPortecle.jmiOptions.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiOptions.text"), RB.getString(
 		        "FPortecle.jmiOptions.mnemonic").charAt(0));
 		jmiOptions.setIcon(new ImageIcon(getResImage("FPortecle.jmiOptions.image")));
 		jmTools.add(jmiOptions);
@@ -669,11 +669,11 @@ public class FPortecle
 				showOptions();
 			}
 		});
-		new StatusBarChangeHandler(jmiOptions, m_res.getString("FPortecle.jmiOptions.statusbar"), this);
+		new StatusBarChangeHandler(jmiOptions, RB.getString("FPortecle.jmiOptions.statusbar"), this);
 
 		// Examine menu
-		JMenu jmExamine = new JMenu(m_res.getString("FPortecle.jmExamine.text"));
-		jmExamine.setMnemonic(m_res.getString("FPortecle.jmExamine.mnemonic").charAt(0));
+		JMenu jmExamine = new JMenu(RB.getString("FPortecle.jmExamine.text"));
+		jmExamine.setMnemonic(RB.getString("FPortecle.jmExamine.mnemonic").charAt(0));
 
 		JMenuItem jmiExamineCert = new JMenuItem(m_examineCertAction);
 		jmiExamineCert.setToolTipText(null);
@@ -700,8 +700,8 @@ public class FPortecle
 		jmExamine.add(jmiExamineCrl);
 
 		// Help menu
-		JMenu jmHelp = new JMenu(m_res.getString("FPortecle.jmHelp.text"));
-		jmHelp.setMnemonic(m_res.getString("FPortecle.jmHelp.mnemonic").charAt(0));
+		JMenu jmHelp = new JMenu(RB.getString("FPortecle.jmHelp.text"));
+		jmHelp.setMnemonic(RB.getString("FPortecle.jmHelp.mnemonic").charAt(0));
 
 		JMenuItem jmiHelp = new JMenuItem(m_helpAction);
 		jmiHelp.setToolTipText(null);
@@ -709,13 +709,13 @@ public class FPortecle
 		jmHelp.add(jmiHelp);
 
 		// Online Resources menu (sub-menu of Help)
-		JMenu jmOnlineResources = new JMenu(m_res.getString("FPortecle.jmOnlineResources.text"));
+		JMenu jmOnlineResources = new JMenu(RB.getString("FPortecle.jmOnlineResources.text"));
 		jmOnlineResources.setIcon(new ImageIcon(getResImage("FPortecle.jmOnlineResources.image")));
-		jmOnlineResources.setMnemonic(m_res.getString("FPortecle.jmOnlineResources.mnemonic").charAt(0));
+		jmOnlineResources.setMnemonic(RB.getString("FPortecle.jmOnlineResources.mnemonic").charAt(0));
 		jmHelp.add(jmOnlineResources);
 
 		JMenuItem jmiWebsite =
-		    new JMenuItem(m_res.getString("FPortecle.jmiWebsite.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiWebsite.text"), RB.getString(
 		        "FPortecle.jmiWebsite.mnemonic").charAt(0));
 		jmiWebsite.setIcon(new ImageIcon(getResImage("FPortecle.jmiWebsite.image")));
 		jmOnlineResources.add(jmiWebsite);
@@ -727,10 +727,10 @@ public class FPortecle
 				visitWebsite();
 			}
 		});
-		new StatusBarChangeHandler(jmiWebsite, m_res.getString("FPortecle.jmiWebsite.statusbar"), this);
+		new StatusBarChangeHandler(jmiWebsite, RB.getString("FPortecle.jmiWebsite.statusbar"), this);
 
 		JMenuItem jmiSFNetProject =
-		    new JMenuItem(m_res.getString("FPortecle.jmiSFNetProject.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiSFNetProject.text"), RB.getString(
 		        "FPortecle.jmiSFNetProject.mnemonic").charAt(0));
 		jmiSFNetProject.setIcon(new ImageIcon(getResImage("FPortecle.jmiSFNetProject.image")));
 		jmOnlineResources.add(jmiSFNetProject);
@@ -742,11 +742,10 @@ public class FPortecle
 				visitSFNetProject();
 			}
 		});
-		new StatusBarChangeHandler(jmiSFNetProject, m_res.getString("FPortecle.jmiSFNetProject.statusbar"),
-		    this);
+		new StatusBarChangeHandler(jmiSFNetProject, RB.getString("FPortecle.jmiSFNetProject.statusbar"), this);
 
 		JMenuItem jmiMailList =
-		    new JMenuItem(m_res.getString("FPortecle.jmiMailList.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiMailList.text"), RB.getString(
 		        "FPortecle.jmiMailList.mnemonic").charAt(0));
 		jmiMailList.setIcon(new ImageIcon(getResImage("FPortecle.jmiMailList.image")));
 		jmOnlineResources.add(jmiMailList);
@@ -758,7 +757,7 @@ public class FPortecle
 				visitMailListSignup();
 			}
 		});
-		new StatusBarChangeHandler(jmiMailList, m_res.getString("FPortecle.jmiMailList.statusbar"), this);
+		new StatusBarChangeHandler(jmiMailList, RB.getString("FPortecle.jmiMailList.statusbar"), this);
 
 		/*
 		 * Update check disabled for now... JMenuItem jmiCheckUpdate = new JMenuItem(
@@ -771,7 +770,7 @@ public class FPortecle
 		 */
 
 		JMenuItem jmiDonate =
-		    new JMenuItem(m_res.getString("FPortecle.jmiDonate.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiDonate.text"), RB.getString(
 		        "FPortecle.jmiDonate.mnemonic").charAt(0));
 		jmiDonate.setIcon(new ImageIcon(getResImage("FPortecle.jmiDonate.image")));
 		jmiDonate.setToolTipText(null);
@@ -784,12 +783,12 @@ public class FPortecle
 				makeDonation();
 			}
 		});
-		new StatusBarChangeHandler(jmiDonate, m_res.getString("FPortecle.jmiDonate.statusbar"), this);
+		new StatusBarChangeHandler(jmiDonate, RB.getString("FPortecle.jmiDonate.statusbar"), this);
 
 		jmHelp.addSeparator();
 
 		JMenuItem jmiSecurityProviders =
-		    new JMenuItem(m_res.getString("FPortecle.jmiSecurityProviders.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiSecurityProviders.text"), RB.getString(
 		        "FPortecle.jmiSecurityProviders.mnemonic").charAt(0));
 		jmiSecurityProviders.setIcon(new ImageIcon(getResImage("FPortecle.jmiSecurityProviders.image")));
 		jmHelp.add(jmiSecurityProviders);
@@ -802,11 +801,11 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(jmiSecurityProviders,
-		    m_res.getString("FPortecle.jmiSecurityProviders.statusbar"), this);
+		    RB.getString("FPortecle.jmiSecurityProviders.statusbar"), this);
 
 		JMenuItem jmiJars =
-		    new JMenuItem(m_res.getString("FPortecle.jmiJars.text"), m_res.getString(
-		        "FPortecle.jmiJars.mnemonic").charAt(0));
+		    new JMenuItem(RB.getString("FPortecle.jmiJars.text"),
+		        RB.getString("FPortecle.jmiJars.mnemonic").charAt(0));
 		jmiJars.setIcon(new ImageIcon(getResImage("FPortecle.jmiJars.image")));
 		jmHelp.add(jmiJars);
 		jmiJars.addActionListener(new ActionListener()
@@ -817,13 +816,13 @@ public class FPortecle
 				showJarInfo();
 			}
 		});
-		new StatusBarChangeHandler(jmiJars, m_res.getString("FPortecle.jmiJars.statusbar"), this);
+		new StatusBarChangeHandler(jmiJars, RB.getString("FPortecle.jmiJars.statusbar"), this);
 
 		jmHelp.addSeparator();
 
 		JMenuItem jmiAbout =
-		    new JMenuItem(m_res.getString("FPortecle.jmiAbout.text"), m_res.getString(
-		        "FPortecle.jmiAbout.mnemonic").charAt(0));
+		    new JMenuItem(RB.getString("FPortecle.jmiAbout.text"),
+		        RB.getString("FPortecle.jmiAbout.mnemonic").charAt(0));
 		jmiAbout.setIcon(new ImageIcon(getResImage("FPortecle.jmiAbout.image")));
 		jmHelp.add(jmiAbout);
 		jmiAbout.addActionListener(new ActionListener()
@@ -834,7 +833,7 @@ public class FPortecle
 				showAbout();
 			}
 		});
-		new StatusBarChangeHandler(jmiAbout, m_res.getString("FPortecle.jmiAbout.statusbar"), this);
+		new StatusBarChangeHandler(jmiAbout, RB.getString("FPortecle.jmiAbout.statusbar"), this);
 
 		// Add the menus to the menu bar
 		jmbMenuBar.add(m_jmrfFile);
@@ -859,7 +858,7 @@ public class FPortecle
 		jmirfNew.addActionListener(new RecentKeyStoreFileActionListener(fRecentFile, this));
 
 		new StatusBarChangeHandler(jmirfNew, MessageFormat.format(
-		    m_res.getString("FPortecle.recentfile.statusbar"), fRecentFile), this);
+		    RB.getString("FPortecle.recentfile.statusbar"), fRecentFile), this);
 		return jmirfNew;
 	}
 
@@ -1114,7 +1113,7 @@ public class FPortecle
 		JToolBar jtbToolBar = new JToolBar();
 		jtbToolBar.setFloatable(false);
 		jtbToolBar.setRollover(true);
-		jtbToolBar.setName(m_res.getString("FPortecle.jtbToolBar.name"));
+		jtbToolBar.setName(RB.getString("FPortecle.jtbToolBar.name"));
 
 		// Add the buttons to the toolbar - use visible separators for all L&Fs
 		jtbToolBar.add(jbNewKeyStore);
@@ -1187,7 +1186,7 @@ public class FPortecle
 
 		// Set alias columns width according to the relevant application
 		// property unless the property is not present or is invalid.
-		int iAliasWidth = m_appPrefs.getInt(m_res.getString("AppPrefs.AliasWidth"), 0);
+		int iAliasWidth = m_appPrefs.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
 
 		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(1);
 		aliasCol.setMinWidth(20);
@@ -1224,8 +1223,8 @@ public class FPortecle
 
 		// Get the size of the keystore table panel from the application
 		// preferences
-		int iWidth = m_appPrefs.getInt(m_res.getString("AppPrefs.TableWidth"), 0);
-		int iHeight = m_appPrefs.getInt(m_res.getString("AppPrefs.TableHeight"), 0);
+		int iWidth = m_appPrefs.getInt(RB.getString("AppPrefs.TableWidth"), 0);
+		int iHeight = m_appPrefs.getInt(RB.getString("AppPrefs.TableHeight"), 0);
 
 		// Put the scroll pane into a panel. The preferred size of the panel
 		// dictates the size of the entire frame
@@ -1297,7 +1296,7 @@ public class FPortecle
 		m_jpmKey = new JPopupMenu();
 
 		JMenuItem jmiKeyDelete =
-		    new JMenuItem(m_res.getString("FPortecle.jmiKeyDelete.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiKeyDelete.text"), RB.getString(
 		        "FPortecle.jmiKeyDelete.mnemonic").charAt(0));
 		jmiKeyDelete.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyDelete.image")));
 		jmiKeyDelete.addActionListener(new ActionListener()
@@ -1308,7 +1307,7 @@ public class FPortecle
 				deleteSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyDelete, m_res.getString("FPortecle.jmiKeyDelete.statusbar"), this);
+		new StatusBarChangeHandler(jmiKeyDelete, RB.getString("FPortecle.jmiKeyDelete.statusbar"), this);
 
 		m_jpmKey.add(jmiKeyDelete);
 
@@ -1317,7 +1316,7 @@ public class FPortecle
 		m_jpmKeyPair = new JPopupMenu();
 
 		JMenuItem jmiKeyPairCertDetails =
-		    new JMenuItem(m_res.getString("FPortecle.jmiKeyPairCertDetails.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairCertDetails.text"), RB.getString(
 		        "FPortecle.jmiKeyPairCertDetails.mnemonic").charAt(0));
 		jmiKeyPairCertDetails.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairCertDetails.image")));
 		jmiKeyPairCertDetails.addActionListener(new ActionListener()
@@ -1329,10 +1328,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(jmiKeyPairCertDetails,
-		    m_res.getString("FPortecle.jmiKeyPairCertDetails.statusbar"), this);
+		    RB.getString("FPortecle.jmiKeyPairCertDetails.statusbar"), this);
 
 		JMenuItem jmiKeyPairExport =
-		    new JMenuItem(m_res.getString("FPortecle.jmiKeyPairExport.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairExport.text"), RB.getString(
 		        "FPortecle.jmiKeyPairExport.mnemonic").charAt(0));
 		jmiKeyPairExport.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairExport.image")));
 
@@ -1344,11 +1343,11 @@ public class FPortecle
 				exportSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairExport, m_res.getString("FPortecle.jmiKeyPairExport.statusbar"),
+		new StatusBarChangeHandler(jmiKeyPairExport, RB.getString("FPortecle.jmiKeyPairExport.statusbar"),
 		    this);
 
 		JMenuItem jmiGenerateCSR =
-		    new JMenuItem(m_res.getString("FPortecle.jmiGenerateCSR.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiGenerateCSR.text"), RB.getString(
 		        "FPortecle.jmiGenerateCSR.mnemonic").charAt(0));
 		jmiGenerateCSR.setIcon(new ImageIcon(getResImage("FPortecle.jmiGenerateCSR.image")));
 		jmiGenerateCSR.addActionListener(new ActionListener()
@@ -1359,11 +1358,10 @@ public class FPortecle
 				generateCsrSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiGenerateCSR, m_res.getString("FPortecle.jmiGenerateCSR.statusbar"),
-		    this);
+		new StatusBarChangeHandler(jmiGenerateCSR, RB.getString("FPortecle.jmiGenerateCSR.statusbar"), this);
 
 		JMenuItem jmiImportCAReply =
-		    new JMenuItem(m_res.getString("FPortecle.jmiImportCAReply.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiImportCAReply.text"), RB.getString(
 		        "FPortecle.jmiImportCAReply.mnemonic").charAt(0));
 		jmiImportCAReply.setIcon(new ImageIcon(getResImage("FPortecle.jmiImportCAReply.image")));
 		jmiImportCAReply.addActionListener(new ActionListener()
@@ -1374,11 +1372,11 @@ public class FPortecle
 				importCAReplySelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiImportCAReply, m_res.getString("FPortecle.jmiImportCAReply.statusbar"),
+		new StatusBarChangeHandler(jmiImportCAReply, RB.getString("FPortecle.jmiImportCAReply.statusbar"),
 		    this);
 
 		m_jmiSetKeyPairPass =
-		    new JMenuItem(m_res.getString("FPortecle.m_jmiSetKeyPairPass.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.m_jmiSetKeyPairPass.text"), RB.getString(
 		        "FPortecle.m_jmiSetKeyPairPass.mnemonic").charAt(0));
 		m_jmiSetKeyPairPass.setIcon(new ImageIcon(getResImage("FPortecle.m_jmiSetKeyPairPass.image")));
 		m_jmiSetKeyPairPass.addActionListener(new ActionListener()
@@ -1390,10 +1388,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(m_jmiSetKeyPairPass,
-		    m_res.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"), this);
+		    RB.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"), this);
 
 		JMenuItem jmiKeyPairDelete =
-		    new JMenuItem(m_res.getString("FPortecle.jmiKeyPairDelete.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairDelete.text"), RB.getString(
 		        "FPortecle.jmiKeyPairDelete.mnemonic").charAt(0));
 		jmiKeyPairDelete.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairDelete.image")));
 		jmiKeyPairDelete.addActionListener(new ActionListener()
@@ -1404,11 +1402,11 @@ public class FPortecle
 				deleteSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairDelete, m_res.getString("FPortecle.jmiKeyPairDelete.statusbar"),
+		new StatusBarChangeHandler(jmiKeyPairDelete, RB.getString("FPortecle.jmiKeyPairDelete.statusbar"),
 		    this);
 
 		JMenuItem jmiKeyPairClone =
-		    new JMenuItem(m_res.getString("FPortecle.jmiKeyPairClone.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairClone.text"), RB.getString(
 		        "FPortecle.jmiKeyPairClone.mnemonic").charAt(0));
 		jmiKeyPairClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairClone.image")));
 		jmiKeyPairClone.addActionListener(new ActionListener()
@@ -1419,11 +1417,10 @@ public class FPortecle
 				cloneSelectedKeyEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairClone, m_res.getString("FPortecle.jmiKeyPairClone.statusbar"),
-		    this);
+		new StatusBarChangeHandler(jmiKeyPairClone, RB.getString("FPortecle.jmiKeyPairClone.statusbar"), this);
 
 		JMenuItem jmiKeyPairRename =
-		    new JMenuItem(m_res.getString("FPortecle.jmiKeyPairRename.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairRename.text"), RB.getString(
 		        "FPortecle.jmiKeyPairRename.mnemonic").charAt(0));
 		jmiKeyPairRename.setIcon(new ImageIcon(getResImage("FPortecle.jmiKeyPairRename.image")));
 		jmiKeyPairRename.addActionListener(new ActionListener()
@@ -1434,7 +1431,7 @@ public class FPortecle
 				renameSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairRename, m_res.getString("FPortecle.jmiKeyPairRename.statusbar"),
+		new StatusBarChangeHandler(jmiKeyPairRename, RB.getString("FPortecle.jmiKeyPairRename.statusbar"),
 		    this);
 
 		m_jpmKeyPair.add(jmiKeyPairCertDetails);
@@ -1453,7 +1450,7 @@ public class FPortecle
 		m_jpmCert = new JPopupMenu();
 
 		JMenuItem jmiTrustCertDetails =
-		    new JMenuItem(m_res.getString("FPortecle.jmiTrustCertDetails.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertDetails.text"), RB.getString(
 		        "FPortecle.jmiTrustCertDetails.mnemonic").charAt(0));
 		jmiTrustCertDetails.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertDetails.image")));
 		jmiTrustCertDetails.addActionListener(new ActionListener()
@@ -1465,10 +1462,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(jmiTrustCertDetails,
-		    m_res.getString("FPortecle.jmiTrustCertDetails.statusbar"), this);
+		    RB.getString("FPortecle.jmiTrustCertDetails.statusbar"), this);
 
 		JMenuItem jmiTrustCertExport =
-		    new JMenuItem(m_res.getString("FPortecle.jmiTrustCertExport.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertExport.text"), RB.getString(
 		        "FPortecle.jmiTrustCertExport.mnemonic").charAt(0));
 		jmiTrustCertExport.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertExport.image")));
 		jmiTrustCertExport.addActionListener(new ActionListener()
@@ -1480,10 +1477,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(jmiTrustCertExport,
-		    m_res.getString("FPortecle.jmiTrustCertExport.statusbar"), this);
+		    RB.getString("FPortecle.jmiTrustCertExport.statusbar"), this);
 
 		JMenuItem jmiTrustCertDelete =
-		    new JMenuItem(m_res.getString("FPortecle.jmiTrustCertDelete.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertDelete.text"), RB.getString(
 		        "FPortecle.jmiTrustCertDelete.mnemonic").charAt(0));
 		jmiTrustCertDelete.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertDelete.image")));
 		jmiTrustCertDelete.addActionListener(new ActionListener()
@@ -1495,10 +1492,10 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(jmiTrustCertDelete,
-		    m_res.getString("FPortecle.jmiTrustCertDelete.statusbar"), this);
+		    RB.getString("FPortecle.jmiTrustCertDelete.statusbar"), this);
 
 		JMenuItem jmiTrustCertClone =
-		    new JMenuItem(m_res.getString("FPortecle.jmiTrustCertClone.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertClone.text"), RB.getString(
 		        "FPortecle.jmiTrustCertClone.mnemonic").charAt(0));
 		jmiTrustCertClone.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertClone.image")));
 		jmiTrustCertClone.addActionListener(new ActionListener()
@@ -1509,11 +1506,11 @@ public class FPortecle
 				cloneSelectedCertificateEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiTrustCertClone,
-		    m_res.getString("FPortecle.jmiTrustCertClone.statusbar"), this);
+		new StatusBarChangeHandler(jmiTrustCertClone, RB.getString("FPortecle.jmiTrustCertClone.statusbar"),
+		    this);
 
 		JMenuItem jmiTrustCertRename =
-		    new JMenuItem(m_res.getString("FPortecle.jmiTrustCertRename.text"), m_res.getString(
+		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertRename.text"), RB.getString(
 		        "FPortecle.jmiTrustCertRename.mnemonic").charAt(0));
 		jmiTrustCertRename.setIcon(new ImageIcon(getResImage("FPortecle.jmiTrustCertRename.image")));
 		jmiTrustCertRename.addActionListener(new ActionListener()
@@ -1525,7 +1522,7 @@ public class FPortecle
 			}
 		});
 		new StatusBarChangeHandler(jmiTrustCertRename,
-		    m_res.getString("FPortecle.jmiTrustCertRename.statusbar"), this);
+		    RB.getString("FPortecle.jmiTrustCertRename.statusbar"), this);
 
 		m_jpmCert.add(jmiTrustCertDetails);
 		m_jpmCert.addSeparator();
@@ -1650,7 +1647,7 @@ public class FPortecle
 		 * will update the keystore with the key pair for us
 		 */
 		DGenerateCertificate dGenerateCertificate =
-		    new DGenerateCertificate(this, m_res.getString("FPortecle.GenerateCertificate.Title"), true,
+		    new DGenerateCertificate(this, RB.getString("FPortecle.GenerateCertificate.Title"), true,
 		        keyPair, keyPairType);
 		dGenerateCertificate.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGenerateCertificate);
@@ -1670,7 +1667,7 @@ public class FPortecle
 
 		// Get the alias
 		DGetAlias dGetAlias =
-		    new DGetAlias(this, m_res.getString("DGenerateCertificate.KeyPairEntryAlias.Title"), true,
+		    new DGetAlias(this, RB.getString("DGenerateCertificate.KeyPairEntryAlias.Title"), true,
 		        X509CertUtil.getCertificateAlias(certificate).toLowerCase(), false);
 		dGetAlias.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetAlias);
@@ -1690,12 +1687,11 @@ public class FPortecle
 			if (keyStore.containsAlias(sAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("DGenerateCertificate.OverwriteAlias.message"),
-				        sAlias);
+				    MessageFormat.format(RB.getString("DGenerateCertificate.OverwriteAlias.message"), sAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
-				        m_res.getString("DGenerateCertificate.KeyPairEntryAlias.Title"),
+				        RB.getString("DGenerateCertificate.KeyPairEntryAlias.Title"),
 				        JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
@@ -1718,7 +1714,7 @@ public class FPortecle
 		if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 		{
 			DGetNewPassword dGetNewPassword =
-			    new DGetNewPassword(this, m_res.getString("DGenerateCertificate.KeyPairEntryPassword.Title"),
+			    new DGetNewPassword(this, RB.getString("DGenerateCertificate.KeyPairEntryPassword.Title"),
 			        true);
 			dGetNewPassword.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetNewPassword);
@@ -1757,8 +1753,8 @@ public class FPortecle
 		updateTitle();
 
 		// Display success message
-		JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.KeyPairGenerationSuccessful.message"),
-		    m_res.getString("FPortecle.GenerateCertificate.Title"), JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, RB.getString("FPortecle.KeyPairGenerationSuccessful.message"),
+		    RB.getString("FPortecle.GenerateCertificate.Title"), JOptionPane.INFORMATION_MESSAGE);
 		return true;
 	}
 
@@ -1791,7 +1787,7 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.OpenKeyStoreFile.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.OpenKeyStoreFile.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
 		int iRtnValue = chooser.showOpenDialog(this);
@@ -1820,23 +1816,23 @@ public class FPortecle
 		if (!fKeyStore.exists())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.FileNotFound.message"), fKeyStore),
-			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.FileNotFound.message"), fKeyStore),
+			    RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		// The keystore file is not a file
 		else if (!fKeyStore.isFile())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NotFile.message"), fKeyStore),
-			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NotFile.message"), fKeyStore),
+			    RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
-		    new DGetPassword(this, MessageFormat.format(
-		        m_res.getString("FPortecle.GetKeyStorePassword.Title"), fKeyStore.getName()), true);
+		    new DGetPassword(this, MessageFormat.format(RB.getString("FPortecle.GetKeyStorePassword.Title"),
+		        fKeyStore.getName()), true);
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -1884,8 +1880,8 @@ public class FPortecle
 				}
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenKeyStoreFile.message"), fKeyStore, tried),
-				        m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.NoOpenKeyStoreFile.message"), fKeyStore, tried),
+				        RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (CryptoException cex : cexs)
@@ -1916,8 +1912,8 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoRead.message"), fKeyStore),
-			    m_res.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NoRead.message"), fKeyStore),
+			    RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		catch (Exception ex)
@@ -1948,8 +1944,7 @@ public class FPortecle
 		}
 
 		DChoosePkcs11Provider chooser =
-		    new DChoosePkcs11Provider(this, m_res.getString("FPortecle.ChoosePkcs11Provider.Title"), true,
-		        null);
+		    new DChoosePkcs11Provider(this, RB.getString("FPortecle.ChoosePkcs11Provider.Title"), true, null);
 		chooser.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(chooser);
 
@@ -1967,8 +1962,8 @@ public class FPortecle
 	{
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
-		    new DGetPassword(this, MessageFormat.format(
-		        m_res.getString("FPortecle.GetKeyStorePassword.Title"), sPkcs11Provider), true);
+		    new DGetPassword(this, MessageFormat.format(RB.getString("FPortecle.GetKeyStorePassword.Title"),
+		        sPkcs11Provider), true);
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -1990,8 +1985,8 @@ public class FPortecle
 		{
 			int iSelected =
 			    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-			        m_res.getString("FPortecle.NoOpenKeyStorePkcs11.message"), sPkcs11Provider),
-			        m_res.getString("FPortecle.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
+			        RB.getString("FPortecle.NoOpenKeyStorePkcs11.message"), sPkcs11Provider),
+			        RB.getString("FPortecle.ChoosePkcs11Provider.Title"), JOptionPane.YES_NO_OPTION);
 			if (iSelected == JOptionPane.YES_OPTION)
 			{
 				DThrowable.showAndWait(this, null, e);
@@ -2061,8 +2056,8 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoWriteFile.message"), fSaveFile),
-			    m_res.getString("FPortecle.SaveKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NoWriteFile.message"), fSaveFile),
+			    RB.getString("FPortecle.SaveKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		catch (Exception ex)
@@ -2084,7 +2079,7 @@ public class FPortecle
 
 		// Display the get new password dialog
 		DGetNewPassword dGetNewPassword =
-		    new DGetNewPassword(this, m_res.getString("FPortecle.SetKeyStorePassword.Title"), true);
+		    new DGetNewPassword(this, RB.getString("FPortecle.SetKeyStorePassword.Title"), true);
 		dGetNewPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetNewPassword);
 
@@ -2130,7 +2125,7 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.SaveKeyStoreAs.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.SaveKeyStoreAs.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
 		int iRtnValue = chooser.showSaveDialog(this);
@@ -2140,7 +2135,7 @@ public class FPortecle
 
 			try
 			{
-				if (!confirmOverwrite(fSaveFile, m_res.getString("FPortecle.SaveKeyStoreAs.Title")))
+				if (!confirmOverwrite(fSaveFile, RB.getString("FPortecle.SaveKeyStoreAs.Title")))
 				{
 					return false;
 				}
@@ -2168,8 +2163,8 @@ public class FPortecle
 			catch (FileNotFoundException ex)
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.NoWriteFile.message"), fSaveFile),
-				    m_res.getString("FPortecle.SaveKeyStoreAs.Title"), JOptionPane.WARNING_MESSAGE);
+				    RB.getString("FPortecle.NoWriteFile.message"), fSaveFile),
+				    RB.getString("FPortecle.SaveKeyStoreAs.Title"), JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			catch (Exception ex)
@@ -2220,14 +2215,14 @@ public class FPortecle
 		}
 		else
 		{
-			sKeyStoreName = m_res.getString("FPortecle.Untitled");
+			sKeyStoreName = RB.getString("FPortecle.Untitled");
 		}
 
 		String sMessage =
-		    MessageFormat.format(m_res.getString("FPortecle.WantSaveChanges.message"), sKeyStoreName);
+		    MessageFormat.format(RB.getString("FPortecle.WantSaveChanges.message"), sKeyStoreName);
 
 		int iSelected =
-		    JOptionPane.showConfirmDialog(this, sMessage, m_res.getString("FPortecle.WantSaveChanges.Title"),
+		    JOptionPane.showConfirmDialog(this, sMessage, RB.getString("FPortecle.WantSaveChanges.Title"),
 		        JOptionPane.YES_NO_CANCEL_OPTION);
 		if (iSelected == JOptionPane.CLOSED_OPTION)
 		{
@@ -2410,9 +2405,9 @@ public class FPortecle
 			if (certs != null && certs.length != 0)
 			{
 				DViewCertificate dViewCertificate =
-				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetailsSSL.Title"), ia.getHostName() + ":" +
-				            ia.getPort()), true, certs);
+				    new DViewCertificate(this,
+				        MessageFormat.format(RB.getString("FPortecle.CertDetailsSSL.Title"),
+				            ia.getHostName() + ":" + ia.getPort()), true, certs);
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 				return true;
@@ -2451,8 +2446,8 @@ public class FPortecle
 			try
 			{
 				DViewCSR dViewCSR =
-				    new DViewCSR(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()), true, csr);
+				    new DViewCSR(this, MessageFormat.format(RB.getString("FPortecle.CsrDetailsFile.Title"),
+				        fCSRFile.getName()), true, csr);
 				dViewCSR.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCSR);
 				return true;
@@ -2501,10 +2496,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ImportCaReply.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ImportCaReply.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ImportCaReply.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportCaReply.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fOpenFile = chooser.getSelectedFile();
@@ -2528,10 +2523,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExamineCertificate.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExamineCertificate.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ExamineCertificate.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ExamineCertificate.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fOpenFile = chooser.getSelectedFile();
@@ -2548,7 +2543,7 @@ public class FPortecle
 	private InetSocketAddress chooseExamineCertSSL()
 	{
 		DGetHostPort d =
-		    new DGetHostPort(this, m_res.getString("FPortecle.ExamineCertificateSSL.Title"), true, null);
+		    new DGetHostPort(this, RB.getString("FPortecle.ExamineCertificateSSL.Title"), true, null);
 		d.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(d);
 		return d.getHostPort();
@@ -2569,10 +2564,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExamineCsr.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExamineCsr.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ExamineCsr.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ExamineCsr.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fOpenFile = chooser.getSelectedFile();
@@ -2596,10 +2591,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExamineCrl.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExamineCrl.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ExamineCrl.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ExamineCrl.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fOpenFile = chooser.getSelectedFile();
@@ -2626,10 +2621,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ImportTrustCert.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ImportTrustCert.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ImportTrustCert.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportTrustCert.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fImportFile = chooser.getSelectedFile();
@@ -2656,10 +2651,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ImportPkcs12KeyStore.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ImportPkcs12KeyStore.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.ImportPkcs12KeyStore.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportPkcs12KeyStore.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fPkcs12File = chooser.getSelectedFile();
@@ -2687,10 +2682,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.GenerateCsr.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.GenerateCsr.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.GenerateCsr.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.GenerateCsr.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fCsrFile = chooser.getSelectedFile();
@@ -2719,8 +2714,8 @@ public class FPortecle
 				// None of the types worked - show each of the errors?
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenCertificate.message"), fCertFile),
-				        m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.NoOpenCertificate.message"), fCertFile),
+				        RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (Exception e : exs)
@@ -2732,8 +2727,8 @@ public class FPortecle
 			else if (certs.length == 0)
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.NoCertsFound.message"), fCertFile),
-				    m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
+				    RB.getString("FPortecle.NoCertsFound.message"), fCertFile),
+				    RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
 			}
 
 			return certs;
@@ -2760,8 +2755,8 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoRead.message"), fCSRFile), MessageFormat.format(
-			    m_res.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
+			    RB.getString("FPortecle.NoRead.message"), fCSRFile), MessageFormat.format(
+			    RB.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
 			    JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
@@ -2819,9 +2814,8 @@ public class FPortecle
 			// Compare the public keys of the start of each chain
 			if (!oldCerts[0].getPublicKey().equals(certs[0].getPublicKey()))
 			{
-				JOptionPane.showMessageDialog(this,
-				    m_res.getString("FPortecle.NoMatchPubKeyCaReply.message"),
-				    m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, RB.getString("FPortecle.NoMatchPubKeyCaReply.message"),
+				    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 
@@ -2865,13 +2859,13 @@ public class FPortecle
 				{
 					// Tell the user what is happening
 					JOptionPane.showMessageDialog(this,
-					    m_res.getString("FPortecle.NoMatchRootCertCaReplyConfirm.message"),
-					    m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
+					    RB.getString("FPortecle.NoMatchRootCertCaReplyConfirm.message"),
+					    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 					// Display the certficate to the user
 					DViewCertificate dViewCertificate =
 					    new DViewCertificate(this, MessageFormat.format(
-					        m_res.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
+					        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
 					        new X509Certificate[] { rootCert });
 					dViewCertificate.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewCertificate);
@@ -2879,9 +2873,8 @@ public class FPortecle
 					// Request confirmation that the certidicate is to
 					// be trusted
 					int iSelected =
-					    JOptionPane.showConfirmDialog(this,
-					        m_res.getString("FPortecle.AcceptCaReply.message"),
-					        m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.YES_NO_OPTION);
+					    JOptionPane.showConfirmDialog(this, RB.getString("FPortecle.AcceptCaReply.message"),
+					        RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.YES_NO_OPTION);
 					if (iSelected != JOptionPane.YES_OPTION)
 					{
 						return false;
@@ -2920,8 +2913,8 @@ public class FPortecle
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.NoTrustCaReply.message"),
-					    m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, RB.getString("FPortecle.NoTrustCaReply.message"),
+					    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
 			}
@@ -2938,7 +2931,7 @@ public class FPortecle
 				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -2966,8 +2959,8 @@ public class FPortecle
 			m_lastDir.updateLastDir(fCertFile);
 
 			// Display success message
-			JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.ImportCaReplySuccessful.message"),
-			    m_res.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.ImportCaReplySuccessful.message"),
+			    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 			return true;
 		}
@@ -3006,9 +2999,8 @@ public class FPortecle
 		if (certs.length > 1)
 		{
 			// Cannot import more than one certificate
-			JOptionPane.showMessageDialog(this,
-			    m_res.getString("FPortecle.NoMultipleTrustCertImport.message"),
-			    m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.NoMultipleTrustCertImport.message"),
+			    RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 
@@ -3025,8 +3017,8 @@ public class FPortecle
 			{
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.TrustCertExistsConfirm.message"), sMatchAlias),
-				        m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.TrustCertExistsConfirm.message"), sMatchAlias),
+				        RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -3064,22 +3056,21 @@ public class FPortecle
 			if (X509CertUtil.establishTrust(compKeyStores, trustCert) == null)
 			{
 				// Tell the user what is happening
-				JOptionPane.showMessageDialog(this,
-				    m_res.getString("FPortecle.NoTrustPathCertConfirm.message"),
-				    m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, RB.getString("FPortecle.NoTrustPathCertConfirm.message"),
+				    RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 				// Display the certficate to the user
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
-				        m_res.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
+				        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
 				        new X509Certificate[] { trustCert });
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 
 				// Request confirmation that the certidicate is to be trusted
 				int iSelected =
-				    JOptionPane.showConfirmDialog(this, m_res.getString("FPortecle.AcceptTrustCert.message"),
-				        m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
+				    JOptionPane.showConfirmDialog(this, RB.getString("FPortecle.AcceptTrustCert.message"),
+				        RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -3088,7 +3079,7 @@ public class FPortecle
 
 			// Get the entry alias to put the trusted certificate into
 			DGetAlias dGetAlias =
-			    new DGetAlias(this, m_res.getString("FPortecle.TrustCertEntryAlias.Title"), true,
+			    new DGetAlias(this, RB.getString("FPortecle.TrustCertEntryAlias.Title"), true,
 			        X509CertUtil.getCertificateAlias(trustCert).toLowerCase(), false);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
@@ -3103,11 +3094,11 @@ public class FPortecle
 			if (keyStore.containsAlias(sAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), sAlias);
+				    MessageFormat.format(RB.getString("FPortecle.OverWriteEntry.message"), sAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
-				        m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -3130,9 +3121,8 @@ public class FPortecle
 			m_lastDir.updateLastDir(fCertFile);
 
 			// Display success message
-			JOptionPane.showMessageDialog(this,
-			    m_res.getString("FPortecle.ImportTrustCertSuccessful.message"),
-			    m_res.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.ImportTrustCertSuccessful.message"),
+			    RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 			return true;
 		}
@@ -3166,14 +3156,14 @@ public class FPortecle
 		if (!fPkcs12.isFile())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NotFile.message"), fPkcs12),
-			    m_res.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NotFile.message"), fPkcs12),
+			    RB.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
 		// Get the user to enter the PKCS #12 keystore's password
 		DGetPassword dGetPassword =
-		    new DGetPassword(this, m_res.getString("FPortecle.Pkcs12Password.Title"), true);
+		    new DGetPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"), true);
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPkcs12Password = dGetPassword.getPassword();
@@ -3215,7 +3205,7 @@ public class FPortecle
 
 			// Get the alias for the new key pair entry
 			DGetAlias dGetAlias =
-			    new DGetAlias(this, m_res.getString("FPortecle.KeyPairEntryAlias.Title"), true,
+			    new DGetAlias(this, RB.getString("FPortecle.KeyPairEntryAlias.Title"), true,
 			        sAlias.toLowerCase(), false);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
@@ -3234,11 +3224,11 @@ public class FPortecle
 			if (keyStore.containsAlias(sAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), sAlias);
+				    MessageFormat.format(RB.getString("FPortecle.OverWriteEntry.message"), sAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
-				        m_res.getString("FPortecle.KeyPairEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.KeyPairEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -3254,7 +3244,7 @@ public class FPortecle
 			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
 				DGetNewPassword dGetNewPassword =
-				    new DGetNewPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+				    new DGetNewPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 				dGetNewPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetNewPassword);
 				cPassword = dGetNewPassword.getPassword();
@@ -3283,8 +3273,8 @@ public class FPortecle
 			updateTitle();
 
 			// Display success message
-			JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.KeyPairImportSuccessful.message"),
-			    m_res.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.KeyPairImportSuccessful.message"),
+			    RB.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.INFORMATION_MESSAGE);
 			return true;
 		}
 		catch (Exception ex)
@@ -3303,7 +3293,7 @@ public class FPortecle
 	{
 		// Get the user to enter the CA certs keystore's password
 		DGetPassword dGetPassword =
-		    new DGetPassword(this, m_res.getString("FPortecle.CaCertsKeyStorePassword.Title"), true);
+		    new DGetPassword(this, RB.getString("FPortecle.CaCertsKeyStorePassword.Title"), true);
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -3352,8 +3342,8 @@ public class FPortecle
 				}
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenCaCertsKeyStore.message"), m_fCaCertsFile, tried),
-				        m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.NoOpenCaCertsKeyStore.message"), m_fCaCertsFile, tried),
+				        RB.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (CryptoException cex : cexs)
@@ -3370,8 +3360,8 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoRead.message"), m_fCaCertsFile),
-			    m_res.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NoRead.message"), m_fCaCertsFile),
+			    RB.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
 		catch (Exception ex)
@@ -3391,7 +3381,7 @@ public class FPortecle
 		{
 			URL toc = null;
 			URL home = null;
-			String s = m_res.getString("FPortecle.Help.Contents");
+			String s = RB.getString("FPortecle.Help.Contents");
 			if (s.startsWith("/"))
 			{
 				toc = FPortecle.class.getResource(s);
@@ -3408,7 +3398,7 @@ public class FPortecle
 					return;
 				}
 			}
-			s = m_res.getString("FPortecle.Help.Home");
+			s = RB.getString("FPortecle.Help.Home");
 			if (s.startsWith("/"))
 			{
 				home = FPortecle.class.getResource(s);
@@ -3426,7 +3416,7 @@ public class FPortecle
 				}
 			}
 
-			m_fHelp = new FHelp(m_res.getString("FPortecle.Help.Title"), home, toc);
+			m_fHelp = new FHelp(RB.getString("FPortecle.Help.Title"), home, toc);
 			m_fHelp.setLocation(getX() + 25, getY() + 25);
 		}
 
@@ -3439,7 +3429,7 @@ public class FPortecle
 	 */
 	private void visitWebsite()
 	{
-		DesktopUtil.browse(this, URI.create(m_res.getString("FPortecle.WebsiteAddress")));
+		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.WebsiteAddress")));
 	}
 
 	/**
@@ -3447,7 +3437,7 @@ public class FPortecle
 	 */
 	private void visitSFNetProject()
 	{
-		DesktopUtil.browse(this, URI.create(m_res.getString("FPortecle.SFNetProjectAddress")));
+		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.SFNetProjectAddress")));
 	}
 
 	/**
@@ -3455,7 +3445,7 @@ public class FPortecle
 	 */
 	private void visitMailListSignup()
 	{
-		DesktopUtil.browse(this, URI.create(m_res.getString("FPortecle.MailListSignupAddress")));
+		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.MailListSignupAddress")));
 	}
 
 // /**
@@ -3501,7 +3491,7 @@ public class FPortecle
 	 */
 	private void makeDonation()
 	{
-		DesktopUtil.browse(this, URI.create(m_res.getString("FPortecle.DonateAddress")));
+		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.DonateAddress")));
 	}
 
 	/**
@@ -3641,9 +3631,8 @@ public class FPortecle
 					{
 						int iSelected =
 						    JOptionPane.showConfirmDialog(this,
-						        m_res.getString("FPortecle.WarnOverwriteAlias.message"),
-						        m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
-						        JOptionPane.YES_NO_OPTION);
+						        RB.getString("FPortecle.WarnOverwriteAlias.message"),
+						        RB.getString("FPortecle.ChangeKeyStoreType.Title"), JOptionPane.YES_NO_OPTION);
 						if (iSelected != JOptionPane.YES_OPTION)
 						{
 							continue;
@@ -3669,8 +3658,8 @@ public class FPortecle
 							bWarnNoChangeKey = true;
 							int iSelected =
 							    JOptionPane.showConfirmDialog(this,
-							        m_res.getString("FPortecle.WarnNoChangeKey.message"),
-							        m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
+							        RB.getString("FPortecle.WarnNoChangeKey.message"),
+							        RB.getString("FPortecle.ChangeKeyStoreType.Title"),
 							        JOptionPane.YES_NO_OPTION);
 							if (iSelected != JOptionPane.YES_OPTION)
 							{
@@ -3695,7 +3684,7 @@ public class FPortecle
 						{
 							String sTitle =
 							    MessageFormat.format(
-							        m_res.getString("FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"),
+							        RB.getString("FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"),
 							        sAlias);
 							DGetPassword dGetPassword = new DGetPassword(this, sTitle, true);
 							dGetPassword.setLocationRelativeTo(this);
@@ -3721,9 +3710,9 @@ public class FPortecle
 						{
 							bWarnPkcs12Password = true;
 							JOptionPane.showMessageDialog(this, MessageFormat.format(
-							    m_res.getString("FPortecle.ChangeFromPkcs12Password.message"), new String(
+							    RB.getString("FPortecle.ChangeFromPkcs12Password.message"), new String(
 							        PKCS12_DUMMY_PASSWORD)),
-							    m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
+							    RB.getString("FPortecle.ChangeKeyStoreType.Title"),
 							    JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
@@ -3739,9 +3728,8 @@ public class FPortecle
 					{
 						int iSelected =
 						    JOptionPane.showConfirmDialog(this,
-						        m_res.getString("FPortecle.WarnOverwriteAlias.message"),
-						        m_res.getString("FPortecle.ChangeKeyStoreType.Title"),
-						        JOptionPane.YES_NO_OPTION);
+						        RB.getString("FPortecle.WarnOverwriteAlias.message"),
+						        RB.getString("FPortecle.ChangeKeyStoreType.Title"), JOptionPane.YES_NO_OPTION);
 						if (iSelected != JOptionPane.YES_OPTION)
 						{
 							continue;
@@ -3795,8 +3783,8 @@ public class FPortecle
 
 			// Display success message
 			JOptionPane.showMessageDialog(this,
-			    m_res.getString("FPortecle.ChangeKeyStoreTypeSuccessful.message"),
-			    m_res.getString("FPortecle.ChangeKeyStoreType.Title"), JOptionPane.INFORMATION_MESSAGE);
+			    RB.getString("FPortecle.ChangeKeyStoreTypeSuccessful.message"),
+			    RB.getString("FPortecle.ChangeKeyStoreType.Title"), JOptionPane.INFORMATION_MESSAGE);
 			return true;
 		}
 		catch (Exception ex)
@@ -3864,8 +3852,7 @@ public class FPortecle
 		// Display the change password dialog supplying the current password
 		// to it if it was available
 		DChangePassword dChangePassword =
-		    new DChangePassword(this, true, m_res.getString("FPortecle.SetKeyPairPassword.Title"),
-		        cOldPassword);
+		    new DChangePassword(this, true, RB.getString("FPortecle.SetKeyPairPassword.Title"), cOldPassword);
 		dChangePassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dChangePassword);
 
@@ -4000,8 +3987,8 @@ public class FPortecle
 			if (bSuccess)
 			{
 				// Display success message
-				JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.ExportSuccessful.message"),
-				    m_res.getString("FPortecle.Export.Title"), JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, RB.getString("FPortecle.ExportSuccessful.message"),
+				    RB.getString("FPortecle.Export.Title"), JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		catch (Exception ex)
@@ -4061,7 +4048,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4139,7 +4126,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4222,7 +4209,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4305,7 +4292,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4398,7 +4385,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4491,7 +4478,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4553,7 +4540,7 @@ public class FPortecle
 		catch (KeyStoreException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoAccessEntry.message"), sEntryAlias);
+			    MessageFormat.format(RB.getString("FPortecle.NoAccessEntry.message"), sEntryAlias);
 			throw new CryptoException(sMessage, ex);
 		}
 	}
@@ -4579,7 +4566,7 @@ public class FPortecle
 			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
 				DGetPassword dGetPassword =
-				    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 				dGetPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetPassword);
 				cPassword = dGetPassword.getPassword();
@@ -4639,7 +4626,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4690,7 +4677,7 @@ public class FPortecle
 			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
 				DGetPassword dGetPassword =
-				    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 				dGetPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetPassword);
 				cPassword = dGetPassword.getPassword();
@@ -4722,7 +4709,7 @@ public class FPortecle
 
 			// Get a new password for the PKCS #12 keystore
 			DGetNewPassword dGetNewPassword =
-			    new DGetNewPassword(this, m_res.getString("FPortecle.Pkcs12Password.Title"), true);
+			    new DGetNewPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"), true);
 			dGetNewPassword.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetNewPassword);
 
@@ -4765,7 +4752,7 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fExportFile.getName());
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -4802,10 +4789,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExportCertificate.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExportCertificate.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fExportFile = chooser.getSelectedFile();
@@ -4830,10 +4817,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExportCertificates.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExportCertificates.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fExportFile = chooser.getSelectedFile();
@@ -4858,10 +4845,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExportCertificates.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExportCertificates.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fExportFile = chooser.getSelectedFile();
@@ -4886,10 +4873,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExportKeyCertificates.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExportKeyCertificates.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fExportFile = chooser.getSelectedFile();
@@ -4914,10 +4901,10 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(m_res.getString("FPortecle.ExportKeyCertificates.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ExportKeyCertificates.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, m_res.getString("FPortecle.Export.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fExportFile = chooser.getSelectedFile();
@@ -4962,7 +4949,7 @@ public class FPortecle
 				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -4991,7 +4978,7 @@ public class FPortecle
 				return false;
 			}
 
-			if (!confirmOverwrite(fCsrFile, m_res.getString("FPortecle.GenerateCsr.Title")))
+			if (!confirmOverwrite(fCsrFile, RB.getString("FPortecle.GenerateCsr.Title")))
 			{
 				return false;
 			}
@@ -5001,8 +4988,8 @@ public class FPortecle
 			pw.writeObject(X509CertUtil.generatePKCS10CSR(cert, privKey));
 
 			// Display success message
-			JOptionPane.showMessageDialog(this, m_res.getString("FPortecle.CsrGenerationSuccessful.message"),
-			    m_res.getString("FPortecle.GenerateCsr.Title"), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.CsrGenerationSuccessful.message"),
+			    RB.getString("FPortecle.GenerateCsr.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 			m_lastDir.updateLastDir(fCsrFile);
 
@@ -5011,8 +4998,8 @@ public class FPortecle
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    m_res.getString("FPortecle.NoWriteFile.message"), fCsrFile),
-			    m_res.getString("FPortecle.GenerateCsr.Title"), JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NoWriteFile.message"), fCsrFile),
+			    RB.getString("FPortecle.GenerateCsr.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		catch (Exception ex)
@@ -5073,7 +5060,7 @@ public class FPortecle
 				if (ksType != KeyStoreType.PKCS12)
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -5090,7 +5077,7 @@ public class FPortecle
 
 			// Get the alias of the new entry
 			DGetAlias dGetAlias =
-			    new DGetAlias(this, m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), true, sAlias,
+			    new DGetAlias(this, RB.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), true, sAlias,
 			        true);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
@@ -5105,8 +5092,8 @@ public class FPortecle
 			if (sNewAlias.equalsIgnoreCase(sAlias))
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
-				    m_res.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.ERROR_MESSAGE);
+				    RB.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
+				    RB.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 
@@ -5121,11 +5108,11 @@ public class FPortecle
 			if (keyStore.containsAlias(sNewAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
+				    MessageFormat.format(RB.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
-				        m_res.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -5141,7 +5128,7 @@ public class FPortecle
 			if (ksType != KeyStoreType.PKCS12)
 			{
 				DGetNewPassword dGetNewPassword =
-				    new DGetNewPassword(this, m_res.getString("FPortecle.ClonedKeyPairEntryPassword.Title"),
+				    new DGetNewPassword(this, RB.getString("FPortecle.ClonedKeyPairEntryPassword.Title"),
 				        true);
 				dGetNewPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetNewPassword);
@@ -5172,9 +5159,8 @@ public class FPortecle
 			updateTitle();
 
 			// Display success message
-			JOptionPane.showMessageDialog(this,
-			    m_res.getString("FPortecle.KeyPairCloningSuccessful.message"),
-			    m_res.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.KeyPairCloningSuccessful.message"),
+			    RB.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 			return true;
 		}
@@ -5209,8 +5195,8 @@ public class FPortecle
 			// Get the alias of the new entry
 
 			DGetAlias dGetAlias =
-			    new DGetAlias(this, m_res.getString("FPortecle.ClonedTrustCertEntryAlias.Title"), true,
-			        sAlias, true);
+			    new DGetAlias(this, RB.getString("FPortecle.ClonedTrustCertEntryAlias.Title"), true, sAlias,
+			        true);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
 			String sNewAlias = dGetAlias.getAlias();
@@ -5224,8 +5210,8 @@ public class FPortecle
 			if (sNewAlias.equalsIgnoreCase(sAlias))
 			{
 				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    m_res.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
-				    m_res.getString("FPortecle.CloneCertificate.Title"), JOptionPane.ERROR_MESSAGE);
+				    RB.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
+				    RB.getString("FPortecle.CloneCertificate.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 
@@ -5236,12 +5222,11 @@ public class FPortecle
 			if (keyStore.containsAlias(sNewAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
+				    MessageFormat.format(RB.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
-				        m_res.getString("FPortecle.ClonedTrustCertEntryAlias.Title"),
-				        JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.ClonedTrustCertEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -5263,8 +5248,8 @@ public class FPortecle
 
 			// Display success message
 			JOptionPane.showMessageDialog(this,
-			    m_res.getString("FPortecle.CertificateCloningSuccessful.message"),
-			    m_res.getString("FPortecle.CloneCertificate.Title"), JOptionPane.INFORMATION_MESSAGE);
+			    RB.getString("FPortecle.CertificateCloningSuccessful.message"),
+			    RB.getString("FPortecle.CloneCertificate.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 			return true;
 		}
@@ -5338,7 +5323,7 @@ public class FPortecle
 			// Supply the certificates to the view certificate dialog
 			DViewCertificate dViewCertificate =
 			    new DViewCertificate(this, MessageFormat.format(
-			        m_res.getString("FPortecle.CertDetailsEntry.Title"), sAlias), true, certs);
+			        RB.getString("FPortecle.CertDetailsEntry.Title"), sAlias), true, certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 			return true;
@@ -5365,8 +5350,8 @@ public class FPortecle
 
 		int iSelected =
 		    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-		        m_res.getString("FPortecle.DeleteEntry.message"), sAlias),
-		        m_res.getString("FPortecle.DeleteEntry.Title"), JOptionPane.YES_NO_OPTION);
+		        RB.getString("FPortecle.DeleteEntry.message"), sAlias),
+		        RB.getString("FPortecle.DeleteEntry.Title"), JOptionPane.YES_NO_OPTION);
 		if (iSelected != JOptionPane.YES_OPTION)
 		{
 			return false;
@@ -5422,7 +5407,7 @@ public class FPortecle
 
 		// Get the new entry alias
 		DGetAlias dGetAlias =
-		    new DGetAlias(this, m_res.getString("FPortecle.NewEntryAlias.Title"), true, sAlias, true);
+		    new DGetAlias(this, RB.getString("FPortecle.NewEntryAlias.Title"), true, sAlias, true);
 		dGetAlias.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetAlias);
 
@@ -5457,8 +5442,8 @@ public class FPortecle
 				if (!silent)
 				{
 					JOptionPane.showMessageDialog(this, MessageFormat.format(
-					    m_res.getString("FPortecle.RenameAliasIdentical.message"), oldAlias),
-					    m_res.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
+					    RB.getString("FPortecle.RenameAliasIdentical.message"), oldAlias),
+					    RB.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
 				}
 				return false;
 			}
@@ -5467,11 +5452,11 @@ public class FPortecle
 			if (keyStore.containsAlias(newAlias))
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("FPortecle.OverWriteEntry.message"), newAlias);
+				    MessageFormat.format(RB.getString("FPortecle.OverWriteEntry.message"), newAlias);
 
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage,
-				        m_res.getString("FPortecle.RenameEntry.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.RenameEntry.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected != JOptionPane.YES_OPTION)
 				{
 					return false;
@@ -5494,7 +5479,7 @@ public class FPortecle
 					if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 					{
 						DGetPassword dGetPassword =
-						    new DGetPassword(this, m_res.getString("FPortecle.KeyEntryPassword.Title"), true);
+						    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
 						dGetPassword.setLocationRelativeTo(this);
 						SwingHelper.showAndWait(dGetPassword);
 						cPassword = dGetPassword.getPassword();
@@ -5660,7 +5645,7 @@ public class FPortecle
 	private void updateTitle()
 	{
 		// Application name
-		String sAppName = m_res.getString("FPortecle.Title");
+		String sAppName = RB.getString("FPortecle.Title");
 
 		// No keystore loaded so just display the application name
 		if (m_keyStoreWrap == null)
@@ -5675,7 +5660,7 @@ public class FPortecle
 			// and app name
 			if (fKeyStore == null)
 			{
-				setTitle(MessageFormat.format("[{0}] - {1}", m_res.getString("FPortecle.Untitled"), sAppName));
+				setTitle(MessageFormat.format("[{0}] - {1}", RB.getString("FPortecle.Untitled"), sAppName));
 			}
 			else
 			{
@@ -5684,7 +5669,7 @@ public class FPortecle
 				if (m_keyStoreWrap.isChanged())
 				{
 					setTitle(MessageFormat.format("{0}{1} - {2}", fKeyStore,
-					    m_res.getString("FPortecle.Modified"), sAppName));
+					    RB.getString("FPortecle.Modified"), sAppName));
 				}
 				// Saved keystore loaded - display keystore file path and app name
 				else
@@ -5713,7 +5698,7 @@ public class FPortecle
 		// No keystore loaded...
 		if (m_keyStoreWrap == null)
 		{
-			setStatusBarText(m_res.getString("FPortecle.noKeyStore.statusbar"));
+			setStatusBarText(RB.getString("FPortecle.noKeyStore.statusbar"));
 		}
 		// keystore loaded...
 		else
@@ -5738,12 +5723,11 @@ public class FPortecle
 
 			if (iSize == 1)
 			{
-				setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entry.statusbar"), sType,
-				    sProv));
+				setStatusBarText(MessageFormat.format(RB.getString("FPortecle.entry.statusbar"), sType, sProv));
 			}
 			else
 			{
-				setStatusBarText(MessageFormat.format(m_res.getString("FPortecle.entries.statusbar"), sType,
+				setStatusBarText(MessageFormat.format(RB.getString("FPortecle.entries.statusbar"), sType,
 				    sProv, iSize));
 			}
 		}
@@ -5758,29 +5742,29 @@ public class FPortecle
 		{
 			// The size of the keystore table panel - determines the size
 			// of the main frame
-			m_appPrefs.putInt(m_res.getString("AppPrefs.TableWidth"), m_jpKeyStoreTable.getWidth());
-			m_appPrefs.putInt(m_res.getString("AppPrefs.TableHeight"), m_jpKeyStoreTable.getHeight());
+			m_appPrefs.putInt(RB.getString("AppPrefs.TableWidth"), m_jpKeyStoreTable.getWidth());
+			m_appPrefs.putInt(RB.getString("AppPrefs.TableHeight"), m_jpKeyStoreTable.getHeight());
 
 			// The size of the keystore table's alias column - determines
 			// the size of all of the table's columns
-			m_appPrefs.putInt(m_res.getString("AppPrefs.AliasWidth"),
+			m_appPrefs.putInt(RB.getString("AppPrefs.AliasWidth"),
 			    m_jtKeyStore.getColumnModel().getColumn(1).getWidth());
 
 			// Application's position on the desktop
-			m_appPrefs.putInt(m_res.getString("AppPrefs.XPos"), this.getX());
-			m_appPrefs.putInt(m_res.getString("AppPrefs.YPos"), this.getY());
+			m_appPrefs.putInt(RB.getString("AppPrefs.XPos"), this.getX());
+			m_appPrefs.putInt(RB.getString("AppPrefs.YPos"), this.getY());
 
 			// Use CA certificates file?
-			m_appPrefs.putBoolean(m_res.getString("AppPrefs.UseCaCerts"), m_bUseCaCerts);
+			m_appPrefs.putBoolean(RB.getString("AppPrefs.UseCaCerts"), m_bUseCaCerts);
 
 			// CA Certificates file
-			m_appPrefs.put(m_res.getString("AppPrefs.CaCertsFile"), m_fCaCertsFile.toString());
+			m_appPrefs.put(RB.getString("AppPrefs.CaCertsFile"), m_fCaCertsFile.toString());
 
 			// Recent files
 			File[] fRecentFiles = m_jmrfFile.getRecentFiles();
 			for (int iCnt = 0; iCnt < fRecentFiles.length; iCnt++)
 			{
-				m_appPrefs.put(m_res.getString("AppPrefs.RecentFile") + (iCnt + 1),
+				m_appPrefs.put(RB.getString("AppPrefs.RecentFile") + (iCnt + 1),
 				    fRecentFiles[iCnt].toString());
 			}
 
@@ -5790,7 +5774,7 @@ public class FPortecle
 			if (lookFeelClassName != null)
 			{
 				// Setting made in options
-				m_appPrefs.put(m_res.getString("AppPrefs.LookFeel"), lookFeelClassName);
+				m_appPrefs.put(RB.getString("AppPrefs.LookFeel"), lookFeelClassName);
 			}
 			else
 			{
@@ -5805,7 +5789,7 @@ public class FPortecle
 						if (currentLookAndFeel != null &&
 						    currentLookAndFeel.getName().equals(lookFeelInfo.getName()))
 						{
-							m_appPrefs.put(m_res.getString("AppPrefs.LookFeel"), lookFeelInfo.getClassName());
+							m_appPrefs.put(RB.getString("AppPrefs.LookFeel"), lookFeelInfo.getClassName());
 							break;
 						}
 					}
@@ -5816,12 +5800,12 @@ public class FPortecle
 			if (m_bLookFeelDecorationOptions != null)
 			{
 				// Setting made in options
-				m_appPrefs.putBoolean(m_res.getString("AppPrefs.LookFeelDecor"), m_bLookFeelDecorationOptions);
+				m_appPrefs.putBoolean(RB.getString("AppPrefs.LookFeelDecor"), m_bLookFeelDecorationOptions);
 			}
 			else
 			{
 				// Current setting
-				m_appPrefs.putBoolean(m_res.getString("AppPrefs.LookFeelDecor"),
+				m_appPrefs.putBoolean(RB.getString("AppPrefs.LookFeelDecor"),
 				    JFrame.isDefaultLookAndFeelDecorated());
 			}
 
@@ -5855,9 +5839,9 @@ public class FPortecle
 		{
 			// Could not parse JRE version
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
+			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
 			System.err.println(sMessage);
-			JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"),
+			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -5873,9 +5857,9 @@ public class FPortecle
 		{
 			// Could not parse JRE version
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
+			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
 			System.err.println(sMessage);
-			JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"),
+			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -5885,10 +5869,10 @@ public class FPortecle
 		{
 			// It isn't - warn the user and exit
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.MinJreVersionReq.message"), actualJreVersion,
+			    MessageFormat.format(RB.getString("FPortecle.MinJreVersionReq.message"), actualJreVersion,
 			        reqJreVersion);
 			System.err.println(sMessage);
-			JOptionPane.showMessageDialog(new JFrame(), sMessage, m_res.getString("FPortecle.Title"),
+			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -5930,7 +5914,7 @@ public class FPortecle
 		try
 		{
 			// Use the look and feel
-			UIManager.setLookAndFeel(m_appPrefs.get(m_res.getString("AppPrefs.LookFeel"),
+			UIManager.setLookAndFeel(m_appPrefs.get(RB.getString("AppPrefs.LookFeel"),
 			    FPortecle.DEFAULT_LOOK_FEEL));
 		}
 		// Didn't work - no matter
@@ -5948,7 +5932,7 @@ public class FPortecle
 		}
 
 		// Use look & feel's decoration?
-		boolean bLookFeelDecorated = m_appPrefs.getBoolean(m_res.getString("AppPrefs.LookFeelDecor"), false);
+		boolean bLookFeelDecorated = m_appPrefs.getBoolean(RB.getString("AppPrefs.LookFeelDecor"), false);
 
 		JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
 		JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecorated);
@@ -5992,7 +5976,7 @@ public class FPortecle
 	 */
 	private Image getResImage(String key)
 	{
-		return Toolkit.getDefaultToolkit().createImage(FPortecle.class.getResource(m_res.getString(key)));
+		return Toolkit.getDefaultToolkit().createImage(FPortecle.class.getResource(RB.getString(key)));
 	}
 
 	/**
@@ -6007,7 +5991,7 @@ public class FPortecle
 		if (file.isFile())
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("FPortecle.OverWriteFile.message"), file.getName());
+			    MessageFormat.format(RB.getString("FPortecle.OverWriteFile.message"), file.getName());
 			int iSelected = JOptionPane.showConfirmDialog(this, sMessage, title, JOptionPane.YES_NO_OPTION);
 			return iSelected == JOptionPane.YES_OPTION;
 		}
@@ -6025,13 +6009,13 @@ public class FPortecle
 		 */
 		public NewKeyStoreAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.NewKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.NewKeyStoreAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.NewKeyStoreAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.NewKeyStoreAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.NewKeyStoreAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.NewKeyStoreAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.NewKeyStoreAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.NewKeyStoreAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.NewKeyStoreAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.NewKeyStoreAction.image")));
 			setEnabled(true);
 		}
@@ -6057,13 +6041,13 @@ public class FPortecle
 		 */
 		public SaveKeyStoreAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.SaveKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.SaveKeyStoreAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.SaveKeyStoreAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.SaveKeyStoreAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.SaveKeyStoreAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.SaveKeyStoreAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.SaveKeyStoreAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.SaveKeyStoreAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.SaveKeyStoreAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.SaveKeyStoreAction.image")));
 			setEnabled(false);
 		}
@@ -6089,13 +6073,13 @@ public class FPortecle
 		 */
 		public OpenKeyStoreFileAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStoreFileAction.statusbar"));
-			putValue(MNEMONIC_KEY, Integer.valueOf(m_res.getString(
-			    "FPortecle.OpenKeyStoreFileAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.OpenKeyStoreFileAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.OpenKeyStoreFileAction.tooltip"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.OpenKeyStoreFileAction.statusbar"));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(RB.getString("FPortecle.OpenKeyStoreFileAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.OpenKeyStoreFileAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.OpenKeyStoreFileAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.OpenKeyStoreFileAction.image")));
 			setEnabled(true);
 		}
@@ -6121,13 +6105,13 @@ public class FPortecle
 		 */
 		public GenKeyPairAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.GenKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.GenKeyPairAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.GenKeyPairAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.GenKeyPairAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.GenKeyPairAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.GenKeyPairAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.GenKeyPairAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.GenKeyPairAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.GenKeyPairAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.GenKeyPairAction.image")));
 			setEnabled(false);
 		}
@@ -6153,13 +6137,13 @@ public class FPortecle
 		 */
 		public ImportTrustCertAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.ImportTrustCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ImportTrustCertAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ImportTrustCertAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.ImportTrustCertAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.ImportTrustCertAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ImportTrustCertAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.ImportTrustCertAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.ImportTrustCertAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.ImportTrustCertAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ImportTrustCertAction.image")));
 			setEnabled(false);
 		}
@@ -6185,13 +6169,13 @@ public class FPortecle
 		 */
 		public ImportKeyPairAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.ImportKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ImportKeyPairAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ImportKeyPairAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.ImportKeyPairAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.ImportKeyPairAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ImportKeyPairAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.ImportKeyPairAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.ImportKeyPairAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.ImportKeyPairAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ImportKeyPairAction.image")));
 			setEnabled(false);
 		}
@@ -6217,13 +6201,13 @@ public class FPortecle
 		 */
 		public SetKeyStorePassAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.SetKeyStorePassAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.SetKeyStorePassAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.SetKeyStorePassAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.SetKeyStorePassAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.SetKeyStorePassAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.SetKeyStorePassAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.SetKeyStorePassAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.SetKeyStorePassAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.SetKeyStorePassAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.SetKeyStorePassAction.image")));
 			setEnabled(false);
 		}
@@ -6249,13 +6233,13 @@ public class FPortecle
 		 */
 		public KeyStoreReportAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.KeyStoreReportAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.KeyStoreReportAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.KeyStoreReportAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.KeyStoreReportAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.KeyStoreReportAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.KeyStoreReportAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.KeyStoreReportAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.KeyStoreReportAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.KeyStoreReportAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.KeyStoreReportAction.image")));
 			setEnabled(false);
 		}
@@ -6281,13 +6265,13 @@ public class FPortecle
 		 */
 		public ExamineCertAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.ExamineCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCertAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCertAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.ExamineCertAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.ExamineCertAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCertAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.ExamineCertAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.ExamineCertAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.ExamineCertAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCertAction.image")));
 			setEnabled(true);
 		}
@@ -6313,13 +6297,13 @@ public class FPortecle
 		 */
 		public ExamineCertSSLAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCertSSLAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCertSSLAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.ExamineCertSSLAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.ExamineCertSSLAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCertSSLAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.ExamineCertSSLAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.ExamineCertSSLAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.ExamineCertSSLAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCertSSLAction.image")));
 			setEnabled(true);
 		}
@@ -6345,13 +6329,13 @@ public class FPortecle
 		 */
 		public ExamineCsrAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.ExamineCsrAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCsrAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCsrAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.ExamineCsrAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.ExamineCsrAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCsrAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.ExamineCsrAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.ExamineCsrAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.ExamineCsrAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCsrAction.image")));
 			setEnabled(true);
 		}
@@ -6377,13 +6361,13 @@ public class FPortecle
 		 */
 		public ExamineCrlAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(m_res.getString(
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
 			    "FPortecle.ExamineCrlAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.ExamineCrlAction.statusbar"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCrlAction.statusbar"));
 			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.ExamineCrlAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.ExamineCrlAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.ExamineCrlAction.tooltip"));
+			    Integer.valueOf(RB.getString("FPortecle.ExamineCrlAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.ExamineCrlAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.ExamineCrlAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.ExamineCrlAction.image")));
 			setEnabled(true);
 		}
@@ -6410,11 +6394,10 @@ public class FPortecle
 		public HelpAction()
 		{
 			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-			putValue(LONG_DESCRIPTION, m_res.getString("FPortecle.HelpAction.statusbar"));
-			putValue(MNEMONIC_KEY,
-			    Integer.valueOf(m_res.getString("FPortecle.HelpAction.mnemonic").charAt(0)));
-			putValue(NAME, m_res.getString("FPortecle.HelpAction.text"));
-			putValue(SHORT_DESCRIPTION, m_res.getString("FPortecle.HelpAction.tooltip"));
+			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.HelpAction.statusbar"));
+			putValue(MNEMONIC_KEY, Integer.valueOf(RB.getString("FPortecle.HelpAction.mnemonic").charAt(0)));
+			putValue(NAME, RB.getString("FPortecle.HelpAction.text"));
+			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.HelpAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.HelpAction.image")));
 			setEnabled(true);
 		}
@@ -6600,22 +6583,22 @@ public class FPortecle
 			if (REQ_BC_VERSION.compareTo(bcVer) > 0)
 			{
 				JOptionPane.showMessageDialog(new JFrame(), MessageFormat.format(
-				    m_res.getString("FPortecle.NoBcVersion.message"), REQ_BC_VERSION, bcVer),
-				    m_res.getString("FPortecle.Title"), JOptionPane.WARNING_MESSAGE);
+				    RB.getString("FPortecle.NoBcVersion.message"), REQ_BC_VERSION, bcVer),
+				    RB.getString("FPortecle.Title"), JOptionPane.WARNING_MESSAGE);
 			}
 		}
 		catch (Throwable thw)
 		{
 			// No sign of the provider - warn the user and exit
-			System.err.println(m_res.getString("FPortecle.NoLoadBc.message"));
+			System.err.println(RB.getString("FPortecle.NoLoadBc.message"));
 			thw.printStackTrace();
-			JOptionPane.showMessageDialog(new JFrame(), m_res.getString("FPortecle.NoLoadBc.message"),
-			    m_res.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(new JFrame(), RB.getString("FPortecle.NoLoadBc.message"),
+			    RB.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 
 		// Install additional providers
-		String[] additionalProviders = m_res.getString("FPortecle.AdditionalProviders").split("[\\s,]+");
+		String[] additionalProviders = RB.getString("FPortecle.AdditionalProviders").split("[\\s,]+");
 		for (String addProv : additionalProviders)
 		{
 			String[] prov = addProv.split(":+", 2);

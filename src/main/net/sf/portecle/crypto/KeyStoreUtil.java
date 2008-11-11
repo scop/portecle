@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2005 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +22,8 @@
 
 package net.sf.portecle.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +37,6 @@ import java.security.Security;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
 /**
  * Provides utility methods for loading/saving keystores. The Bouncy Castle provider must be registered before
@@ -43,9 +44,6 @@ import java.util.ResourceBundle;
  */
 public final class KeyStoreUtil
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
 	/** Map of available keystore types */
 	private static final HashMap<KeyStoreType, Boolean> AVAILABLE_TYPES =
 	    new HashMap<KeyStoreType, Boolean>();
@@ -120,7 +118,7 @@ public final class KeyStoreUtil
 		catch (GeneralSecurityException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
+			    RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 		return keyStore;
 	}
@@ -192,7 +190,7 @@ public final class KeyStoreUtil
 		catch (KeyStoreException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
+			    RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 
 		FileInputStream fis = new FileInputStream(fKeyStore);
@@ -202,8 +200,8 @@ public final class KeyStoreUtil
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoLoadKeystore.exception.message"), keyStoreType), ex);
+			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
+			    keyStoreType), ex);
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -211,8 +209,8 @@ public final class KeyStoreUtil
 		}
 		catch (IOException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoLoadKeystore.exception.message"), keyStoreType), ex);
+			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
+			    keyStoreType), ex);
 		}
 		finally
 		{
@@ -247,14 +245,14 @@ public final class KeyStoreUtil
 			if (Security.getProvider(sPkcs11Provider) == null)
 			{
 				throw new CryptoException(MessageFormat.format(
-				    m_res.getString("NoSuchProvider.exception.message"), sPkcs11Provider));
+				    RB.getString("NoSuchProvider.exception.message"), sPkcs11Provider));
 			}
 			keyStore = KeyStore.getInstance(KeyStoreType.PKCS11.name(), sPkcs11Provider);
 		}
 		catch (GeneralSecurityException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoCreateKeystore.exception.message"), KeyStoreType.PKCS11), ex);
+			    RB.getString("NoCreateKeystore.exception.message"), KeyStoreType.PKCS11), ex);
 		}
 
 		try
@@ -263,8 +261,8 @@ public final class KeyStoreUtil
 		}
 		catch (Exception ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoLoadKeystore.exception.message"), KeyStoreType.PKCS11), ex);
+			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
+			    KeyStoreType.PKCS11), ex);
 		}
 
 		return keyStore;
@@ -292,11 +290,11 @@ public final class KeyStoreUtil
 		}
 		catch (IOException ex)
 		{
-			throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoSaveKeystore.exception.message"), ex);
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoSaveKeystore.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoSaveKeystore.exception.message"), ex);
 		}
 		finally
 		{

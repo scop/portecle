@@ -21,6 +21,8 @@
 
 package net.sf.portecle.gui.about;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -29,7 +31,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -48,9 +49,6 @@ import javax.swing.table.TableRowSorter;
 public class DSystemProperties
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
-
 	/**
 	 * Creates new DSystemProperties dialog.
 	 * 
@@ -59,7 +57,7 @@ public class DSystemProperties
 	 */
 	public DSystemProperties(JDialog parent, boolean modal)
 	{
-		super(parent, m_res.getString("DSystemProperties.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
+		super(parent, RB.getString("DSystemProperties.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
 		    : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
@@ -124,7 +122,7 @@ public class DSystemProperties
 		jpSystemPropertiesTable.add(jspSystemPropertiesTable, BorderLayout.CENTER);
 		jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		final JButton jbOK = new JButton(m_res.getString("DSystemProperties.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DSystemProperties.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)

@@ -25,16 +25,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
+
+import net.sf.portecle.FPortecle;
 
 /**
  * Provides utility methods for the creation of message digests.
  */
 public final class DigestUtil
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
 	/**
 	 * Private to prevent construction.
 	 */
@@ -62,7 +60,7 @@ public final class DigestUtil
 		catch (NoSuchAlgorithmException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoCreateDigest.exception.message"), digestType), ex);
+			    FPortecle.RB.getString("NoCreateDigest.exception.message"), digestType), ex);
 		}
 
 		// Create raw message digest

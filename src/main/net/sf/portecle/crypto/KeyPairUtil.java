@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2005 Ville Skyttä, ville.skytta@iki.fi
+ *             2005-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +22,8 @@
 
 package net.sf.portecle.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.security.InvalidParameterException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -31,7 +33,6 @@ import java.security.SecureRandom;
 import java.security.interfaces.DSAKey;
 import java.security.interfaces.RSAKey;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.crypto.interfaces.DHKey;
 
@@ -45,9 +46,6 @@ import org.bouncycastle.crypto.params.RSAKeyParameters;
  */
 public final class KeyPairUtil
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
 	/**
 	 * Private to prevent construction.
 	 */
@@ -83,12 +81,12 @@ public final class KeyPairUtil
 		catch (NoSuchAlgorithmException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoGenerateKeypair.exception.message"), keyPairType), ex);
+			    RB.getString("NoGenerateKeypair.exception.message"), keyPairType), ex);
 		}
 		catch (InvalidParameterException ex)
 		{
 			throw new CryptoException(MessageFormat.format(
-			    m_res.getString("NoGenerateKeypairParm.exception.message"), keyPairType), ex);
+			    RB.getString("NoGenerateKeypairParm.exception.message"), keyPairType), ex);
 		}
 	}
 
@@ -116,7 +114,7 @@ public final class KeyPairUtil
 		}
 		else
 		{
-			throw new CryptoException(m_res.getString("NoPublicKeysize.exception.message"));
+			throw new CryptoException(RB.getString("NoPublicKeysize.exception.message"));
 		}
 	}
 
@@ -144,7 +142,7 @@ public final class KeyPairUtil
 		}
 		else
 		{
-			throw new CryptoException(m_res.getString("NoPublicKeysize.exception.message"));
+			throw new CryptoException(RB.getString("NoPublicKeysize.exception.message"));
 		}
 	}
 }

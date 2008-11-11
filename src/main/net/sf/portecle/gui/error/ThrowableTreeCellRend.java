@@ -21,8 +21,9 @@
 
 package net.sf.portecle.gui.error;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -36,9 +37,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 class ThrowableTreeCellRend
     extends DefaultTreeCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
-
 	/**
 	 * Returns the rendered cell for the supplied value.
 	 * 
@@ -73,23 +71,23 @@ class ThrowableTreeCellRend
 				// Throwable
 				icon =
 				    new ImageIcon(getClass().getResource(
-				        m_res.getString("ThrowableTreeCellRend.Throwable.image")));
-				cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Throwable.tooltip"));
+				        RB.getString("ThrowableTreeCellRend.Throwable.image")));
+				cell.setToolTipText(RB.getString("ThrowableTreeCellRend.Throwable.tooltip"));
 			}
 			else if (userValue instanceof StackTraceElement)
 			{
 				// Stack trace element
 				icon =
 				    new ImageIcon(getClass().getResource(
-				        m_res.getString("ThrowableTreeCellRend.StackTrace.image")));
-				cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.StackTrace.tooltip"));
+				        RB.getString("ThrowableTreeCellRend.StackTrace.image")));
+				cell.setToolTipText(RB.getString("ThrowableTreeCellRend.StackTrace.tooltip"));
 			}
 			else
 			{
 				// Root node
 				icon =
-				    new ImageIcon(getClass().getResource(m_res.getString("ThrowableTreeCellRend.Root.image")));
-				cell.setToolTipText(m_res.getString("ThrowableTreeCellRend.Root.tooltip"));
+				    new ImageIcon(getClass().getResource(RB.getString("ThrowableTreeCellRend.Root.image")));
+				cell.setToolTipText(RB.getString("ThrowableTreeCellRend.Root.tooltip"));
 			}
 
 			cell.setIcon(icon);

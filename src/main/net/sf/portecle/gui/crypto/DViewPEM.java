@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -38,7 +40,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -61,9 +62,6 @@ import org.bouncycastle.openssl.PEMWriter;
 public class DViewPEM
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
-
 	/** Stores object to display */
 	private Object m_object;
 
@@ -110,7 +108,7 @@ public class DViewPEM
 			}
 			catch (IOException e)
 			{
-				throw new CryptoException(m_res.getString("DViewPEM.exception.message"), e);
+				throw new CryptoException(RB.getString("DViewPEM.exception.message"), e);
 			}
 			finally
 			{
@@ -127,7 +125,7 @@ public class DViewPEM
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DViewPEM.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DViewPEM.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -136,8 +134,8 @@ public class DViewPEM
 			}
 		});
 
-		final JButton jbSave = new JButton(m_res.getString("DViewPEM.jbSave.text"));
-		jbSave.setMnemonic(m_res.getString("DViewPEM.jbSave.mnemonic").charAt(0));
+		final JButton jbSave = new JButton(RB.getString("DViewPEM.jbSave.text"));
+		jbSave.setMnemonic(RB.getString("DViewPEM.jbSave.mnemonic").charAt(0));
 		if (m_chooser == null || m_pem == null)
 		{
 			jbSave.setEnabled(false);
@@ -211,7 +209,7 @@ public class DViewPEM
 	 */
 	private void savePressed()
 	{
-		int iRtnValue = m_chooser.showDialog(this, m_res.getString("DViewPEM.jbSave.text"));
+		int iRtnValue = m_chooser.showDialog(this, RB.getString("DViewPEM.jbSave.text"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			File fExportFile = m_chooser.getSelectedFile();
@@ -219,7 +217,7 @@ public class DViewPEM
 			if (fExportFile.isFile())
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("DViewPEM.OverWriteFile.message"),
+				    MessageFormat.format(RB.getString("DViewPEM.OverWriteFile.message"),
 				        fExportFile.getName());
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
@@ -236,8 +234,7 @@ public class DViewPEM
 			catch (FileNotFoundException ex)
 			{
 				String sMessage =
-				    MessageFormat.format(m_res.getString("DViewPEM.NoWriteFile.message"),
-				        fExportFile.getName());
+				    MessageFormat.format(RB.getString("DViewPEM.NoWriteFile.message"), fExportFile.getName());
 				JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			}
 			catch (IOException e)

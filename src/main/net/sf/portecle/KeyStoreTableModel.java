@@ -26,7 +26,6 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.ResourceBundle;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -52,16 +51,14 @@ class KeyStoreTableModel
 
 	static
 	{
-		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 		COLUMN_NAMES =
-		    new String[] { rb.getString("KeyStoreTableModel.TypeColumn"),
-		        rb.getString("KeyStoreTableModel.AliasColumn"),
-		        rb.getString("KeyStoreTableModel.LastModifiedDateColumn") };
+		    new String[] { FPortecle.RB.getString("KeyStoreTableModel.TypeColumn"),
+		        FPortecle.RB.getString("KeyStoreTableModel.AliasColumn"),
+		        FPortecle.RB.getString("KeyStoreTableModel.LastModifiedDateColumn") };
 
-		KEY_PAIR_ENTRY = rb.getString("KeyStoreTableModel.KeyPairEntry");
-		TRUST_CERT_ENTRY = rb.getString("KeyStoreTableModel.TrustCertEntry");
-		KEY_ENTRY = rb.getString("KeyStoreTableModel.KeyEntry");
+		KEY_PAIR_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyPairEntry");
+		TRUST_CERT_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.TrustCertEntry");
+		KEY_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyEntry");
 	}
 
 	/** Column classes */

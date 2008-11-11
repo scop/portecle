@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.about;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -30,7 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -46,9 +47,6 @@ import net.sf.portecle.gui.SwingHelper;
 public class DAbout
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
-
 	/**
 	 * Creates new DAbout dialog.
 	 * 
@@ -57,7 +55,7 @@ public class DAbout
 	 */
 	public DAbout(Window parent, boolean modal)
 	{
-		super(parent, m_res.getString("DAbout.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
+		super(parent, RB.getString("DAbout.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
 		    : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
@@ -69,13 +67,13 @@ public class DAbout
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlAbout = new JLabel(m_res.getString("DAbout.jlAbout.text"));
+		JLabel jlAbout = new JLabel(RB.getString("DAbout.jlAbout.text"));
 
 		JPanel jpAbout = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
 		jpAbout.add(jlAbout);
 
-		JButton jbOK = new JButton(m_res.getString("DAbout.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DAbout.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -84,8 +82,8 @@ public class DAbout
 			}
 		});
 
-		JButton jbSystemInformation = new JButton(m_res.getString("DAbout.jbSystemInformation.text"));
-		jbSystemInformation.setMnemonic(m_res.getString("DAbout.jbSystemInformation.mnemonic").charAt(0));
+		JButton jbSystemInformation = new JButton(RB.getString("DAbout.jbSystemInformation.text"));
+		jbSystemInformation.setMnemonic(RB.getString("DAbout.jbSystemInformation.mnemonic").charAt(0));
 
 		jbSystemInformation.addActionListener(new ActionListener()
 		{

@@ -21,8 +21,9 @@
 
 package net.sf.portecle.gui.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -37,9 +38,6 @@ import javax.swing.tree.TreeNode;
 class ProviderTreeCellRend
     extends DefaultTreeCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/crypto/resources");
-
 	/**
 	 * Returns the rendered cell for the supplied value.
 	 * 
@@ -72,17 +70,15 @@ class ProviderTreeCellRend
 			if (node.getLevel() == 0)
 			{
 				// Root node
-				icon =
-				    new ImageIcon(getClass().getResource(m_res.getString("ProviderTreeCellRend.Root.image")));
-				cell.setToolTipText(m_res.getString("ProviderTreeCellRend.Root.tooltip"));
+				icon = new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Root.image")));
+				cell.setToolTipText(RB.getString("ProviderTreeCellRend.Root.tooltip"));
 			}
 			else if (node.getLevel() == 1)
 			{
 				// Provider node
 				icon =
-				    new ImageIcon(getClass().getResource(
-				        m_res.getString("ProviderTreeCellRend.Provider.image")));
-				cell.setToolTipText(m_res.getString("ProviderTreeCellRend.Provider.tooltip"));
+				    new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Provider.image")));
+				cell.setToolTipText(RB.getString("ProviderTreeCellRend.Provider.tooltip"));
 			}
 			else if (node.getLevel() == 2)
 			{
@@ -94,33 +90,32 @@ class ProviderTreeCellRend
 					// Provider description node
 					icon =
 					    new ImageIcon(getClass().getResource(
-					        m_res.getString("ProviderTreeCellRend.Description.image")));
-					cell.setToolTipText(m_res.getString("ProviderTreeCellRend.Description.tooltip"));
+					        RB.getString("ProviderTreeCellRend.Description.image")));
+					cell.setToolTipText(RB.getString("ProviderTreeCellRend.Description.tooltip"));
 				}
 				else if (iIndex == 1)
 				{
 					// Provider version node
 					icon =
 					    new ImageIcon(getClass().getResource(
-					        m_res.getString("ProviderTreeCellRend.Version.image")));
-					cell.setToolTipText(m_res.getString("ProviderTreeCellRend.Version.tooltip"));
+					        RB.getString("ProviderTreeCellRend.Version.image")));
+					cell.setToolTipText(RB.getString("ProviderTreeCellRend.Version.tooltip"));
 				}
 				else
 				{
 					// Provider properties node
 					icon =
 					    new ImageIcon(getClass().getResource(
-					        m_res.getString("ProviderTreeCellRend.Properties.image")));
-					cell.setToolTipText(m_res.getString("ProviderTreeCellRend.Properties.tooltip"));
+					        RB.getString("ProviderTreeCellRend.Properties.image")));
+					cell.setToolTipText(RB.getString("ProviderTreeCellRend.Properties.tooltip"));
 				}
 			}
 			else
 			{
 				// Provider property node
 				icon =
-				    new ImageIcon(getClass().getResource(
-				        m_res.getString("ProviderTreeCellRend.Property.image")));
-				cell.setToolTipText(m_res.getString("ProviderTreeCellRend.Property.tooltip"));
+				    new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Property.image")));
+				cell.setToolTipText(RB.getString("ProviderTreeCellRend.Property.tooltip"));
 			}
 
 			// Set the icon

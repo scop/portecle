@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -34,7 +36,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 import javax.swing.AbstractAction;
@@ -62,9 +63,6 @@ class DOptions
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Use CA certs check box */
 	private JCheckBox m_jcbUseCaCerts;
@@ -118,22 +116,22 @@ class DOptions
 		// Setup tabbed panels of options
 
 		// CA certs options tab panel
-		m_jcbUseCaCerts = new JCheckBox(m_res.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
-		m_jcbUseCaCerts.setToolTipText(m_res.getString("DOptions.m_jcbUseCaCerts.tooltip"));
+		m_jcbUseCaCerts = new JCheckBox(RB.getString("DOptions.m_jcbUseCaCerts.text"), m_bUseCaCerts);
+		m_jcbUseCaCerts.setToolTipText(RB.getString("DOptions.m_jcbUseCaCerts.tooltip"));
 
 		JPanel jpUseCaCerts = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpUseCaCerts.add(m_jcbUseCaCerts);
 
 		m_jtfCaCertsFile = new JTextField(m_fCaCertsFile.toString(), 20);
-		m_jtfCaCertsFile.setToolTipText(m_res.getString("DOptions.m_jtfCaCertsFile.tooltip"));
+		m_jtfCaCertsFile.setToolTipText(RB.getString("DOptions.m_jtfCaCertsFile.tooltip"));
 		m_jtfCaCertsFile.setEditable(false);
 		JPanel jpCaCertsFile = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpCaCertsFile.add(new JLabel(m_res.getString("DOptions.jlCaCertsFile.text")));
+		jpCaCertsFile.add(new JLabel(RB.getString("DOptions.jlCaCertsFile.text")));
 		jpCaCertsFile.add(m_jtfCaCertsFile);
 
-		JButton jbBrowseCaCertsFile = new JButton(m_res.getString("DOptions.jbBrowseCaCertsFile.text"));
-		jbBrowseCaCertsFile.setMnemonic(m_res.getString("DOptions.jbBrowseCaCertsFile.mnemonic").charAt(0));
-		jbBrowseCaCertsFile.setToolTipText(m_res.getString("DOptions.jbBrowseCaCertsFile.tooltip"));
+		JButton jbBrowseCaCertsFile = new JButton(RB.getString("DOptions.jbBrowseCaCertsFile.text"));
+		jbBrowseCaCertsFile.setMnemonic(RB.getString("DOptions.jbBrowseCaCertsFile.mnemonic").charAt(0));
+		jbBrowseCaCertsFile.setToolTipText(RB.getString("DOptions.jbBrowseCaCertsFile.tooltip"));
 		jbBrowseCaCertsFile.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -151,7 +149,7 @@ class DOptions
 
 		// Create and populate combo box with available look & feels
 		m_jcbLookFeel = new JComboBox();
-		m_jcbLookFeel.setToolTipText(m_res.getString("DOptions.m_jcbLookFeel.tooltip"));
+		m_jcbLookFeel.setToolTipText(RB.getString("DOptions.m_jcbLookFeel.tooltip"));
 
 		// Current Look and Feel
 		LookAndFeel currentLookAndFeel = UIManager.getLookAndFeel();
@@ -198,20 +196,20 @@ class DOptions
 		}
 
 		JPanel jpLookFeelControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpLookFeelControls.add(new JLabel(m_res.getString("DOptions.jlLookFeel.text")));
+		jpLookFeelControls.add(new JLabel(RB.getString("DOptions.jlLookFeel.text")));
 		jpLookFeelControls.add(m_jcbLookFeel);
 
 		// Create and populate check box with look & feel decorated setting
 		m_jcbLookFeelDecorated =
-		    new JCheckBox(m_res.getString("DOptions.m_jcbLookFeelDecorated.text"),
+		    new JCheckBox(RB.getString("DOptions.m_jcbLookFeelDecorated.text"),
 		        JFrame.isDefaultLookAndFeelDecorated());
-		m_jcbLookFeelDecorated.setToolTipText(m_res.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
+		m_jcbLookFeelDecorated.setToolTipText(RB.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
 
 		JPanel jpLookFeelDecoratedControls = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpLookFeelDecoratedControls.add(m_jcbLookFeelDecorated);
 
 		JPanel jpDecorationNote = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpDecorationNote.add(new JLabel(m_res.getString("DOptions.jlDecorationNote.text")));
+		jpDecorationNote.add(new JLabel(RB.getString("DOptions.jlDecorationNote.text")));
 
 		JPanel jpLookFeel = new JPanel(new BorderLayout());
 		jpLookFeel.add(jpLookFeelControls, BorderLayout.NORTH);
@@ -220,14 +218,14 @@ class DOptions
 
 		// Add the panels to a tabbed pane
 		JTabbedPane jtpOptions = new JTabbedPane();
-		jtpOptions.addTab(m_res.getString("DOptions.jpCaCerts.text"), null, jpCaCerts,
-		    m_res.getString("DOptions.jpCaCerts.tooltip"));
-		jtpOptions.addTab(m_res.getString("DOptions.jpLookFeel.text"), null, jpLookFeel,
-		    m_res.getString("DOptions.jpLookFeel.tooltip"));
+		jtpOptions.addTab(RB.getString("DOptions.jpCaCerts.text"), null, jpCaCerts,
+		    RB.getString("DOptions.jpCaCerts.tooltip"));
+		jtpOptions.addTab(RB.getString("DOptions.jpLookFeel.text"), null, jpLookFeel,
+		    RB.getString("DOptions.jpLookFeel.tooltip"));
 		jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// OK and Cancel buttons
-		JButton jbOK = new JButton(m_res.getString("DOptions.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DOptions.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -236,7 +234,7 @@ class DOptions
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DOptions.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DOptions.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -272,7 +270,7 @@ class DOptions
 			}
 		});
 
-		setTitle(m_res.getString("DOptions.Title"));
+		setTitle(RB.getString("DOptions.Title"));
 		setResizable(false);
 
 		getRootPane().setDefaultButton(jbOK);
@@ -350,12 +348,11 @@ class DOptions
 			chooser.setCurrentDirectory(m_fCaCertsFile.getParentFile());
 		}
 
-		chooser.setDialogTitle(m_res.getString("DOptions.ChooseCACertsKeyStore.Title"));
+		chooser.setDialogTitle(RB.getString("DOptions.ChooseCACertsKeyStore.Title"));
 
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue =
-		    chooser.showDialog(this, m_res.getString("DOptions.CaCertsKeyStoreFileChooser.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("DOptions.CaCertsKeyStoreFileChooser.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
 			m_jtfCaCertsFile.setText(chooser.getSelectedFile().toString());

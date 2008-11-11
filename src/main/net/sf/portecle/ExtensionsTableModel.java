@@ -23,7 +23,6 @@
 package net.sf.portecle;
 
 import java.security.cert.X509Extension;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.swing.table.AbstractTableModel;
@@ -40,12 +39,10 @@ class ExtensionsTableModel
 	private static final String[] COLUMN_NAMES;
 	static
 	{
-		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 		COLUMN_NAMES =
-		    new String[] { rb.getString("ExtensionsTableModel.CriticalColumn"),
-		        rb.getString("ExtensionsTableModel.NameColumn"),
-		        rb.getString("ExtensionsTableModel.OidColumn") };
+		    new String[] { FPortecle.RB.getString("ExtensionsTableModel.CriticalColumn"),
+		        FPortecle.RB.getString("ExtensionsTableModel.NameColumn"),
+		        FPortecle.RB.getString("ExtensionsTableModel.OidColumn") };
 	}
 
 	/** Column classes */

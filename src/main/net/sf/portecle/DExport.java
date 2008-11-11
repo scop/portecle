@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -37,7 +39,6 @@ import java.awt.event.WindowEvent;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
@@ -63,9 +64,6 @@ class DExport
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Head certificate only export type radio button */
 	private JRadioButton m_jrbHeadCertOnly;
@@ -128,9 +126,9 @@ class DExport
 	{
 		// Export type controls
 		JPanel jpExportType = new JPanel(new GridLayout(3, 1));
-		jpExportType.setBorder(new TitledBorder(m_res.getString("DExport.jpExportType.text")));
+		jpExportType.setBorder(new TitledBorder(RB.getString("DExport.jpExportType.text")));
 
-		m_jrbHeadCertOnly = new JRadioButton(m_res.getString("DExport.m_jrbHeadCertOnly.text"), true);
+		m_jrbHeadCertOnly = new JRadioButton(RB.getString("DExport.m_jrbHeadCertOnly.text"), true);
 		m_jrbHeadCertOnly.addItemListener(new ItemListener()
 		{
 			public void itemStateChanged(ItemEvent evt)
@@ -147,7 +145,7 @@ class DExport
 			}
 		});
 
-		m_jrbCertChain = new JRadioButton(m_res.getString("DExport.m_jrbCertChain.text"));
+		m_jrbCertChain = new JRadioButton(RB.getString("DExport.m_jrbCertChain.text"));
 		m_jrbCertChain.addItemListener(new ItemListener()
 		{
 			public void itemStateChanged(ItemEvent evt)
@@ -164,7 +162,7 @@ class DExport
 			}
 		});
 
-		m_jrbPrivKeyCertChain = new JRadioButton(m_res.getString("DExport.m_jrbPrivKeyCertChain.text"));
+		m_jrbPrivKeyCertChain = new JRadioButton(RB.getString("DExport.m_jrbPrivKeyCertChain.text"));
 		m_jrbPrivKeyCertChain.addItemListener(new ItemListener()
 		{
 			public void itemStateChanged(ItemEvent evt)
@@ -193,13 +191,13 @@ class DExport
 		// Export format controls
 		// @@@TODO: add item listeners for these
 		JPanel jpExportFormat = new JPanel(new GridLayout(5, 1));
-		jpExportFormat.setBorder(new TitledBorder(m_res.getString("DExport.jpExportFormat.text")));
+		jpExportFormat.setBorder(new TitledBorder(RB.getString("DExport.jpExportFormat.text")));
 
-		m_jrbDEREncoded = new JRadioButton(m_res.getString("DExport.m_jrbDEREncoded.text"), true);
-		m_jrbPemEncoded = new JRadioButton(m_res.getString("DExport.m_jrbPemEncoded.text"));
-		m_jrbPKCS7 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS7.text"));
-		m_jrbPkiPath = new JRadioButton(m_res.getString("DExport.m_jrbPkiPath.text"));
-		m_jrbPKCS12 = new JRadioButton(m_res.getString("DExport.m_jrbPKCS12.text"));
+		m_jrbDEREncoded = new JRadioButton(RB.getString("DExport.m_jrbDEREncoded.text"), true);
+		m_jrbPemEncoded = new JRadioButton(RB.getString("DExport.m_jrbPemEncoded.text"));
+		m_jrbPKCS7 = new JRadioButton(RB.getString("DExport.m_jrbPKCS7.text"));
+		m_jrbPkiPath = new JRadioButton(RB.getString("DExport.m_jrbPkiPath.text"));
+		m_jrbPKCS12 = new JRadioButton(RB.getString("DExport.m_jrbPKCS12.text"));
 		m_jrbPKCS12.setEnabled(false);
 
 		ButtonGroup formatBG = new ButtonGroup();
@@ -229,7 +227,7 @@ class DExport
 		catch (KeyStoreException ex)
 		{
 			String sMessage =
-			    MessageFormat.format(m_res.getString("DExport.NoAccessEntry.message"), m_sEntryAlias);
+			    MessageFormat.format(RB.getString("DExport.NoAccessEntry.message"), m_sEntryAlias);
 			throw new CryptoException(sMessage, ex);
 		}
 
@@ -242,7 +240,7 @@ class DExport
 		jpOptions.add(jpExportFormat, BorderLayout.SOUTH);
 
 		// Buttons
-		JButton jbOK = new JButton(m_res.getString("DExport.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DExport.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -251,7 +249,7 @@ class DExport
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DExport.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DExport.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -287,7 +285,7 @@ class DExport
 			}
 		});
 
-		setTitle(MessageFormat.format(m_res.getString("DExport.Title"), m_sEntryAlias));
+		setTitle(MessageFormat.format(RB.getString("DExport.Title"), m_sEntryAlias));
 		setResizable(false);
 
 		getRootPane().setDefaultButton(jbOK);

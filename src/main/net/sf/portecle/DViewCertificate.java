@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -43,7 +45,6 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -76,9 +77,6 @@ import net.sf.portecle.gui.error.DThrowable;
 class DViewCertificate
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/** Move left selector button */
 	private JButton m_jbLeft;
 
@@ -164,8 +162,8 @@ class DViewCertificate
 				// None of the types worked - show each of the errors?
 				int iSelected =
 				    JOptionPane.showConfirmDialog(parent, MessageFormat.format(
-				        m_res.getString("FPortecle.NoOpenCertificate.message"), url),
-				        m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.NoOpenCertificate.message"), url),
+				        RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (Exception e : exs)
@@ -178,14 +176,14 @@ class DViewCertificate
 			else if (certs.length == 0)
 			{
 				JOptionPane.showMessageDialog(parent, MessageFormat.format(
-				    m_res.getString("FPortecle.NoCertsFound.message"), url),
-				    m_res.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
+				    RB.getString("FPortecle.NoCertsFound.message"), url),
+				    RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 
 			DViewCertificate dialog =
 			    new DViewCertificate(parent, MessageFormat.format(
-			        m_res.getString("FPortecle.CertDetails.Title"), url), true, certs);
+			        RB.getString("FPortecle.CertDetails.Title"), url), true, certs);
 			dialog.setLocationRelativeTo(parent);
 			SwingHelper.showAndWait(dialog);
 		}
@@ -226,9 +224,9 @@ class DViewCertificate
 				leftPressed();
 			}
 		});
-		m_jbLeft.setToolTipText(m_res.getString("DViewCertificate.m_jbLeft.tooltip"));
+		m_jbLeft.setToolTipText(RB.getString("DViewCertificate.m_jbLeft.tooltip"));
 		m_jbLeft.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		    getClass().getResource(m_res.getString("DViewCertificate.m_jbLeft.image")))));
+		    getClass().getResource(RB.getString("DViewCertificate.m_jbLeft.image")))));
 
 		m_jlSelector = new JLabel("");
 
@@ -241,9 +239,9 @@ class DViewCertificate
 				rightPressed();
 			}
 		});
-		m_jbRight.setToolTipText(m_res.getString("DViewCertificate.m_jbRight.tooltip"));
+		m_jbRight.setToolTipText(RB.getString("DViewCertificate.m_jbRight.tooltip"));
 		m_jbRight.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		    getClass().getResource(m_res.getString("DViewCertificate.m_jbRight.image")))));
+		    getClass().getResource(RB.getString("DViewCertificate.m_jbRight.image")))));
 
 		JPanel jpSelector = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpSelector.add(m_jbLeft);
@@ -269,121 +267,120 @@ class DViewCertificate
 		gbcTf.anchor = GridBagConstraints.WEST;
 
 		// Version
-		JLabel jlVersion = new JLabel(m_res.getString("DViewCertificate.jlVersion.text"));
+		JLabel jlVersion = new JLabel(RB.getString("DViewCertificate.jlVersion.text"));
 		GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlVersion.gridy = 0;
 
 		m_jtfVersion = new JTextField(3);
 		m_jtfVersion.setEditable(false);
-		m_jtfVersion.setToolTipText(m_res.getString("DViewCertificate.m_jtfVersion.tooltip"));
+		m_jtfVersion.setToolTipText(RB.getString("DViewCertificate.m_jtfVersion.tooltip"));
 		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfVersion.gridy = 0;
 
 		// Subject
-		JLabel jlSubject = new JLabel(m_res.getString("DViewCertificate.jlSubject.text"));
+		JLabel jlSubject = new JLabel(RB.getString("DViewCertificate.jlSubject.text"));
 		GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSubject.gridy = 1;
 
 		m_jtfSubject = new JTextField(36);
 		m_jtfSubject.setEditable(false);
-		m_jtfSubject.setToolTipText(m_res.getString("DViewCertificate.m_jtfSubject.tooltip"));
+		m_jtfSubject.setToolTipText(RB.getString("DViewCertificate.m_jtfSubject.tooltip"));
 		GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSubject.gridy = 1;
 
 		// Issuer
-		JLabel jlIssuer = new JLabel(m_res.getString("DViewCertificate.jlIssuer.text"));
+		JLabel jlIssuer = new JLabel(RB.getString("DViewCertificate.jlIssuer.text"));
 		GridBagConstraints gbc_jlIssuer = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlIssuer.gridy = 2;
 
 		m_jtfIssuer = new JTextField(36);
 		m_jtfIssuer.setEditable(false);
-		m_jtfIssuer.setToolTipText(m_res.getString("DViewCertificate.m_jtfIssuer.tooltip"));
+		m_jtfIssuer.setToolTipText(RB.getString("DViewCertificate.m_jtfIssuer.tooltip"));
 		GridBagConstraints gbc_jtfIssuer = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfIssuer.gridy = 2;
 
 		// Serial Number
-		JLabel jlSerialNumber = new JLabel(m_res.getString("DViewCertificate.jlSerialNumber.text"));
+		JLabel jlSerialNumber = new JLabel(RB.getString("DViewCertificate.jlSerialNumber.text"));
 		GridBagConstraints gbc_jlSerialNumber = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSerialNumber.gridy = 3;
 
 		m_jtfSerialNumber = new JTextField(25);
 		m_jtfSerialNumber.setEditable(false);
-		m_jtfSerialNumber.setToolTipText(m_res.getString("DViewCertificate.m_jtfSerialNumber.tooltip"));
+		m_jtfSerialNumber.setToolTipText(RB.getString("DViewCertificate.m_jtfSerialNumber.tooltip"));
 		GridBagConstraints gbc_jtfSerialNumber = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSerialNumber.gridy = 3;
 
 		// Valid From
-		JLabel jlValidFrom = new JLabel(m_res.getString("DViewCertificate.jlValidFrom.text"));
+		JLabel jlValidFrom = new JLabel(RB.getString("DViewCertificate.jlValidFrom.text"));
 		GridBagConstraints gbc_jlValidFrom = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlValidFrom.gridy = 4;
 
 		m_jtfValidFrom = new JTextField(25);
 		m_jtfValidFrom.setEditable(false);
-		m_jtfValidFrom.setToolTipText(m_res.getString("DViewCertificate.m_jtfValidFrom.tooltip"));
+		m_jtfValidFrom.setToolTipText(RB.getString("DViewCertificate.m_jtfValidFrom.tooltip"));
 		GridBagConstraints gbc_jtfValidFrom = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfValidFrom.gridy = 4;
 
 		// Valid Until
-		JLabel jlValidUntil = new JLabel(m_res.getString("DViewCertificate.jlValidUntil.text"));
+		JLabel jlValidUntil = new JLabel(RB.getString("DViewCertificate.jlValidUntil.text"));
 		GridBagConstraints gbc_jlValidUntil = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlValidUntil.gridy = 5;
 
 		m_jtfValidUntil = new JTextField(25);
 		m_jtfValidUntil.setEditable(false);
-		m_jtfValidUntil.setToolTipText(m_res.getString("DViewCertificate.m_jtfValidUntil.tooltip"));
+		m_jtfValidUntil.setToolTipText(RB.getString("DViewCertificate.m_jtfValidUntil.tooltip"));
 		GridBagConstraints gbc_jtfValidUntil = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfValidUntil.gridy = 5;
 
 		// Public Key
-		JLabel jlPublicKey = new JLabel(m_res.getString("DViewCertificate.jlPublicKey.text"));
+		JLabel jlPublicKey = new JLabel(RB.getString("DViewCertificate.jlPublicKey.text"));
 		GridBagConstraints gbc_jlPublicKey = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlPublicKey.gridy = 6;
 
 		m_jtfPublicKey = new JTextField(15);
 		m_jtfPublicKey.setEditable(false);
-		m_jtfPublicKey.setToolTipText(m_res.getString("DViewCertificate.m_jtfPublicKey.tooltip"));
+		m_jtfPublicKey.setToolTipText(RB.getString("DViewCertificate.m_jtfPublicKey.tooltip"));
 		GridBagConstraints gbc_jtfPublicKey = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfPublicKey.gridy = 6;
 
 		// Signature Algorithm
-		JLabel jlSignatureAlgorithm =
-		    new JLabel(m_res.getString("DViewCertificate.jlSignatureAlgorithm.text"));
+		JLabel jlSignatureAlgorithm = new JLabel(RB.getString("DViewCertificate.jlSignatureAlgorithm.text"));
 		GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSignatureAlgorithm.gridy = 7;
 
 		m_jtfSignatureAlgorithm = new JTextField(15);
 		m_jtfSignatureAlgorithm.setEditable(false);
-		m_jtfSignatureAlgorithm.setToolTipText(m_res.getString("DViewCertificate.m_jtfSignatureAlgorithm.tooltip"));
+		m_jtfSignatureAlgorithm.setToolTipText(RB.getString("DViewCertificate.m_jtfSignatureAlgorithm.tooltip"));
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = 7;
 
 		// MD5 Fingerprint
-		JLabel jlMD5Fingerprint = new JLabel(m_res.getString("DViewCertificate.jlMD5Fingerprint.text"));
+		JLabel jlMD5Fingerprint = new JLabel(RB.getString("DViewCertificate.jlMD5Fingerprint.text"));
 		GridBagConstraints gbc_jlMD5Fingerprint = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlMD5Fingerprint.gridy = 8;
 
 		m_jtfMD5Fingerprint = new JTextField(36);
 		m_jtfMD5Fingerprint.setEditable(false);
-		m_jtfMD5Fingerprint.setToolTipText(m_res.getString("DViewCertificate.m_jtfMD5Fingerprint.tooltip"));
+		m_jtfMD5Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfMD5Fingerprint.tooltip"));
 		GridBagConstraints gbc_jtfMD5Fingerprint = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfMD5Fingerprint.gridy = 8;
 
 		// SHA-1 Fingerprint
-		JLabel jlSHA1Fingerprint = new JLabel(m_res.getString("DViewCertificate.jlSHA1Fingerprint.text"));
+		JLabel jlSHA1Fingerprint = new JLabel(RB.getString("DViewCertificate.jlSHA1Fingerprint.text"));
 		GridBagConstraints gbc_jlSHA1Fingerprint = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSHA1Fingerprint.gridy = 9;
 
 		m_jtfSHA1Fingerprint = new JTextField(36);
 		m_jtfSHA1Fingerprint.setEditable(false);
-		m_jtfSHA1Fingerprint.setToolTipText(m_res.getString("DViewCertificate.m_jtfSHA1Fingerprint.tooltip"));
+		m_jtfSHA1Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfSHA1Fingerprint.tooltip"));
 		GridBagConstraints gbc_jtfSHA1Fingerprint = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSHA1Fingerprint.gridy = 9;
 
 		// Extensions
-		m_jbExtensions = new JButton(m_res.getString("DViewCertificate.m_jbExtensions.text"));
+		m_jbExtensions = new JButton(RB.getString("DViewCertificate.m_jbExtensions.text"));
 
-		m_jbExtensions.setMnemonic(m_res.getString("DViewCertificate.m_jbExtensions.mnemonic").charAt(0));
-		m_jbExtensions.setToolTipText(m_res.getString("DViewCertificate.m_jbExtensions.tooltip"));
+		m_jbExtensions.setMnemonic(RB.getString("DViewCertificate.m_jbExtensions.mnemonic").charAt(0));
+		m_jbExtensions.setToolTipText(RB.getString("DViewCertificate.m_jbExtensions.tooltip"));
 		m_jbExtensions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -393,10 +390,10 @@ class DViewCertificate
 		});
 
 		// PEM Encoding
-		JButton jbPemEncoding = new JButton(m_res.getString("DViewCertificate.jbPemEncoding.text"));
+		JButton jbPemEncoding = new JButton(RB.getString("DViewCertificate.jbPemEncoding.text"));
 
-		jbPemEncoding.setMnemonic(m_res.getString("DViewCertificate.jbPemEncoding.mnemonic").charAt(0));
-		jbPemEncoding.setToolTipText(m_res.getString("DViewCertificate.jbPemEncoding.tooltip"));
+		jbPemEncoding.setMnemonic(RB.getString("DViewCertificate.jbPemEncoding.mnemonic").charAt(0));
+		jbPemEncoding.setToolTipText(RB.getString("DViewCertificate.jbPemEncoding.tooltip"));
 		jbPemEncoding.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -453,7 +450,7 @@ class DViewCertificate
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DViewCertificate.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DViewCertificate.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -507,13 +504,13 @@ class DViewCertificate
 		{
 			m_jbLeft.setEnabled(false);
 			m_jbRight.setEnabled(false);
-			m_jlSelector.setText(MessageFormat.format(m_res.getString("DViewCertificate.m_jlSelector.text"),
-			    0, 0));
+			m_jlSelector.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jlSelector.text"), 0,
+			    0));
 			return;
 		}
 
 		// Set selection label and buttons
-		m_jlSelector.setText(MessageFormat.format(m_res.getString("DViewCertificate.m_jlSelector.text"),
+		m_jlSelector.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jlSelector.text"),
 		    m_iSelCert + 1, m_certs.length));
 
 		if (m_iSelCert == 0)
@@ -571,7 +568,7 @@ class DViewCertificate
 		if (bNotYetValid)
 		{
 			m_jtfValidFrom.setText(MessageFormat.format(
-			    m_res.getString("DViewCertificate.m_jtfValidFrom.notyetvalid.text"), m_jtfValidFrom.getText()));
+			    RB.getString("DViewCertificate.m_jtfValidFrom.notyetvalid.text"), m_jtfValidFrom.getText()));
 			m_jtfValidFrom.setForeground(Color.red);
 		}
 		else
@@ -587,7 +584,7 @@ class DViewCertificate
 		if (bNoLongerValid)
 		{
 			m_jtfValidUntil.setText(MessageFormat.format(
-			    m_res.getString("DViewCertificate.m_jtfValidUntil.expired.text"), m_jtfValidUntil.getText()));
+			    RB.getString("DViewCertificate.m_jtfValidUntil.expired.text"), m_jtfValidUntil.getText()));
 			m_jtfValidUntil.setForeground(Color.red);
 		}
 		else
@@ -602,8 +599,8 @@ class DViewCertificate
 
 		if (iKeySize != -1)
 		{
-			m_jtfPublicKey.setText(MessageFormat.format(
-			    m_res.getString("DViewCertificate.m_jtfPublicKey.text"), m_jtfPublicKey.getText(), iKeySize));
+			m_jtfPublicKey.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jtfPublicKey.text"),
+			    m_jtfPublicKey.getText(), iKeySize));
 		}
 		m_jtfPublicKey.setCaretPosition(0);
 
@@ -620,8 +617,7 @@ class DViewCertificate
 		}
 		catch (CertificateEncodingException ex)
 		{
-			throw new CryptoException(m_res.getString("DViewCertificate.NoGetEncodedCert.exception.message"),
-			    ex);
+			throw new CryptoException(RB.getString("DViewCertificate.NoGetEncodedCert.exception.message"), ex);
 		}
 
 		m_jtfMD5Fingerprint.setText(DigestUtil.getMessageDigest(bCert, DigestType.MD5));
@@ -702,9 +698,8 @@ class DViewCertificate
 		X509Certificate cert = m_certs[m_iSelCert];
 
 		DViewExtensions dViewExtensions =
-		    new DViewExtensions(this, MessageFormat.format(
-		        m_res.getString("DViewCertificate.Extensions.Title"), m_iSelCert + 1, m_certs.length), true,
-		        cert);
+		    new DViewExtensions(this, MessageFormat.format(RB.getString("DViewCertificate.Extensions.Title"),
+		        m_iSelCert + 1, m_certs.length), true, cert);
 		dViewExtensions.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dViewExtensions);
 	}
@@ -724,15 +719,14 @@ class DViewCertificate
 
 		JFileChooser chooser = FileChooserFactory.getPEMFileChooser(X509CertUtil.getCertificateAlias(cert));
 		// TODO: lastdir
-		chooser.setDialogTitle(m_res.getString("DViewCertificate.Save.Title"));
+		chooser.setDialogTitle(RB.getString("DViewCertificate.Save.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
 		try
 		{
 			DViewPEM dViewCertPem =
-			    new DViewPEM(this, MessageFormat.format(
-			        m_res.getString("DViewCertificate.PemEncoding.Title"), m_iSelCert + 1, m_certs.length),
-			        true, cert, chooser);
+			    new DViewPEM(this, MessageFormat.format(RB.getString("DViewCertificate.PemEncoding.Title"),
+			        m_iSelCert + 1, m_certs.length), true, cert, chooser);
 			dViewCertPem.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertPem);
 		}

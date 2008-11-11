@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.password;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -31,7 +33,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -54,9 +55,6 @@ public class DGetPassword
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
 
 	/** Password entry password field */
 	private JPasswordField m_jpfPassword;
@@ -100,10 +98,10 @@ public class DGetPassword
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlPassword = new JLabel(m_res.getString("DGetPassword.jlPassword.text"));
+		JLabel jlPassword = new JLabel(RB.getString("DGetPassword.jlPassword.text"));
 		m_jpfPassword = new JPasswordField(15);
 
-		JButton jbOK = new JButton(m_res.getString("DGetPassword.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DGetPassword.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -112,7 +110,7 @@ public class DGetPassword
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DGetNewPassword.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DGetNewPassword.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)

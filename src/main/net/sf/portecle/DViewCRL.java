@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -44,7 +46,6 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Date;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -76,9 +77,6 @@ import net.sf.portecle.gui.error.DThrowable;
 class DViewCRL
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/** CRL Version text field */
 	private JTextField m_jtfVersion;
 
@@ -129,7 +127,7 @@ class DViewCRL
 	 */
 	public static boolean showAndWait(Window parent, Object url)
 	{
-		String title = MessageFormat.format(m_res.getString("FPortecle.CrlDetails.Title"), url);
+		String title = MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"), url);
 
 		X509CRL crl;
 		try
@@ -139,7 +137,7 @@ class DViewCRL
 		catch (FileNotFoundException ex)
 		{
 			JOptionPane.showMessageDialog(parent, MessageFormat.format(
-			    m_res.getString("FPortecle.NoRead.message"), url), title, JOptionPane.WARNING_MESSAGE);
+			    RB.getString("FPortecle.NoRead.message"), url), title, JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		catch (Exception ex)
@@ -193,65 +191,65 @@ class DViewCRL
 		gbcTf.anchor = GridBagConstraints.WEST;
 
 		// Version
-		JLabel jlVersion = new JLabel(m_res.getString("DViewCRL.jlVersion.text"));
+		JLabel jlVersion = new JLabel(RB.getString("DViewCRL.jlVersion.text"));
 		GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlVersion.gridy = 0;
 
 		m_jtfVersion = new JTextField(3);
 		m_jtfVersion.setEditable(false);
-		m_jtfVersion.setToolTipText(m_res.getString("DViewCRL.m_jtfVersion.tooltip"));
+		m_jtfVersion.setToolTipText(RB.getString("DViewCRL.m_jtfVersion.tooltip"));
 		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfVersion.gridy = 0;
 
 		// Issuer
-		JLabel jlIssuer = new JLabel(m_res.getString("DViewCRL.jlIssuer.text"));
+		JLabel jlIssuer = new JLabel(RB.getString("DViewCRL.jlIssuer.text"));
 		GridBagConstraints gbc_jlIssuer = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlIssuer.gridy = 1;
 
 		m_jtfIssuer = new JTextField(40);
 		m_jtfIssuer.setEditable(false);
-		m_jtfIssuer.setToolTipText(m_res.getString("DViewCRL.m_jtfIssuer.tooltip"));
+		m_jtfIssuer.setToolTipText(RB.getString("DViewCRL.m_jtfIssuer.tooltip"));
 		GridBagConstraints gbc_jtfIssuer = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfIssuer.gridy = 1;
 
 		// Effective Date
-		JLabel jlEffectiveDate = new JLabel(m_res.getString("DViewCRL.jlEffectiveDate.text"));
+		JLabel jlEffectiveDate = new JLabel(RB.getString("DViewCRL.jlEffectiveDate.text"));
 		GridBagConstraints gbc_jlEffectiveDate = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlEffectiveDate.gridy = 2;
 
 		m_jtfEffectiveDate = new JTextField(30);
 		m_jtfEffectiveDate.setEditable(false);
-		m_jtfEffectiveDate.setToolTipText(m_res.getString("DViewCRL.m_jtfEffectiveDate.tooltip"));
+		m_jtfEffectiveDate.setToolTipText(RB.getString("DViewCRL.m_jtfEffectiveDate.tooltip"));
 		GridBagConstraints gbc_jtfEffectiveDate = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfEffectiveDate.gridy = 2;
 
 		// Next Update
-		JLabel jlNextUpdate = new JLabel(m_res.getString("DViewCRL.jlNextUpdate.text"));
+		JLabel jlNextUpdate = new JLabel(RB.getString("DViewCRL.jlNextUpdate.text"));
 		GridBagConstraints gbc_jlNextUpdate = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlNextUpdate.gridy = 3;
 
 		m_jtfNextUpdate = new JTextField(30);
 		m_jtfNextUpdate.setEditable(false);
-		m_jtfNextUpdate.setToolTipText(m_res.getString("DViewCRL.m_jtfNextUpdate.tooltip"));
+		m_jtfNextUpdate.setToolTipText(RB.getString("DViewCRL.m_jtfNextUpdate.tooltip"));
 		GridBagConstraints gbc_jtfNextUpdate = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfNextUpdate.gridy = 3;
 
 		// Signature Algorithm
-		JLabel jlSignatureAlgorithm = new JLabel(m_res.getString("DViewCRL.jlSignatureAlgorithm.text"));
+		JLabel jlSignatureAlgorithm = new JLabel(RB.getString("DViewCRL.jlSignatureAlgorithm.text"));
 		GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSignatureAlgorithm.gridy = 4;
 
 		m_jtfSignatureAlgorithm = new JTextField(15);
 		m_jtfSignatureAlgorithm.setEditable(false);
-		m_jtfSignatureAlgorithm.setToolTipText(m_res.getString("DViewCRL.m_jtfSignatureAlgorithm.tooltip"));
+		m_jtfSignatureAlgorithm.setToolTipText(RB.getString("DViewCRL.m_jtfSignatureAlgorithm.tooltip"));
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = 4;
 
 		// CRL Extensions
-		m_jbCrlExtensions = new JButton(m_res.getString("DViewCRL.m_jbCrlExtensions.text"));
+		m_jbCrlExtensions = new JButton(RB.getString("DViewCRL.m_jbCrlExtensions.text"));
 
-		m_jbCrlExtensions.setMnemonic(m_res.getString("DViewCRL.m_jbCrlExtensions.mnemonic").charAt(0));
-		m_jbCrlExtensions.setToolTipText(m_res.getString("DViewCRL.m_jbCrlExtensions.tooltip"));
+		m_jbCrlExtensions.setMnemonic(RB.getString("DViewCRL.m_jbCrlExtensions.mnemonic").charAt(0));
+		m_jbCrlExtensions.setToolTipText(RB.getString("DViewCRL.m_jbCrlExtensions.tooltip"));
 		m_jbCrlExtensions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -328,11 +326,10 @@ class DViewCRL
 		jpRevokedCertsTable.add(jspRevokedCertsTable, BorderLayout.CENTER);
 
 		// CRL Entry Extensions
-		m_jbCrlEntryExtensions = new JButton(m_res.getString("DViewCRL.m_jbCrlEntryExtensions.text"));
+		m_jbCrlEntryExtensions = new JButton(RB.getString("DViewCRL.m_jbCrlEntryExtensions.text"));
 
-		m_jbCrlEntryExtensions.setMnemonic(m_res.getString("DViewCRL.m_jbCrlEntryExtensions.mnemonic").charAt(
-		    0));
-		m_jbCrlEntryExtensions.setToolTipText(m_res.getString("DViewCRL.m_jbCrlEntryExtensions.tooltip"));
+		m_jbCrlEntryExtensions.setMnemonic(RB.getString("DViewCRL.m_jbCrlEntryExtensions.mnemonic").charAt(0));
+		m_jbCrlEntryExtensions.setToolTipText(RB.getString("DViewCRL.m_jbCrlEntryExtensions.tooltip"));
 		m_jbCrlEntryExtensions.setEnabled(false);
 		m_jbCrlEntryExtensions.addActionListener(new ActionListener()
 		{
@@ -378,13 +375,13 @@ class DViewCRL
 
 		// Add border with number of entries in CRL
 		jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(new EtchedBorder(),
-		    MessageFormat.format(m_res.getString("DViewCRL.TableTitle"), m_jtRevokedCerts.getRowCount())),
+		    MessageFormat.format(RB.getString("DViewCRL.TableTitle"), m_jtRevokedCerts.getRowCount())),
 		    new EmptyBorder(5, 5, 5, 5)));
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DViewCRL.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DViewCRL.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -454,8 +451,7 @@ class DViewCRL
 		if (bEffective)
 		{
 			m_jtfEffectiveDate.setText(MessageFormat.format(
-			    m_res.getString("DViewCRL.m_jtfEffectiveDate.noteffective.text"),
-			    m_jtfEffectiveDate.getText()));
+			    RB.getString("DViewCRL.m_jtfEffectiveDate.noteffective.text"), m_jtfEffectiveDate.getText()));
 			m_jtfEffectiveDate.setForeground(Color.red);
 		}
 		else
@@ -471,7 +467,7 @@ class DViewCRL
 		if (bUpdateAvailable)
 		{
 			m_jtfNextUpdate.setText(MessageFormat.format(
-			    m_res.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"), m_jtfNextUpdate.getText()));
+			    RB.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"), m_jtfNextUpdate.getText()));
 			m_jtfNextUpdate.setForeground(Color.red);
 		}
 		else
@@ -565,7 +561,7 @@ class DViewCRL
 	private void crlExtensionsPressed()
 	{
 		DViewExtensions dViewExtensions =
-		    new DViewExtensions(this, m_res.getString("DViewCRL.Extensions.Title"), true, m_crl);
+		    new DViewExtensions(this, RB.getString("DViewCRL.Extensions.Title"), true, m_crl);
 		dViewExtensions.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dViewExtensions);
 	}
@@ -603,7 +599,7 @@ class DViewCRL
 				if (x509CrlEntry != null && x509CrlEntry.hasExtensions())
 				{
 					DViewExtensions dViewExtensions =
-					    new DViewExtensions(this, m_res.getString("DViewCRL.EntryExtensions.Title"), true,
+					    new DViewExtensions(this, RB.getString("DViewCRL.EntryExtensions.Title"), true,
 					        x509CrlEntry);
 					dViewExtensions.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewExtensions);

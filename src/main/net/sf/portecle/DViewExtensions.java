@@ -22,6 +22,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dialog;
@@ -37,7 +39,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.cert.X509Extension;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -73,9 +74,6 @@ import net.sf.portecle.gui.error.DThrowable;
 class DViewExtensions
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/** Extensions table */
 	private JTable m_jtExtensions;
 
@@ -177,7 +175,7 @@ class DViewExtensions
 		JPanel jpExtensionValue = new JPanel(new BorderLayout(10, 10));
 
 		// Extension Value label
-		JLabel jlExtensionValue = new JLabel(m_res.getString("DViewExtensions.jlExtensionValue.text"));
+		JLabel jlExtensionValue = new JLabel(RB.getString("DViewExtensions.jlExtensionValue.text"));
 
 		// Put label into panel
 		jpExtensionValue.add(jlExtensionValue, BorderLayout.NORTH);
@@ -188,7 +186,7 @@ class DViewExtensions
 		m_jtaExtensionValue.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
 		m_jtaExtensionValue.setFont(m_jtExtensions.getFont());
 		m_jtaExtensionValue.setEditable(false);
-		m_jtaExtensionValue.setToolTipText(m_res.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
+		m_jtaExtensionValue.setToolTipText(RB.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
 
 		final JEditorPane editorPane = m_jtaExtensionValue;
 
@@ -318,7 +316,7 @@ class DViewExtensions
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DViewExtensions.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DViewExtensions.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)

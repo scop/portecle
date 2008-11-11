@@ -21,12 +21,13 @@
 
 package net.sf.portecle.gui;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
@@ -37,9 +38,6 @@ public class DesktopUtil
 {
 	/** Desktop */
 	private static final Desktop DESKTOP = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-
-	/** Resource bundle */
-	private static final ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Not needed. */
 	private DesktopUtil()
@@ -69,7 +67,7 @@ public class DesktopUtil
 
 		// Could not launch - tell the user the address
 		JOptionPane.showMessageDialog(parentComponent, MessageFormat.format(
-		    m_res.getString("FPortecle.NoLaunchBrowser.message"), uri), m_res.getString("FPortecle.Title"),
+		    RB.getString("FPortecle.NoLaunchBrowser.message"), uri), RB.getString("FPortecle.Title"),
 		    JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -96,7 +94,7 @@ public class DesktopUtil
 
 		// Could not launch - tell the user the address
 		JOptionPane.showMessageDialog(parentComponent, MessageFormat.format(
-		    m_res.getString("FPortecle.NoLaunchEmail.message"), address), m_res.getString("FPortecle.Title"),
+		    RB.getString("FPortecle.NoLaunchEmail.message"), address), RB.getString("FPortecle.Title"),
 		    JOptionPane.INFORMATION_MESSAGE);
 	}
 }

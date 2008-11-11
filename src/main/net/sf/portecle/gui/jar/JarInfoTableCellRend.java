@@ -24,12 +24,13 @@ package net.sf.portecle.gui.jar;
 
 import java.awt.Component;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import net.sf.portecle.FPortecle;
 
 /**
  * Custom cell renderer for the cells of the Jar Information table of DJarInfo.
@@ -38,8 +39,7 @@ class JarInfoTableCellRend
     extends DefaultTableCellRenderer
 {
 	/** Size column message format */
-	private static final String SIZE_COL_FORMAT =
-	    ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources").getString("JarInfoTableModel.Size");
+	private static final String SIZE_COL_FORMAT = FPortecle.RB.getString("JarInfoTableModel.Size");
 
 	/**
 	 * Returns the rendered cell for the supplied value and column.

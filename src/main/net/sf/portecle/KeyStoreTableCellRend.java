@@ -22,10 +22,11 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -39,9 +40,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 class KeyStoreTableCellRend
     extends DefaultTableCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/**
 	 * Returns the rendered cell for the supplied value and column.
 	 * 
@@ -70,22 +68,22 @@ class KeyStoreTableCellRend
 			{
 				icon =
 				    new ImageIcon(getClass().getResource(
-				        m_res.getString("KeyStoreTableCellRend.KeyPairEntry.image")));
-				cell.setToolTipText(m_res.getString("KeyStoreTableCellRend.KeyPairEntry.tooltip"));
+				        RB.getString("KeyStoreTableCellRend.KeyPairEntry.image")));
+				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.KeyPairEntry.tooltip"));
 			}
 			else if (KeyStoreTableModel.TRUST_CERT_ENTRY.equals(value))
 			{
 				icon =
 				    new ImageIcon(getClass().getResource(
-				        m_res.getString("KeyStoreTableCellRend.TrustCertEntry.image")));
-				cell.setToolTipText(m_res.getString("KeyStoreTableCellRend.TrustCertEntry.tooltip"));
+				        RB.getString("KeyStoreTableCellRend.TrustCertEntry.image")));
+				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.TrustCertEntry.tooltip"));
 			}
 			else
 			{
 				icon =
-				    new ImageIcon(getClass().getResource(
-				        m_res.getString("KeyStoreTableCellRend.KeyEntry.image")));
-				cell.setToolTipText(m_res.getString("KeyStoreTableCellRend.KeyEntry.tooltip"));
+				    new ImageIcon(
+				        getClass().getResource(RB.getString("KeyStoreTableCellRend.KeyEntry.image")));
+				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.KeyEntry.tooltip"));
 			}
 
 			cell.setIcon(icon);

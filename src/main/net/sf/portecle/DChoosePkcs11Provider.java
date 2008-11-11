@@ -21,6 +21,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -33,7 +35,6 @@ import java.awt.event.WindowEvent;
 import java.security.Provider;
 import java.security.Security;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 import java.util.TreeSet;
 
 import javax.swing.AbstractAction;
@@ -59,9 +60,6 @@ public class DChoosePkcs11Provider
 {
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
 
 	/** Provider drop-down box */
 	private JComboBox m_jcbProvider;
@@ -102,9 +100,9 @@ public class DChoosePkcs11Provider
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlProvider = new JLabel(m_res.getString("DChoosePkcs11Provider.jlProvider.text"));
+		JLabel jlProvider = new JLabel(RB.getString("DChoosePkcs11Provider.jlProvider.text"));
 		m_jcbProvider = new JComboBox();
-		m_jcbProvider.setToolTipText(m_res.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
+		m_jcbProvider.setToolTipText(RB.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 
 		TreeSet<Provider> pSet = new TreeSet<Provider>(ProviderUtil.getPkcs11Providers());
 
@@ -124,11 +122,11 @@ public class DChoosePkcs11Provider
 		}
 		else
 		{
-			m_jcbProvider.addItem(m_res.getString("DChoosePkcs11Provider.NoPkcs11Providers"));
+			m_jcbProvider.addItem(RB.getString("DChoosePkcs11Provider.NoPkcs11Providers"));
 			m_jcbProvider.setEnabled(false);
 		}
 
-		JButton jbOK = new JButton(m_res.getString("DChoosePkcs11Provider.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DChoosePkcs11Provider.jbOK.text"));
 		if (providersAvailable)
 		{
 			jbOK.addActionListener(new ActionListener()
@@ -144,7 +142,7 @@ public class DChoosePkcs11Provider
 			jbOK.setEnabled(false);
 		}
 
-		JButton jbCancel = new JButton(m_res.getString("DChoosePkcs11Provider.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DChoosePkcs11Provider.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -202,8 +200,7 @@ public class DChoosePkcs11Provider
 		if (sProvider == null || Security.getProvider(sProvider) == null)
 		{
 			String msg =
-			    MessageFormat.format(m_res.getString("DChoosePkcs11Provider.InvalidProvider.message"),
-			        sProvider);
+			    MessageFormat.format(RB.getString("DChoosePkcs11Provider.InvalidProvider.message"), sProvider);
 			JOptionPane.showMessageDialog(this, msg, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}

@@ -21,6 +21,8 @@
 
 package net.sf.portecle.gui.help;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -32,7 +34,6 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -56,9 +57,6 @@ public class FHelp
     extends JFrame
     implements HistoryEventListener
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/help/resources");
-
 	/** Help frame's title */
 	private String m_sTitle;
 
@@ -107,7 +105,7 @@ public class FHelp
 				catch (IOException ex)
 				{
 					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    m_res.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
+					    RB.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
 					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -117,8 +115,8 @@ public class FHelp
 		JButton jbHome = new JButton();
 		jbHome.setFocusable(false);
 		jbHome.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		    getClass().getResource(m_res.getString("FHelp.jbHome.image")))));
-		jbHome.setToolTipText(m_res.getString("FHelp.jbHome.tooltip"));
+		    getClass().getResource(RB.getString("FHelp.jbHome.image")))));
+		jbHome.setToolTipText(RB.getString("FHelp.jbHome.tooltip"));
 		jbHome.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -131,7 +129,7 @@ public class FHelp
 				catch (IOException ex)
 				{
 					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    m_res.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle,
+					    RB.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle,
 					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -142,8 +140,8 @@ public class FHelp
 		m_jbBack.setFocusable(false);
 		m_jbBack.setEnabled(false);
 		m_jbBack.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		    getClass().getResource(m_res.getString("FHelp.m_jbBack.image")))));
-		m_jbBack.setToolTipText(m_res.getString("FHelp.m_jbBack.tooltip"));
+		    getClass().getResource(RB.getString("FHelp.m_jbBack.image")))));
+		m_jbBack.setToolTipText(RB.getString("FHelp.m_jbBack.tooltip"));
 		m_jbBack.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -159,7 +157,7 @@ public class FHelp
 					catch (IOException ex)
 					{
 						JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-						    m_res.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
+						    RB.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
 						    JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -171,8 +169,8 @@ public class FHelp
 		m_jbForward.setFocusable(false);
 		m_jbForward.setEnabled(false);
 		m_jbForward.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		    getClass().getResource(m_res.getString("FHelp.m_jbForward.image")))));
-		m_jbForward.setToolTipText(m_res.getString("FHelp.m_jbForward.tooltip"));
+		    getClass().getResource(RB.getString("FHelp.m_jbForward.image")))));
+		m_jbForward.setToolTipText(RB.getString("FHelp.m_jbForward.tooltip"));
 		m_jbForward.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -187,7 +185,7 @@ public class FHelp
 					catch (IOException ex)
 					{
 						JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-						    m_res.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
+						    RB.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
 						    JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -222,7 +220,7 @@ public class FHelp
 				catch (IOException ex)
 				{
 					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    m_res.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
+					    RB.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
 					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -235,7 +233,7 @@ public class FHelp
 		catch (IOException ex)
 		{
 			JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-			    m_res.getString("FHelp.NoLocateUrl.message"), toc), m_sTitle, JOptionPane.ERROR_MESSAGE);
+			    RB.getString("FHelp.NoLocateUrl.message"), toc), m_sTitle, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -248,7 +246,7 @@ public class FHelp
 		catch (IOException ex)
 		{
 			JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-			    m_res.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle, JOptionPane.ERROR_MESSAGE);
+			    RB.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle, JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -280,7 +278,7 @@ public class FHelp
 		});
 
 		setIconImage(Toolkit.getDefaultToolkit().createImage(
-		    getClass().getResource(m_res.getString("FHelp.Icon.image"))));
+		    getClass().getResource(RB.getString("FHelp.Icon.image"))));
 
 		pack();
 	}

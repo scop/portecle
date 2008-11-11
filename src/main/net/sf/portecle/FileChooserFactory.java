@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,10 +22,11 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -41,9 +42,6 @@ import net.sf.portecle.gui.FileExtFilter;
  */
 public class FileChooserFactory
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/** File extension for keystore files */
 	private static final String KEYSTORE_EXT = "ks";
 
@@ -83,35 +81,35 @@ public class FileChooserFactory
 
 	/** Description for X.509 certificate files */
 	private static final String X509_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.X509Files"), toWildcards(X509_EXTS));
+	    MessageFormat.format(RB.getString("FileChooseFactory.X509Files"), toWildcards(X509_EXTS));
 
 	/** Description for PKCS #7 certificate files */
 	private static final String PKCS7_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.Pkcs7Files"),
+	    MessageFormat.format(RB.getString("FileChooseFactory.Pkcs7Files"),
 	        toWildcards(new String[] { PKCS7_EXT }));
 
 	/** Description for PkiPath certificate files */
 	private static final String PKIPATH_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.PkiPathFiles"),
+	    MessageFormat.format(RB.getString("FileChooseFactory.PkiPathFiles"),
 	        toWildcards(new String[] { PKIPATH_EXT }));
 
 	/** Description for PEM files */
 	private static final String PEM_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.PEMFiles"),
+	    MessageFormat.format(RB.getString("FileChooseFactory.PEMFiles"),
 	        toWildcards(new String[] { PEM_EXT }));
 
 	/** Description for PKCS #10 CSR files */
 	private static final String CSR_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.CsrFiles"), toWildcards(CSR_EXTS));
+	    MessageFormat.format(RB.getString("FileChooseFactory.CsrFiles"), toWildcards(CSR_EXTS));
 
 	/** Description for CRL files */
 	private static final String CRL_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.CrlFiles"),
+	    MessageFormat.format(RB.getString("FileChooseFactory.CrlFiles"),
 	        toWildcards(new String[] { CRL_EXT }));
 
 	/** Description for certificate files */
 	private static final String CERT_FILE_DESC =
-	    MessageFormat.format(m_res.getString("FileChooseFactory.CertificateFiles"), toWildcards(CERT_EXTS));
+	    MessageFormat.format(RB.getString("FileChooseFactory.CertificateFiles"), toWildcards(CERT_EXTS));
 
 	/** Filename filter pattern for getDefaultFile() */
 	private static final Pattern FILENAME_FILTER = Pattern.compile("[^\\p{L}_\\-]+");
@@ -164,7 +162,7 @@ public class FileChooserFactory
 			}
 			extensions = exts.toArray(new String[exts.size()]);
 			String info = toWildcards(extensions) + FILELIST_SEPARATOR + CACERTS_FILENAME;
-			desc = MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles"), info);
+			desc = MessageFormat.format(RB.getString("FileChooseFactory.KeyStoreFiles"), info);
 			addCaCerts = true;
 		}
 		else
@@ -177,8 +175,7 @@ public class FileChooserFactory
 				addCaCerts = true;
 			}
 			desc =
-			    MessageFormat.format(m_res.getString("FileChooseFactory.KeyStoreFiles." + ksType.name()),
-			        info);
+			    MessageFormat.format(RB.getString("FileChooseFactory.KeyStoreFiles." + ksType.name()), info);
 		}
 
 		FileExtFilter extFilter;

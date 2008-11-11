@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2007 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +22,8 @@
 
 package net.sf.portecle.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -33,7 +35,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,9 +84,6 @@ import org.bouncycastle.asn1.x509.X509Name;
  */
 public class X509Ext
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
-
 	/** Logger */
 	private static final Logger LOG = Logger.getLogger(X509Ext.class.getCanonicalName());
 
@@ -510,7 +508,7 @@ public class X509Ext
 				{
 					strBuff.append("<br><br>");
 				}
-				strBuff.append(m_res.getString("KeyUsage." + type));
+				strBuff.append(RB.getString("KeyUsage." + type));
 			}
 		}
 		return strBuff.toString();
@@ -540,7 +538,7 @@ public class X509Ext
 
 		if ((dTime = pkup.getNotBefore()) != null)
 		{
-			strBuff.append(MessageFormat.format(m_res.getString("PrivateKeyUsagePeriodNotBefore"),
+			strBuff.append(MessageFormat.format(RB.getString("PrivateKeyUsagePeriodNotBefore"),
 			    formatGeneralizedTime(dTime)));
 		}
 
@@ -550,7 +548,7 @@ public class X509Ext
 			{
 				strBuff.append("<br><br>");
 			}
-			strBuff.append(MessageFormat.format(m_res.getString("PrivateKeyUsagePeriodNotAfter"),
+			strBuff.append(MessageFormat.format(RB.getString("PrivateKeyUsagePeriodNotAfter"),
 			    formatGeneralizedTime(dTime)));
 		}
 
@@ -597,13 +595,13 @@ public class X509Ext
 		BasicConstraints bc = BasicConstraints.getInstance(ASN1Object.fromByteArray(bValue));
 		StringBuilder strBuff = new StringBuilder();
 
-		strBuff.append(m_res.getString(bc.isCA() ? "SubjectIsCa" : "SubjectIsNotCa"));
+		strBuff.append(RB.getString(bc.isCA() ? "SubjectIsCa" : "SubjectIsNotCa"));
 		strBuff.append("<br><br>");
 
 		BigInteger pathLen = bc.getPathLenConstraint();
 		if (pathLen != null)
 		{
-			strBuff.append(MessageFormat.format(m_res.getString("PathLengthConstraint"), pathLen));
+			strBuff.append(MessageFormat.format(RB.getString("PathLengthConstraint"), pathLen));
 		}
 
 		return strBuff.toString();
@@ -770,14 +768,14 @@ public class X509Ext
 			int pmLen = policyMapping.size();
 
 			strBuff.append("<li>");
-			strBuff.append(MessageFormat.format(m_res.getString("PolicyMapping"), i + 1));
+			strBuff.append(MessageFormat.format(RB.getString("PolicyMapping"), i + 1));
 
 			if (pmLen > 0)
 			{
 				DERObjectIdentifier issuerDomainPolicy = (DERObjectIdentifier) policyMapping.getObjectAt(0);
 
 				strBuff.append("<ul><li>");
-				strBuff.append(MessageFormat.format(m_res.getString("IssuerDomainPolicy"),
+				strBuff.append(MessageFormat.format(RB.getString("IssuerDomainPolicy"),
 				    issuerDomainPolicy.getId()));
 				strBuff.append("</li></ul>");
 			}
@@ -787,7 +785,7 @@ public class X509Ext
 				DERObjectIdentifier subjectDomainPolicy = (DERObjectIdentifier) policyMapping.getObjectAt(1);
 
 				strBuff.append("<ul><li>");
-				strBuff.append(MessageFormat.format(m_res.getString("SubjectDomainPolicy"),
+				strBuff.append(MessageFormat.format(RB.getString("SubjectDomainPolicy"),
 				    subjectDomainPolicy.getId()));
 				strBuff.append("</li></ul>");
 			}
@@ -826,7 +824,7 @@ public class X509Ext
 		byte[] keyIdentifier = aki.getKeyIdentifier();
 		if (keyIdentifier != null)
 		{
-			strBuff.append(m_res.getString("KeyIdentifier"));
+			strBuff.append(RB.getString("KeyIdentifier"));
 			strBuff.append(": ");
 			strBuff.append(convertToHexString(keyIdentifier));
 			strBuff.append("<br>");
@@ -840,7 +838,7 @@ public class X509Ext
 				strBuff.append("<br>");
 			}
 			strBuff.append("<ul><li>");
-			strBuff.append(m_res.getString("CertificateIssuer"));
+			strBuff.append(RB.getString("CertificateIssuer"));
 			strBuff.append(": ");
 			strBuff.append(getGeneralNamesString(authorityCertIssuer, LinkClass.BROWSER));
 			strBuff.append("</li></ul>");
@@ -853,7 +851,7 @@ public class X509Ext
 			{
 				strBuff.append("<br>");
 			}
-			strBuff.append(MessageFormat.format(m_res.getString("CertificateSerialNumber"), serialNo));
+			strBuff.append(MessageFormat.format(RB.getString("CertificateSerialNumber"), serialNo));
 		}
 
 		return strBuff.toString();
@@ -895,14 +893,14 @@ public class X509Ext
 					{
 						strBuff.append("<br><br>");
 					}
-					strBuff.append(MessageFormat.format(m_res.getString("RequireExplicitPolicy"), iSkipCerts));
+					strBuff.append(MessageFormat.format(RB.getString("RequireExplicitPolicy"), iSkipCerts));
 					break;
 				case 1: // Inhibit Policy Mapping Skip Certs
 					if (strBuff.length() != 0)
 					{
 						strBuff.append("<br><br>");
 					}
-					strBuff.append(MessageFormat.format(m_res.getString("InhibitPolicyMapping"), iSkipCerts));
+					strBuff.append(MessageFormat.format(RB.getString("InhibitPolicyMapping"), iSkipCerts));
 					break;
 			}
 		}
@@ -966,7 +964,7 @@ public class X509Ext
 		int iSkipCerts = skipCerts.getValue().intValue();
 
 		// Return inhibit any policy extension
-		return MessageFormat.format(m_res.getString("InhibitAnyPolicy"), iSkipCerts);
+		return MessageFormat.format(RB.getString("InhibitAnyPolicy"), iSkipCerts);
 	}
 
 	/**
@@ -1013,7 +1011,9 @@ public class X509Ext
 	 * </pre>
 	 * 
 	 * @see <a
-	 *      href="http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
+	 *      href="http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">http://groups
+
+	 *      .google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If and I/O problem occurs
@@ -1024,18 +1024,18 @@ public class X509Ext
 		ASN1Sequence seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(m_res.getString("MsftCertTemplateId"));
+		sb.append(RB.getString("MsftCertTemplateId"));
 		sb.append(": ");
 		sb.append(((DERObjectIdentifier) seq.getObjectAt(0)).getId());
 		sb.append("<br><br>");
 
 		DERInteger derInt = (DERInteger) seq.getObjectAt(1);
-		sb.append(MessageFormat.format(m_res.getString("MsftCertTemplateMajorVer"), derInt.getValue()));
+		sb.append(MessageFormat.format(RB.getString("MsftCertTemplateMajorVer"), derInt.getValue()));
 
 		if ((derInt = (DERInteger) seq.getObjectAt(2)) != null)
 		{
 			sb.append("<br><br>");
-			sb.append(MessageFormat.format(m_res.getString("MsftCertTemplateMinorVer"), derInt.getValue()));
+			sb.append(MessageFormat.format(RB.getString("MsftCertTemplateMinorVer"), derInt.getValue()));
 		}
 
 		return sb.toString();
@@ -1057,9 +1057,9 @@ public class X509Ext
 		String certIx = String.valueOf(ver & 0xffff); // low 16 bits
 		String keyIx = String.valueOf(ver >> 16); // high 16 bits
 		StringBuffer sb = new StringBuffer();
-		sb.append(MessageFormat.format(m_res.getString("MsftCaVersionCert"), certIx));
+		sb.append(MessageFormat.format(RB.getString("MsftCaVersionCert"), certIx));
 		sb.append("<br><br>");
-		sb.append(MessageFormat.format(m_res.getString("MsftCaVersionKey"), keyIx));
+		sb.append(MessageFormat.format(RB.getString("MsftCaVersionKey"), keyIx));
 		return sb.toString();
 	}
 
@@ -1100,7 +1100,7 @@ public class X509Ext
 	{
 		SMIMECapabilities caps = SMIMECapabilities.getInstance(ASN1Object.fromByteArray(bValue));
 
-		String sParams = m_res.getString("SmimeParameters");
+		String sParams = RB.getString("SmimeParameters");
 
 		StringBuilder sb = new StringBuilder();
 
@@ -1209,8 +1209,8 @@ public class X509Ext
 		 * (ASN1Sequence) ltDetails.getObjectAt(1); for (int j = 0, jlen = ltHash.size(); j < jlen; j++) {
 		 * sb.append("\n\t\t\t\tHash: "); ASN1Sequence haav = (ASN1Sequence) ltHash.getObjectAt(j);
 		 * sb.append("<TODO>: "); // haav[0]: alg identifier byte[] bHashValue = ((DEROctetString)
-		 * haav.getObjectAt(1)) .getOctets(); sb.append(convertToHexString(bHashValue)); } ASN1Sequence ltURI =
-		 * (ASN1Sequence) ltDetails.getObjectAt(2); for (int j = 0, jlen = ltURI.size(); j < jlen; j++) {
+		 * haav.getObjectAt(1)) .getOctets(); sb.append(convertToHexString(bHashValue)); } ASN1Sequence ltURI
+		 * = (ASN1Sequence) ltDetails.getObjectAt(2); for (int j = 0, jlen = ltURI.size(); j < jlen; j++) {
 		 * sb.append("\n\t\t\t\tURI: ") .append(((DERString) ltURI.getObjectAt(j)).getString()); } if
 		 * (ltImage.size() > 1) { ASN1Sequence ltImageInfo = (ASN1Sequence) ltImage.getObjectAt(1);
 		 * sb.append("\n\t\t\tImage info"); } if (ltData.size() > 1) { ASN1Sequence ltAudio = (ASN1Sequence)
@@ -1277,17 +1277,17 @@ public class X509Ext
 
 		// Key quality
 		ASN1Sequence keyq = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(0)).getObject();
-		sb.append("<li>").append(m_res.getString("NovellKeyQuality"));
+		sb.append("<li>").append(RB.getString("NovellKeyQuality"));
 		sb.append("<ul>").append(getNovellQualityAttr(keyq)).append("</ul></li>");
 
 		// Crypto process quality
 		ASN1Sequence cpq = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(1)).getObject();
-		sb.append("<li>").append(m_res.getString("NovellCryptoProcessQuality"));
+		sb.append("<li>").append(RB.getString("NovellCryptoProcessQuality"));
 		sb.append("<ul>").append(getNovellQualityAttr(cpq)).append("</ul></li>");
 
 		// Certificate class
 		ASN1Sequence cclass = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(2)).getObject();
-		sb.append("<li>").append(m_res.getString("NovellCertClass"));
+		sb.append("<li>").append(RB.getString("NovellCertClass"));
 		sb.append(": ");
 		BigInteger sv = ((DERInteger) cclass.getObjectAt(0)).getValue();
 		String sc = getRes("NovellCertClass." + sv, "UnregocnisedNovellCertClass");
@@ -1300,7 +1300,7 @@ public class X509Ext
 			valid = ((DERBoolean) cclass.getObjectAt(1)).isTrue();
 		}
 		sb.append("<li>");
-		sb.append(m_res.getString("NovellCertClassValid." + valid));
+		sb.append(RB.getString("NovellCertClassValid." + valid));
 		sb.append("</li></ul>");
 
 		// Enterprise ID
@@ -1313,8 +1313,8 @@ public class X509Ext
 		 * sequences, // but the following throws a ClassCastException...? // ASN1Sequence eLabel =
 		 * (ASN1Sequence) eLabels.getObjectAt(i); }
 		 */
-		sb.append(m_res.getString("NovellEnterpriseID"));
-		sb.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
+		sb.append(RB.getString("NovellEnterpriseID"));
+		sb.append(' ').append(RB.getString("DecodeNotImplemented")); // TODO
 
 		return sb.toString();
 	}
@@ -1330,7 +1330,7 @@ public class X509Ext
 		StringBuilder res = new StringBuilder();
 
 		boolean enforceQuality = ((DERBoolean) seq.getObjectAt(0)).isTrue();
-		res.append("<li>").append(m_res.getString("NovellQualityEnforce"));
+		res.append("<li>").append(RB.getString("NovellQualityEnforce"));
 		res.append(' ').append(enforceQuality).append("</li>");
 
 		ASN1Sequence compusecQ = (ASN1Sequence) seq.getObjectAt(1);
@@ -1338,7 +1338,7 @@ public class X509Ext
 		if (clen > 0)
 		{
 			res.append("<li>");
-			res.append(m_res.getString("NovellCompusecQuality"));
+			res.append(RB.getString("NovellCompusecQuality"));
 			res.append("<ul>");
 
 			for (int i = 0; i < clen; i++)
@@ -1360,10 +1360,10 @@ public class X509Ext
 				}
 				else
 				{
-					csecRating = m_res.getString("UnrecognisedNovellQualityRating");
+					csecRating = RB.getString("UnrecognisedNovellQualityRating");
 				}
 				csecRating = MessageFormat.format(csecRating, tmp.getValue());
-				res.append("<ul><li>").append(m_res.getString("NovellQualityRating"));
+				res.append("<ul><li>").append(RB.getString("NovellQualityRating"));
 				res.append(' ').append(csecRating).append("</li></ul>");
 
 				res.append("</li>");
@@ -1373,8 +1373,8 @@ public class X509Ext
 		}
 
 		// ASN1Sequence cryptoQ = (ASN1Sequence) seq.getObjectAt(2);
-		res.append("<li>").append(m_res.getString("NovellCryptoQuality"));
-		res.append(' ').append(m_res.getString("DecodeNotImplemented")); // TODO
+		res.append("<li>").append(RB.getString("NovellCryptoQuality"));
+		res.append(' ').append(RB.getString("DecodeNotImplemented")); // TODO
 		res.append("</li>");
 		/*
 		 * TODO for (int i = 0, len = cryptoQ.size(); i < len; i++) { ASN1Sequence cqPair = (ASN1Sequence)
@@ -1384,7 +1384,7 @@ public class X509Ext
 
 		BigInteger ksqv = ((DERInteger) seq.getObjectAt(3)).getValue();
 		String ksq = getRes("NovellKeyStorageQuality." + ksqv, "UnrecognisedNovellKeyStorageQuality");
-		res.append("<li>").append(m_res.getString("NovellKeyStorageQuality"));
+		res.append("<li>").append(RB.getString("NovellKeyStorageQuality"));
 		res.append(": ").append(MessageFormat.format(ksq, ksqv));
 		res.append("</li>");
 
@@ -1417,7 +1417,7 @@ public class X509Ext
 				{
 					strBuff.append("<br><br>");
 				}
-				strBuff.append(m_res.getString("NetscapeCertificateType." + type));
+				strBuff.append(RB.getString("NetscapeCertificateType." + type));
 			}
 		}
 		return strBuff.toString();
@@ -1475,18 +1475,18 @@ public class X509Ext
 				switch (dpn.getType())
 				{
 					case DistributionPointName.FULL_NAME:
-						sb.append(m_res.getString("CrlDistributionPoint.0.0"));
+						sb.append(RB.getString("CrlDistributionPoint.0.0"));
 						sb.append(": ");
 						sb.append(getGeneralNamesString((GeneralNames) dpn.getName(), LinkClass.CRL));
 						break;
 					case DistributionPointName.NAME_RELATIVE_TO_CRL_ISSUER:
-						sb.append(m_res.getString("CrlDistributionPoint.0.1"));
+						sb.append(RB.getString("CrlDistributionPoint.0.1"));
 						sb.append(": ");
 						// TODO: need better decode?
 						sb.append(stringify(dpn.getName()));
 						break;
 					default:
-						sb.append(m_res.getString("UnknownCrlDistributionPointName"));
+						sb.append(RB.getString("UnknownCrlDistributionPointName"));
 						sb.append(": ");
 						sb.append(stringify(dpn.getName()));
 						break;
@@ -1498,7 +1498,7 @@ public class X509Ext
 			if ((flags = point.getReasons()) != null)
 			{
 				sb.append("<li>");
-				sb.append(m_res.getString("CrlDistributionPoint.1"));
+				sb.append(RB.getString("CrlDistributionPoint.1"));
 				sb.append(": ");
 				// TODO: decode
 				sb.append(stringify(flags));
@@ -1509,7 +1509,7 @@ public class X509Ext
 			if ((issuer = point.getCRLIssuer()) != null)
 			{
 				sb.append("<li>");
-				sb.append(m_res.getString("CrlDistributionPoint.2"));
+				sb.append(RB.getString("CrlDistributionPoint.2"));
 				sb.append(": ");
 				sb.append(getGeneralNamesString(issuer, LinkClass.CRL));
 				sb.append("</li>");
@@ -1540,7 +1540,7 @@ public class X509Ext
 			String piId = pi.getPolicyIdentifier().getId();
 
 			sb.append("<ul><li>");
-			sb.append(m_res.getString("PolicyIdentifier"));
+			sb.append(RB.getString("PolicyIdentifier"));
 			sb.append(": ");
 			sb.append(MessageFormat.format(getRes(piId, "UnrecognisedPolicyIdentifier"), piId));
 
@@ -1566,7 +1566,7 @@ public class X509Ext
 						String sUri = escapeHtml(((DERString) d).getString());
 
 						sb.append("<li>");
-						sb.append(m_res.getString("CpsUri"));
+						sb.append(RB.getString("CpsUri"));
 						sb.append(": <a class=\"");
 						sb.append(LinkClass.BROWSER);
 						sb.append("\" href=\"");
@@ -1591,7 +1591,7 @@ public class X509Ext
 							{
 								// explicitText
 								sb.append("<li>");
-								sb.append(m_res.getString("ExplicitText"));
+								sb.append(RB.getString("ExplicitText"));
 								sb.append(": ");
 								sb.append(stringify(de));
 								sb.append("</li>");
@@ -1612,13 +1612,13 @@ public class X509Ext
 									}
 								}
 								sb.append("<li>");
-								sb.append(m_res.getString("NoticeRef"));
+								sb.append(RB.getString("NoticeRef"));
 								sb.append(": ");
-								sb.append(m_res.getString("NoticeRefOrganization"));
+								sb.append(RB.getString("NoticeRefOrganization"));
 								sb.append(": ");
 								sb.append(orgstr);
 								sb.append(", ");
-								sb.append(m_res.getString("NoticeRefNumber"));
+								sb.append(RB.getString("NoticeRefNumber"));
 								sb.append(": ");
 								sb.append(nrstr);
 								sb.append("</li>");
@@ -1692,11 +1692,11 @@ public class X509Ext
 				String sVal = stringify(other.getObjectAt(1));
 				try
 				{
-					strBuff.append(m_res.getString(sOid));
+					strBuff.append(RB.getString(sOid));
 				}
 				catch (MissingResourceException e)
 				{
-					strBuff.append(MessageFormat.format(m_res.getString("OtherGeneralName"), sOid));
+					strBuff.append(MessageFormat.format(RB.getString("OtherGeneralName"), sOid));
 				}
 				strBuff.append(": ");
 				strBuff.append(sVal);
@@ -1704,7 +1704,7 @@ public class X509Ext
 
 			case GeneralName.rfc822Name:
 				String sRfc822 = escapeHtml(((DERIA5String) generalName.getName()).getString());
-				strBuff.append(m_res.getString("Rfc822GeneralName"));
+				strBuff.append(RB.getString("Rfc822GeneralName"));
 				strBuff.append(": <a href=\"mailto:");
 				strBuff.append(sRfc822);
 				strBuff.append("\">");
@@ -1714,7 +1714,7 @@ public class X509Ext
 
 			case GeneralName.dNSName:
 				String sDns = escapeHtml(((DERIA5String) generalName.getName()).getString());
-				strBuff.append(m_res.getString("DnsGeneralName"));
+				strBuff.append(RB.getString("DnsGeneralName"));
 				strBuff.append(": ");
 				strBuff.append(sDns);
 				break;
@@ -1722,7 +1722,7 @@ public class X509Ext
 			case GeneralName.directoryName:
 				ASN1Sequence directory = (ASN1Sequence) generalName.getName();
 				X509Name name = new X509Name(directory);
-				strBuff.append(m_res.getString("DirectoryGeneralName"));
+				strBuff.append(RB.getString("DirectoryGeneralName"));
 				strBuff.append(": ");
 				// TODO: make E=foo@bar.com mail links
 				strBuff.append(escapeHtml(name));
@@ -1730,7 +1730,7 @@ public class X509Ext
 
 			case GeneralName.uniformResourceIdentifier:
 				String sUri = escapeHtml(((DERIA5String) generalName.getName()).getString());
-				strBuff.append(m_res.getString("UriGeneralName"));
+				strBuff.append(RB.getString("UriGeneralName"));
 				strBuff.append(": <a ");
 				if (linkClass != null)
 				{
@@ -1761,13 +1761,13 @@ public class X509Ext
 					}
 				}
 
-				strBuff.append(m_res.getString("IpAddressGeneralName"));
+				strBuff.append(RB.getString("IpAddressGeneralName"));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(sbIpAddress));
 				break;
 
 			case GeneralName.registeredID:
-				strBuff.append(m_res.getString("RegisteredIdGeneralName"));
+				strBuff.append(RB.getString("RegisteredIdGeneralName"));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(generalName.getName()));
 				break;
@@ -1775,7 +1775,7 @@ public class X509Ext
 			case GeneralName.x400Address: // TODO
 			case GeneralName.ediPartyName: // TODO
 			default: // Unsupported general name type
-				strBuff.append(MessageFormat.format(m_res.getString("UnrecognizedGeneralNameType"),
+				strBuff.append(MessageFormat.format(RB.getString("UnrecognizedGeneralNameType"),
 				    generalName.getTagNo()));
 				break;
 		}
@@ -2011,11 +2011,11 @@ public class X509Ext
 	{
 		try
 		{
-			return m_res.getString(key);
+			return RB.getString(key);
 		}
 		catch (MissingResourceException e)
 		{
-			return m_res.getString(fallback);
+			return RB.getString(fallback);
 		}
 	}
 

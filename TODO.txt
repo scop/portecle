@@ -20,7 +20,6 @@ TODO for later:
 - Configurable URLConnection timeouts
 - use concurrent package when creating key pair (+ elsewhere?) 
 - Check JCE keystores created with IBM's Java ("JCEKS", "IBMJCE")
-- Make resource bundles final, static
 - Direct import for cert view dialog (maybe CA certs only?)
 - Enable multiselection in keystore table with appropriate popup menu
   (delete only?)

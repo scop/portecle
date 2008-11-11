@@ -21,6 +21,8 @@
 
 package net.sf.portecle.gui.error;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -33,7 +35,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -52,9 +53,6 @@ import javax.swing.tree.TreeSelectionModel;
 public class DThrowableDetail
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/error/resources");
-
 	/** Stores throwable to display */
 	private Throwable m_throwable;
 
@@ -80,7 +78,7 @@ public class DThrowableDetail
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DThrowableDetail.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DThrowableDetail.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -90,9 +88,9 @@ public class DThrowableDetail
 		});
 		jpButtons.add(jbOK);
 
-		JButton jbCopy = new JButton(m_res.getString("DThrowableDetail.jbCopy.text"));
-		jbCopy.setMnemonic(m_res.getString("DThrowableDetail.jbCopy.mnemonic").charAt(0));
-		jbCopy.setToolTipText(m_res.getString("DThrowableDetail.jbCopy.tooltip"));
+		JButton jbCopy = new JButton(RB.getString("DThrowableDetail.jbCopy.text"));
+		jbCopy.setMnemonic(RB.getString("DThrowableDetail.jbCopy.mnemonic").charAt(0));
+		jbCopy.setToolTipText(RB.getString("DThrowableDetail.jbCopy.tooltip"));
 		jbCopy.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -130,7 +128,7 @@ public class DThrowableDetail
 		getContentPane().add(jpThrowable, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		setTitle(m_res.getString("DThrowableDetail.Title"));
+		setTitle(RB.getString("DThrowableDetail.Title"));
 		setResizable(true);
 
 		addWindowListener(new WindowAdapter()
@@ -164,7 +162,7 @@ public class DThrowableDetail
 	{
 		// Top node
 		DefaultMutableTreeNode topNode =
-		    new DefaultMutableTreeNode(m_res.getString("DThrowableDetail.RootNode.text"));
+		    new DefaultMutableTreeNode(RB.getString("DThrowableDetail.RootNode.text"));
 
 		Throwable throwable = m_throwable;
 
@@ -199,8 +197,8 @@ public class DThrowableDetail
 	/*
 	 * private void expandTree(JTree tree, TreePath parent) { // Traverse children expending nodes TreeNode
 	 * node = (TreeNode) parent.getLastPathComponent(); if (node.getChildCount() >= 0) { for (Enumeration en =
-	 * node.children(); en.hasMoreElements();) { TreeNode subNode = (TreeNode) en.nextElement(); TreePath path =
-	 * parent.pathByAddingChild(subNode); expandTree(tree, path); } } tree.expandPath(parent); }
+	 * node.children(); en.hasMoreElements();) { TreeNode subNode = (TreeNode) en.nextElement(); TreePath path
+	 * = parent.pathByAddingChild(subNode); expandTree(tree, path); } } tree.expandPath(parent); }
 	 */
 
 	/**

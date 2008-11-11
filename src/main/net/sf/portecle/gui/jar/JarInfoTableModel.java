@@ -24,12 +24,13 @@ package net.sf.portecle.gui.jar;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ResourceBundle;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import javax.swing.table.AbstractTableModel;
+
+import net.sf.portecle.FPortecle;
 
 /**
  * The table model used to display information about JAR files.
@@ -41,17 +42,15 @@ class JarInfoTableModel
 	private static final String[] COLUMN_NAMES;
 	static
 	{
-		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/gui/jar/resources");
-
 		COLUMN_NAMES =
-		    new String[] { rb.getString("JarInfoTableModel.JarFileColumn"),
-		        rb.getString("JarInfoTableModel.SizeColumn"),
-		        rb.getString("JarInfoTableModel.SpecificationTitleColumn"),
-		        rb.getString("JarInfoTableModel.SpecificationVersionColumn"),
-		        rb.getString("JarInfoTableModel.SpecificationVendorColumn"),
-		        rb.getString("JarInfoTableModel.ImplementationTitleColumn"),
-		        rb.getString("JarInfoTableModel.ImplementationVersionColumn"),
-		        rb.getString("JarInfoTableModel.ImplementationVendorColumn") };
+		    new String[] { FPortecle.RB.getString("JarInfoTableModel.JarFileColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.SizeColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.SpecificationTitleColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.SpecificationVersionColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.SpecificationVendorColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.ImplementationTitleColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.ImplementationVersionColumn"),
+		        FPortecle.RB.getString("JarInfoTableModel.ImplementationVendorColumn") };
 	}
 
 	/** Column classes */

@@ -21,8 +21,9 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -36,9 +37,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 class ExtensionsTableCellRend
     extends DefaultTableCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/**
 	 * Returns the rendered cell for the supplied entry type and column.
 	 * 
@@ -68,16 +66,15 @@ class ExtensionsTableCellRend
 			{
 				icon =
 				    new ImageIcon(getClass().getResource(
-				        m_res.getString("ExtensionsTableCellRend.CriticalExtension.image")));
-				cell.setToolTipText(m_res.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
+				        RB.getString("ExtensionsTableCellRend.CriticalExtension.image")));
+				cell.setToolTipText(RB.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
 			}
 			else
 			{
 				icon =
 				    new ImageIcon(getClass().getResource(
-				        m_res.getString("ExtensionsTableCellRend." + "NonCriticalExtension.image")));
-				cell.setToolTipText(m_res.getString("ExtensionsTableCellRend."
-				    + "NonCriticalExtension.tooltip"));
+				        RB.getString("ExtensionsTableCellRend." + "NonCriticalExtension.image")));
+				cell.setToolTipText(RB.getString("ExtensionsTableCellRend." + "NonCriticalExtension.tooltip"));
 			}
 
 			cell.setIcon(icon);

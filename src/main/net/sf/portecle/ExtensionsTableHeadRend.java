@@ -21,8 +21,9 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -38,9 +39,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 class ExtensionsTableHeadRend
     extends DefaultTableCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/**
 	 * Returns the rendered header cell for the supplied value and column.
 	 * 
@@ -65,12 +63,12 @@ class ExtensionsTableHeadRend
 			header.setText("");
 			ImageIcon icon =
 			    new ImageIcon(getClass().getResource(
-			        m_res.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
+			        RB.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
 			header.setIcon(icon);
 			header.setHorizontalAlignment(CENTER);
 			header.setVerticalAlignment(CENTER);
 
-			header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.CriticalColumn.tooltip"));
+			header.setToolTipText(RB.getString("ExtensionsTableHeadRend.CriticalColumn.tooltip"));
 		}
 		// The other headers contain text
 		else
@@ -81,11 +79,11 @@ class ExtensionsTableHeadRend
 			// Set tool tips
 			if (iCol == 1)
 			{
-				header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.NameColumn.tooltip"));
+				header.setToolTipText(RB.getString("ExtensionsTableHeadRend.NameColumn.tooltip"));
 			}
 			else
 			{
-				header.setToolTipText(m_res.getString("ExtensionsTableHeadRend.OidColumn.tooltip"));
+				header.setToolTipText(RB.getString("ExtensionsTableHeadRend.OidColumn.tooltip"));
 			}
 		}
 

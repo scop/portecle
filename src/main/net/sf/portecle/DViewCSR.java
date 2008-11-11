@@ -21,6 +21,8 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -34,7 +36,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -69,9 +70,6 @@ import org.bouncycastle.jce.PKCS10CertificationRequest;
 class DViewCSR
     extends JDialog
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/** Version text field */
 	private JTextField m_jtfVersion;
 
@@ -132,55 +130,55 @@ class DViewCSR
 		gbcTf.anchor = GridBagConstraints.WEST;
 
 		// Version
-		JLabel jlVersion = new JLabel(m_res.getString("DViewCSR.jlVersion.text"));
+		JLabel jlVersion = new JLabel(RB.getString("DViewCSR.jlVersion.text"));
 		GridBagConstraints gbc_jlVersion = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlVersion.gridy = 0;
 
 		m_jtfVersion = new JTextField(3);
 		m_jtfVersion.setEditable(false);
-		m_jtfVersion.setToolTipText(m_res.getString("DViewCSR.m_jtfVersion.tooltip"));
+		m_jtfVersion.setToolTipText(RB.getString("DViewCSR.m_jtfVersion.tooltip"));
 		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfVersion.gridy = 0;
 
 		// Subject
-		JLabel jlSubject = new JLabel(m_res.getString("DViewCSR.jlSubject.text"));
+		JLabel jlSubject = new JLabel(RB.getString("DViewCSR.jlSubject.text"));
 		GridBagConstraints gbc_jlSubject = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSubject.gridy = 1;
 
 		m_jtfSubject = new JTextField(36);
 		m_jtfSubject.setEditable(false);
-		m_jtfSubject.setToolTipText(m_res.getString("DViewCSR.m_jtfSubject.tooltip"));
+		m_jtfSubject.setToolTipText(RB.getString("DViewCSR.m_jtfSubject.tooltip"));
 		GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSubject.gridy = 1;
 
 		// Public Key
-		JLabel jlPublicKey = new JLabel(m_res.getString("DViewCSR.jlPublicKey.text"));
+		JLabel jlPublicKey = new JLabel(RB.getString("DViewCSR.jlPublicKey.text"));
 		GridBagConstraints gbc_jlPublicKey = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlPublicKey.gridy = 6;
 
 		m_jtfPublicKey = new JTextField(15);
 		m_jtfPublicKey.setEditable(false);
-		m_jtfPublicKey.setToolTipText(m_res.getString("DViewCSR.m_jtfPublicKey.tooltip"));
+		m_jtfPublicKey.setToolTipText(RB.getString("DViewCSR.m_jtfPublicKey.tooltip"));
 		GridBagConstraints gbc_jtfPublicKey = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfPublicKey.gridy = 6;
 
 		// Signature Algorithm
-		JLabel jlSignatureAlgorithm = new JLabel(m_res.getString("DViewCSR.jlSignatureAlgorithm.text"));
+		JLabel jlSignatureAlgorithm = new JLabel(RB.getString("DViewCSR.jlSignatureAlgorithm.text"));
 		GridBagConstraints gbc_jlSignatureAlgorithm = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSignatureAlgorithm.gridy = 7;
 
 		m_jtfSignatureAlgorithm = new JTextField(15);
 		m_jtfSignatureAlgorithm.setEditable(false);
-		m_jtfSignatureAlgorithm.setToolTipText(m_res.getString("DViewCSR.m_jtfSignatureAlgorithm.tooltip"));
+		m_jtfSignatureAlgorithm.setToolTipText(RB.getString("DViewCSR.m_jtfSignatureAlgorithm.tooltip"));
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = 7;
 
 		// TODO: attributes, requested extensions
 
 		// PEM Encoding
-		JButton jbPemEncoding = new JButton(m_res.getString("DViewCSR.jbPemEncoding.text"));
-		jbPemEncoding.setMnemonic(m_res.getString("DViewCSR.jbPemEncoding.mnemonic").charAt(0));
-		jbPemEncoding.setToolTipText(m_res.getString("DViewCSR.jbPemEncoding.tooltip"));
+		JButton jbPemEncoding = new JButton(RB.getString("DViewCSR.jbPemEncoding.text"));
+		jbPemEncoding.setMnemonic(RB.getString("DViewCSR.jbPemEncoding.mnemonic").charAt(0));
+		jbPemEncoding.setToolTipText(RB.getString("DViewCSR.jbPemEncoding.tooltip"));
 		jbPemEncoding.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -218,7 +216,7 @@ class DViewCSR
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(m_res.getString("DViewCSR.jbOK.text"));
+		final JButton jbOK = new JButton(RB.getString("DViewCSR.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -290,7 +288,7 @@ class DViewCSR
 		}
 		catch (IOException e)
 		{
-			throw new CryptoException(m_res.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
+			throw new CryptoException(RB.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
 		}
 
 		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithmId().getObjectId().toString()));
@@ -298,7 +296,7 @@ class DViewCSR
 		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
 		if (iKeySize != -1)
 		{
-			m_jtfPublicKey.setText(MessageFormat.format(m_res.getString("DViewCSR.m_jtfPublicKey.text"),
+			m_jtfPublicKey.setText(MessageFormat.format(RB.getString("DViewCSR.m_jtfPublicKey.text"),
 			    m_jtfPublicKey.getText(), iKeySize));
 		}
 		m_jtfPublicKey.setCaretPosition(0);
@@ -319,12 +317,12 @@ class DViewCSR
 	{
 		JFileChooser chooser = FileChooserFactory.getCsrFileChooser(m_basename);
 		// TODO: lastdir
-		chooser.setDialogTitle(m_res.getString("DViewCSR.Save.Title"));
+		chooser.setDialogTitle(RB.getString("DViewCSR.Save.Title"));
 		chooser.setMultiSelectionEnabled(false);
 		try
 		{
 			DViewPEM dViewCertPem =
-			    new DViewPEM(this, m_res.getString("DViewCSR.PemEncoding.Title"), true, m_req, chooser);
+			    new DViewPEM(this, RB.getString("DViewCSR.PemEncoding.Title"), true, m_req, chooser);
 			dViewCertPem.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertPem);
 		}

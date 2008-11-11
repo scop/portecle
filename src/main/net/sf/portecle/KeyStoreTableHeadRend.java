@@ -21,8 +21,9 @@
 
 package net.sf.portecle;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.Component;
-import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -38,9 +39,6 @@ import javax.swing.table.DefaultTableCellRenderer;
 class KeyStoreTableHeadRend
     extends DefaultTableCellRenderer
 {
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/resources");
-
 	/**
 	 * Returns the rendered header cell for the supplied value and column.
 	 * 
@@ -64,13 +62,12 @@ class KeyStoreTableHeadRend
 		{
 			header.setText("");
 			ImageIcon icon =
-			    new ImageIcon(getClass().getResource(
-			        m_res.getString("KeyStoreTableHeadRend.TypeColumn.image")));
+			    new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableHeadRend.TypeColumn.image")));
 			header.setIcon(icon);
 			header.setHorizontalAlignment(CENTER);
 			header.setVerticalAlignment(CENTER);
 
-			header.setToolTipText(m_res.getString("KeyStoreTableHeadRend.TypeColumn.tooltip"));
+			header.setToolTipText(RB.getString("KeyStoreTableHeadRend.TypeColumn.tooltip"));
 		}
 		// The other headers contain text
 		else
@@ -80,11 +77,11 @@ class KeyStoreTableHeadRend
 
 			if (iCol == 1)
 			{
-				header.setToolTipText(m_res.getString("KeyStoreTableHeadRend.AliasColumn.tooltip"));
+				header.setToolTipText(RB.getString("KeyStoreTableHeadRend.AliasColumn.tooltip"));
 			}
 			else
 			{
-				header.setToolTipText(m_res.getString("KeyStoreTableHeadRend.LastModifiedDateColumn.tooltip"));
+				header.setToolTipText(RB.getString("KeyStoreTableHeadRend.LastModifiedDateColumn.tooltip"));
 			}
 		}
 

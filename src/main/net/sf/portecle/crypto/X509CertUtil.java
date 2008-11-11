@@ -22,6 +22,8 @@
 
 package net.sf.portecle.crypto;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,7 +51,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,9 +82,6 @@ public final class X509CertUtil
 
 	/** OpenSSL PEM encoding name */
 	private static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
-
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/crypto/resources");
 
 	/** Type name for X.509 certificates */
 	private static final String X509_CERT_TYPE = "X.509";
@@ -218,7 +216,7 @@ public final class X509CertUtil
 		catch (Exception ex)
 		{
 			// TODO: don't throw if vCerts non-empty (eg. OpenSSL PEM above)?
-			throw new CryptoException(m_res.getString("NoLoadCertificate.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoLoadCertificate.exception.message"), ex);
 		}
 		finally
 		{
@@ -257,7 +255,7 @@ public final class X509CertUtil
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoLoadCrl.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoLoadCrl.exception.message"), ex);
 		}
 		finally
 		{
@@ -292,17 +290,17 @@ public final class X509CertUtil
 			PKCS10CertificationRequest csr = (PKCS10CertificationRequest) pr.readObject();
 			if (!csr.verify())
 			{
-				throw new CryptoException(m_res.getString("NoVerifyCsr.exception.message"));
+				throw new CryptoException(RB.getString("NoVerifyCsr.exception.message"));
 			}
 			return csr;
 		}
 		catch (ClassCastException ex)
 		{
-			throw new CryptoException(m_res.getString("NoLoadCsr.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoLoadCsr.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
 		}
 		finally
 		{
@@ -355,7 +353,7 @@ public final class X509CertUtil
 		}
 		catch (CertificateException ex)
 		{
-			throw new CryptoException(m_res.getString("NoConvertCertificate.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoConvertCertificate.exception.message"), ex);
 		}
 	}
 
@@ -446,7 +444,7 @@ public final class X509CertUtil
 		}
 		catch (CertificateException ex)
 		{
-			throw new CryptoException(m_res.getString("NoDerEncode.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoDerEncode.exception.message"), ex);
 		}
 	}
 
@@ -521,7 +519,7 @@ public final class X509CertUtil
 		}
 		catch (CertificateException ex)
 		{
-			throw new CryptoException(m_res.getString(errkey), ex);
+			throw new CryptoException(RB.getString(errkey), ex);
 		}
 	}
 
@@ -630,7 +628,7 @@ public final class X509CertUtil
 		// Something went wrong
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("CertificateGenFailed.exception.message"), ex);
+			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
 		}
 	}
 
@@ -665,14 +663,14 @@ public final class X509CertUtil
 			        privateKey);
 			if (!csr.verify())
 			{
-				throw new CryptoException(m_res.getString("NoVerifyGenCsr.exception.message"));
+				throw new CryptoException(RB.getString("NoVerifyGenCsr.exception.message"));
 			}
 
 			return csr;
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoGenerateCsr.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoGenerateCsr.exception.message"), ex);
 		}
 	}
 
@@ -705,7 +703,7 @@ public final class X509CertUtil
 		// Problem verifying
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(m_res.getString("NoVerifyCertificate.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoVerifyCertificate.exception.message"), ex);
 		}
 		return true;
 	}
@@ -810,7 +808,7 @@ public final class X509CertUtil
 		}
 		catch (KeyStoreException ex)
 		{
-			throw new CryptoException(m_res.getString("NoExtractCertificates.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoExtractCertificates.exception.message"), ex);
 		}
 	}
 
@@ -846,7 +844,7 @@ public final class X509CertUtil
 		}
 		catch (KeyStoreException ex)
 		{
-			throw new CryptoException(m_res.getString("NoMatchCertificate.exception.message"), ex);
+			throw new CryptoException(RB.getString("NoMatchCertificate.exception.message"), ex);
 		}
 	}
 

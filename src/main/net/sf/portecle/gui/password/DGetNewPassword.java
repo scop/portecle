@@ -22,6 +22,8 @@
 
 package net.sf.portecle.gui.password;
 
+import static net.sf.portecle.FPortecle.RB;
+
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
@@ -32,7 +34,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -54,9 +55,6 @@ public class DGetNewPassword
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = "CANCEL_KEY";
 
-	/** Resource bundle */
-	private static ResourceBundle m_res = ResourceBundle.getBundle("net/sf/portecle/gui/password/resources");
-
 	/** First password entry password field */
 	private JPasswordField m_jpfFirst;
 
@@ -75,7 +73,7 @@ public class DGetNewPassword
 	 */
 	public DGetNewPassword(Window parent, String sTitle, boolean modal)
 	{
-		super(parent, (sTitle == null) ? m_res.getString("DGetNewPassword.Title") : sTitle, (modal
+		super(parent, (sTitle == null) ? RB.getString("DGetNewPassword.Title") : sTitle, (modal
 		    ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		initComponents();
 	}
@@ -103,12 +101,12 @@ public class DGetNewPassword
 	{
 		getContentPane().setLayout(new BorderLayout());
 
-		JLabel jlFirst = new JLabel(m_res.getString("DGetNewPassword.jlFirst.text"));
-		JLabel jlConfirm = new JLabel(m_res.getString("DGetNewPassword.jlConfirm.text"));
+		JLabel jlFirst = new JLabel(RB.getString("DGetNewPassword.jlFirst.text"));
+		JLabel jlConfirm = new JLabel(RB.getString("DGetNewPassword.jlConfirm.text"));
 		m_jpfFirst = new JPasswordField(15);
 		m_jpfConfirm = new JPasswordField(15);
 
-		JButton jbOK = new JButton(m_res.getString("DGetNewPassword.jbOK.text"));
+		JButton jbOK = new JButton(RB.getString("DGetNewPassword.jbOK.text"));
 		jbOK.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -117,7 +115,7 @@ public class DGetNewPassword
 			}
 		});
 
-		JButton jbCancel = new JButton(m_res.getString("DGetNewPassword.jbCancel.text"));
+		JButton jbCancel = new JButton(RB.getString("DGetNewPassword.jbCancel.text"));
 		jbCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
@@ -187,7 +185,7 @@ public class DGetNewPassword
 			return true;
 		}
 
-		JOptionPane.showMessageDialog(this, m_res.getString("PasswordsNoMatch.message"), getTitle(),
+		JOptionPane.showMessageDialog(this, RB.getString("PasswordsNoMatch.message"), getTitle(),
 		    JOptionPane.WARNING_MESSAGE);
 
 		return false;

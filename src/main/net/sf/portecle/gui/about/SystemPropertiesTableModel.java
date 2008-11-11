@@ -24,9 +24,10 @@ package net.sf.portecle.gui.about;
 
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.swing.table.AbstractTableModel;
+
+import net.sf.portecle.FPortecle;
 
 /**
  * The table model used to System Properties.
@@ -38,11 +39,9 @@ class SystemPropertiesTableModel
 	private static final String[] COLUMN_NAMES;
 	static
 	{
-		ResourceBundle rb = ResourceBundle.getBundle("net/sf/portecle/gui/about/resources");
-
 		COLUMN_NAMES =
-		    new String[] { rb.getString("SystemPropertiesTableModel.NameColumn"),
-		        rb.getString("SystemPropertiesTableModel.ValueColumn") };
+		    new String[] { FPortecle.RB.getString("SystemPropertiesTableModel.NameColumn"),
+		        FPortecle.RB.getString("SystemPropertiesTableModel.ValueColumn") };
 	}
 
 	/** Column classes */
