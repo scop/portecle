@@ -168,7 +168,7 @@ public class DGetNewPassword
 	 * <ul>
 	 * <li>That the user has supplied and confirmed a password.
 	 * <li>That the password's match.
-	 * <li>That they have a length greater than a perscribed minimum.
+	 * <li>That they have a length greater than a prescribed minimum.
 	 * </ul>
 	 * Store the new password in this object.
 	 * 
