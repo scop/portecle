@@ -3505,8 +3505,8 @@ public class FPortecle
 	 * currentVersion.compareTo(latestVersion); if (iCmp >= 0) { // Latest version same (or less!) then
 	 * current version - // tell user they are up-to-date JOptionPane.showMessageDialog( this,
 	 * MessageFormat.format( m_res.getString("FPortecle.HaveLatestVersion.message"), new
-	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else
-	 * { int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
+	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else {
+	 * int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
 	 * "FPortecle.NewerVersionAvailable.message"), latestVersion, m_res.getString(
 	 * "FPortecle.DownloadsAddress")), m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION); if
 	 * (iSelected == JOptionPane.YES_OPTION) { visitDownloads(); } } } // Display errors to user catch
@@ -4624,6 +4624,18 @@ public class FPortecle
 			Key privKey = keyStore.getKey(sEntryAlias, cPassword);
 			Certificate[] certs = keyStore.getCertificateChain(sEntryAlias);
 
+			// Get a new password to encrypt the private key with
+			DGetNewPassword dGetNewPassword =
+			    new DGetNewPassword(this, RB.getString("FPortecle.PrivateKeyExportPassword.Title"), true);
+			dGetNewPassword.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dGetNewPassword);
+
+			char[] password = dGetNewPassword.getPassword();
+			if (password == null)
+			{
+				return false;
+			}
+
 			String basename = null;
 			if (certs.length > 0 && certs[0] instanceof X509Certificate)
 			{
@@ -4648,8 +4660,19 @@ public class FPortecle
 
 			// Do the export
 			pw = new PEMWriter(new FileWriter(fExportFile));
-			// TODO: private key encryption?
-			pw.writeObject(privKey);
+
+			if (password.length == 0)
+			{
+				pw.writeObject(privKey);
+			}
+			else
+			{
+				// TODO: make algorithm configurable/ask user?
+				String algorithm = "DES-EDE3-CBC";
+				SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
+				pw.writeObject(privKey, algorithm, password, rand);
+			}
+
 			for (Certificate cert : certs)
 			{
 				pw.writeObject(cert);
