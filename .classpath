@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src/main"/>
 	<classpathentry kind="lib" path="lib/bcprov.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://www.bouncycastle.org/docs/docs1.5/"/>
+			<attribute name="javadoc_location" value="http://www.bouncycastle.org/docs/docs1.6/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
