@@ -14,7 +14,6 @@ TODO for later:
   first time.
 - Add option to do (IOW, not bypass) hostname and certificate checks when
   examining SSL/TLS connections.
-- Import/export key+certs from PEM (bundle or separate) or DER (separate) files
 - Improve exception show dialog to display multiple exceptions
 - java 1.6 better iconimage etc PNG (transparent?) support
 - Configurable URLConnection timeouts
