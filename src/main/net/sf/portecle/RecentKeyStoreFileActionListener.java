@@ -80,6 +80,6 @@ class RecentKeyStoreFileActionListener
 				return;
 			}
 		}
-		m_fPortecle.openKeyStoreFile(m_fRecentFile);
+		m_fPortecle.openKeyStoreFile(m_fRecentFile, true);
 	}
 }

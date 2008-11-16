@@ -1776,7 +1776,7 @@ public class FPortecle
 			File fOpenFile = chooser.getSelectedFile();
 
 			// File chosen - open the keystore
-			if (openKeyStoreFile(fOpenFile))
+			if (openKeyStoreFile(fOpenFile, true))
 			{
 				return true;
 			}
@@ -1804,16 +1804,17 @@ public class FPortecle
 			}
 		}
 
-		return openKeyStoreFile(m_fCaCertsFile);
+		return openKeyStoreFile(m_fCaCertsFile, false);
 	}
 
 	/**
 	 * Open the supplied keystore file from disk.
 	 * 
 	 * @param fKeyStore The keystore file
+	 * @param updateLastDir Whether to update the last accessed dir
 	 * @return True if a keystore is opened, false otherwise
 	 */
-	/* package private */boolean openKeyStoreFile(File fKeyStore)
+	/* package private */boolean openKeyStoreFile(File fKeyStore, boolean updateLastDir)
 	{
 		// The keystore does not exist
 		if (!fKeyStore.exists())
@@ -1908,7 +1909,10 @@ public class FPortecle
 			m_jmrfFile.add(createRecentFileMenuItem(fKeyStore));
 
 			// Update last accessed directory
-			m_lastDir.updateLastDir(fKeyStore);
+			if (updateLastDir)
+			{
+				m_lastDir.updateLastDir(fKeyStore);
+			}
 
 			return true;
 		}
@@ -6624,7 +6628,7 @@ public class FPortecle
 			fPortecle.setVisible(true);
 			if (m_fKeyStore != null)
 			{
-				fPortecle.openKeyStoreFile(m_fKeyStore);
+				fPortecle.openKeyStoreFile(m_fKeyStore, true);
 			}
 		}
 	}
