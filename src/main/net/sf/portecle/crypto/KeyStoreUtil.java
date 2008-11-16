@@ -30,13 +30,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.security.KeyPair;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+
+import org.bouncycastle.openssl.PEMReader;
 
 /**
  * Provides utility methods for loading/saving keystores. The Bouncy Castle provider must be registered before
@@ -44,6 +51,11 @@ import java.util.HashMap;
  */
 public final class KeyStoreUtil
 {
+	/**
+	 * Dummy password to use for PKCS #12 keystore entries (passwords are not applicable for these).
+	 */
+	public static final char[] PKCS12_DUMMY_PASSWORD = "password".toCharArray();
+
 	/** Map of available keystore types */
 	private static final HashMap<KeyStoreType, Boolean> AVAILABLE_TYPES =
 	    new HashMap<KeyStoreType, Boolean>();
@@ -120,6 +132,96 @@ public final class KeyStoreUtil
 			throw new CryptoException(MessageFormat.format(
 			    RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
+		return keyStore;
+	}
+
+	/**
+	 * Load keystore entries from PEM reader into a new PKCS #12 keystore. The reader is not closed.
+	 * 
+	 * @param reader reader to read entries from
+	 * @return new PKCS #12 keystore containing read entries, possibly empty
+	 * @throws CryptoException Problem encountered creating the keystore
+	 * @throws IOException An I/O error occurred
+	 */
+	public static KeyStore loadEntries(PEMReader reader)
+	    throws CryptoException, IOException
+	{
+		LinkedHashSet<KeyPair> keyPairs = new LinkedHashSet<KeyPair>();
+		LinkedHashSet<Certificate> certs = new LinkedHashSet<Certificate>();
+		KeyStore keyStore = createKeyStore(KeyStoreType.PKCS12);
+
+		Object obj;
+		while ((obj = reader.readObject()) != null)
+		{
+			if (obj instanceof KeyPair)
+			{
+				keyPairs.add((KeyPair) obj);
+			}
+			else if (obj instanceof Certificate)
+			{
+				certs.add((Certificate) obj);
+			}
+		}
+
+		// Add key pairs
+		for (KeyPair keyPair : keyPairs)
+		{
+			Certificate keyPairCert = null;
+			for (Iterator<Certificate> it = certs.iterator(); it.hasNext();)
+			{
+				Certificate cert = it.next();
+				if (cert.getPublicKey().equals(keyPair.getPublic()))
+				{
+					keyPairCert = cert;
+					it.remove();
+					break;
+				}
+			}
+
+			if (keyPairCert != null)
+			{
+				String alias = "keypair";
+				if (keyPairCert instanceof X509Certificate)
+				{
+					alias = X509CertUtil.getCertificateAlias((X509Certificate) keyPairCert);
+				}
+
+				KeyStore.PrivateKeyEntry entry =
+				    new KeyStore.PrivateKeyEntry(keyPair.getPrivate(), new Certificate[] { keyPairCert });
+				KeyStore.PasswordProtection prot = new KeyStore.PasswordProtection(PKCS12_DUMMY_PASSWORD);
+
+				try
+				{
+					alias = findUnusedAlias(keyStore, alias);
+					keyStore.setEntry(alias, entry, prot);
+				}
+				catch (KeyStoreException e)
+				{
+					throw new CryptoException(e);
+				}
+			}
+		}
+
+		// Add remaining certificates as trusted certificate entries
+		for (Certificate cert : certs)
+		{
+			String alias = "certificate";
+			if (cert instanceof X509Certificate)
+			{
+				alias = X509CertUtil.getCertificateAlias((X509Certificate) cert);
+			}
+
+			KeyStore.TrustedCertificateEntry entry = new KeyStore.TrustedCertificateEntry(cert);
+			try
+			{
+				keyStore.setEntry(alias, entry, null);
+			}
+			catch (KeyStoreException e)
+			{
+				throw new CryptoException(e);
+			}
+		}
+
 		return keyStore;
 	}
 
@@ -310,5 +412,32 @@ public final class KeyStoreUtil
 		}
 
 		return keyStore;
+	}
+
+	/**
+	 * Find an unused alias in the keystore based on the given alias.
+	 * 
+	 * @param keyStore the keystore
+	 * @param alias the alias
+	 * @return alias that is not in use in the keystore
+	 * @throws KeyStoreException
+	 */
+	public static String findUnusedAlias(KeyStore keyStore, String alias)
+	    throws KeyStoreException
+	{
+		if (keyStore.containsAlias(alias))
+		{
+			int i = 1;
+			while (true)
+			{
+				String nextAlias = alias + " (" + i + ")";
+				if (!keyStore.containsAlias(nextAlias))
+				{
+					alias = nextAlias;
+					break;
+				}
+			}
+		}
+		return alias;
 	}
 }

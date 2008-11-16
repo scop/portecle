@@ -40,6 +40,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -130,7 +131,9 @@ import net.sf.portecle.version.JavaVersion;
 import net.sf.portecle.version.VersionException;
 
 import org.bouncycastle.jce.PKCS10CertificationRequest;
+import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.openssl.PEMWriter;
+import org.bouncycastle.openssl.PasswordFinder;
 
 /**
  * Start class and main frame of Portecle.
@@ -170,11 +173,6 @@ public class FPortecle
 
 	/** Default look & feel class name */
 	private static final String DEFAULT_LOOK_FEEL = UIManager.getCrossPlatformLookAndFeelClassName();
-
-	/**
-	 * Dummy password to use for PKCS #12 keystore entries (passwords are not applicable for these).
-	 */
-	private static final char[] PKCS12_DUMMY_PASSWORD = "password".toCharArray();
 
 	/** Default CA certs keystore file */
 	/* package private */static final File DEFAULT_CA_CERTS_FILE =
@@ -1718,7 +1716,7 @@ public class FPortecle
 
 		// Get a password for the new keystore entry (only relevant if
 		// the keystore is not PKCS #12)
-		char[] cPassword = PKCS12_DUMMY_PASSWORD;
+		char[] cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 		if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 		{
@@ -2671,16 +2669,16 @@ public class FPortecle
 	}
 
 	/**
-	 * Let the user choose a PKCS #12 keystore file to import from.
+	 * Let the user choose a file to import from.
 	 * 
 	 * @return The chosen file or null if none was chosen
 	 */
-	private File chooseImportPkcs12File()
+	private File chooseImportFile()
 	{
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		JFileChooser chooser = FileChooserFactory.getPkcs12FileChooser(null);
+		JFileChooser chooser = FileChooserFactory.getKeyPairFileChooser(null);
 
 		File fLastDir = m_lastDir.getLastDir();
 		if (fLastDir != null)
@@ -2688,14 +2686,14 @@ public class FPortecle
 			chooser.setCurrentDirectory(fLastDir);
 		}
 
-		chooser.setDialogTitle(RB.getString("FPortecle.ImportPkcs12KeyStore.Title"));
+		chooser.setDialogTitle(RB.getString("FPortecle.ImportKeyPairFile.Title"));
 		chooser.setMultiSelectionEnabled(false);
 
-		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportPkcs12KeyStore.button"));
+		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportKeyPairFile.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fPkcs12File = chooser.getSelectedFile();
-			return fPkcs12File;
+			File fKeyPairFile = chooser.getSelectedFile();
+			return fKeyPairFile;
 		}
 		return null;
 	}
@@ -2962,7 +2960,7 @@ public class FPortecle
 
 			if (cPassword == null)
 			{
-				cPassword = PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 				// Password is only relevant if the keystore is not PKCS #12
 				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
@@ -3171,7 +3169,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Let the user import a key pair from a PKCS #12 keystore.
+	 * Let the user import a key pair a PKCS #12 keystore or a PEM bundle.
 	 * 
 	 * @return True if the import is successful, false otherwise
 	 */
@@ -3182,44 +3180,124 @@ public class FPortecle
 
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
-		// Let the user choose a a PKCS #12 keystore file
-		File fPkcs12 = chooseImportPkcs12File();
-		if (fPkcs12 == null)
+		// Let the user choose a file to import from
+		File fKeyPairFile = chooseImportFile();
+		if (fKeyPairFile == null)
 		{
 			return false;
 		}
 
-		// The PKCS #12 file is not a file
-		if (!fPkcs12.isFile())
+		m_lastDir.updateLastDir(fKeyPairFile);
+
+		// Not a file?
+		if (!fKeyPairFile.isFile())
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NotFile.message"), fPkcs12),
+			    RB.getString("FPortecle.NotFile.message"), fKeyPairFile),
 			    RB.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
-		// Get the user to enter the PKCS #12 keystore's password
-		DGetPassword dGetPassword =
-		    new DGetPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"), true);
-		dGetPassword.setLocationRelativeTo(this);
-		SwingHelper.showAndWait(dGetPassword);
-		char[] cPkcs12Password = dGetPassword.getPassword();
+		ArrayList<Exception> exceptions = new ArrayList<Exception>();
 
-		if (cPkcs12Password == null)
+		KeyStore tempStore = null;
+		PEMReader reader = null;
+		try
 		{
+			PasswordFinder passwordFinder = new PasswordFinder()
+			{
+				private int passwordNumber = 1;
+
+				@Override
+				public char[] getPassword()
+				{
+					// Get the user to enter the private key password
+					DGetPassword dGetPassword =
+					    new DGetPassword(FPortecle.this, MessageFormat.format(
+					        RB.getString("FPortecle.PrivateKeyPassword.Title"),
+					        new Object[] { String.valueOf(passwordNumber) }), true);
+					dGetPassword.setLocationRelativeTo(FPortecle.this);
+					SwingHelper.showAndWait(dGetPassword);
+					char[] cPassword = dGetPassword.getPassword();
+					passwordNumber++;
+					return cPassword;
+				}
+			};
+
+			reader = new PEMReader(new FileReader(fKeyPairFile.getPath()), passwordFinder);
+
+			tempStore = KeyStoreUtil.loadEntries(reader);
+			if (tempStore.size() == 0)
+			{
+				tempStore = null;
+			}
+		}
+		catch (Exception e)
+		{
+			exceptions.add(e);
+		}
+		finally
+		{
+			if (reader != null)
+			{
+				try
+				{
+					reader.close();
+				}
+				catch (IOException e)
+				{
+					// TODO: log it?
+				}
+			}
+		}
+
+		// Treat as PKCS #12 keystore
+		if (tempStore == null)
+		{
+			// Get the user to enter the PKCS #12 keystore's password
+			DGetPassword dGetPassword =
+			    new DGetPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"), true);
+			dGetPassword.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dGetPassword);
+
+			char[] cPkcs12Password = dGetPassword.getPassword();
+			if (cPkcs12Password == null)
+			{
+				return false;
+			}
+
+			// Load the PKCS #12 keystore
+			try
+			{
+				tempStore = KeyStoreUtil.loadKeyStore(fKeyPairFile, cPkcs12Password, KeyStoreType.PKCS12);
+			}
+			catch (Exception e)
+			{
+				exceptions.add(e);
+			}
+		}
+
+		if (tempStore == null && !exceptions.isEmpty())
+		{
+			int iSelected =
+			    JOptionPane.showConfirmDialog(this, MessageFormat.format(
+			        RB.getString("FPortecle.NoOpenKeyPairFile.message"), fKeyPairFile),
+			        RB.getString("FPortecle.ImportKeyPairFile.Title"), JOptionPane.YES_NO_OPTION);
+			if (iSelected == JOptionPane.YES_OPTION)
+			{
+				for (Exception e : exceptions)
+				{
+					DThrowable.showAndWait(this, null, e);
+				}
+			}
+
 			return false;
 		}
 
 		try
 		{
-			// Load the PKCS #12 keystore
-			KeyStore pkcs12 = KeyStoreUtil.loadKeyStore(fPkcs12, cPkcs12Password, KeyStoreType.PKCS12);
-
-			m_lastDir.updateLastDir(fPkcs12);
-
-			// Display the import key pair dialog supplying the PKCS #12
-			// keystore to it
-			DImportKeyPair dImportKeyPair = new DImportKeyPair(this, true, pkcs12);
+			// Display the import key pair dialog supplying the PKCS #12 keystore to it
+			DImportKeyPair dImportKeyPair = new DImportKeyPair(this, true, tempStore);
 			dImportKeyPair.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dImportKeyPair);
 
@@ -3256,8 +3334,7 @@ public class FPortecle
 			// Alias to possibly delete before adding new one
 			String sAliasToDelete = null;
 
-			// Check an entry with the selected does not already exist
-			// in the keystore
+			// Check an entry with the selected does not already exist in the keystore
 			if (keyStore.containsAlias(sAlias))
 			{
 				String sMessage =
@@ -3276,7 +3353,7 @@ public class FPortecle
 
 			// Get a password for the new keystore entry (only relevant if
 			// the keystore is not PKCS #12)
-			char[] cPassword = PKCS12_DUMMY_PASSWORD;
+			char[] cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
 			{
@@ -3713,7 +3790,7 @@ public class FPortecle
 
 					if (cPassword == null)
 					{
-						cPassword = PKCS12_DUMMY_PASSWORD;
+						cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 						// Password is only relevant if the current keystore
 						// type is not PKCS #12
@@ -3748,7 +3825,7 @@ public class FPortecle
 							bWarnPkcs12Password = true;
 							JOptionPane.showMessageDialog(this, MessageFormat.format(
 							    RB.getString("FPortecle.ChangeFromPkcs12Password.message"), new String(
-							        PKCS12_DUMMY_PASSWORD)),
+							        KeyStoreUtil.PKCS12_DUMMY_PASSWORD)),
 							    RB.getString("FPortecle.ChangeKeyStoreType.Title"),
 							    JOptionPane.INFORMATION_MESSAGE);
 						}
@@ -3757,7 +3834,7 @@ public class FPortecle
 					// "dummy value" password for entry
 					else if (keyStoreType == KeyStoreType.PKCS12)
 					{
-						cPassword = PKCS12_DUMMY_PASSWORD;
+						cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 					}
 
 					// Check and ask about alias overwriting issues
@@ -4597,7 +4674,7 @@ public class FPortecle
 
 		if (cPassword == null)
 		{
-			cPassword = PKCS12_DUMMY_PASSWORD;
+			cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 			// Password is only relevant if the keystore is not PKCS #12
 			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
@@ -4731,7 +4808,7 @@ public class FPortecle
 
 		if (cPassword == null)
 		{
-			cPassword = PKCS12_DUMMY_PASSWORD;
+			cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 			// Password is only relevant if the keystore is not PKCS #12
 			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
@@ -5003,7 +5080,7 @@ public class FPortecle
 
 			if (cPassword == null)
 			{
-				cPassword = PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 				// Password is only relevant if the keystore is not PKCS #12
 				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
@@ -5114,7 +5191,7 @@ public class FPortecle
 
 			if (cPassword == null)
 			{
-				cPassword = PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 				// Password is only relevant if the keystore is not PKCS #12
 				if (ksType != KeyStoreType.PKCS12)
@@ -5183,7 +5260,7 @@ public class FPortecle
 
 			// Get a password for the new keystore entry (only relevant if
 			// the keystore is not PKCS #12)
-			char[] cNewPassword = PKCS12_DUMMY_PASSWORD;
+			char[] cNewPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 			if (ksType != KeyStoreType.PKCS12)
 			{
@@ -5533,7 +5610,7 @@ public class FPortecle
 
 				if (cPassword == null)
 				{
-					cPassword = PKCS12_DUMMY_PASSWORD;
+					cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
 
 					// Password is only relevant if the keystore is not PKCS #12
 					if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)

@@ -28,6 +28,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -105,6 +106,18 @@ public class FileChooserFactory
 	private static final String PEM_FILE_DESC =
 	    MessageFormat.format(RB.getString("FileChooseFactory.PEMFiles"),
 	        toWildcards(new String[] { PEM_EXT }));
+
+	/** Description for files containing key pairs */
+	private static final String KEYPAIR_FILE_DESC;
+	static
+	{
+		LinkedHashSet<String> exts = new LinkedHashSet<String>();
+		exts.addAll(KeyStoreType.PKCS12.getFilenameExtensions());
+		exts.add(PEM_EXT);
+		KEYPAIR_FILE_DESC =
+		    MessageFormat.format(RB.getString("FileChooseFactory.KeyPairFiles"),
+		        toWildcards(exts.toArray(new String[exts.size()])));
+	}
 
 	/** Description for PKCS #10 CSR files */
 	private static final String CSR_FILE_DESC =
@@ -304,6 +317,26 @@ public class FileChooserFactory
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
 		chooser.setSelectedFile(getDefaultFile(basename, PEM_EXT));
+		chooser.setFileView(new PortecleFileView());
+		return chooser;
+	}
+
+	/**
+	 * Get a JFileChooser filtered for PKCS #12 and PEM files.
+	 * 
+	 * @param basename default filename (without extension)
+	 * @return JFileChooser object
+	 */
+	public static JFileChooser getKeyPairFileChooser(String basename)
+	{
+		JFileChooser chooser = new JFileChooser();
+		LinkedHashSet<String> exts = new LinkedHashSet<String>();
+		exts.addAll(KeyStoreType.PKCS12.getFilenameExtensions());
+		exts.add(PEM_EXT);
+		FileExtFilter extFilter = new FileExtFilter(exts.toArray(new String[exts.size()]), KEYPAIR_FILE_DESC);
+		chooser.addChoosableFileFilter(extFilter);
+		chooser.setFileFilter(extFilter);
+		chooser.setSelectedFile(getDefaultFile(basename, exts.iterator().next()));
 		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
