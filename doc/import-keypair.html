@@ -12,7 +12,8 @@
     <hr>
 
     <p>
-      To import a key pair into a keystore from a PKCS #12 keystore file:
+      To import a key pair into a keystore from a PKCS #12 keystore or PEM
+      bundle file:
     </p>
 
     <ol>
@@ -21,23 +22,28 @@
         button:<br><img src="import-keypair.gif" alt="Import key pair icon">
       </li>
 
-      <li>The <b>Choose PKCS #12 Keystore for Import</b> dialog will
+      <li>The <b>Choose Key Pair File for Import</b> dialog will
         appear.</li>
 
-      <li>Select the folder where the required PKCS #12 file is stored.</li>
+      <li>Select the folder where the required PKCS #12 or PEM bundle file is stored.</li>
 
-      <li>Click on the required PKCS #12 file or type the filename
+      <li>Click on the required PKCS #12 or PEM bundle file or type the filename
         into the <b>File Name</b> text box.</li>
 
       <li>Click on the <b>Choose</b> button.</li>
 
-      <li>The <b>PKCS #12 Keystore Password</b> dialog will appear.</li>
+      <li>If the selected file was a PEM bundle containing encrypted private
+        keys, one or more <b>Password for Private Key <em>X</em></b> dialogs
+        will appear, one fore each such key.  Enter the private key password
+        into the dialog and press <b>OK</b>.</li>
 
-      <li>Enter the PKCS #12 keystore's password into the dialog and
-        press <b>OK</b>.</li>
+      <li>If the selected file was not a PEM bundle containing key pairs,
+        the <b>PKCS #12 Keystore Password</b> dialog will appear. Enter the
+        PKCS #12 keystore's password into the dialog and press <b>OK</b>.</li>
 
       <li>The <b>Import Key Pair</b> dialog will appear populated with the
-        aliases of all key pairs present in the PKCS #12 keystore.</li>
+        aliases of all key pairs present in the loaded PKCS #12 keystore or
+        PEM bundle.</li>
 
       <li>When you select a key pair its algorithm will be displayed.  You
         may also view each key pair's certificate details by pressing the
