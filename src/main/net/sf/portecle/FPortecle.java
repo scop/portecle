@@ -1670,47 +1670,19 @@ public class FPortecle
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		// Get an alias for the new keystore entry
-		String sAlias = null;
-
-		// Get the alias
-		DGetAlias dGetAlias =
-		    new DGetAlias(this, RB.getString("DGenerateCertificate.KeyPairEntryAlias.Title"), true,
-		        X509CertUtil.getCertificateAlias(certificate).toLowerCase(), false);
-		dGetAlias.setLocationRelativeTo(this);
-		SwingHelper.showAndWait(dGetAlias);
-		sAlias = dGetAlias.getAlias();
-
-		if (sAlias == null)
-		{
-			return false;
-		}
-
-		// Alias to possibly delete before adding new one
-		String sAliasToDelete = null;
-
+		String sAlias = X509CertUtil.getCertificateAlias(certificate).toLowerCase();
 		try
 		{
-			// Check entry does not already exist in the keystore
-			if (keyStore.containsAlias(sAlias))
-			{
-				String sMessage =
-				    MessageFormat.format(RB.getString("DGenerateCertificate.OverwriteAlias.message"), sAlias);
-
-				int iSelected =
-				    JOptionPane.showConfirmDialog(this, sMessage,
-				        RB.getString("DGenerateCertificate.KeyPairEntryAlias.Title"),
-				        JOptionPane.YES_NO_OPTION);
-				if (iSelected != JOptionPane.YES_OPTION)
-				{
-					return false;
-				}
-				// Otherwise carry on - delete old entry later
-				sAliasToDelete = sAlias;
-			}
+			sAlias =
+			    getNewEntryAlias(keyStore, sAlias, "DGenerateCertificate.KeyPairEntryAlias.Title", false);
 		}
 		catch (KeyStoreException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+		if (sAlias == null)
+		{
 			return false;
 		}
 
@@ -1737,11 +1709,12 @@ public class FPortecle
 		// the keystore wrapper
 		try
 		{
-			// If needed, delete old entry first
-			if (sAliasToDelete != null)
+			// Delete old entry first
+			if (keyStore.containsAlias(sAlias))
 			{
-				keyStore.deleteEntry(sAliasToDelete);
+				keyStore.deleteEntry(sAlias);
 			}
+
 			// Store the new one
 			keyStore.setKeyEntry(sAlias, keyPair.getPrivate(), cPassword,
 			    new X509Certificate[] { certificate });
@@ -3112,33 +3085,16 @@ public class FPortecle
 				}
 			}
 
-			// Get the entry alias to put the trusted certificate into
-			DGetAlias dGetAlias =
-			    new DGetAlias(this, RB.getString("FPortecle.TrustCertEntryAlias.Title"), true,
-			        X509CertUtil.getCertificateAlias(trustCert).toLowerCase(), false);
-			dGetAlias.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dGetAlias);
-			String sAlias = dGetAlias.getAlias();
-
+			String sAlias = X509CertUtil.getCertificateAlias(trustCert).toLowerCase();
+			sAlias = getNewEntryAlias(keyStore, sAlias, "FPortecle.TrustCertEntryAlias.Title", false);
 			if (sAlias == null)
 			{
 				return false;
 			}
 
-			// Check entry does not already exist in the keystore
+			// Delete old entry first
 			if (keyStore.containsAlias(sAlias))
 			{
-				String sMessage =
-				    MessageFormat.format(RB.getString("FPortecle.OverWriteEntry.message"), sAlias);
-
-				int iSelected =
-				    JOptionPane.showConfirmDialog(this, sMessage,
-				        RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
-				if (iSelected != JOptionPane.YES_OPTION)
-				{
-					return false;
-				}
-				// Otherwise carry on - delete entry to be copied over
 				keyStore.deleteEntry(sAlias);
 			}
 
@@ -3317,38 +3273,10 @@ public class FPortecle
 			{
 				sAlias = X509CertUtil.getCertificateAlias(X509CertUtil.convertCertificate(certs[0]));
 			}
-
-			// Get the alias for the new key pair entry
-			DGetAlias dGetAlias =
-			    new DGetAlias(this, RB.getString("FPortecle.KeyPairEntryAlias.Title"), true,
-			        sAlias.toLowerCase(), false);
-			dGetAlias.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dGetAlias);
-			sAlias = dGetAlias.getAlias();
-
+			sAlias = getNewEntryAlias(keyStore, sAlias, "FPortecle.KeyPairEntryAlias.Title", false);
 			if (sAlias == null)
 			{
 				return false;
-			}
-
-			// Alias to possibly delete before adding new one
-			String sAliasToDelete = null;
-
-			// Check an entry with the selected does not already exist in the keystore
-			if (keyStore.containsAlias(sAlias))
-			{
-				String sMessage =
-				    MessageFormat.format(RB.getString("FPortecle.OverWriteEntry.message"), sAlias);
-
-				int iSelected =
-				    JOptionPane.showConfirmDialog(this, sMessage,
-				        RB.getString("FPortecle.KeyPairEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
-				if (iSelected != JOptionPane.YES_OPTION)
-				{
-					return false;
-				}
-				// Otherwise carry on - delete old entry later
-				sAliasToDelete = sAlias;
 			}
 
 			// Get a password for the new keystore entry (only relevant if
@@ -3369,10 +3297,10 @@ public class FPortecle
 				}
 			}
 
-			// If needed, delete old entry first
-			if (sAliasToDelete != null)
+			// Delete old entry first
+			if (keyStore.containsAlias(sAlias))
 			{
-				keyStore.deleteEntry(sAliasToDelete);
+				keyStore.deleteEntry(sAlias);
 			}
 
 			// Place the private key and certificate chain into the keystore
@@ -3739,7 +3667,6 @@ public class FPortecle
 				// Trusted certificate entry
 				if (currentKeyStore.isCertificateEntry(sAlias))
 				{
-
 					// Check and ask about alias overwriting issues
 					if (newKeyStore.containsAlias(sAlias))
 					{
@@ -5212,51 +5139,15 @@ public class FPortecle
 			// Update the keystore wrapper
 			m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
-			// Get the alias of the new entry
-			DGetAlias dGetAlias =
-			    new DGetAlias(this, RB.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), true, sAlias,
-			        true);
-			dGetAlias.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dGetAlias);
-			String sNewAlias = dGetAlias.getAlias();
-
-			if (sNewAlias == null)
+			sAlias = getNewEntryAlias(keyStore, sAlias, "FPortecle.ClonedKeyPairEntryAlias.Title", true);
+			if (sAlias == null)
 			{
-				return false;
-			}
-
-			// Check new alias differs from the present one
-			if (sNewAlias.equalsIgnoreCase(sAlias))
-			{
-				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    RB.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
-				    RB.getString("FPortecle.CloneKeyPair.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 
 			// Get key and certificates from entry
 			Key key = keyStore.getKey(sAlias, cPassword);
 			Certificate[] certs = keyStore.getCertificateChain(sAlias);
-
-			// Alias to possibly delete before adding new one
-			String sAliasToDelete = null;
-
-			// Check entry does not already exist in the keystore
-			if (keyStore.containsAlias(sNewAlias))
-			{
-				String sMessage =
-				    MessageFormat.format(RB.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
-
-				int iSelected =
-				    JOptionPane.showConfirmDialog(this, sMessage,
-				        RB.getString("FPortecle.ClonedKeyPairEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
-				if (iSelected != JOptionPane.YES_OPTION)
-				{
-					return false;
-				}
-				// Otherwise carry on - delete old entry later
-				sAliasToDelete = sNewAlias;
-			}
 
 			// Get a password for the new keystore entry (only relevant if
 			// the keystore is not PKCS #12)
@@ -5277,21 +5168,21 @@ public class FPortecle
 				}
 			}
 
-			// If needed, delete old entry first
-			if (sAliasToDelete != null)
+			// Delete old entry first
+			if (keyStore.containsAlias(sAlias))
 			{
-				keyStore.deleteEntry(sAliasToDelete);
+				keyStore.deleteEntry(sAlias);
 			}
 
 			// Create new entry
-			keyStore.setKeyEntry(sNewAlias, key, cNewPassword, certs);
+			keyStore.setKeyEntry(sAlias, key, cNewPassword, certs);
 
 			// Update the keystore wrapper
-			m_keyStoreWrap.setEntryPassword(sNewAlias, cNewPassword);
+			m_keyStoreWrap.setEntryPassword(sAlias, cNewPassword);
 			m_keyStoreWrap.setChanged(true);
 
 			// ...and update the frame's components and title
-			selectedAlias = sNewAlias;
+			selectedAlias = sAlias;
 			updateControls();
 			updateTitle();
 
@@ -5330,56 +5221,29 @@ public class FPortecle
 		try
 		{
 			// Get the alias of the new entry
-
-			DGetAlias dGetAlias =
-			    new DGetAlias(this, RB.getString("FPortecle.ClonedTrustCertEntryAlias.Title"), true, sAlias,
-			        true);
-			dGetAlias.setLocationRelativeTo(this);
-			SwingHelper.showAndWait(dGetAlias);
-			String sNewAlias = dGetAlias.getAlias();
-
-			if (sNewAlias == null)
+			sAlias = getNewEntryAlias(keyStore, sAlias, "FPortecle.ClonedTrustCertEntryAlias.Title", true);
+			if (sAlias == null)
 			{
-				return false;
-			}
-
-			// Check new alias differs from the present one
-			if (sNewAlias.equalsIgnoreCase(sAlias))
-			{
-				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    RB.getString("FPortecle.CloneAliasIdentical.message"), sAlias),
-				    RB.getString("FPortecle.CloneCertificate.Title"), JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 
 			// Get certificate from entry
 			Certificate cert = keyStore.getCertificate(sAlias);
 
-			// Check entry does not already exist in the keystore
-			if (keyStore.containsAlias(sNewAlias))
+			// Delete old entry first
+			if (keyStore.containsAlias(sAlias))
 			{
-				String sMessage =
-				    MessageFormat.format(RB.getString("FPortecle.OverwriteAlias.message"), sNewAlias);
-
-				int iSelected =
-				    JOptionPane.showConfirmDialog(this, sMessage,
-				        RB.getString("FPortecle.ClonedTrustCertEntryAlias.Title"), JOptionPane.YES_NO_OPTION);
-				if (iSelected != JOptionPane.YES_OPTION)
-				{
-					return false;
-				}
-				// Otherwise carry on - delete entry to be copied over
-				keyStore.deleteEntry(sNewAlias);
+				keyStore.deleteEntry(sAlias);
 			}
 
 			// Create new entry
-			keyStore.setCertificateEntry(sNewAlias, cert);
+			keyStore.setCertificateEntry(sAlias, cert);
 
 			// Update the keystore wrapper
 			m_keyStoreWrap.setChanged(true);
 
 			// ...and update the frame's components and title
-			selectedAlias = sNewAlias;
+			selectedAlias = sAlias;
 			updateControls();
 			updateTitle();
 
@@ -6131,6 +5995,57 @@ public class FPortecle
 			return iSelected == JOptionPane.YES_OPTION;
 		}
 		return true;
+	}
+
+	/**
+	 * Gets a new entry alias from user, handling overwrite issues.
+	 * 
+	 * @param keyStore target keystore
+	 * @param sAlias suggested alias
+	 * @param dialogTitleKey message key for dialog titles
+	 * @param selectAlias whether to pre-select alias text in text field
+	 * @return alias for new entry, null if user cancels the operation
+	 */
+	private String getNewEntryAlias(KeyStore keyStore, String sAlias, String dialogTitleKey,
+	    boolean selectAlias)
+	    throws KeyStoreException
+	{
+		while (true)
+		{
+			// Get the alias for the new entry
+			DGetAlias dGetAlias =
+			    new DGetAlias(this, RB.getString(dialogTitleKey), true, sAlias.toLowerCase(), selectAlias);
+			dGetAlias.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dGetAlias);
+
+			sAlias = dGetAlias.getAlias();
+			if (sAlias == null)
+			{
+				return null;
+			}
+
+			// Check an entry with the selected does not already exist in the keystore
+			if (!keyStore.containsAlias(sAlias))
+			{
+				return sAlias;
+			}
+
+			String sMessage = MessageFormat.format(RB.getString("FPortecle.OverWriteEntry.message"), sAlias);
+
+			int iSelected =
+			    JOptionPane.showConfirmDialog(this, sMessage, RB.getString(dialogTitleKey),
+			        JOptionPane.YES_NO_CANCEL_OPTION);
+			switch (iSelected)
+			{
+				case JOptionPane.YES_OPTION:
+					return sAlias;
+				case JOptionPane.NO_OPTION:
+					// keep looping
+					break;
+				default:
+					return null;
+			}
+		}
 	}
 
 	/**
