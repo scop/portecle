@@ -2409,8 +2409,6 @@ public class FPortecle
 
 		// Check what we got
 
-		// TODO: put protocol, cipherSuite to dialog
-
 		try
 		{
 			// If there are any display the view certificate dialog with them
@@ -2419,7 +2417,7 @@ public class FPortecle
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this,
 				        MessageFormat.format(RB.getString("FPortecle.CertDetailsSSL.Title"),
-				            ia.getHostName() + ":" + ia.getPort()), true, certs);
+				            ia.getHostName() + ":" + ia.getPort()), true, certs, protocol, cipherSuite);
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 				return true;

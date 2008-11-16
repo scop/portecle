@@ -116,6 +116,12 @@ class DViewCertificate
 	/** Certificate SHA-1 Fingerprint text field */
 	private JTextField m_jtfSHA1Fingerprint;
 
+	/** SSL/TLS connection protocol text field */
+	private JTextField m_jtfProtocol;
+
+	/** SSL/TLS connection cipher suite text field */
+	private JTextField m_jtfCipherSuite;
+
 	/** Button used to display the certificate's extensions */
 	private JButton m_jbExtensions;
 
@@ -124,6 +130,12 @@ class DViewCertificate
 
 	/** The currently selected certificate */
 	private int m_iSelCert;
+
+	/** SSL/TLS connection protocol */
+	private final String m_connectionProtocol;
+
+	/** SSL/TLS connection cipher suite */
+	private final String m_connectionCipherSuite;
 
 	/**
 	 * Creates new DViewCertificate dialog.
@@ -137,8 +149,28 @@ class DViewCertificate
 	public DViewCertificate(Window parent, String sTitle, boolean modal, X509Certificate[] certs)
 	    throws CryptoException
 	{
+		this(parent, sTitle, modal, certs, null, null);
+	}
+
+	/**
+	 * Creates new DViewCertificate dialog.
+	 * 
+	 * @param parent Parent window
+	 * @param sTitle The dialog title
+	 * @param modal Is dialog modal?
+	 * @param certs Certificate(s) chain to display
+	 * @param connectionProtocol SSL/TLS connection protocol
+	 * @param connectionProtocol SSL/TLS connection cipher suite
+	 * @throws CryptoException A problem was encountered getting the certificates' details
+	 */
+	public DViewCertificate(Window parent, String sTitle, boolean modal, X509Certificate[] certs,
+	    String connectionProtocol, String connectionCipherSuite)
+	    throws CryptoException
+	{
 		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
 		m_certs = certs;
+		m_connectionProtocol = connectionProtocol;
+		m_connectionCipherSuite = connectionCipherSuite;
 		initComponents();
 	}
 
@@ -415,11 +447,33 @@ class DViewCertificate
 
 		GridBagConstraints gbc_jpButtons = new GridBagConstraints();
 		gbc_jpButtons.gridx = 0;
-		gbc_jpButtons.gridy = 10;
+		gbc_jpButtons.gridy = gridy++;
 		gbc_jpButtons.gridwidth = 2;
 		gbc_jpButtons.gridheight = 1;
 		gbc_jpButtons.insets = new Insets(5, 5, 5, 5);
 		gbc_jpButtons.anchor = GridBagConstraints.EAST;
+
+		// SSL/TLS connection protocol
+		JLabel jlProtocol = new JLabel(RB.getString("DViewCertificate.jlProtocol.text"));
+		GridBagConstraints gbc_jlProtocol = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlProtocol.gridy = gridy;
+
+		m_jtfProtocol = new JTextField(36);
+		m_jtfProtocol.setEditable(false);
+		m_jtfProtocol.setToolTipText(RB.getString("DViewCertificate.m_jtfProtocol.tooltip"));
+		GridBagConstraints gbc_jtfProtocol = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfProtocol.gridy = gridy++;
+
+		// SSL/TLS connection cipher suite
+		JLabel jlCipherSuite = new JLabel(RB.getString("DViewCertificate.jlCipherSuite.text"));
+		GridBagConstraints gbc_jlCipherSuite = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlCipherSuite.gridy = gridy;
+
+		m_jtfCipherSuite = new JTextField(36);
+		m_jtfCipherSuite.setEditable(false);
+		m_jtfCipherSuite.setToolTipText(RB.getString("DViewCertificate.m_jtfCipherSuite.tooltip"));
+		GridBagConstraints gbc_jtfCipherSuite = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfCipherSuite.gridy = gridy++;
 
 		JPanel jpCertificate = new JPanel(new GridBagLayout());
 		jpCertificate.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()));
@@ -445,6 +499,16 @@ class DViewCertificate
 		jpCertificate.add(jlSHA1Fingerprint, gbc_jlSHA1Fingerprint);
 		jpCertificate.add(m_jtfSHA1Fingerprint, gbc_jtfSHA1Fingerprint);
 		jpCertificate.add(jpButtons, gbc_jpButtons);
+		if (m_connectionProtocol != null)
+		{
+			jpCertificate.add(jlProtocol, gbc_jlProtocol);
+			jpCertificate.add(m_jtfProtocol, gbc_jtfProtocol);
+		}
+		if (m_connectionCipherSuite != null)
+		{
+			jpCertificate.add(jlCipherSuite, gbc_jlCipherSuite);
+			jpCertificate.add(m_jtfCipherSuite, gbc_jtfCipherSuite);
+		}
 
 		// Populate the dialog with the first certificate (if any)
 		populateDialog();
@@ -641,6 +705,12 @@ class DViewCertificate
 			// No extensions
 			m_jbExtensions.setEnabled(false);
 		}
+
+		// SSL/TLS connection details
+		m_jtfProtocol.setText(m_connectionProtocol);
+		m_jtfProtocol.setCaretPosition(0);
+		m_jtfCipherSuite.setText(m_connectionCipherSuite);
+		m_jtfCipherSuite.setCaretPosition(0);
 	}
 
 	/**
