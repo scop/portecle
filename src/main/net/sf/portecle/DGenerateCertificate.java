@@ -115,10 +115,10 @@ class DGenerateCertificate
 	private JTextField m_jtfEmailAddress;
 
 	/** The key pair to generate the certificate from */
-	private KeyPair m_keyPair;
+	private final KeyPair m_keyPair;
 
 	/** The key pair type */
-	private KeyPairType m_keyPairType;
+	private final KeyPairType m_keyPairType;
 
 	/** Generated certificate */
 	private X509Certificate m_certificate;

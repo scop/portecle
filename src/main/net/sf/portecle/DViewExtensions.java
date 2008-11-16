@@ -83,7 +83,7 @@ class DViewExtensions
 	private JEditorPane m_jtaExtensionValue;
 
 	/** Extensions to display */
-	private X509Extension m_extensions;
+	private final X509Extension m_extensions;
 
 	/**
 	 * Creates new DViewExtensions dialog.

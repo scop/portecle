@@ -126,7 +126,7 @@ class DViewCertificate
 	private JButton m_jbExtensions;
 
 	/** Stores certificate(s) to display */
-	private X509Certificate[] m_certs;
+	private final X509Certificate[] m_certs;
 
 	/** The currently selected certificate */
 	private int m_iSelCert;
