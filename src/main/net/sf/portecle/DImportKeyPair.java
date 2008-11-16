@@ -65,6 +65,7 @@ import javax.swing.event.ListSelectionListener;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairUtil;
+import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
@@ -294,7 +295,7 @@ class DImportKeyPair
 				// and certificates
 				if (m_pkcs12.isKeyEntry(sAlias))
 				{
-					m_pkcs12.getKey(sAlias, new char[] {}); // XXX: what's this, password check?
+					m_pkcs12.getKey(sAlias, KeyStoreUtil.PKCS12_DUMMY_PASSWORD);
 					Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
 					if (certs != null && certs.length != 0)
