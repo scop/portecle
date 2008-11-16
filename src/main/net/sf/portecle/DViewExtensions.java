@@ -39,11 +39,13 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.cert.X509Extension;
+import java.text.MessageFormat;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -249,18 +251,38 @@ class DViewExtensions
 						switch (linkClass)
 						{
 							case CRL:
+
 								// View in CRL viewer dialog
 								if (!DViewCRL.showAndWait(DViewExtensions.this, url))
 								{
-									// TODO: ask user if she wants to try loading it with a browser
+									// Ask to view in a browser if it failed
+									int iSelected =
+									    JOptionPane.showConfirmDialog(DViewExtensions.this,
+									        RB.getString("FPortecle.CrlViewFailed.message"),
+									        MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"),
+									            url), JOptionPane.YES_NO_OPTION);
+									if (iSelected == JOptionPane.YES_OPTION)
+									{
+										tryBrowser = true;
+									}
 								}
 								break;
 
 							case CERTIFICATE:
+
 								// View in certificate viewer dialog
 								if (!DViewCertificate.showAndWait(DViewExtensions.this, url))
 								{
-									// TODO: ask user if she wants to try loading it with a browser
+									// Ask to view in a browser if it failed
+									int iSelected =
+									    JOptionPane.showConfirmDialog(DViewExtensions.this,
+									        RB.getString("FPortecle.CertViewFailed.message"),
+									        MessageFormat.format(RB.getString("FPortecle.CertDetails.Title"),
+									            url), JOptionPane.YES_NO_OPTION);
+									if (iSelected == JOptionPane.YES_OPTION)
+									{
+										tryBrowser = true;
+									}
 								}
 								break;
 
