@@ -5,6 +5,7 @@ New features:
 - Support for encrypting private key in PEM export.
 - Recognition and decoding support for some additional certificate
   extensions.
+- Experimental: support for renewing self signed certificates.
 
 Enhancements:
 - Significant user interface improvements, including among others use of

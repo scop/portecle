@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -54,6 +54,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.PrivateKey;
 import java.security.Provider;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.cert.Certificate;
@@ -1318,8 +1319,7 @@ public class FPortecle
 
 		m_jpmKey.add(jmiKeyDelete);
 
-		// Initialise key pair entry pop-up menu including mnemonics
-		// and listeners
+		// Initialise key pair entry pop-up menu including mnemonics and listeners
 		m_jpmKeyPair = new JPopupMenu();
 
 		JMenuItem jmiKeyPairCertDetails =
@@ -1381,6 +1381,20 @@ public class FPortecle
 		});
 		new StatusBarChangeHandler(jmiImportCAReply, RB.getString("FPortecle.jmiImportCAReply.statusbar"),
 		    this);
+
+		JMenuItem jmiRenew =
+		    new JMenuItem(RB.getString("FPortecle.jmiRenew.text"),
+		        RB.getString("FPortecle.jmiRenew.mnemonic").charAt(0));
+		jmiRenew.setIcon(new ImageIcon(getResImage("FPortecle.jmiRenew.image")));
+		jmiRenew.addActionListener(new ActionListener()
+		{
+			@Override
+			protected void act()
+			{
+				renewSelectedEntry();
+			}
+		});
+		new StatusBarChangeHandler(jmiRenew, RB.getString("FPortecle.jmiRenew.statusbar"), this);
 
 		m_jmiSetKeyPairPass =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiSetKeyPairPass.text"), RB.getString(
@@ -1446,6 +1460,11 @@ public class FPortecle
 		m_jpmKeyPair.add(jmiKeyPairExport);
 		m_jpmKeyPair.add(jmiGenerateCSR);
 		m_jpmKeyPair.add(jmiImportCAReply);
+		if (EXPERIMENTAL)
+		{
+			// TODO: should show this for self-signed key pair certificates only
+			m_jpmKeyPair.add(jmiRenew);
+		}
 		m_jpmKeyPair.addSeparator();
 		m_jpmKeyPair.add(m_jmiSetKeyPairPass);
 		m_jpmKeyPair.add(jmiKeyPairDelete);
@@ -2829,8 +2848,7 @@ public class FPortecle
 				return false;
 			}
 
-			// If the CA certs keystore is to be used and it has yet to
-			// be loaded then do so
+			// If the CA certs keystore is to be used and it has yet to be loaded then do so
 			if (m_bUseCaCerts && m_caCertsKeyStore == null)
 			{
 				m_caCertsKeyStore = openCaCertsKeyStore();
@@ -2841,8 +2859,7 @@ public class FPortecle
 				}
 			}
 
-			// Holds the new certificate chain for the entry should the
-			// import succeed
+			// Holds the new certificate chain for the entry should the import succeed
 			X509Certificate[] newCertChain = null;
 
 			/*
@@ -2929,8 +2946,7 @@ public class FPortecle
 				}
 			}
 
-			// Get the entry's password (we may already know it from the
-			// wrapper)
+			// Get the entry's password (we may already know it from the wrapper)
 			char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
 			if (cPassword == null)
@@ -2971,6 +2987,93 @@ public class FPortecle
 			// Display success message
 			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.ImportCaReplySuccessful.message"),
 			    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
+
+			return true;
+		}
+		catch (Exception ex)
+		{
+			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+	}
+
+	/**
+	 * Let the user renew a self-signed certificate for the selected key pair entry.
+	 * 
+	 * @return True if the renewal is successful, false otherwise
+	 */
+	private boolean renewSelectedEntry()
+	{
+		assert m_keyStoreWrap != null;
+		assert m_keyStoreWrap.getKeyStore() != null;
+
+		// What entry is selected?
+		String sAlias = m_jtKeyStore.getSelectedAlias();
+		if (sAlias == null)
+		{
+			return false;
+		}
+
+		// Get the keystore
+		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
+
+		try
+		{
+			// Get the entry's password (we may already know it from the wrapper)
+			char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
+
+			if (cPassword == null)
+			{
+				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+
+				// Password is only relevant if the keystore is not PKCS #12
+				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+				{
+					DGetPassword dGetPassword =
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+					dGetPassword.setLocationRelativeTo(this);
+					SwingHelper.showAndWait(dGetPassword);
+					cPassword = dGetPassword.getPassword();
+
+					if (cPassword == null)
+					{
+						return false;
+					}
+				}
+			}
+
+			// TODO: ask from user
+			int renewalDays = 365;
+
+			KeyStore.PrivateKeyEntry entry =
+			    (KeyStore.PrivateKeyEntry) keyStore.getEntry(sAlias, new KeyStore.PasswordProtection(
+			        cPassword));
+			PrivateKey privateKey = entry.getPrivateKey();
+			X509Certificate oldCert = (X509Certificate) entry.getCertificate();
+			PublicKey publicKey = oldCert.getPublicKey();
+
+			X509Certificate newCert = X509CertUtil.renewCert(oldCert, renewalDays, publicKey, privateKey);
+
+			KeyStore.PrivateKeyEntry newEntry =
+			    new KeyStore.PrivateKeyEntry(privateKey, new Certificate[] { newCert });
+
+			if (keyStore.containsAlias(sAlias))
+			{
+				keyStore.deleteEntry(sAlias);
+			}
+			keyStore.setEntry(sAlias, newEntry, new KeyStore.PasswordProtection(cPassword));
+
+			// Update the keystore wrapper
+			m_keyStoreWrap.setChanged(true);
+			m_keyStoreWrap.setEntryPassword(sAlias, new char[0]);
+
+			// Update the frame's components and title
+			updateControls();
+			updateTitle();
+
+			// Display success message
+			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.RenewSelfSignedSuccessful.message"),
+			    RB.getString("FPortecle.RenewSelfSigned.Title"), JOptionPane.INFORMATION_MESSAGE);
 
 			return true;
 		}
@@ -3512,8 +3615,8 @@ public class FPortecle
 	 * currentVersion.compareTo(latestVersion); if (iCmp >= 0) { // Latest version same (or less!) then
 	 * current version - // tell user they are up-to-date JOptionPane.showMessageDialog( this,
 	 * MessageFormat.format( m_res.getString("FPortecle.HaveLatestVersion.message"), new
-	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else {
-	 * int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
+	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else
+	 * { int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
 	 * "FPortecle.NewerVersionAvailable.message"), latestVersion, m_res.getString(
 	 * "FPortecle.DownloadsAddress")), m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION); if
 	 * (iSelected == JOptionPane.YES_OPTION) { visitDownloads(); } } } // Display errors to user catch

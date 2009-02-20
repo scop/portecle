@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -62,6 +62,7 @@ import net.sf.portecle.NetUtil;
 import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
+import org.bouncycastle.jce.PrincipalUtil;
 import org.bouncycastle.jce.X509Principal;
 import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.x509.X509V1CertificateGenerator;
@@ -618,8 +619,69 @@ public final class X509CertUtil
 
 		try
 		{
-			// Generate an X.509 certificate, based on the current issuer and
-			// subject
+			// Generate an X.509 certificate, based on the current issuer and subject
+			X509Certificate cert = certGen.generate(privateKey, "BC");
+
+			// Return the certificate
+			return cert;
+		}
+		// Something went wrong
+		catch (GeneralSecurityException ex)
+		{
+			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
+		}
+	}
+
+	/**
+	 * Renew a self-signed X509 Version 1 certificate.
+	 * 
+	 * @return The renewed certificate
+	 * @param oldCert old certificate
+	 * @param iValidity Validity period of certificate in days to add to the old cert's expiry date, or
+	 *            current time if the certificate has expired
+	 * @param publicKey Public part of key pair
+	 * @param privateKey Private part of key pair
+	 * @throws CryptoException If there was a problem generating the certificate
+	 */
+	public static X509Certificate renewCert(X509Certificate oldCert, int iValidity, PublicKey publicKey,
+	    PrivateKey privateKey)
+	    throws CryptoException
+	{
+		// Get an X509 Version 1 Certificate generator
+		X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
+
+		// Load the generator with generation parameters
+
+		// Valid before and after dates now to iValidity days in the future from now or existing expiry date
+		Date now = new Date();
+		Date oldExpiry = oldCert.getNotAfter();
+		if (oldExpiry == null || oldExpiry.before(now))
+		{
+			oldExpiry = now;
+		}
+
+		certGen.setNotBefore(now);
+		certGen.setNotAfter(new Date(oldExpiry.getTime() + ((long) iValidity * 24 * 60 * 60 * 1000)));
+
+		// Set the public key
+		certGen.setPublicKey(publicKey);
+
+		// Set the algorithm
+		certGen.setSignatureAlgorithm(oldCert.getSigAlgName());
+
+		// Set the serial number
+		certGen.setSerialNumber(generateX509SerialNumber());
+
+		try
+		{
+			// Set the issuer distinguished name
+			// TODO: verify/force self-signedness
+			certGen.setIssuerDN(PrincipalUtil.getIssuerX509Principal(oldCert));
+
+			// Set the subject distinguished name (same as issuer for our purposes)
+			certGen.setSubjectDN(PrincipalUtil.getSubjectX509Principal(oldCert));
+
+			// Generate an X.509 certificate, based on the current issuer and subject
 			X509Certificate cert = certGen.generate(privateKey, "BC");
 
 			// Return the certificate
