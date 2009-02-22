@@ -2,6 +2,7 @@ New in Portecle x.x (200x-xx-xx):
 ---------------------------------
 
 New features:
+- Support for importing key pairs from OpenSSL PEM bundles.
 - Support for encrypting private key in PEM export.
 - Recognition and decoding support for some additional certificate
   extensions.
