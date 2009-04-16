@@ -65,6 +65,7 @@ import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.PrincipalUtil;
 import org.bouncycastle.jce.X509Principal;
 import org.bouncycastle.openssl.PEMReader;
+import org.bouncycastle.openssl.PasswordException;
 import org.bouncycastle.x509.X509V1CertificateGenerator;
 
 /**
@@ -156,38 +157,50 @@ public final class X509CertUtil
 		{
 			if (OPENSSL_PEM_ENCODING.equals(encoding))
 			{
-
 				// Special case; this is not a real JCE supported encoding.
 				// Note: let PEMReader use its default provider (BC as of BC
 				// 1.40) internally; for example the default "SUN" provider
 				// may not contain an RSA implementation
 				PEMReader pr = new PEMReader(new InputStreamReader(in));
 
-				/*
-				 * These beasts can contain just about anything, and unfortunately the PEMReader API (as of BC
-				 * 1.25 to 1.40) won't allow us to really skip things we're not interested in; stuff happens
-				 * already in readObject(). This may cause some weird exception messages for non-certificate
-				 * objects in the "stream", for example passphrase related ones for protected private keys.
-				 * Well, I guess this is better than nothing anyway... :(
-				 */
+				// These beasts can contain just about anything, and unfortunately the PEMReader API (as of BC
+				// 1.25 to at least 1.43) won't allow us to really skip things we're not interested in; stuff
+				// happens already in readObject().
 
 				certs = new ArrayList();
 				Object cert;
 
-				/*
-				 * Would be nice if there was a way to just skip objects whose decoding fails (see e.g. above
-				 * for passphrase stuff), but as of BC 1.40, readObject() throws everything as IOException -
-				 * we don't know if the problem was decoding (in which case we'd continue with the next
-				 * object) or during "normal" stream read (in which case we'd abort) :/
-				 */
-				while ((cert = pr.readObject()) != null)
+				while (true)
 				{
+					try
+					{
+						cert = pr.readObject();
+					}
+					catch (IOException e)
+					{
+						String msg = e.getMessage();
+						if (e instanceof PasswordException ||
+						    (msg != null && msg.indexOf(".openssl.PasswordException") != -1))
+						{
+							// Some kind of a password protected item (BC >= 1.43): carry on, see
+							// http://www.bouncycastle.org/jira/browse/BJA-182
+							continue;
+						}
+						throw e;
+					}
+
+					if (cert == null)
+					{
+						break;
+					}
+
 					if (cert instanceof X509Certificate)
 					{
 						certs.add(cert);
 					}
 					// Skip other stuff, at least for now.
 				}
+
 				pr.close();
 			}
 			else
@@ -205,10 +218,8 @@ public final class X509CertUtil
 					certs = cf.generateCertificates(in);
 				}
 
-				/*
-				 * Note that we rely on cf.generateCert() above to never return null nor a collection
-				 * containing nulls
-				 */
+				// Note that we rely on cf.generateCert() above to never return null nor a collection
+				// containing nulls.
 			}
 		}
 		// Some RuntimeExceptions which really should be

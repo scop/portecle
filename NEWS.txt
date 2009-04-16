@@ -1,3 +1,14 @@
+New in Portecle x.x (200x-xx-xx):
+---------------------------------
+
+Enhancements:
+- Improved import of trusted certificates from PEM files containing also
+  password protected keys.
+
+Miscellaneous:
+- Bundled Bouncy Castle provider jar upgraded to version 1.43, which is also
+  the new minimum required version
+
 New in Portecle 1.4 (2009-02-22):
 ---------------------------------
 
