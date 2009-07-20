@@ -41,6 +41,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
@@ -120,8 +121,8 @@ public class DThrowableDetail
 		 */
 
 		JScrollPane jspThrowable =
-		    new JScrollPane(jtrThrowable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		    new JScrollPane(jtrThrowable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspThrowable.setPreferredSize(new Dimension(500, 250));
 		jpThrowable.add(jspThrowable, BorderLayout.CENTER);
 

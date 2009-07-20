@@ -50,6 +50,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -164,8 +165,8 @@ class DViewExtensions
 
 		// Put the table into a scroll pane
 		JScrollPane jspExtensionsTable =
-		    new JScrollPane(m_jtExtensions, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    new JScrollPane(m_jtExtensions, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspExtensionsTable.getViewport().setBackground(m_jtExtensions.getBackground());
 
 		// Put the scroll pane into a panel
@@ -315,8 +316,8 @@ class DViewExtensions
 
 		// Put the text area into a scroll pane
 		JScrollPane jspExtensionValue =
-		    new JScrollPane(m_jtaExtensionValue, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    new JScrollPane(m_jtaExtensionValue, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		// Put the scroll pane into a panel
 		JPanel jpExtensionValueTextArea = new JPanel(new BorderLayout(10, 10));

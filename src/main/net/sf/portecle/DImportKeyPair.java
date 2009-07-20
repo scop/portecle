@@ -56,6 +56,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -176,8 +177,8 @@ class DImportKeyPair
 
 		// Put the list into a scroll pane
 		JScrollPane jspKeyPairs =
-		    new JScrollPane(m_jltKeyPairs, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    new JScrollPane(m_jltKeyPairs, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspKeyPairs.getViewport().setBackground(m_jltKeyPairs.getBackground());
 
 		// Key pair details (algorithm and button to access

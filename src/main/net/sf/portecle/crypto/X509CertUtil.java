@@ -564,44 +564,44 @@ public final class X509CertUtil
 		// Load certificate attributes
 		if (sCommonName != null)
 		{
-			attrs.put(X509Principal.CN, sCommonName);
-			vOrder.add(0, X509Principal.CN);
+			attrs.put(X509Name.CN, sCommonName);
+			vOrder.add(0, X509Name.CN);
 		}
 
 		if (sOrganisationUnit != null)
 		{
-			attrs.put(X509Principal.OU, sOrganisationUnit);
-			vOrder.add(0, X509Principal.OU);
+			attrs.put(X509Name.OU, sOrganisationUnit);
+			vOrder.add(0, X509Name.OU);
 		}
 
 		if (sOrganisation != null)
 		{
-			attrs.put(X509Principal.O, sOrganisation);
-			vOrder.add(0, X509Principal.O);
+			attrs.put(X509Name.O, sOrganisation);
+			vOrder.add(0, X509Name.O);
 		}
 
 		if (sLocality != null)
 		{
-			attrs.put(X509Principal.L, sLocality);
-			vOrder.add(0, X509Principal.L);
+			attrs.put(X509Name.L, sLocality);
+			vOrder.add(0, X509Name.L);
 		}
 
 		if (sState != null)
 		{
-			attrs.put(X509Principal.ST, sState);
-			vOrder.add(0, X509Principal.ST);
+			attrs.put(X509Name.ST, sState);
+			vOrder.add(0, X509Name.ST);
 		}
 
 		if (sCountryCode != null)
 		{
-			attrs.put(X509Principal.C, sCountryCode);
-			vOrder.add(0, X509Principal.C);
+			attrs.put(X509Name.C, sCountryCode);
+			vOrder.add(0, X509Name.C);
 		}
 
 		if (sEmailAddress != null)
 		{
-			attrs.put(X509Principal.E, sEmailAddress);
-			vOrder.add(0, X509Principal.E);
+			attrs.put(X509Name.E, sEmailAddress);
+			vOrder.add(0, X509Name.E);
 		}
 
 		// Get an X509 Version 1 Certificate generator

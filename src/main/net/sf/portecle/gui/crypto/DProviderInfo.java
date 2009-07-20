@@ -46,6 +46,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
@@ -116,8 +117,8 @@ public class DProviderInfo
 		jtrProviders.setCellRenderer(new ProviderTreeCellRend());
 
 		JScrollPane jspProviders =
-		    new JScrollPane(jtrProviders, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		    new JScrollPane(jtrProviders, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspProviders.setPreferredSize(new Dimension(350, 200));
 		jpProviders.add(jspProviders, BorderLayout.CENTER);
 

@@ -48,6 +48,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
@@ -164,8 +165,8 @@ public class DViewPEM
 		jtaPEM.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jtaPEM.getFont().getSize()));
 
 		JScrollPane jspPEM =
-		    new JScrollPane(jtaPEM, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		    new JScrollPane(jtaPEM, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspPEM.setPreferredSize(new Dimension(500, 300));
 		jpPEM.add(jspPEM, BorderLayout.CENTER);
 

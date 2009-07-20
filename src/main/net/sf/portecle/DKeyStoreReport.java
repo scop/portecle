@@ -53,6 +53,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
@@ -202,8 +203,8 @@ class DKeyStoreReport
 		expandTree(jtrReport, new TreePath(topNode));
 
 		JScrollPane jspReport =
-		    new JScrollPane(jtrReport, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		    new JScrollPane(jtrReport, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspReport.setPreferredSize(new Dimension(350, 200));
 		jpReport.add(jspReport, BorderLayout.CENTER);
 

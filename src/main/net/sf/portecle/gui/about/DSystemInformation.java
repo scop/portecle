@@ -42,6 +42,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -105,7 +106,7 @@ public class DSystemInformation
 
 		// Operating System
 		JLabel jlOperatingSystem =
-		    new JLabel(RB.getString("DSystemInformation.jlOperatingSystem.text"), JLabel.RIGHT);
+		    new JLabel(RB.getString("DSystemInformation.jlOperatingSystem.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlOperatingSystem = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlOperatingSystem.gridy = 0;
@@ -123,7 +124,7 @@ public class DSystemInformation
 		jpSystemInformation.add(jtfOperatingSystem, gbc_jtfOperatingSystem);
 
 		// Locale
-		JLabel jlLocale = new JLabel(RB.getString("DSystemInformation.jlLocale.text"), JLabel.RIGHT);
+		JLabel jlLocale = new JLabel(RB.getString("DSystemInformation.jlLocale.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlLocale = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlLocale.gridy = 1;
@@ -139,7 +140,7 @@ public class DSystemInformation
 
 		// Java Version
 		JLabel jlJavaVersion =
-		    new JLabel(RB.getString("DSystemInformation.jlJavaVersion.text"), JLabel.RIGHT);
+		    new JLabel(RB.getString("DSystemInformation.jlJavaVersion.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJavaVersion = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJavaVersion.gridy = 2;
@@ -154,7 +155,8 @@ public class DSystemInformation
 		jpSystemInformation.add(jtfJavaVersion, gbc_jtfJavaVersion);
 
 		// Java Vendor
-		JLabel jlJavaVendor = new JLabel(RB.getString("DSystemInformation.jlJavaVendor.text"), JLabel.RIGHT);
+		JLabel jlJavaVendor =
+		    new JLabel(RB.getString("DSystemInformation.jlJavaVendor.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJavaVendor = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJavaVendor.gridy = 3;
@@ -172,7 +174,8 @@ public class DSystemInformation
 		jpSystemInformation.add(jtfJavaVendor, gbc_jtfJavaVendor);
 
 		// Java Home
-		JLabel jlJavaHome = new JLabel(RB.getString("DSystemInformation.jlJavaHome.text"), JLabel.RIGHT);
+		JLabel jlJavaHome =
+		    new JLabel(RB.getString("DSystemInformation.jlJavaHome.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJavaHome = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJavaHome.gridy = 4;
@@ -188,7 +191,7 @@ public class DSystemInformation
 
 		// JVM Maximum memory
 		JLabel jlJvmMaximumMemory =
-		    new JLabel(RB.getString("DSystemInformation.jlJvmMaximumMemory.text"), JLabel.RIGHT);
+		    new JLabel(RB.getString("DSystemInformation.jlJvmMaximumMemory.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJvmMaximumMemory = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJvmMaximumMemory.gridy = 5;
@@ -206,7 +209,7 @@ public class DSystemInformation
 
 		// JVM Total memory
 		JLabel jlJvmTotalMemory =
-		    new JLabel(RB.getString("DSystemInformation.jlJvmTotalMemory.text"), JLabel.RIGHT);
+		    new JLabel(RB.getString("DSystemInformation.jlJvmTotalMemory.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJvmTotalMemory = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJvmTotalMemory.gridy = 6;
@@ -224,7 +227,7 @@ public class DSystemInformation
 
 		// JVM Free memory
 		JLabel jlJvmFreeMemory =
-		    new JLabel(RB.getString("DSystemInformation.jlJvmFreeMemory.text"), JLabel.RIGHT);
+		    new JLabel(RB.getString("DSystemInformation.jlJvmFreeMemory.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJvmFreeMemory = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJvmFreeMemory.gridy = 7;

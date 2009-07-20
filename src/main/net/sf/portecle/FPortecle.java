@@ -93,6 +93,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.LookAndFeel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -1225,8 +1226,8 @@ public class FPortecle
 
 		// Put the table into a scroll pane
 		JScrollPane jspKeyStoreTable =
-		    new JScrollPane(m_jtKeyStore, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    new JScrollPane(m_jtKeyStore, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspKeyStoreTable.getViewport().setBackground(m_jtKeyStore.getBackground());
 
 		// Get the size of the keystore table panel from the application

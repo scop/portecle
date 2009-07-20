@@ -38,6 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
@@ -112,8 +113,8 @@ public class DSystemProperties
 
 		// Put the table into a scroll pane
 		JScrollPane jspSystemPropertiesTable =
-		    new JScrollPane(jtSystemProperties, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    new JScrollPane(jtSystemProperties, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspSystemPropertiesTable.getViewport().setBackground(jtSystemProperties.getBackground());
 
 		// Put the scroll pane into a panel

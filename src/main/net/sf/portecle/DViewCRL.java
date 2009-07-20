@@ -57,6 +57,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -315,8 +316,8 @@ class DViewCRL
 
 		// Put the table into a scroll pane
 		JScrollPane jspRevokedCertsTable =
-		    new JScrollPane(m_jtRevokedCerts, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		    new JScrollPane(m_jtRevokedCerts, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspRevokedCertsTable.getViewport().setBackground(m_jtRevokedCerts.getBackground());
 
 		// Put the scroll pane into a panel
