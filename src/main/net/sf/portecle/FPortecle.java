@@ -5681,14 +5681,7 @@ public class FPortecle
 		}
 
 		// Passwords are not relevant for PKCS #12 keystores
-		if (ksType != KeyStoreType.PKCS12)
-		{
-			m_jmiSetKeyPairPass.setEnabled(false);
-		}
-		else
-		{
-			m_jmiSetKeyPairPass.setEnabled(true);
-		}
+		m_jmiSetKeyPairPass.setEnabled(ksType != KeyStoreType.PKCS12);
 
 		// Change keystore type menu items dependant on keystore type
 
