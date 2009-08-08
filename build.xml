@@ -136,7 +136,7 @@
   <target name="bindist" depends="jar"
     description="Builds the Portecle binary distribution">
     <mkdir dir="${dist}" />
-    <zip destfile="${dist}/portecle-${version}.zip">
+    <zip destfile="${dist}/portecle-${version}.zip" level="9">
       <zipfileset prefix="portecle-${version}"
         dir="${root}" includes="README.txt,LICENSE.txt,NEWS.txt" />
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
@@ -152,7 +152,7 @@
   <target name="srcdist"
     description="Builds the Portecle source distribution">
     <mkdir dir="${dist}" />
-    <zip destfile="${dist}/portecle-${version}-src.zip">
+    <zip destfile="${dist}/portecle-${version}-src.zip" level="9">
       <zipfileset dir="${root}" prefix="portecle-${version}-src">
         <include name="*.txt" />
         <include name="*.xml" />
