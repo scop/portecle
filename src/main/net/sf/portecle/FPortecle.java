@@ -1706,11 +1706,10 @@ public class FPortecle
 			return false;
 		}
 
-		// Get a password for the new keystore entry (only relevant if
-		// the keystore is not PKCS #12)
-		char[] cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+		// Get a password for the new keystore entry if applicable
+		char[] cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-		if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+		if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 		{
 			DGetNewPassword dGetNewPassword =
 			    new DGetNewPassword(this, RB.getString("DGenerateCertificate.KeyPairEntryPassword.Title"),
@@ -2952,10 +2951,9 @@ public class FPortecle
 
 			if (cPassword == null)
 			{
-				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-				// Password is only relevant if the keystore is not PKCS #12
-				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+				if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -3025,10 +3023,9 @@ public class FPortecle
 
 			if (cPassword == null)
 			{
-				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-				// Password is only relevant if the keystore is not PKCS #12
-				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+				if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -3385,11 +3382,10 @@ public class FPortecle
 				return false;
 			}
 
-			// Get a password for the new keystore entry (only relevant if
-			// the keystore is not PKCS #12)
-			char[] cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+			// Get a password for the new keystore entry if applicable
+			char[] cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+			if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 			{
 				DGetNewPassword dGetNewPassword =
 				    new DGetNewPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -3755,8 +3751,8 @@ public class FPortecle
 			KeyStore newKeyStore = KeyStoreUtil.createKeyStore(keyStoreType);
 
 			// Flag used to tell if we have warned the user about default key
-			// pair entry passwords for keystores changed to PKCS #12
-			boolean bWarnPkcs12Password = false;
+			// pair entry passwords for keystores changed to types that don't support entry passwords
+			boolean bWarnPasswordUnsupported = false;
 
 			// Flag used to tell if we have warned the user about key entries
 			// not being carried over by the change
@@ -3823,11 +3819,9 @@ public class FPortecle
 
 					if (cPassword == null)
 					{
-						cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+						cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-						// Password is only relevant if the current keystore
-						// type is not PKCS #12
-						if (currentType != KeyStoreType.PKCS12)
+						if (currentType.isEntryPasswordSupported())
 						{
 							String sTitle =
 							    MessageFormat.format(
@@ -3848,26 +3842,25 @@ public class FPortecle
 					// Use password to get key pair
 					Key key = currentKeyStore.getKey(sAlias, cPassword);
 
-					// The current keystore type is PKCS #12 so entry password
-					// will be set to the PKCS #12 "dummy value" password
-					if (currentType == KeyStoreType.PKCS12)
+					// The current keystore type does not support entry passwords so the password will be set
+					// to the "dummy value" password
+					if (!currentType.isEntryPasswordSupported())
 					{
 						// Warn the user about this
-						if (!bWarnPkcs12Password)
+						if (!bWarnPasswordUnsupported)
 						{
-							bWarnPkcs12Password = true;
+							bWarnPasswordUnsupported = true;
 							JOptionPane.showMessageDialog(this, MessageFormat.format(
-							    RB.getString("FPortecle.ChangeFromPkcs12Password.message"), new String(
-							        KeyStoreUtil.PKCS12_DUMMY_PASSWORD)),
+							    RB.getString("FPortecle.ChangeFromPasswordUnsupported.message"), new String(
+							        KeyStoreUtil.DUMMY_PASSWORD)),
 							    RB.getString("FPortecle.ChangeKeyStoreType.Title"),
 							    JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
-					// The new keystore type is PKCS #12 so use
-					// "dummy value" password for entry
-					else if (keyStoreType == KeyStoreType.PKCS12)
+					// The new keystore type does not support entry passwords so use dummy password for entry
+					else if (!keyStoreType.isEntryPasswordSupported())
 					{
-						cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+						cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 					}
 
 					// Check and ask about alias overwriting issues
@@ -3978,8 +3971,7 @@ public class FPortecle
 	private boolean setPasswordSelectedEntry()
 	{
 		assert m_keyStoreWrap.getKeyStore() != null;
-		// Not relevant for a PKCS #12 keystore
-		assert m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12;
+		assert m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported();
 
 		// Not valid for a certificate entry, nor a key-only one - we do a
 		// remove-store operation but the KeyStore API won't allow us to
@@ -4707,10 +4699,9 @@ public class FPortecle
 
 		if (cPassword == null)
 		{
-			cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+			cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-			// Password is only relevant if the keystore is not PKCS #12
-			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+			if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 			{
 				DGetPassword dGetPassword =
 				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -4841,10 +4832,9 @@ public class FPortecle
 
 		if (cPassword == null)
 		{
-			cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+			cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-			// Password is only relevant if the keystore is not PKCS #12
-			if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+			if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 			{
 				DGetPassword dGetPassword =
 				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5113,10 +5103,9 @@ public class FPortecle
 
 			if (cPassword == null)
 			{
-				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-				// Password is only relevant if the keystore is not PKCS #12
-				if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+				if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5218,16 +5207,14 @@ public class FPortecle
 
 		try
 		{
-			// Get the entry's password (we may already know it from
-			// the wrapper)
+			// Get the entry's password (we may already know it from the wrapper)
 			char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
 			if (cPassword == null)
 			{
-				cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+				cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-				// Password is only relevant if the keystore is not PKCS #12
-				if (ksType != KeyStoreType.PKCS12)
+				if (ksType.isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
 					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5255,11 +5242,10 @@ public class FPortecle
 			Key key = keyStore.getKey(sAlias, cPassword);
 			Certificate[] certs = keyStore.getCertificateChain(sAlias);
 
-			// Get a password for the new keystore entry (only relevant if
-			// the keystore is not PKCS #12)
-			char[] cNewPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+			// Get a password for the new keystore entry if applicable
+			char[] cNewPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-			if (ksType != KeyStoreType.PKCS12)
+			if (ksType.isEntryPasswordSupported())
 			{
 				DGetNewPassword dGetNewPassword =
 				    new DGetNewPassword(this, RB.getString("FPortecle.ClonedKeyPairEntryPassword.Title"),
@@ -5580,10 +5566,9 @@ public class FPortecle
 
 				if (cPassword == null)
 				{
-					cPassword = KeyStoreUtil.PKCS12_DUMMY_PASSWORD;
+					cPassword = KeyStoreUtil.DUMMY_PASSWORD;
 
-					// Password is only relevant if the keystore is not PKCS #12
-					if (m_keyStoreWrap.getKeyStoreType() != KeyStoreType.PKCS12)
+					if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 					{
 						DGetPassword dGetPassword =
 						    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
@@ -5680,8 +5665,8 @@ public class FPortecle
 			DThrowable.showAndWait(this, null, ex);
 		}
 
-		// Passwords are not relevant for PKCS #12 keystores
-		m_jmiSetKeyPairPass.setEnabled(ksType != KeyStoreType.PKCS12);
+		// Enable entry password changing only for applicable keystore types
+		m_jmiSetKeyPairPass.setEnabled(ksType.isEntryPasswordSupported());
 
 		// Change keystore type menu items dependant on keystore type
 

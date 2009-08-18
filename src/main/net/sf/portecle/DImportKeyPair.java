@@ -296,7 +296,7 @@ class DImportKeyPair
 				// and certificates
 				if (m_pkcs12.isKeyEntry(sAlias))
 				{
-					m_pkcs12.getKey(sAlias, KeyStoreUtil.PKCS12_DUMMY_PASSWORD);
+					m_pkcs12.getKey(sAlias, KeyStoreUtil.DUMMY_PASSWORD);
 					Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
 					if (certs != null && certs.length != 0)

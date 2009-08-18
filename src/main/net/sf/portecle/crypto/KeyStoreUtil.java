@@ -52,9 +52,10 @@ import org.bouncycastle.openssl.PEMReader;
 public final class KeyStoreUtil
 {
 	/**
-	 * Dummy password to use for PKCS #12 keystore entries (passwords are not applicable for these).
+	 * Dummy password to use for keystore entries in various contexts of keystores that do not support entry
+	 * passwords.
 	 */
-	public static final char[] PKCS12_DUMMY_PASSWORD = "password".toCharArray();
+	public static final char[] DUMMY_PASSWORD = "password".toCharArray();
 
 	/** Map of available keystore types */
 	private static final HashMap<KeyStoreType, Boolean> AVAILABLE_TYPES =
@@ -188,7 +189,7 @@ public final class KeyStoreUtil
 
 				KeyStore.PrivateKeyEntry entry =
 				    new KeyStore.PrivateKeyEntry(keyPair.getPrivate(), new Certificate[] { keyPairCert });
-				KeyStore.PasswordProtection prot = new KeyStore.PasswordProtection(PKCS12_DUMMY_PASSWORD);
+				KeyStore.PasswordProtection prot = new KeyStore.PasswordProtection(DUMMY_PASSWORD);
 
 				try
 				{

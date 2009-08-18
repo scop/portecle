@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,27 +36,30 @@ import java.util.Set;
 public enum KeyStoreType
 {
 	/** JKS keystore Type */
-	JKS("JKS", true, new String[] { "jks" }),
+	JKS("JKS", true, true, new String[] { "jks" }),
 	/** PKCS #12 keystore Type */
-	PKCS12("PKCS #12", false, new String[] { "p12", "pfx" }),
+	PKCS12("PKCS #12", false, false, new String[] { "p12", "pfx" }),
 	/** JCEKS keystore Type */
-	JCEKS("JCEKS", true, new String[] { "jceks" }),
+	JCEKS("JCEKS", true, true, new String[] { "jceks" }),
 	/** Case sensitive JKS keystore Type */
-	CaseExactJKS("JKS (case sensitive)", true, new String[] { "jks" }),
+	CaseExactJKS("JKS (case sensitive)", true, true, new String[] { "jks" }),
 	/** BKS keystore Type */
-	BKS("BKS", true, new String[] { "bks" }),
+	BKS("BKS", true, true, new String[] { "bks" }),
 	/** UBER keystore Type */
-	UBER("UBER", true, new String[] { "ubr" }),
+	UBER("UBER", true, true, new String[] { "ubr" }),
 	/** GKR keystore Type */
-	GKR("GKR", true, new String[] { "gkr" }),
+	GKR("GKR", true, true, new String[] { "gkr" }),
 	/** PKCS #11 keystore Type */
-	PKCS11("PKCS #11", false, new String[0]);
+	PKCS11("PKCS #11", false, true, new String[0]);
 
 	/** Keystore "pretty" name */
 	private final String prettyName;
 
 	/** Whether the keystore type provides useful values for entry creation dates */
 	private final boolean entryCreationDateUseful;
+
+	/** Whether the keystore supports entry passwords */
+	private final boolean entryPasswordSupported;
 
 	/** Associated filename extensions */
 	private final Set<String> filenameExtensions;
@@ -68,10 +71,12 @@ public enum KeyStoreType
 	 * @param supportsCreationDates Whether the keystore supports creation dates
 	 * @param filenameExtensions associated filename extensions
 	 */
-	private KeyStoreType(String prettyName, boolean entryCreationDateUseful, String[] filenameExtensions)
+	private KeyStoreType(String prettyName, boolean entryCreationDateUseful, boolean entryPasswordSupported,
+	    String[] filenameExtensions)
 	{
 		this.prettyName = prettyName;
 		this.entryCreationDateUseful = entryCreationDateUseful;
+		this.entryPasswordSupported = entryPasswordSupported;
 		switch (filenameExtensions.length)
 		{
 			case 0:
@@ -96,6 +101,16 @@ public enum KeyStoreType
 	public boolean isEntryCreationDateUseful()
 	{
 		return entryCreationDateUseful;
+	}
+
+	/**
+	 * Does the keystore type support passwords for entries?
+	 * 
+	 * @return true if entry passwords are supported, false otherwise
+	 */
+	public boolean isEntryPasswordSupported()
+	{
+		return entryPasswordSupported;
 	}
 
 	/**
