@@ -35,6 +35,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
@@ -107,13 +109,29 @@ class DKeyStoreReport
 	private static final Properties TF_PROPS = new Properties();
 	static
 	{
+		InputStream in = null;
 		try
 		{
-			TF_PROPS.load(DKeyStoreReport.class.getResourceAsStream("keystore-report-xml.properties"));
+			in = DKeyStoreReport.class.getResourceAsStream("keystore-report-xml.properties");
+			TF_PROPS.load(in);
 		}
-		catch (java.io.IOException e)
+		catch (IOException e)
 		{
 			throw new ExceptionInInitializerError(e);
+		}
+		finally
+		{
+			if (in != null)
+			{
+				try
+				{
+					in.close();
+				}
+				catch (IOException e)
+				{
+					throw new ExceptionInInitializerError(e);
+				}
+			}
 		}
 	}
 
