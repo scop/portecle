@@ -203,15 +203,9 @@ class DGeneratingKeyPair
 		public void run()
 		{
 			// Generate key pair
-			KeyPair keyPair;
 			try
 			{
-				keyPair = KeyPairUtil.generateKeyPair(m_keyPairType, m_iKeySize);
-
-				// @@@ TODO what's this?
-				if (true)
-
-					m_keyPair = keyPair;
+				m_keyPair = KeyPairUtil.generateKeyPair(m_keyPairType, m_iKeySize);
 
 				// Manipulate GUI in event handler thread
 				SwingUtilities.invokeLater(new Runnable()
