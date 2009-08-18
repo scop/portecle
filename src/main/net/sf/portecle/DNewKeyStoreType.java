@@ -29,21 +29,12 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.KeyStroke;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -55,11 +46,8 @@ import net.sf.portecle.crypto.KeyStoreUtil;
  * Dialog used to retrieve the type to use in the creation of a new keystore.
  */
 class DNewKeyStoreType
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Stores the selected keystore type */
 	private KeyStoreType m_keyStoreType;
 
@@ -174,32 +162,9 @@ class DNewKeyStoreType
 		jpKeyStoreType.add(m_jrbGkrKeyStore);
 
 		// Create confirmation buttons and place them in a panel
-		JButton jbOK = new JButton(RB.getString("DNewKeyStoreType.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
 
-		JButton jbCancel = new JButton(RB.getString("DNewKeyStoreType.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.add(jbOK);
@@ -210,20 +175,9 @@ class DNewKeyStoreType
 		getContentPane().add(jpKeyStoreType, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
-		setResizable(false);
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -236,10 +190,8 @@ class DNewKeyStoreType
 		return m_keyStoreType;
 	}
 
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
+	@Override
+	protected void okPressed()
 	{
 		// Store selected keystore type
 		if (m_jrbJksKeyStore.isSelected())
@@ -271,23 +223,6 @@ class DNewKeyStoreType
 			m_keyStoreType = KeyStoreType.GKR;
 		}
 
-		closeDialog();
-	}
-
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Closes the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
+		super.okPressed();
 	}
 }

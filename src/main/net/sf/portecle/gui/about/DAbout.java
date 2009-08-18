@@ -30,22 +30,20 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
  * An About dialog which displays about information and a button to access system information.
  */
 public class DAbout
-    extends JDialog
+    extends PortecleJDialog
 {
 	/**
 	 * Creates new DAbout dialog.
@@ -73,14 +71,7 @@ public class DAbout
 		jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
 		jpAbout.add(jlAbout);
 
-		JButton jbOK = new JButton(RB.getString("DAbout.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 
 		JButton jbSystemInformation = new JButton(RB.getString("DAbout.jbSystemInformation.text"));
 		jbSystemInformation.setMnemonic(RB.getString("DAbout.jbSystemInformation.mnemonic").charAt(0));
@@ -101,20 +92,9 @@ public class DAbout
 		getContentPane().add(jpAbout, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -125,22 +105,5 @@ public class DAbout
 		DSystemInformation dSystemInformation = new DSystemInformation(this, true);
 		dSystemInformation.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dSystemInformation);
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Close the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

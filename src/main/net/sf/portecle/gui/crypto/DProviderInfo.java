@@ -34,30 +34,28 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.security.Provider;
 import java.security.Security;
 import java.text.MessageFormat;
 import java.util.TreeSet;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
+import net.sf.portecle.PortecleJDialog;
+
 /**
  * Displays information on the currently loaded security providers.
  */
 public class DProviderInfo
-    extends JDialog
+    extends PortecleJDialog
 {
 	/**
 	 * Creates new DProviderInfo dialog.
@@ -79,15 +77,7 @@ public class DProviderInfo
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(RB.getString("DProviderInfo.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
+		JButton jbOK = getOkButton();
 		jpButtons.add(jbOK);
 
 		JButton jbCopy = new JButton(RB.getString("DProviderInfo.jbCopy.text"));
@@ -126,28 +116,13 @@ public class DProviderInfo
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
 		setTitle(RB.getString("DProviderInfo.Title"));
-		setResizable(true);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
 
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		setResizable(true);
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -250,22 +225,5 @@ public class DProviderInfo
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		StringSelection copy = new StringSelection(strBuff.toString());
 		clipboard.setContents(copy, copy);
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

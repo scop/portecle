@@ -29,23 +29,14 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -61,11 +52,8 @@ import net.sf.portecle.gui.SwingHelper;
  * key generation algorithm of DSA or RSA and enter a key size in bits.
  */
 class DGenerateKeyPair
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Indicator for an invalid key size */
 	private static final int BAD_KEYSIZE = -1;
 
@@ -102,9 +90,6 @@ class DGenerateKeyPair
 		initComponents();
 	}
 
-	/**
-	 * Initialise the dialog's GUI components.
-	 */
 	private void initComponents()
 	{
 		JLabel jlKeyAlg = new JLabel(RB.getString("DGenerateKeyPair.jlKeyAlg.text"));
@@ -140,32 +125,8 @@ class DGenerateKeyPair
 
 		jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()));
 
-		JButton jbOK = new JButton(RB.getString("DGenerateKeyPair.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
-		JButton jbCancel = new JButton(RB.getString("DGenerateKeyPair.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.add(jbOK);
@@ -174,21 +135,11 @@ class DGenerateKeyPair
 		getContentPane().add(jpOptions, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		setTitle(RB.getString("DGenerateKeyPair.Title"));
-		setResizable(false);
 
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
 		SwingHelper.selectAndFocus(m_jtfKeySize);
 	}
@@ -273,17 +224,6 @@ class DGenerateKeyPair
 	}
 
 	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		if (validateKeyGenParameters())
-		{
-			closeDialog();
-		}
-	}
-
-	/**
 	 * Get the key pair size chosen.
 	 * 
 	 * @return The key pair size
@@ -313,18 +253,12 @@ class DGenerateKeyPair
 		return m_bSuccess;
 	}
 
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
+	@Override
+	protected void okPressed()
 	{
-		closeDialog();
-	}
-
-	/** Closes the dialog */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
+		if (validateKeyGenParameters())
+		{
+			super.okPressed();
+		}
 	}
 }

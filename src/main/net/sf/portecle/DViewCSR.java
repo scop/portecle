@@ -32,18 +32,14 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.text.MessageFormat;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -68,7 +64,7 @@ import org.bouncycastle.jce.PKCS10CertificationRequest;
  * Displays the details of a certification request.
  */
 class DViewCSR
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Version text field */
 	private JTextField m_jtfVersion;
@@ -215,45 +211,18 @@ class DViewCSR
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-		final JButton jbOK = new JButton(RB.getString("DViewCSR.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
+		JButton jbOK = getOkButton();
 		jpOK.add(jbOK);
 
 		// Put it all together
 		getContentPane().add(jpCSR, BorderLayout.NORTH);
 		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-		// Annoying, but resizing wreaks havoc here
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -264,7 +233,6 @@ class DViewCSR
 	private void populateDialog()
 	    throws CryptoException
 	{
-
 		CertificationRequestInfo info = m_req.getCertificationRequestInfo();
 
 		// Version
@@ -331,22 +299,5 @@ class DViewCSR
 			DThrowable.showAndWait(this, null, ex);
 			return;
 		}
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the View Certificate dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

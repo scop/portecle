@@ -30,25 +30,23 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.Locale;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
  * Displays an throwable message with the option to display the stack trace.
  */
 public class DThrowable
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Stores throwable to display */
 	private Throwable m_throwable;
@@ -107,14 +105,7 @@ public class DThrowable
 			}
 		});
 
-		JButton jbOK = new JButton(RB.getString("DThrowable.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 
 		jpButtons.add(jbOK);
 		jpButtons.add(jbDetails);
@@ -161,20 +152,9 @@ public class DThrowable
 		getContentPane().add(jpThrowable, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -185,22 +165,5 @@ public class DThrowable
 		DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true, m_throwable);
 		dThrowableDetail.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dThrowableDetail);
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the Throwable dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

@@ -31,10 +31,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -42,7 +38,6 @@ import java.security.cert.X509Extension;
 import java.text.MessageFormat;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -51,7 +46,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -75,7 +69,7 @@ import net.sf.portecle.gui.error.DThrowable;
  * Displays the details of X.509 Extensions.
  */
 class DViewExtensions
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Extensions table */
 	private JTable m_jtExtensions;
@@ -338,16 +332,7 @@ class DViewExtensions
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-		final JButton jbOK = new JButton(RB.getString("DViewExtensions.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
+		final JButton jbOK = getOkButton();
 		jpOK.add(jbOK);
 
 		// Populate table with extensions
@@ -363,26 +348,11 @@ class DViewExtensions
 		getContentPane().add(jpExtensions, BorderLayout.CENTER);
 		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -425,22 +395,5 @@ class DViewExtensions
 			}
 			m_jtaExtensionValue.setCaretPosition(0);
 		}
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the View Extensions dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

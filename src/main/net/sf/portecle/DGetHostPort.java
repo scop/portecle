@@ -27,23 +27,14 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.InetSocketAddress;
 import java.util.Locale;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
@@ -56,11 +47,8 @@ import net.sf.portecle.gui.error.DThrowable;
  * Dialog used for entering an IP address and a port.
  */
 class DGetHostPort
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Default port */
 	// TODO: move to resources
 	private static final String DEFAULT_PORT = "443";
@@ -124,39 +112,15 @@ class DGetHostPort
 			m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
 		}
 
-		JButton jbOK = new JButton(RB.getString("DGetHostPort.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
-		JButton jbCancel = new JButton(RB.getString("DGetHostPort.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-
 		JPanel jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpHostPort.add(jlHost);
 		jpHostPort.add(m_jtfHost);
 		jpHostPort.add(jlPort);
 		jpHostPort.add(m_jtfPort);
 		jpHostPort.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.add(jbOK);
@@ -165,20 +129,9 @@ class DGetHostPort
 		getContentPane().add(jpHostPort, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
-		setResizable(false);
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -235,26 +188,12 @@ class DGetHostPort
 	/**
 	 * OK button pressed or otherwise activated.
 	 */
-	private void okPressed()
+	@Override
+	protected void okPressed()
 	{
 		if (checkHostPort())
 		{
-			closeDialog();
+			super.okPressed();
 		}
-	}
-
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/** Closes the dialog */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

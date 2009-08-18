@@ -27,21 +27,15 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.security.KeyPair;
 
-import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
@@ -54,11 +48,8 @@ import net.sf.portecle.gui.error.DThrowable;
  * Generates a key pair which the user may cancel at any time by pressing the cancel button.
  */
 class DGeneratingKeyPair
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Stores the key pair generation type */
 	private KeyPairType m_keyPairType;
 
@@ -107,28 +98,16 @@ class DGeneratingKeyPair
 		jpGenKeyPair.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// Cancel button
-		JButton jbCancel = new JButton(RB.getString("DGeneratingKeyPair.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbCancel = getCancelButton();
 		JPanel jpCancel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpCancel.add(jbCancel);
 
 		getContentPane().add(jpGenKeyPair, BorderLayout.NORTH);
 		getContentPane().add(jpCancel, BorderLayout.SOUTH);
+
+		setTitle(RB.getString("DGeneratingKeyPair.Title"));
+
+		initDialog();
 
 		addWindowListener(new WindowAdapter()
 		{
@@ -139,14 +118,8 @@ class DGeneratingKeyPair
 				{
 					m_generator.interrupt();
 				}
-				closeDialog();
 			}
 		});
-
-		setTitle(RB.getString("DGeneratingKeyPair.Title"));
-		setResizable(false);
-
-		pack();
 	}
 
 	/**
@@ -159,23 +132,14 @@ class DGeneratingKeyPair
 		m_generator.start();
 	}
 
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
+	@Override
+	protected void cancelPressed()
 	{
 		if (m_generator != null && m_generator.isAlive())
 		{
 			m_generator.interrupt();
 		}
-		closeDialog();
-	}
-
-	/** Closes the dialog */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
+		super.cancelPressed();
 	}
 
 	/**

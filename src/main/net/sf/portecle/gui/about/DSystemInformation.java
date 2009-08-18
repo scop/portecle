@@ -31,8 +31,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Properties;
@@ -47,6 +45,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
@@ -54,7 +53,7 @@ import net.sf.portecle.gui.SwingHelper;
  * JVM total memory and JVM free memory.
  */
 public class DSystemInformation
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Width of system information text fields */
 	private static final int VALUE_WIDTH = 25;
@@ -256,14 +255,7 @@ public class DSystemInformation
 		});
 
 		// OK button
-		JButton jbOK = new JButton(RB.getString("DSystemInformation.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.setBorder(new EmptyBorder(5, 0, 5, 0));
@@ -275,21 +267,9 @@ public class DSystemInformation
 		getContentPane().add(jpSystemInformation, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		// Annoying, but resizing wreaks havoc here
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -301,22 +281,5 @@ public class DSystemInformation
 		DSystemProperties dSystemProperties = new DSystemProperties(this, true);
 		dSystemProperties.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dSystemProperties);
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Close the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

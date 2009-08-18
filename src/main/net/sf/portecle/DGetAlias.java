@@ -28,21 +28,12 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import net.sf.portecle.gui.SwingHelper;
@@ -51,11 +42,8 @@ import net.sf.portecle.gui.SwingHelper;
  * Dialog used for entering a keystore alias.
  */
 class DGetAlias
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Alias text field */
 	private JTextField m_jtfAlias;
 
@@ -101,32 +89,8 @@ class DGetAlias
 		m_jtfAlias = new JTextField(sOldAlias, 15);
 		m_jtfAlias.setCaretPosition(sOldAlias.length());
 
-		JButton jbOK = new JButton(RB.getString("DGetAlias.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
-		JButton jbCancel = new JButton(RB.getString("DGetAlias.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpAlias.add(jlAlias);
@@ -140,20 +104,9 @@ class DGetAlias
 		getContentPane().add(jpAlias, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
-		setResizable(false);
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
 		if (select)
 		{
@@ -183,29 +136,12 @@ class DGetAlias
 		return false;
 	}
 
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
+	@Override
+	protected void okPressed()
 	{
 		if (checkAlias())
 		{
-			closeDialog();
+			super.okPressed();
 		}
-	}
-
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/** Closes the dialog */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

@@ -27,10 +27,6 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -39,16 +35,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
+
+import net.sf.portecle.PortecleJDialog;
 
 /**
  * A dialog that displays the Java System Properties.
  */
 public class DSystemProperties
-    extends JDialog
+    extends PortecleJDialog
 {
 	/**
 	 * Creates new DSystemProperties dialog.
@@ -123,14 +120,7 @@ public class DSystemProperties
 		jpSystemPropertiesTable.add(jspSystemPropertiesTable, BorderLayout.CENTER);
 		jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		final JButton jbOK = new JButton(RB.getString("DSystemProperties.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpOK.add(jbOK);
@@ -138,42 +128,10 @@ public class DSystemProperties
 		getContentPane().add(jpSystemPropertiesTable, BorderLayout.CENTER);
 		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Close the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
+		jbOK.requestFocusInWindow();
 	}
 }

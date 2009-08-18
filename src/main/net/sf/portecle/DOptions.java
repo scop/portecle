@@ -31,26 +31,19 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -59,11 +52,8 @@ import javax.swing.border.EmptyBorder;
  * Dialog to allow the users to configure Portecle options, CA certs keystore, and look & feel.
  */
 class DOptions
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Use CA certs check box */
 	private JCheckBox m_jcbUseCaCerts;
 
@@ -237,32 +227,9 @@ class DOptions
 		jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// OK and Cancel buttons
-		JButton jbOK = new JButton(RB.getString("DOptions.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
 
-		JButton jbCancel = new JButton(RB.getString("DOptions.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		jpButtons.add(jbOK);
@@ -273,21 +240,11 @@ class DOptions
 		getContentPane().add(jtpOptions, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		setTitle(RB.getString("DOptions.Title"));
-		setResizable(false);
 
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -382,29 +339,10 @@ class DOptions
 		m_jtfCaCertsFile.setCaretPosition(0);
 	}
 
-	/**
-	 * OK button pressed or otherwise activated. Store the user's option choices and close the dialog.
-	 */
-	private void okPressed()
+	@Override
+	protected void okPressed()
 	{
 		storeOptions();
-		closeDialog();
-	}
-
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Closes the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
+		super.okPressed();
 	}
 }

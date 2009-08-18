@@ -32,8 +32,6 @@ import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -42,16 +40,15 @@ import java.io.StringWriter;
 import java.text.MessageFormat;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.error.DThrowable;
 
@@ -61,7 +58,7 @@ import org.bouncycastle.openssl.PEMWriter;
  * Displays an X.509 object's PEM encoding.
  */
 public class DViewPEM
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Stores object to display */
 	private Object m_object;
@@ -126,14 +123,7 @@ public class DViewPEM
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(RB.getString("DViewPEM.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 
 		final JButton jbSave = new JButton(RB.getString("DViewPEM.jbSave.text"));
 		jbSave.setMnemonic(RB.getString("DViewPEM.jbSave.mnemonic").charAt(0));
@@ -173,36 +163,12 @@ public class DViewPEM
 		getContentPane().add(jpPEM, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		setResizable(true);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
+		setResizable(true);
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -255,14 +221,5 @@ public class DViewPEM
 					}
 			}
 		}
-	}
-
-	/**
-	 * Hides the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

@@ -33,8 +33,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -50,13 +48,11 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -87,7 +83,7 @@ import org.w3c.dom.Element;
  * Displays a report on the contents of a supplied keystore.
  */
 class DKeyStoreReport
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Transformer factory for XML output */
 	private static final TransformerFactory TF_FACTORY = TransformerFactory.newInstance();
@@ -165,14 +161,7 @@ class DKeyStoreReport
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(RB.getString("DKeyStoreReport.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 
 		jpButtons.add(jbOK);
 
@@ -230,28 +219,13 @@ class DKeyStoreReport
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
 		setTitle(RB.getString("DKeyStoreReport.Title"));
-		setResizable(true);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
 
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		setResizable(true);
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -859,22 +833,5 @@ class DKeyStoreReport
 		{
 			throw new CryptoException(RB.getString("DKeyStoreReport.NoGenerateReport.exception.message"), ex);
 		}
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the Report dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

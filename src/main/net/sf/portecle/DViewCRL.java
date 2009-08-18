@@ -35,8 +35,6 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.net.URL;
@@ -49,7 +47,6 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -58,7 +55,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -76,7 +72,7 @@ import net.sf.portecle.gui.error.DThrowable;
  * Displays the details of a Certificate Revocation List (CRL).
  */
 class DViewCRL
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** CRL Version text field */
 	private JTextField m_jtfVersion;
@@ -381,44 +377,18 @@ class DViewCRL
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-		final JButton jbOK = new JButton(RB.getString("DViewCRL.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
+		JButton jbOK = getOkButton();
 		jpOK.add(jbOK);
 
 		// Put it all together
 		getContentPane().add(jpCRL, BorderLayout.CENTER);
 		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -607,22 +577,5 @@ class DViewCRL
 				}
 			}
 		}
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the View CRL dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

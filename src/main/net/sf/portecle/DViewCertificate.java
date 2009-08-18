@@ -36,8 +36,6 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.math.BigInteger;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -49,13 +47,11 @@ import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -75,7 +71,7 @@ import net.sf.portecle.gui.error.DThrowable;
  * time with selector buttons allowing the movement to another of the certificates.
  */
 class DViewCertificate
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Move left selector button */
 	private JButton m_jbLeft;
@@ -515,16 +511,7 @@ class DViewCertificate
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
-		final JButton jbOK = new JButton(RB.getString("DViewCertificate.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
+		JButton jbOK = getOkButton();
 		jpOK.add(jbOK);
 
 		// Put it all together
@@ -532,29 +519,11 @@ class DViewCertificate
 		getContentPane().add(jpCertificate, BorderLayout.CENTER);
 		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-		// Annoying, but resizing wreaks havoc here
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -807,22 +776,5 @@ class DViewCertificate
 			DThrowable.showAndWait(this, null, ex);
 			return;
 		}
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the View Certificate dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

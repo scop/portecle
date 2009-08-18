@@ -31,26 +31,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Locale;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -73,11 +64,8 @@ import net.sf.portecle.gui.error.DThrowable;
  * signature algorithms depends on the key pair generation algorithm selected.
  */
 class DGenerateCertificate
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** Indicator used for a bad validity period */
 	private static final int BAD_VALIDITY = -1;
 
@@ -290,32 +278,8 @@ class DGenerateCertificate
 		jpOptions.add(jlEmailAddress, gbc_jlEmailAddress);
 		jpOptions.add(m_jtfEmailAddress, gbc_jtfEmailAddress);
 
-		JButton jbOK = new JButton(RB.getString("DGenerateCertificate.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
-		JButton jbCancel = new JButton(RB.getString("DGenerateCertificate.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.add(jbOK);
@@ -325,21 +289,11 @@ class DGenerateCertificate
 		getContentPane().add(jpOptions, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		setTitle(sTitle);
-		setResizable(false);
 
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
 		// Focus common name input by default
 		m_jtfCommonName.requestFocusInWindow();
@@ -606,31 +560,12 @@ class DGenerateCertificate
 		return m_certificate;
 	}
 
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
+	@Override
+	protected void okPressed()
 	{
 		if (generateCertificate())
 		{
-			closeDialog();
+			super.okPressed();
 		}
-	}
-
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Closes the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

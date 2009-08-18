@@ -33,26 +33,24 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
+import net.sf.portecle.PortecleJDialog;
+
 /**
  * Displays a throwable's stack trace. Cause throwable's stack trace will be show recursively also.
  */
 public class DThrowableDetail
-    extends JDialog
+    extends PortecleJDialog
 {
 	/** Stores throwable to display */
 	private Throwable m_throwable;
@@ -79,14 +77,7 @@ public class DThrowableDetail
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		final JButton jbOK = new JButton(RB.getString("DThrowableDetail.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
 		jpButtons.add(jbOK);
 
 		JButton jbCopy = new JButton(RB.getString("DThrowableDetail.jbCopy.text"));
@@ -130,28 +121,13 @@ public class DThrowableDetail
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
 		setTitle(RB.getString("DThrowableDetail.Title"));
-		setResizable(true);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
 
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		setResizable(true);
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -238,22 +214,5 @@ public class DThrowableDetail
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		StringSelection copy = new StringSelection(strBuff.toString());
 		clipboard.setContents(copy, copy);
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Hides the Throwable Detail dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

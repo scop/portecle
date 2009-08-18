@@ -30,9 +30,6 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.KeyStore;
@@ -45,19 +42,14 @@ import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -76,11 +68,8 @@ import net.sf.portecle.gui.error.DThrowable;
  * for import.
  */
 class DImportKeyPair
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** List of key pairs available for import */
 	private JList m_jltKeyPairs;
 
@@ -127,17 +116,9 @@ class DImportKeyPair
 		JLabel jlInstructions = new JLabel(RB.getString("DImportKeyPair.jlInstructions.text"));
 
 		// Import button
-		final JButton jbImport = new JButton(RB.getString("DImportKeyPair.jbImport.text"));
+		final JButton jbImport = getOkButton();
 		jbImport.setEnabled(false);
-		jbImport.setMnemonic(RB.getString("DImportKeyPair.jbImport.mnemonic").charAt(0));
 		jbImport.setToolTipText(RB.getString("DImportKeyPair.jbImport.tooltip"));
-		jbImport.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				importPressed();
-			}
-		});
 
 		// Certificate details button
 		final JButton jbCertificateDetails =
@@ -207,23 +188,7 @@ class DImportKeyPair
 
 		// Cancel button
 
-		final JButton jbCancel = new JButton(RB.getString("DImportKeyPair.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.add(jbImport);
@@ -236,42 +201,13 @@ class DImportKeyPair
 		// Populate the list
 		populateList();
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		setTitle(RB.getString("DImportKeyPair.Title"));
-		setResizable(false);
 
-		getRootPane().setDefaultButton(jbImport);
+		getRootPane().setDefaultButton(jbImport.isEnabled() ? jbImport : jbCancel);
 
-		pack();
+		initDialog();
 
-		if (jbImport.isEnabled())
-		{
-			SwingUtilities.invokeLater(new Runnable()
-			{
-				public void run()
-				{
-					jbImport.requestFocus();
-				}
-			});
-		}
-		else
-		{
-			SwingUtilities.invokeLater(new Runnable()
-			{
-				public void run()
-				{
-					jbCancel.requestFocus();
-				}
-			});
-		}
+		getRootPane().getDefaultButton().requestFocusInWindow();
 	}
 
 	/**
@@ -445,7 +381,8 @@ class DImportKeyPair
 	 * Import button pressed by user. Store the selected key pair's private and public parts and close the
 	 * dialog.
 	 */
-	public void importPressed()
+	@Override
+	protected void okPressed()
 	{
 		String sAlias = (String) m_jltKeyPairs.getSelectedValue();
 
@@ -473,23 +410,6 @@ class DImportKeyPair
 			closeDialog();
 		}
 
-		closeDialog();
-	}
-
-	/**
-	 * Cancel button pressed - close the dialog.
-	 */
-	public void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Closes the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
+		super.okPressed();
 	}
 }

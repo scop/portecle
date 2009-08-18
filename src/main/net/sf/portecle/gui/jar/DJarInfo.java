@@ -28,10 +28,6 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,22 +37,22 @@ import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
+
+import net.sf.portecle.PortecleJDialog;
 
 /**
  * A dialog that displays information about the JAR files on the classpath.
  */
 public class DJarInfo
-    extends JDialog
+    extends PortecleJDialog
 {
 	/**
 	 * Creates new DJarInfo dialog.
@@ -126,43 +122,18 @@ public class DJarInfo
 		jpJarInfoTable.add(jspJarInfoTable, BorderLayout.CENTER);
 		jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		final JButton jbOK = new JButton(RB.getString("DJarInfo.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
+		JButton jbOK = getOkButton();
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpOK.add(jbOK);
 
 		getContentPane().add(jpJarInfoTable, BorderLayout.CENTER);
 		getContentPane().add(jpOK, BorderLayout.SOUTH);
 
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				jbOK.requestFocus();
-			}
-		});
+		jbOK.requestFocusInWindow();
 	}
 
 	/**
@@ -256,22 +227,5 @@ public class DJarInfo
 		}
 
 		return false;
-	}
-
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Close the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }

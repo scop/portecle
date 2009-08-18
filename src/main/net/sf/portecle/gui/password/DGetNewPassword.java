@@ -29,32 +29,22 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
+
+import net.sf.portecle.PortecleJDialog;
 
 /**
  * Dialog used for entering and confirming a password.
  */
 public class DGetNewPassword
-    extends JDialog
+    extends PortecleJDialog
 {
-	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = "CANCEL_KEY";
-
 	/** First password entry password field */
 	private JPasswordField m_jpfFirst;
 
@@ -106,32 +96,8 @@ public class DGetNewPassword
 		m_jpfFirst = new JPasswordField(15);
 		m_jpfConfirm = new JPasswordField(15);
 
-		JButton jbOK = new JButton(RB.getString("DGetNewPassword.jbOK.text"));
-		jbOK.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				okPressed();
-			}
-		});
-
-		JButton jbCancel = new JButton(RB.getString("DGetNewPassword.jbCancel.text"));
-		jbCancel.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, new AbstractAction()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				cancelPressed();
-			}
-		});
+		JButton jbOK = getOkButton();
+		JButton jbCancel = getCancelButton();
 
 		JPanel jpPassword = new JPanel(new GridLayout(2, 2, 5, 5));
 		jpPassword.add(jlFirst);
@@ -147,20 +113,9 @@ public class DGetNewPassword
 		getContentPane().add(jpPassword, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
 
-		addWindowListener(new WindowAdapter()
-		{
-			@Override
-			public void windowClosing(WindowEvent evt)
-			{
-				closeDialog();
-			}
-		});
-
-		setResizable(false);
-
 		getRootPane().setDefaultButton(jbOK);
 
-		pack();
+		initDialog();
 	}
 
 	/**
@@ -191,31 +146,12 @@ public class DGetNewPassword
 		return false;
 	}
 
-	/**
-	 * OK button pressed or otherwise activated.
-	 */
-	private void okPressed()
+	@Override
+	protected void okPressed()
 	{
 		if (checkPassword())
 		{
-			closeDialog();
+			super.okPressed();
 		}
-	}
-
-	/**
-	 * Cancel button pressed or otherwise activated.
-	 */
-	private void cancelPressed()
-	{
-		closeDialog();
-	}
-
-	/**
-	 * Close the dialog.
-	 */
-	private void closeDialog()
-	{
-		setVisible(false);
-		dispose();
 	}
 }
