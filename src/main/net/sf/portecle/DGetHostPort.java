@@ -24,7 +24,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.net.InetSocketAddress;
@@ -44,7 +43,7 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Dialog used for entering an IP address and a port.
+ * Modal dialog used for entering an IP address and a port.
  */
 class DGetHostPort
     extends PortecleJDialog
@@ -67,12 +66,11 @@ class DGetHostPort
 	 * 
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param modal Is the dialog modal?
 	 * @param iOldHostPort The address to display initially
 	 */
-	public DGetHostPort(Window parent, String sTitle, boolean modal, InetSocketAddress iOldHostPort)
+	public DGetHostPort(Window parent, String sTitle, InetSocketAddress iOldHostPort)
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		initComponents(iOldHostPort);
 	}
 

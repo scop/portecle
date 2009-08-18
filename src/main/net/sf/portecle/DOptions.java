@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
@@ -49,7 +48,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Dialog to allow the users to configure Portecle options, CA certs keystore, and look & feel.
+ * Modal dialog to allow the users to configure Portecle options, CA certs keystore, and look & feel.
  */
 class DOptions
     extends PortecleJDialog
@@ -86,13 +85,12 @@ class DOptions
 	 * Creates new DOptions dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param modal Is dialog modal?
 	 * @param bUseCaCerts Use CA certs keystore file?
 	 * @param fCaCertsFile CA certs keystore file
 	 */
-	public DOptions(Window parent, boolean modal, boolean bUseCaCerts, File fCaCertsFile)
+	public DOptions(Window parent, boolean bUseCaCerts, File fCaCertsFile)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_bUseCaCerts = bUseCaCerts;
 		m_fCaCertsFile = fCaCertsFile;
 		initComponents();

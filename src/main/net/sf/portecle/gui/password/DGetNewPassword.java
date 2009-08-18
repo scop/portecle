@@ -25,7 +25,6 @@ package net.sf.portecle.gui.password;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
@@ -40,7 +39,7 @@ import javax.swing.border.EmptyBorder;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Dialog used for entering and confirming a password.
+ * Modal dialog used for entering and confirming a password.
  */
 public class DGetNewPassword
     extends PortecleJDialog
@@ -59,12 +58,10 @@ public class DGetNewPassword
 	 * 
 	 * @param parent Parent window
 	 * @param sTitle The dialog's title
-	 * @param modal Is dialog modal?
 	 */
-	public DGetNewPassword(Window parent, String sTitle, boolean modal)
+	public DGetNewPassword(Window parent, String sTitle)
 	{
-		super(parent, (sTitle == null) ? RB.getString("DGetNewPassword.Title") : sTitle, (modal
-		    ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, (sTitle == null) ? RB.getString("DGetNewPassword.Title") : sTitle, true);
 		initComponents();
 	}
 

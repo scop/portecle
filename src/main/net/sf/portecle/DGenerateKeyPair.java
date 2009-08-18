@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
@@ -48,8 +47,8 @@ import net.sf.portecle.gui.IntegerDocumentFilter;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * Dialog used to choose the parameters required for key pair generation. The user may select an asymmetric
- * key generation algorithm of DSA or RSA and enter a key size in bits.
+ * Modal dialog used to choose the parameters required for key pair generation. The user may select an
+ * asymmetric key generation algorithm of DSA or RSA and enter a key size in bits.
  */
 class DGenerateKeyPair
     extends PortecleJDialog
@@ -82,11 +81,10 @@ class DGenerateKeyPair
 	 * Creates new DGenerateKeyPair dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param modal Is dialog modal?
 	 */
-	public DGenerateKeyPair(Window parent, boolean modal)
+	public DGenerateKeyPair(Window parent)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		initComponents();
 	}
 

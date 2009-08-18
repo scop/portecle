@@ -24,7 +24,6 @@ package net.sf.portecle.gui.about;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -49,8 +48,8 @@ import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * A dialog which displays general system information: OS, Locale, Java version, Java vendor, Java vendor URL,
- * JVM total memory and JVM free memory.
+ * Modal dialog which displays general system information: OS, Locale, Java version, Java vendor, Java vendor
+ * URL, JVM total memory and JVM free memory.
  */
 public class DSystemInformation
     extends PortecleJDialog
@@ -62,12 +61,10 @@ public class DSystemInformation
 	 * Creates new DSystemInformation dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal Is dialog modal?
 	 */
-	public DSystemInformation(JDialog parent, boolean modal)
+	public DSystemInformation(JDialog parent)
 	{
-		super(parent, RB.getString("DSystemInformation.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
-		    : Dialog.ModalityType.MODELESS));
+		super(parent, RB.getString("DSystemInformation.Title"), true);
 		initComponents();
 	}
 
@@ -278,7 +275,7 @@ public class DSystemInformation
 	private void systemPropertiesPressed()
 	{
 		// Show System Properties dialog
-		DSystemProperties dSystemProperties = new DSystemProperties(this, true);
+		DSystemProperties dSystemProperties = new DSystemProperties(this);
 		dSystemProperties.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dSystemProperties);
 	}

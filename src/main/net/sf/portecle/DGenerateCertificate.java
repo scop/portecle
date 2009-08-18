@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -58,10 +57,10 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Dialog used to generate a certificate based on a supplied key pair and signature algorithm for inclusion in
- * a keystore. Allows the user to enter the signature algorithm and validity period of the certificate in days
- * as well as all of the certificate attributes of a version 1 X.509 certificate. The choice of available
- * signature algorithms depends on the key pair generation algorithm selected.
+ * Modal dialog used to generate a certificate based on a supplied key pair and signature algorithm for
+ * inclusion in a keystore. Allows the user to enter the signature algorithm and validity period of the
+ * certificate in days as well as all of the certificate attributes of a version 1 X.509 certificate. The
+ * choice of available signature algorithms depends on the key pair generation algorithm selected.
  */
 class DGenerateCertificate
     extends PortecleJDialog
@@ -116,14 +115,12 @@ class DGenerateCertificate
 	 * 
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param modal Is dialog modal?
 	 * @param keyPair The key pair to generate the certificate from
 	 * @param keyPairType The key pair type
 	 */
-	public DGenerateCertificate(Window parent, String sTitle, boolean modal, KeyPair keyPair,
-	    KeyPairType keyPairType)
+	public DGenerateCertificate(Window parent, String sTitle, KeyPair keyPair, KeyPairType keyPairType)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_keyPair = keyPair;
 		m_keyPairType = keyPairType;
 		initComponents(sTitle);
@@ -375,7 +372,7 @@ class DGenerateCertificate
 		}
 		catch (CryptoException ex)
 		{
-			DThrowable dThrowable = new DThrowable(this, null, true, ex);
+			DThrowable dThrowable = new DThrowable(this, null, ex);
 			dThrowable.setLocationRelativeTo(getParent());
 			SwingHelper.showAndWait(dThrowable);
 			closeDialog();

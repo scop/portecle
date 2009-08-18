@@ -24,7 +24,6 @@ package net.sf.portecle.gui.error;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -47,7 +46,8 @@ import javax.swing.tree.TreeSelectionModel;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Displays a throwable's stack trace. Cause throwable's stack trace will be show recursively also.
+ * Modal dialog to display a throwable's stack trace. Cause throwable's stack trace will be show recursively
+ * also.
  */
 public class DThrowableDetail
     extends PortecleJDialog
@@ -59,12 +59,11 @@ public class DThrowableDetail
 	 * Creates new DThrowableDetail dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal Is dialog modal?
 	 * @param throwable Throwable to display
 	 */
-	public DThrowableDetail(Window parent, boolean modal, Throwable throwable)
+	public DThrowableDetail(Window parent, Throwable throwable)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_throwable = throwable;
 		initComponents();
 	}

@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
@@ -43,7 +42,7 @@ import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.KeyStoreUtil;
 
 /**
- * Dialog used to retrieve the type to use in the creation of a new keystore.
+ * Modal dialog used to retrieve the type to use in the creation of a new keystore.
  */
 class DNewKeyStoreType
     extends PortecleJDialog
@@ -76,11 +75,10 @@ class DNewKeyStoreType
 	 * Creates new DNewKeyStoreType dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param modal Is dialog modal?
 	 */
-	public DNewKeyStoreType(Window parent, boolean modal)
+	public DNewKeyStoreType(Window parent)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		setTitle(RB.getString("DNewKeyStoreType.Title"));
 		initComponents();
 	}

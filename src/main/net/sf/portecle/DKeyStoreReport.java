@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -80,7 +79,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Displays a report on the contents of a supplied keystore.
+ * Modal dialog to display a report on the contents of a supplied keystore.
  */
 class DKeyStoreReport
     extends PortecleJDialog
@@ -138,14 +137,13 @@ class DKeyStoreReport
 	 * Creates new DKeyStoreReport dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal Is dialog modal?
 	 * @param keystore Keystore to display report on
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 */
-	public DKeyStoreReport(JFrame parent, boolean modal, KeyStore keystore)
+	public DKeyStoreReport(JFrame parent, KeyStore keystore)
 	    throws CryptoException
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_keystore = keystore;
 		initComponents();
 	}

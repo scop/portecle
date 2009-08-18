@@ -25,7 +25,6 @@ package net.sf.portecle.gui.crypto;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -55,7 +54,7 @@ import net.sf.portecle.gui.error.DThrowable;
 import org.bouncycastle.openssl.PEMWriter;
 
 /**
- * Displays an X.509 object's PEM encoding.
+ * Modal dialog to display an X.509 object's PEM encoding.
  */
 public class DViewPEM
     extends PortecleJDialog
@@ -74,15 +73,14 @@ public class DViewPEM
 	 * 
 	 * @param parent Parent windiw
 	 * @param sTitle The dialog title
-	 * @param modal Is dialog modal?
 	 * @param obj Object to display encoding for
 	 * @param chooser File chooser for saving the PEM encoding
 	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
 	 */
-	public DViewPEM(Window parent, String sTitle, boolean modal, Object obj, JFileChooser chooser)
+	public DViewPEM(Window parent, String sTitle, Object obj, JFileChooser chooser)
 	    throws CryptoException
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		m_object = obj;
 		m_chooser = chooser;
 		initComponents();

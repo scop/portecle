@@ -25,7 +25,6 @@ package net.sf.portecle.gui.about;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -49,12 +48,10 @@ public class DAbout
 	 * Creates new DAbout dialog.
 	 * 
 	 * @param parent Parent frame
-	 * @param modal Is dialog modal?
 	 */
-	public DAbout(Window parent, boolean modal)
+	public DAbout(Window parent)
 	{
-		super(parent, RB.getString("DAbout.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
-		    : Dialog.ModalityType.MODELESS));
+		super(parent, RB.getString("DAbout.Title"), true);
 		initComponents();
 	}
 
@@ -102,7 +99,7 @@ public class DAbout
 	 */
 	private void showSystemInformation()
 	{
-		DSystemInformation dSystemInformation = new DSystemInformation(this, true);
+		DSystemInformation dSystemInformation = new DSystemInformation(this);
 		dSystemInformation.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dSystemInformation);
 	}

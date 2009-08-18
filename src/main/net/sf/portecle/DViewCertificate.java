@@ -26,7 +26,6 @@ import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -67,8 +66,8 @@ import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Displays the details of one or more X.509 certificates. The details of one certificate are displayed at a
- * time with selector buttons allowing the movement to another of the certificates.
+ * Modal dialog to display the details of one or more X.509 certificates. The details of one certificate are
+ * displayed at a time with selector buttons allowing the movement to another of the certificates.
  */
 class DViewCertificate
     extends PortecleJDialog
@@ -138,14 +137,13 @@ class DViewCertificate
 	 * 
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
-	 * @param modal Is dialog modal?
 	 * @param certs Certificate(s) chain to display
 	 * @throws CryptoException A problem was encountered getting the certificates' details
 	 */
-	public DViewCertificate(Window parent, String sTitle, boolean modal, X509Certificate[] certs)
+	public DViewCertificate(Window parent, String sTitle, X509Certificate[] certs)
 	    throws CryptoException
 	{
-		this(parent, sTitle, modal, certs, null, null);
+		this(parent, sTitle, certs, null, null);
 	}
 
 	/**
@@ -153,17 +151,16 @@ class DViewCertificate
 	 * 
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
-	 * @param modal Is dialog modal?
 	 * @param certs Certificate(s) chain to display
 	 * @param connectionProtocol SSL/TLS connection protocol
 	 * @param connectionProtocol SSL/TLS connection cipher suite
 	 * @throws CryptoException A problem was encountered getting the certificates' details
 	 */
-	public DViewCertificate(Window parent, String sTitle, boolean modal, X509Certificate[] certs,
-	    String connectionProtocol, String connectionCipherSuite)
+	public DViewCertificate(Window parent, String sTitle, X509Certificate[] certs, String connectionProtocol,
+	    String connectionCipherSuite)
 	    throws CryptoException
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		m_certs = certs;
 		m_connectionProtocol = connectionProtocol;
 		m_connectionCipherSuite = connectionCipherSuite;
@@ -171,7 +168,7 @@ class DViewCertificate
 	}
 
 	/**
-	 * Create, show, and wait for a new modal DViewCertificate dialog.
+	 * Create, show, and wait for a new DViewCertificate dialog.
 	 * 
 	 * @param parent Parent window
 	 * @param url URL, URI or file to load CRL from
@@ -211,7 +208,7 @@ class DViewCertificate
 
 			DViewCertificate dialog =
 			    new DViewCertificate(parent, MessageFormat.format(
-			        RB.getString("FPortecle.CertDetails.Title"), url), true, certs);
+			        RB.getString("FPortecle.CertDetails.Title"), url), certs);
 			dialog.setLocationRelativeTo(parent);
 			SwingHelper.showAndWait(dialog);
 		}
@@ -767,7 +764,7 @@ class DViewCertificate
 		{
 			DViewPEM dViewCertPem =
 			    new DViewPEM(this, MessageFormat.format(RB.getString("DViewCertificate.PemEncoding.Title"),
-			        m_iSelCert + 1, m_certs.length), true, cert, chooser);
+			        m_iSelCert + 1, m_certs.length), cert, chooser);
 			dViewCertPem.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertPem);
 		}

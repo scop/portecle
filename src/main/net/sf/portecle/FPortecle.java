@@ -1627,7 +1627,7 @@ public class FPortecle
 	private void showAbout()
 	{
 		// Display About Dialog in the centre of the frame
-		DAbout dAbout = new DAbout(this, true);
+		DAbout dAbout = new DAbout(this);
 		dAbout.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dAbout);
 	}
@@ -1644,7 +1644,7 @@ public class FPortecle
 
 		// Display the Generate Key Pair dialog to get the key pair generation
 		// parameters from the user
-		DGenerateKeyPair dGenerateKeyPair = new DGenerateKeyPair(this, true);
+		DGenerateKeyPair dGenerateKeyPair = new DGenerateKeyPair(this);
 		dGenerateKeyPair.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGenerateKeyPair);
 
@@ -1657,7 +1657,7 @@ public class FPortecle
 		KeyPairType keyPairType = dGenerateKeyPair.getKeyPairType();
 
 		// Display the Generating Key Pair dialog - generates the key pair
-		DGeneratingKeyPair dGeneratingKeyPair = new DGeneratingKeyPair(this, true, keyPairType, iKeySize);
+		DGeneratingKeyPair dGeneratingKeyPair = new DGeneratingKeyPair(this, keyPairType, iKeySize);
 		dGeneratingKeyPair.setLocationRelativeTo(this);
 		dGeneratingKeyPair.startKeyPairGeneration();
 		SwingHelper.showAndWait(dGeneratingKeyPair);
@@ -1674,8 +1674,8 @@ public class FPortecle
 		 * will update the keystore with the key pair for us
 		 */
 		DGenerateCertificate dGenerateCertificate =
-		    new DGenerateCertificate(this, RB.getString("FPortecle.GenerateCertificate.Title"), true,
-		        keyPair, keyPairType);
+		    new DGenerateCertificate(this, RB.getString("FPortecle.GenerateCertificate.Title"), keyPair,
+		        keyPairType);
 		dGenerateCertificate.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGenerateCertificate);
 
@@ -1712,8 +1712,7 @@ public class FPortecle
 		if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 		{
 			DGetNewPassword dGetNewPassword =
-			    new DGetNewPassword(this, RB.getString("DGenerateCertificate.KeyPairEntryPassword.Title"),
-			        true);
+			    new DGetNewPassword(this, RB.getString("DGenerateCertificate.KeyPairEntryPassword.Title"));
 			dGetNewPassword.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetNewPassword);
 			cPassword = dGetNewPassword.getPassword();
@@ -1855,7 +1854,7 @@ public class FPortecle
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
 		    new DGetPassword(this, MessageFormat.format(RB.getString("FPortecle.GetKeyStorePassword.Title"),
-		        fKeyStore.getName()), true);
+		        fKeyStore.getName()));
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -1970,7 +1969,7 @@ public class FPortecle
 		}
 
 		DChoosePkcs11Provider chooser =
-		    new DChoosePkcs11Provider(this, RB.getString("FPortecle.ChoosePkcs11Provider.Title"), true, null);
+		    new DChoosePkcs11Provider(this, RB.getString("FPortecle.ChoosePkcs11Provider.Title"), null);
 		chooser.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(chooser);
 
@@ -1989,7 +1988,7 @@ public class FPortecle
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
 		    new DGetPassword(this, MessageFormat.format(RB.getString("FPortecle.GetKeyStorePassword.Title"),
-		        sPkcs11Provider), true);
+		        sPkcs11Provider));
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -2105,7 +2104,7 @@ public class FPortecle
 
 		// Display the get new password dialog
 		DGetNewPassword dGetNewPassword =
-		    new DGetNewPassword(this, RB.getString("FPortecle.SetKeyStorePassword.Title"), true);
+		    new DGetNewPassword(this, RB.getString("FPortecle.SetKeyStorePassword.Title"));
 		dGetNewPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetNewPassword);
 
@@ -2287,7 +2286,7 @@ public class FPortecle
 		try
 		{
 			// Ask user for keystore type
-			DNewKeyStoreType dNewKeyStoreType = new DNewKeyStoreType(this, true);
+			DNewKeyStoreType dNewKeyStoreType = new DNewKeyStoreType(this);
 			dNewKeyStoreType.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dNewKeyStoreType);
 
@@ -2436,7 +2435,7 @@ public class FPortecle
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this,
 				        MessageFormat.format(RB.getString("FPortecle.CertDetailsSSL.Title"),
-				            ia.getHostName() + ":" + ia.getPort()), true, certs, protocol, cipherSuite);
+				            ia.getHostName() + ":" + ia.getPort()), certs, protocol, cipherSuite);
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 				return true;
@@ -2476,7 +2475,7 @@ public class FPortecle
 			{
 				DViewCSR dViewCSR =
 				    new DViewCSR(this, MessageFormat.format(RB.getString("FPortecle.CsrDetailsFile.Title"),
-				        fCSRFile.getName()), true, csr);
+				        fCSRFile.getName()), csr);
 				dViewCSR.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCSR);
 				return true;
@@ -2571,8 +2570,7 @@ public class FPortecle
 	 */
 	private InetSocketAddress chooseExamineCertSSL()
 	{
-		DGetHostPort d =
-		    new DGetHostPort(this, RB.getString("FPortecle.ExamineCertificateSSL.Title"), true, null);
+		DGetHostPort d = new DGetHostPort(this, RB.getString("FPortecle.ExamineCertificateSSL.Title"), null);
 		d.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(d);
 		return d.getHostPort();
@@ -2892,7 +2890,7 @@ public class FPortecle
 					// Display the certficate to the user
 					DViewCertificate dViewCertificate =
 					    new DViewCertificate(this, MessageFormat.format(
-					        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
+					        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()),
 					        new X509Certificate[] { rootCert });
 					dViewCertificate.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewCertificate);
@@ -2956,7 +2954,7 @@ public class FPortecle
 				if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -3028,7 +3026,7 @@ public class FPortecle
 				if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -3173,7 +3171,7 @@ public class FPortecle
 				// Display the certficate to the user
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
-				        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()), true,
+				        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()),
 				        new X509Certificate[] { trustCert });
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
@@ -3274,7 +3272,7 @@ public class FPortecle
 					DGetPassword dGetPassword =
 					    new DGetPassword(FPortecle.this, MessageFormat.format(
 					        RB.getString("FPortecle.PrivateKeyPassword.Title"),
-					        new Object[] { String.valueOf(passwordNumber) }), true);
+					        new Object[] { String.valueOf(passwordNumber) }));
 					dGetPassword.setLocationRelativeTo(FPortecle.this);
 					SwingHelper.showAndWait(dGetPassword);
 					char[] cPassword = dGetPassword.getPassword();
@@ -3315,7 +3313,7 @@ public class FPortecle
 		{
 			// Get the user to enter the PKCS #12 keystore's password
 			DGetPassword dGetPassword =
-			    new DGetPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"), true);
+			    new DGetPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"));
 			dGetPassword.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetPassword);
 
@@ -3356,7 +3354,7 @@ public class FPortecle
 		try
 		{
 			// Display the import key pair dialog supplying the PKCS #12 keystore to it
-			DImportKeyPair dImportKeyPair = new DImportKeyPair(this, true, tempStore);
+			DImportKeyPair dImportKeyPair = new DImportKeyPair(this, tempStore);
 			dImportKeyPair.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dImportKeyPair);
 
@@ -3388,7 +3386,7 @@ public class FPortecle
 			if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 			{
 				DGetNewPassword dGetNewPassword =
-				    new DGetNewPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+				    new DGetNewPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 				dGetNewPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetNewPassword);
 				cPassword = dGetNewPassword.getPassword();
@@ -3437,7 +3435,7 @@ public class FPortecle
 	{
 		// Get the user to enter the CA certs keystore's password
 		DGetPassword dGetPassword =
-		    new DGetPassword(this, RB.getString("FPortecle.CaCertsKeyStorePassword.Title"), true);
+		    new DGetPassword(this, RB.getString("FPortecle.CaCertsKeyStorePassword.Title"));
 		dGetPassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetPassword);
 		char[] cPassword = dGetPassword.getPassword();
@@ -3643,7 +3641,7 @@ public class FPortecle
 	 */
 	private void showSecurityProviders()
 	{
-		DProviderInfo dProviderInfo = new DProviderInfo(this, true);
+		DProviderInfo dProviderInfo = new DProviderInfo(this);
 		dProviderInfo.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dProviderInfo);
 	}
@@ -3655,7 +3653,7 @@ public class FPortecle
 	{
 		try
 		{
-			DJarInfo dJarInfo = new DJarInfo(this, true);
+			DJarInfo dJarInfo = new DJarInfo(this);
 			dJarInfo.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dJarInfo);
 		}
@@ -3670,7 +3668,7 @@ public class FPortecle
 	 */
 	private void showOptions()
 	{
-		DOptions dOptions = new DOptions(this, true, m_bUseCaCerts, m_fCaCertsFile);
+		DOptions dOptions = new DOptions(this, m_bUseCaCerts, m_fCaCertsFile);
 		dOptions.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dOptions);
 
@@ -3827,7 +3825,7 @@ public class FPortecle
 							    MessageFormat.format(
 							        RB.getString("FPortecle.ChangeKeyStoreTypeKeyPairEntryPassword.Title"),
 							        sAlias);
-							DGetPassword dGetPassword = new DGetPassword(this, sTitle, true);
+							DGetPassword dGetPassword = new DGetPassword(this, sTitle);
 							dGetPassword.setLocationRelativeTo(this);
 							SwingHelper.showAndWait(dGetPassword);
 							cPassword = dGetPassword.getPassword();
@@ -3991,7 +3989,7 @@ public class FPortecle
 		// Display the change password dialog supplying the current password
 		// to it if it was available
 		DChangePassword dChangePassword =
-		    new DChangePassword(this, true, RB.getString("FPortecle.SetKeyPairPassword.Title"), cOldPassword);
+		    new DChangePassword(this, RB.getString("FPortecle.SetKeyPairPassword.Title"), cOldPassword);
 		dChangePassword.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dChangePassword);
 
@@ -4059,7 +4057,7 @@ public class FPortecle
 		{
 			// Display the Generate Key Pair dialog to get the key pair
 			// generation parameters from the user
-			DExport dExport = new DExport(this, true, m_keyStoreWrap, sAlias);
+			DExport dExport = new DExport(this, m_keyStoreWrap, sAlias);
 			dExport.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dExport);
 
@@ -4704,7 +4702,7 @@ public class FPortecle
 			if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 			{
 				DGetPassword dGetPassword =
-				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 				dGetPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetPassword);
 				cPassword = dGetPassword.getPassword();
@@ -4727,7 +4725,7 @@ public class FPortecle
 
 			// Get a new password to encrypt the private key with
 			DGetNewPassword dGetNewPassword =
-			    new DGetNewPassword(this, RB.getString("FPortecle.PrivateKeyExportPassword.Title"), true);
+			    new DGetNewPassword(this, RB.getString("FPortecle.PrivateKeyExportPassword.Title"));
 			dGetNewPassword.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetNewPassword);
 
@@ -4837,7 +4835,7 @@ public class FPortecle
 			if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 			{
 				DGetPassword dGetPassword =
-				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+				    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 				dGetPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetPassword);
 				cPassword = dGetPassword.getPassword();
@@ -4869,7 +4867,7 @@ public class FPortecle
 
 			// Get a new password for the PKCS #12 keystore
 			DGetNewPassword dGetNewPassword =
-			    new DGetNewPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"), true);
+			    new DGetNewPassword(this, RB.getString("FPortecle.Pkcs12Password.Title"));
 			dGetNewPassword.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetNewPassword);
 
@@ -5108,7 +5106,7 @@ public class FPortecle
 				if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -5217,7 +5215,7 @@ public class FPortecle
 				if (ksType.isEntryPasswordSupported())
 				{
 					DGetPassword dGetPassword =
-					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+					    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 					dGetPassword.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dGetPassword);
 					cPassword = dGetPassword.getPassword();
@@ -5248,8 +5246,7 @@ public class FPortecle
 			if (ksType.isEntryPasswordSupported())
 			{
 				DGetNewPassword dGetNewPassword =
-				    new DGetNewPassword(this, RB.getString("FPortecle.ClonedKeyPairEntryPassword.Title"),
-				        true);
+				    new DGetNewPassword(this, RB.getString("FPortecle.ClonedKeyPairEntryPassword.Title"));
 				dGetNewPassword.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dGetNewPassword);
 				cNewPassword = dGetNewPassword.getPassword();
@@ -5365,7 +5362,7 @@ public class FPortecle
 
 		try
 		{
-			DKeyStoreReport dKeyStoreReport = new DKeyStoreReport(this, true, m_keyStoreWrap.getKeyStore());
+			DKeyStoreReport dKeyStoreReport = new DKeyStoreReport(this, m_keyStoreWrap.getKeyStore());
 			dKeyStoreReport.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dKeyStoreReport);
 			return true;
@@ -5416,7 +5413,7 @@ public class FPortecle
 			// Supply the certificates to the view certificate dialog
 			DViewCertificate dViewCertificate =
 			    new DViewCertificate(this, MessageFormat.format(
-			        RB.getString("FPortecle.CertDetailsEntry.Title"), sAlias), true, certs);
+			        RB.getString("FPortecle.CertDetailsEntry.Title"), sAlias), certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 			return true;
@@ -5500,7 +5497,7 @@ public class FPortecle
 
 		// Get the new entry alias
 		DGetAlias dGetAlias =
-		    new DGetAlias(this, RB.getString("FPortecle.NewEntryAlias.Title"), true, sAlias, true);
+		    new DGetAlias(this, RB.getString("FPortecle.NewEntryAlias.Title"), sAlias, true);
 		dGetAlias.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGetAlias);
 
@@ -5571,7 +5568,7 @@ public class FPortecle
 					if (m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported())
 					{
 						DGetPassword dGetPassword =
-						    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"), true);
+						    new DGetPassword(this, RB.getString("FPortecle.KeyEntryPassword.Title"));
 						dGetPassword.setLocationRelativeTo(this);
 						SwingHelper.showAndWait(dGetPassword);
 						cPassword = dGetPassword.getPassword();
@@ -6098,7 +6095,7 @@ public class FPortecle
 		{
 			// Get the alias for the new entry
 			DGetAlias dGetAlias =
-			    new DGetAlias(this, RB.getString(dialogTitleKey), true, sAlias.toLowerCase(), selectAlias);
+			    new DGetAlias(this, RB.getString(dialogTitleKey), sAlias.toLowerCase(), selectAlias);
 			dGetAlias.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dGetAlias);
 

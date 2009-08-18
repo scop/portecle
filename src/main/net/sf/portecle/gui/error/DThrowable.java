@@ -25,7 +25,6 @@ package net.sf.portecle.gui.error;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -43,7 +42,7 @@ import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * Displays an throwable message with the option to display the stack trace.
+ * Modal dialog for displaying a throwable message with the option to display the stack trace.
  */
 public class DThrowable
     extends PortecleJDialog
@@ -62,19 +61,18 @@ public class DThrowable
 	 * 
 	 * @param parent Parent window
 	 * @param title Dialog title; if null, application default for DThrowables is used
-	 * @param modal Create the dialog as modal?
 	 * @param throwable Throwable to display
 	 */
-	public DThrowable(Window parent, String title, boolean modal, Throwable throwable)
+	public DThrowable(Window parent, String title, Throwable throwable)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		setTitle((title == null) ? RB.getString("DThrowable.Title") : title);
 		m_throwable = throwable;
 		initComponents();
 	}
 
 	/**
-	 * Create, show, and wait for a new modal DThrowable dialog.
+	 * Create, show, and wait for a new DThrowable dialog.
 	 * 
 	 * @param parent Parent window
 	 * @param title Dialog title; if null, application default for DThrowables is used
@@ -82,7 +80,7 @@ public class DThrowable
 	 */
 	public static void showAndWait(Window parent, String title, Throwable throwable)
 	{
-		DThrowable dt = new DThrowable(parent, title, true, throwable);
+		DThrowable dt = new DThrowable(parent, title, throwable);
 		dt.setLocationRelativeTo(parent);
 		SwingHelper.showAndWait(dt);
 	}
@@ -162,7 +160,7 @@ public class DThrowable
 	 */
 	private void showThrowableDetail()
 	{
-		DThrowableDetail dThrowableDetail = new DThrowableDetail(this, true, m_throwable);
+		DThrowableDetail dThrowableDetail = new DThrowableDetail(this, m_throwable);
 		dThrowableDetail.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dThrowableDetail);
 	}

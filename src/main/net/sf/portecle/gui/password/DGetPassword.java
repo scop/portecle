@@ -25,7 +25,6 @@ package net.sf.portecle.gui.password;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 
@@ -40,7 +39,7 @@ import net.sf.portecle.PortecleJDialog;
 import org.bouncycastle.openssl.PasswordFinder;
 
 /**
- * Dialog used for entering a masked password.
+ * Modal dialog used for entering a masked password.
  */
 public class DGetPassword
     extends PortecleJDialog
@@ -57,11 +56,10 @@ public class DGetPassword
 	 * 
 	 * @param parent Parent frame
 	 * @param sTitle The dialog's title
-	 * @param modal Is dialog modal?
 	 */
-	public DGetPassword(Window parent, String sTitle, boolean modal)
+	public DGetPassword(Window parent, String sTitle)
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		initComponents();
 	}
 

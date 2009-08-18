@@ -26,7 +26,6 @@ import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -91,7 +90,7 @@ class DViewExtensions
 	 */
 	public DViewExtensions(Window parent, String sTitle, boolean modal, X509Extension extensions)
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, modal);
 		m_extensions = extensions;
 		initComponents();
 	}

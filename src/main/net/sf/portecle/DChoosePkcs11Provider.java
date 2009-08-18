@@ -24,7 +24,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.security.Provider;
@@ -42,7 +41,7 @@ import javax.swing.border.EmptyBorder;
 import net.sf.portecle.crypto.ProviderUtil;
 
 /**
- * Dialog used for choosing a PKCS #11 provider.
+ * Modal dialog used for choosing a PKCS #11 provider.
  * 
  * @author Ville Skyttä
  */
@@ -60,12 +59,11 @@ public class DChoosePkcs11Provider
 	 * 
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param modal Is the dialog modal?
 	 * @param sOldProvider The provider to display initially
 	 */
-	public DChoosePkcs11Provider(Window parent, String sTitle, boolean modal, String sOldProvider)
+	public DChoosePkcs11Provider(Window parent, String sTitle, String sOldProvider)
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		initComponents(sOldProvider);
 	}
 

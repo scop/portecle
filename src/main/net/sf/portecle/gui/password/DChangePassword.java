@@ -25,7 +25,6 @@ package net.sf.portecle.gui.password;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
@@ -40,8 +39,8 @@ import javax.swing.border.EmptyBorder;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Dialog used for entering and confirming a password and checking it against an old password which may or may
- * not have been supplied to the dialog.
+ * Modal dialog used for entering and confirming a password and checking it against an old password which may
+ * or may not have been supplied to the dialog.
  */
 public class DChangePassword
     extends PortecleJDialog
@@ -65,14 +64,12 @@ public class DChangePassword
 	 * Creates new DChangePassword dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal The dialog's title
 	 * @param sTitle Is dialog modal?
 	 * @param cOldPassword The password to be changed
 	 */
-	public DChangePassword(Window parent, boolean modal, String sTitle, char[] cOldPassword)
+	public DChangePassword(Window parent, String sTitle, char[] cOldPassword)
 	{
-		super(parent, (sTitle == null) ? RB.getString("DChangePassword.Title") : sTitle, (modal
-		    ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, (sTitle == null) ? RB.getString("DChangePassword.Title") : sTitle, true);
 		m_cOldPassword = arrayCopy(cOldPassword);
 		initComponents();
 	}

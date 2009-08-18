@@ -24,7 +24,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -61,7 +60,7 @@ import org.bouncycastle.crypto.util.PublicKeyFactory;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 
 /**
- * Displays the details of a certification request.
+ * Modal dialog to display the details of a certification request.
  */
 class DViewCSR
     extends PortecleJDialog
@@ -89,14 +88,13 @@ class DViewCSR
 	 * 
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
-	 * @param modal Is dialog modal?
 	 * @param req Certification request to display
 	 * @throws CryptoException A problem was encountered getting the certification request details
 	 */
-	public DViewCSR(Window parent, String sTitle, boolean modal, PKCS10CertificationRequest req)
+	public DViewCSR(Window parent, String sTitle, PKCS10CertificationRequest req)
 	    throws CryptoException
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		m_req = req;
 		initComponents();
 	}
@@ -290,7 +288,7 @@ class DViewCSR
 		try
 		{
 			DViewPEM dViewCertPem =
-			    new DViewPEM(this, RB.getString("DViewCSR.PemEncoding.Title"), true, m_req, chooser);
+			    new DViewPEM(this, RB.getString("DViewCSR.PemEncoding.Title"), m_req, chooser);
 			dViewCertPem.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertPem);
 		}

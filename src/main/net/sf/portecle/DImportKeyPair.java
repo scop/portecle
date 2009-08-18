@@ -24,7 +24,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
@@ -64,8 +63,8 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Dialog that displays the details of all key pairs from a PKCS #12 keystore allowing the user to pick one
- * for import.
+ * Modal dialog that displays the details of all key pairs from a PKCS #12 keystore allowing the user to pick
+ * one for import.
  */
 class DImportKeyPair
     extends PortecleJDialog
@@ -89,17 +88,16 @@ class DImportKeyPair
 	private String m_alias;
 
 	/**
-	 * Creates new DImportKeyPair.
+	 * Creates new DImportKeyPair dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param modal Is dialog modal?
 	 * @param pkcs12 The PKCS #12 keystore to list key pairs from
 	 * @throws CryptoException A problem was encountered importing a key pair.
 	 */
-	public DImportKeyPair(Window parent, boolean modal, KeyStore pkcs12)
+	public DImportKeyPair(Window parent, KeyStore pkcs12)
 	    throws CryptoException
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_pkcs12 = pkcs12;
 		initComponents();
 	}
@@ -331,7 +329,7 @@ class DImportKeyPair
 
 			DViewCertificate dViewCertificate =
 			    new DViewCertificate(this, MessageFormat.format(
-			        RB.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), true, certs);
+			        RB.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 		}

@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
@@ -47,8 +46,8 @@ import javax.swing.border.TitledBorder;
 import net.sf.portecle.crypto.CryptoException;
 
 /**
- * Dialog used to export keystore entries. A number of export types and formats are available depending on the
- * entries content.
+ * Modal dialog used to export keystore entries. A number of export types and formats are available depending
+ * on the entries content.
  */
 class DExport
     extends PortecleJDialog
@@ -90,15 +89,14 @@ class DExport
 	 * Creates new DExport dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param modal Is dialog modal?
 	 * @param keyStore The keystore to export from
 	 * @param sEntryAlias The keystore entry to export
 	 * @throws CryptoException Problem accessing the keystore entry
 	 */
-	public DExport(Window parent, boolean modal, KeyStoreWrapper keyStore, String sEntryAlias)
+	public DExport(Window parent, KeyStoreWrapper keyStore, String sEntryAlias)
 	    throws CryptoException
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_keyStoreWrap = keyStore;
 		m_sEntryAlias = sEntryAlias;
 		initComponents();

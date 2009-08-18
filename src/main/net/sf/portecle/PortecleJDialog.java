@@ -23,6 +23,7 @@ package net.sf.portecle;
 
 import static net.sf.portecle.FPortecle.RB;
 
+import java.awt.Dialog;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,14 +47,14 @@ public class PortecleJDialog
 	/** Key from input map to action map for the cancel button */
 	private static final String CANCEL_KEY = PortecleJDialog.class.getName() + ".CANCEL_KEY";
 
-	public PortecleJDialog(Window parent, ModalityType modalityType)
+	public PortecleJDialog(Window parent, boolean modal)
 	{
-		super(parent, modalityType);
+		super(parent, modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS);
 	}
 
-	public PortecleJDialog(Window parent, String title, ModalityType modalityType)
+	public PortecleJDialog(Window parent, String title, boolean modal)
 	{
-		super(parent, title, modalityType);
+		super(parent, title, modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS);
 	}
 
 	/**

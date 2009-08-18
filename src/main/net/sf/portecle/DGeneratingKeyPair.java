@@ -24,7 +24,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.WindowAdapter;
@@ -45,7 +44,7 @@ import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Generates a key pair which the user may cancel at any time by pressing the cancel button.
+ * Modal dialog that generates a key pair which the user may cancel at any time by pressing the cancel button.
  */
 class DGeneratingKeyPair
     extends PortecleJDialog
@@ -71,13 +70,12 @@ class DGeneratingKeyPair
 	 * Creates new DGeneratingKeyPair dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param modal Is dialog modal?
 	 * @param keyPairType The key pair generation type
 	 * @param iKeySize The key size to generate
 	 */
-	public DGeneratingKeyPair(Window parent, boolean modal, KeyPairType keyPairType, int iKeySize)
+	public DGeneratingKeyPair(Window parent, KeyPairType keyPairType, int iKeySize)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		m_keyPairType = keyPairType;
 		m_iKeySize = iKeySize;
 		initComponents();
@@ -196,7 +194,7 @@ class DGeneratingKeyPair
 					{
 						if (dialog.isShowing())
 						{
-							DThrowable dThrowable = new DThrowable(dialog, null, true, m_ex);
+							DThrowable dThrowable = new DThrowable(dialog, null, m_ex);
 							dThrowable.setLocationRelativeTo(DGeneratingKeyPair.this);
 							dThrowable.setVisible(true);
 							closeDialog();

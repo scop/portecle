@@ -24,7 +24,6 @@ package net.sf.portecle.gui.jar;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
@@ -49,7 +48,7 @@ import javax.swing.table.TableRowSorter;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * A dialog that displays information about the JAR files on the classpath.
+ * Modal dialog that displays information about the JAR files on the classpath.
  */
 public class DJarInfo
     extends PortecleJDialog
@@ -58,14 +57,12 @@ public class DJarInfo
 	 * Creates new DJarInfo dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal Is dialog modal?
 	 * @throws IOException Problem occurred getting JAR information
 	 */
-	public DJarInfo(Window parent, boolean modal)
+	public DJarInfo(Window parent)
 	    throws IOException
 	{
-		super(parent, RB.getString("DJarInfo.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
-		    : Dialog.ModalityType.MODELESS));
+		super(parent, RB.getString("DJarInfo.Title"), true);
 		initComponents();
 	}
 

@@ -25,7 +25,6 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Window;
 
@@ -39,7 +38,7 @@ import javax.swing.border.EmptyBorder;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * Dialog used for entering a keystore alias.
+ * Modal dialog used for entering a keystore alias.
  */
 class DGetAlias
     extends PortecleJDialog
@@ -55,13 +54,12 @@ class DGetAlias
 	 * 
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param modal Is the dialog modal?
 	 * @param sOldAlias The alias to display initially
 	 * @param select Whether to pre-select the initially displayed alias
 	 */
-	public DGetAlias(Window parent, String sTitle, boolean modal, String sOldAlias, boolean select)
+	public DGetAlias(Window parent, String sTitle, String sOldAlias, boolean select)
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		initComponents(sOldAlias, select);
 	}
 

@@ -25,7 +25,6 @@ package net.sf.portecle.gui.crypto;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -52,7 +51,7 @@ import javax.swing.tree.TreeSelectionModel;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Displays information on the currently loaded security providers.
+ * Modal dialog to display information on the currently loaded security providers.
  */
 public class DProviderInfo
     extends PortecleJDialog
@@ -61,11 +60,10 @@ public class DProviderInfo
 	 * Creates new DProviderInfo dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal Is dialog modal?
 	 */
-	public DProviderInfo(Window parent, boolean modal)
+	public DProviderInfo(Window parent)
 	{
-		super(parent, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, true);
 		initComponents();
 	}
 

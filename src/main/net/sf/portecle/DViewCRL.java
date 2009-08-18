@@ -26,7 +26,6 @@ import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -37,7 +36,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
-import java.net.URL;
 import java.security.cert.X509CRL;
 import java.security.cert.X509CRLEntry;
 import java.text.DateFormat;
@@ -69,7 +67,7 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Displays the details of a Certificate Revocation List (CRL).
+ * Modal dialog to display the details of a Certificate Revocation List (CRL).
  */
 class DViewCRL
     extends PortecleJDialog
@@ -106,18 +104,17 @@ class DViewCRL
 	 * 
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
-	 * @param modal Is dialog modal?
 	 * @param crl CRL to display
 	 */
-	private DViewCRL(Window parent, String sTitle, boolean modal, X509CRL crl)
+	private DViewCRL(Window parent, String sTitle, X509CRL crl)
 	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
+		super(parent, sTitle, true);
 		m_crl = crl;
 		initComponents();
 	}
 
 	/**
-	 * Create, show, and wait for a new modal DViewCRL dialog.
+	 * Create, show, and wait for a new DViewCRL dialog.
 	 * 
 	 * @param parent Parent window
 	 * @param url URL, URI or file to load CRL from
@@ -143,26 +140,11 @@ class DViewCRL
 			return false;
 		}
 
-		DViewCRL dialog = new DViewCRL(parent, title, true, crl);
+		DViewCRL dialog = new DViewCRL(parent, title, crl);
 		dialog.setLocationRelativeTo(parent);
 		SwingHelper.showAndWait(dialog);
 
 		return true;
-	}
-
-	/**
-	 * Creates new DViewCRL dialog.
-	 * 
-	 * @param parent Parent window
-	 * @param sTitle The dialog title
-	 * @param modal Is dialog modal?
-	 * @param url URL to fetch CRL from
-	 */
-	public DViewCRL(Window parent, String sTitle, boolean modal, URL url)
-	{
-		super(parent, sTitle, (modal ? Dialog.DEFAULT_MODALITY_TYPE : Dialog.ModalityType.MODELESS));
-
-		initComponents();
 	}
 
 	/**

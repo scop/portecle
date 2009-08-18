@@ -24,7 +24,6 @@ package net.sf.portecle.gui.about;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -42,7 +41,7 @@ import javax.swing.table.TableRowSorter;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * A dialog that displays the Java System Properties.
+ * Modal dialog that displays the Java System Properties.
  */
 public class DSystemProperties
     extends PortecleJDialog
@@ -51,12 +50,10 @@ public class DSystemProperties
 	 * Creates new DSystemProperties dialog.
 	 * 
 	 * @param parent Parent window
-	 * @param modal Is dialog modal?
 	 */
-	public DSystemProperties(JDialog parent, boolean modal)
+	public DSystemProperties(JDialog parent)
 	{
-		super(parent, RB.getString("DSystemProperties.Title"), (modal ? Dialog.DEFAULT_MODALITY_TYPE
-		    : Dialog.ModalityType.MODELESS));
+		super(parent, RB.getString("DSystemProperties.Title"), true);
 		initComponents();
 	}
 
