@@ -153,7 +153,7 @@ class DViewCertificate
 	 * @param sTitle The dialog title
 	 * @param certs Certificate(s) chain to display
 	 * @param connectionProtocol SSL/TLS connection protocol
-	 * @param connectionProtocol SSL/TLS connection cipher suite
+	 * @param connectionCipherSuite SSL/TLS connection cipher suite
 	 * @throws CryptoException A problem was encountered getting the certificates' details
 	 */
 	public DViewCertificate(Window parent, String sTitle, X509Certificate[] certs, String connectionProtocol,
