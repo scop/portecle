@@ -76,7 +76,7 @@ public class DThrowableDetail
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 		jpButtons.add(jbOK);
 
 		JButton jbCopy = new JButton(RB.getString("DThrowableDetail.jbCopy.text"));

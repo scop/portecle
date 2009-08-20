@@ -331,7 +331,7 @@ class DViewExtensions
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		final JButton jbOK = getOkButton();
+		final JButton jbOK = getOkButton(true);
 		jpOK.add(jbOK);
 
 		// Populate table with extensions

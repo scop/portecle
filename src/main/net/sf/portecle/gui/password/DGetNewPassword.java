@@ -93,7 +93,7 @@ public class DGetNewPassword
 		m_jpfFirst = new JPasswordField(15);
 		m_jpfConfirm = new JPasswordField(15);
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpPassword = new JPanel(new GridLayout(2, 2, 5, 5));

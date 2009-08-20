@@ -95,7 +95,7 @@ public class DGetPassword
 		jpPassword.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		jpButtons.add(jbOK);

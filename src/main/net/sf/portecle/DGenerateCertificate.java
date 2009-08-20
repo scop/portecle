@@ -275,7 +275,7 @@ class DGenerateCertificate
 		jpOptions.add(jlEmailAddress, gbc_jlEmailAddress);
 		jpOptions.add(m_jtfEmailAddress, gbc_jtfEmailAddress);
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));

@@ -161,7 +161,7 @@ class DNewKeyStoreType
 
 		// Create confirmation buttons and place them in a panel
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));

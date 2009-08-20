@@ -159,7 +159,7 @@ class DKeyStoreReport
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 
 		jpButtons.add(jbOK);
 

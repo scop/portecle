@@ -26,7 +26,6 @@ import static net.sf.portecle.FPortecle.RB;
 import java.awt.Dialog;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -45,7 +44,7 @@ public class PortecleJDialog
     extends JDialog
 {
 	/** Key from input map to action map for the cancel button */
-	private static final String CANCEL_KEY = PortecleJDialog.class.getName() + ".CANCEL_KEY";
+	private static final String ESC_KEY = PortecleJDialog.class.getName() + ".ESC_KEY";
 
 	public PortecleJDialog(Window parent, boolean modal)
 	{
@@ -79,18 +78,30 @@ public class PortecleJDialog
 	/**
 	 * Get OK button.
 	 * 
+	 * @param escPresses whether hitting Esc should press the button (usually only for dialogs without a
+	 *            cancel button)
 	 * @return
 	 */
-	protected JButton getOkButton()
+	protected JButton getOkButton(boolean escPresses)
 	{
-		JButton jbOK = new JButton(RB.getString("PortecleJDialog.jbOk.text"));
-		jbOK.addActionListener(new ActionListener()
+		Action okAction = new AbstractAction()
 		{
 			public void actionPerformed(ActionEvent evt)
 			{
 				okPressed();
 			}
-		});
+		};
+
+		JButton jbOK = new JButton(RB.getString("PortecleJDialog.jbOk.text"));
+
+		jbOK.addActionListener(okAction);
+
+		if (escPresses)
+		{
+			jbOK.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+			    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_KEY);
+			jbOK.getActionMap().put(ESC_KEY, okAction);
+		}
 
 		return jbOK;
 	}
@@ -109,11 +120,14 @@ public class PortecleJDialog
 				cancelPressed();
 			}
 		};
+
 		JButton jbCancel = new JButton(RB.getString("PortecleJDialog.jbCancel.text"));
+
 		jbCancel.addActionListener(cancelAction);
+
 		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), CANCEL_KEY);
-		jbCancel.getActionMap().put(CANCEL_KEY, cancelAction);
+		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_KEY);
+		jbCancel.getActionMap().put(ESC_KEY, cancelAction);
 
 		return jbCancel;
 	}

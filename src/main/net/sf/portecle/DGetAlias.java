@@ -87,7 +87,7 @@ class DGetAlias
 		m_jtfAlias = new JTextField(sOldAlias, 15);
 		m_jtfAlias.setCaretPosition(sOldAlias.length());
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpAlias = new JPanel(new FlowLayout(FlowLayout.CENTER));

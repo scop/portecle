@@ -68,7 +68,7 @@ public class DAbout
 		jpAbout.setBorder(new EmptyBorder(5, 5, 5, 5));
 		jpAbout.add(jlAbout);
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 
 		JButton jbSystemInformation = new JButton(RB.getString("DAbout.jbSystemInformation.text"));
 		jbSystemInformation.setMnemonic(RB.getString("DAbout.jbSystemInformation.mnemonic").charAt(0));

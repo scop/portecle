@@ -114,7 +114,7 @@ class DImportKeyPair
 		JLabel jlInstructions = new JLabel(RB.getString("DImportKeyPair.jlInstructions.text"));
 
 		// Import button
-		final JButton jbImport = getOkButton();
+		final JButton jbImport = getOkButton(false);
 		jbImport.setEnabled(false);
 		jbImport.setToolTipText(RB.getString("DImportKeyPair.jbImport.tooltip"));
 

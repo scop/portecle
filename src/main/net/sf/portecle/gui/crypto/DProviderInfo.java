@@ -75,7 +75,7 @@ public class DProviderInfo
 		// Buttons
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 		jpButtons.add(jbOK);
 
 		JButton jbCopy = new JButton(RB.getString("DProviderInfo.jbCopy.text"));

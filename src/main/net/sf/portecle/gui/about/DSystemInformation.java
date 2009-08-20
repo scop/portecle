@@ -252,7 +252,7 @@ public class DSystemInformation
 		});
 
 		// OK button
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpButtons.setBorder(new EmptyBorder(5, 0, 5, 0));

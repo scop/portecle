@@ -508,7 +508,7 @@ class DViewCertificate
 
 		// OK button
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 		jpOK.add(jbOK);
 
 		// Put it all together

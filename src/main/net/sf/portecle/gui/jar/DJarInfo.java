@@ -119,7 +119,7 @@ public class DJarInfo
 		jpJarInfoTable.add(jspJarInfoTable, BorderLayout.CENTER);
 		jpJarInfoTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpOK.add(jbOK);
 

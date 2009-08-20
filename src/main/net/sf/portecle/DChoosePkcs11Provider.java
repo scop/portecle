@@ -112,7 +112,7 @@ public class DChoosePkcs11Provider
 			m_jcbProvider.setEnabled(false);
 		}
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		jbOK.setEnabled(providersAvailable);
 		JButton jbCancel = getCancelButton();
 

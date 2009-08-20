@@ -138,7 +138,7 @@ public class DChangePassword
 			m_jpfOld = new JPasswordField(10);
 		}
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpPassword = new JPanel(new GridLayout(3, 2, 5, 5));

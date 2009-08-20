@@ -117,7 +117,7 @@ class DGetHostPort
 		jpHostPort.add(m_jtfPort);
 		jpHostPort.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));

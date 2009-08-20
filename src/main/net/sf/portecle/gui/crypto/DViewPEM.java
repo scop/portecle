@@ -121,7 +121,7 @@ public class DViewPEM
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 
 		final JButton jbSave = new JButton(RB.getString("DViewPEM.jbSave.text"));
 		jbSave.setMnemonic(RB.getString("DViewPEM.jbSave.mnemonic").charAt(0));

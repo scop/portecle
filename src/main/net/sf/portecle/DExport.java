@@ -226,7 +226,7 @@ class DExport
 		jpOptions.add(jpExportFormat, BorderLayout.SOUTH);
 
 		// Buttons
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));

@@ -103,7 +103,7 @@ public class DThrowable
 			}
 		});
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 
 		jpButtons.add(jbOK);
 		jpButtons.add(jbDetails);

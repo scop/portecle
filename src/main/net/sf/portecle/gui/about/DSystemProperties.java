@@ -117,7 +117,7 @@ public class DSystemProperties
 		jpSystemPropertiesTable.add(jspSystemPropertiesTable, BorderLayout.CENTER);
 		jpSystemPropertiesTable.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		JButton jbOK = getOkButton();
+		JButton jbOK = getOkButton(true);
 
 		JPanel jpOK = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpOK.add(jbOK);
