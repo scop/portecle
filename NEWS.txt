@@ -9,6 +9,8 @@ Enhancements:
 Bug fixes:
 - Fix reversed logic whether to enable changing password of a keystore entry
   (#2831542).
+- Fix ClassCastException when displaying directory general names with Bouncy
+  Castle >= 1.43.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to version 1.43, which is also

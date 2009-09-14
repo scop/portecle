@@ -1720,8 +1720,7 @@ public class X509Ext
 				break;
 
 			case GeneralName.directoryName:
-				ASN1Sequence directory = (ASN1Sequence) generalName.getName();
-				X509Name name = new X509Name(directory);
+				X509Name name = (X509Name) generalName.getName();
 				strBuff.append(RB.getString("DirectoryGeneralName"));
 				strBuff.append(": ");
 				// TODO: make E=foo@bar.com mail links
