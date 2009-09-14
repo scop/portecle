@@ -1777,6 +1777,8 @@ public class X509Ext
 			default: // Unsupported general name type
 				strBuff.append(MessageFormat.format(RB.getString("UnrecognizedGeneralNameType"),
 				    generalName.getTagNo()));
+				strBuff.append(": ");
+				strBuff.append(escapeHtml(generalName.getName()));
 				break;
 		}
 
