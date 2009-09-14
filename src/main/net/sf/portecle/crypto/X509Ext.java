@@ -1451,7 +1451,7 @@ public class X509Ext
 	private String getNetscapeExtensionURLValue(byte[] bValue, LinkClass linkClass)
 	    throws IOException
 	{
-		String sUrl = ((DERIA5String) ASN1Object.fromByteArray(bValue)).getString();
+		String sUrl = ASN1Object.fromByteArray(bValue).toString();
 		return getLink(sUrl, escapeHtml(sUrl), linkClass).toString();
 	}
 
@@ -1745,7 +1745,7 @@ public class X509Ext
 				break;
 
 			case GeneralName.uniformResourceIdentifier:
-				String sUri = escapeHtml(((DERIA5String) generalName.getName()).getString());
+				String sUri = generalName.getName().toString();
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(getLink(sUri, escapeHtml(sUri), linkClass));
