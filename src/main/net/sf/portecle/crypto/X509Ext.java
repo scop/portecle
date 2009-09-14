@@ -43,14 +43,12 @@ import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1TaggedObject;
-import org.bouncycastle.asn1.DERBMPString;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERBoolean;
 import org.bouncycastle.asn1.DEREncodable;
 import org.bouncycastle.asn1.DEREnumerated;
 import org.bouncycastle.asn1.DERGeneralString;
 import org.bouncycastle.asn1.DERGeneralizedTime;
-import org.bouncycastle.asn1.DERIA5String;
 import org.bouncycastle.asn1.DERInteger;
 import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.DEROctetString;
@@ -317,10 +315,6 @@ public class X509Ext
 		{
 			return getSmimeCapabilitiesStringValue(bOctets);
 		}
-		else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCertTemplateV1))
-		{
-			return getMicrosoftCertificateTemplateV1StringValue(bOctets);
-		}
 		else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCaVersion))
 		{
 			return getMicrosoftCAVersionStringValue(bOctets);
@@ -361,9 +355,11 @@ public class X509Ext
 		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeBaseURL) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeRenewalURL) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeSSLServerName) ||
-		    m_Oid.equals(MiscObjectIdentifiers.netscapeCertComment))
+		    m_Oid.equals(MiscObjectIdentifiers.netscapeCertComment) ||
+		    m_Oid.equals(MiscObjectIdentifiers.verisignDnbDunsNumber) ||
+		    m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCertTemplateV1))
 		{
-			return getNonNetscapeCertificateTypeStringValue(bOctets);
+			return getASN1ObjectString(bOctets);
 		}
 		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeCApolicyURL))
 		{
@@ -373,10 +369,6 @@ public class X509Ext
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeCARevocationURL))
 		{
 			return getNetscapeExtensionURLValue(bOctets, LinkClass.CRL);
-		}
-		else if (m_Oid.equals(MiscObjectIdentifiers.verisignDnbDunsNumber))
-		{
-			return getDnBDUNSNumberStringValue(bOctets);
 		}
 		else if (m_Oid.equals(X509Extensions.CRLDistributionPoints))
 		{
@@ -998,20 +990,6 @@ public class X509Ext
 	}
 
 	/**
-	 * Get Microsoft certificate template name V1 (1.3.6.1.4.1.311.20.2) extension value as a string.
-	 * 
-	 * @see <a href="http://support.microsoft.com/?kbid=291010">Microsoft KB article 291010</a>
-	 * @param bValue The octet string value
-	 * @return Extension value as a string
-	 * @throws IOException If and I/O problem occurs
-	 */
-	private String getMicrosoftCertificateTemplateV1StringValue(byte[] bValue)
-	    throws IOException
-	{
-		return escapeHtml(((DERBMPString) ASN1Object.fromByteArray(bValue)).getString());
-	}
-
-	/**
 	 * Get Microsoft certificate template name V2 (1.3.6.1.4.1.311.20.7) extension value as a string.
 	 * 
 	 * <pre>
@@ -1456,20 +1434,6 @@ public class X509Ext
 	}
 
 	/**
-	 * Get extension value for any Netscape certificate extension that is <em>not</em> Certificate Type as a
-	 * string. (2.16.840.1.113730.1.x, where x can be any of 2, 3, 4, 7, 8, 12 or 13.)
-	 * 
-	 * @param bValue The octet string value
-	 * @return Extension value as a string
-	 * @throws IOException If an I/O problem occurs
-	 */
-	private String getNonNetscapeCertificateTypeStringValue(byte[] bValue)
-	    throws IOException
-	{
-		return escapeHtml(((DERIA5String) ASN1Object.fromByteArray(bValue)).getString());
-	}
-
-	/**
 	 * Get extension value for any Netscape certificate extension URL value.
 	 * 
 	 * @param bValue The octet string value
@@ -1482,19 +1446,6 @@ public class X509Ext
 	{
 		String sUrl = ASN1Object.fromByteArray(bValue).toString();
 		return getLink(sUrl, escapeHtml(sUrl), linkClass).toString();
-	}
-
-	/**
-	 * Get extension value for D&amp;B D-U-N-S number as a string.
-	 * 
-	 * @param bValue The octet string value
-	 * @return Extension value as a string
-	 * @throws IOException If an I/O problem occurs
-	 */
-	private String getDnBDUNSNumberStringValue(byte[] bValue)
-	    throws IOException
-	{
-		return escapeHtml(((DERIA5String) ASN1Object.fromByteArray(bValue)).getString());
 	}
 
 	/**
@@ -1835,6 +1786,19 @@ public class X509Ext
 		}
 		strBuff.append("</ul>");
 		return strBuff.toString();
+	}
+
+	/**
+	 * Get basic ASN.1 object as string.
+	 * 
+	 * @param bValue
+	 * @return
+	 * @throws IOException
+	 */
+	private String getASN1ObjectString(byte[] bValue)
+	    throws IOException
+	{
+		return escapeHtml(ASN1Object.fromByteArray(bValue));
 	}
 
 	/**
