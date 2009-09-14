@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -1690,8 +1691,10 @@ public class X509Ext
 	 * 
 	 * @param generalName The general name
 	 * @return General name string
+	 * @throws IOException
 	 */
 	private String getGeneralNameString(GeneralName generalName, LinkClass linkClass)
+	    throws IOException
 	{
 		StringBuilder strBuff = new StringBuilder();
 		int tagNo = generalName.getTagNo();
@@ -1715,10 +1718,11 @@ public class X509Ext
 				break;
 
 			case GeneralName.rfc822Name:
-				String sRfc822 = escapeHtml(((DERIA5String) generalName.getName()).getString());
+				String sRfc822 = generalName.getName().toString();
+				String urlEnc = URLEncoder.encode(sRfc822, "UTF-8");
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
-				strBuff.append(getLink("mailto:" + sRfc822, escapeHtml(sRfc822), null));
+				strBuff.append(getLink("mailto:" + urlEnc, escapeHtml(sRfc822), null));
 				break;
 
 			case GeneralName.dNSName:
@@ -1790,8 +1794,10 @@ public class X509Ext
 	 * 
 	 * @param generalNames General names
 	 * @return Formatted string
+	 * @throws IOException
 	 */
 	private String getGeneralNamesString(GeneralNames generalNames, LinkClass linkClass)
+	    throws IOException
 	{
 		GeneralName[] names = generalNames.getNames();
 		StringBuilder strBuff = new StringBuilder();
