@@ -1,6 +1,10 @@
 New in Portecle x.x (200x-xx-xx):
 ---------------------------------
 
+New features:
+- Recognition and decoding support for some additional certificate
+  extensions.
+
 Enhancements:
 - Improved import of trusted certificates from PEM files containing also
   password protected keys.

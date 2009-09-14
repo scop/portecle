@@ -56,6 +56,7 @@ import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
+import org.bouncycastle.asn1.DERUTCTime;
 import org.bouncycastle.asn1.microsoft.MicrosoftObjectIdentifiers;
 import org.bouncycastle.asn1.misc.MiscObjectIdentifiers;
 import org.bouncycastle.asn1.misc.NetscapeCertType;
@@ -335,6 +336,10 @@ public class X509Ext
 		else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftAppPolicies))
 		{
 			return getUnknownOidStringValue(bOctets); // TODO
+		}
+		else if (m_Oid.toString().equals("1.3.6.1.4.1.311.21.4"))
+		{
+			return getMicrosoftCrlNextPublish(bOctets);
 		}
 		else if (m_Oid.equals(X509Extensions.AuthorityInfoAccess) ||
 		    m_Oid.equals(X509Extensions.SubjectInfoAccess))
@@ -1086,6 +1091,30 @@ public class X509Ext
 		byte[] bKeyIdent = derOctetStr.getOctets();
 
 		return convertToHexString(bKeyIdent);
+	}
+
+	/**
+	 * Get Microsoft CRL Next Publish (1.3.6.1.4.1.311.21.4) extension value as a string.
+	 * 
+	 * @param bValue The octet string value
+	 * @return Extension value as a string
+	 * @throws IOException If an I/O problem occurs
+	 */
+	private String getMicrosoftCrlNextPublish(byte[] bValue)
+	    throws IOException
+	{
+		DERUTCTime time = (DERUTCTime) ASN1Object.fromByteArray(bValue);
+		String date = time.getAdjustedTime();
+		try
+		{
+			date =
+			    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
+			        time.getAdjustedDate());
+		}
+		catch (ParseException ignored)
+		{
+		}
+		return escapeHtml(date);
 	}
 
 	/**
