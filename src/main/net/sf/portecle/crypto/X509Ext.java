@@ -1261,14 +1261,9 @@ public class X509Ext
 		sb.append("<br>");
 
 		// URI reference
-		String sUri = escapeHtml(((DERString) attrs.getObjectAt(3)).getString());
-		sb.append("URI: <a class=\"");
-		sb.append(LinkClass.BROWSER);
-		sb.append("\" href=\"");
-		sb.append(sUri);
-		sb.append("\">");
-		sb.append(sUri);
-		sb.append("</a>");
+		String sUri = ((DERString) attrs.getObjectAt(3)).getString();
+		sb.append("URI: ");
+		sb.append(getLink(sUri, escapeHtml(sUri), LinkClass.BROWSER));
 
 		// GLB Extensions (GLB ~ "Greatest Lower Bound")
 
@@ -1584,17 +1579,13 @@ public class X509Ext
 					if (pqId.equals("1.3.6.1.5.5.7.2.1"))
 					{
 						// cPSuri
-						String sUri = escapeHtml(((DERString) d).getString());
+						String sUri = ((DERString) d).getString();
 
 						sb.append("<li>");
 						sb.append(RB.getString("CpsUri"));
-						sb.append(": <a class=\"");
-						sb.append(LinkClass.BROWSER);
-						sb.append("\" href=\"");
-						sb.append(sUri);
-						sb.append("\">");
-						sb.append(sUri);
-						sb.append("</a></li>");
+						sb.append(": ");
+						sb.append(getLink(sUri, escapeHtml(sUri), LinkClass.BROWSER));
+						sb.append("</li>");
 					}
 					else if (pqId.equals("1.3.6.1.5.5.7.2.2"))
 					{
@@ -1726,11 +1717,8 @@ public class X509Ext
 			case GeneralName.rfc822Name:
 				String sRfc822 = escapeHtml(((DERIA5String) generalName.getName()).getString());
 				strBuff.append(RB.getString("Rfc822GeneralName"));
-				strBuff.append(": <a href=\"mailto:");
-				strBuff.append(sRfc822);
-				strBuff.append("\">");
-				strBuff.append(sRfc822);
-				strBuff.append("</a>");
+				strBuff.append(": ");
+				strBuff.append(getLink("mailto:" + sRfc822, escapeHtml(sRfc822), null));
 				break;
 
 			case GeneralName.dNSName:
@@ -1751,16 +1739,8 @@ public class X509Ext
 			case GeneralName.uniformResourceIdentifier:
 				String sUri = escapeHtml(((DERIA5String) generalName.getName()).getString());
 				strBuff.append(RB.getString("UriGeneralName"));
-				strBuff.append(": <a ");
-				if (linkClass != null)
-				{
-					strBuff.append("class=\"").append(linkClass).append("\" ");
-				}
-				strBuff.append("href=\"");
-				strBuff.append(sUri);
-				strBuff.append("\">");
-				strBuff.append(sUri);
-				strBuff.append("</a>");
+				strBuff.append(": ");
+				strBuff.append(getLink(sUri, escapeHtml(sUri), linkClass));
 				break;
 
 			case GeneralName.iPAddress:
