@@ -1694,10 +1694,10 @@ public class X509Ext
 	private String getGeneralNameString(GeneralName generalName, LinkClass linkClass)
 	{
 		StringBuilder strBuff = new StringBuilder();
+		int tagNo = generalName.getTagNo();
 
-		switch (generalName.getTagNo())
+		switch (tagNo)
 		{
-
 			case GeneralName.otherName:
 				ASN1Sequence other = (ASN1Sequence) generalName.getName();
 				String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
@@ -1708,7 +1708,7 @@ public class X509Ext
 				}
 				catch (MissingResourceException e)
 				{
-					strBuff.append(MessageFormat.format(RB.getString("OtherGeneralName"), sOid));
+					strBuff.append(MessageFormat.format(RB.getString("GeneralName." + tagNo), sOid));
 				}
 				strBuff.append(": ");
 				strBuff.append(sVal);
@@ -1716,21 +1716,21 @@ public class X509Ext
 
 			case GeneralName.rfc822Name:
 				String sRfc822 = escapeHtml(((DERIA5String) generalName.getName()).getString());
-				strBuff.append(RB.getString("Rfc822GeneralName"));
+				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(getLink("mailto:" + sRfc822, escapeHtml(sRfc822), null));
 				break;
 
 			case GeneralName.dNSName:
 				String sDns = escapeHtml(((DERIA5String) generalName.getName()).getString());
-				strBuff.append(RB.getString("DnsGeneralName"));
+				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(sDns);
 				break;
 
 			case GeneralName.directoryName:
 				X509Name name = (X509Name) generalName.getName();
-				strBuff.append(RB.getString("DirectoryGeneralName"));
+				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				// TODO: make E=foo@bar.com mail links
 				strBuff.append(escapeHtml(name));
@@ -1738,7 +1738,7 @@ public class X509Ext
 
 			case GeneralName.uniformResourceIdentifier:
 				String sUri = escapeHtml(((DERIA5String) generalName.getName()).getString());
-				strBuff.append(RB.getString("UriGeneralName"));
+				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(getLink(sUri, escapeHtml(sUri), linkClass));
 				break;
@@ -1761,13 +1761,13 @@ public class X509Ext
 					}
 				}
 
-				strBuff.append(RB.getString("IpAddressGeneralName"));
+				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(sbIpAddress));
 				break;
 
 			case GeneralName.registeredID:
-				strBuff.append(RB.getString("RegisteredIdGeneralName"));
+				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(generalName.getName()));
 				break;
