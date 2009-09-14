@@ -1727,6 +1727,8 @@ public class X509Ext
 
 			case GeneralName.dNSName:
 			case GeneralName.registeredID:
+			case GeneralName.x400Address: // TODO: verify formatting
+			case GeneralName.ediPartyName: // TODO: verify formatting
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(generalName.getName()));
@@ -1770,8 +1772,6 @@ public class X509Ext
 				strBuff.append(escapeHtml(sbIpAddress));
 				break;
 
-			case GeneralName.x400Address: // TODO
-			case GeneralName.ediPartyName: // TODO
 			default: // Unsupported general name type
 				strBuff.append(MessageFormat.format(RB.getString("UnrecognizedGeneralNameType"),
 				    generalName.getTagNo()));
