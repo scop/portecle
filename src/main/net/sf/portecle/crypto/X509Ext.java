@@ -1726,10 +1726,10 @@ public class X509Ext
 				break;
 
 			case GeneralName.dNSName:
-				String sDns = escapeHtml(((DERIA5String) generalName.getName()).getString());
+			case GeneralName.registeredID:
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
-				strBuff.append(sDns);
+				strBuff.append(escapeHtml(generalName.getName()));
 				break;
 
 			case GeneralName.directoryName:
@@ -1768,12 +1768,6 @@ public class X509Ext
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(sbIpAddress));
-				break;
-
-			case GeneralName.registeredID:
-				strBuff.append(RB.getString("GeneralName." + tagNo));
-				strBuff.append(": ");
-				strBuff.append(escapeHtml(generalName.getName()));
 				break;
 
 			case GeneralName.x400Address: // TODO
