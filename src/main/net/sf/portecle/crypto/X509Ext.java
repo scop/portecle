@@ -73,6 +73,7 @@ import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.PolicyInformation;
+import org.bouncycastle.asn1.x509.PolicyQualifierId;
 import org.bouncycastle.asn1.x509.PrivateKeyUsagePeriod;
 import org.bouncycastle.asn1.x509.ReasonFlags;
 import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
@@ -1569,15 +1570,16 @@ public class X509Ext
 				for (int j = 0, plen = pQuals.size(); j < plen; j++)
 				{
 					ASN1Sequence pqi = (ASN1Sequence) pQuals.getObjectAt(j);
-					String pqId = ((DERObjectIdentifier) pqi.getObjectAt(0)).getId();
+					DERObjectIdentifier pqId = (DERObjectIdentifier) pqi.getObjectAt(0);
+					String spqId = pqId.toString();
 
 					sb.append("<li>");
-					sb.append(MessageFormat.format(getRes(pqId, "UnrecognisedPolicyQualifier"), pqId));
+					sb.append(MessageFormat.format(getRes(spqId, "UnrecognisedPolicyQualifier"), spqId));
 					sb.append(": ");
 
 					DEREncodable d = pqi.getObjectAt(1);
 					sb.append("<ul>");
-					if (pqId.equals("1.3.6.1.5.5.7.2.1"))
+					if (pqId.equals(PolicyQualifierId.id_qt_cps))
 					{
 						// cPSuri
 						String sUri = ((DERString) d).getString();
@@ -1588,7 +1590,7 @@ public class X509Ext
 						sb.append(getLink(sUri, escapeHtml(sUri), LinkClass.BROWSER));
 						sb.append("</li>");
 					}
-					else if (pqId.equals("1.3.6.1.5.5.7.2.2"))
+					else if (pqId.equals(PolicyQualifierId.id_qt_unotice))
 					{
 						// userNotice
 						ASN1Sequence un = (ASN1Sequence) d;
