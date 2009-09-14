@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -352,14 +352,20 @@ public class X509Ext
 			return getNetscapeCertificateTypeStringValue(bOctets);
 		}
 		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeBaseURL) ||
-		    m_Oid.equals(MiscObjectIdentifiers.netscapeRevocationURL) ||
-		    m_Oid.equals(MiscObjectIdentifiers.netscapeCARevocationURL) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeRenewalURL) ||
-		    m_Oid.equals(MiscObjectIdentifiers.netscapeCApolicyURL) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeSSLServerName) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeCertComment))
 		{
 			return getNonNetscapeCertificateTypeStringValue(bOctets);
+		}
+		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeCApolicyURL))
+		{
+			return getNetscapeExtensionURLValue(bOctets, LinkClass.BROWSER);
+		}
+		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeRevocationURL) ||
+		    m_Oid.equals(MiscObjectIdentifiers.netscapeCARevocationURL))
+		{
+			return getNetscapeExtensionURLValue(bOctets, LinkClass.CRL);
 		}
 		else if (m_Oid.equals(MiscObjectIdentifiers.verisignDnbDunsNumber))
 		{
@@ -1435,6 +1441,21 @@ public class X509Ext
 	    throws IOException
 	{
 		return escapeHtml(((DERIA5String) ASN1Object.fromByteArray(bValue)).getString());
+	}
+
+	/**
+	 * Get extension value for any Netscape certificate extension URL value.
+	 * 
+	 * @param bValue The octet string value
+	 * @param linkClass link class
+	 * @return Extension value as a string
+	 * @throws IOException If an I/O problem occurs
+	 */
+	private String getNetscapeExtensionURLValue(byte[] bValue, LinkClass linkClass)
+	    throws IOException
+	{
+		String sUrl = ((DERIA5String) ASN1Object.fromByteArray(bValue)).getString();
+		return getLink(sUrl, escapeHtml(sUrl), linkClass).toString();
 	}
 
 	/**

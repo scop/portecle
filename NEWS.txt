@@ -5,6 +5,7 @@ Enhancements:
 - Improved import of trusted certificates from PEM files containing also
   password protected keys.
 - Make Esc key close more dialog boxes.
+- Certificate extension rendering improvements.
 
 Bug fixes:
 - Fix reversed logic whether to enable changing password of a keystore entry
