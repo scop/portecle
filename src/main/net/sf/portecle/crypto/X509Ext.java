@@ -1029,7 +1029,7 @@ public class X509Ext
 	 *      .google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If and I/O problem occurs
+	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getMicrosoftCertificateTemplateV2StringValue(byte[] bValue)
 	    throws IOException
@@ -1061,7 +1061,7 @@ public class X509Ext
 	 *      href="http://msdn.microsoft.com/library/en-us/security/security/certification_authority_renewal.asp">MSDN</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If and I/O problem occurs
+	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getMicrosoftCAVersionStringValue(byte[] bValue)
 	    throws IOException
@@ -1082,7 +1082,7 @@ public class X509Ext
 	 * @see <a href="http://support.microsoft.com/?id=287547">Microsoft support</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If and I/O problem occurs
+	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getMicrosoftPreviousCACertificateHashStringValue(byte[] bValue)
 	    throws IOException
@@ -1130,7 +1130,7 @@ public class X509Ext
 	 * @see <a href="http://www.ietf.org/rfc/rfc2633">RFC 2633</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If and I/O problem occurs
+	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getSmimeCapabilitiesStringValue(byte[] bValue)
 	    throws IOException
