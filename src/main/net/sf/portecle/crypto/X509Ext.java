@@ -2031,4 +2031,29 @@ public class X509Ext
 		ret = ret.replace("\"", "&quot;");
 		return ret;
 	}
+
+	/**
+	 * Get hyperlink.
+	 * 
+	 * @param href link URL, HTML unescaped
+	 * @param content link content, HTML escaped
+	 * @param linkClass link class
+	 * @return
+	 */
+	private static CharSequence getLink(String href, String content, LinkClass linkClass)
+	{
+		StringBuilder sb = new StringBuilder("<a href=\"");
+		sb.append(escapeHtml(href));
+		sb.append("\"");
+		if (linkClass != null)
+		{
+			sb.append(" class=\"");
+			sb.append(linkClass);
+			sb.append("\"");
+		}
+		sb.append(">");
+		sb.append(content);
+		sb.append("</a>");
+		return sb;
+	}
 }
