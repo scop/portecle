@@ -4,6 +4,8 @@ New in Portecle x.x (200x-xx-xx):
 New features:
 - Recognition and decoding support for some additional certificate
   extensions.
+- Support for DSA certificates using the SHA224withDSA, SHA256withDSA,
+  SHA384withDSA, and SHA512withDSA sinature algorithms.
 
 Enhancements:
 - Improved import of trusted certificates from PEM files containing also

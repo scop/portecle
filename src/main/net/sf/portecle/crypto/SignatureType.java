@@ -2,7 +2,7 @@
  * SignatureType.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2004-2009 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -27,6 +27,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
 import org.bouncycastle.asn1.teletrust.TeleTrusTObjectIdentifiers;
 import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
@@ -61,8 +62,24 @@ public enum SignatureType
 	RIPEMD256withRSA(TeleTrusTObjectIdentifiers.rsaSignatureWithripemd256.getId()),
 	/** SHA-1 with DSA Signature Type */
 	SHA1withDSA(X9ObjectIdentifiers.id_dsa_with_sha1.getId()),
+	/** SHA-224 with DSA signature type */
+	SHA224withDSA(NISTObjectIdentifiers.dsa_with_sha224.getId()),
+	/** SHA-256 with DSA signature type */
+	SHA256withDSA(NISTObjectIdentifiers.dsa_with_sha256.getId()),
+	/** SHA-384 with DSA signature type */
+	SHA384withDSA(NISTObjectIdentifiers.dsa_with_sha384.getId()),
+	/** SHA-512 with DSA signature type */
+	SHA512withDSA(NISTObjectIdentifiers.dsa_with_sha512.getId()),
 	/** SHA-1 with ECDSA Signature Type */
-	SHA1withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA1.getId());
+	SHA1withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA1.getId()),
+	/** SHA-224 with ECDSA Signature Type */
+	SHA224withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA224.getId()),
+	/** SHA-256 with ECDSA Signature Type */
+	SHA256withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA256.getId()),
+	/** SHA-384 with ECDSA Signature Type */
+	SHA384withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA384.getId()),
+	/** SHA-512 with ECDSA Signature Type */
+	SHA512withECDSA(X9ObjectIdentifiers.ecdsa_with_SHA512.getId());
 
 	/** OID-to-type map */
 	private static final Map<String, SignatureType> OID_MAP;
@@ -82,13 +99,16 @@ public enum SignatureType
 		HashMap<KeyPairType, Collection<SignatureType>> kpMap =
 		    new HashMap<KeyPairType, Collection<SignatureType>>();
 
-		kpMap.put(KeyPairType.DSA, Collections.singleton(SHA1withDSA));
+		// X509V1CertificateGenerator doesn't like SHA384withDSA and SHA512withDSA as of BC 1.44
+		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(EnumSet.of(SHA1withDSA, SHA224withDSA,
+		    SHA256withDSA)));
 
 		kpMap.put(KeyPairType.RSA, Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA,
 		    SHA1withRSA, SHA224withRSA, SHA256withRSA, SHA384withRSA, SHA512withRSA, RIPEMD128withRSA,
 		    RIPEMD160withRSA, RIPEMD256withRSA)));
 
-		kpMap.put(KeyPairType.ECDSA, Collections.singleton(SHA1withECDSA));
+		kpMap.put(KeyPairType.ECDSA, Collections.unmodifiableSet(EnumSet.of(SHA1withECDSA, SHA224withECDSA,
+		    SHA256withECDSA, SHA384withECDSA, SHA512withECDSA)));
 
 		KEYPAIR_MAP = Collections.unmodifiableMap(kpMap);
 	}
