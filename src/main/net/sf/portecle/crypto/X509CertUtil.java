@@ -178,11 +178,9 @@ public final class X509CertUtil
 					}
 					catch (IOException e)
 					{
-						String msg = e.getMessage();
-						if (e instanceof PasswordException ||
-						    (msg != null && msg.indexOf(".openssl.PasswordException") != -1))
+						if (e instanceof PasswordException)
 						{
-							// Some kind of a password protected item (BC >= 1.43): carry on, see
+							// Some kind of a password protected item (BC >= 1.44): carry on, see
 							// http://www.bouncycastle.org/jira/browse/BJA-182
 							continue;
 						}

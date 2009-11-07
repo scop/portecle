@@ -18,8 +18,8 @@ Bug fixes:
   Castle >= 1.43.
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to version 1.43, which is also
-  the new minimum required version.
+- Bundled Bouncy Castle provider jar upgraded to version 1.44; 1.43 is the
+  new minimum required version.
 
 New in Portecle 1.4 (2009-02-22):
 ---------------------------------
