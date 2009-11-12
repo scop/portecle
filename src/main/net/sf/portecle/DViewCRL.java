@@ -123,10 +123,11 @@ class DViewCRL
 	{
 		String title = MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"), url);
 
-		X509CRL crl;
+		DViewCRL dialog;
 		try
 		{
-			crl = X509CertUtil.loadCRL(NetUtil.toURL(url));
+			X509CRL crl = X509CertUtil.loadCRL(NetUtil.toURL(url));
+			dialog = new DViewCRL(parent, title, crl);
 		}
 		catch (FileNotFoundException ex)
 		{
@@ -140,7 +141,6 @@ class DViewCRL
 			return false;
 		}
 
-		DViewCRL dialog = new DViewCRL(parent, title, crl);
 		dialog.setLocationRelativeTo(parent);
 		SwingHelper.showAndWait(dialog);
 

@@ -12,6 +12,7 @@ Enhancements:
   password protected keys.
 - Make Esc key close more dialog boxes.
 - Certificate extension rendering improvements.
+- Other user interface improvements.
 
 Bug fixes:
 - Fix reversed logic whether to enable changing password of a keystore entry
