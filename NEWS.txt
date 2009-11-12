@@ -18,6 +18,7 @@ Bug fixes:
   (#2831542).
 - Fix ClassCastException when displaying directory general names with Bouncy
   Castle >= 1.43.
+- Fix display of CRLs that have no next update date.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to version 1.44; 1.43 is the

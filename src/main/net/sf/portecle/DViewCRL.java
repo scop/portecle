@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2008-2009 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -384,10 +384,8 @@ class DViewCRL
 		Date currentDate = new Date();
 
 		Date effectiveDate = m_crl.getThisUpdate();
-		Date updateDate = m_crl.getNextUpdate();
 
 		boolean bEffective = currentDate.before(effectiveDate);
-		boolean bUpdateAvailable = currentDate.after(updateDate);
 
 		// Version
 		m_jtfVersion.setText(Integer.toString(m_crl.getVersion()));
@@ -413,19 +411,29 @@ class DViewCRL
 		}
 		m_jtfEffectiveDate.setCaretPosition(0);
 
-		// Next Update (include timezone)
-		m_jtfNextUpdate.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-		    updateDate));
-
-		if (bUpdateAvailable)
+		// Next update
+		Date updateDate = m_crl.getNextUpdate();
+		if (updateDate != null)
 		{
-			m_jtfNextUpdate.setText(MessageFormat.format(
-			    RB.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"), m_jtfNextUpdate.getText()));
-			m_jtfNextUpdate.setForeground(Color.red);
+			m_jtfNextUpdate.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
+			    updateDate));
+
+			if (currentDate.after(updateDate))
+			{
+				m_jtfNextUpdate.setText(MessageFormat.format(
+				    RB.getString("DViewCRL.m_jtfNextUpdate.updateavailable.text"), m_jtfNextUpdate.getText()));
+				m_jtfNextUpdate.setForeground(Color.red);
+			}
+			else
+			{
+				m_jtfNextUpdate.setForeground(m_jtfVersion.getForeground());
+			}
 		}
 		else
 		{
+			m_jtfNextUpdate.setText(RB.getString("DViewCRL.m_jtfNextUpdate.notavailable.text"));
 			m_jtfNextUpdate.setForeground(m_jtfVersion.getForeground());
+			m_jtfNextUpdate.setEnabled(false);
 		}
 		m_jtfNextUpdate.setCaretPosition(0);
 
