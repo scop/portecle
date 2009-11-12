@@ -3590,44 +3590,6 @@ public class FPortecle
 		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.MailListSignupAddress")));
 	}
 
-// /**
-// * Check if a more up-to-date version of Portecle exists by querying a properties file on the internet.
-// */
-	/*
-	 * private void checkForUpdate() { // Get the version number of this Portecle String sCurrentVersion =
-	 * m_res.getString("FPortecle.Version"); HttpURLConnection urlConn = null; ObjectInputStream ois = null;
-	 * try { // Get the version number of the latest Portecle from the // Internet - present in a serialised
-	 * Version object on the // Portecle web site // Build and connect to the relevant URL URL
-	 * latestVersionUrl = new URL( m_res.getString("FPortecle.LatestVersionAddress")); urlConn =
-	 * (HttpURLConnection) latestVersionUrl.openConnection(); int iResponseCode = urlConn.getResponseCode();
-	 * if (iResponseCode != HttpURLConnection.HTTP_OK) { // Bad response code from server
-	 * JOptionPane.showMessageDialog( this, MessageFormat.format(
-	 * m_res.getString("FPortecle.Non200Response.message"), ""+iResponseCode, latestVersionUrl),
-	 * m_res.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE ); return; } // Attempt to read
-	 * serialized Version into an object ois = new ObjectInputStream(urlConn.getInputStream()); Version
-	 * latestVersion = (Version) ois.readObject(); // Construct current version into a Version object for
-	 * comparison Version currentVersion = new Version(sCurrentVersion); // Make comparison int iCmp =
-	 * currentVersion.compareTo(latestVersion); if (iCmp >= 0) { // Latest version same (or less!) then
-	 * current version - // tell user they are up-to-date JOptionPane.showMessageDialog( this,
-	 * MessageFormat.format( m_res.getString("FPortecle.HaveLatestVersion.message"), new
-	 * Object[]{currentVersion}), m_res.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE); } else
-	 * { int iSelected = JOptionPane.showConfirmDialog( this, MessageFormat.format( m_res.getString(
-	 * "FPortecle.NewerVersionAvailable.message"), latestVersion, m_res.getString(
-	 * "FPortecle.DownloadsAddress")), m_res.getString("FPortecle.Title"), JOptionPane.YES_NO_OPTION); if
-	 * (iSelected == JOptionPane.YES_OPTION) { visitDownloads(); } } } // Display errors to user catch
-	 * (VersionException ex) { displayException(ex); } catch (ClassNotFoundException ex) {
-	 * displayException(ex); } catch (IOException ex) { displayException(ex); } finally { // Clean-up if
-	 * (urlConn != null) { urlConn.disconnect(); } if (ois != null) { try { ois.close(); } catch (IOException
-	 * ex) {} } } }
-	 */
-
-// /**
-// * Display the Portecle downloads web page.
-// */
-// private void visitDownloads()
-// {
-// desktopAction("browse", m_res.getString("FPortecle.DownloadsAddress"));
-// }
 	/**
 	 * Display donation web page.
 	 */
