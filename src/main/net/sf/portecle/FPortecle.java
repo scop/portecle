@@ -2321,11 +2321,15 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a certificate file.
+	 * 
+	 * @param fCertFile File to load the certificate from; if <code>null</code>, prompt user
 	 */
-	private void examineCert()
+	private void examineCert(File fCertFile)
 	{
-		// Let the user choose the certificate file to examine
-		File fCertFile = chooseExamineCertFile();
+		if (fCertFile == null)
+		{
+			fCertFile = chooseExamineCertFile();
+		}
 		if (fCertFile == null)
 		{
 			return;
@@ -2452,12 +2456,15 @@ public class FPortecle
 	/**
 	 * Let the user examine the contents of a CSR file.
 	 * 
+	 * @param fCSRFile File to load the CSR from; if <code>null</code>, prompt user
 	 * @return True if the user was able to examine the CSR file, false otherwise
 	 */
-	private boolean examineCSR()
+	private boolean examineCSR(File fCSRFile)
 	{
-		// Let the user choose the certificate file to examine
-		File fCSRFile = chooseExamineCSRFile();
+		if (fCSRFile == null)
+		{
+			fCSRFile = chooseExamineCSRFile();
+		}
 		if (fCSRFile == null)
 		{
 			return false;
@@ -2490,11 +2497,15 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a CRL file.
+	 * 
+	 * @param fCRLFile File to load the CRL from; if <code>null</code>, prompt user
 	 */
-	private void examineCRL()
+	private void examineCRL(File fCRLFile)
 	{
-		// Let the user choose the certificate file to examine
-		File fCRLFile = chooseExamineCRLFile();
+		if (fCRLFile == null)
+		{
+			fCRLFile = chooseExamineCRLFile();
+		}
 		if (fCRLFile == null)
 		{
 			return;
@@ -6407,7 +6418,7 @@ public class FPortecle
 		@Override
 		public void act()
 		{
-			examineCert();
+			examineCert(null);
 		}
 	}
 
@@ -6471,7 +6482,7 @@ public class FPortecle
 		@Override
 		public void act()
 		{
-			examineCSR();
+			examineCSR(null);
 		}
 	}
 
@@ -6503,7 +6514,7 @@ public class FPortecle
 		@Override
 		public void act()
 		{
-			examineCRL();
+			examineCRL(null);
 		}
 	}
 
@@ -6645,16 +6656,16 @@ public class FPortecle
 	{
 
 		/** Keystore file to open initially */
-		private File m_fKeyStore;
+		private File m_file;
 
 		/**
 		 * Construct CreateAndShowGui.
 		 * 
 		 * @param fKeyStore Keystore file to open initially (supply null if none)
 		 */
-		public CreateAndShowGui(File fKeyStore)
+		public CreateAndShowGui(File file)
 		{
-			m_fKeyStore = fKeyStore;
+			m_file = file;
 		}
 
 		/**
@@ -6665,9 +6676,34 @@ public class FPortecle
 			initLookAndFeel();
 			FPortecle fPortecle = new FPortecle();
 			fPortecle.setVisible(true);
-			if (m_fKeyStore != null)
+			if (m_file != null)
 			{
-				fPortecle.openKeyStoreFile(m_fKeyStore, true);
+				String fileName = m_file.getName().toLowerCase(Locale.ENGLISH);
+				for (String ext : FileChooserFactory.CERT_EXTS)
+				{
+					if (fileName.endsWith("." + ext))
+					{
+						fPortecle.examineCert(m_file);
+						return;
+					}
+				}
+				for (String ext : FileChooserFactory.CRL_EXTS)
+				{
+					if (fileName.endsWith("." + ext))
+					{
+						fPortecle.examineCRL(m_file);
+						return;
+					}
+				}
+				for (String ext : FileChooserFactory.CSR_EXTS)
+				{
+					if (fileName.endsWith("." + ext))
+					{
+						fPortecle.examineCSR(m_file);
+						return;
+					}
+				}
+				fPortecle.openKeyStoreFile(m_file, true);
 			}
 		}
 	}
@@ -6743,15 +6779,15 @@ public class FPortecle
 		}
 
 		/*
-		 * If arguments have been supplied treat the first one as a keystore file
+		 * If arguments have been supplied treat the first one as a keystore/certificate etc file
 		 */
-		File fKeyStore = null;
+		File file = null;
 		if (args.length != 0)
 		{
-			fKeyStore = new File(args[0]);
+			file = new File(args[0]);
 		}
 
 		// Create and show GUI on the event handler thread
-		SwingUtilities.invokeLater(new CreateAndShowGui(fKeyStore));
+		SwingUtilities.invokeLater(new CreateAndShowGui(file));
 	}
 }

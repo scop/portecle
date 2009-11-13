@@ -79,17 +79,17 @@ public class FileChooserFactory
 	private static final String CRL_EXT = "crl";
 
 	/** File extensions for certificate files */
-	private static final String[] CERT_EXTS =
+	/* package private */static final String[] CERT_EXTS =
 	    new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT, PKCS7_EXT, PKIPATH_EXT };
 
 	/** File extensions for X.509 certificate files */
 	private static final String[] X509_EXTS = new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT };
 
 	/** File extensions for certificate request files */
-	private static final String[] CSR_EXTS = new String[] { CSR_EXT_1, CSR_EXT_2, PEM_EXT };
+	/* package private */static final String[] CSR_EXTS = new String[] { CSR_EXT_1, CSR_EXT_2, PEM_EXT };
 
 	/** File extensions for certificate revocation list files */
-	private static final String[] CRL_EXTS = new String[] { CRL_EXT };
+	/* package private */static final String[] CRL_EXTS = new String[] { CRL_EXT };
 
 	/** Description for X.509 certificate files */
 	private static final String X509_FILE_DESC =

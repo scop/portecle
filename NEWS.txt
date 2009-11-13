@@ -6,6 +6,8 @@ New features:
   extensions.
 - Support for DSA certificates using the SHA224withDSA, SHA256withDSA,
   SHA384withDSA, and SHA512withDSA sinature algorithms.
+- In addition to keystores, certificates, CRL's and CSR's can now be
+  passed as command line arguments.
 
 Enhancements:
 - Improved import of trusted certificates from PEM files containing also
