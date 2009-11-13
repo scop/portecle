@@ -57,6 +57,9 @@ public class FileChooserFactory
 	/** File extension for X.509 certificate files */
 	private static final String X509_EXT_2 = "crt";
 
+	/** File extension for X.509 certificate files */
+	private static final String X509_EXT_3 = "cert";
+
 	/** File extension for PKCS #7 certificate files */
 	private static final String PKCS7_EXT = "p7b";
 
@@ -77,10 +80,10 @@ public class FileChooserFactory
 
 	/** File extensions for certificate files */
 	private static final String[] CERT_EXTS =
-	    new String[] { X509_EXT_1, X509_EXT_2, PEM_EXT, PKCS7_EXT, PKIPATH_EXT };
+	    new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT, PKCS7_EXT, PKIPATH_EXT };
 
 	/** File extensions for X.509 certificate files */
-	private static final String[] X509_EXTS = new String[] { X509_EXT_1, X509_EXT_2, PEM_EXT };
+	private static final String[] X509_EXTS = new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT };
 
 	/** File extensions for certificate request files */
 	private static final String[] CSR_EXTS = new String[] { CSR_EXT_1, CSR_EXT_2, PEM_EXT };
