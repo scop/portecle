@@ -103,7 +103,7 @@ class DImportKeyPair
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws CryptoException A problem was encountered importing a key pair
 	 */

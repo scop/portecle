@@ -309,8 +309,7 @@ public class JavaVersion
 			return -1;
 		}
 
-		// Compare identifier - not values - just whather they are
-		// present or not
+		// Compare identifier - not values - just whether they are present or not
 		String sCmpIdentifier = cmpJavaVersion.getIdentifier();
 
 		if (m_sIdentifier == null && sCmpIdentifier != null)
@@ -356,7 +355,7 @@ public class JavaVersion
 	@Override
 	public int hashCode()
 	{
-		// Initialise hash total to non-zero value
+		// Initialize hash total to non-zero value
 		int iResult = 27;
 
 		// For each component of the version Multiply total by 53 (odd

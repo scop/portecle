@@ -58,7 +58,7 @@ public class DSystemProperties
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -76,7 +76,7 @@ public class DSystemProperties
 		jtSystemProperties.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		// Add custom renderers for the table cells and headers
-		int tWidth = 30; // arbitrary # of pixels for vertical scrollbar
+		int tWidth = 30; // arbitrary # of pixels for vertical scroll bar
 		for (int iCnt = 0; iCnt < jtSystemProperties.getColumnCount(); iCnt++)
 		{
 			TableColumn column = jtSystemProperties.getColumnModel().getColumn(iCnt);

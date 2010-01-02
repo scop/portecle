@@ -176,7 +176,7 @@ public class FPortecle
 	/** Default look &amp; feel class name */
 	private static final String DEFAULT_LOOK_FEEL = UIManager.getCrossPlatformLookAndFeelClassName();
 
-	/** Default CA certs keystore file */
+	/** Default CA certificates keystore file */
 	/* package private */static final File DEFAULT_CA_CERTS_FILE =
 	    new File(System.getProperty("java.home"), "lib" + File.separator + "security" + File.separator +
 	        FileChooserFactory.CACERTS_FILENAME);
@@ -184,13 +184,13 @@ public class FPortecle
 	/** The last directory accessed by the application */
 	private final LastDir m_lastDir = new LastDir();
 
-	/** Use CA certs keystore file? */
+	/** Use CA certificates keystore file? */
 	private boolean m_bUseCaCerts;
 
-	/** CA certs keystore file */
+	/** CA certificates keystore file */
 	private File m_fCaCertsFile;
 
-	/** CA certs keystore */
+	/** CA certificates keystore */
 	private KeyStore m_caCertsKeyStore;
 
 	/** KeystoreWrapper object containing the current keystore */
@@ -334,12 +334,12 @@ public class FPortecle
 		m_fCaCertsFile =
 		    new File(PREFS.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE.getAbsolutePath()));
 
-		// Initialise GUI components
+		// Initialize GUI components
 		initComponents();
 	}
 
 	/**
-	 * Initialise FPortecle frame's GUI components.
+	 * Initialize FPortecle frame's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -370,7 +370,7 @@ public class FPortecle
 
 		if (iXPos <= 0 || iYPos <= 0)
 		{
-			// Centre the frame in the centre of the desktop
+			// Center the frame in the center of the desktop
 			setLocationRelativeTo(null);
 		}
 		else
@@ -393,12 +393,11 @@ public class FPortecle
 	}
 
 	/**
-	 * Initialise FPortecle frame's main menu GUI components.
+	 * Initialize FPortecle frame's main menu GUI components.
 	 */
 	private void initMenu()
 	{
-		// The menu items that carry out the same function as toolbar buttons
-		// use actions
+		// The menu items that carry out the same function as tool bar buttons use actions
 
 		// The menu bar
 		JMenuBar jmbMenuBar = new JMenuBar();
@@ -872,15 +871,15 @@ public class FPortecle
 	}
 
 	/**
-	 * Initialise FPortecle frame's toolbar GUI components.
+	 * Initialize FPortecle frame's tool bar GUI components.
 	 */
 	private void initToolBar()
 	{
-		// Create the "new" toolbar button
+		// Create the "new" tool bar button
 		JButton jbNewKeyStore = new JButton();
 		jbNewKeyStore.setAction(m_newKeyStoreAction);
 		jbNewKeyStore.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbNewKeyStore.setMnemonic(0);
 		jbNewKeyStore.setFocusable(false);
 		jbNewKeyStore.addMouseListener(new MouseAdapter()
@@ -898,11 +897,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "open" toolbar button
+		// Create the "open" tool bar button
 		JButton jbOpenKeyStoreFile = new JButton();
 		jbOpenKeyStoreFile.setAction(m_openKeyStoreFileAction);
 		jbOpenKeyStoreFile.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbOpenKeyStoreFile.setMnemonic(0);
 		jbOpenKeyStoreFile.setFocusable(false);
 		jbOpenKeyStoreFile.addMouseListener(new MouseAdapter()
@@ -920,11 +919,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "save" toolbar button
+		// Create the "save" tool bar button
 		JButton jbSaveKeyStore = new JButton();
 		jbSaveKeyStore.setAction(m_saveKeyStoreAction);
 		jbSaveKeyStore.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbSaveKeyStore.setMnemonic(0);
 		jbSaveKeyStore.setFocusable(false);
 		jbSaveKeyStore.addMouseListener(new MouseAdapter()
@@ -942,11 +941,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "generate key pair" toolbar button
+		// Create the "generate key pair" tool bar button
 		JButton jbGenKeyPair = new JButton();
 		jbGenKeyPair.setAction(m_genKeyPairAction);
 		jbGenKeyPair.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbGenKeyPair.setMnemonic(0);
 		jbGenKeyPair.setFocusable(false);
 		jbGenKeyPair.addMouseListener(new MouseAdapter()
@@ -964,11 +963,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "import trusted certificate" toolbar button
+		// Create the "import trusted certificate" tool bar button
 		JButton jbImportTrustCert = new JButton();
 		jbImportTrustCert.setAction(m_importTrustCertAction);
 		jbImportTrustCert.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbImportTrustCert.setMnemonic(0);
 		jbImportTrustCert.setFocusable(false);
 		jbImportTrustCert.addMouseListener(new MouseAdapter()
@@ -986,11 +985,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "import key pair" toolbar button
+		// Create the "import key pair" tool bar button
 		JButton jbImportKeyPair = new JButton();
 		jbImportKeyPair.setAction(m_importKeyPairAction);
 		jbImportKeyPair.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbImportKeyPair.setMnemonic(0);
 		jbImportKeyPair.setFocusable(false);
 		jbImportKeyPair.addMouseListener(new MouseAdapter()
@@ -1008,11 +1007,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "set keystore password" toolbar button
+		// Create the "set keystore password" tool bar button
 		JButton jbSetKeyStorePass = new JButton();
 		jbSetKeyStorePass.setAction(m_setKeyStorePassAction);
 		jbSetKeyStorePass.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbSetKeyStorePass.setMnemonic(0);
 		jbSetKeyStorePass.setFocusable(false);
 		jbSetKeyStorePass.addMouseListener(new MouseAdapter()
@@ -1030,11 +1029,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "keystore report" toolbar button
+		// Create the "keystore report" tool bar button
 		JButton jbKeyStoreReport = new JButton();
 		jbKeyStoreReport.setAction(m_keyStoreReportAction);
 		jbKeyStoreReport.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbKeyStoreReport.setMnemonic(0);
 		jbKeyStoreReport.setFocusable(false);
 		jbKeyStoreReport.addMouseListener(new MouseAdapter()
@@ -1052,11 +1051,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "examine certificate" toolbar button
+		// Create the "examine certificate" tool bar button
 		JButton jbExamineCert = new JButton();
 		jbExamineCert.setAction(m_examineCertAction);
 		jbExamineCert.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbExamineCert.setMnemonic(0);
 		jbExamineCert.setFocusable(false);
 		jbExamineCert.addMouseListener(new MouseAdapter()
@@ -1074,11 +1073,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "examine crl" toolbar button
+		// Create the "examine CRL" tool bar button
 		JButton jbExamineCrl = new JButton();
 		jbExamineCrl.setAction(m_examineCrlAction);
 		jbExamineCrl.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbExamineCrl.setMnemonic(0);
 		jbExamineCrl.setFocusable(false);
 		jbExamineCrl.addMouseListener(new MouseAdapter()
@@ -1096,11 +1095,11 @@ public class FPortecle
 			}
 		});
 
-		// Create the "help" toolbar button
+		// Create the "help" tool bar button
 		JButton jbHelp = new JButton();
 		jbHelp.setAction(m_helpAction);
 		jbHelp.setText(null); // Don't share text from action
-		// Get around bug with action mnemonics on toolbar buttons
+		// Get around bug with action mnemonics on tool bar buttons
 		jbHelp.setMnemonic(0);
 		jbHelp.setFocusable(false);
 		jbHelp.addMouseListener(new MouseAdapter()
@@ -1118,13 +1117,13 @@ public class FPortecle
 			}
 		});
 
-		// The toolbar
+		// The tool bar
 		JToolBar jtbToolBar = new JToolBar();
 		jtbToolBar.setFloatable(false);
 		jtbToolBar.setRollover(true);
 		jtbToolBar.setName(RB.getString("FPortecle.jtbToolBar.name"));
 
-		// Add the buttons to the toolbar - use visible separators for all L&Fs
+		// Add the buttons to the tool bar - use visible separators for all L&Fs
 		jtbToolBar.add(jbNewKeyStore);
 		jtbToolBar.add(jbOpenKeyStoreFile);
 		jtbToolBar.add(jbSaveKeyStore);
@@ -1152,12 +1151,12 @@ public class FPortecle
 
 		jtbToolBar.add(jbHelp);
 
-		// Add the toolbar to the frame
+		// Add the tool bar to the frame
 		getContentPane().add(jtbToolBar, BorderLayout.NORTH);
 	}
 
 	/**
-	 * Initialise FPortecle frame's keystore content table GUI components.
+	 * Initialize FPortecle frame's keystore content table GUI components.
 	 */
 	private void initTable()
 	{
@@ -1172,7 +1171,7 @@ public class FPortecle
 		m_jtKeyStore.getColumnModel().setColumnMargin(0);
 		m_jtKeyStore.getTableHeader().setReorderingAllowed(false);
 		m_jtKeyStore.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		// Top accomodates entry icons with spare space (16 pixels tall)
+		// Top accommodate entry icons with spare space (16 pixels tall)
 		m_jtKeyStore.setRowHeight(18);
 
 		// Add custom renderers for the table headers and cells
@@ -1281,7 +1280,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Initialise FPortecle frame's status bar GUI components.
+	 * Initialize FPortecle frame's status bar GUI components.
 	 */
 	private void initStatusBar()
 	{
@@ -1295,13 +1294,12 @@ public class FPortecle
 	}
 
 	/**
-	 * Initialise FPortecle frame's popup menu GUI components. These are invoked when rows of specific types
+	 * Initialize FPortecle frame's pop-up menu GUI components. These are invoked when rows of specific types
 	 * are clicked upon in the keystore table.
 	 */
 	private void initPopupMenus()
 	{
-		// Initialise key-only entry pop-up menu including mnemonics
-		// and listeners
+		// Initialize key-only entry pop-up menu including mnemonics and listeners
 		m_jpmKey = new JPopupMenu();
 
 		JMenuItem jmiKeyDelete =
@@ -1320,7 +1318,7 @@ public class FPortecle
 
 		m_jpmKey.add(jmiKeyDelete);
 
-		// Initialise key pair entry pop-up menu including mnemonics and listeners
+		// Initialize key pair entry pop-up menu including mnemonics and listeners
 		m_jpmKeyPair = new JPopupMenu();
 
 		JMenuItem jmiKeyPairCertDetails =
@@ -1472,8 +1470,7 @@ public class FPortecle
 		m_jpmKeyPair.add(jmiKeyPairClone);
 		m_jpmKeyPair.add(jmiKeyPairRename);
 
-		// Initialise Trusted Certificate entry pop-up menu including
-		// mnemonics and listeners
+		// Initialize Trusted Certificate entry pop-up menu including mnemonics and listeners
 		m_jpmCert = new JPopupMenu();
 
 		JMenuItem jmiTrustCertDetails =
@@ -1650,7 +1647,7 @@ public class FPortecle
 
 		if (!dGenerateKeyPair.isSuccessful())
 		{
-			return false; // User cancelled the dialog
+			return false; // User canceled the dialog
 		}
 
 		int iKeySize = dGenerateKeyPair.getKeySize();
@@ -1666,7 +1663,7 @@ public class FPortecle
 
 		if (keyPair == null)
 		{
-			return false; // User cancelled the dialog or error occured
+			return false; // User canceled the dialog or an error occurred
 		}
 
 		/*
@@ -1683,7 +1680,7 @@ public class FPortecle
 
 		if (certificate == null)
 		{
-			return false; // user cancelled dialog or error occurred
+			return false; // user canceled dialog or an error occurred
 		}
 
 		// Get the keystore
@@ -1803,7 +1800,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Open a CA certs keystore file from disk.
+	 * Open a CA certificates keystore file from disk.
 	 * 
 	 * @return True if a keystore is opened, false otherwise
 	 */
@@ -1829,7 +1826,7 @@ public class FPortecle
 	 * Open the supplied keystore file from disk.
 	 * 
 	 * @param fKeyStore The keystore file
-	 * @param updateLastDir Whether to update the last accessed dir
+	 * @param updateLastDir Whether to update the last accessed directory
 	 * @return True if a keystore is opened, false otherwise
 	 */
 	/* package private */boolean openKeyStoreFile(File fKeyStore, boolean updateLastDir)
@@ -2054,7 +2051,7 @@ public class FPortecle
 		{
 			cPassword = getNewKeyStorePassword();
 
-			// User cancelled - cancel save
+			// User canceled - cancel save
 			if (cPassword == null)
 			{
 				return false;
@@ -2853,13 +2850,13 @@ public class FPortecle
 				return false;
 			}
 
-			// If the CA certs keystore is to be used and it has yet to be loaded then do so
+			// If the CA certificates keystore is to be used and it has yet to be loaded then do so
 			if (m_bUseCaCerts && m_caCertsKeyStore == null)
 			{
 				m_caCertsKeyStore = openCaCertsKeyStore();
 				if (m_caCertsKeyStore == null)
 				{
-					// Failed to load CA certs keystore
+					// Failed to load CA certificates keystore
 					return false;
 				}
 			}
@@ -2868,15 +2865,15 @@ public class FPortecle
 			X509Certificate[] newCertChain = null;
 
 			/*
-			 * PKCS #7 reply - try and match the self-signed root with any of the certificates in the CA certs
-			 * or current keystore
+			 * PKCS #7 reply - try and match the self-signed root with any of the certificates in the CA
+			 * certificates or current keystore
 			 */
 			if (certs.length > 1)
 			{
 				X509Certificate rootCert = certs[certs.length - 1];
 				String sMatchAlias = null;
 
-				if (m_bUseCaCerts) // Match against CA certs keystore
+				if (m_bUseCaCerts) // Match against CA certificates keystore
 				{
 					sMatchAlias = X509CertUtil.matchCertificate(m_caCertsKeyStore, rootCert);
 				}
@@ -2894,7 +2891,7 @@ public class FPortecle
 					    RB.getString("FPortecle.NoMatchRootCertCaReplyConfirm.message"),
 					    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.INFORMATION_MESSAGE);
 
-					// Display the certficate to the user
+					// Display the certificate to the user
 					DViewCertificate dViewCertificate =
 					    new DViewCertificate(this, MessageFormat.format(
 					        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()),
@@ -2902,8 +2899,7 @@ public class FPortecle
 					dViewCertificate.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewCertificate);
 
-					// Request confirmation that the certidicate is to
-					// be trusted
+					// Request confirmation that the certificate is to be trusted
 					int iSelected =
 					    JOptionPane.showConfirmDialog(this, RB.getString("FPortecle.AcceptCaReply.message"),
 					        RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.YES_NO_OPTION);
@@ -2926,7 +2922,7 @@ public class FPortecle
 			{
 				KeyStore[] compKeyStores = null;
 
-				// Establish against CA certs keystore and current keystore
+				// Establish against CA certificates keystore and current keystore
 				if (m_bUseCaCerts)
 				{
 					compKeyStores = new KeyStore[] { m_caCertsKeyStore, keyStore };
@@ -3139,24 +3135,23 @@ public class FPortecle
 				}
 			}
 
-			// If the CA certs keystore is to be used and it has yet to be
-			// loaded then do so
+			// If the CA certificates keystore is to be used and it has yet to be loaded then do so
 			if (m_bUseCaCerts && m_caCertsKeyStore == null)
 			{
 				m_caCertsKeyStore = openCaCertsKeyStore();
 				if (m_caCertsKeyStore == null)
 				{
-					// Failed to load CA certs keystore
+					// Failed to load CA certificates keystore
 					return false;
 				}
 			}
 
 			// If we cannot establish trust for the certificate against the
-			// CA certs keystore or the current keystore then display the
+			// CA certificates keystore or the current keystore then display the
 			// certificate to the user for confirmation
 			KeyStore[] compKeyStores = null;
 
-			// Establish against CA certs keystore and current keystore
+			// Establish against CA certificates keystore and current keystore
 			if (m_bUseCaCerts)
 			{
 				compKeyStores = new KeyStore[] { m_caCertsKeyStore, keyStore };
@@ -3173,7 +3168,7 @@ public class FPortecle
 				JOptionPane.showMessageDialog(this, RB.getString("FPortecle.NoTrustPathCertConfirm.message"),
 				    RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.INFORMATION_MESSAGE);
 
-				// Display the certficate to the user
+				// Display the certificate to the user
 				DViewCertificate dViewCertificate =
 				    new DViewCertificate(this, MessageFormat.format(
 				        RB.getString("FPortecle.CertDetails.Title"), fCertFile.getName()),
@@ -3181,7 +3176,7 @@ public class FPortecle
 				dViewCertificate.setLocationRelativeTo(this);
 				SwingHelper.showAndWait(dViewCertificate);
 
-				// Request confirmation that the certidicate is to be trusted
+				// Request confirmation that the certificate is to be trusted
 				int iSelected =
 				    JOptionPane.showConfirmDialog(this, RB.getString("FPortecle.AcceptTrustCert.message"),
 				        RB.getString("FPortecle.ImportTrustCert.Title"), JOptionPane.YES_NO_OPTION);
@@ -3432,13 +3427,13 @@ public class FPortecle
 	}
 
 	/**
-	 * Open the CA certs keystore from disk.
+	 * Open the CA certificates keystore from disk.
 	 * 
-	 * @return The keystore if it could be openend or null otherwise
+	 * @return The keystore if it could be opened or null otherwise
 	 */
 	private KeyStore openCaCertsKeyStore()
 	{
-		// Get the user to enter the CA certs keystore's password
+		// Get the user to enter the CA certificates keystore's password
 		DGetPassword dGetPassword =
 		    new DGetPassword(this, RB.getString("FPortecle.CaCertsKeyStorePassword.Title"));
 		dGetPassword.setLocationRelativeTo(this);
@@ -3452,8 +3447,8 @@ public class FPortecle
 
 		try
 		{
-			// Load the CA certs keystore - try to open as each of the
-			// allowed types in turn until successful
+			// Load the CA certificates keystore - try to open as each of the allowed types in turn until
+			// successful
 			KeyStore caCertsKeyStore = null;
 
 			// Types
@@ -3572,7 +3567,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Display application's website.
+	 * Display application's web site.
 	 */
 	private void visitWebsite()
 	{
@@ -3588,7 +3583,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Display Portecle mailing lists' signup page at SourceForge.net.
+	 * Display Portecle mailing lists' sign up page at SourceForge.net.
 	 */
 	private void visitMailListSignup()
 	{
@@ -3641,19 +3636,18 @@ public class FPortecle
 
 		// Store/apply the chosen options:
 
-		// CA certs file
+		// CA certificates file
 		File fTmp = dOptions.getCaCertsFile();
 
 		if (!fTmp.equals(m_fCaCertsFile))
 		{
-			// CA certs file changed - any stored CA certs keystore is
-			// now invalid
+			// CA certificates file changed - any stored CA certificates keystore is now invalid
 			m_caCertsKeyStore = null;
 		}
 
 		m_fCaCertsFile = fTmp;
 
-		// Use CA certs?
+		// Use CA certificates?
 		m_bUseCaCerts = dOptions.isUseCaCerts();
 
 		// Look & feel
@@ -3671,7 +3665,7 @@ public class FPortecle
 		if (newLookFeelClassName != null &&
 		    (!newLookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) || bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated()))
 		{
-			// Yes - save selections to be picked up by app preferences,
+			// Yes - save selections to be picked up by application preferences,
 			lookFeelClassName = newLookFeelClassName;
 			m_bLookFeelDecorationOptions = bLookFeelDecoration;
 			saveAppPrefs();
@@ -3908,7 +3902,7 @@ public class FPortecle
 
 		char[] cPassword = getNewKeyStorePassword();
 
-		// User cancelled
+		// User canceled
 		if (cPassword == null)
 		{
 			return false;
@@ -3964,7 +3958,7 @@ public class FPortecle
 		}
 		char[] cNewPassword = dChangePassword.getNewPassword();
 
-		// Dialog was cancelled
+		// Dialog was canceled
 		if (cOldPassword == null || cNewPassword == null)
 		{
 			return false;
@@ -4027,7 +4021,7 @@ public class FPortecle
 
 			if (!dExport.exportSelected())
 			{
-				return false; // User cancelled the dialog
+				return false; // User canceled the dialog
 			}
 
 			// Do export
@@ -4058,7 +4052,7 @@ public class FPortecle
 					bSuccess = exportHeadCertOnlyPkcs7(sAlias);
 				}
 			}
-			// Complete cert path (PKCS #7 or PkiPath)
+			// Complete certification path (PKCS #7 or PkiPath)
 			else if (dExport.exportChain())
 			{
 				if (dExport.exportPkiPath())
@@ -4071,7 +4065,7 @@ public class FPortecle
 					bSuccess = exportAllCertsPkcs7(sAlias);
 				}
 			}
-			// Complete cert path and private key (PKCS #12)
+			// Complete certification path and private key (PKCS #12)
 			else
 			{
 				if (dExport.exportPem())
@@ -4126,7 +4120,7 @@ public class FPortecle
 			basename = sEntryAlias;
 		}
 
-		// Let the user choose the export cert file
+		// Let the user choose the export certificate file
 		File fExportFile = chooseExportCertFile(basename);
 		if (fExportFile == null)
 		{
@@ -4200,7 +4194,7 @@ public class FPortecle
 			basename = sEntryAlias;
 		}
 
-		// Let the user choose the export cert file
+		// Let the user choose the export certificate file
 		File fExportFile = chooseExportCertFile(basename);
 		if (fExportFile == null)
 		{
@@ -5088,7 +5082,7 @@ public class FPortecle
 			// Update the keystore wrapper
 			m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 
-			// Get the first certficate in the entry's certificate chain
+			// Get the first certificate in the entry's certificate chain
 			X509Certificate cert =
 			    X509CertUtil.orderX509CertChain(X509CertUtil.convertCertificates(keyStore.getCertificateChain(sAlias)))[0];
 
@@ -5341,7 +5335,7 @@ public class FPortecle
 	/**
 	 * Let the user see the certificate details of the selected keystore entry.
 	 * 
-	 * @return True if the certificate details were viewed suceesfully, false otherwise
+	 * @return True if the certificate details were viewed successfully, false otherwise
 	 */
 	private boolean showSelectedEntry()
 	{
@@ -5582,8 +5576,8 @@ public class FPortecle
 	}
 
 	/**
-	 * Update the application's controls dependant on the state of its keystore (eg if changes to keystore are
-	 * saved disable save toolbar button).
+	 * Update the application's controls dependent on the state of its keystore (e.g. if changes to keystore
+	 * are saved disable save tool bar button).
 	 */
 	private void updateControls()
 	{
@@ -5629,7 +5623,7 @@ public class FPortecle
 		// Enable entry password changing only for applicable keystore types
 		m_jmiSetKeyPairPass.setEnabled(ksType.isEntryPasswordSupported());
 
-		// Change keystore type menu items dependant on keystore type
+		// Change keystore type menu items dependent on keystore type
 
 		// Enable change keystore type menu
 		m_jmChangeKeyStoreType.setEnabled(true);
@@ -5686,7 +5680,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Update the application's controls dependant on the state of its keystore.
+	 * Update the application's controls dependent on the state of its keystore.
 	 */
 	private void updateTitle()
 	{
@@ -5702,22 +5696,21 @@ public class FPortecle
 		{
 			File fKeyStore = m_keyStoreWrap.getKeyStoreFile();
 
-			// A newly created keystore is loaded - display Untitled string
-			// and app name
+			// A newly created keystore is loaded - display Untitled string and application name
 			if (fKeyStore == null)
 			{
 				setTitle(MessageFormat.format("[{0}] - {1}", RB.getString("FPortecle.Untitled"), sAppName));
 			}
 			else
 			{
-				// Modified keystore loaded - display keystore file path,
-				// "modified" indicator, and app name
+				// Modified keystore loaded - display keystore file path, "modified" indicator, and
+				// application name
 				if (m_keyStoreWrap.isChanged())
 				{
 					setTitle(MessageFormat.format("{0}{1} - {2}", fKeyStore,
 					    RB.getString("FPortecle.Modified"), sAppName));
 				}
-				// Saved keystore loaded - display keystore file path and app name
+				// Saved keystore loaded - display keystore file path and application name
 				else
 				{
 					setTitle(MessageFormat.format("{0} - {1}", fKeyStore, sAppName));
@@ -5954,7 +5947,7 @@ public class FPortecle
 	}
 
 	/**
-	 * Initialise the application's look and feel.
+	 * Initialize the application's look and feel.
 	 */
 	private static void initLookAndFeel()
 	{
@@ -6771,7 +6764,7 @@ public class FPortecle
 				catch (Throwable t)
 				{
 					// TODO: should maybe notify in some cases?
-					// Eg. Throwable, but not Exception?
+					// E.g. Throwable, but not Exception?
 				}
 			}
 		}

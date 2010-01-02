@@ -86,7 +86,7 @@ public class DThrowable
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{

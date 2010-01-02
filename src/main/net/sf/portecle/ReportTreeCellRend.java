@@ -220,7 +220,7 @@ class ReportTreeCellRend
 
 	/**
 	 * Simple class used to distinguish between keystore entry types passed to 1the cell renderer. The
-	 * renderer uses the type to set the cell's icon and tool top text and the alais to display as it's text.
+	 * renderer uses the type to set the cell's icon and tool top text and the alias to display as its text.
 	 */
 	static class Entry
 	{
@@ -274,7 +274,7 @@ class ReportTreeCellRend
 		}
 
 		/**
-		 * Get a trsuted certificate entry.
+		 * Get a trusted certificate entry.
 		 * 
 		 * @param sAlias Entry alias
 		 * @return Trusted certificate entry

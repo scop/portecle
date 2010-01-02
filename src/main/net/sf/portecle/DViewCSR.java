@@ -100,7 +100,7 @@ class DViewCSR
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws CryptoException A problem was encountered getting the request details
 	 */

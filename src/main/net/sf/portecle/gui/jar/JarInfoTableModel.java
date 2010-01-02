@@ -84,8 +84,8 @@ class JarInfoTableModel
 		for (int iCnt = 0; iCnt < jarFiles.length; iCnt++)
 		{
 			/*
-			 * Get JAR info (jar file, size, spec title, spec version, spec title, impl title, impl version
-			 * and impl vendor)
+			 * Get JAR info (jar file, size, specification title, specification version, specification title,
+			 * implementation title, implementation version and implementation vendor)
 			 */
 			JarFile jarFile = jarFiles[iCnt];
 			String sFile = jarFile.getName();

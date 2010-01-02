@@ -84,7 +84,7 @@ class DNewKeyStoreType
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{

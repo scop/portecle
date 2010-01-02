@@ -98,7 +98,7 @@ class KeyStoreTableCellRend
 			{
 				if (value instanceof Date)
 				{
-					// Include timezone
+					// Include time zone
 					cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
 					    (Date) value));
 				}

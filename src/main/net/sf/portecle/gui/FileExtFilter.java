@@ -40,7 +40,7 @@ public class FileExtFilter
 	/**
 	 * Construct a FileExtFilter for a single file extension.
 	 * 
-	 * @param sExt The file extension (eg "exe" for a Windows executable)
+	 * @param sExt The file extension (e.g. "exe" for a Windows executable)
 	 * @param sDescription Short description of the file extension
 	 */
 	public FileExtFilter(String sExt, String sDescription)
@@ -52,7 +52,7 @@ public class FileExtFilter
 	/**
 	 * Construct a FileExtFilter for a set of related file extension.
 	 * 
-	 * @param sExts The file extension (eg "exe" for a Windows executable)
+	 * @param sExts The file extension (e.g. "exe" for a Windows executable)
 	 * @param sDescription Short collective description for the file extensions
 	 */
 	public FileExtFilter(String[] sExts, String sDescription)

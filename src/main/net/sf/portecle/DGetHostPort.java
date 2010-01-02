@@ -85,7 +85,7 @@ class DGetHostPort
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @param iOldHostPort The host+port to display initially
 	 */

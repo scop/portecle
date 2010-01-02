@@ -83,10 +83,10 @@ class DGenerateCertificate
 	/** Common Name text field */
 	private JTextField m_jtfCommonName;
 
-	/** Organisation Unit text field */
+	/** Organization Unit text field */
 	private JTextField m_jtfOrganisationUnit;
 
-	/** Organisation Unit Name */
+	/** Organization Unit Name */
 	private JTextField m_jtfOrganisationName;
 
 	/** Locality Name text field */
@@ -127,7 +127,7 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @param sTitle The dialog's title
 	 */
@@ -186,7 +186,7 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jtfCommonName = (GridBagConstraints) gbcEdCtrl.clone();
 		gbc_jtfCommonName.gridy = gbc_jlCommonName.gridy;
 
-		// Organisation Unit
+		// Organization Unit
 		JLabel jlOrganisationUnit = new JLabel(RB.getString("DGenerateCertificate.jlOrganisationUnit.text"));
 		GridBagConstraints gbc_jlOrganisationUnit = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlOrganisationUnit.gridy = gridy++;
@@ -196,7 +196,7 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jtfOrganisationUnit = (GridBagConstraints) gbcEdCtrl.clone();
 		gbc_jtfOrganisationUnit.gridy = gbc_jlOrganisationUnit.gridy;
 
-		// Organisation Name
+		// Organization Name
 		JLabel jlOrganisationName = new JLabel(RB.getString("DGenerateCertificate.jlOrganisationName.text"));
 		GridBagConstraints gbc_jlOrganisationName = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlOrganisationName.gridy = gridy++;
@@ -440,10 +440,10 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Validate the supplied Organisation Unit value.
+	 * Validate the supplied Organization Unit value.
 	 * 
-	 * @param sOrganisationUnit The Organisation Unit value
-	 * @return The Organisation Unit value or null if it is not valid
+	 * @param sOrganisationUnit The Organization Unit value
+	 * @return The Organization Unit value or null if it is not valid
 	 */
 	private String validateOrganisationUnit(String sOrganisationUnit)
 	{
@@ -458,10 +458,10 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Validate the supplied Organisation Name value.
+	 * Validate the supplied Organization Name value.
 	 * 
-	 * @param sOrganisationName The Organisation Unit value
-	 * @return The Organisation Name value or null if it is not valid
+	 * @param sOrganisationName The Organization Unit value
+	 * @return The Organization Name value or null if it is not valid
 	 */
 	private String validateOrganisationName(String sOrganisationName)
 	{
@@ -550,7 +550,7 @@ class DGenerateCertificate
 	/**
 	 * Get the generated certificate.
 	 * 
-	 * @return The generated certificate or null if the user cancelled the dialog
+	 * @return The generated certificate or null if the user canceled the dialog
 	 */
 	public X509Certificate getCertificate()
 	{

@@ -81,7 +81,7 @@ public class DGetPassword
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{

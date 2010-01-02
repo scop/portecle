@@ -48,7 +48,7 @@ import javax.swing.table.TableRowSorter;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Modal dialog that displays information about the JAR files on the classpath.
+ * Modal dialog that displays information about the JAR files on the class path.
  */
 public class DJarInfo
     extends PortecleJDialog
@@ -67,7 +67,7 @@ public class DJarInfo
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws IOException Problem occurred getting JAR information
 	 */
@@ -134,9 +134,9 @@ public class DJarInfo
 	}
 
 	/**
-	 * Get JARs on classpath.
+	 * Get JARs on class path.
 	 * 
-	 * @return JARs on classpath
+	 * @return JARs on class path
 	 * @throws IOException Problem occurred getting JARs
 	 */
 	private JarFile[] getClassPathJars()
@@ -145,13 +145,13 @@ public class DJarInfo
 		// Store JARs
 		ArrayList<JarFile> vJars = new ArrayList<JarFile>();
 
-		// Split classpath into it's components using the path separator
+		// Split class path into it's components using the path separator
 		String sClassPath = System.getProperty("java.class.path");
 		String sPathSeparator = System.getProperty("path.separator");
 
 		StringTokenizer strTok = new StringTokenizer(sClassPath, sPathSeparator);
 
-		// Store each JAR found on classpath
+		// Store each JAR found on class path
 		while (strTok.hasMoreTokens())
 		{
 			String sClassPathEntry = strTok.nextToken();
@@ -182,10 +182,10 @@ public class DJarInfo
 
 				if (sJarClassPath != null)
 				{
-					// Split "JAR classpath" using spaces
+					// Split "JAR class path" using spaces
 					strTok = new StringTokenizer(sJarClassPath, " ");
 
-					// Store each JAR found on "JAR classpath"
+					// Store each JAR found on "JAR class path"
 					while (strTok.hasMoreTokens())
 					{
 						String sJarClassPathEntry = strTok.nextToken();

@@ -71,7 +71,7 @@ public final class KeyPairUtil
 			// Create a SecureRandom
 			SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
 
-			// Initialise key pair generator with key strength and a randomness
+			// Initialize key pair generator with key strength and a randomness
 			keyPairGen.initialize(iKeySize, rand);
 
 			// Generate and return the key pair
@@ -91,11 +91,11 @@ public final class KeyPairUtil
 	}
 
 	/**
-	 * Get the keysize of a public key.
+	 * Get the key size of a public key.
 	 * 
 	 * @param pubKey The public key
-	 * @return The keysize
-	 * @throws CryptoException If there is a problem getting the keysize
+	 * @return The key size
+	 * @throws CryptoException If there is a problem getting the key size
 	 */
 	public static int getKeyLength(PublicKey pubKey)
 	    throws CryptoException
@@ -119,11 +119,11 @@ public final class KeyPairUtil
 	}
 
 	/**
-	 * Get the keysize of a key represented by key parameters.
+	 * Get the key size of a key represented by key parameters.
 	 * 
 	 * @param keyParams The key parameters
-	 * @return The keysize
-	 * @throws CryptoException If there is a problem getting the keysize
+	 * @return The key size
+	 * @throws CryptoException If there is a problem getting the key size
 	 */
 	public static int getKeyLength(AsymmetricKeyParameter keyParams)
 	    throws CryptoException

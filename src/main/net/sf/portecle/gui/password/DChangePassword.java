@@ -112,7 +112,7 @@ public class DChangePassword
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -166,8 +166,7 @@ public class DChangePassword
 	 * Check for the following:
 	 * <ul>
 	 * <li>That the user has supplied and confirmed a password.
-	 * <li>That the password's match.
-	 * <li>That they have a length greater than a perscribed minimum.
+	 * <li>That the passwords match.
 	 * <li>That the old password was supplied or set by the user.
 	 * </ul>
 	 * Store the old and changed password in this object.

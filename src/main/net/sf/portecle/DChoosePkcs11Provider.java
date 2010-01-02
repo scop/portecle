@@ -78,7 +78,7 @@ public class DChoosePkcs11Provider
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @param sOldProvider The provider to display initially
 	 */

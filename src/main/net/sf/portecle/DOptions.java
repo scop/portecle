@@ -48,15 +48,16 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Modal dialog to allow the users to configure Portecle options, CA certs keystore, and look &amp; feel.
+ * Modal dialog to allow the users to configure Portecle options, CA certificates keystore, and look &amp;
+ * feel.
  */
 class DOptions
     extends PortecleJDialog
 {
-	/** Use CA certs check box */
+	/** Use CA certificates check box */
 	private JCheckBox m_jcbUseCaCerts;
 
-	/** CA certs file text field */
+	/** CA certificates file text field */
 	private JTextField m_jtfCaCertsFile;
 
 	/** Look &amp; feel combo box */
@@ -65,10 +66,10 @@ class DOptions
 	/** Look &amp; feel decorated check box */
 	private JCheckBox m_jcbLookFeelDecorated;
 
-	/** Use CA certs keystore file? */
+	/** Use CA certificates keystore file? */
 	private boolean m_bUseCaCerts;
 
-	/** Chosen CA certs keystore file */
+	/** Chosen CA certificates keystore file */
 	private File m_fCaCertsFile;
 
 	/** Available Look and Feel information - reflects what is in choice box */
@@ -85,8 +86,8 @@ class DOptions
 	 * Creates new DOptions dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param bUseCaCerts Use CA certs keystore file?
-	 * @param fCaCertsFile CA certs keystore file
+	 * @param bUseCaCerts Use CA certificates keystore file?
+	 * @param fCaCertsFile CA certificates keystore file
 	 */
 	public DOptions(Window parent, boolean bUseCaCerts, File fCaCertsFile)
 	{
@@ -164,7 +165,7 @@ class DOptions
 				continue;
 			}
 
-			// Check if it's a supported one (eg. Windows on Linux is not)
+			// Check if it's a supported one (e.g. Windows on Linux is not)
 			boolean bSupported = false;
 			try
 			{
@@ -252,10 +253,10 @@ class DOptions
 	 */
 	private void storeOptions()
 	{
-		// Store CA certs file
+		// Store CA certificates file
 		m_fCaCertsFile = new File(m_jtfCaCertsFile.getText());
 
-		// Store whether or not to use CA certs keystore
+		// Store whether or not to use CA certificates keystore
 		m_bUseCaCerts = m_jcbUseCaCerts.isSelected();
 
 		// Store look & feel class name
@@ -266,9 +267,9 @@ class DOptions
 	}
 
 	/**
-	 * Get the chosen CA certs keystore file.
+	 * Get the chosen CA certificates keystore file.
 	 * 
-	 * @return The chosen CA certs keystore file
+	 * @return The chosen CA certificates keystore file
 	 */
 	public File getCaCertsFile()
 	{
@@ -276,7 +277,7 @@ class DOptions
 	}
 
 	/**
-	 * Get whether or not the usage of CA certs has been chosen.
+	 * Get whether or not the usage of CA certificates has been chosen.
 	 * 
 	 * @return True if it has, false otherwise
 	 */
@@ -330,7 +331,7 @@ class DOptions
 	}
 
 	/**
-	 * Reset CA certs file to default button pressed or otherwise activated.
+	 * Reset CA certificates file to default button pressed or otherwise activated.
 	 */
 	private void resetPressed()
 	{

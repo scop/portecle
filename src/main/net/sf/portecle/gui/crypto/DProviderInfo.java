@@ -68,7 +68,7 @@ public class DProviderInfo
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -100,7 +100,7 @@ public class DProviderInfo
 		// Top accommodate node icons with spare space (they are 16 pixels tall)
 		jtrProviders.setRowHeight(18);
 		jtrProviders.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		// Allow tooltips in tree
+		// Allow tool tips in tree
 		ToolTipManager.sharedInstance().registerComponent(jtrProviders);
 		// Custom tree node renderer
 		jtrProviders.setCellRenderer(new ProviderTreeCellRend());
@@ -148,8 +148,7 @@ public class DProviderInfo
 			DefaultMutableTreeNode providerNode = new DefaultMutableTreeNode(provider.getName());
 			topNode.add(providerNode);
 
-			// Add child nodes to the provider node for provider
-			// decription and version
+			// Add child nodes to the provider node for provider description and version
 			providerNode.add(new DefaultMutableTreeNode(provider.getInfo()));
 			providerNode.add(new DefaultMutableTreeNode("" + provider.getVersion()));
 

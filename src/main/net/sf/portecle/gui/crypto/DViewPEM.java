@@ -71,7 +71,7 @@ public class DViewPEM
 	/**
 	 * Creates new DViewPEM dialog.
 	 * 
-	 * @param parent Parent windiw
+	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param obj Object to display encoding for
 	 * @param chooser File chooser for saving the PEM encoding
@@ -87,7 +87,7 @@ public class DViewPEM
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
 	 */

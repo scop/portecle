@@ -111,7 +111,7 @@ public class X509Ext
 	// Old - not to do?
 	// private static final String PRIMARY_KEY_USAGE_RESTRICTION_OID = "2.5.29.4";
 	/** Subject Directory Attributes OID */
-	// Std todo
+	// Std TODO
 	// private static final String SUBJECT_DIRECTORY_ATTRIBUTES_OID = "2.5.29.9";
 	/** Basic Constraints (old 0) OID */
 	// private static final String BASIC_CONSTRAINTS_OLD_0_OID = "2.5.29.10";
@@ -122,10 +122,10 @@ public class X509Ext
 	// Old - not to do?
 	// private static final String CRL_DISTRIBUTION_POINTS_OLD_OID = "2.5.29.25";
 	/** Issuing Distribution Point OID */
-	// Std todo
+	// Std TODO
 	// private static final String ISSUING_DISTRIBUTION_POINT_OID = "2.5.29.28";
 	/** Name Constraints OID */
-	// Std todo
+	// Std TODO
 	// private static final String NAME_CONSTRAINTS_OID = "2.5.29.30";
 	/** Policy Constraints (old) OID */
 	// Old - not to do?
@@ -1817,7 +1817,7 @@ public class X509Ext
 		// Create date object from string using formatter
 		Date date = dateFormat.parse(sTime);
 
-		// Re-format date - include timezone
+		// Re-format date - include time zone
 		sTime = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(date);
 
 		return escapeHtml(sTime);
@@ -1873,7 +1873,7 @@ public class X509Ext
 		}
 
 		/*
-		 * Put both dumps together in one string (hex, clear) with approriate padding between them (pad to
+		 * Put both dumps together in one string (hex, clear) with appropriate padding between them (pad to
 		 * array length)
 		 */
 		StringBuilder strBuff = new StringBuilder(sbHex.length() + sbClr.length() + 4);
@@ -1995,10 +1995,10 @@ public class X509Ext
 	}
 
 	/**
-	 * Gets a resource string, with fallback.
+	 * Gets a resource string, with fall back.
 	 * 
 	 * @param key the key
-	 * @param fallback the fallback key
+	 * @param fallback the fall back key
 	 * @return a resource string
 	 */
 	private static String getRes(String key, String fallback)

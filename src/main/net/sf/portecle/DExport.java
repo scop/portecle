@@ -103,7 +103,7 @@ class DExport
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws CryptoException Problem accessing the keystore entry
 	 */

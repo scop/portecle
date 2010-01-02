@@ -222,7 +222,7 @@ class DViewCertificate
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws CryptoException A problem was encountered getting the certificates' details
 	 */
@@ -613,7 +613,7 @@ class DViewCertificate
 		}
 		m_jtfValidFrom.setCaretPosition(0);
 
-		// Valid Until (include timezone)
+		// Valid Until (include time zone)
 		m_jtfValidUntil.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
 		    endDate));
 
@@ -629,7 +629,7 @@ class DViewCertificate
 		}
 		m_jtfValidUntil.setCaretPosition(0);
 
-		// Public Key (algorithm and keysize)
+		// Public Key (algorithm and key size)
 		int iKeySize = KeyPairUtil.getKeyLength(cert.getPublicKey());
 		m_jtfPublicKey.setText(cert.getPublicKey().getAlgorithm());
 

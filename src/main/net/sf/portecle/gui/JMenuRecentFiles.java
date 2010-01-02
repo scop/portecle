@@ -166,7 +166,7 @@ public class JMenuRecentFiles
 		// Remove all recent menu items from the menu
 		removeAllRecentFiles();
 
-		// Set position of new menu item to start of list (ie position 1)
+		// Set position of new menu item to start of list (i.e. position 1)
 		jmirfNew.setPosition(1);
 
 		// Item already exists outside of first position
@@ -201,7 +201,7 @@ public class JMenuRecentFiles
 			}
 		}
 
-		// Reintroduce reorganised recent menu items to the menu
+		// Reintroduce reorganized recent menu items to the menu
 		addAllRecentFiles();
 	}
 

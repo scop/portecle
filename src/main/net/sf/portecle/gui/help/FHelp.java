@@ -195,7 +195,7 @@ public class FHelp
 			}
 		});
 
-		// Put buttons in toolbar
+		// Put buttons in tool bar
 		JToolBar jtbTools = new JToolBar(m_sTitle);
 		jtbTools.setFloatable(false);
 		jtbTools.setRollover(true);
@@ -240,7 +240,7 @@ public class FHelp
 			return;
 		}
 
-		// Initialise navigation history
+		// Initialize navigation history
 		try
 		{
 			m_home = home;
@@ -296,8 +296,7 @@ public class FHelp
 	{
 		if (bShow)
 		{
-			// If the frame was minimised during its last display it
-			// won't be after this
+			// If the frame was minimized during its last display it won't be after this
 			setState(Frame.NORMAL);
 		}
 

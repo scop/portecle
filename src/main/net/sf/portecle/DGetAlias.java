@@ -74,7 +74,7 @@ class DGetAlias
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @param sOldAlias The alias to display initially
 	 * @param select Whether to pre-select the initially displayed alias
@@ -113,7 +113,7 @@ class DGetAlias
 	}
 
 	/**
-	 * Check that the alias is valid, ie that it is not blank.
+	 * Check that the alias is valid, i.e. that it is not blank.
 	 * 
 	 * @return True if the alias is valid, false otherwise
 	 */

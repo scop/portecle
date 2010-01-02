@@ -183,7 +183,7 @@ public class Version
 	@Override
 	public int hashCode()
 	{
-		// Initialise hash total to non-zero value
+		// Initialize hash total to non-zero value
 		int iResult = 27;
 
 		// For each component of the version...

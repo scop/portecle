@@ -82,7 +82,7 @@ class DGeneratingKeyPair
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -143,7 +143,7 @@ class DGeneratingKeyPair
 	/**
 	 * Get the generated key pair.
 	 * 
-	 * @return The generated key pair or null if the user cancelled the dialog
+	 * @return The generated key pair or null if the user canceled the dialog
 	 */
 	public KeyPair getKeyPair()
 	{

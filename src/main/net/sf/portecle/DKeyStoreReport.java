@@ -149,7 +149,7 @@ class DKeyStoreReport
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 * 
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 */
@@ -197,10 +197,10 @@ class DKeyStoreReport
 
 		// Load tree with keystore report
 		JTree jtrReport = new JTree(createReportNodes());
-		// Top accomodate node icons with spare space (they are 16 pixels tall)
+		// Top accommodate node icons with spare space (they are 16 pixels tall)
 		jtrReport.setRowHeight(18);
 		jtrReport.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		// Allow tooltips in tree
+		// Allow tool tips in tree
 		ToolTipManager.sharedInstance().registerComponent(jtrReport);
 		// Custom tree node renderer
 		jtrReport.setCellRenderer(new ReportTreeCellRend());
@@ -260,7 +260,7 @@ class DKeyStoreReport
 	{
 		try
 		{
-			// Gte report...
+			// Get report...
 			String sKeyStoreReport = null;
 
 			if (!bXml)
@@ -358,7 +358,7 @@ class DKeyStoreReport
 				{
 					Date dCreation = m_keystore.getCreationDate(sAlias);
 
-					// Include timezone
+					// Include time zone
 					String sCreation =
 					    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(dCreation);
 					sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.creation"),
@@ -462,7 +462,7 @@ class DKeyStoreReport
 						    RB.getString("DKeyStoreReport.report.validuntil"), sValidTo));
 						sbReport.append("\n");
 
-						// Public Key (algorithm and keysize)
+						// Public Key (algorithm and key size)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
 						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.pubkey"),
@@ -476,12 +476,12 @@ class DKeyStoreReport
 
 						byte[] bCert = x509Cert.getEncoded();
 
-						// MD5 Fingerprint
+						// MD5 fingerprint
 						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.md5"),
 						    DigestUtil.getMessageDigest(bCert, DigestType.MD5)));
 						sbReport.append("\n");
 
-						// SHA-1 Fingerprint
+						// SHA-1 fingerprint
 						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.sha1"),
 						    DigestUtil.getMessageDigest(bCert, DigestType.SHA1)));
 						sbReport.append("\n");
@@ -644,7 +644,7 @@ class DKeyStoreReport
 						certificateElement.appendChild(validUntilElement);
 						validUntilElement.appendChild(xmlDoc.createTextNode(sValidTo));
 
-						// Public Key (algorithm and keysize)
+						// Public Key (algorithm and key size)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
 
@@ -805,7 +805,7 @@ class DKeyStoreReport
 						        dValidTo);
 						certNode.add(new DefaultMutableTreeNode(sValidTo));
 
-						// Public Key (algorithm and keysize)
+						// Public Key (algorithm and key size)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
 						certNode.add(new DefaultMutableTreeNode(MessageFormat.format(
@@ -816,11 +816,11 @@ class DKeyStoreReport
 
 						byte[] bCert = x509Cert.getEncoded();
 
-						// MD5 Fingerprint
+						// MD5 fingerprint
 						certNode.add(new DefaultMutableTreeNode(DigestUtil.getMessageDigest(bCert,
 						    DigestType.MD5)));
 
-						// SHA-1 Fingerprint
+						// SHA-1 fingerprint
 						certNode.add(new DefaultMutableTreeNode(DigestUtil.getMessageDigest(bCert,
 						    DigestType.SHA1)));
 					}

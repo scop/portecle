@@ -69,7 +69,7 @@ public class DThrowableDetail
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -97,10 +97,10 @@ public class DThrowableDetail
 
 		// Load tree with info on throwable's stack trace
 		JTree jtrThrowable = new JTree(createThrowableNodes());
-		// Top accomodate node icons with spare space (they are 16 pixels tall)
+		// Top accommodate node icons with spare space (they are 16 pixels tall)
 		jtrThrowable.setRowHeight(18);
 		jtrThrowable.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		// Allow tooltips in tree
+		// Allow tool tips in tree
 		ToolTipManager.sharedInstance().registerComponent(jtrThrowable);
 		// Custom tree node renderer
 		jtrThrowable.setCellRenderer(new ThrowableTreeCellRend());
@@ -131,7 +131,7 @@ public class DThrowableDetail
 	}
 
 	/**
-	 * Create tree node with information on the throwable and it's cause throwables.
+	 * Create tree node with information on the throwable and its cause throwables.
 	 * 
 	 * @return The tree node
 	 */

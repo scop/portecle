@@ -80,7 +80,7 @@ class RevokedCertsTableCellRend
 		// Revocation Date column - format date
 		else
 		{
-			// Include timezone
+			// Include time zone
 			cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
 			    (Date) value));
 		}

@@ -148,7 +148,7 @@ class DViewCRL
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -397,7 +397,7 @@ class DViewCRL
 		m_jtfIssuer.setText(m_crl.getIssuerDN().toString());
 		m_jtfIssuer.setCaretPosition(0);
 
-		// Effective Date (include timezone)
+		// Effective Date (include time zone)
 		m_jtfEffectiveDate.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
 		    effectiveDate));
 
@@ -477,8 +477,8 @@ class DViewCRL
 	}
 
 	/**
-	 * CRL entry selected or deselected. Enable/disable the "CRL Extensions" button accordingly (ie. enable if
-	 * if only one extension is selected and it has extensions.
+	 * CRL entry selected or deselected. Enable/disable the "CRL Extensions" button accordingly (i.e. enable
+	 * it if only one extension is selected and it has extensions.
 	 */
 	private void crlEntrySelection()
 	{

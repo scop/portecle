@@ -140,7 +140,7 @@ public class FileChooserFactory
 	/** Separator to use in informational file name lists */
 	private static final String FILELIST_SEPARATOR = ";";
 
-	/** Filename of the default CA certs keystore. */
+	/** Filename of the default CA certificates keystore. */
 	public static final String CACERTS_FILENAME = "cacerts";
 
 	/** Private to prevent construction */
@@ -377,11 +377,11 @@ public class FileChooserFactory
 	}
 
 	/**
-	 * Gets a default file based on the basename and extension, filtering uncomfortable characters.
+	 * Gets a default file based on the base name and extension, filtering uncomfortable characters.
 	 * 
 	 * @param basename base filename (without extension)
 	 * @param extension the extension
-	 * @return a file named by deriving from basename, null if a sane name can't be worked out
+	 * @return a file named by deriving from base name, null if a sane name can't be worked out
 	 */
 	private static File getDefaultFile(String basename, String extension)
 	{

@@ -57,7 +57,7 @@ public class PortecleJDialog
 	}
 
 	/**
-	 * Initialise the dialog.
+	 * Initialize the dialog.
 	 */
 	protected void initDialog()
 	{

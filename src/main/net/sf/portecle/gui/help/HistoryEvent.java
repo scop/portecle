@@ -29,10 +29,10 @@ import java.util.EventObject;
 public class HistoryEvent
     extends EventObject
 {
-	/** Is history back navigabale? */
+	/** Is history back navigable? */
 	private boolean m_bBackAvailable;
 
-	/** Is history forward navigabale? */
+	/** Is history forward navigable? */
 	private boolean m_bForwardAvailable;
 
 	/**

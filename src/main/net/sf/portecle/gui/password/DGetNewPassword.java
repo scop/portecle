@@ -82,7 +82,7 @@ public class DGetNewPassword
 	}
 
 	/**
-	 * Initialise the dialog's GUI components.
+	 * Initialize the dialog's GUI components.
 	 */
 	private void initComponents()
 	{
@@ -119,8 +119,7 @@ public class DGetNewPassword
 	 * Check for the following:
 	 * <ul>
 	 * <li>That the user has supplied and confirmed a password.
-	 * <li>That the password's match.
-	 * <li>That they have a length greater than a prescribed minimum.
+	 * <li>That the passwords match.
 	 * </ul>
 	 * Store the new password in this object.
 	 * 

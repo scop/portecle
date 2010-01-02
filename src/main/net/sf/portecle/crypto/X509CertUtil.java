@@ -381,8 +381,7 @@ public final class X509CertUtil
 
 		X509Certificate issuerCert = null;
 
-		// Find the root issuer (ie certificate where issuer is the same
-		// as subject)
+		// Find the root issuer (i.e. certificate where issuer is the same as subject)
 		for (X509Certificate aCert : tmpCerts)
 		{
 			if (aCert.getIssuerDN().equals(aCert.getSubjectDN()))
@@ -393,7 +392,7 @@ public final class X509CertUtil
 			}
 		}
 
-		// Couldn't find a root issuer so just return the un-ordered array
+		// Couldn't find a root issuer so just return the unordered array
 		if (issuerCert == null)
 		{
 			return certs;
@@ -537,14 +536,14 @@ public final class X509CertUtil
 	 * Generate a self-signed X509 Version 1 certificate for the supplied key pair and signature algorithm.
 	 * 
 	 * @return The generated certificate
-	 * @param sCommonName Common name certficate attribute
-	 * @param sOrganisationUnit Organisation Unit certificate attribute
-	 * @param sOrganisation Organisation certificate attribute
+	 * @param sCommonName Common name certificate attribute
+	 * @param sOrganisationUnit Organization Unit certificate attribute
+	 * @param sOrganisation Organization certificate attribute
 	 * @param sLocality Locality certificate
 	 * @param sState State certificate attribute
 	 * @param sEmailAddress Email Address certificate attribute
 	 * @param sCountryCode Country Code certificate attribute
-	 * @param iValidity Validity period of cerficate in days
+	 * @param iValidity Validity period of certificate in days
 	 * @param publicKey Public part of key pair
 	 * @param privateKey Private part of key pair
 	 * @param signatureType Signature Type
