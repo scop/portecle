@@ -173,7 +173,7 @@ public class FPortecle
 	// EXPERIMENTAL enables/disables the PKCS #11 menu item
 	private static final int RECENT_FILES_INDEX = EXPERIMENTAL ? 7 : 6;
 
-	/** Default look & feel class name */
+	/** Default look &amp; feel class name */
 	private static final String DEFAULT_LOOK_FEEL = UIManager.getCrossPlatformLookAndFeelClassName();
 
 	/** Default CA certs keystore file */
@@ -202,10 +202,10 @@ public class FPortecle
 	/** Frame for Help System */
 	private FHelp m_fHelp;
 
-	/** Look & Feel setting made in options (picked up by saveAppPrefs) */
+	/** Look &amp; Feel setting made in options (picked up by saveAppPrefs) */
 	private String lookFeelClassName;
 
-	/** Look & Feel setting made in options (picked up by saveAppPrefs) */
+	/** Look &amp; Feel setting made in options (picked up by saveAppPrefs) */
 	private Boolean m_bLookFeelDecorationOptions;
 
 	/** Currently selected alias */
@@ -6661,7 +6661,7 @@ public class FPortecle
 		/**
 		 * Construct CreateAndShowGui.
 		 * 
-		 * @param fKeyStore Keystore file to open initially (supply null if none)
+		 * @param file Keystore file to open initially (supply null if none)
 		 */
 		public CreateAndShowGui(File file)
 		{

@@ -48,7 +48,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Modal dialog to allow the users to configure Portecle options, CA certs keystore, and look & feel.
+ * Modal dialog to allow the users to configure Portecle options, CA certs keystore, and look &amp; feel.
  */
 class DOptions
     extends PortecleJDialog
@@ -59,10 +59,10 @@ class DOptions
 	/** CA certs file text field */
 	private JTextField m_jtfCaCertsFile;
 
-	/** Look & feel combo box */
+	/** Look &amp; feel combo box */
 	private JComboBox m_jcbLookFeel;
 
-	/** Look & feel decorated check box */
+	/** Look &amp; feel decorated check box */
 	private JCheckBox m_jcbLookFeelDecorated;
 
 	/** Use CA certs keystore file? */
@@ -75,10 +75,10 @@ class DOptions
 	private TreeMap<String, UIManager.LookAndFeelInfo> lookFeelInfos =
 	    new TreeMap<String, UIManager.LookAndFeelInfo>();
 
-	/** Chosen look & feel information */
+	/** Chosen look &amp; feel information */
 	private String lookFeelClassName;
 
-	/** Use look & feel for window decoration? */
+	/** Use look &amp; feel for window decoration? */
 	private boolean m_bLookFeelDecorated;
 
 	/**
@@ -284,9 +284,9 @@ class DOptions
 	}
 
 	/**
-	 * Get the chosen look & feel class name.
+	 * Get the chosen look &amp; feel class name.
 	 * 
-	 * @return The chosen look & feel class name
+	 * @return The chosen look &amp; feel class name
 	 */
 	public String getLookFeelClassName()
 	{
@@ -294,7 +294,7 @@ class DOptions
 	}
 
 	/**
-	 * Get whether or not the look & feel should be used for window decoration.
+	 * Get whether or not the look &amp; feel should be used for window decoration.
 	 * 
 	 * @return True id it should, false otherwise.
 	 */
