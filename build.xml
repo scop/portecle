@@ -47,7 +47,7 @@
       debuglevel="${build.debuglevel}"
       encoding="${build.encoding}">
       <classpath refid="build.classpath" />
-      <compilerarg compiler="javac1.5" value="-Xlint:all,-serial" />
+      <compilerarg compiler="javac1.6" value="-Xlint:all,-serial" />
       <compilerarg compiler="jikes" value="+P" />
       <!-- TODO: +Z2 sometime -->
       <compilerarg compiler="jikes" value="+Z" />
