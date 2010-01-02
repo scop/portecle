@@ -168,6 +168,7 @@ class DKeyStoreReport
 		jbCopy.setToolTipText(RB.getString("DKeyStoreReport.jbCopy.tooltip"));
 		jbCopy.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				copyPressed(false);
@@ -181,6 +182,7 @@ class DKeyStoreReport
 		jbCopyXml.setToolTipText(RB.getString("DKeyStoreReport.jbCopyXml.tooltip"));
 		jbCopyXml.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				copyPressed(true);

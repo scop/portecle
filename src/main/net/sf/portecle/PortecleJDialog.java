@@ -86,6 +86,7 @@ public class PortecleJDialog
 	{
 		Action okAction = new AbstractAction()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				okPressed();
@@ -115,6 +116,7 @@ public class PortecleJDialog
 	{
 		Action cancelAction = new AbstractAction()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				cancelPressed();

@@ -68,6 +68,7 @@ public class DGetPassword
 	 * 
 	 * @return The password or null if none was set
 	 */
+	@Override
 	public char[] getPassword()
 	{
 		if (m_cPassword == null)

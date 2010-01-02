@@ -97,6 +97,7 @@ public class DThrowable
 
 		jbDetails.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				showThrowableDetail();

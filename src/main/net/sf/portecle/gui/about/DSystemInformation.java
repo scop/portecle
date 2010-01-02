@@ -245,6 +245,7 @@ public class DSystemInformation
 		    0));
 		jbSystemProperties.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				systemPropertiesPressed();

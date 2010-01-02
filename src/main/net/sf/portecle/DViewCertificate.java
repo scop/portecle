@@ -244,6 +244,7 @@ class DViewCertificate
 		m_jbLeft.setMnemonic(KeyEvent.VK_LEFT);
 		m_jbLeft.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				leftPressed();
@@ -259,6 +260,7 @@ class DViewCertificate
 		m_jbRight.setMnemonic(KeyEvent.VK_RIGHT);
 		m_jbRight.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				rightPressed();
@@ -410,6 +412,7 @@ class DViewCertificate
 		m_jbExtensions.setToolTipText(RB.getString("DViewCertificate.m_jbExtensions.tooltip"));
 		m_jbExtensions.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				extensionsPressed();
@@ -423,6 +426,7 @@ class DViewCertificate
 		jbPemEncoding.setToolTipText(RB.getString("DViewCertificate.jbPemEncoding.tooltip"));
 		jbPemEncoding.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				pemEncodingPressed();

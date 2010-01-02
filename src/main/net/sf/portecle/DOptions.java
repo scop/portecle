@@ -122,6 +122,7 @@ class DOptions
 		jbBrowseCaCertsFile.setToolTipText(RB.getString("DOptions.jbBrowseCaCertsFile.tooltip"));
 		jbBrowseCaCertsFile.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				browsePressed();
@@ -134,6 +135,7 @@ class DOptions
 		jbResetCaCertsFile.setToolTipText(RB.getString("DOptions.jbResetCaCertsFile.tooltip"));
 		jbResetCaCertsFile.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				resetPressed();
@@ -278,7 +280,7 @@ class DOptions
 	 * 
 	 * @return True if it has, false otherwise
 	 */
-	public boolean getUseCaCerts()
+	public boolean isUseCaCerts()
 	{
 		return m_bUseCaCerts;
 	}
@@ -298,7 +300,7 @@ class DOptions
 	 * 
 	 * @return True id it should, false otherwise.
 	 */
-	public boolean getLookFeelDecoration()
+	public boolean isLookFeelDecoration()
 	{
 		return m_bLookFeelDecorated;
 	}

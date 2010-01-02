@@ -57,6 +57,7 @@ class RecentKeyStoreFileActionListener
 	 * 
 	 * @param evt Action event
 	 */
+	@Override
 	public void actionPerformed(ActionEvent evt)
 	{
 		m_fPortecle.setDefaultStatusBarText();

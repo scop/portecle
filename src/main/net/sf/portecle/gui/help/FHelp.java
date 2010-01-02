@@ -119,6 +119,7 @@ public class FHelp
 		jbHome.setToolTipText(RB.getString("FHelp.jbHome.tooltip"));
 		jbHome.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				try
@@ -144,6 +145,7 @@ public class FHelp
 		m_jbBack.setToolTipText(RB.getString("FHelp.m_jbBack.tooltip"));
 		m_jbBack.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				URL temp = m_history.goBack();
@@ -173,6 +175,7 @@ public class FHelp
 		m_jbForward.setToolTipText(RB.getString("FHelp.m_jbForward.tooltip"));
 		m_jbForward.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				URL temp = m_history.goForward();
@@ -306,6 +309,7 @@ public class FHelp
 	 * 
 	 * @param evt The HistoryEvent
 	 */
+	@Override
 	public void historyStatusChanged(HistoryEvent evt)
 	{
 		m_jbBack.setEnabled(evt.isBackAvailable());

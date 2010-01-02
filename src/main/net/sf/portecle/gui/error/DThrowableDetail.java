@@ -84,6 +84,7 @@ public class DThrowableDetail
 		jbCopy.setToolTipText(RB.getString("DThrowableDetail.jbCopy.tooltip"));
 		jbCopy.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				copyPressed();

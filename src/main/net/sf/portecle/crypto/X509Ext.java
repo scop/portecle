@@ -1618,10 +1618,7 @@ public class X509Ext
 								sb.append(nrstr);
 								sb.append("</li>");
 							}
-							else
-							{
-								// TODO
-							}
+							// else TODO
 						}
 					}
 					else

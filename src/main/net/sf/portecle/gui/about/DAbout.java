@@ -75,6 +75,7 @@ public class DAbout
 
 		jbSystemInformation.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				showSystemInformation();

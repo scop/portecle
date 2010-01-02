@@ -111,6 +111,7 @@ public class Version
 	 * @param cmpVersion Object to compare Version with.
 	 * @return 0 if the equal, -1 if less, 1 if more.
 	 */
+	@Override
 	public int compareTo(Version cmpVersion)
 	{
 		int[] iCmpSections = cmpVersion.getSections();

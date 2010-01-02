@@ -61,6 +61,7 @@ public class StatusBarChangeHandler
 	 * 
 	 * @param evt The change event
 	 */
+	@Override
 	public void stateChanged(ChangeEvent evt)
 	{
 		if (m_jmi.isArmed())

@@ -175,6 +175,7 @@ class DViewCSR
 		jbPemEncoding.setToolTipText(RB.getString("DViewCSR.jbPemEncoding.tooltip"));
 		jbPemEncoding.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				pemEncodingPressed();

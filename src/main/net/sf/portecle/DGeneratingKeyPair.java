@@ -162,6 +162,7 @@ class DGeneratingKeyPair
 		/**
 		 * Generate a key pair.
 		 */
+		@Override
 		public void run()
 		{
 			// Generate key pair

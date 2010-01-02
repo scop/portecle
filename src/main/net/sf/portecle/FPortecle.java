@@ -182,7 +182,7 @@ public class FPortecle
 	        FileChooserFactory.CACERTS_FILENAME);
 
 	/** The last directory accessed by the application */
-	private LastDir m_lastDir = new LastDir();
+	private final LastDir m_lastDir = new LastDir();
 
 	/** Use CA certs keystore file? */
 	private boolean m_bUseCaCerts;
@@ -2208,16 +2208,7 @@ public class FPortecle
 	 */
 	/* package private */boolean needSave()
 	{
-		boolean bNeedSave = false;
-
-		if (m_keyStoreWrap != null)
-		{
-			if (m_keyStoreWrap.isChanged())
-			{
-				bNeedSave = true;
-			}
-		}
-		return bNeedSave;
+		return (m_keyStoreWrap != null && m_keyStoreWrap.isChanged());
 	}
 
 	/**
@@ -2234,13 +2225,13 @@ public class FPortecle
 		File fKeyStoreFile = m_keyStoreWrap.getKeyStoreFile();
 		String sKeyStoreName;
 
-		if (fKeyStoreFile != null)
+		if (fKeyStoreFile == null)
 		{
-			sKeyStoreName = fKeyStoreFile.getName();
+			sKeyStoreName = RB.getString("FPortecle.Untitled");
 		}
 		else
 		{
-			sKeyStoreName = RB.getString("FPortecle.Untitled");
+			sKeyStoreName = fKeyStoreFile.getName();
 		}
 
 		String sMessage =
@@ -2378,14 +2369,19 @@ public class FPortecle
 				SSLContext sc = SSLContext.getInstance("SSL");
 				X509TrustManager[] tm = { new X509TrustManager()
 				{
+					@Override
 					public void checkClientTrusted(X509Certificate[] chain, String authType)
 					{
+						// Trust anything
 					}
 
+					@Override
 					public void checkServerTrusted(X509Certificate[] chain, String authType)
 					{
+						// Trust anything
 					}
 
+					@Override
 					public X509Certificate[] getAcceptedIssuers()
 					{
 						return new X509Certificate[0];
@@ -2943,16 +2939,14 @@ public class FPortecle
 
 				X509Certificate[] trustChain = X509CertUtil.establishTrust(compKeyStores, certs[0]);
 
-				if (trustChain != null)
-				{
-					newCertChain = trustChain;
-				}
-				else
+				if (trustChain == null)
 				{
 					JOptionPane.showMessageDialog(this, RB.getString("FPortecle.NoTrustCaReply.message"),
 					    RB.getString("FPortecle.ImportCaReply.Title"), JOptionPane.ERROR_MESSAGE);
 					return false;
 				}
+
+				newCertChain = trustChain;
 			}
 
 			// Get the entry's password (we may already know it from the wrapper)
@@ -3660,13 +3654,13 @@ public class FPortecle
 		m_fCaCertsFile = fTmp;
 
 		// Use CA certs?
-		m_bUseCaCerts = dOptions.getUseCaCerts();
+		m_bUseCaCerts = dOptions.isUseCaCerts();
 
 		// Look & feel
 		String newLookFeelClassName = dOptions.getLookFeelClassName();
 
 		// Look & feel decoration
-		boolean bLookFeelDecoration = dOptions.getLookFeelDecoration();
+		boolean bLookFeelDecoration = dOptions.isLookFeelDecoration();
 
 		// Look & feel/decoration changed?
 		/*
@@ -3674,28 +3668,25 @@ public class FPortecle
 		 * L&F (one example is the GTK+ one in J2SE 5 RC2 (Linux), where the former is "GTK+" and the latter
 		 * is "GTK look and feel"). Therefore, compare the class names instead.
 		 */
-		if (newLookFeelClassName != null)
+		if (newLookFeelClassName != null &&
+		    (!newLookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) || bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated()))
 		{
-			if (!newLookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) ||
-			    bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated())
-			{
-				// Yes - save selections to be picked up by app preferences,
-				lookFeelClassName = newLookFeelClassName;
-				m_bLookFeelDecorationOptions = bLookFeelDecoration;
-				saveAppPrefs();
+			// Yes - save selections to be picked up by app preferences,
+			lookFeelClassName = newLookFeelClassName;
+			m_bLookFeelDecorationOptions = bLookFeelDecoration;
+			saveAppPrefs();
 
-				JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
-				JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
-				try
-				{
-					UIManager.setLookAndFeel(lookFeelClassName);
-					SwingUtilities.updateComponentTreeUI(getRootPane());
-					pack();
-				}
-				catch (Exception e)
-				{
-					DThrowable.showAndWait(this, null, e);
-				}
+			JFrame.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
+			JDialog.setDefaultLookAndFeelDecorated(bLookFeelDecoration);
+			try
+			{
+				UIManager.setLookAndFeel(lookFeelClassName);
+				SwingUtilities.updateComponentTreeUI(getRootPane());
+				pack();
+			}
+			catch (Exception e)
+			{
+				DThrowable.showAndWait(this, null, e);
 			}
 		}
 	}
@@ -3863,7 +3854,11 @@ public class FPortecle
 			{
 				Set<String> oldExts = m_keyStoreWrap.getKeyStoreType().getFilenameExtensions();
 				Set<String> newExts = keyStoreType.getFilenameExtensions();
-				if (!oldExts.isEmpty() && !newExts.isEmpty())
+				if (oldExts.isEmpty() || newExts.isEmpty())
+				{
+					m_keyStoreWrap.setKeyStoreFile(null);
+				}
+				else
 				{
 					String newExt = newExts.iterator().next();
 					for (String oldExt : oldExts)
@@ -3880,10 +3875,6 @@ public class FPortecle
 					{
 						m_keyStoreWrap.setKeyStoreFile(null);
 					}
-				}
-				else
-				{
-					m_keyStoreWrap.setKeyStoreFile(null);
 				}
 			}
 			m_keyStoreWrap.setChanged(true);
@@ -5740,6 +5731,7 @@ public class FPortecle
 	 * 
 	 * @param sStatus Text to display
 	 */
+	@Override
 	public void setStatusBarText(String sStatus)
 	{
 		m_jlStatusBar.setText(sStatus);
@@ -5748,6 +5740,7 @@ public class FPortecle
 	/**
 	 * Set the text in the staus bar to reflect the status of the currently loaded keystore.
 	 */
+	@Override
 	public void setDefaultStatusBarText()
 	{
 		// No keystore loaded...
@@ -6556,6 +6549,7 @@ public class FPortecle
 	{
 		protected abstract void act();
 
+		@Override
 		public void actionPerformed(ActionEvent evt)
 		{
 			setDefaultStatusBarText();
@@ -6563,6 +6557,7 @@ public class FPortecle
 			repaint();
 			new Thread(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					try
@@ -6586,6 +6581,7 @@ public class FPortecle
 	{
 		protected abstract void act();
 
+		@Override
 		public void actionPerformed(ActionEvent evt)
 		{
 			setDefaultStatusBarText();
@@ -6593,6 +6589,7 @@ public class FPortecle
 			repaint();
 			new Thread(new Runnable()
 			{
+				@Override
 				public void run()
 				{
 					try
@@ -6656,7 +6653,7 @@ public class FPortecle
 	{
 
 		/** Keystore file to open initially */
-		private File m_file;
+		private final File m_file;
 
 		/**
 		 * Construct CreateAndShowGui.
@@ -6671,6 +6668,7 @@ public class FPortecle
 		/**
 		 * Create and show Portecle GUI.
 		 */
+		@Override
 		public void run()
 		{
 			initLookAndFeel();

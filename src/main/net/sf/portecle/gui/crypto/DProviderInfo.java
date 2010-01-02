@@ -83,6 +83,7 @@ public class DProviderInfo
 		jbCopy.setToolTipText(RB.getString("DProviderInfo.jbCopy.tooltip"));
 		jbCopy.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				copyPressed();
@@ -96,7 +97,7 @@ public class DProviderInfo
 
 		// Load tree with info on loaded security providers
 		JTree jtrProviders = new JTree(createProviderNodes());
-		// Top accomodate node icons with spare space (they are 16 pixels tall)
+		// Top accommodate node icons with spare space (they are 16 pixels tall)
 		jtrProviders.setRowHeight(18);
 		jtrProviders.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		// Allow tooltips in tree

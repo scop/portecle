@@ -231,6 +231,7 @@ class DViewCRL
 		m_jbCrlExtensions.setToolTipText(RB.getString("DViewCRL.m_jbCrlExtensions.tooltip"));
 		m_jbCrlExtensions.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				crlExtensionsPressed();
@@ -312,6 +313,7 @@ class DViewCRL
 		m_jbCrlEntryExtensions.setEnabled(false);
 		m_jbCrlEntryExtensions.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent evt)
 			{
 				crlEntryExtensionsPressed();
