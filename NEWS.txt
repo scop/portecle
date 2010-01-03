@@ -5,7 +5,7 @@ New features:
 - Recognition and decoding support for some additional certificate
   extensions.
 - Support for DSA certificates using the SHA224withDSA, SHA256withDSA,
-  SHA384withDSA, and SHA512withDSA sinature algorithms.
+  SHA384withDSA, and SHA512withDSA signature algorithms.
 - In addition to keystores, certificates, CRL's and CSR's can now be
   passed as command line arguments.
 
