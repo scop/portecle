@@ -1848,6 +1848,12 @@ public class FPortecle
 			return false;
 		}
 
+		// Update last accessed directory
+		if (updateLastDir)
+		{
+			m_lastDir.updateLastDir(fKeyStore);
+		}
+
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
 		    new DGetPassword(this, MessageFormat.format(RB.getString("FPortecle.GetKeyStorePassword.Title"),
@@ -1922,12 +1928,6 @@ public class FPortecle
 
 			// Add keystore file to recent files in file menu
 			m_jmrfFile.add(createRecentFileMenuItem(fKeyStore));
-
-			// Update last accessed directory
-			if (updateLastDir)
-			{
-				m_lastDir.updateLastDir(fKeyStore);
-			}
 
 			return true;
 		}

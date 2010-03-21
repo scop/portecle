@@ -1,3 +1,9 @@
+New in Portecle x.x (201x-xx-xx):
+---------------------------------
+
+Enhancements:
+- Miscellaneous user interface improvements.
+
 New in Portecle 1.5 (2010-01-03):
 ---------------------------------
 
