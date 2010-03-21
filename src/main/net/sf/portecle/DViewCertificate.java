@@ -186,9 +186,9 @@ class DViewCertificate
 			{
 				// None of the types worked - show each of the errors?
 				int iSelected =
-				    JOptionPane.showConfirmDialog(parent, MessageFormat.format(
+				    SwingHelper.showConfirmDialog(parent, MessageFormat.format(
 				        RB.getString("FPortecle.NoOpenCertificate.message"), url),
-				        RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.OpenCertificate.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (Exception e : exs)

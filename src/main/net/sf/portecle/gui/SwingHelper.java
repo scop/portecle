@@ -21,9 +21,11 @@
 
 package net.sf.portecle.gui;
 
+import java.awt.Component;
 import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
 
@@ -80,5 +82,23 @@ public class SwingHelper
 	{
 		component.select(0, component.getText().length());
 		component.requestFocusInWindow();
+	}
+
+	/**
+	 * Shows a simple yes/no confirmation dialog, with the "no" option selected by default. This method exists
+	 * only because there's apparently no easy way to accomplish that with JOptionPane's static helper
+	 * methods.
+	 * 
+	 * @param parentComponent
+	 * @param message
+	 * @param title
+	 * @return
+	 * @see JOptionPane#showConfirmDialog(Component, Object, String, int)
+	 */
+	public static int showConfirmDialog(Component parentComponent, Object message, String title)
+	{
+		String[] options = new String[] { "Yes", "No" };
+		return JOptionPane.showOptionDialog(parentComponent, message, title, JOptionPane.YES_NO_OPTION,
+		    JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 	}
 }

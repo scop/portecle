@@ -1904,9 +1904,9 @@ public class FPortecle
 					tried.delete(0, 2); // Chop leading ", "
 				}
 				int iSelected =
-				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
+				    SwingHelper.showConfirmDialog(this, MessageFormat.format(
 				        RB.getString("FPortecle.NoOpenKeyStoreFile.message"), fKeyStore, tried),
-				        RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.OpenKeyStoreFile.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (CryptoException cex : cexs)
@@ -2744,9 +2744,9 @@ public class FPortecle
 			{
 				// None of the types worked - show each of the errors?
 				int iSelected =
-				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
+				    SwingHelper.showConfirmDialog(this, MessageFormat.format(
 				        RB.getString("FPortecle.NoOpenCertificate.message"), fCertFile),
-				        RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.OpenCertificate.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (Exception e : exs)
@@ -3337,9 +3337,9 @@ public class FPortecle
 		if (tempStore == null && !exceptions.isEmpty())
 		{
 			int iSelected =
-			    JOptionPane.showConfirmDialog(this, MessageFormat.format(
+			    SwingHelper.showConfirmDialog(this, MessageFormat.format(
 			        RB.getString("FPortecle.NoOpenKeyPairFile.message"), fKeyPairFile),
-			        RB.getString("FPortecle.ImportKeyPairFile.Title"), JOptionPane.YES_NO_OPTION);
+			        RB.getString("FPortecle.ImportKeyPairFile.Title"));
 			if (iSelected == JOptionPane.YES_OPTION)
 			{
 				for (Exception e : exceptions)
@@ -3483,9 +3483,9 @@ public class FPortecle
 					tried.delete(0, 2); // Chop leading ", "
 				}
 				int iSelected =
-				    JOptionPane.showConfirmDialog(this, MessageFormat.format(
+				    SwingHelper.showConfirmDialog(this, MessageFormat.format(
 				        RB.getString("FPortecle.NoOpenCaCertsKeyStore.message"), m_fCaCertsFile, tried),
-				        RB.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.YES_NO_OPTION);
+				        RB.getString("FPortecle.OpenCaCertsKeyStore.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (CryptoException cex : cexs)
