@@ -4,6 +4,9 @@ New in Portecle x.x (201x-xx-xx):
 Enhancements:
 - Miscellaneous user interface improvements.
 
+Miscellaneous:
+- Bundled Bouncy Castle provider jar upgraded to version 1.45.
+
 New in Portecle 1.5 (2010-01-03):
 ---------------------------------
 
