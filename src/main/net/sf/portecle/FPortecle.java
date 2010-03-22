@@ -4,6 +4,7 @@
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
  *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
+ *             2010 Lam Chau, lamchau@gmail.com
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -30,6 +31,10 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.InvalidDnDOperationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -62,6 +67,7 @@ import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -76,6 +82,7 @@ import javax.swing.Action;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -96,6 +103,7 @@ import javax.swing.LookAndFeel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -1275,7 +1283,7 @@ public class FPortecle
 				maybeShowPopup(evt);
 			}
 		});
-
+		m_jpKeyStoreTable.setTransferHandler(m_jtKeyStore.getTransferHandler());
 		getContentPane().add(m_jpKeyStoreTable, BorderLayout.CENTER);
 	}
 
@@ -6623,6 +6631,7 @@ public class FPortecle
 					}
 				}
 			});
+			setTransferHandler(new FileTransferHander());
 		}
 
 		private String getSelectedType()
@@ -6636,6 +6645,131 @@ public class FPortecle
 			int selectedRow = getSelectedRow();
 			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, 1) : null;
 		}
+
+		private class FileTransferHander
+		    extends TransferHandler
+		{
+			private final DataFlavor fileFlavor = DataFlavor.javaFileListFlavor;
+
+			private File file;
+
+			/*
+			 * (non-Javadoc)
+			 * @see javax.swing.TransferHandler#canImport(javax.swing.TransferHandler.TransferSupport)
+			 */
+			@Override
+			public boolean canImport(TransferSupport support)
+			{
+				if (support.isDrop() && support.isDataFlavorSupported(fileFlavor))
+				{
+					try
+					{
+						Object o = support.getTransferable().getTransferData(fileFlavor);
+						if (o instanceof List<?>)
+						{
+							List<?> list = (List<?>) o;
+							// Ignore multiple files or directories
+							if (list.size() == 1)
+							{
+								File f = new File(list.get(0).toString());
+								if (f.isFile())
+								{
+									file = f.getAbsoluteFile();
+									m_lastDir.updateLastDir(file);
+									return true;
+								}
+							}
+						}
+					}
+					catch (InvalidDnDOperationException e)
+					{
+						// Workaround for known bug:
+						// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6759788
+						return file != null;
+					}
+					catch (IOException e)
+					{
+						// Ignore this because getTransferable thinks we're going to use this object for
+						// something, we really just want to check and show the user as soon as possible that
+						// the file (most likely a directory) is not handled.
+					}
+					catch (UnsupportedFlavorException e)
+					{
+						// Ignore this because we've already explicitly defined which file types we'll
+						// support, it shouldn't get here.
+					}
+				}
+				return false;
+			}
+
+			/*
+			 * (non-Javadoc)
+			 * @see javax.swing.TransferHandler#importData(javax.swing.JComponent,
+			 * java.awt.datatransfer.Transferable)
+			 */
+			@Override
+			public boolean importData(JComponent comp, Transferable t)
+			{
+				if (file != null)
+				{
+					// Will refactor this later, taken from openKeystore();
+					// Does the current keystore contain unsaved changes?
+					if (needSave())
+					{
+						// Yes - ask the user if it should be saved
+						int iWantSave = wantSave();
+
+						if ((iWantSave == JOptionPane.YES_OPTION && !saveKeyStore()) ||
+						    iWantSave == JOptionPane.CANCEL_OPTION)
+						{
+							return false;
+						}
+					}
+					return openFile(file);
+				}
+				return false;
+			}
+		}
+	}
+
+	/**
+	 * Method to determine and open generic files dropped into Portecle.
+	 * 
+	 * @param file the file to open
+	 * @return true if the file can be opened, false otherwise
+	 */
+	public boolean openFile(File file)
+	{
+		if (file != null)
+		{
+			String fileName = file.getName().toLowerCase(Locale.ENGLISH);
+			for (String ext : FileChooserFactory.CERT_EXTS)
+			{
+				if (fileName.endsWith("." + ext))
+				{
+					examineCert(file);
+					return true;
+				}
+			}
+			for (String ext : FileChooserFactory.CRL_EXTS)
+			{
+				if (fileName.endsWith("." + ext))
+				{
+					examineCRL(file);
+					return true;
+				}
+			}
+			for (String ext : FileChooserFactory.CSR_EXTS)
+			{
+				if (fileName.endsWith("." + ext))
+				{
+					examineCSR(file);
+					return true;
+				}
+			}
+			return openKeyStoreFile(file, true);
+		}
+		return false;
 	}
 
 	/**
@@ -6667,35 +6801,7 @@ public class FPortecle
 			initLookAndFeel();
 			FPortecle fPortecle = new FPortecle();
 			fPortecle.setVisible(true);
-			if (m_file != null)
-			{
-				String fileName = m_file.getName().toLowerCase(Locale.ENGLISH);
-				for (String ext : FileChooserFactory.CERT_EXTS)
-				{
-					if (fileName.endsWith("." + ext))
-					{
-						fPortecle.examineCert(m_file);
-						return;
-					}
-				}
-				for (String ext : FileChooserFactory.CRL_EXTS)
-				{
-					if (fileName.endsWith("." + ext))
-					{
-						fPortecle.examineCRL(m_file);
-						return;
-					}
-				}
-				for (String ext : FileChooserFactory.CSR_EXTS)
-				{
-					if (fileName.endsWith("." + ext))
-					{
-						fPortecle.examineCSR(m_file);
-						return;
-					}
-				}
-				fPortecle.openKeyStoreFile(m_file, true);
-			}
+			fPortecle.openFile(m_file);
 		}
 	}
 
