@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Portecle
 Comment=Multipurpose keystore and certificate tool
+Comment[fi]=Monikäyttöinen avainvarasto- ja varmennetyökalu
 Exec=portecle
 Icon=portecle
 Terminal=false
