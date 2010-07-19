@@ -56,6 +56,7 @@ public class SwingHelper
 			{
 				SwingUtilities.invokeAndWait(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						window.setVisible(true);

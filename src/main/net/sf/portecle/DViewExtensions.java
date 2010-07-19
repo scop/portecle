@@ -140,6 +140,7 @@ class DViewExtensions
 		selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		selectionModel.addListSelectionListener(new ListSelectionListener()
 		{
+			@Override
 			public void valueChanged(ListSelectionEvent evt)
 			{
 				if (!evt.getValueIsAdjusting())

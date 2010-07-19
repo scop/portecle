@@ -277,6 +277,7 @@ class DViewCRL
 		listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSelectionModel.addListSelectionListener(new ListSelectionListener()
 		{
+			@Override
 			public void valueChanged(ListSelectionEvent evt)
 			{
 				// Ignore spurious events

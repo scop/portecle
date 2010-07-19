@@ -102,6 +102,7 @@ class SystemPropertiesTableModel
 	 * 
 	 * @return The number of columns
 	 */
+	@Override
 	public int getColumnCount()
 	{
 		return COLUMN_CLASSES.length;
@@ -112,6 +113,7 @@ class SystemPropertiesTableModel
 	 * 
 	 * @return The number of rows
 	 */
+	@Override
 	public int getRowCount()
 	{
 		return m_data.length;
@@ -136,6 +138,7 @@ class SystemPropertiesTableModel
 	 * @param iCol The column position
 	 * @return The cell value
 	 */
+	@Override
 	public Object getValueAt(int iRow, int iCol)
 	{
 		return m_data[iRow][iCol];

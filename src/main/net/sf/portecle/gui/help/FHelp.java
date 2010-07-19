@@ -92,6 +92,7 @@ public class FHelp
 
 		jepTopic.addHyperlinkListener(new HyperlinkListener()
 		{
+			@Override
 			public void hyperlinkUpdate(HyperlinkEvent evt)
 			{
 				try
@@ -210,6 +211,7 @@ public class FHelp
 
 		jepContents.addHyperlinkListener(new HyperlinkListener()
 		{
+			@Override
 			public void hyperlinkUpdate(HyperlinkEvent evt)
 			{
 				try

@@ -120,6 +120,7 @@ class ExtensionsTableModel
 	 * 
 	 * @return The number of columns
 	 */
+	@Override
 	public int getColumnCount()
 	{
 		return COLUMN_CLASSES.length;
@@ -130,6 +131,7 @@ class ExtensionsTableModel
 	 * 
 	 * @return The number of rows
 	 */
+	@Override
 	public int getRowCount()
 	{
 		return m_data.length;
@@ -154,6 +156,7 @@ class ExtensionsTableModel
 	 * @param iCol The column position
 	 * @return The cell value
 	 */
+	@Override
 	public Object getValueAt(int iRow, int iCol)
 	{
 		return m_data[iRow][iCol];

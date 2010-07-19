@@ -173,6 +173,7 @@ class DGeneratingKeyPair
 				// Manipulate GUI in event handler thread
 				SwingUtilities.invokeLater(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						if (dialog.isShowing())
@@ -191,6 +192,7 @@ class DGeneratingKeyPair
 				// Manipulate GUI in event handler thread
 				SwingUtilities.invokeLater(new Runnable()
 				{
+					@Override
 					public void run()
 					{
 						if (dialog.isShowing())
