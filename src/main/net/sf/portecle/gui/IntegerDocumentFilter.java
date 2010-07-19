@@ -58,8 +58,9 @@ public class IntegerDocumentFilter
 		{
 			accepted = (Integer.valueOf(string) >= 0);
 		}
-		catch (NumberFormatException ignored)
+		catch (NumberFormatException e)
 		{
+			// Ignored
 		}
 
 		if (!accepted)
@@ -87,8 +88,9 @@ public class IntegerDocumentFilter
 		{
 			accepted = (Integer.valueOf(text) >= 0);
 		}
-		catch (NumberFormatException ignored)
+		catch (NumberFormatException e)
 		{
+			// Ignored
 		}
 
 		if (!accepted)

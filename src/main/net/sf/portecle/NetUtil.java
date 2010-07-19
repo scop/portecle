@@ -55,6 +55,7 @@ public class NetUtil
 	 */
 	private NetUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

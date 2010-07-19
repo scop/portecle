@@ -51,6 +51,7 @@ public final class KeyPairUtil
 	 */
 	private KeyPairUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

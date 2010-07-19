@@ -36,6 +36,7 @@ public final class ProviderUtil
 	 */
 	private ProviderUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

@@ -38,6 +38,7 @@ public final class DigestUtil
 	 */
 	private DigestUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

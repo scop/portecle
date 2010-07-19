@@ -1089,8 +1089,9 @@ public class X509Ext
 			    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
 			        time.getAdjustedDate());
 		}
-		catch (ParseException ignored)
+		catch (ParseException e)
 		{
+			// Ignored
 		}
 		return escapeHtml(date);
 	}

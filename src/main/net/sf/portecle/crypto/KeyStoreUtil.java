@@ -66,6 +66,7 @@ public final class KeyStoreUtil
 	 */
 	private KeyStoreUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

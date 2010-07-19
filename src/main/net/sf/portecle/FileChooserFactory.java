@@ -146,6 +146,7 @@ public class FileChooserFactory
 	/** Private to prevent construction */
 	private FileChooserFactory()
 	{
+		// Nothing to do
 	}
 
 	/**

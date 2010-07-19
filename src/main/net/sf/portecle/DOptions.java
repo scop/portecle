@@ -172,8 +172,9 @@ class DOptions
 				LookAndFeel laf = (LookAndFeel) Class.forName(lookFeelInfo.getClassName()).newInstance();
 				bSupported = laf.isSupportedLookAndFeel();
 			}
-			catch (Exception ignored)
+			catch (Exception e)
 			{
+				// Ignored
 			}
 			if (!bSupported)
 			{

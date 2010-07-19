@@ -42,6 +42,7 @@ public class DesktopUtil
 	/** Not needed. */
 	private DesktopUtil()
 	{
+		// Nothing to do
 	}
 
 	/**
@@ -60,8 +61,9 @@ public class DesktopUtil
 				DESKTOP.browse(uri);
 				return;
 			}
-			catch (Exception ignored)
+			catch (Exception e)
 			{
+				// Ignored
 			}
 		}
 
@@ -87,8 +89,9 @@ public class DesktopUtil
 				DESKTOP.mail(new URI("mailto:" + URLEncoder.encode(address, "ISO-8859-1")));
 				return;
 			}
-			catch (Exception ignored)
+			catch (Exception e)
 			{
+				// Ignored
 			}
 		}
 

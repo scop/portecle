@@ -5967,15 +5967,19 @@ public class FPortecle
 		// Didn't work - no matter
 		catch (UnsupportedLookAndFeelException e)
 		{
+			// Ignored
 		}
 		catch (ClassNotFoundException e)
 		{
+			// Ignored
 		}
 		catch (InstantiationException e)
 		{
+			// Ignored
 		}
 		catch (IllegalAccessException e)
 		{
+			// Ignored
 		}
 
 		// Use look & feel's decoration?

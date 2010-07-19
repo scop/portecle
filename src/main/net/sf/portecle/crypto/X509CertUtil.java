@@ -93,6 +93,7 @@ public final class X509CertUtil
 	 */
 	private X509CertUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

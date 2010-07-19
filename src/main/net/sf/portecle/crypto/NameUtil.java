@@ -37,6 +37,7 @@ public final class NameUtil
 	 */
 	private NameUtil()
 	{
+		// Nothing to do
 	}
 
 	/**

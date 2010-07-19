@@ -37,6 +37,7 @@ public class SwingHelper
 	/** Not needed. */
 	private SwingHelper()
 	{
+		// Ignored
 	}
 
 	/**

@@ -209,8 +209,9 @@ class DViewExtensions
 								linkClass =
 								    LinkClass.valueOf((String) attrs.getAttribute(HTML.Attribute.CLASS));
 							}
-							catch (RuntimeException ignored)
+							catch (RuntimeException e)
 							{
+								// Ignored
 							}
 
 							if (url == null)
