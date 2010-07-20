@@ -1,11 +1,17 @@
-body {font-family: arial;
-      font-style: normal;
-      font-size: 12pt;
-      background: #ffffff;
-      color: #123456; }
-      
-h1 {font-family: arial;
+body {
+    font-family: arial;
     font-style: normal;
-    font-size: 20pt; }
+    font-size: 12pt;
+    background: #ffffff;
+    color: #123456;
+}
+      
+h1 {
+    font-family: arial;
+    font-style: normal;
+    font-size: 20pt;
+}
 
-ul {list-style: circle; }
+ul {
+    list-style: circle;
+}
