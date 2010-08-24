@@ -105,9 +105,9 @@ public class FHelp
 				}
 				catch (IOException ex)
 				{
-					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    RB.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
-					    JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(FHelp.this,
+					    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), evt.getURL()),
+					    m_sTitle, JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -130,8 +130,8 @@ public class FHelp
 				}
 				catch (IOException ex)
 				{
-					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    RB.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle,
+					JOptionPane.showMessageDialog(FHelp.this,
+					    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle,
 					    JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -159,8 +159,8 @@ public class FHelp
 					}
 					catch (IOException ex)
 					{
-						JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-						    RB.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
+						JOptionPane.showMessageDialog(FHelp.this,
+						    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
 						    JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -188,8 +188,8 @@ public class FHelp
 					}
 					catch (IOException ex)
 					{
-						JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-						    RB.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
+						JOptionPane.showMessageDialog(FHelp.this,
+						    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), temp), m_sTitle,
 						    JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -224,9 +224,9 @@ public class FHelp
 				}
 				catch (IOException ex)
 				{
-					JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-					    RB.getString("FHelp.NoLocateUrl.message"), evt.getURL()), m_sTitle,
-					    JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(FHelp.this,
+					    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), evt.getURL()),
+					    m_sTitle, JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -237,8 +237,9 @@ public class FHelp
 		}
 		catch (IOException ex)
 		{
-			JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-			    RB.getString("FHelp.NoLocateUrl.message"), toc), m_sTitle, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(FHelp.this,
+			    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), toc), m_sTitle,
+			    JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -250,8 +251,9 @@ public class FHelp
 		}
 		catch (IOException ex)
 		{
-			JOptionPane.showMessageDialog(FHelp.this, MessageFormat.format(
-			    RB.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(FHelp.this,
+			    MessageFormat.format(RB.getString("FHelp.NoLocateUrl.message"), m_home), m_sTitle,
+			    JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 

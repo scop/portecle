@@ -475,10 +475,9 @@ public class X509Ext
 	}
 
 	/** Key usages */
-	private static final int[] KEY_USAGES =
-	    new int[] { KeyUsage.digitalSignature, KeyUsage.nonRepudiation, KeyUsage.keyEncipherment,
-	        KeyUsage.dataEncipherment, KeyUsage.keyAgreement, KeyUsage.keyCertSign, KeyUsage.cRLSign,
-	        KeyUsage.encipherOnly, KeyUsage.decipherOnly, };
+	private static final int[] KEY_USAGES = new int[] { KeyUsage.digitalSignature, KeyUsage.nonRepudiation,
+	    KeyUsage.keyEncipherment, KeyUsage.dataEncipherment, KeyUsage.keyAgreement, KeyUsage.keyCertSign,
+	    KeyUsage.cRLSign, KeyUsage.encipherOnly, KeyUsage.decipherOnly, };
 
 	/**
 	 * Get Key Usage (2.5.29.15) extension value as a string.
@@ -1403,10 +1402,10 @@ public class X509Ext
 	}
 
 	/** Netscape certificate types */
-	private static final int[] NETSCAPE_CERT_TYPES =
-	    new int[] { NetscapeCertType.sslClient, NetscapeCertType.sslServer, NetscapeCertType.smime,
-	        NetscapeCertType.objectSigning, NetscapeCertType.reserved, NetscapeCertType.sslCA,
-	        NetscapeCertType.smimeCA, NetscapeCertType.objectSigningCA, };
+	private static final int[] NETSCAPE_CERT_TYPES = new int[] { NetscapeCertType.sslClient,
+	    NetscapeCertType.sslServer, NetscapeCertType.smime, NetscapeCertType.objectSigning,
+	    NetscapeCertType.reserved, NetscapeCertType.sslCA, NetscapeCertType.smimeCA,
+	    NetscapeCertType.objectSigningCA, };
 
 	/**
 	 * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value as a string.

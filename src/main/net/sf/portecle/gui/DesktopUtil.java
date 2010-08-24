@@ -68,9 +68,9 @@ public class DesktopUtil
 		}
 
 		// Could not launch - tell the user the address
-		JOptionPane.showMessageDialog(parentComponent, MessageFormat.format(
-		    RB.getString("FPortecle.NoLaunchBrowser.message"), uri), RB.getString("FPortecle.Title"),
-		    JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(parentComponent,
+		    MessageFormat.format(RB.getString("FPortecle.NoLaunchBrowser.message"), uri),
+		    RB.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**
@@ -96,8 +96,8 @@ public class DesktopUtil
 		}
 
 		// Could not launch - tell the user the address
-		JOptionPane.showMessageDialog(parentComponent, MessageFormat.format(
-		    RB.getString("FPortecle.NoLaunchEmail.message"), address), RB.getString("FPortecle.Title"),
-		    JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(parentComponent,
+		    MessageFormat.format(RB.getString("FPortecle.NoLaunchEmail.message"), address),
+		    RB.getString("FPortecle.Title"), JOptionPane.INFORMATION_MESSAGE);
 	}
 }

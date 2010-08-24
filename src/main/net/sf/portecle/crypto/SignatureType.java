@@ -100,8 +100,8 @@ public enum SignatureType
 		    new HashMap<KeyPairType, Collection<SignatureType>>();
 
 		// X509V1CertificateGenerator doesn't like SHA384withDSA and SHA512withDSA as of BC 1.44
-		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(EnumSet.of(SHA1withDSA, SHA224withDSA,
-		    SHA256withDSA)));
+		kpMap.put(KeyPairType.DSA,
+		    Collections.unmodifiableSet(EnumSet.of(SHA1withDSA, SHA224withDSA, SHA256withDSA)));
 
 		kpMap.put(KeyPairType.RSA, Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA,
 		    SHA1withRSA, SHA224withRSA, SHA256withRSA, SHA384withRSA, SHA512withRSA, RIPEMD128withRSA,

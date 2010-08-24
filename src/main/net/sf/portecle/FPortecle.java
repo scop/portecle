@@ -153,8 +153,8 @@ public class FPortecle
     implements StatusBar
 {
 	/** Resource bundle */
-	public static final ResourceBundle RB =
-	    ResourceBundle.getBundle(FPortecle.class.getPackage().getName() + "/resources");
+	public static final ResourceBundle RB = ResourceBundle.getBundle(FPortecle.class.getPackage().getName() +
+	    "/resources");
 
 	/** Application preferences */
 	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
@@ -185,9 +185,8 @@ public class FPortecle
 	private static final String DEFAULT_LOOK_FEEL = UIManager.getCrossPlatformLookAndFeelClassName();
 
 	/** Default CA certificates keystore file */
-	/* package private */static final File DEFAULT_CA_CERTS_FILE =
-	    new File(System.getProperty("java.home"), "lib" + File.separator + "security" + File.separator +
-	        FileChooserFactory.CACERTS_FILENAME);
+	/* package private */static final File DEFAULT_CA_CERTS_FILE = new File(System.getProperty("java.home"),
+	    "lib" + File.separator + "security" + File.separator + FileChooserFactory.CACERTS_FILENAME);
 
 	/** The last directory accessed by the application */
 	private final LastDir m_lastDir = new LastDir();
@@ -1855,16 +1854,16 @@ public class FPortecle
 		// The keystore does not exist
 		if (!fKeyStore.exists())
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.FileNotFound.message"), fKeyStore),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.FileNotFound.message"), fKeyStore),
 			    RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		// The keystore file is not a file
 		else if (!fKeyStore.isFile())
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NotFile.message"), fKeyStore),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NotFile.message"), fKeyStore),
 			    RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -1954,8 +1953,8 @@ public class FPortecle
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NoRead.message"), fKeyStore),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NoRead.message"), fKeyStore),
 			    RB.getString("FPortecle.OpenKeyStoreFile.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -2098,8 +2097,8 @@ public class FPortecle
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NoWriteFile.message"), fSaveFile),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fSaveFile),
 			    RB.getString("FPortecle.SaveKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -2205,8 +2204,8 @@ public class FPortecle
 			}
 			catch (FileNotFoundException ex)
 			{
-				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    RB.getString("FPortecle.NoWriteFile.message"), fSaveFile),
+				JOptionPane.showMessageDialog(this,
+				    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fSaveFile),
 				    RB.getString("FPortecle.SaveKeyStoreAs.Title"), JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
@@ -2765,8 +2764,8 @@ public class FPortecle
 			{
 				// None of the types worked - show each of the errors?
 				int iSelected =
-				    SwingHelper.showConfirmDialog(this, MessageFormat.format(
-				        RB.getString("FPortecle.NoOpenCertificate.message"), fCertFile),
+				    SwingHelper.showConfirmDialog(this,
+				        MessageFormat.format(RB.getString("FPortecle.NoOpenCertificate.message"), fCertFile),
 				        RB.getString("FPortecle.OpenCertificate.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
@@ -2778,8 +2777,8 @@ public class FPortecle
 			}
 			else if (certs.length == 0)
 			{
-				JOptionPane.showMessageDialog(this, MessageFormat.format(
-				    RB.getString("FPortecle.NoCertsFound.message"), fCertFile),
+				JOptionPane.showMessageDialog(this,
+				    MessageFormat.format(RB.getString("FPortecle.NoCertsFound.message"), fCertFile),
 				    RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
 			}
 
@@ -2806,9 +2805,9 @@ public class FPortecle
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NoRead.message"), fCSRFile), MessageFormat.format(
-			    RB.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NoRead.message"), fCSRFile),
+			    MessageFormat.format(RB.getString("FPortecle.CsrDetailsFile.Title"), fCSRFile.getName()),
 			    JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
@@ -3270,8 +3269,8 @@ public class FPortecle
 		// Not a file?
 		if (!fKeyPairFile.isFile())
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NotFile.message"), fKeyPairFile),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NotFile.message"), fKeyPairFile),
 			    RB.getString("FPortecle.ImportKeyPair.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -3358,8 +3357,8 @@ public class FPortecle
 		if (tempStore == null && !exceptions.isEmpty())
 		{
 			int iSelected =
-			    SwingHelper.showConfirmDialog(this, MessageFormat.format(
-			        RB.getString("FPortecle.NoOpenKeyPairFile.message"), fKeyPairFile),
+			    SwingHelper.showConfirmDialog(this,
+			        MessageFormat.format(RB.getString("FPortecle.NoOpenKeyPairFile.message"), fKeyPairFile),
 			        RB.getString("FPortecle.ImportKeyPairFile.Title"));
 			if (iSelected == JOptionPane.YES_OPTION)
 			{
@@ -3522,8 +3521,8 @@ public class FPortecle
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NoRead.message"), m_fCaCertsFile),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NoRead.message"), m_fCaCertsFile),
 			    RB.getString("FPortecle.OpenCaCertsKeyStore.Title"), JOptionPane.WARNING_MESSAGE);
 			return null;
 		}
@@ -3881,8 +3880,8 @@ public class FPortecle
 						String path = oldFile.getPath().toLowerCase(Locale.ENGLISH);
 						if (path.endsWith("." + oldExt))
 						{
-							m_keyStoreWrap.setKeyStoreFile(new File(path.substring(0, path.length() -
-							    oldExt.length()) +
+							m_keyStoreWrap.setKeyStoreFile(new File(path.substring(0,
+							    path.length() - oldExt.length()) +
 							    newExt));
 						}
 					}
@@ -5133,8 +5132,8 @@ public class FPortecle
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("FPortecle.NoWriteFile.message"), fCsrFile),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("FPortecle.NoWriteFile.message"), fCsrFile),
 			    RB.getString("FPortecle.GenerateCsr.Title"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
@@ -5418,8 +5417,8 @@ public class FPortecle
 		}
 
 		int iSelected =
-		    JOptionPane.showConfirmDialog(this, MessageFormat.format(
-		        RB.getString("FPortecle.DeleteEntry.message"), sAlias),
+		    JOptionPane.showConfirmDialog(this,
+		        MessageFormat.format(RB.getString("FPortecle.DeleteEntry.message"), sAlias),
 		        RB.getString("FPortecle.DeleteEntry.Title"), JOptionPane.YES_NO_OPTION);
 		if (iSelected != JOptionPane.YES_OPTION)
 		{
@@ -5510,8 +5509,9 @@ public class FPortecle
 			{
 				if (!silent)
 				{
-					JOptionPane.showMessageDialog(this, MessageFormat.format(
-					    RB.getString("FPortecle.RenameAliasIdentical.message"), oldAlias),
+					JOptionPane.showMessageDialog(
+					    this,
+					    MessageFormat.format(RB.getString("FPortecle.RenameAliasIdentical.message"), oldAlias),
 					    RB.getString("FPortecle.RenameEntry.Title"), JOptionPane.ERROR_MESSAGE);
 				}
 				return false;
@@ -6124,8 +6124,8 @@ public class FPortecle
 		 */
 		public NewKeyStoreAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.NewKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.NewKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.NewKeyStoreAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.NewKeyStoreAction.mnemonic").charAt(0)));
@@ -6156,8 +6156,8 @@ public class FPortecle
 		 */
 		public SaveKeyStoreAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.SaveKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.SaveKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.SaveKeyStoreAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.SaveKeyStoreAction.mnemonic").charAt(0)));
@@ -6188,8 +6188,8 @@ public class FPortecle
 		 */
 		public OpenKeyStoreFileAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.OpenKeyStoreFileAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.OpenKeyStoreFileAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.OpenKeyStoreFileAction.mnemonic").charAt(0)));
@@ -6220,11 +6220,12 @@ public class FPortecle
 		 */
 		public OpenCaCertsKeyStoreAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.OpenCaCertsKeyStoreAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.OpenCaCertsKeyStoreAction.accelerator").charAt(0),
+			    InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.OpenCaCertsKeyStoreAction.statusbar"));
-			putValue(MNEMONIC_KEY, Integer.valueOf(RB.getString(
-			    "FPortecle.OpenCaCertsKeyStoreAction.mnemonic").charAt(0)));
+			putValue(MNEMONIC_KEY,
+			    Integer.valueOf(RB.getString("FPortecle.OpenCaCertsKeyStoreAction.mnemonic").charAt(0)));
 			putValue(NAME, RB.getString("FPortecle.OpenCaCertsKeyStoreAction.text"));
 			putValue(SHORT_DESCRIPTION, RB.getString("FPortecle.OpenCaCertsKeyStoreAction.tooltip"));
 			putValue(SMALL_ICON, new ImageIcon(getResImage("FPortecle.OpenCaCertsKeyStoreAction.image")));
@@ -6252,8 +6253,8 @@ public class FPortecle
 		 */
 		public GenKeyPairAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.GenKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.GenKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.GenKeyPairAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.GenKeyPairAction.mnemonic").charAt(0)));
@@ -6284,8 +6285,8 @@ public class FPortecle
 		 */
 		public ImportTrustCertAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.ImportTrustCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.ImportTrustCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ImportTrustCertAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.ImportTrustCertAction.mnemonic").charAt(0)));
@@ -6316,8 +6317,8 @@ public class FPortecle
 		 */
 		public ImportKeyPairAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.ImportKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.ImportKeyPairAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ImportKeyPairAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.ImportKeyPairAction.mnemonic").charAt(0)));
@@ -6348,8 +6349,8 @@ public class FPortecle
 		 */
 		public SetKeyStorePassAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.SetKeyStorePassAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.SetKeyStorePassAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.SetKeyStorePassAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.SetKeyStorePassAction.mnemonic").charAt(0)));
@@ -6380,8 +6381,8 @@ public class FPortecle
 		 */
 		public KeyStoreReportAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.KeyStoreReportAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.KeyStoreReportAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.KeyStoreReportAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.KeyStoreReportAction.mnemonic").charAt(0)));
@@ -6412,8 +6413,8 @@ public class FPortecle
 		 */
 		public ExamineCertAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.ExamineCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.ExamineCertAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCertAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.ExamineCertAction.mnemonic").charAt(0)));
@@ -6444,8 +6445,8 @@ public class FPortecle
 		 */
 		public ExamineCertSSLAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.ExamineCertSSLAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCertSSLAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.ExamineCertSSLAction.mnemonic").charAt(0)));
@@ -6476,8 +6477,8 @@ public class FPortecle
 		 */
 		public ExamineCsrAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.ExamineCsrAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.ExamineCsrAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCsrAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.ExamineCsrAction.mnemonic").charAt(0)));
@@ -6508,8 +6509,8 @@ public class FPortecle
 		 */
 		public ExamineCrlAction()
 		{
-			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(RB.getString(
-			    "FPortecle.ExamineCrlAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
+			putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
+			    RB.getString("FPortecle.ExamineCrlAction.accelerator").charAt(0), InputEvent.CTRL_MASK));
 			putValue(LONG_DESCRIPTION, RB.getString("FPortecle.ExamineCrlAction.statusbar"));
 			putValue(MNEMONIC_KEY,
 			    Integer.valueOf(RB.getString("FPortecle.ExamineCrlAction.mnemonic").charAt(0)));
@@ -6857,8 +6858,9 @@ public class FPortecle
 			Double bcVer = new Double(bcProv.getVersion());
 			if (REQ_BC_VERSION.compareTo(bcVer) > 0)
 			{
-				JOptionPane.showMessageDialog(new JFrame(), MessageFormat.format(
-				    RB.getString("FPortecle.NoBcVersion.message"), REQ_BC_VERSION, bcVer),
+				JOptionPane.showMessageDialog(
+				    new JFrame(),
+				    MessageFormat.format(RB.getString("FPortecle.NoBcVersion.message"), REQ_BC_VERSION, bcVer),
 				    RB.getString("FPortecle.Title"), JOptionPane.WARNING_MESSAGE);
 			}
 		}

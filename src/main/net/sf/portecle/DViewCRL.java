@@ -131,8 +131,9 @@ class DViewCRL
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(parent, MessageFormat.format(
-			    RB.getString("FPortecle.NoRead.message"), url), title, JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(parent,
+			    MessageFormat.format(RB.getString("FPortecle.NoRead.message"), url), title,
+			    JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		catch (Exception ex)

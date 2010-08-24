@@ -186,8 +186,8 @@ class DViewCertificate
 			{
 				// None of the types worked - show each of the errors?
 				int iSelected =
-				    SwingHelper.showConfirmDialog(parent, MessageFormat.format(
-				        RB.getString("FPortecle.NoOpenCertificate.message"), url),
+				    SwingHelper.showConfirmDialog(parent,
+				        MessageFormat.format(RB.getString("FPortecle.NoOpenCertificate.message"), url),
 				        RB.getString("FPortecle.OpenCertificate.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
@@ -200,8 +200,8 @@ class DViewCertificate
 			}
 			else if (certs.length == 0)
 			{
-				JOptionPane.showMessageDialog(parent, MessageFormat.format(
-				    RB.getString("FPortecle.NoCertsFound.message"), url),
+				JOptionPane.showMessageDialog(parent,
+				    MessageFormat.format(RB.getString("FPortecle.NoCertsFound.message"), url),
 				    RB.getString("FPortecle.OpenCertificate.Title"), JOptionPane.WARNING_MESSAGE);
 				return false;
 			}

@@ -54,9 +54,8 @@ class JarInfoTableModel
 	}
 
 	/** Column classes */
-	private static final Class<?>[] COLUMN_CLASSES =
-	    { String.class, Long.class, String.class, String.class, String.class, String.class, String.class,
-	        String.class };
+	private static final Class<?>[] COLUMN_CLASSES = { String.class, Long.class, String.class, String.class,
+	    String.class, String.class, String.class, String.class };
 
 	/** Holds the table data */
 	private Object[][] m_data;

@@ -79,8 +79,8 @@ public class FileChooserFactory
 	private static final String CRL_EXT = "crl";
 
 	/** File extensions for certificate files */
-	/* package private */static final String[] CERT_EXTS =
-	    new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT, PKCS7_EXT, PKIPATH_EXT };
+	/* package private */static final String[] CERT_EXTS = new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3,
+	    PEM_EXT, PKCS7_EXT, PKIPATH_EXT };
 
 	/** File extensions for X.509 certificate files */
 	private static final String[] X509_EXTS = new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT };
@@ -92,23 +92,20 @@ public class FileChooserFactory
 	/* package private */static final String[] CRL_EXTS = new String[] { CRL_EXT };
 
 	/** Description for X.509 certificate files */
-	private static final String X509_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.X509Files"), toWildcards(X509_EXTS));
+	private static final String X509_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.X509Files"), toWildcards(X509_EXTS));
 
 	/** Description for PKCS #7 certificate files */
-	private static final String PKCS7_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.Pkcs7Files"),
-	        toWildcards(new String[] { PKCS7_EXT }));
+	private static final String PKCS7_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.Pkcs7Files"), toWildcards(new String[] { PKCS7_EXT }));
 
 	/** Description for PkiPath certificate files */
-	private static final String PKIPATH_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.PkiPathFiles"),
-	        toWildcards(new String[] { PKIPATH_EXT }));
+	private static final String PKIPATH_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.PkiPathFiles"), toWildcards(new String[] { PKIPATH_EXT }));
 
 	/** Description for PEM files */
-	private static final String PEM_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.PEMFiles"),
-	        toWildcards(new String[] { PEM_EXT }));
+	private static final String PEM_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.PEMFiles"), toWildcards(new String[] { PEM_EXT }));
 
 	/** Description for files containing key pairs */
 	private static final String KEYPAIR_FILE_DESC;
@@ -123,16 +120,16 @@ public class FileChooserFactory
 	}
 
 	/** Description for PKCS #10 CSR files */
-	private static final String CSR_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.CsrFiles"), toWildcards(CSR_EXTS));
+	private static final String CSR_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.CsrFiles"), toWildcards(CSR_EXTS));
 
 	/** Description for CRL files */
-	private static final String CRL_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.CrlFiles"), toWildcards(CRL_EXTS));
+	private static final String CRL_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.CrlFiles"), toWildcards(CRL_EXTS));
 
 	/** Description for certificate files */
-	private static final String CERT_FILE_DESC =
-	    MessageFormat.format(RB.getString("FileChooseFactory.CertificateFiles"), toWildcards(CERT_EXTS));
+	private static final String CERT_FILE_DESC = MessageFormat.format(
+	    RB.getString("FileChooseFactory.CertificateFiles"), toWildcards(CERT_EXTS));
 
 	/** Filename filter pattern for getDefaultFile() */
 	private static final Pattern FILENAME_FILTER = Pattern.compile("[^\\p{L}_\\-]+");
@@ -424,21 +421,17 @@ public class FileChooserFactory
 	private static class PortecleFileView
 	    extends FileView
 	{
-		private static final Icon CERTIFICATE_ICON =
-		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CertificateImage"))));
+		private static final Icon CERTIFICATE_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		    FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CertificateImage"))));
 
-		private static final Icon KEYSTORE_ICON =
-		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.KeyStoreImage"))));
+		private static final Icon KEYSTORE_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		    FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.KeyStoreImage"))));
 
-		private static final Icon CRL_ICON =
-		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CrlImage"))));
+		private static final Icon CRL_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		    FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CrlImage"))));
 
-		private static final Icon CSR_ICON =
-		    new ImageIcon(Toolkit.getDefaultToolkit().createImage(
-		        FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CsrImage"))));
+		private static final Icon CSR_ICON = new ImageIcon(Toolkit.getDefaultToolkit().createImage(
+		    FileChooserFactory.class.getResource(RB.getString("FileChooseFactory.CsrImage"))));
 
 		@Override
 		public Icon getIcon(File f)
