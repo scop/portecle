@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2010 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -32,9 +33,6 @@ import javax.swing.event.ChangeListener;
 public class StatusBarChangeHandler
     implements ChangeListener
 {
-	/** Menu item */
-	private JMenuItem m_jmi;
-
 	/** Help text for the menu item */
 	private String m_sHelpText;
 
@@ -44,16 +42,13 @@ public class StatusBarChangeHandler
 	/**
 	 * Construct a StatusBarChangeHandler.
 	 * 
-	 * @param jmi The menu item
 	 * @param sHelpText Help text for the menu item
 	 * @param statusBar The status bar
 	 */
-	public StatusBarChangeHandler(JMenuItem jmi, String sHelpText, StatusBar statusBar)
+	public StatusBarChangeHandler(String sHelpText, StatusBar statusBar)
 	{
-		m_jmi = jmi;
 		m_sHelpText = sHelpText;
 		m_statusBar = statusBar;
-		m_jmi.addChangeListener(this);
 	}
 
 	/**
@@ -64,15 +59,19 @@ public class StatusBarChangeHandler
 	@Override
 	public void stateChanged(ChangeEvent evt)
 	{
-		if (m_jmi.isArmed())
+		Object src = evt.getSource();
+		if (src instanceof JMenuItem)
 		{
-			// Display help text
-			m_statusBar.setStatusBarText(m_sHelpText);
-		}
-		else
-		{
-			// Display default status
-			m_statusBar.setDefaultStatusBarText();
+			if (((JMenuItem) src).isArmed())
+			{
+				// Display help text
+				m_statusBar.setStatusBarText(m_sHelpText);
+			}
+			else
+			{
+				// Display default status
+				m_statusBar.setDefaultStatusBarText();
+			}
 		}
 	}
 }

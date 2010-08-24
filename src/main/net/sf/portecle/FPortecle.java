@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2010 Ville Skyttä, ville.skytta@iki.fi
  *             2010 Lam Chau, lamchau@gmail.com
  *
  * This program is free software; you can redistribute it and/or
@@ -418,14 +418,14 @@ public class FPortecle
 
 		JMenuItem jmiNewKeyStore = new JMenuItem(m_newKeyStoreAction);
 		jmiNewKeyStore.setToolTipText(null);
-		new StatusBarChangeHandler(jmiNewKeyStore,
-		    (String) m_newKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiNewKeyStore.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_newKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this));
 		m_jmrfFile.add(jmiNewKeyStore);
 
 		JMenuItem jmiOpenKeyStoreFile = new JMenuItem(m_openKeyStoreFileAction);
 		jmiOpenKeyStoreFile.setToolTipText(null);
-		new StatusBarChangeHandler(jmiOpenKeyStoreFile,
-		    (String) m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiOpenKeyStoreFile.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_openKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this));
 		m_jmrfFile.add(jmiOpenKeyStoreFile);
 
 		if (EXPERIMENTAL)
@@ -448,22 +448,22 @@ public class FPortecle
 					openKeyStorePkcs11();
 				}
 			});
-			new StatusBarChangeHandler(jmiOpenKeyStorePkcs11,
-			    RB.getString("FPortecle.jmiOpenKeyStorePkcs11.statusbar"), this);
+			jmiOpenKeyStorePkcs11.addChangeListener(new StatusBarChangeHandler(
+			    RB.getString("FPortecle.jmiOpenKeyStorePkcs11.statusbar"), this));
 		}
 
 		JMenuItem jmiOpenCaCertsKeyStoreFile = new JMenuItem(m_openCaCertsKeyStoreFileAction);
 		jmiOpenCaCertsKeyStoreFile.setToolTipText(null);
-		new StatusBarChangeHandler(jmiOpenCaCertsKeyStoreFile,
-		    (String) m_openCaCertsKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiOpenCaCertsKeyStoreFile.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_openCaCertsKeyStoreFileAction.getValue(Action.LONG_DESCRIPTION), this));
 		m_jmrfFile.add(jmiOpenCaCertsKeyStoreFile);
 
 		m_jmrfFile.addSeparator();
 
 		JMenuItem jmiSaveKeyStore = new JMenuItem(m_saveKeyStoreAction);
 		jmiSaveKeyStore.setToolTipText(null);
-		new StatusBarChangeHandler(jmiSaveKeyStore,
-		    (String) m_saveKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiSaveKeyStore.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_saveKeyStoreAction.getValue(Action.LONG_DESCRIPTION), this));
 		m_jmrfFile.add(jmiSaveKeyStore);
 
 		m_jmiSaveKeyStoreAs =
@@ -480,8 +480,8 @@ public class FPortecle
 				saveKeyStoreAs();
 			}
 		});
-		new StatusBarChangeHandler(m_jmiSaveKeyStoreAs,
-		    RB.getString("FPortecle.m_jmiSaveKeyStoreAs.statusbar"), this);
+		m_jmiSaveKeyStoreAs.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiSaveKeyStoreAs.statusbar"), this));
 
 		m_jmrfFile.addSeparator();
 
@@ -509,7 +509,8 @@ public class FPortecle
 				exitApplication();
 			}
 		});
-		new StatusBarChangeHandler(jmiExit, RB.getString("FPortecle.jmiExit.statusbar"), this);
+		jmiExit.addChangeListener(new StatusBarChangeHandler(RB.getString("FPortecle.jmiExit.statusbar"),
+		    this));
 
 		// Tools menu
 		JMenu jmTools = new JMenu(RB.getString("FPortecle.jmTools.text"));
@@ -517,28 +518,28 @@ public class FPortecle
 
 		JMenuItem jmiGenKeyPair = new JMenuItem(m_genKeyPairAction);
 		jmiGenKeyPair.setToolTipText(null);
-		new StatusBarChangeHandler(jmiGenKeyPair,
-		    (String) m_genKeyPairAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiGenKeyPair.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_genKeyPairAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmTools.add(jmiGenKeyPair);
 
 		JMenuItem jmiImportTrustCert = new JMenuItem(m_importTrustCertAction);
 		jmiImportTrustCert.setToolTipText(null);
-		new StatusBarChangeHandler(jmiImportTrustCert,
-		    (String) m_importTrustCertAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiImportTrustCert.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_importTrustCertAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmTools.add(jmiImportTrustCert);
 
 		JMenuItem jmiImportKeyPair = new JMenuItem(m_importKeyPairAction);
 		jmiImportKeyPair.setToolTipText(null);
-		new StatusBarChangeHandler(jmiImportKeyPair,
-		    (String) m_importKeyPairAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiImportKeyPair.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_importKeyPairAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmTools.add(jmiImportKeyPair);
 
 		jmTools.addSeparator();
 
 		JMenuItem jmiSetKeyStorePass = new JMenuItem(m_setKeyStorePassAction);
 		jmiSetKeyStorePass.setToolTipText(null);
-		new StatusBarChangeHandler(jmiSetKeyStorePass,
-		    (String) m_setKeyStorePassAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiSetKeyStorePass.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_setKeyStorePassAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmTools.add(jmiSetKeyStorePass);
 
 		m_jmChangeKeyStoreType = new JMenu(RB.getString("FPortecle.m_jmChangeKeyStoreType.text"));
@@ -561,8 +562,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.JKS);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJks,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"), this);
+		m_jmiChangeKeyStoreTypeJks.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJks.statusbar"), this));
 
 		m_jmiChangeKeyStoreTypeCaseExactJks =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.text"), RB.getString(
@@ -576,8 +577,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.CaseExactJKS);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeCaseExactJks,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.statusbar"), this);
+		m_jmiChangeKeyStoreTypeCaseExactJks.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeCaseExactJks.statusbar"), this));
 
 		m_jmiChangeKeyStoreTypeJceks =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.text"), RB.getString(
@@ -591,8 +592,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.JCEKS);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeJceks,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.statusbar"), this);
+		m_jmiChangeKeyStoreTypeJceks.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeJceks.statusbar"), this));
 
 		m_jmiChangeKeyStoreTypePkcs12 =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.text"), RB.getString(
@@ -606,8 +607,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.PKCS12);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypePkcs12,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.statusbar"), this);
+		m_jmiChangeKeyStoreTypePkcs12.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypePkcs12.statusbar"), this));
 
 		m_jmiChangeKeyStoreTypeBks =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.text"), RB.getString(
@@ -621,8 +622,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.BKS);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeBks,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"), this);
+		m_jmiChangeKeyStoreTypeBks.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"), this));
 
 		m_jmiChangeKeyStoreTypeUber =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.text"), RB.getString(
@@ -636,8 +637,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.UBER);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeUber,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"), this);
+		m_jmiChangeKeyStoreTypeUber.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.statusbar"), this));
 
 		m_jmiChangeKeyStoreTypeGkr =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.text"), RB.getString(
@@ -651,8 +652,8 @@ public class FPortecle
 				changeKeyStoreType(KeyStoreType.GKR);
 			}
 		});
-		new StatusBarChangeHandler(m_jmiChangeKeyStoreTypeGkr,
-		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.statusbar"), this);
+		m_jmiChangeKeyStoreTypeGkr.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeGkr.statusbar"), this));
 
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJks);
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypePkcs12);
@@ -666,8 +667,8 @@ public class FPortecle
 
 		JMenuItem jmiKeyStoreReport = new JMenuItem(m_keyStoreReportAction);
 		jmiKeyStoreReport.setToolTipText(null);
-		new StatusBarChangeHandler(jmiKeyStoreReport,
-		    (String) m_keyStoreReportAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiKeyStoreReport.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_keyStoreReportAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmTools.add(jmiKeyStoreReport);
 
 		jmTools.addSeparator();
@@ -685,7 +686,8 @@ public class FPortecle
 				showOptions();
 			}
 		});
-		new StatusBarChangeHandler(jmiOptions, RB.getString("FPortecle.jmiOptions.statusbar"), this);
+		jmiOptions.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiOptions.statusbar"), this));
 
 		// Examine menu
 		JMenu jmExamine = new JMenu(RB.getString("FPortecle.jmExamine.text"));
@@ -693,26 +695,26 @@ public class FPortecle
 
 		JMenuItem jmiExamineCert = new JMenuItem(m_examineCertAction);
 		jmiExamineCert.setToolTipText(null);
-		new StatusBarChangeHandler(jmiExamineCert,
-		    (String) m_examineCertAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiExamineCert.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_examineCertAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmExamine.add(jmiExamineCert);
 
 		JMenuItem jmiExamineCertSSL = new JMenuItem(m_examineCertSSLAction);
 		jmiExamineCertSSL.setToolTipText(null);
-		new StatusBarChangeHandler(jmiExamineCertSSL,
-		    (String) m_examineCertSSLAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiExamineCertSSL.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_examineCertSSLAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmExamine.add(jmiExamineCertSSL);
 
 		JMenuItem jmiExamineCsr = new JMenuItem(m_examineCsrAction);
 		jmiExamineCsr.setToolTipText(null);
-		new StatusBarChangeHandler(jmiExamineCsr,
-		    (String) m_examineCsrAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiExamineCsr.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_examineCsrAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmExamine.add(jmiExamineCsr);
 
 		JMenuItem jmiExamineCrl = new JMenuItem(m_examineCrlAction);
 		jmiExamineCrl.setToolTipText(null);
-		new StatusBarChangeHandler(jmiExamineCrl,
-		    (String) m_examineCrlAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiExamineCrl.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_examineCrlAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmExamine.add(jmiExamineCrl);
 
 		// Help menu
@@ -721,7 +723,8 @@ public class FPortecle
 
 		JMenuItem jmiHelp = new JMenuItem(m_helpAction);
 		jmiHelp.setToolTipText(null);
-		new StatusBarChangeHandler(jmiHelp, (String) m_helpAction.getValue(Action.LONG_DESCRIPTION), this);
+		jmiHelp.addChangeListener(new StatusBarChangeHandler(
+		    (String) m_helpAction.getValue(Action.LONG_DESCRIPTION), this));
 		jmHelp.add(jmiHelp);
 
 		// Online Resources menu (sub-menu of Help)
@@ -743,7 +746,8 @@ public class FPortecle
 				visitWebsite();
 			}
 		});
-		new StatusBarChangeHandler(jmiWebsite, RB.getString("FPortecle.jmiWebsite.statusbar"), this);
+		jmiWebsite.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiWebsite.statusbar"), this));
 
 		JMenuItem jmiSFNetProject =
 		    new JMenuItem(RB.getString("FPortecle.jmiSFNetProject.text"), RB.getString(
@@ -758,7 +762,8 @@ public class FPortecle
 				visitSFNetProject();
 			}
 		});
-		new StatusBarChangeHandler(jmiSFNetProject, RB.getString("FPortecle.jmiSFNetProject.statusbar"), this);
+		jmiSFNetProject.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiSFNetProject.statusbar"), this));
 
 		JMenuItem jmiMailList =
 		    new JMenuItem(RB.getString("FPortecle.jmiMailList.text"), RB.getString(
@@ -773,7 +778,8 @@ public class FPortecle
 				visitMailListSignup();
 			}
 		});
-		new StatusBarChangeHandler(jmiMailList, RB.getString("FPortecle.jmiMailList.statusbar"), this);
+		jmiMailList.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiMailList.statusbar"), this));
 
 		/*
 		 * Update check disabled for now... JMenuItem jmiCheckUpdate = new JMenuItem(
@@ -799,7 +805,8 @@ public class FPortecle
 				makeDonation();
 			}
 		});
-		new StatusBarChangeHandler(jmiDonate, RB.getString("FPortecle.jmiDonate.statusbar"), this);
+		jmiDonate.addChangeListener(new StatusBarChangeHandler(RB.getString("FPortecle.jmiDonate.statusbar"),
+		    this));
 
 		jmHelp.addSeparator();
 
@@ -816,8 +823,8 @@ public class FPortecle
 				showSecurityProviders();
 			}
 		});
-		new StatusBarChangeHandler(jmiSecurityProviders,
-		    RB.getString("FPortecle.jmiSecurityProviders.statusbar"), this);
+		jmiSecurityProviders.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiSecurityProviders.statusbar"), this));
 
 		JMenuItem jmiJars =
 		    new JMenuItem(RB.getString("FPortecle.jmiJars.text"),
@@ -832,7 +839,8 @@ public class FPortecle
 				showJarInfo();
 			}
 		});
-		new StatusBarChangeHandler(jmiJars, RB.getString("FPortecle.jmiJars.statusbar"), this);
+		jmiJars.addChangeListener(new StatusBarChangeHandler(RB.getString("FPortecle.jmiJars.statusbar"),
+		    this));
 
 		jmHelp.addSeparator();
 
@@ -849,7 +857,8 @@ public class FPortecle
 				showAbout();
 			}
 		});
-		new StatusBarChangeHandler(jmiAbout, RB.getString("FPortecle.jmiAbout.statusbar"), this);
+		jmiAbout.addChangeListener(new StatusBarChangeHandler(RB.getString("FPortecle.jmiAbout.statusbar"),
+		    this));
 
 		// Add the menus to the menu bar
 		jmbMenuBar.add(m_jmrfFile);
@@ -873,8 +882,8 @@ public class FPortecle
 		jmirfNew.setIcon(new ImageIcon(getResImage("FPortecle.OpenRecent.image")));
 		jmirfNew.addActionListener(new RecentKeyStoreFileActionListener(fRecentFile, this));
 
-		new StatusBarChangeHandler(jmirfNew, MessageFormat.format(
-		    RB.getString("FPortecle.recentfile.statusbar"), fRecentFile), this);
+		jmirfNew.addChangeListener(new StatusBarChangeHandler(MessageFormat.format(
+		    RB.getString("FPortecle.recentfile.statusbar"), fRecentFile), this));
 		return jmirfNew;
 	}
 
@@ -1322,7 +1331,8 @@ public class FPortecle
 				deleteSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyDelete, RB.getString("FPortecle.jmiKeyDelete.statusbar"), this);
+		jmiKeyDelete.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiKeyDelete.statusbar"), this));
 
 		m_jpmKey.add(jmiKeyDelete);
 
@@ -1341,8 +1351,8 @@ public class FPortecle
 				showSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairCertDetails,
-		    RB.getString("FPortecle.jmiKeyPairCertDetails.statusbar"), this);
+		jmiKeyPairCertDetails.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiKeyPairCertDetails.statusbar"), this));
 
 		JMenuItem jmiKeyPairExport =
 		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairExport.text"), RB.getString(
@@ -1357,8 +1367,8 @@ public class FPortecle
 				exportSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairExport, RB.getString("FPortecle.jmiKeyPairExport.statusbar"),
-		    this);
+		jmiKeyPairExport.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiKeyPairExport.statusbar"), this));
 
 		JMenuItem jmiGenerateCSR =
 		    new JMenuItem(RB.getString("FPortecle.jmiGenerateCSR.text"), RB.getString(
@@ -1372,7 +1382,8 @@ public class FPortecle
 				generateCsrSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiGenerateCSR, RB.getString("FPortecle.jmiGenerateCSR.statusbar"), this);
+		jmiGenerateCSR.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiGenerateCSR.statusbar"), this));
 
 		JMenuItem jmiImportCAReply =
 		    new JMenuItem(RB.getString("FPortecle.jmiImportCAReply.text"), RB.getString(
@@ -1386,8 +1397,8 @@ public class FPortecle
 				importCAReplySelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiImportCAReply, RB.getString("FPortecle.jmiImportCAReply.statusbar"),
-		    this);
+		jmiImportCAReply.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiImportCAReply.statusbar"), this));
 
 		JMenuItem jmiRenew =
 		    new JMenuItem(RB.getString("FPortecle.jmiRenew.text"),
@@ -1401,7 +1412,8 @@ public class FPortecle
 				renewSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiRenew, RB.getString("FPortecle.jmiRenew.statusbar"), this);
+		jmiRenew.addChangeListener(new StatusBarChangeHandler(RB.getString("FPortecle.jmiRenew.statusbar"),
+		    this));
 
 		m_jmiSetKeyPairPass =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiSetKeyPairPass.text"), RB.getString(
@@ -1415,8 +1427,8 @@ public class FPortecle
 				setPasswordSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(m_jmiSetKeyPairPass,
-		    RB.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"), this);
+		m_jmiSetKeyPairPass.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiSetKeyPairPass.statusbar"), this));
 
 		JMenuItem jmiKeyPairDelete =
 		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairDelete.text"), RB.getString(
@@ -1430,8 +1442,8 @@ public class FPortecle
 				deleteSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairDelete, RB.getString("FPortecle.jmiKeyPairDelete.statusbar"),
-		    this);
+		jmiKeyPairDelete.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiKeyPairDelete.statusbar"), this));
 
 		JMenuItem jmiKeyPairClone =
 		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairClone.text"), RB.getString(
@@ -1445,7 +1457,8 @@ public class FPortecle
 				cloneSelectedKeyEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairClone, RB.getString("FPortecle.jmiKeyPairClone.statusbar"), this);
+		jmiKeyPairClone.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiKeyPairClone.statusbar"), this));
 
 		JMenuItem jmiKeyPairRename =
 		    new JMenuItem(RB.getString("FPortecle.jmiKeyPairRename.text"), RB.getString(
@@ -1459,8 +1472,8 @@ public class FPortecle
 				renameSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiKeyPairRename, RB.getString("FPortecle.jmiKeyPairRename.statusbar"),
-		    this);
+		jmiKeyPairRename.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiKeyPairRename.statusbar"), this));
 
 		m_jpmKeyPair.add(jmiKeyPairCertDetails);
 		m_jpmKeyPair.addSeparator();
@@ -1493,8 +1506,8 @@ public class FPortecle
 				showSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiTrustCertDetails,
-		    RB.getString("FPortecle.jmiTrustCertDetails.statusbar"), this);
+		jmiTrustCertDetails.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiTrustCertDetails.statusbar"), this));
 
 		JMenuItem jmiTrustCertExport =
 		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertExport.text"), RB.getString(
@@ -1508,8 +1521,8 @@ public class FPortecle
 				exportSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiTrustCertExport,
-		    RB.getString("FPortecle.jmiTrustCertExport.statusbar"), this);
+		jmiTrustCertExport.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiTrustCertExport.statusbar"), this));
 
 		JMenuItem jmiTrustCertDelete =
 		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertDelete.text"), RB.getString(
@@ -1523,8 +1536,8 @@ public class FPortecle
 				deleteSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiTrustCertDelete,
-		    RB.getString("FPortecle.jmiTrustCertDelete.statusbar"), this);
+		jmiTrustCertDelete.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiTrustCertDelete.statusbar"), this));
 
 		JMenuItem jmiTrustCertClone =
 		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertClone.text"), RB.getString(
@@ -1538,8 +1551,8 @@ public class FPortecle
 				cloneSelectedCertificateEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiTrustCertClone, RB.getString("FPortecle.jmiTrustCertClone.statusbar"),
-		    this);
+		jmiTrustCertClone.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiTrustCertClone.statusbar"), this));
 
 		JMenuItem jmiTrustCertRename =
 		    new JMenuItem(RB.getString("FPortecle.jmiTrustCertRename.text"), RB.getString(
@@ -1553,8 +1566,8 @@ public class FPortecle
 				renameSelectedEntry();
 			}
 		});
-		new StatusBarChangeHandler(jmiTrustCertRename,
-		    RB.getString("FPortecle.jmiTrustCertRename.statusbar"), this);
+		jmiTrustCertRename.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.jmiTrustCertRename.statusbar"), this));
 
 		m_jpmCert.add(jmiTrustCertDetails);
 		m_jpmCert.addSeparator();
