@@ -1105,7 +1105,7 @@ public class X509Ext
 	 * SMIMECapabilities ::= SEQUENCE OF SMIMECapability
 	 * </pre>
 	 * 
-	 * @see <a href="http://www.ietf.org/rfc/rfc2633">RFC 2633</a>
+	 * @see <a href="http://tools.ietf.org/html/rfc2633">RFC 2633</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1200,7 +1200,7 @@ public class X509Ext
 	/**
 	 * Get Logotype (1.3.6.1.5.5.7.1.12) extension value as a string.
 	 * 
-	 * @see <a href="http://www.ietf.org/rfc/rfc3709">RFC 3709</a>
+	 * @see <a href="http://tools.ietf.org/html/rfc3709">RFC 3709</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1521,7 +1521,7 @@ public class X509Ext
 	/**
 	 * Get extension value for Certificate Policies as a string.
 	 * 
-	 * @see <a href="http://www.ietf.org/rfc/rfc3280">RFC 3280</a>
+	 * @see <a href="http://tools.ietf.org/html/rfc3280">RFC 3280</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
