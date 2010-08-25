@@ -1833,10 +1833,10 @@ public class X509Ext
 	private String getHexClearDump(byte[] bytes, int iLen)
 	{
 		// Buffer for hex
-		StringBuilder sbHex = new StringBuilder();
+		StringBuilder sbHex = new StringBuilder(iLen * 3 - 1);
 
 		// Buffer for clear text
-		StringBuilder sbClr = new StringBuilder();
+		StringBuilder sbClr = new StringBuilder(iLen);
 
 		// Populate buffers for hex and clear text
 
