@@ -168,7 +168,7 @@ public final class X509CertUtil
 				// 1.25 to at least 1.43) won't allow us to really skip things we're not interested in; stuff
 				// happens already in readObject().
 
-				certs = new ArrayList();
+				certs = new ArrayList<X509Certificate>();
 				Object cert;
 
 				while (true)
