@@ -1208,32 +1208,123 @@ public class X509Ext
 	private String getLogotypeStringValue(byte[] bValue)
 	    throws IOException
 	{
-		return getUnknownOidStringValue(bValue);
+		// TODO: work-in-progress (localization, test certificates for stuff...)
 
-		/*
-		 * work-in-progress: ASN1Sequence logos = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
-		 * StringBuilder sb = new StringBuilder(); for (int i = 0, len = logos.size(); i < len; i++) {
-		 * DERTaggedObject derTag = (DERTaggedObject) logos.getObjectAt(i); switch (derTag.getTagNo()) { case
-		 * 0: sb.append(m_res.getString("CommunityLogos")); break; case 1:
-		 * sb.append(m_res.getString("IssuerLogo")); DERTaggedObject ltInfo = (DERTaggedObject)
-		 * derTag.getObject(); switch (ltInfo.getTagNo()) { case 0: // LogotypeData sb.append("\n\tData");
-		 * ASN1Sequence ltData = (ASN1Sequence) ltInfo.getObject(); if (ltData.size() > 0) { ASN1Sequence
-		 * ltImage = (ASN1Sequence) ltData.getObjectAt(0); sb.append("\n\t\tImage"); ASN1Sequence ltDetails =
-		 * (ASN1Sequence) ltImage.getObjectAt(0); sb.append("\n\t\t\tDetails"); sb.append("\n\t\t\t\tMedia
-		 * type: ") .append(((DERString) ltDetails.getObjectAt(0)).getString()); ASN1Sequence ltHash =
-		 * (ASN1Sequence) ltDetails.getObjectAt(1); for (int j = 0, jlen = ltHash.size(); j < jlen; j++) {
-		 * sb.append("\n\t\t\t\tHash: "); ASN1Sequence haav = (ASN1Sequence) ltHash.getObjectAt(j);
-		 * sb.append("<TODO>: "); // haav[0]: alg identifier byte[] bHashValue = ((DEROctetString)
-		 * haav.getObjectAt(1)) .getOctets(); sb.append(convertToHexString(bHashValue)); } ASN1Sequence ltURI
-		 * = (ASN1Sequence) ltDetails.getObjectAt(2); for (int j = 0, jlen = ltURI.size(); j < jlen; j++) {
-		 * sb.append("\n\t\t\t\tURI: ") .append(((DERString) ltURI.getObjectAt(j)).getString()); } if
-		 * (ltImage.size() > 1) { ASN1Sequence ltImageInfo = (ASN1Sequence) ltImage.getObjectAt(1);
-		 * sb.append("\n\t\t\tImage info"); } if (ltData.size() > 1) { ASN1Sequence ltAudio = (ASN1Sequence)
-		 * ltData.getObjectAt(1); sb.append("\n\t\tAudio"); } } break; case 1: // LogotypeReference
-		 * sb.append("\n Reference"); break; default: // Unknown, skip } break; case 2:
-		 * sb.append(m_res.getString("SubjectLogo")); break; case 3: sb.append(m_res.getString("OtherLogos"));
-		 * break; default: // Unknown, skip } } return sb.toString();
-		 */
+		ASN1Sequence logos = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0, len = logos.size(); i < len; i++)
+		{
+			DERTaggedObject derTag = (DERTaggedObject) logos.getObjectAt(i);
+			switch (derTag.getTagNo())
+			{
+				case 0:
+					sb.append(RB.getString("CommunityLogos"));
+					// TODO
+					sb.append("<br>");
+					sb.append(stringify(derTag.getObject()));
+					break;
+				case 1:
+					sb.append("<ul><li>");
+					sb.append(RB.getString("IssuerLogo"));
+					DERTaggedObject ltInfo = (DERTaggedObject) derTag.getObject();
+					switch (ltInfo.getTagNo())
+					{
+						case 0: // LogotypeData
+							sb.append("<ul><li>");
+							sb.append("Data");
+							ASN1Sequence ltData = (ASN1Sequence) ltInfo.getObject();
+							if (ltData.size() > 0)
+							{
+								sb.append("<ul><li>");
+								ASN1Sequence ltImage = (ASN1Sequence) ltData.getObjectAt(0);
+								sb.append("Image");
+
+								ASN1Sequence ltDetails = (ASN1Sequence) ltImage.getObjectAt(0);
+								sb.append("<ul><li>");
+								sb.append("Details");
+								sb.append("<ul>");
+
+								String sMediaType = ((DERString) ltDetails.getObjectAt(0)).getString();
+								sb.append("<li>Media type: ").append(escapeHtml(sMediaType)).append("</li>");
+
+								ASN1Sequence ltHash = (ASN1Sequence) ltDetails.getObjectAt(1);
+								for (int j = 0, jlen = ltHash.size(); j < jlen; j++)
+								{
+									ASN1Sequence haav = (ASN1Sequence) ltHash.getObjectAt(j);
+									ASN1Sequence ha = (ASN1Sequence) haav.getObjectAt(0);
+									String algId = ha.getObjectAt(0).toString();
+									// TODO: ha.getObjectAt(1) = parameters
+									String hashAlg = getRes(algId, "UnrecognisedHashAlgorithm");
+									sb.append("<li>Hash (");
+									sb.append(MessageFormat.format(hashAlg, algId));
+									sb.append("): ");
+									byte[] bHashValue = ((DEROctetString) haav.getObjectAt(1)).getOctets();
+									sb.append(convertToHexString(bHashValue));
+									sb.append("</li>");
+								}
+
+								ASN1Sequence ltURI = (ASN1Sequence) ltDetails.getObjectAt(2);
+								for (int j = 0, jlen = ltURI.size(); j < jlen; j++)
+								{
+									String sUri = ((DERString) ltURI.getObjectAt(j)).getString();
+									String eUri = escapeHtml(sUri);
+									sb.append("<li>URI: ");
+									sb.append(getLink(sUri, eUri, LinkClass.BROWSER));
+									sb.append("<br>");
+									sb.append("<img src=\"").append(eUri).append("\" alt=\"").append(eUri).append(
+									    "\">");
+									sb.append("</li>");
+								}
+								if (ltImage.size() > 1)
+								{
+									// TODO (in particular width and height for the <img> tag, without
+									// dimensions there are some problems when the pane first shows a small
+									// "broken" image and then loads the actual one into its dimensions but
+									// fails to update the layout
+									sb.append("<li>Image info: ");
+									sb.append(stringify(ltImage.getObjectAt(1)));
+									sb.append("</li>");
+								}
+								sb.append("</ul></li>");
+
+								if (ltData.size() > 1)
+								{
+									// TODO
+									sb.append("<li>Audio: ");
+									sb.append(stringify(ltData.getObjectAt(1)));
+									sb.append("</li>");
+								}
+								sb.append("</ul>");
+							}
+							sb.append("</li></ul></li></ul>");
+							break;
+						case 1: // LogotypeReference
+							// TODO
+							sb.append("Reference: ");
+							sb.append(stringify(ltInfo.getObject()));
+							break;
+						default: // Unknown
+							sb.append(stringify(ltInfo));
+					}
+					break;
+				case 2:
+					sb.append(RB.getString("SubjectLogo"));
+					// TODO
+					sb.append("<br>");
+					sb.append(stringify(derTag.getObject()));
+					break;
+				case 3:
+					sb.append(RB.getString("OtherLogos"));
+					// TODO
+					sb.append("<br>");
+					sb.append(stringify(derTag.getObject()));
+					break;
+				default: // Unknown
+					sb.append(stringify(derTag));
+			}
+		}
+		return sb.toString();
 	}
 
 	/**
