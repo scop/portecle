@@ -83,10 +83,8 @@ public class FileExtFilter
 			return false;
 		}
 
-		for (int iCnt = 0; iCnt < m_sExts.length; iCnt++)
+		for (String sExt : m_sExts)
 		{
-			String sExt = m_sExts[iCnt];
-
 			if (sFileExt.equalsIgnoreCase(sExt))
 			{
 				return true;

@@ -150,13 +150,11 @@ public class DThrowableDetail
 			DefaultMutableTreeNode throwableNode = new DefaultMutableTreeNode(throwable);
 			topNode.add(throwableNode);
 
-			StackTraceElement[] stackTrace = throwable.getStackTrace();
-
-			for (int iCnt = 0; iCnt < stackTrace.length; iCnt++)
+			for (StackTraceElement ste : throwable.getStackTrace())
 			{
 				// Create a node for each stack trace entry and add it
 				// to the throwable node
-				throwableNode.add(new DefaultMutableTreeNode(stackTrace[iCnt]));
+				throwableNode.add(new DefaultMutableTreeNode(ste));
 			}
 
 			throwable = throwable.getCause();
@@ -193,12 +191,10 @@ public class DThrowableDetail
 			strBuff.append(throwable);
 			strBuff.append('\n');
 
-			StackTraceElement[] stackTrace = throwable.getStackTrace();
-
-			for (int iCnt = 0; iCnt < stackTrace.length; iCnt++)
+			for (StackTraceElement ste : throwable.getStackTrace())
 			{
 				strBuff.append('\t');
-				strBuff.append(stackTrace[iCnt]);
+				strBuff.append(ste);
 				strBuff.append('\n');
 			}
 

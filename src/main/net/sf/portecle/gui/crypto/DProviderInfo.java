@@ -135,14 +135,9 @@ public class DProviderInfo
 		DefaultMutableTreeNode topNode =
 		    new DefaultMutableTreeNode(RB.getString("DProviderInfo.TopNodeName"));
 
-		// Get security providers
-		Provider[] providers = Security.getProviders();
-
 		// For each provider...
-		for (int iCnt = 0; iCnt < providers.length; iCnt++)
+		for (Provider provider : Security.getProviders())
 		{
-			Provider provider = providers[iCnt];
-
 			// Create a node with the provider name and add it as a
 			// child of the top node
 			DefaultMutableTreeNode providerNode = new DefaultMutableTreeNode(provider.getName());
@@ -179,13 +174,13 @@ public class DProviderInfo
 		// Put provider information in here
 		StringBuilder strBuff = new StringBuilder();
 
-		// Get security providers
-		Provider[] providers = Security.getProviders();
-
 		// For each provider...
-		for (int iCnt = 0; iCnt < providers.length; iCnt++)
+		for (Provider provider : Security.getProviders())
 		{
-			Provider provider = providers[iCnt];
+			if (strBuff.length() != 0)
+			{
+				strBuff.append('\n');
+			}
 
 			// ...write out the provider name, description and version...
 			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderName"),
@@ -210,11 +205,6 @@ public class DProviderInfo
 				strBuff.append(sKey);
 				strBuff.append('=');
 				strBuff.append(sValue);
-				strBuff.append('\n');
-			}
-
-			if (iCnt + 1 < providers.length)
-			{
 				strBuff.append('\n');
 			}
 		}

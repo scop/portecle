@@ -111,12 +111,11 @@ public final class X509CertUtil
 		URL downloadedUrl = NetUtil.download(url);
 
 		X509Certificate[] certs = null;
-		String[] certTypes = { PKCS7_ENCODING, PKIPATH_ENCODING, null, OPENSSL_PEM_ENCODING, };
-		for (int iCnt = 0; iCnt < certTypes.length; iCnt++)
+		for (String certType : new String[] { PKCS7_ENCODING, PKIPATH_ENCODING, null, OPENSSL_PEM_ENCODING })
 		{
 			try
 			{
-				certs = loadCertificates(downloadedUrl, certTypes[iCnt]);
+				certs = loadCertificates(downloadedUrl, certType);
 				break; // Success!
 			}
 			catch (FileNotFoundException e)

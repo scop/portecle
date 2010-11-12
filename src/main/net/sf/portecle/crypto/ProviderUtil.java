@@ -46,11 +46,10 @@ public final class ProviderUtil
 	 */
 	public static Collection<Provider> getPkcs11Providers()
 	{
-		Provider[] provs = Security.getProviders();
 		ArrayList<Provider> p11s = new ArrayList<Provider>();
-		for (int i = 0, len = provs.length; i < len; i++)
+		for (Provider prov : Security.getProviders())
 		{
-			String pName = provs[i].getName();
+			String pName = prov.getName();
 			// Is it a PKCS #11 provider?
 			/*
 			 * TODO: is there a better way to find out? Could try instanceof sun.security.pkcs11.SunPKCS11 but
@@ -58,7 +57,7 @@ public final class ProviderUtil
 			 */
 			if (pName.startsWith("SunPKCS11-"))
 			{
-				p11s.add(provs[i]);
+				p11s.add(prov);
 			}
 		}
 		return p11s;

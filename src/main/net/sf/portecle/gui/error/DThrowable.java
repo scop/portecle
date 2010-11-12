@@ -126,9 +126,9 @@ public class DThrowable
 			if (msg != null)
 			{
 				msg = msg.toLowerCase(Locale.US);
-				for (int i = 0, len = POLICY_PROBLEM_HINTS.length; i < len; i++)
+				for (String hint : POLICY_PROBLEM_HINTS)
 				{
-					if (msg.indexOf(POLICY_PROBLEM_HINTS[i]) != -1)
+					if (msg.contains(hint))
 					{
 						maybePolicyProblem = true;
 						break;
