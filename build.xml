@@ -32,6 +32,9 @@
   <property name="build.targetver" value="1.6" />
   <property name="build.encoding" value="UTF-8" />
 
+  <property name="apiurl.java" value="http://java.sun.com/javase/6/docs/api/"/>
+  <property name="apiurl.bc" value="http://www.bouncycastle.org/docs/docs1.6/"/>
+
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
   </path>
@@ -122,6 +125,8 @@
       <packageset dir="${src}/main" defaultexcludes="yes">
         <include name="net/sf/portecle/**" />
       </packageset>
+      <link href="${apiurl.java}"/>
+      <link href="${apiurl.bc}"/>
     </javadoc>
   </target>
 
