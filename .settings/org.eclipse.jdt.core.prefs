@@ -1,4 +1,4 @@
-#Tue Aug 24 13:38:24 EEST 2010
+#Mon Dec 06 19:35:47 EET 2010
 org.eclipse.jdt.core.formatter.insert_space_before_comma_in_for_inits=do not insert
 org.eclipse.jdt.core.formatter.brace_position_for_block=next_line
 org.eclipse.jdt.core.formatter.insert_space_after_at_in_annotation_type_declaration=do not insert
@@ -13,7 +13,7 @@ org.eclipse.jdt.core.formatter.insert_space_after_opening_paren_in_if=do not ins
 org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_block=insert
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.6
 org.eclipse.jdt.core.formatter.insert_space_before_closing_angle_bracket_in_type_parameters=do not insert
-org.eclipse.jdt.core.compiler.problem.unusedPrivateMember=warning
+org.eclipse.jdt.core.compiler.problem.unusedPrivateMember=error
 org.eclipse.jdt.core.formatter.comment.clear_blank_lines_in_javadoc_comment=true
 org.eclipse.jdt.core.formatter.never_indent_line_comments_on_first_column=true
 org.eclipse.jdt.core.formatter.insert_new_line_before_closing_brace_in_array_initializer=do not insert
@@ -49,7 +49,7 @@ org.eclipse.jdt.core.formatter.insert_space_before_opening_paren_in_enum_constan
 org.eclipse.jdt.core.compiler.problem.undocumentedEmptyBlock=warning
 org.eclipse.jdt.core.formatter.insert_new_line_after_annotation_on_local_variable=insert
 org.eclipse.jdt.core.formatter.keep_then_statement_on_same_line=false
-org.eclipse.jdt.core.compiler.problem.syntheticAccessEmulation=warning
+org.eclipse.jdt.core.compiler.problem.syntheticAccessEmulation=ignore
 org.eclipse.jdt.core.formatter.insert_space_after_comma_in_method_invocation_arguments=insert
 org.eclipse.jdt.core.formatter.format_line_comment_starting_on_first_column=true
 org.eclipse.jdt.core.formatter.insert_space_after_comma_in_multiple_local_declarations=insert
