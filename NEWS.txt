@@ -4,6 +4,7 @@ New in Portecle x.x (201x-xx-xx):
 Enhancements:
 - Certificate extension rendering improvements.
 - Miscellaneous user interface improvements.
+- Error logging improvements.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to version 1.45.

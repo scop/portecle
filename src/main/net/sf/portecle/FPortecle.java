@@ -71,6 +71,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
 import javax.net.ssl.SSLContext;
@@ -152,9 +154,14 @@ public class FPortecle
     extends JFrame
     implements StatusBar
 {
+	/** Resource bundle base name */
+	private static final String RB_BASENAME = FPortecle.class.getPackage().getName() + "/resources";
+
 	/** Resource bundle */
-	public static final ResourceBundle RB = ResourceBundle.getBundle(FPortecle.class.getPackage().getName() +
-	    "/resources");
+	public static final ResourceBundle RB = ResourceBundle.getBundle(RB_BASENAME);
+
+	/** Logger */
+	public static final Logger LOG = Logger.getLogger(FPortecle.class.getName(), RB_BASENAME);
 
 	/** Application preferences */
 	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
@@ -1615,8 +1622,7 @@ public class FPortecle
 				// What's this?
 				else
 				{
-					System.err.println("WARNING: popup context menu requested " + "for unknown entry: " +
-					    currEntry);
+					LOG.warning("Popup context menu requested for unknown entry: " + currEntry);
 				}
 			}
 		}
@@ -5898,10 +5904,10 @@ public class FPortecle
 		}
 		catch (VersionException ex)
 		{
-			// Could not parse JRE version
+			// Could not parse actual JRE version
 			String sMessage =
 			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
-			System.err.println(sMessage);
+			LOG.warning(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -5916,10 +5922,10 @@ public class FPortecle
 		}
 		catch (VersionException ex)
 		{
-			// Could not parse JRE version
+			// Could not parse required JRE version
 			String sMessage =
 			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
-			System.err.println(sMessage);
+			LOG.warning(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -5932,7 +5938,7 @@ public class FPortecle
 			String sMessage =
 			    MessageFormat.format(RB.getString("FPortecle.MinJreVersionReq.message"), actualJreVersion,
 			        reqJreVersion);
-			System.err.println(sMessage);
+			LOG.severe(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
 			    JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -6867,8 +6873,7 @@ public class FPortecle
 		catch (Throwable thw)
 		{
 			// No sign of the provider - warn the user and exit
-			System.err.println(RB.getString("FPortecle.NoLoadBc.message"));
-			thw.printStackTrace();
+			LOG.log(Level.SEVERE, "FPortecle.NoLoadBc.message", thw);
 			JOptionPane.showMessageDialog(new JFrame(), RB.getString("FPortecle.NoLoadBc.message"),
 			    RB.getString("FPortecle.Title"), JOptionPane.ERROR_MESSAGE);
 			System.exit(1);

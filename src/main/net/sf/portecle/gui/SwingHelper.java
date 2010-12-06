@@ -21,9 +21,12 @@
 
 package net.sf.portecle.gui;
 
+import static net.sf.portecle.FPortecle.LOG;
+
 import java.awt.Component;
 import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -66,11 +69,11 @@ public class SwingHelper
 			}
 			catch (InterruptedException e)
 			{
-				e.printStackTrace(); // TODO?
+				LOG.log(Level.WARNING, "Error setting window visible", e); // TODO?
 			}
 			catch (InvocationTargetException e)
 			{
-				e.printStackTrace(); // TODO?
+				LOG.log(Level.WARNING, "Error setting window visible", e); // TODO?
 			}
 		}
 	}
