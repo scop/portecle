@@ -5,6 +5,7 @@ Enhancements:
 - Certificate extension rendering improvements.
 - Miscellaneous user interface improvements.
 - Error logging improvements.
+- Don't refuse to start with unrecognized JRE versions.
 
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to version 1.45.

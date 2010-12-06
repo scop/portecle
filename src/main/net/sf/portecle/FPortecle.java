@@ -5896,7 +5896,7 @@ public class FPortecle
 
 		assert sJreVersion != null;
 
-		JavaVersion actualJreVersion = null;
+		JavaVersion actualJreVersion;
 
 		try
 		{
@@ -5909,12 +5909,12 @@ public class FPortecle
 			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
 			LOG.warning(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
-			    JOptionPane.ERROR_MESSAGE);
-			return false;
+			    JOptionPane.WARNING_MESSAGE);
+			return true;
 		}
 
 		// Get the required Java Runtime Environment version
-		JavaVersion reqJreVersion = null;
+		JavaVersion reqJreVersion;
 
 		try
 		{
@@ -5927,8 +5927,8 @@ public class FPortecle
 			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
 			LOG.warning(sMessage);
 			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
-			    JOptionPane.ERROR_MESSAGE);
-			return false;
+			    JOptionPane.WARNING_MESSAGE);
+			return true;
 		}
 
 		// Recent enough JRE?
