@@ -7,6 +7,9 @@ Enhancements:
 - Error logging improvements.
 - Don't refuse to start with unrecognized JRE versions.
 
+Bug fixes:
+- Swing event dispatch thread related fixes (#3129497).
+
 Miscellaneous:
 - Bundled Bouncy Castle provider jar upgraded to version 1.45.
 

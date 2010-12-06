@@ -6580,21 +6580,14 @@ public class FPortecle
 			setDefaultStatusBarText();
 			setCursorBusy();
 			repaint();
-			new Thread(new Runnable()
+			try
 			{
-				@Override
-				public void run()
-				{
-					try
-					{
-						act();
-					}
-					finally
-					{
-						setCursorFree();
-					}
-				}
-			}).start();
+				act();
+			}
+			finally
+			{
+				setCursorFree();
+			}
 		}
 	}
 
@@ -6612,21 +6605,14 @@ public class FPortecle
 			setDefaultStatusBarText();
 			setCursorBusy();
 			repaint();
-			new Thread(new Runnable()
+			try
 			{
-				@Override
-				public void run()
-				{
-					try
-					{
-						act();
-					}
-					finally
-					{
-						setCursorFree();
-					}
-				}
-			}).start();
+				act();
+			}
+			finally
+			{
+				setCursorFree();
+			}
 		}
 	}
 
