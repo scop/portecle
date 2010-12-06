@@ -45,6 +45,10 @@ public class LastDir
 			{
 				m_fLastDir = null;
 			}
+			else if (!m_fLastDir.isDirectory())
+			{
+				m_fLastDir = m_fLastDir.getParentFile();
+			}
 		}
 	}
 
