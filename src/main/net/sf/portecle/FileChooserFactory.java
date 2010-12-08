@@ -436,7 +436,9 @@ public class FileChooserFactory
 		@Override
 		public Icon getIcon(File f)
 		{
-			if (!f.isFile())
+			// The f.isDirectory() check is superfluous here, but it reportedly avoids some odd
+			// delays on Windows (sf.net#3129497).
+			if (f.isDirectory() || !f.isFile())
 			{
 				return super.getIcon(f);
 			}

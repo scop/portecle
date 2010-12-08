@@ -6,6 +6,7 @@ Enhancements:
 - Miscellaneous user interface improvements.
 - Error logging improvements.
 - Don't refuse to start with unrecognized JRE versions.
+- Try to avoid file chooser delays on Windows (#3129497).
 
 Bug fixes:
 - Swing event dispatch thread related fixes (#3129497).
