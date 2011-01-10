@@ -1046,7 +1046,7 @@ public class X509Ext
 		int ver = ((DERInteger) ASN1Object.fromByteArray(bValue)).getValue().intValue();
 		String certIx = String.valueOf(ver & 0xffff); // low 16 bits
 		String keyIx = String.valueOf(ver >> 16); // high 16 bits
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(MessageFormat.format(RB.getString("MsftCaVersionCert"), certIx));
 		sb.append("<br><br>");
 		sb.append(MessageFormat.format(RB.getString("MsftCaVersionKey"), keyIx));
