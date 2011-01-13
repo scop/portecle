@@ -125,7 +125,7 @@ class DGeneratingKeyPair
 	 */
 	public void startKeyPairGeneration()
 	{
-		m_generator = new Thread(new GenerateKeyPair());
+		m_generator = new Thread(new GenerateKeyPair(), "Portecle key pair generator");
 		m_generator.setPriority(Thread.MIN_PRIORITY);
 		m_generator.start();
 	}
