@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2011 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -47,7 +47,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 
-import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
@@ -101,27 +100,46 @@ class DGenerateCertificate
 	/** Email Address text field */
 	private JTextField m_jtfEmailAddress;
 
-	/** The key pair to generate the certificate from */
-	private final KeyPair m_keyPair;
-
 	/** The key pair type */
 	private final KeyPairType m_keyPairType;
 
-	/** Generated certificate */
-	private X509Certificate m_certificate;
+	/** Entered common name */
+	private String m_sCommonName;
+
+	/** Entered organization unit */
+	private String m_sOrganizationUnit;
+
+	/** Entered organization name */
+	private String m_sOrganizationName;
+
+	/** Entered locality name */
+	private String m_sLocalityName;
+
+	/** Entered state name */
+	private String m_sStateName;
+
+	/** Entered country code */
+	private String m_sCountryCode;
+
+	/** Entered e-mail address */
+	private String m_sEmailAddress;
+
+	/** Entered validity period */
+	private int m_iValidity = BAD_VALIDITY;
+
+	/** Records whether or not correct parameters are entered */
+	private boolean m_bSuccess;
 
 	/**
 	 * Creates new DGenerateCertificate dialog.
 	 * 
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
-	 * @param keyPair The key pair to generate the certificate from
 	 * @param keyPairType The key pair type
 	 */
-	public DGenerateCertificate(Window parent, String sTitle, KeyPair keyPair, KeyPairType keyPairType)
+	public DGenerateCertificate(Window parent, String sTitle, KeyPairType keyPairType)
 	{
 		super(parent, true);
-		m_keyPair = keyPair;
 		m_keyPairType = keyPairType;
 		initComponents(sTitle);
 	}
@@ -318,31 +336,30 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Generate a certificate based on the parameters supplied to the dialog and the user entry.
+	 * Validate dialog values entered by user.
 	 * 
-	 * @return True if the certificate generation is successful, false otherwise
+	 * @return True if the values are valid for certificate creation, false otherwise
 	 */
-	private boolean generateCertificate()
+	private boolean validateValues()
 	{
-		// Validate dialog's field values
-
-		int iValidity = validateValidity(m_jtfValidity.getText());
-		if (iValidity == BAD_VALIDITY)
+		m_iValidity = validateValidity(m_jtfValidity.getText());
+		if (m_iValidity == BAD_VALIDITY)
 		{
 			SwingHelper.selectAndFocus(m_jtfValidity);
 			return false;
 		}
 
-		String sCommonName = validateCommonName(m_jtfCommonName.getText());
-		String sOrganisationUnit = validateOrganisationUnit(m_jtfOrganisationUnit.getText());
-		String sOrganisationName = validateOrganisationName(m_jtfOrganisationName.getText());
-		String sLocalityName = validateLocalityName(m_jtfLocalityName.getText());
-		String sStateName = validateStateName(m_jtfStateName.getText());
-		String sCountryCode = validateCountryCode(m_jtfCountryCode.getText());
-		String sEmailAddress = validateEmailAddress(m_jtfEmailAddress.getText());
+		m_sCommonName = validateCommonName(m_jtfCommonName.getText());
+		m_sOrganizationUnit = validateOrganisationUnit(m_jtfOrganisationUnit.getText());
+		m_sOrganizationName = validateOrganisationName(m_jtfOrganisationName.getText());
+		m_sLocalityName = validateLocalityName(m_jtfLocalityName.getText());
+		m_sStateName = validateStateName(m_jtfStateName.getText());
+		m_sCountryCode = validateCountryCode(m_jtfCountryCode.getText());
+		m_sEmailAddress = validateEmailAddress(m_jtfEmailAddress.getText());
 
-		if (sCommonName == null && sOrganisationUnit == null && sOrganisationName == null &&
-		    sLocalityName == null && sStateName == null && sCountryCode == null && sEmailAddress == null)
+		if (m_sCommonName == null && m_sOrganizationUnit == null && m_sOrganizationName == null &&
+		    m_sLocalityName == null && m_sStateName == null && m_sCountryCode == null &&
+		    m_sEmailAddress == null)
 		{
 			JOptionPane.showMessageDialog(this,
 			    RB.getString("DGenerateCertificate.ValueReqCertAttr.message"), getTitle(),
@@ -351,7 +368,7 @@ class DGenerateCertificate
 		}
 
 		// Country code must be two characters long
-		if (sCountryCode != null && sCountryCode.length() != COUNTRY_CODE_LENGTH)
+		if (m_sCountryCode != null && m_sCountryCode.length() != COUNTRY_CODE_LENGTH)
 		{
 			JOptionPane.showMessageDialog(this, MessageFormat.format(
 			    RB.getString("DGenerateCertificate.CountryCodeLength.message"), COUNTRY_CODE_LENGTH),
@@ -360,24 +377,7 @@ class DGenerateCertificate
 			return false;
 		}
 
-		// Generate certificate...
-
-		try
-		{
-			SignatureType signatureType = (SignatureType) m_jcbSigAlg.getSelectedItem();
-			m_certificate =
-			    X509CertUtil.generateCert(sCommonName, sOrganisationUnit, sOrganisationName, sLocalityName,
-			        sStateName, sCountryCode, sEmailAddress, iValidity, m_keyPair.getPublic(),
-			        m_keyPair.getPrivate(), signatureType);
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable dThrowable = new DThrowable(this, null, ex);
-			dThrowable.setLocationRelativeTo(getParent());
-			SwingHelper.showAndWait(dThrowable);
-			closeDialog();
-		}
-
+		m_bSuccess = true;
 		return true;
 	}
 
@@ -548,19 +548,46 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Get the generated certificate.
+	 * Generate certificate from key pair and the dialog's values.
 	 * 
-	 * @return The generated certificate or null if the user canceled the dialog
+	 * @param keyPair The key pair
+	 * @return Generated certificate, null on error
 	 */
-	public X509Certificate getCertificate()
+	protected X509Certificate generateCertificate(KeyPair keyPair)
 	{
-		return m_certificate;
+		X509Certificate cert = null;
+		try
+		{
+			SignatureType signatureType = (SignatureType) m_jcbSigAlg.getSelectedItem();
+			cert =
+			    X509CertUtil.generateCert(m_sCommonName, m_sOrganizationUnit, m_sOrganizationName,
+			        m_sLocalityName, m_sStateName, m_sCountryCode, m_sEmailAddress, m_iValidity,
+			        keyPair.getPublic(), keyPair.getPrivate(), signatureType);
+		}
+		catch (Exception ex)
+		{
+			DThrowable dThrowable = new DThrowable(this, null, ex);
+			dThrowable.setLocationRelativeTo(getParent());
+			SwingHelper.showAndWait(dThrowable);
+			closeDialog();
+		}
+		return cert;
+	}
+
+	/**
+	 * Have the parameters been entered correctly?
+	 * 
+	 * @return True if they have, false otherwise
+	 */
+	public boolean isSuccessful()
+	{
+		return m_bSuccess;
 	}
 
 	@Override
 	protected void okPressed()
 	{
-		if (generateCertificate())
+		if (validateValues())
 		{
 			super.okPressed();
 		}

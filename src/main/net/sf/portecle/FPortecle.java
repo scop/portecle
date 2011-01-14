@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2010 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2011 Ville Skyttä, ville.skytta@iki.fi
  *             2010 Lam Chau, lamchau@gmail.com
  *
  * This program is free software; you can redistribute it and/or
@@ -71,6 +71,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -105,6 +106,7 @@ import javax.swing.LookAndFeel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -1678,32 +1680,58 @@ public class FPortecle
 
 		int iKeySize = dGenerateKeyPair.getKeySize();
 		KeyPairType keyPairType = dGenerateKeyPair.getKeyPairType();
+		DGeneratingKeyPair dGeneratingKeyPair = new DGeneratingKeyPair(this);
 
-		// Display the Generating Key Pair dialog - generates the key pair
-		DGeneratingKeyPair dGeneratingKeyPair = new DGeneratingKeyPair(this, keyPairType, iKeySize);
-		dGeneratingKeyPair.setLocationRelativeTo(this);
-		dGeneratingKeyPair.startKeyPairGeneration();
-		SwingHelper.showAndWait(dGeneratingKeyPair);
+		// Start key pair generation in background thread
+		SwingWorker<KeyPair, Object> worker = dGeneratingKeyPair.getKeyPairWorker(keyPairType, iKeySize);
+		worker.execute();
 
-		KeyPair keyPair = dGeneratingKeyPair.getKeyPair();
-
-		if (keyPair == null)
-		{
-			return false; // User canceled the dialog or an error occurred
-		}
-
-		/*
-		 * Now display the certificate generation dialog supplying the key pair and signature algorithm - this
-		 * will update the keystore with the key pair for us
-		 */
+		// While the key pair is being generated, ask user for certificate date
 		DGenerateCertificate dGenerateCertificate =
-		    new DGenerateCertificate(this, RB.getString("FPortecle.GenerateCertificate.Title"), keyPair,
-		        keyPairType);
+		    new DGenerateCertificate(this, RB.getString("FPortecle.GenerateCertificate.Title"), keyPairType);
 		dGenerateCertificate.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGenerateCertificate);
 
-		X509Certificate certificate = dGenerateCertificate.getCertificate();
+		if (!dGenerateCertificate.isSuccessful())
+		{
+			// User canceled the dialog. Ideally we'd like to kill the background key pair generation task
+			// here, but unfortunately cancel(true) doesn't do it. Any sane ways to accomplish that?
+			worker.cancel(true);
+			return false;
+		}
 
+		if (!worker.isDone())
+		{
+			// Show "progress" dialog
+			dGeneratingKeyPair.setLocationRelativeTo(this);
+			SwingHelper.showAndWait(dGeneratingKeyPair);
+
+			if (!dGeneratingKeyPair.isClosedByWorker())
+			{
+				// User canceled the dialog. Ideally we'd like to kill the background key pair generation task
+				// here, but unfortunately cancel(true) doesn't do it. Any sane ways to accomplish that?
+				worker.cancel(true);
+				return false;
+			}
+		}
+
+		KeyPair keyPair;
+		try
+		{
+			keyPair = worker.get();
+		}
+		catch (InterruptedException e)
+		{
+			return false;
+		}
+		catch (ExecutionException e)
+		{
+			Throwable cause = e.getCause();
+			DThrowable.showAndWait(this, null, cause == null ? e : cause);
+			return false;
+		}
+
+		X509Certificate certificate = dGenerateCertificate.generateCertificate(keyPair);
 		if (certificate == null)
 		{
 			return false; // user canceled dialog or an error occurred

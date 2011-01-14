@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2011 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,22 +27,17 @@ import static net.sf.portecle.FPortecle.RB;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Window;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.security.KeyPair;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 
-import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.KeyPairUtil;
-import net.sf.portecle.gui.error.DThrowable;
 
 /**
  * Modal dialog that generates a key pair which the user may cancel at any time by pressing the cancel button.
@@ -49,35 +45,17 @@ import net.sf.portecle.gui.error.DThrowable;
 class DGeneratingKeyPair
     extends PortecleJDialog
 {
-	/** Stores the key pair generation type */
-	private KeyPairType m_keyPairType;
-
-	/** Stores the key pair size to generate */
-	private int m_iKeySize;
-
-	/** Generated key pair */
-	private KeyPair m_keyPair;
-
-	/**
-	 * Reference to the dialog for the GenerateKeyPair inner class to reference
-	 */
-	private JDialog dialog = this;
-
-	/** The thread that actually does the key pair generation */
-	private Thread m_generator;
+	/** Whether the dialog was closed by a key pair worker */
+	private boolean closedByWorker;
 
 	/**
 	 * Creates new DGeneratingKeyPair dialog.
 	 * 
 	 * @param parent The parent window
-	 * @param keyPairType The key pair generation type
-	 * @param iKeySize The key size to generate
 	 */
-	public DGeneratingKeyPair(Window parent, KeyPairType keyPairType, int iKeySize)
+	public DGeneratingKeyPair(Window parent)
 	{
 		super(parent, true);
-		m_keyPairType = keyPairType;
-		m_iKeySize = iKeySize;
 		initComponents();
 	}
 
@@ -106,105 +84,44 @@ class DGeneratingKeyPair
 		setTitle(RB.getString("DGeneratingKeyPair.Title"));
 
 		initDialog();
+	}
 
-		addWindowListener(new WindowAdapter()
+	/**
+	 * Get key pair worker.
+	 * 
+	 * @param keyPairType key pair type
+	 * @param keySize key size
+	 * @return Swing worker that creates a key pair
+	 */
+	public SwingWorker<KeyPair, Object> getKeyPairWorker(final KeyPairType keyPairType, final int keySize)
+	{
+		SwingWorker<KeyPair, Object> worker = new SwingWorker<KeyPair, Object>()
 		{
 			@Override
-			public void windowClosing(WindowEvent evt)
+			protected KeyPair doInBackground()
+			    throws Exception
 			{
-				if (m_generator != null && m_generator.isAlive())
-				{
-					m_generator.interrupt();
-				}
+				return KeyPairUtil.generateKeyPair(keyPairType, keySize);
 			}
-		});
+
+			@Override
+			protected void done()
+			{
+				closedByWorker = true;
+				closeDialog();
+				super.done();
+			}
+		};
+		return worker;
 	}
 
 	/**
-	 * Start key pair generation in a separate thread.
-	 */
-	public void startKeyPairGeneration()
-	{
-		m_generator = new Thread(new GenerateKeyPair(), "Portecle key pair generator");
-		m_generator.setPriority(Thread.MIN_PRIORITY);
-		m_generator.start();
-	}
-
-	@Override
-	protected void cancelPressed()
-	{
-		if (m_generator != null && m_generator.isAlive())
-		{
-			m_generator.interrupt();
-		}
-		super.cancelPressed();
-	}
-
-	/**
-	 * Get the generated key pair.
+	 * Get whether the dialog was closed by a key pair worker.
 	 * 
-	 * @return The generated key pair or null if the user canceled the dialog
+	 * @return True if the dialog was closed by a key pair worker, false otherwise
 	 */
-	public KeyPair getKeyPair()
+	public boolean isClosedByWorker()
 	{
-		return m_keyPair;
-	}
-
-	/**
-	 * Generates a key pair. Is Runnable so can be run in a separate thread.
-	 */
-	private class GenerateKeyPair
-	    implements Runnable
-	{
-		/** Store any crypto exception that occurs */
-		CryptoException m_ex;
-
-		/**
-		 * Generate a key pair.
-		 */
-		@Override
-		public void run()
-		{
-			// Generate key pair
-			try
-			{
-				m_keyPair = KeyPairUtil.generateKeyPair(m_keyPairType, m_iKeySize);
-
-				// Manipulate GUI in event handler thread
-				SwingUtilities.invokeLater(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						if (dialog.isShowing())
-						{
-							closeDialog();
-						}
-					}
-				});
-			}
-			catch (CryptoException ex)
-			{
-				// Store exception in member so it can be accessed
-				// from inner class
-				m_ex = ex;
-
-				// Manipulate GUI in event handler thread
-				SwingUtilities.invokeLater(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						if (dialog.isShowing())
-						{
-							DThrowable dThrowable = new DThrowable(dialog, null, m_ex);
-							dThrowable.setLocationRelativeTo(DGeneratingKeyPair.this);
-							dThrowable.setVisible(true);
-							closeDialog();
-						}
-					}
-				});
-			}
-		}
+		return closedByWorker;
 	}
 }
