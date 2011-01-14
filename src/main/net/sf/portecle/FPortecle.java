@@ -1746,8 +1746,7 @@ public class FPortecle
 			}
 		}
 
-		// Place the private key and certificate into the keystore and update
-		// the keystore wrapper
+		// Place the private key and certificate into the keystore and update the keystore wrapper
 		try
 		{
 			// Delete old entry first
