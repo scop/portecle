@@ -5880,8 +5880,7 @@ public class FPortecle
 					for (UIManager.LookAndFeelInfo lookFeelInfo : lookFeelInfos)
 					{
 						// Store current look & feel class name
-						if (currentLookAndFeel != null &&
-						    currentLookAndFeel.getName().equals(lookFeelInfo.getName()))
+						if (currentLookAndFeel.getName().equals(lookFeelInfo.getName()))
 						{
 							PREFS.put(RB.getString("AppPrefs.LookFeel"), lookFeelInfo.getClassName());
 							break;
@@ -6045,6 +6044,7 @@ public class FPortecle
 		Component glassPane = getRootPane().getGlassPane();
 		glassPane.addMouseListener(new MouseAdapter()
 		{
+			// Nothing
 		});
 		glassPane.setVisible(true);
 
