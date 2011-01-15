@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
+import java.util.Locale;
 
 import net.sf.portecle.FPortecle;
 
@@ -68,7 +69,8 @@ public final class DigestUtil
 		byte[] bFingerPrint = messageDigest.digest(bMessage);
 
 		// Place the raw message digest into a StringBuilder as a Hex number
-		StringBuilder strBuff = new StringBuilder(new BigInteger(1, bFingerPrint).toString(16).toUpperCase());
+		StringBuilder strBuff =
+		    new StringBuilder(new BigInteger(1, bFingerPrint).toString(16).toUpperCase(Locale.ENGLISH));
 
 		// Odd number of characters so add in a padding "0"
 		if ((strBuff.length() % 2) != 0)

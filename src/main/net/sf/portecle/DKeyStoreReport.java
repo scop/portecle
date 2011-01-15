@@ -44,6 +44,7 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -439,7 +440,8 @@ class DKeyStoreReport
 
 						// Serial Number
 						String sSerialNumber =
-						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase();
+						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(
+						        Locale.ENGLISH);
 						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.serial"),
 						    sSerialNumber));
 						sbReport.append("\n");
@@ -622,7 +624,7 @@ class DKeyStoreReport
 						Element serialNumberElement = xmlDoc.createElement("serial_number");
 						certificateElement.appendChild(serialNumberElement);
 						serialNumberElement.appendChild(xmlDoc.createTextNode(new BigInteger(
-						    x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase()));
+						    x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(Locale.ENGLISH)));
 
 						// Valid From
 						Date dValidFrom = x509Cert.getNotBefore();
@@ -788,7 +790,8 @@ class DKeyStoreReport
 
 						// Serial Number
 						String sSerialNumber =
-						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase();
+						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(
+						        Locale.ENGLISH);
 						certNode.add(new DefaultMutableTreeNode(sSerialNumber));
 
 						// Valid From

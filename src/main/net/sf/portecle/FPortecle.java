@@ -3906,7 +3906,7 @@ public class FPortecle
 					String newExt = newExts.iterator().next();
 					for (String oldExt : oldExts)
 					{
-						String path = oldFile.getPath().toLowerCase(Locale.ENGLISH);
+						String path = oldFile.getPath().toLowerCase();
 						if (path.endsWith("." + oldExt))
 						{
 							m_keyStoreWrap.setKeyStoreFile(new File(path.substring(0,
