@@ -2340,7 +2340,6 @@ public class FPortecle
 
 			// Update the keystore wrapper
 			m_keyStoreWrap = new KeyStoreWrapper(newKeyStore);
-			m_keyStoreWrap.setChanged(true);
 
 			// Update the frame's components and title
 			selectedAlias = null;
@@ -5635,16 +5634,8 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// Has keystore been saved?
-		if (m_keyStoreWrap.isChanged())
-		{
-			m_saveKeyStoreAction.setEnabled(true);
-		}
-		else
-		{
-			m_saveKeyStoreAction.setEnabled(false);
-		}
-
+		m_saveKeyStoreAction.setEnabled(m_keyStoreWrap.isChanged() ||
+		    m_keyStoreWrap.getKeyStoreFile() == null);
 		m_jmiSaveKeyStoreAs.setEnabled(true);
 
 		m_genKeyPairAction.setEnabled(true);
