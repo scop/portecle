@@ -1,7 +1,6 @@
 TODO for later:
 - http://www.microsoft.com/technet/prodtechnol/windowsserver2003/technologies/security/ws03qswp.mspx
 - Add "Close keystore" functionality (see also PKCS #11 stuff)
-- Fix and clean up or really get rid of "check for update" functionality.
 - Icon for "Examine SSL/TLS connection" menu item
 - PKCS #11
   - icon for menu item, doc update
@@ -16,18 +15,19 @@ TODO for later:
   examining SSL/TLS connections.
 - Improve exception show dialog to display multiple exceptions
 - java 1.6 better iconimage etc PNG (transparent?) support
+  but but... http://www.javalobby.org/java/forums/t91501.html
 - Configurable URLConnection timeouts
-- use concurrent package when creating key pair (+ elsewhere?) 
 - Check JCE keystores created with IBM's Java ("JCEKS", "IBMJCE")
-- Direct import for cert view dialog (maybe CA certs only?)
+- Direct import from cert view dialog if a keystore is open (CA certs only?)
 - Enable multiselection in keystore table with appropriate popup menu
   (delete only?)
 - Allow editing fields of self signed certs in keystores?
 - XML, Jar, etc signing
 - Save (as .properties) button to system properties view?
-- Use logging on fine level for exceptions not shown to user
 - User-Agent for internal HTTP requests?
 - URLConnection caching API?
 - Show used handshake stuff in SSL examine dialog
 - Support typing URLs to file choosers
 - OCSP client
+
+See also stuff at the sourceforge.net tracker.
