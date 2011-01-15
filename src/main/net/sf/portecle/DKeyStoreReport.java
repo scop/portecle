@@ -35,7 +35,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
@@ -44,7 +43,6 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -439,9 +437,7 @@ class DKeyStoreReport
 						sbReport.append("\n");
 
 						// Serial Number
-						String sSerialNumber =
-						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(
-						        Locale.ENGLISH);
+						StringBuilder sSerialNumber = StringUtil.toHex(x509Cert.getSerialNumber(), 4, " ");
 						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.serial"),
 						    sSerialNumber));
 						sbReport.append("\n");
@@ -623,8 +619,8 @@ class DKeyStoreReport
 						// Serial Number
 						Element serialNumberElement = xmlDoc.createElement("serial_number");
 						certificateElement.appendChild(serialNumberElement);
-						serialNumberElement.appendChild(xmlDoc.createTextNode(new BigInteger(
-						    x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(Locale.ENGLISH)));
+						serialNumberElement.appendChild(xmlDoc.createTextNode(StringUtil.toHex(
+						    x509Cert.getSerialNumber(), 4, " ").toString()));
 
 						// Valid From
 						Date dValidFrom = x509Cert.getNotBefore();
@@ -789,9 +785,7 @@ class DKeyStoreReport
 						certNode.add(new DefaultMutableTreeNode(x509Cert.getIssuerDN()));
 
 						// Serial Number
-						String sSerialNumber =
-						    new BigInteger(x509Cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(
-						        Locale.ENGLISH);
+						StringBuilder sSerialNumber = StringUtil.toHex(x509Cert.getSerialNumber(), 4, " ");
 						certNode.add(new DefaultMutableTreeNode(sSerialNumber));
 
 						// Valid From

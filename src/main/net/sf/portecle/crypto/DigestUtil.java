@@ -21,13 +21,12 @@
 
 package net.sf.portecle.crypto;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
-import java.util.Locale;
 
 import net.sf.portecle.FPortecle;
+import net.sf.portecle.StringUtil;
 
 /**
  * Provides utility methods for the creation of message digests.
@@ -68,26 +67,8 @@ public final class DigestUtil
 		// Create raw message digest
 		byte[] bFingerPrint = messageDigest.digest(bMessage);
 
-		// Place the raw message digest into a StringBuilder as a Hex number
-		StringBuilder strBuff =
-		    new StringBuilder(new BigInteger(1, bFingerPrint).toString(16).toUpperCase(Locale.ENGLISH));
-
-		// Odd number of characters so add in a padding "0"
-		if ((strBuff.length() % 2) != 0)
-		{
-			strBuff.insert(0, '0');
-		}
-
-		// Place colons at every two hex characters
-		if (strBuff.length() > 2)
-		{
-			for (int iCnt = 2; iCnt < strBuff.length(); iCnt += 3)
-			{
-				strBuff.insert(iCnt, ':');
-			}
-		}
-
 		// Return the formatted message digest
-		return strBuff.toString();
+		StringBuilder sb = StringUtil.toHex(bFingerPrint, 2, ":");
+		return sb.toString();
 	}
 }

@@ -24,7 +24,6 @@ package net.sf.portecle;
 
 import java.awt.Component;
 import java.awt.Font;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -75,7 +74,7 @@ class RevokedCertsTableCellRend
 		if (iCol == 0)
 		{
 			cell.setFont(monospace);
-			cell.setText(formatSerialNumber((BigInteger) value));
+			cell.setText(StringUtil.toHex(value, 4, " ").toString());
 		}
 		// Revocation Date column - format date
 		else
@@ -88,31 +87,5 @@ class RevokedCertsTableCellRend
 		cell.setBorder(new EmptyBorder(0, 5, 0, 5));
 
 		return cell;
-	}
-
-	/**
-	 * Format the provided serial number into a hex string. The string is divided by spaces into groups of
-	 * four hex characters.
-	 * 
-	 * @param serialNumber Serial number
-	 * @return Formatted serial number
-	 */
-	private String formatSerialNumber(BigInteger serialNumber)
-	{
-		String sHexSerialNumber = serialNumber.toString(16).toUpperCase();
-
-		StringBuilder strBuff = new StringBuilder();
-
-		for (int iCnt = 0; iCnt < sHexSerialNumber.length(); iCnt++)
-		{
-			strBuff.append(sHexSerialNumber.charAt(iCnt));
-
-			if (((iCnt + 1) % 4) == 0 && iCnt + 1 != sHexSerialNumber.length())
-			{
-				strBuff.append(' ');
-			}
-		}
-
-		return strBuff.toString();
 	}
 }

@@ -35,14 +35,12 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.math.BigInteger;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -595,8 +593,7 @@ class DViewCertificate
 		m_jtfIssuer.setCaretPosition(0);
 
 		// Serial Number
-		m_jtfSerialNumber.setText(new BigInteger(1, cert.getSerialNumber().toByteArray()).toString(16).toUpperCase(
-		    Locale.ENGLISH));
+		m_jtfSerialNumber.setText(StringUtil.toHex(cert.getSerialNumber(), 4, " ").toString());
 		m_jtfSerialNumber.setCaretPosition(0);
 
 		// Valid From (include timezone)

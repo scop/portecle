@@ -39,6 +39,8 @@ import java.util.MissingResourceException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.sf.portecle.StringUtil;
+
 import org.bouncycastle.asn1.ASN1Object;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
@@ -1924,7 +1926,17 @@ public class X509Ext
 	private String getHexClearDump(byte[] bytes, int iLen)
 	{
 		// Buffer for hex
-		StringBuilder sbHex = new StringBuilder(iLen * 3 - 1);
+		StringBuilder sbHex;
+		if (iLen == bytes.length)
+		{
+			sbHex = StringUtil.toHex(bytes, 2, " ");
+		}
+		else
+		{
+			byte[] tmp = new byte[iLen];
+			System.arraycopy(bytes, 0, tmp, 0, iLen);
+			sbHex = StringUtil.toHex(tmp, 2, " ");
+		}
 
 		// Buffer for clear text
 		StringBuilder sbClr = new StringBuilder(iLen);
@@ -1936,22 +1948,6 @@ public class X509Ext
 		{
 			// Convert byte to int
 			int i = bytes[iCnt] & 0xFF;
-
-			// First part of byte will be one hex char
-			int i1 = (int) Math.floor((double) i / 16);
-
-			// Second part of byte will be one hex char
-			int i2 = i % 16;
-
-			// Get hex characters
-			sbHex.append(Character.toUpperCase(Character.forDigit(i1, 16)));
-			sbHex.append(Character.toUpperCase(Character.forDigit(i2, 16)));
-
-			if ((iCnt + 1) < iLen)
-			{
-				// Divider between hex characters
-				sbHex.append(' ');
-			}
 
 			// Get clear character
 			char c = (char) i;
@@ -1992,37 +1988,7 @@ public class X509Ext
 	 */
 	private static String convertToHexString(Object obj)
 	{
-		BigInteger bigInt;
-		if (obj instanceof BigInteger)
-		{
-			bigInt = (BigInteger) obj;
-		}
-		else if (obj instanceof byte[])
-		{
-			bigInt = new BigInteger(1, (byte[]) obj);
-		}
-		else if (obj instanceof DERInteger)
-		{
-			bigInt = ((DERInteger) obj).getValue();
-		}
-		else
-		{
-			throw new IllegalArgumentException("Don't know how to convert " + obj.getClass().getName() +
-			    " to a hex string");
-		}
-
-		// Convert to hex
-		StringBuilder strBuff = new StringBuilder(bigInt.toString(16).toUpperCase());
-
-		// Place spaces at every four hex characters
-		if (strBuff.length() > 4)
-		{
-			for (int iCnt = 4; iCnt < strBuff.length(); iCnt += 5)
-			{
-				strBuff.insert(iCnt, ' ');
-			}
-		}
-
+		StringBuilder strBuff = StringUtil.toHex(obj, 4, " ");
 		strBuff.insert(0, "<tt>");
 		strBuff.append("</tt>");
 		return strBuff.toString();
