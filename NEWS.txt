@@ -1,8 +1,10 @@
-New in Portecle x.x (201x-xx-xx):
+New in Portecle 1.6 (2011-01-15):
 ---------------------------------
 
-Enhancements:
+New features:
 - Support for dragging and dropping files to the main window.
+
+Enhancements:
 - Certificate extension rendering improvements.
 - Miscellaneous user interface improvements.
 - Error logging improvements.
