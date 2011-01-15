@@ -31,10 +31,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.InvalidDnDOperationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -67,7 +64,6 @@ import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -107,7 +103,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -130,6 +125,7 @@ import net.sf.portecle.gui.DesktopUtil;
 import net.sf.portecle.gui.JMenuItemRecentFile;
 import net.sf.portecle.gui.JMenuRecentFiles;
 import net.sf.portecle.gui.LastDir;
+import net.sf.portecle.gui.SingleFileDropHelper;
 import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.about.DAbout;
 import net.sf.portecle.gui.crypto.DProviderInfo;
@@ -6684,57 +6680,15 @@ public class FPortecle
 		}
 
 		private class FileTransferHander
-		    extends TransferHandler
+		    extends SingleFileDropHelper
 		{
-			private final DataFlavor fileFlavor = DataFlavor.javaFileListFlavor;
-
-			private File file;
-
-			/*
-			 * (non-Javadoc)
-			 * @see javax.swing.TransferHandler#canImport(javax.swing.TransferHandler.TransferSupport)
-			 */
 			@Override
 			public boolean canImport(TransferSupport support)
 			{
-				if (support.isDrop() && support.isDataFlavorSupported(fileFlavor))
+				if (super.canImport(support))
 				{
-					try
-					{
-						Object o = support.getTransferable().getTransferData(fileFlavor);
-						if (o instanceof List<?>)
-						{
-							List<?> list = (List<?>) o;
-							// Ignore multiple files or directories
-							if (list.size() == 1)
-							{
-								File f = new File(list.get(0).toString());
-								if (f.isFile())
-								{
-									file = f.getAbsoluteFile();
-									m_lastDir.updateLastDir(file);
-									return true;
-								}
-							}
-						}
-					}
-					catch (InvalidDnDOperationException e)
-					{
-						// Workaround for known bug:
-						// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6759788
-						return file != null;
-					}
-					catch (IOException e)
-					{
-						// Ignore this because getTransferable thinks we're going to use this object for
-						// something, we really just want to check and show the user as soon as possible that
-						// the file (most likely a directory) is not handled.
-					}
-					catch (UnsupportedFlavorException e)
-					{
-						// Ignore this because we've already explicitly defined which file types we'll
-						// support, it shouldn't get here.
-					}
+					m_lastDir.updateLastDir(file);
+					return true;
 				}
 				return false;
 			}
