@@ -222,7 +222,7 @@ public final class X509CertUtil
 		}
 		// Some RuntimeExceptions which really should be
 		// CertificateExceptions may be thrown from cf.generateCert* above,
-		// for example Sun's PKCS #7 parser tends to throw them... :P
+		// for example Oracle's PKCS #7 parser tends to throw them... :P
 		catch (Exception ex)
 		{
 			// TODO: don't throw if vCerts non-empty (eg. OpenSSL PEM above)?

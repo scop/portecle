@@ -28,7 +28,7 @@ you need to know is detailed below.  Being written in Java, Portecle
 will run on any machine that has a suitable Java runtime environment
 installed.  Note that a prerequisite is that you must have Java SE 6
 or later on your machine.  The latest version of the Java SE is
-available from http://java.sun.com/.
+available from http://www.oracle.com/technetwork/java/index.html
 
 You can access the online help of Portecle from within the Portecle
 GUI, or on the Internet at http://portecle.sourceforge.net/#docs
@@ -152,4 +152,4 @@ MA 02110-1301 USA
 
 For contact information, mailing lists and issue tracking facilities,
 see Portecle's SourceForge.net project page at
-https://sourceforge.net/projects/portecle
+http://sourceforge.net/projects/portecle/

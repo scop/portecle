@@ -24,8 +24,8 @@ package net.sf.portecle.crypto;
 /**
  * Digest type. Enum constant names are compatible with JCA standard names.
  * 
- * @see <a href="http://java.sun.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
- *      Names</a>
+ * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA
+ *      Standard Names</a>
  */
 public enum DigestType
 {

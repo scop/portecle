@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
  * comparison the identifier is considered only in so much as it is present or not - its actual value is
  * unimportant. Therefore for two otherwise identical versions the presence of an identifier in one will make
  * it a lower version than the other. This is because standard identifier values have not been identified by
- * Sun.
+ * Oracle.
  */
 public class JavaVersion
     implements Comparable<JavaVersion>
