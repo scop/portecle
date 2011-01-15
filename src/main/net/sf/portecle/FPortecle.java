@@ -5737,25 +5737,16 @@ public class FPortecle
 		{
 			File fKeyStore = m_keyStoreWrap.getKeyStoreFile();
 
-			// A newly created keystore is loaded - display Untitled string and application name
 			if (fKeyStore == null)
 			{
+				// A newly created keystore is loaded - display Untitled string and application name
 				setTitle(MessageFormat.format("[{0}] - {1}", RB.getString("FPortecle.Untitled"), sAppName));
 			}
 			else
 			{
-				// Modified keystore loaded - display keystore file path, "modified" indicator, and
-				// application name
-				if (m_keyStoreWrap.isChanged())
-				{
-					setTitle(MessageFormat.format("{0}{1} - {2}", fKeyStore,
-					    RB.getString("FPortecle.Modified"), sAppName));
-				}
-				// Saved keystore loaded - display keystore file path and application name
-				else
-				{
-					setTitle(MessageFormat.format("{0} - {1}", fKeyStore, sAppName));
-				}
+				// Keystore loaded - display keystore file path, "modified" indicator, and application name
+				String modInd = m_keyStoreWrap.isChanged() ? RB.getString("FPortecle.Modified") : "";
+				setTitle(MessageFormat.format("{0}{1} - {2}", fKeyStore, modInd, sAppName));
 			}
 		}
 	}
