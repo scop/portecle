@@ -392,7 +392,7 @@ class DGenerateCertificate
 		sValidity = sValidity.trim();
 		int iValidity;
 
-		if (sValidity.length() == 0)
+		if (sValidity.isEmpty())
 		{
 			JOptionPane.showMessageDialog(this, RB.getString("DGenerateCertificate.ValReqValidity.message"),
 			    getTitle(), JOptionPane.WARNING_MESSAGE);
@@ -430,7 +430,7 @@ class DGenerateCertificate
 	{
 		sCommonName = sCommonName.trim();
 
-		if (sCommonName.length() < 1)
+		if (sCommonName.isEmpty())
 		{
 			return null;
 		}
@@ -449,7 +449,7 @@ class DGenerateCertificate
 	{
 		sOrganisationUnit = sOrganisationUnit.trim();
 
-		if (sOrganisationUnit.length() < 1)
+		if (sOrganisationUnit.isEmpty())
 		{
 			return null;
 		}
@@ -467,7 +467,7 @@ class DGenerateCertificate
 	{
 		sOrganisationName = sOrganisationName.trim();
 
-		if (sOrganisationName.length() < 1)
+		if (sOrganisationName.isEmpty())
 		{
 			return null;
 		}
@@ -485,7 +485,7 @@ class DGenerateCertificate
 	{
 		sLocalityName = sLocalityName.trim();
 
-		if (sLocalityName.length() < 1)
+		if (sLocalityName.isEmpty())
 		{
 			return null;
 		}
@@ -503,7 +503,7 @@ class DGenerateCertificate
 	{
 		sStateName = sStateName.trim();
 
-		if (sStateName.length() < 1)
+		if (sStateName.isEmpty())
 		{
 			return null;
 		}
@@ -521,7 +521,7 @@ class DGenerateCertificate
 	{
 		sCountryCode = sCountryCode.trim();
 
-		if (sCountryCode.length() < 1)
+		if (sCountryCode.isEmpty())
 		{
 			return null;
 		}
@@ -539,7 +539,7 @@ class DGenerateCertificate
 	{
 		sEmailAddress = sEmailAddress.trim();
 
-		if (sEmailAddress.length() < 1)
+		if (sEmailAddress.isEmpty())
 		{
 			return null;
 		}

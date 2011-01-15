@@ -140,7 +140,7 @@ class DGetHostPort
 	private boolean checkHostPort()
 	{
 		String sHost = m_jtfHost.getText().trim().toLowerCase(Locale.ENGLISH);
-		if (sHost.length() == 0)
+		if (sHost.isEmpty())
 		{
 			JOptionPane.showMessageDialog(this, RB.getString("DGetHostPort.HostReq.message"), getTitle(),
 			    JOptionPane.WARNING_MESSAGE);
@@ -149,7 +149,7 @@ class DGetHostPort
 		}
 
 		String sPort = m_jtfPort.getText().trim();
-		if (sPort.length() == 0)
+		if (sPort.isEmpty())
 		{
 			JOptionPane.showMessageDialog(this, RB.getString("DGetHostPort.PortReq.message"), getTitle(),
 			    JOptionPane.WARNING_MESSAGE);

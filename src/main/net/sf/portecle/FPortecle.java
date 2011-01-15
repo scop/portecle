@@ -4164,7 +4164,7 @@ public class FPortecle
 		}
 
 		String basename = X509CertUtil.getCertificateAlias(cert);
-		if (basename.length() == 0)
+		if (basename.isEmpty())
 		{
 			basename = sEntryAlias;
 		}
@@ -4238,7 +4238,7 @@ public class FPortecle
 		}
 
 		String basename = X509CertUtil.getCertificateAlias(cert);
-		if (basename.length() == 0)
+		if (basename.isEmpty())
 		{
 			basename = sEntryAlias;
 		}
@@ -4321,7 +4321,7 @@ public class FPortecle
 		}
 
 		String basename = X509CertUtil.getCertificateAlias(cert);
-		if (basename.length() == 0)
+		if (basename.isEmpty())
 		{
 			basename = sEntryAlias;
 		}
@@ -4404,7 +4404,7 @@ public class FPortecle
 		}
 
 		String basename = X509CertUtil.getCertificateAlias(cert);
-		if (basename.length() == 0)
+		if (basename.isEmpty())
 		{
 			basename = sEntryAlias;
 		}
@@ -4497,7 +4497,7 @@ public class FPortecle
 		{
 			basename = X509CertUtil.getCertificateAlias(certChain[0]);
 		}
-		if (basename == null || basename.length() == 0)
+		if (basename == null || basename.isEmpty())
 		{
 			basename = sEntryAlias;
 		}
@@ -4590,7 +4590,7 @@ public class FPortecle
 		{
 			basename = X509CertUtil.getCertificateAlias(certChain[0]);
 		}
-		if (basename == null || basename.length() == 0)
+		if (basename == null || basename.isEmpty())
 		{
 			basename = sEntryAlias;
 		}
@@ -4747,7 +4747,7 @@ public class FPortecle
 			{
 				basename = X509CertUtil.getCertificateAlias((X509Certificate) certs[0]);
 			}
-			if (basename == null || basename.length() == 0)
+			if (basename == null || basename.isEmpty())
 			{
 				basename = sEntryAlias;
 			}
@@ -4890,7 +4890,7 @@ public class FPortecle
 			{
 				basename = X509CertUtil.getCertificateAlias((X509Certificate) certs[0]);
 			}
-			if (basename == null || basename.length() == 0)
+			if (basename == null || basename.isEmpty())
 			{
 				basename = sEntryAlias;
 			}

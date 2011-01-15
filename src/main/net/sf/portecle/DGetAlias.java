@@ -121,7 +121,7 @@ class DGetAlias
 	{
 		String sAlias = m_jtfAlias.getText().trim();
 
-		if (sAlias.length() > 0)
+		if (!sAlias.isEmpty())
 		{
 			m_sAlias = sAlias;
 			return true;

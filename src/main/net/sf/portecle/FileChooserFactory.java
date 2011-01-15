@@ -391,7 +391,7 @@ public class FileChooserFactory
 		basename = basename.replaceAll("_+", "_");
 		basename = basename.replaceFirst("^_+", "");
 		basename = basename.replaceFirst("_+$", "");
-		if (basename.length() > 0)
+		if (!basename.isEmpty())
 		{
 			return new File(basename + "." + extension);
 		}

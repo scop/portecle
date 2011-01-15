@@ -46,7 +46,7 @@ public class IntegerDocumentFilter
 	public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
 	    throws BadLocationException
 	{
-		if (string == null || string.length() == 0)
+		if (string == null || string.isEmpty())
 		{
 			// Always allow empty inserts
 			super.insertString(fb, offset, string, attr);
@@ -76,7 +76,7 @@ public class IntegerDocumentFilter
 	public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
 	    throws BadLocationException
 	{
-		if (text == null || text.length() == 0)
+		if (text == null || text.isEmpty())
 		{
 			// Always allow removal
 			super.replace(fb, offset, length, text, attrs);

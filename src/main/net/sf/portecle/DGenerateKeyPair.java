@@ -185,7 +185,7 @@ class DGenerateKeyPair
 		String sKeySize = m_jtfKeySize.getText().trim();
 		int iKeySize;
 
-		if (sKeySize.length() == 0)
+		if (sKeySize.isEmpty())
 		{
 			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.KeySizeReq.message"),
 			    getTitle(), JOptionPane.WARNING_MESSAGE);
