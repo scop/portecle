@@ -102,6 +102,19 @@
       </and>
     </condition>
     <antcall target="jar-classpath" />
+    <condition property="do.signjar">
+      <and>
+        <isset property="signjar.keystore" />
+        <not><equals arg1="${signjar.keystore}" arg2="" trim="true" /></not>
+        <isset property="signjar.storepass" />
+        <not><equals arg1="${signjar.storepass}" arg2="" trim="true" /></not>
+        <isset property="signjar.alias" />
+        <not><equals arg1="${signjar.alias}" arg2="" trim="true" /></not>
+        <isset property="signjar.keypass" />
+        <not><equals arg1="${signjar.keypass}" arg2="" trim="true" /></not>
+      </and>
+    </condition>
+    <antcall target="jar-sign" />
   </target>
 
   <!-- Internal: updates jar's Class-Path. -->
@@ -111,6 +124,18 @@
         <attribute name="Class-Path" value="${jar.classpath}" />
       </manifest>
     </jar>
+  </target>
+
+  <!-- Internal: signs the jar. -->
+  <target name="jar-sign" if="do.signjar">
+    <signjar
+      keystore="${signjar.keystore}"
+      storepass="${signjar.storepass}"
+      alias="${signjar.alias}"
+      keypass="${signjar.keypass}"
+      jar="${build}/${jar}"
+      sigfile="PORTECLE"
+      />
   </target>
 
   <target name="javadoc">
