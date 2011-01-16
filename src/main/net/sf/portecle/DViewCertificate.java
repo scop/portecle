@@ -382,17 +382,6 @@ class DViewCertificate
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = gridy++;
 
-		// MD5 Fingerprint
-		JLabel jlMD5Fingerprint = new JLabel(RB.getString("DViewCertificate.jlMD5Fingerprint.text"));
-		GridBagConstraints gbc_jlMD5Fingerprint = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlMD5Fingerprint.gridy = gridy;
-
-		m_jtfMD5Fingerprint = new JTextField(36);
-		m_jtfMD5Fingerprint.setEditable(false);
-		m_jtfMD5Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfMD5Fingerprint.tooltip"));
-		GridBagConstraints gbc_jtfMD5Fingerprint = (GridBagConstraints) gbcTf.clone();
-		gbc_jtfMD5Fingerprint.gridy = gridy++;
-
 		// SHA-1 Fingerprint
 		JLabel jlSHA1Fingerprint = new JLabel(RB.getString("DViewCertificate.jlSHA1Fingerprint.text"));
 		GridBagConstraints gbc_jlSHA1Fingerprint = (GridBagConstraints) gbcLbl.clone();
@@ -403,6 +392,17 @@ class DViewCertificate
 		m_jtfSHA1Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfSHA1Fingerprint.tooltip"));
 		GridBagConstraints gbc_jtfSHA1Fingerprint = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSHA1Fingerprint.gridy = gridy++;
+
+		// MD5 Fingerprint
+		JLabel jlMD5Fingerprint = new JLabel(RB.getString("DViewCertificate.jlMD5Fingerprint.text"));
+		GridBagConstraints gbc_jlMD5Fingerprint = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlMD5Fingerprint.gridy = gridy;
+
+		m_jtfMD5Fingerprint = new JTextField(36);
+		m_jtfMD5Fingerprint.setEditable(false);
+		m_jtfMD5Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfMD5Fingerprint.tooltip"));
+		GridBagConstraints gbc_jtfMD5Fingerprint = (GridBagConstraints) gbcTf.clone();
+		gbc_jtfMD5Fingerprint.gridy = gridy++;
 
 		// Extensions
 		m_jbExtensions = new JButton(RB.getString("DViewCertificate.m_jbExtensions.text"));

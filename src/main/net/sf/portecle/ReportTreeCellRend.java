@@ -199,15 +199,15 @@ class ReportTreeCellRend
 				{
 					icon =
 					    new ImageIcon(getClass().getResource(
-					        RB.getString("ReportTreeCellRend.Md5Fingerprint.image")));
-					cell.setToolTipText(RB.getString("ReportTreeCellRend.Md5Fingerprint.tooltip"));
+					        RB.getString("ReportTreeCellRend.Sha1Fingerprint.image")));
+					cell.setToolTipText(RB.getString("ReportTreeCellRend.Sha1Fingerprint.tooltip"));
 				}
 				else
 				{
 					icon =
 					    new ImageIcon(getClass().getResource(
-					        RB.getString("ReportTreeCellRend.Sha1Fingerprint.image")));
-					cell.setToolTipText(RB.getString("ReportTreeCellRend.Sha1Fingerprint.tooltip"));
+					        RB.getString("ReportTreeCellRend.Md5Fingerprint.image")));
+					cell.setToolTipText(RB.getString("ReportTreeCellRend.Md5Fingerprint.tooltip"));
 				}
 			}
 

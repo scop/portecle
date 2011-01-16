@@ -474,14 +474,14 @@ class DKeyStoreReport
 
 						byte[] bCert = x509Cert.getEncoded();
 
-						// MD5 fingerprint
-						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.md5"),
-						    DigestUtil.getMessageDigest(bCert, DigestType.MD5)));
-						sbReport.append("\n");
-
 						// SHA-1 fingerprint
 						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.sha1"),
 						    DigestUtil.getMessageDigest(bCert, DigestType.SHA1)));
+						sbReport.append("\n");
+
+						// MD5 fingerprint
+						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.md5"),
+						    DigestUtil.getMessageDigest(bCert, DigestType.MD5)));
 						sbReport.append("\n");
 
 						if (iCnt + 1 < iChainLen)
@@ -659,15 +659,15 @@ class DKeyStoreReport
 						// Fingerprints
 						byte[] bCert = x509Cert.getEncoded();
 
-						Element md5FingerprintElement = xmlDoc.createElement("md5_fingerprint");
-						certificateElement.appendChild(md5FingerprintElement);
-						md5FingerprintElement.appendChild(xmlDoc.createTextNode(DigestUtil.getMessageDigest(
-						    bCert, DigestType.MD5)));
-
 						Element sha1FingerprintElement = xmlDoc.createElement("sha1_fingerprint");
 						certificateElement.appendChild(sha1FingerprintElement);
 						sha1FingerprintElement.appendChild(xmlDoc.createTextNode(DigestUtil.getMessageDigest(
 						    bCert, DigestType.SHA1)));
+
+						Element md5FingerprintElement = xmlDoc.createElement("md5_fingerprint");
+						certificateElement.appendChild(md5FingerprintElement);
+						md5FingerprintElement.appendChild(xmlDoc.createTextNode(DigestUtil.getMessageDigest(
+						    bCert, DigestType.MD5)));
 					}
 				}
 			}
@@ -813,13 +813,13 @@ class DKeyStoreReport
 
 						byte[] bCert = x509Cert.getEncoded();
 
-						// MD5 fingerprint
-						certNode.add(new DefaultMutableTreeNode(DigestUtil.getMessageDigest(bCert,
-						    DigestType.MD5)));
-
 						// SHA-1 fingerprint
 						certNode.add(new DefaultMutableTreeNode(DigestUtil.getMessageDigest(bCert,
 						    DigestType.SHA1)));
+
+						// MD5 fingerprint
+						certNode.add(new DefaultMutableTreeNode(DigestUtil.getMessageDigest(bCert,
+						    DigestType.MD5)));
 					}
 				}
 			}
