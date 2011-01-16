@@ -1,4 +1,4 @@
-.fbwarnings
-build
-build.properties
-dist
+/.fbwarnings
+/build
+/build.properties
+/dist
