@@ -354,9 +354,7 @@ public class X509Ext
 		{
 			return getNetscapeCertificateTypeStringValue(bOctets);
 		}
-		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeBaseURL) ||
-		    m_Oid.equals(MiscObjectIdentifiers.netscapeRenewalURL) ||
-		    m_Oid.equals(MiscObjectIdentifiers.netscapeSSLServerName) ||
+		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeSSLServerName) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeCertComment) ||
 		    m_Oid.equals(MiscObjectIdentifiers.verisignDnbDunsNumber) ||
 		    m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCertTemplateV1))
@@ -367,7 +365,9 @@ public class X509Ext
 		{
 			return getNetscapeExtensionURLValue(bOctets, LinkClass.BROWSER);
 		}
-		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeRevocationURL) ||
+		else if (m_Oid.equals(MiscObjectIdentifiers.netscapeBaseURL) ||
+		    m_Oid.equals(MiscObjectIdentifiers.netscapeRenewalURL) ||
+		    m_Oid.equals(MiscObjectIdentifiers.netscapeRevocationURL) ||
 		    m_Oid.equals(MiscObjectIdentifiers.netscapeCARevocationURL))
 		{
 			return getNetscapeExtensionURLValue(bOctets, LinkClass.CRL);
