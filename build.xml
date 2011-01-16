@@ -2,7 +2,7 @@
 
 <project name="portecle" basedir="." default="jar">
 
-  <property name="version" value="1.6" />
+  <property name="version" value="1.6+git" />
   <property name="helpbaseurl.default" value="/doc" />
 
   <property file="build.properties" />
