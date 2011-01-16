@@ -51,9 +51,6 @@
       encoding="${build.encoding}">
       <classpath refid="build.classpath" />
       <compilerarg compiler="javac1.6" value="-Xlint:all,-serial" />
-      <compilerarg compiler="jikes" value="+P" />
-      <!-- TODO: +Z2 sometime -->
-      <compilerarg compiler="jikes" value="+Z" />
     </javac>
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.properties" />
@@ -205,25 +202,6 @@
 
   <target name="release" depends="distclean,dist"
     description="Builds Portecle release from scratch" />
-
-  <target name="antic">
-    <exec executable="antic" taskname="antic">
-      <arg value="-java" />
-      <arg line="-tab 4" />
-      <arg value="${src}/main" />
-    </exec>
-  </target>
-
-  <target name="jlint" depends="build">
-    <exec executable="jlint" taskname="jlint">
-      <arg value="-source" /><arg value="${src}/main" />
-      <arg value="+all" />
-      <arg value="${build}/classes" />
-    </exec>
-  </target>
-
-  <target name="check" depends="antic,jlint"
-    description="Runs static checks" />
 
   <target name="clean">
     <delete dir="${build}/api" />
