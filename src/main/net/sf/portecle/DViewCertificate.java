@@ -632,7 +632,7 @@ class DViewCertificate
 		int iKeySize = KeyPairUtil.getKeyLength(cert.getPublicKey());
 		m_jtfPublicKey.setText(cert.getPublicKey().getAlgorithm());
 
-		if (iKeySize != -1)
+		if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
 		{
 			m_jtfPublicKey.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jtfPublicKey.text"),
 			    m_jtfPublicKey.getText(), iKeySize));

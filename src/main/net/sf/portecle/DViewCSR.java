@@ -261,7 +261,7 @@ class DViewCSR
 		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithmId().getObjectId().toString()));
 
 		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
-		if (iKeySize != -1)
+		if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
 		{
 			m_jtfPublicKey.setText(MessageFormat.format(RB.getString("DViewCSR.m_jtfPublicKey.text"),
 			    m_jtfPublicKey.getText(), iKeySize));

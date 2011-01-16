@@ -31,14 +31,17 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.interfaces.DSAKey;
+import java.security.interfaces.ECKey;
 import java.security.interfaces.RSAKey;
 import java.text.MessageFormat;
+import java.util.logging.Logger;
 
 import javax.crypto.interfaces.DHKey;
 
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.params.DHKeyParameters;
 import org.bouncycastle.crypto.params.DSAKeyParameters;
+import org.bouncycastle.crypto.params.ECKeyParameters;
 import org.bouncycastle.crypto.params.RSAKeyParameters;
 
 /**
@@ -46,6 +49,12 @@ import org.bouncycastle.crypto.params.RSAKeyParameters;
  */
 public final class KeyPairUtil
 {
+	/** Logger */
+	private static final Logger LOG = Logger.getLogger(KeyPairUtil.class.getName());
+
+	/** Constant representing unknown key size */
+	public static final int UNKNOWN_KEY_SIZE = -1;
+
 	/**
 	 * Private to prevent construction.
 	 */
@@ -95,11 +104,9 @@ public final class KeyPairUtil
 	 * Get the key size of a public key.
 	 * 
 	 * @param pubKey The public key
-	 * @return The key size
-	 * @throws CryptoException If there is a problem getting the key size
+	 * @return The key size, {@link #UNKNOWN_KEY_SIZE} if not known
 	 */
 	public static int getKeyLength(PublicKey pubKey)
-	    throws CryptoException
 	{
 		if (pubKey instanceof RSAKey)
 		{
@@ -113,21 +120,23 @@ public final class KeyPairUtil
 		{
 			return ((DHKey) pubKey).getParams().getP().bitLength();
 		}
-		else
+		else if (pubKey instanceof ECKey)
 		{
-			throw new CryptoException(RB.getString("NoPublicKeysize.exception.message"));
+			// TODO: how to get key size from these?
+			return UNKNOWN_KEY_SIZE;
 		}
+
+		LOG.warning("Don't know how to get key size from key " + pubKey);
+		return UNKNOWN_KEY_SIZE;
 	}
 
 	/**
 	 * Get the key size of a key represented by key parameters.
 	 * 
 	 * @param keyParams The key parameters
-	 * @return The key size
-	 * @throws CryptoException If there is a problem getting the key size
+	 * @return The key size, {@link #UNKNOWN_KEY_SIZE} if not known
 	 */
 	public static int getKeyLength(AsymmetricKeyParameter keyParams)
-	    throws CryptoException
 	{
 		if (keyParams instanceof RSAKeyParameters)
 		{
@@ -141,9 +150,13 @@ public final class KeyPairUtil
 		{
 			return ((DHKeyParameters) keyParams).getParameters().getP().bitLength();
 		}
-		else
+		else if (keyParams instanceof ECKeyParameters)
 		{
-			throw new CryptoException(RB.getString("NoPublicKeysize.exception.message"));
+			// TODO: how to get key length from these?
+			return UNKNOWN_KEY_SIZE;
 		}
+
+		LOG.warning("Don't know how to get key size from parameters " + keyParams);
+		return UNKNOWN_KEY_SIZE;
 	}
 }

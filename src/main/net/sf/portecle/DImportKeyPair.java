@@ -297,7 +297,7 @@ class DImportKeyPair
 			int iKeySize = KeyPairUtil.getKeyLength(keyPairCert.getPublicKey());
 			m_jtfAlgorithm.setText(keyPairCert.getPublicKey().getAlgorithm());
 
-			if (iKeySize != -1)
+			if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
 			{
 				m_jtfAlgorithm.setText(MessageFormat.format(
 				    RB.getString("DImportKeyPair.m_jtfAlgorithm.text"), m_jtfAlgorithm.getText(), iKeySize));

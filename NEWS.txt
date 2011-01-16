@@ -1,3 +1,10 @@
+New in Portecle x.x (201x-xx-xx):
+---------------------------------
+
+Bug fixes:
+- Unknown key sizes no longer prevent viewing certificates or generating
+  key store reports.
+
 New in Portecle 1.6 (2011-01-15):
 ---------------------------------
 

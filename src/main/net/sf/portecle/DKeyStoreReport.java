@@ -463,8 +463,10 @@ class DKeyStoreReport
 						// Public Key (algorithm and key size)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
-						sbReport.append(MessageFormat.format(RB.getString("DKeyStoreReport.report.pubkey"),
-						    sKeyAlg, iKeySize));
+						String fmtKey =
+						    (iKeySize == KeyPairUtil.UNKNOWN_KEY_SIZE)
+						        ? "DKeyStoreReport.report.pubkeynosize" : "DKeyStoreReport.report.pubkey";
+						sbReport.append(MessageFormat.format(RB.getString(fmtKey), sKeyAlg, iKeySize));
 						sbReport.append("\n");
 
 						// Signature Algorithm
@@ -645,11 +647,16 @@ class DKeyStoreReport
 						// Public Key (algorithm and key size)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
+						if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
+						{
+							sKeyAlg =
+							    MessageFormat.format(RB.getString("DKeyStoreReport.KeyAlg"), sKeyAlg,
+							        iKeySize);
+						}
 
 						Element publicKeyAlgElement = xmlDoc.createElement("public_key_algorithm");
 						certificateElement.appendChild(publicKeyAlgElement);
-						publicKeyAlgElement.appendChild(xmlDoc.createTextNode(MessageFormat.format(
-						    "{0} ({1} bits)", sKeyAlg, iKeySize)));
+						publicKeyAlgElement.appendChild(xmlDoc.createTextNode(sKeyAlg));
 
 						// Signature Algorithm
 						Element signatureAlgElement = xmlDoc.createElement("signature_algorithm");
@@ -805,8 +812,13 @@ class DKeyStoreReport
 						// Public Key (algorithm and key size)
 						int iKeySize = KeyPairUtil.getKeyLength(x509Cert.getPublicKey());
 						String sKeyAlg = x509Cert.getPublicKey().getAlgorithm();
-						certNode.add(new DefaultMutableTreeNode(MessageFormat.format(
-						    RB.getString("DKeyStoreReport.KeyAlg"), sKeyAlg, iKeySize)));
+						if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
+						{
+							sKeyAlg =
+							    MessageFormat.format(RB.getString("DKeyStoreReport.KeyAlg"), sKeyAlg,
+							        iKeySize);
+						}
+						certNode.add(new DefaultMutableTreeNode(sKeyAlg));
 
 						// Signature Algorithm
 						certNode.add(new DefaultMutableTreeNode(x509Cert.getSigAlgName()));
