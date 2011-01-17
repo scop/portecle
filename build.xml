@@ -189,7 +189,7 @@
         <include name=".project" />
         <include name=".settings/**" />
         <include name="doc/**" />
-        <include name="lib" />
+        <include name="lib/*" />
         <include name="src/**" />
       </zipfileset>
     </zip>
