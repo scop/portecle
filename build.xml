@@ -25,6 +25,7 @@
   <property name="doc" value="${root}/doc" />
 
   <property name="bcprov.jar" value="${lib}/bcprov-jdk16-145.jar" />
+  <property name="pack200.jar" value="${lib}/deployment-ant-pack200-1.0-rc1.jar"/>
 
   <property name="build.debug" value="true" />
   <property name="build.debuglevel" value="lines,source" />
@@ -38,6 +39,9 @@
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
   </path>
+
+  <typedef resource="org/jdesktop/deployment/ant/pack200/antlib.xml"
+           classpath="${pack200.jar}"/>
 
   <target name="build">
     <mkdir dir="${build}/classes" />
@@ -92,6 +96,7 @@
       </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
     </jar>
+
     <condition property="jar.classpath.set">
       <and>
         <isset property="jar.classpath" />
@@ -99,6 +104,11 @@
       </and>
     </condition>
     <antcall target="jar-classpath" />
+
+    <!-- Required for signing pack200 version later, decreases size a bit -->
+    <pack200 file="${build}/${jar}" tofile="${build}/${jar}tmp" repack="true"/>
+    <move file="${build}/${jar}tmp" tofile="${build}/${jar}"/>
+
     <condition property="do.signjar">
       <and>
         <isset property="signjar.keystore" />
