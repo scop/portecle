@@ -183,7 +183,6 @@
       <zipfileset dir="${root}" prefix="portecle-${version}-src">
         <include name="*.txt" />
         <include name="*.xml" />
-        <include name="prj.el" />
         <include name=".classpath" />
         <include name=".project" />
         <include name=".settings/**" />
