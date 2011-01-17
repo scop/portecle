@@ -24,7 +24,7 @@
   <property name="jar" value="portecle.jar" />
   <property name="doc" value="${root}/doc" />
 
-  <property name="bcprov.jar" value="${lib}/bcprov.jar" />
+  <property name="bcprov.jar" value="${lib}/bcprov-jdk16-145.jar" />
 
   <property name="build.debug" value="true" />
   <property name="build.debuglevel" value="lines,source" />
@@ -153,7 +153,7 @@
   </target>
 
   <target name="run" depends="jar" description="Runs Portecle">
-    <copy file="${bcprov.jar}" todir="${build}" />
+    <copy file="${bcprov.jar}" tofile="${build}/bcprov.jar" />
     <!-- TODO: command line args -->
     <java fork="true" jar="build/${jar}">
       <sysproperty key="portecle.experimental" value="true" />
