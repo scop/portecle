@@ -82,9 +82,8 @@
     </copy>
   </target>
 
-  <target name="jar" depends="build">
-    <!-- Indexing breaks "java -jar" (Class-Path ignored). -->
-    <jar jarfile="${build}/${jar}" index="false">
+  <target name="jar" depends="build" description="Builds the Portecle jar">
+    <jar jarfile="${build}/${jar}">
       <manifest>
         <attribute name="Main-Class" value="net.sf.portecle.FPortecle" />
         <attribute name="SplashScreen-Image" value="net/sf/portecle/images/splash.png" />
