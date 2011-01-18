@@ -6848,13 +6848,16 @@ public class FPortecle
 			}
 		}
 
-		/*
-		 * If arguments have been supplied treat the first one as a keystore/certificate etc file
-		 */
+		// If arguments have been supplied, treat the first one that's not "-open" (web start passes that when
+		// opening associated files) as a keystore/certificate etc file
 		File file = null;
-		if (args.length != 0)
+		for (String arg : args)
 		{
-			file = new File(args[0]);
+			if (!arg.equals("-open"))
+			{
+				file = new File(arg);
+				break;
+			}
 		}
 
 		// Create and show GUI on the event handler thread
