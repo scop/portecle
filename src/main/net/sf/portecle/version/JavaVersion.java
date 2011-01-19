@@ -57,13 +57,13 @@ public class JavaVersion
 	private String m_sIdentifier;
 
 	/** Version string delimiter */
-	private char VERSION_DELIMITER = '.';
+	private static final char VERSION_DELIMITER = '.';
 
 	/** Start update number */
-	private char START_UPDATE = '_';
+	private static final char START_UPDATE = '_';
 
 	/** Start identifier */
-	private char START_IDENTIFIER = '-';
+	private static final char START_IDENTIFIER = '-';
 
 	/**
 	 * Construct a JavaVersion object for the current Java environment.

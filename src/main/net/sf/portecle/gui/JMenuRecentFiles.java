@@ -44,9 +44,6 @@ public class JMenuRecentFiles
 	/** Index in menu to show recent file menu items */
 	private final int m_iIndex;
 
-	/** Length of list */
-	private final int m_iLength;
-
 	/**
 	 * Construct a JMenuRecentFiles.
 	 * 
@@ -58,8 +55,7 @@ public class JMenuRecentFiles
 	{
 		super(sTitle);
 
-		m_iLength = iLength > MAX_LENGTH ? MAX_LENGTH : iLength;
-		m_jmirf = new JMenuItemRecentFile[m_iLength];
+		m_jmirf = new JMenuItemRecentFile[Math.min(iLength, MAX_LENGTH)];
 		m_iIndex = iIndex;
 	}
 
