@@ -3548,8 +3548,8 @@ public class FPortecle
 		// Create the dialog if it does not already exist
 		if (m_fHelp == null)
 		{
-			URL toc = null;
-			URL home = null;
+			URL toc;
+			URL home;
 			String s = RB.getString("FPortecle.Help.Contents");
 			if (s.startsWith("/"))
 			{
