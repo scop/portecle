@@ -51,45 +51,27 @@ public class FileChooserFactory
 	/** File extension for keystore files */
 	private static final String KEYSTORE_EXT = "ks";
 
-	/** File extension for X.509 certificate files */
-	private static final String X509_EXT_1 = "cer";
-
-	/** File extension for X.509 certificate files */
-	private static final String X509_EXT_2 = "crt";
-
-	/** File extension for X.509 certificate files */
-	private static final String X509_EXT_3 = "cert";
-
-	/** File extension for PKCS #7 certificate files */
-	private static final String PKCS7_EXT = "p7b";
-
-	/** File extension for PkiPath certificate files */
-	private static final String PKIPATH_EXT = "pkipath";
-
 	/** File extension for PEM files */
 	private static final String PEM_EXT = "pem";
 
-	/** File extension for PKCS #10 CSR files */
-	private static final String CSR_EXT_1 = "p10";
+	/** File extensions for PKCS #7 certificate files */
+	private static final String[] PKCS7_EXTS = { "p7b", "spc" };
 
-	/** File extension for PKCS #10 CSR files */
-	private static final String CSR_EXT_2 = "csr";
-
-	/** File extension for CRL files */
-	private static final String CRL_EXT = "crl";
-
-	/** File extensions for certificate files */
-	/* package private */static final String[] CERT_EXTS = new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3,
-	    PEM_EXT, PKCS7_EXT, PKIPATH_EXT };
+	/** File extensions for PkiPath certificate files */
+	private static final String[] PKIPATH_EXTS = { "pkipath" };
 
 	/** File extensions for X.509 certificate files */
-	private static final String[] X509_EXTS = new String[] { X509_EXT_1, X509_EXT_2, X509_EXT_3, PEM_EXT };
+	private static final String[] X509_EXTS = { "cer", "crt", "cert", PEM_EXT };
+
+	/** File extensions for certificate files */
+	/* package private */static final String[] CERT_EXTS = { X509_EXTS[0], X509_EXTS[1], X509_EXTS[2],
+	    PEM_EXT, PKCS7_EXTS[0], PKCS7_EXTS[1], PKIPATH_EXTS[0] };
 
 	/** File extensions for certificate request files */
-	/* package private */static final String[] CSR_EXTS = new String[] { CSR_EXT_1, CSR_EXT_2, PEM_EXT };
+	/* package private */static final String[] CSR_EXTS = { "csr", "p10", PEM_EXT };
 
 	/** File extensions for certificate revocation list files */
-	/* package private */static final String[] CRL_EXTS = new String[] { CRL_EXT };
+	/* package private */static final String[] CRL_EXTS = { "crl" };
 
 	/** Description for X.509 certificate files */
 	private static final String X509_FILE_DESC = MessageFormat.format(
@@ -97,11 +79,11 @@ public class FileChooserFactory
 
 	/** Description for PKCS #7 certificate files */
 	private static final String PKCS7_FILE_DESC = MessageFormat.format(
-	    RB.getString("FileChooseFactory.Pkcs7Files"), toWildcards(new String[] { PKCS7_EXT }));
+	    RB.getString("FileChooseFactory.Pkcs7Files"), toWildcards(PKCS7_EXTS));
 
 	/** Description for PkiPath certificate files */
 	private static final String PKIPATH_FILE_DESC = MessageFormat.format(
-	    RB.getString("FileChooseFactory.PkiPathFiles"), toWildcards(new String[] { PKIPATH_EXT }));
+	    RB.getString("FileChooseFactory.PkiPathFiles"), toWildcards(PKIPATH_EXTS));
 
 	/** Description for PEM files */
 	private static final String PEM_FILE_DESC = MessageFormat.format(
@@ -235,7 +217,7 @@ public class FileChooserFactory
 		FileExtFilter extFilter = new FileExtFilter(X509_EXTS, X509_FILE_DESC);
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
-		chooser.setSelectedFile(getDefaultFile(basename, X509_EXT_1));
+		chooser.setSelectedFile(getDefaultFile(basename, X509_EXTS[0]));
 		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
@@ -249,10 +231,10 @@ public class FileChooserFactory
 	public static JFileChooser getPkcs7FileChooser(String basename)
 	{
 		JFileChooser chooser = new JFileChooser();
-		FileExtFilter extFilter = new FileExtFilter(PKCS7_EXT, PKCS7_FILE_DESC);
+		FileExtFilter extFilter = new FileExtFilter(PKCS7_EXTS, PKCS7_FILE_DESC);
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
-		chooser.setSelectedFile(getDefaultFile(basename, PKCS7_EXT));
+		chooser.setSelectedFile(getDefaultFile(basename, PKCS7_EXTS[0]));
 		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
@@ -266,10 +248,10 @@ public class FileChooserFactory
 	public static JFileChooser getPkiPathFileChooser(String basename)
 	{
 		JFileChooser chooser = new JFileChooser();
-		FileExtFilter extFilter = new FileExtFilter(PKIPATH_EXT, PKIPATH_FILE_DESC);
+		FileExtFilter extFilter = new FileExtFilter(PKIPATH_EXTS, PKIPATH_FILE_DESC);
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
-		chooser.setSelectedFile(getDefaultFile(basename, PKIPATH_EXT));
+		chooser.setSelectedFile(getDefaultFile(basename, PKIPATH_EXTS[0]));
 		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
@@ -354,7 +336,7 @@ public class FileChooserFactory
 		FileExtFilter extFilter = new FileExtFilter(CSR_EXTS, CSR_FILE_DESC);
 		chooser.addChoosableFileFilter(extFilter);
 		chooser.setFileFilter(extFilter);
-		chooser.setSelectedFile(getDefaultFile(basename, CSR_EXT_2));
+		chooser.setSelectedFile(getDefaultFile(basename, CSR_EXTS[0]));
 		chooser.setFileView(new PortecleFileView());
 		return chooser;
 	}
