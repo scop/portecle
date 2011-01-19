@@ -804,7 +804,7 @@ public final class X509CertUtil
 
 	/**
 	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied
-	 * comparison certificates based on the trusted certificates contained therein, ie that a chain of trust
+	 * comparison certificates based on the trusted certificates contained therein, i.e. that a chain of trust
 	 * exists between the supplied certificate and a self-signed trusted certificate in the comparison set.
 	 * 
 	 * @return The trust chain, or null if trust could not be established
