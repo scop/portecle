@@ -178,6 +178,7 @@ class DViewCRL
 		m_jtfVersion = new JTextField(3);
 		m_jtfVersion.setEditable(false);
 		m_jtfVersion.setToolTipText(RB.getString("DViewCRL.m_jtfVersion.tooltip"));
+		jlVersion.setLabelFor(m_jtfVersion);
 		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfVersion.gridy = 0;
 
@@ -189,6 +190,7 @@ class DViewCRL
 		m_jtfIssuer = new JTextField(40);
 		m_jtfIssuer.setEditable(false);
 		m_jtfIssuer.setToolTipText(RB.getString("DViewCRL.m_jtfIssuer.tooltip"));
+		jlIssuer.setLabelFor(m_jtfIssuer);
 		GridBagConstraints gbc_jtfIssuer = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfIssuer.gridy = 1;
 
@@ -200,6 +202,7 @@ class DViewCRL
 		m_jtfEffectiveDate = new JTextField(30);
 		m_jtfEffectiveDate.setEditable(false);
 		m_jtfEffectiveDate.setToolTipText(RB.getString("DViewCRL.m_jtfEffectiveDate.tooltip"));
+		jlEffectiveDate.setLabelFor(m_jtfEffectiveDate);
 		GridBagConstraints gbc_jtfEffectiveDate = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfEffectiveDate.gridy = 2;
 
@@ -211,6 +214,7 @@ class DViewCRL
 		m_jtfNextUpdate = new JTextField(30);
 		m_jtfNextUpdate.setEditable(false);
 		m_jtfNextUpdate.setToolTipText(RB.getString("DViewCRL.m_jtfNextUpdate.tooltip"));
+		jlNextUpdate.setLabelFor(m_jtfNextUpdate);
 		GridBagConstraints gbc_jtfNextUpdate = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfNextUpdate.gridy = 3;
 
@@ -222,6 +226,7 @@ class DViewCRL
 		m_jtfSignatureAlgorithm = new JTextField(15);
 		m_jtfSignatureAlgorithm.setEditable(false);
 		m_jtfSignatureAlgorithm.setToolTipText(RB.getString("DViewCRL.m_jtfSignatureAlgorithm.tooltip"));
+		jlSignatureAlgorithm.setLabelFor(m_jtfSignatureAlgorithm);
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = 4;
 

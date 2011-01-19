@@ -92,6 +92,8 @@ public class DGetNewPassword
 		JLabel jlConfirm = new JLabel(RB.getString("DGetNewPassword.jlConfirm.text"));
 		m_jpfFirst = new JPasswordField(15);
 		m_jpfConfirm = new JPasswordField(15);
+		jlFirst.setLabelFor(m_jpfFirst);
+		jlConfirm.setLabelFor(m_jpfConfirm);
 
 		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();

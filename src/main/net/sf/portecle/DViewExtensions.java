@@ -184,6 +184,7 @@ class DViewExtensions
 		m_jtaExtensionValue.setFont(m_jtExtensions.getFont());
 		m_jtaExtensionValue.setEditable(false);
 		m_jtaExtensionValue.setToolTipText(RB.getString("DViewExtensions.m_jtaExtensionValue.tooltip"));
+		jlExtensionValue.setLabelFor(m_jtaExtensionValue);
 
 		final JEditorPane editorPane = m_jtaExtensionValue;
 

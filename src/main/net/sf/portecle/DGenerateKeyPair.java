@@ -107,6 +107,7 @@ class DGenerateKeyPair
 		JLabel jlKeySize = new JLabel(RB.getString("DGenerateKeyPair.jlKeySize.text"));
 		m_jtfKeySize = new JTextField(DEFAULT_KEYSIZE, 5);
 		m_jtfKeySize.setToolTipText(RB.getString("DGenerateKeyPair.m_jtfKeySize.tooltip"));
+		jlKeySize.setLabelFor(m_jtfKeySize);
 		Document doc = m_jtfKeySize.getDocument();
 		if (doc instanceof AbstractDocument)
 		{

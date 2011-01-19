@@ -95,6 +95,7 @@ class DGetHostPort
 
 		JLabel jlHost = new JLabel(RB.getString("DGetHostPort.jlHost.text"));
 		m_jtfHost = new JTextField(15);
+		jlHost.setLabelFor(m_jtfHost);
 
 		JLabel jlPort = new JLabel(RB.getString("DGetHostPort.jlPort.text"));
 		m_jtfPort = new JTextField(DEFAULT_PORT, 5);
@@ -103,12 +104,12 @@ class DGetHostPort
 		{
 			((AbstractDocument) doc).setDocumentFilter(new IntegerDocumentFilter(m_jtfPort.getColumns()));
 		}
-
 		if (iOldHostPort != null)
 		{
 			m_jtfHost.setText(iOldHostPort.getHostName());
 			m_jtfPort.setText(String.valueOf(iOldHostPort.getPort()));
 		}
+		jlPort.setLabelFor(m_jtfPort);
 
 		JPanel jpHostPort = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpHostPort.add(jlHost);

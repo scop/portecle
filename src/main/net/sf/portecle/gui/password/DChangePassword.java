@@ -120,9 +120,11 @@ public class DChangePassword
 
 		JLabel jlFirst = new JLabel(RB.getString("DChangePassword.jlFirst.text"));
 		m_jpfFirst = new JPasswordField(15);
+		jlFirst.setLabelFor(m_jpfFirst);
 
 		JLabel jlConfirm = new JLabel(RB.getString("DChangePassword.jlConfirm.text"));
 		m_jpfConfirm = new JPasswordField(15);
+		jlConfirm.setLabelFor(m_jpfConfirm);
 
 		JLabel jlOld = new JLabel(RB.getString("DChangePassword.jlOld.text"));
 
@@ -137,6 +139,7 @@ public class DChangePassword
 		{
 			m_jpfOld = new JPasswordField(10);
 		}
+		jlOld.setLabelFor(m_jpfOld);
 
 		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();

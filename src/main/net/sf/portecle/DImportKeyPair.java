@@ -155,6 +155,7 @@ class DImportKeyPair
 				}
 			}
 		});
+		jlInstructions.setLabelFor(m_jltKeyPairs);
 
 		// Put the list into a scroll pane
 		JScrollPane jspKeyPairs =
@@ -170,6 +171,7 @@ class DImportKeyPair
 		m_jtfAlgorithm.setText("");
 		m_jtfAlgorithm.setToolTipText(RB.getString("DImportKeyPair.m_jtfAlgorithm.tooltip"));
 		m_jtfAlgorithm.setEditable(false);
+		jlAlgorithm.setLabelFor(m_jtfAlgorithm);
 
 		JPanel jpKeyPairDetails = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpKeyPairDetails.add(jlAlgorithm);

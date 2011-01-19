@@ -89,6 +89,7 @@ public class DGetPassword
 
 		JLabel jlPassword = new JLabel(RB.getString("DGetPassword.jlPassword.text"));
 		m_jpfPassword = new JPasswordField(15);
+		jlPassword.setLabelFor(m_jpfPassword);
 
 		JPanel jpPassword = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpPassword.add(jlPassword);

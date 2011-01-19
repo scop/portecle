@@ -131,6 +131,7 @@ class DViewCSR
 		m_jtfVersion = new JTextField(3);
 		m_jtfVersion.setEditable(false);
 		m_jtfVersion.setToolTipText(RB.getString("DViewCSR.m_jtfVersion.tooltip"));
+		jlVersion.setLabelFor(m_jtfVersion);
 		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfVersion.gridy = 0;
 
@@ -142,6 +143,7 @@ class DViewCSR
 		m_jtfSubject = new JTextField(36);
 		m_jtfSubject.setEditable(false);
 		m_jtfSubject.setToolTipText(RB.getString("DViewCSR.m_jtfSubject.tooltip"));
+		jlSubject.setLabelFor(m_jtfSubject);
 		GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSubject.gridy = 1;
 
@@ -153,6 +155,7 @@ class DViewCSR
 		m_jtfPublicKey = new JTextField(15);
 		m_jtfPublicKey.setEditable(false);
 		m_jtfPublicKey.setToolTipText(RB.getString("DViewCSR.m_jtfPublicKey.tooltip"));
+		jlPublicKey.setLabelFor(m_jtfPublicKey);
 		GridBagConstraints gbc_jtfPublicKey = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfPublicKey.gridy = 6;
 
@@ -164,6 +167,7 @@ class DViewCSR
 		m_jtfSignatureAlgorithm = new JTextField(15);
 		m_jtfSignatureAlgorithm.setEditable(false);
 		m_jtfSignatureAlgorithm.setToolTipText(RB.getString("DViewCSR.m_jtfSignatureAlgorithm.tooltip"));
+		jlSignatureAlgorithm.setLabelFor(m_jtfSignatureAlgorithm);
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = 7;
 

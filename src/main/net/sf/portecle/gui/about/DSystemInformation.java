@@ -114,6 +114,7 @@ public class DSystemInformation
 		        sysProps.getProperty("os.arch", "")), VALUE_WIDTH);
 		jtfOperatingSystem.setEditable(false);
 		jtfOperatingSystem.setCaretPosition(0);
+		jlOperatingSystem.setLabelFor(jtfOperatingSystem);
 
 		GridBagConstraints gbc_jtfOperatingSystem = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfOperatingSystem.gridy = 0;
@@ -129,6 +130,7 @@ public class DSystemInformation
 		JTextField jtfLocale = new JTextField(Locale.getDefault().getDisplayName(), VALUE_WIDTH);
 		jtfLocale.setEditable(false);
 		jtfLocale.setCaretPosition(0);
+		jlLocale.setLabelFor(jtfLocale);
 
 		GridBagConstraints gbc_jtfLocale = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfLocale.gridy = 1;
@@ -145,6 +147,7 @@ public class DSystemInformation
 		JTextField jtfJavaVersion = new JTextField(sysProps.getProperty("java.version", ""), VALUE_WIDTH);
 		jtfJavaVersion.setEditable(false);
 		jtfJavaVersion.setCaretPosition(0);
+		jlJavaVersion.setLabelFor(jtfJavaVersion);
 
 		GridBagConstraints gbc_jtfJavaVersion = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfJavaVersion.gridy = 2;
@@ -164,6 +167,7 @@ public class DSystemInformation
 		        VALUE_WIDTH);
 		jtfJavaVendor.setEditable(false);
 		jtfJavaVendor.setCaretPosition(0);
+		jlJavaVendor.setLabelFor(jtfJavaVendor);
 
 		GridBagConstraints gbc_jtfJavaVendor = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfJavaVendor.gridy = 3;
@@ -180,6 +184,7 @@ public class DSystemInformation
 		JTextField jtfJavaHome = new JTextField(sysProps.getProperty("java.home", ""), VALUE_WIDTH);
 		jtfJavaHome.setEditable(false);
 		jtfJavaHome.setCaretPosition(0);
+		jlJavaHome.setLabelFor(jtfJavaHome);
 
 		GridBagConstraints gbc_jtfJavaHome = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfJavaHome.gridy = 4;
@@ -198,6 +203,7 @@ public class DSystemInformation
 		        Math.round((double) runtime.maxMemory() / 1024)), VALUE_WIDTH);
 		jtfJvmMaximumMemory.setEditable(false);
 		jtfJvmMaximumMemory.setCaretPosition(0);
+		jlJvmMaximumMemory.setLabelFor(jtfJvmMaximumMemory);
 
 		GridBagConstraints gbc_jtfJvmMaximumMemory = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfJvmMaximumMemory.gridy = 5;
@@ -216,6 +222,7 @@ public class DSystemInformation
 		        Math.round((double) runtime.totalMemory() / 1024)), VALUE_WIDTH);
 		jtfJvmTotalMemory.setEditable(false);
 		jtfJvmTotalMemory.setCaretPosition(0);
+		jlJvmTotalMemory.setLabelFor(jtfJvmTotalMemory);
 
 		GridBagConstraints gbc_jtfJvmTotalMemory = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfJvmTotalMemory.gridy = 6;
@@ -234,6 +241,7 @@ public class DSystemInformation
 		        Math.round((double) runtime.freeMemory() / 1024)), VALUE_WIDTH);
 		jtfJvmFreeMemory.setEditable(false);
 		jtfJvmFreeMemory.setCaretPosition(0);
+		jlJvmFreeMemory.setLabelFor(jtfJvmFreeMemory);
 
 		GridBagConstraints gbc_jtfJvmFreeMemory = (GridBagConstraints) gbcTextField.clone();
 		gbc_jtfJvmFreeMemory.gridy = 7;

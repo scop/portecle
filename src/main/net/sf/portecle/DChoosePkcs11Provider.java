@@ -89,6 +89,7 @@ public class DChoosePkcs11Provider
 		JLabel jlProvider = new JLabel(RB.getString("DChoosePkcs11Provider.jlProvider.text"));
 		m_jcbProvider = new JComboBox();
 		m_jcbProvider.setToolTipText(RB.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
+		jlProvider.setLabelFor(m_jcbProvider);
 
 		TreeSet<Provider> pSet = new TreeSet<Provider>(ProviderUtil.getPkcs11Providers());
 

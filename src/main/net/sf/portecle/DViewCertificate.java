@@ -253,7 +253,7 @@ class DViewCertificate
 		m_jbLeft.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage(
 		    getClass().getResource(RB.getString("DViewCertificate.m_jbLeft.image")))));
 
-		m_jlSelector = new JLabel("");
+		m_jlSelector = new JLabel();
 
 		m_jbRight = new JButton();
 		m_jbRight.setMnemonic(KeyEvent.VK_RIGHT);
@@ -302,6 +302,7 @@ class DViewCertificate
 		m_jtfVersion = new JTextField(3);
 		m_jtfVersion.setEditable(false);
 		m_jtfVersion.setToolTipText(RB.getString("DViewCertificate.m_jtfVersion.tooltip"));
+		jlVersion.setLabelFor(m_jtfVersion);
 		GridBagConstraints gbc_jtfVersion = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfVersion.gridy = gridy++;
 
@@ -313,6 +314,7 @@ class DViewCertificate
 		m_jtfSubject = new JTextField(36);
 		m_jtfSubject.setEditable(false);
 		m_jtfSubject.setToolTipText(RB.getString("DViewCertificate.m_jtfSubject.tooltip"));
+		jlSubject.setLabelFor(m_jtfSubject);
 		GridBagConstraints gbc_jtfSubject = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSubject.gridy = gridy++;
 
@@ -324,6 +326,7 @@ class DViewCertificate
 		m_jtfIssuer = new JTextField(36);
 		m_jtfIssuer.setEditable(false);
 		m_jtfIssuer.setToolTipText(RB.getString("DViewCertificate.m_jtfIssuer.tooltip"));
+		jlIssuer.setLabelFor(m_jtfIssuer);
 		GridBagConstraints gbc_jtfIssuer = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfIssuer.gridy = gridy++;
 
@@ -335,6 +338,7 @@ class DViewCertificate
 		m_jtfSerialNumber = new JTextField(25);
 		m_jtfSerialNumber.setEditable(false);
 		m_jtfSerialNumber.setToolTipText(RB.getString("DViewCertificate.m_jtfSerialNumber.tooltip"));
+		jlSerialNumber.setLabelFor(m_jtfSerialNumber);
 		GridBagConstraints gbc_jtfSerialNumber = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSerialNumber.gridy = gridy++;
 
@@ -346,6 +350,7 @@ class DViewCertificate
 		m_jtfValidFrom = new JTextField(25);
 		m_jtfValidFrom.setEditable(false);
 		m_jtfValidFrom.setToolTipText(RB.getString("DViewCertificate.m_jtfValidFrom.tooltip"));
+		jlValidFrom.setLabelFor(jlValidFrom);
 		GridBagConstraints gbc_jtfValidFrom = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfValidFrom.gridy = gridy++;
 
@@ -357,6 +362,7 @@ class DViewCertificate
 		m_jtfValidUntil = new JTextField(25);
 		m_jtfValidUntil.setEditable(false);
 		m_jtfValidUntil.setToolTipText(RB.getString("DViewCertificate.m_jtfValidUntil.tooltip"));
+		jlValidUntil.setLabelFor(m_jtfValidUntil);
 		GridBagConstraints gbc_jtfValidUntil = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfValidUntil.gridy = gridy++;
 
@@ -368,6 +374,7 @@ class DViewCertificate
 		m_jtfPublicKey = new JTextField(15);
 		m_jtfPublicKey.setEditable(false);
 		m_jtfPublicKey.setToolTipText(RB.getString("DViewCertificate.m_jtfPublicKey.tooltip"));
+		jlPublicKey.setLabelFor(m_jtfPublicKey);
 		GridBagConstraints gbc_jtfPublicKey = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfPublicKey.gridy = gridy++;
 
@@ -379,6 +386,7 @@ class DViewCertificate
 		m_jtfSignatureAlgorithm = new JTextField(15);
 		m_jtfSignatureAlgorithm.setEditable(false);
 		m_jtfSignatureAlgorithm.setToolTipText(RB.getString("DViewCertificate.m_jtfSignatureAlgorithm.tooltip"));
+		jlSignatureAlgorithm.setLabelFor(m_jtfSignatureAlgorithm);
 		GridBagConstraints gbc_jtfSignatureAlgorithm = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSignatureAlgorithm.gridy = gridy++;
 
@@ -390,6 +398,7 @@ class DViewCertificate
 		m_jtfSHA1Fingerprint = new JTextField(36);
 		m_jtfSHA1Fingerprint.setEditable(false);
 		m_jtfSHA1Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfSHA1Fingerprint.tooltip"));
+		jlSHA1Fingerprint.setLabelFor(m_jtfSHA1Fingerprint);
 		GridBagConstraints gbc_jtfSHA1Fingerprint = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfSHA1Fingerprint.gridy = gridy++;
 
@@ -401,6 +410,7 @@ class DViewCertificate
 		m_jtfMD5Fingerprint = new JTextField(36);
 		m_jtfMD5Fingerprint.setEditable(false);
 		m_jtfMD5Fingerprint.setToolTipText(RB.getString("DViewCertificate.m_jtfMD5Fingerprint.tooltip"));
+		jlMD5Fingerprint.setLabelFor(m_jtfMD5Fingerprint);
 		GridBagConstraints gbc_jtfMD5Fingerprint = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfMD5Fingerprint.gridy = gridy++;
 
@@ -457,6 +467,7 @@ class DViewCertificate
 		m_jtfProtocol = new JTextField(36);
 		m_jtfProtocol.setEditable(false);
 		m_jtfProtocol.setToolTipText(RB.getString("DViewCertificate.m_jtfProtocol.tooltip"));
+		jlProtocol.setLabelFor(m_jtfProtocol);
 		GridBagConstraints gbc_jtfProtocol = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfProtocol.gridy = gridy++;
 
@@ -468,6 +479,7 @@ class DViewCertificate
 		m_jtfCipherSuite = new JTextField(36);
 		m_jtfCipherSuite.setEditable(false);
 		m_jtfCipherSuite.setToolTipText(RB.getString("DViewCertificate.m_jtfCipherSuite.tooltip"));
+		jlCipherSuite.setLabelFor(m_jtfCipherSuite);
 		GridBagConstraints gbc_jtfCipherSuite = (GridBagConstraints) gbcTf.clone();
 		gbc_jtfCipherSuite.gridy = gridy++;
 
