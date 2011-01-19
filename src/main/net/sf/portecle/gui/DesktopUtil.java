@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
 /**
  * Desktop utilities.
  */
-public class DesktopUtil
+public final class DesktopUtil
 {
 	/** Desktop */
 	private static final Desktop DESKTOP = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;

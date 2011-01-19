@@ -39,7 +39,7 @@ import java.util.logging.Logger;
  * 
  * @author Ville Skyttä
  */
-public class NetUtil
+public final class NetUtil
 {
 	/** Logger */
 	private static final Logger LOG = Logger.getLogger(NetUtil.class.getCanonicalName());

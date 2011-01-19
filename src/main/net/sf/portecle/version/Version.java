@@ -65,17 +65,16 @@ public class Version
 		{
 			try
 			{
-				Integer i = new Integer(strTok.nextToken());
-
+				int i = Integer.parseInt(strTok.nextToken());
 				if (i < 0)
 				{
-					throw new VersionException(); // Less then 0
+					throw new VersionException();
 				}
 				vSections.add(i);
 			}
 			catch (NumberFormatException ex)
 			{
-				throw new VersionException(ex); // Not an integer
+				throw new VersionException(ex);
 			}
 		}
 

@@ -69,7 +69,7 @@ import net.sf.portecle.gui.error.DThrowable;
 /**
  * Modal dialog to display the details of a Certificate Revocation List (CRL).
  */
-class DViewCRL
+final class DViewCRL
     extends PortecleJDialog
 {
 	/** CRL Version text field */

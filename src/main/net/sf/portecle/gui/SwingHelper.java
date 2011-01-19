@@ -35,7 +35,7 @@ import javax.swing.text.JTextComponent;
 /**
  * Swing helper.
  */
-public class SwingHelper
+public final class SwingHelper
 {
 	/** Not needed. */
 	private SwingHelper()
