@@ -39,19 +39,14 @@ class JarInfoTableModel
     extends AbstractTableModel
 {
 	/** Column names */
-	private static final String[] COLUMN_NAMES;
-	static
-	{
-		COLUMN_NAMES =
-		    new String[] { FPortecle.RB.getString("JarInfoTableModel.JarFileColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.SizeColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.SpecificationTitleColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.SpecificationVersionColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.SpecificationVendorColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.ImplementationTitleColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.ImplementationVersionColumn"),
-		        FPortecle.RB.getString("JarInfoTableModel.ImplementationVendorColumn") };
-	}
+	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("JarInfoTableModel.JarFileColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.SizeColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.SpecificationTitleColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.SpecificationVersionColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.SpecificationVendorColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.ImplementationTitleColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.ImplementationVersionColumn"),
+	    FPortecle.RB.getString("JarInfoTableModel.ImplementationVendorColumn") };
 
 	/** Column classes */
 	private static final Class<?>[] COLUMN_CLASSES = { String.class, Long.class, String.class, String.class,

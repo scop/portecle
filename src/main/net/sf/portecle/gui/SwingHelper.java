@@ -102,7 +102,7 @@ public class SwingHelper
 	 */
 	public static int showConfirmDialog(Component parentComponent, Object message, String title)
 	{
-		String[] options = new String[] { "Yes", "No" };
+		String[] options = { "Yes", "No" };
 		return JOptionPane.showOptionDialog(parentComponent, message, title, JOptionPane.YES_NO_OPTION,
 		    JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 	}

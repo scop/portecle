@@ -38,28 +38,18 @@ class KeyStoreTableModel
     extends AbstractTableModel
 {
 	/** Column names */
-	private static final String[] COLUMN_NAMES;
+	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("KeyStoreTableModel.TypeColumn"),
+	    FPortecle.RB.getString("KeyStoreTableModel.AliasColumn"),
+	    FPortecle.RB.getString("KeyStoreTableModel.LastModifiedDateColumn") };
 
 	/** Value to place in the type column for a key pair entry */
-	public static final String KEY_PAIR_ENTRY;
+	public static final String KEY_PAIR_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyPairEntry");
 
 	/** Value to place in the type column for a trusted certificate entry */
-	public static final String TRUST_CERT_ENTRY;
+	public static final String TRUST_CERT_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.TrustCertEntry");
 
 	/** Value to place in the type column for a key entry */
-	public static final String KEY_ENTRY;
-
-	static
-	{
-		COLUMN_NAMES =
-		    new String[] { FPortecle.RB.getString("KeyStoreTableModel.TypeColumn"),
-		        FPortecle.RB.getString("KeyStoreTableModel.AliasColumn"),
-		        FPortecle.RB.getString("KeyStoreTableModel.LastModifiedDateColumn") };
-
-		KEY_PAIR_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyPairEntry");
-		TRUST_CERT_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.TrustCertEntry");
-		KEY_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyEntry");
-	}
+	public static final String KEY_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyEntry");
 
 	/** Column classes */
 	private static final Class<?>[] COLUMN_CLASSES = { String.class, String.class, Date.class };

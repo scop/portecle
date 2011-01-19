@@ -36,14 +36,10 @@ class ExtensionsTableModel
     extends AbstractTableModel
 {
 	/** Column names */
-	private static final String[] COLUMN_NAMES;
-	static
-	{
-		COLUMN_NAMES =
-		    new String[] { FPortecle.RB.getString("ExtensionsTableModel.CriticalColumn"),
-		        FPortecle.RB.getString("ExtensionsTableModel.NameColumn"),
-		        FPortecle.RB.getString("ExtensionsTableModel.OidColumn") };
-	}
+	private static final String[] COLUMN_NAMES = {
+	    FPortecle.RB.getString("ExtensionsTableModel.CriticalColumn"),
+	    FPortecle.RB.getString("ExtensionsTableModel.NameColumn"),
+	    FPortecle.RB.getString("ExtensionsTableModel.OidColumn") };
 
 	/** Column classes */
 	private static final Class<?>[] COLUMN_CLASSES = { Boolean.class, String.class, String.class };
