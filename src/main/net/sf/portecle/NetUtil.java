@@ -75,9 +75,7 @@ public class NetUtil
 
 		// TODO: User-Agent?
 
-		InputStream in = conn.getInputStream();
-
-		return in;
+		return conn.getInputStream();
 	}
 
 	/**
@@ -117,9 +115,7 @@ public class NetUtil
 			out.close();
 		}
 
-		InputStream in = conn.getInputStream();
-
-		return in;
+		return conn.getInputStream();
 	}
 
 	/**

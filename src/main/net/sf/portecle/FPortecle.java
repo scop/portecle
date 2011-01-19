@@ -2155,9 +2155,7 @@ public class FPortecle
 		SwingHelper.showAndWait(dGetNewPassword);
 
 		// Dialog returned - retrieve the password and return it
-		char[] cPassword = dGetNewPassword.getPassword();
-
-		return cPassword;
+		return dGetNewPassword.getPassword();
 	}
 
 	/**
@@ -2582,8 +2580,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportCaReply.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fOpenFile = chooser.getSelectedFile();
-			return fOpenFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -2609,8 +2606,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ExamineCertificate.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fOpenFile = chooser.getSelectedFile();
-			return fOpenFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -2649,8 +2645,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ExamineCsr.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fOpenFile = chooser.getSelectedFile();
-			return fOpenFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -2676,8 +2671,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ExamineCrl.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fOpenFile = chooser.getSelectedFile();
-			return fOpenFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -2706,8 +2700,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportTrustCert.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fImportFile = chooser.getSelectedFile();
-			return fImportFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -2736,8 +2729,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.ImportKeyPairFile.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fKeyPairFile = chooser.getSelectedFile();
-			return fKeyPairFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -2767,8 +2759,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.GenerateCsr.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fCsrFile = chooser.getSelectedFile();
-			return fCsrFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -4959,8 +4950,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fExportFile = chooser.getSelectedFile();
-			return fExportFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -4987,8 +4977,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fExportFile = chooser.getSelectedFile();
-			return fExportFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -5015,8 +5004,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fExportFile = chooser.getSelectedFile();
-			return fExportFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -5043,8 +5031,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fExportFile = chooser.getSelectedFile();
-			return fExportFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}
@@ -5071,8 +5058,7 @@ public class FPortecle
 		int iRtnValue = chooser.showDialog(this, RB.getString("FPortecle.Export.button"));
 		if (iRtnValue == JFileChooser.APPROVE_OPTION)
 		{
-			File fExportFile = chooser.getSelectedFile();
-			return fExportFile;
+			return chooser.getSelectedFile();
 		}
 		return null;
 	}

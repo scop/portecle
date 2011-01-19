@@ -53,14 +53,14 @@ public class IntegerDocumentFilter
 			return;
 		}
 
-		boolean accepted = false;
+		boolean accepted;
 		try
 		{
-			accepted = (Integer.valueOf(string) >= 0);
+			accepted = (Integer.parseInt(string) >= 0);
 		}
 		catch (NumberFormatException e)
 		{
-			// Ignored
+			accepted = false;
 		}
 
 		if (!accepted)
@@ -83,14 +83,14 @@ public class IntegerDocumentFilter
 			return;
 		}
 
-		boolean accepted = false;
+		boolean accepted;
 		try
 		{
-			accepted = (Integer.valueOf(text) >= 0);
+			accepted = (Integer.parseInt(text) >= 0);
 		}
 		catch (NumberFormatException e)
 		{
-			// Ignored
+			accepted = false;
 		}
 
 		if (!accepted)

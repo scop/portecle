@@ -85,8 +85,7 @@ public final class KeyPairUtil
 			keyPairGen.initialize(iKeySize, rand);
 
 			// Generate and return the key pair
-			KeyPair keyPair = keyPairGen.generateKeyPair();
-			return keyPair;
+			return keyPairGen.generateKeyPair();
 		}
 		catch (NoSuchAlgorithmException ex)
 		{

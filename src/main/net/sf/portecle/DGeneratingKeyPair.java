@@ -95,7 +95,7 @@ class DGeneratingKeyPair
 	 */
 	public SwingWorker<KeyPair, Object> getKeyPairWorker(final KeyPairType keyPairType, final int keySize)
 	{
-		SwingWorker<KeyPair, Object> worker = new SwingWorker<KeyPair, Object>()
+		return new SwingWorker<KeyPair, Object>()
 		{
 			@Override
 			protected KeyPair doInBackground()
@@ -112,7 +112,6 @@ class DGeneratingKeyPair
 				super.done();
 			}
 		};
-		return worker;
 	}
 
 	/**

@@ -172,7 +172,7 @@ public class FileChooserFactory
 		{
 			extensions = ksType.getFilenameExtensions().toArray(new String[0]);
 			String info = toWildcards(extensions);
-			if (ksType.equals(KeyStoreType.JKS))
+			if (ksType == KeyStoreType.JKS)
 			{
 				info += FILELIST_SEPARATOR + CACERTS_FILENAME;
 				addCaCerts = true;

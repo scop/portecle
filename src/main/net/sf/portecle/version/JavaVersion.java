@@ -211,8 +211,7 @@ public class JavaVersion
 	 */
 	public int getMajor()
 	{
-		int iMajor = m_iMajor;
-		return iMajor;
+		return m_iMajor;
 	}
 
 	/**
@@ -222,8 +221,7 @@ public class JavaVersion
 	 */
 	public int getMiddle()
 	{
-		int iMiddle = m_iMiddle;
-		return iMiddle;
+		return m_iMiddle;
 	}
 
 	/**
@@ -233,8 +231,7 @@ public class JavaVersion
 	 */
 	public int getMinor()
 	{
-		int iMinor = m_iMinor;
-		return iMinor;
+		return m_iMinor;
 	}
 
 	/**
@@ -244,8 +241,7 @@ public class JavaVersion
 	 */
 	public int getUpdate()
 	{
-		int iUpdate = m_iUpdate;
-		return iUpdate;
+		return m_iUpdate;
 	}
 
 	/**
@@ -358,16 +354,12 @@ public class JavaVersion
 		// Initialize hash total to non-zero value
 		int iResult = 27;
 
-		// For each component of the version Multiply total by 53 (odd
-		// prime) and add section
+		// For each component of the version Multiply total by 53 (odd prime) and add section
 		iResult = 53 * iResult + m_iMajor;
 		iResult = 53 * iResult + m_iMiddle;
 		iResult = 53 * iResult + m_iMinor;
 		iResult = 53 * iResult + m_iUpdate;
-		iResult = 53 * iResult + (m_sIdentifier == null ? 0 : 1);
-
-		// Return hash code
-		return iResult;
+		return 53 * iResult + (m_sIdentifier == null ? 0 : 1);
 	}
 
 	/**

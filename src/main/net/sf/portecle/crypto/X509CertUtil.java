@@ -628,10 +628,7 @@ public final class X509CertUtil
 		try
 		{
 			// Generate an X.509 certificate, based on the current issuer and subject
-			X509Certificate cert = certGen.generate(privateKey, "BC");
-
-			// Return the certificate
-			return cert;
+			return certGen.generate(privateKey, "BC");
 		}
 		// Something went wrong
 		catch (GeneralSecurityException ex)
@@ -690,10 +687,7 @@ public final class X509CertUtil
 			certGen.setSubjectDN(PrincipalUtil.getSubjectX509Principal(oldCert));
 
 			// Generate an X.509 certificate, based on the current issuer and subject
-			X509Certificate cert = certGen.generate(privateKey, "BC");
-
-			// Return the certificate
-			return cert;
+			return certGen.generate(privateKey, "BC");
 		}
 		// Something went wrong
 		catch (GeneralSecurityException ex)

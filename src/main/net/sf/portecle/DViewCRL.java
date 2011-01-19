@@ -449,7 +449,7 @@ class DViewCRL
 		Set<String> critExts = m_crl.getCriticalExtensionOIDs();
 		Set<String> nonCritExts = m_crl.getNonCriticalExtensionOIDs();
 
-		if ((critExts != null && critExts.size() != 0) || (nonCritExts != null && nonCritExts.size() != 0))
+		if ((critExts != null && !critExts.isEmpty()) || (nonCritExts != null && !nonCritExts.isEmpty()))
 		{
 			// Extensions
 			m_jbCrlExtensions.setEnabled(true);

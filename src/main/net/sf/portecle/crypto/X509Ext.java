@@ -698,9 +698,7 @@ public class X509Ext
 		DERGeneralizedTime invalidityDate = (DERGeneralizedTime) ASN1Object.fromByteArray(bValue);
 
 		// Format invalidity date for display
-		String sInvalidityTime = formatGeneralizedTime(invalidityDate);
-
-		return sInvalidityTime;
+		return formatGeneralizedTime(invalidityDate);
 	}
 
 	/**
@@ -2080,8 +2078,7 @@ public class X509Ext
 		ret = ret.replace("&", "&amp;");
 		ret = ret.replace("<", "&lt;");
 		ret = ret.replace(">", "&gt;");
-		ret = ret.replace("\"", "&quot;");
-		return ret;
+		return ret.replace("\"", "&quot;");
 	}
 
 	/**

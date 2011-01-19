@@ -224,18 +224,4 @@ class JarInfoTableModel
 	{
 		return COLUMN_CLASSES[iCol];
 	}
-
-	/**
-	 * Is the cell at the given row and column position editable?
-	 * 
-	 * @param iRow The row position
-	 * @param iCol The column position
-	 * @return True if the cell is editable, false otherwise
-	 */
-	@Override
-	public boolean isCellEditable(int iRow, int iCol)
-	{
-		// The table is always read-only
-		return false;
-	}
 }
