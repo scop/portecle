@@ -276,8 +276,7 @@ class DViewCertificate
 
 		// Certificate details:
 
-		// Grid Bag Constraints templates for labels and text fields
-		// of certificate details
+		// Grid Bag Constraints templates for labels and text fields of certificate details
 		GridBagConstraints gbcLbl = new GridBagConstraints();
 		gbcLbl.gridx = 0;
 		gbcLbl.gridwidth = 1;

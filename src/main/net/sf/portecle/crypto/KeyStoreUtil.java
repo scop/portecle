@@ -82,10 +82,10 @@ public final class KeyStoreUtil
 		KeyStore keyStore = null;
 		if (keyStoreType == KeyStoreType.PKCS12)
 		{
-			// Prefer BC for PKCS #12 for now; the BC and SunJSSE 1.5+
-			// implementations are incompatible in how they handle empty/missing passwords; BC works
-			// consistently with char[0] on load and store (does not accept nulls), SunJSSE throws division by
-			// zero with char[0] on load and store, works with null on load, does not work with null on store.
+			// Prefer BC for PKCS #12 for now; the BC and SunJSSE 1.5+ implementations are incompatible in how
+			// they handle empty/missing passwords; BC works consistently with char[0] on load and store (does
+			// not accept nulls), SunJSSE throws division by zero with char[0] on load and store, works with
+			// null on load, does not work with null on store.
 			// Checked with BC 1.{29,40}, SunJSSE 1.5.0_0{3,4,14}, 1.6.0 (OpenJDK)
 			try
 			{
@@ -405,9 +405,9 @@ public final class KeyStoreUtil
 			fos.close();
 		}
 
-		// As of GNU classpath 0.92, we need to reload GKR keystores after
-		// storing them, otherwise "masked envelope" IllegalStateExceptions
-		// occur when trying to access things in the stored keystore again.
+		// As of GNU classpath 0.92, we need to reload GKR keystores after storing them, otherwise
+		// "masked envelope" IllegalStateExceptions occur when trying to access things in the stored keystore
+		// again.
 		if (KeyStoreType.valueOf(keyStore.getType()) == KeyStoreType.GKR)
 		{
 			keyStore = loadKeyStore(fKeyStoreFile, cPassword, KeyStoreType.GKR);

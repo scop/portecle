@@ -107,8 +107,7 @@ class DViewCSR
 	private void initComponents()
 	    throws CryptoException
 	{
-		// Grid Bag Constraints templates for labels and text fields
-		// of certificate details
+		// Grid Bag Constraints templates for labels and text fields of CSR details
 		GridBagConstraints gbcLbl = new GridBagConstraints();
 		gbcLbl.gridx = 0;
 		gbcLbl.gridwidth = 1;

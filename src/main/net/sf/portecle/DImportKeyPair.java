@@ -230,8 +230,7 @@ class DImportKeyPair
 				// Get alias...
 				String sAlias = aliases.nextElement();
 
-				// Add the alias to the list if the entry has a key
-				// and certificates
+				// Add the alias to the list if the entry has a key and certificates
 				if (m_pkcs12.isKeyEntry(sAlias))
 				{
 					m_pkcs12.getKey(sAlias, KeyStoreUtil.DUMMY_PASSWORD);
@@ -279,9 +278,8 @@ class DImportKeyPair
 				return;
 			}
 
-			// Get the algorithm information from the appropriate
-			// certificate - we can't yet use an API to get it
-			// directly from the private key
+			// Get the algorithm information from the appropriate certificate - we can't yet use an API to get
+			// it directly from the private key
 			Certificate[] certs = m_pkcs12.getCertificateChain(sAlias);
 
 			X509Certificate[] x509Certs = X509CertUtil.convertCertificates(certs);

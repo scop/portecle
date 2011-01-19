@@ -90,9 +90,8 @@ class KeyStoreTableModel
 		{
 			String sAlias = en.nextElement();
 
-			// Populate the type column - it is set with an integer
-			// but a custom cell renderer will cause a suitable icon
-			// to be displayed
+			// Populate the type column - it is set with an integer but a custom cell renderer will cause a
+			// suitable icon to be displayed
 			if (keyStore.isCertificateEntry(sAlias))
 			{
 				m_data[iCnt][0] = TRUST_CERT_ENTRY;
@@ -205,9 +204,8 @@ class KeyStoreTableModel
 			return false;
 		}
 
-		// Key-only entries are not renameable - we do a remove-store operation
-		// but the KeyStore API won't allow us to store a PrivateKey without
-		// associated certificate chain.
+		// Key-only entries are not renameable - we do a remove-store operation but the KeyStore API won't
+		// allow us to store a PrivateKey without associated certificate chain.
 		// TODO: Maybe it'd work for other Key types? Need testing material.
 		return !KEY_ENTRY.equals(m_data[iRow][0]);
 	}

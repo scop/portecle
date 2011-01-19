@@ -88,8 +88,7 @@ class DNewKeyStoreType
 	 */
 	private void initComponents()
 	{
-		// Create keystore type label and radio buttons and group them
-		// in a panel
+		// Create keystore type label and radio buttons and group them in a panel
 		JLabel jlKeyStoreType = new JLabel(RB.getString("DNewKeyStoreType.jlKeyStoreType.text"));
 
 		m_jrbJksKeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbJksKeyStore.text"), true);

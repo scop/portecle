@@ -63,8 +63,7 @@ class RevokedCertsTableModel
 		// Create one table row for each revoked certificate
 		m_data = new Object[revokedCerts.length][getColumnCount()];
 
-		// Iterate through the sorted revoked certificates populating
-		// the table model
+		// Iterate through the sorted revoked certificates populating the table model
 		int iCnt = 0;
 		for (X509CRLEntry x509CrlEntry : revokedCerts)
 		{

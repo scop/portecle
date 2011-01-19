@@ -375,8 +375,8 @@ public class FPortecle
 		updateTitle();
 		pack();
 
-		// Set application position according to application preferences
-		// unless the relevant preferences are not present or are invalid
+		// Set application position according to application preferences unless the relevant preferences are
+		// not present or are invalid
 		int iXPos = PREFS.getInt(RB.getString("AppPrefs.XPos"), 0);
 		int iYPos = PREFS.getInt(RB.getString("AppPrefs.YPos"), 0);
 
@@ -391,8 +391,7 @@ public class FPortecle
 			setLocation(new Point(iXPos, iYPos));
 		}
 
-		// If frame is not completely visible then set it to default size
-		// and center it
+		// If frame is not completely visible then set it to default size and center it
 		if (!SwingUtilities.isRectangleContainingRectangle(new Rectangle(
 		    Toolkit.getDefaultToolkit().getScreenSize()), getBounds()))
 		{
@@ -1203,18 +1202,16 @@ public class FPortecle
 			column.setCellRenderer(new KeyStoreTableCellRend());
 		}
 
-		/*
-		 * Make the first column small and not resizable (it holds icons to represent the different entry
-		 * types)
-		 */
+		// Make the first column small and not resizable (it holds icons to represent the different entry
+		// types)
 		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(0);
 		typeCol.setResizable(false);
 		typeCol.setMinWidth(20);
 		typeCol.setMaxWidth(20);
 		typeCol.setPreferredWidth(20);
 
-		// Set alias columns width according to the relevant application
-		// property unless the property is not present or is invalid.
+		// Set alias columns width according to the relevant application property unless the property is not
+		// present or is invalid.
 		int iAliasWidth = PREFS.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
 
 		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(1);
@@ -1250,13 +1247,12 @@ public class FPortecle
 		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspKeyStoreTable.getViewport().setBackground(m_jtKeyStore.getBackground());
 
-		// Get the size of the keystore table panel from the application
-		// preferences
+		// Get the size of the keystore table panel from the application preferences
 		int iWidth = PREFS.getInt(RB.getString("AppPrefs.TableWidth"), 0);
 		int iHeight = PREFS.getInt(RB.getString("AppPrefs.TableHeight"), 0);
 
-		// Put the scroll pane into a panel. The preferred size of the panel
-		// dictates the size of the entire frame
+		// Put the scroll pane into a panel. The preferred size of the panel dictates the size of the entire
+		// frame
 		m_jpKeyStoreTable = new JPanel(new BorderLayout(10, 10));
 
 		if (iWidth <= 0 || iHeight <= 0)
@@ -1271,11 +1267,9 @@ public class FPortecle
 		m_jpKeyStoreTable.add(jspKeyStoreTable, BorderLayout.CENTER);
 		m_jpKeyStoreTable.setBorder(new EmptyBorder(3, 3, 3, 3));
 
-		/*
-		 * Add mouse listeners to show pop-up menus when table entries are clicked upon; maybeShowPopup for
-		 * both mousePressed and mouseReleased for cross-platform compatibility. Also add listeners to show an
-		 * entry's certificate details if it is double-clicked
-		 */
+		// Add mouse listeners to show pop-up menus when table entries are clicked upon; maybeShowPopup for
+		// both mousePressed and mouseReleased for cross-platform compatibility. Also add listeners to show an
+		// entry's certificate details if it is double-clicked
 		m_jtKeyStore.addMouseListener(new MouseAdapter()
 		{
 			@Override
@@ -1663,8 +1657,7 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// Display the Generate Key Pair dialog to get the key pair generation
-		// parameters from the user
+		// Display the Generate Key Pair dialog to get the key pair generation parameters from the user
 		DGenerateKeyPair dGenerateKeyPair = new DGenerateKeyPair(this);
 		dGenerateKeyPair.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dGenerateKeyPair);
@@ -1918,8 +1911,7 @@ public class FPortecle
 
 		try
 		{
-			// Load the keystore - try to open as each of the allowed
-			// types in turn until successful
+			// Load the keystore - try to open as each of the allowed types in turn until successful
 			KeyStore openedKeyStore = null;
 
 			// Types
@@ -2172,8 +2164,8 @@ public class FPortecle
 		// Keystore's current password
 		char[] cPassword = m_keyStoreWrap.getPassword();
 
-		// Get a new password if this keystore exists in another file or is an
-		// unsaved keystore for which no password has been set yet
+		// Get a new password if this keystore exists in another file or is an unsaved keystore for which no
+		// password has been set yet
 		if (m_keyStoreWrap.getKeyStoreFile() != null ||
 		    (m_keyStoreWrap.getKeyStoreFile() == null && cPassword == null))
 		{
@@ -2514,7 +2506,7 @@ public class FPortecle
 
 		m_lastDir.updateLastDir(fCSRFile);
 
-		// If a CSR is available then diaply the view CSR dialog with it
+		// If a CSR is available then display the view CSR dialog with it
 		if (csr != null)
 		{
 			try
@@ -2953,10 +2945,8 @@ public class FPortecle
 					newCertChain = certs;
 				}
 			}
-			/*
-			 * Single X.509 certificate reply - try and establish a chain of trust from the certificate and
-			 * ending with a root CA self-signed certificate
-			 */
+			// Single X.509 certificate reply - try and establish a chain of trust from the certificate and
+			// ending with a root CA self-signed certificate
 			else
 			{
 				KeyStore[] compKeyStores = null;
@@ -3185,9 +3175,8 @@ public class FPortecle
 				}
 			}
 
-			// If we cannot establish trust for the certificate against the
-			// CA certificates keystore or the current keystore then display the
-			// certificate to the user for confirmation
+			// If we cannot establish trust for the certificate against the CA certificates keystore or the
+			// current keystore then, display the certificate to the user for confirmation
 			KeyStore[] compKeyStores = null;
 
 			// Establish against CA certificates keystore and current keystore
@@ -3442,8 +3431,7 @@ public class FPortecle
 				keyStore.deleteEntry(sAlias);
 			}
 
-			// Place the private key and certificate chain into the keystore
-			// and update the keystore wrapper
+			// Place the private key and certificate chain into the keystore and update the keystore wrapper
 			keyStore.setKeyEntry(sAlias, privateKey, cPassword, certs);
 			m_keyStoreWrap.setEntryPassword(sAlias, cPassword);
 			m_keyStoreWrap.setChanged(true);
@@ -3696,11 +3684,9 @@ public class FPortecle
 		boolean bLookFeelDecoration = dOptions.isLookFeelDecoration();
 
 		// Look & feel/decoration changed?
-		/*
-		 * Note: UIManager.LookAndFeelInfo.getName() and LookAndFeel.getName() can be different for the same
-		 * L&F (one example is the GTK+ one in J2SE 5 RC2 (Linux), where the former is "GTK+" and the latter
-		 * is "GTK look and feel"). Therefore, compare the class names instead.
-		 */
+		// Note: UIManager.LookAndFeelInfo.getName() and LookAndFeel.getName() can be different for the same
+		// L&F (one example is the GTK+ one in J2SE 5 RC2 (Linux), where the former is "GTK+" and the latter
+		// is "GTK look and feel"). Therefore, compare the class names instead.
 		if (newLookFeelClassName != null &&
 		    (!newLookFeelClassName.equals(UIManager.getLookAndFeel().getClass().getName()) || bLookFeelDecoration != JFrame.isDefaultLookAndFeelDecorated()))
 		{
@@ -3745,17 +3731,16 @@ public class FPortecle
 			// Create empty keystore of new type
 			KeyStore newKeyStore = KeyStoreUtil.createKeyStore(keyStoreType);
 
-			// Flag used to tell if we have warned the user about default key
-			// pair entry passwords for keystores changed to types that don't support entry passwords
+			// Flag used to tell if we have warned the user about default key pair entry passwords for
+			// keystores changed to types that don't support entry passwords
 			boolean bWarnPasswordUnsupported = false;
 
-			// Flag used to tell if we have warned the user about key entries
-			// not being carried over by the change
+			// Flag used to tell if we have warned the user about key entries not being carried over by the
+			// change
 			boolean bWarnNoChangeKey = false;
 
-			// For every entry in the current keystore transfer it to the new
-			// one - get key/key pair entry passwords from the wrapper and if
-			// not present there from the user
+			// For every entry in the current keystore transfer it to the new one - get key/key pair entry
+			// passwords from the wrapper and if not present there from the user
 			for (Enumeration<String> aliases = currentKeyStore.aliases(); aliases.hasMoreElements();)
 			{
 				// Entry alias
@@ -3789,8 +3774,7 @@ public class FPortecle
 
 					if (certificateChain == null || certificateChain.length == 0)
 					{
-						// Key entries are not transferred - warn the user
-						// if we have no done so already
+						// Key entries are not transferred - warn the user if we haven't done so already
 						if (!bWarnNoChangeKey)
 						{
 							bWarnNoChangeKey = true;
@@ -3808,8 +3792,7 @@ public class FPortecle
 						continue;
 					}
 
-					// Get the entry's password (we may already know it from
-					// the wrapper)
+					// Get the entry's password (we may already know it from the wrapper)
 					char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
 					if (cPassword == null)
@@ -3871,8 +3854,7 @@ public class FPortecle
 						}
 					}
 
-					// Put key and (possibly null) certificate chain in
-					// new keystore
+					// Put key and (possibly null) certificate chain in new keystore
 					newKeyStore.setKeyEntry(sAlias, key, cPassword, certificateChain);
 
 					// Update wrapper with password
@@ -3968,9 +3950,8 @@ public class FPortecle
 		assert m_keyStoreWrap.getKeyStore() != null;
 		assert m_keyStoreWrap.getKeyStoreType().isEntryPasswordSupported();
 
-		// Not valid for a certificate entry, nor a key-only one - we do a
-		// remove-store operation but the KeyStore API won't allow us to
-		// store a PrivateKey without associated certificate chain.
+		// Not valid for a certificate entry, nor a key-only one - we do a remove-store operation but the
+		// KeyStore API won't allow us to store a PrivateKey without associated certificate chain.
 		// TODO: Maybe it'd work for other Key types? Need testing material.
 		if (!KeyStoreTableModel.KEY_PAIR_ENTRY.equals(m_jtKeyStore.getSelectedType()))
 		{
@@ -3983,8 +3964,7 @@ public class FPortecle
 		// Do we already know the current password for the entry?
 		char[] cOldPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
-		// Display the change password dialog supplying the current password
-		// to it if it was available
+		// Display the change password dialog supplying the current password to it if it was available
 		DChangePassword dChangePassword =
 		    new DChangePassword(this, RB.getString("FPortecle.SetKeyPairPassword.Title"), cOldPassword);
 		dChangePassword.setLocationRelativeTo(this);
@@ -4052,8 +4032,7 @@ public class FPortecle
 
 		try
 		{
-			// Display the Generate Key Pair dialog to get the key pair
-			// generation parameters from the user
+			// Display the Generate Key Pair dialog to get the key pair generation parameters from the user
 			DExport dExport = new DExport(this, m_keyStoreWrap, sAlias);
 			dExport.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dExport);
@@ -4858,8 +4837,8 @@ public class FPortecle
 			// Create a new PKCS #12 keystore
 			KeyStore pkcs12 = KeyStoreUtil.createKeyStore(KeyStoreType.PKCS12);
 
-			// Place the private key and certificate chain into the PKCS #12
-			// keystore under the same alias as it has in the loaded keystore
+			// Place the private key and certificate chain into the PKCS #12 keystore under the same alias as
+			// it has in the loaded keystore
 			pkcs12.setKeyEntry(sEntryAlias, privKey, new char[0], certs);
 
 			// Get a new password for the PKCS #12 keystore
@@ -5087,8 +5066,7 @@ public class FPortecle
 
 		try
 		{
-			// Get the entry's password (we may already know it from the
-			// wrapper)
+			// Get the entry's password (we may already know it from the wrapper)
 			char[] cPassword = m_keyStoreWrap.getEntryPassword(sAlias);
 
 			if (cPassword == null)
@@ -5183,8 +5161,8 @@ public class FPortecle
 		assert m_keyStoreWrap != null;
 		assert m_keyStoreWrap.getKeyStore() != null;
 
-		// Not valid for a PrivateKey-only entry - the KeyStore API won't allow
-		// us to store a PrivateKey without associated certificate chain.
+		// Not valid for a PrivateKey-only entry - the KeyStore API won't allow us to store a PrivateKey
+		// without associated certificate chain.
 		// TODO: Maybe it'd work for other Key types? Need testing material.
 		if (!KeyStoreTableModel.KEY_PAIR_ENTRY.equals(m_jtKeyStore.getSelectedType()))
 		{
@@ -5799,13 +5777,12 @@ public class FPortecle
 	{
 		try
 		{
-			// The size of the keystore table panel - determines the size
-			// of the main frame
+			// The size of the keystore table panel - determines the size of the main frame
 			PREFS.putInt(RB.getString("AppPrefs.TableWidth"), m_jpKeyStoreTable.getWidth());
 			PREFS.putInt(RB.getString("AppPrefs.TableHeight"), m_jpKeyStoreTable.getHeight());
 
-			// The size of the keystore table's alias column - determines
-			// the size of all of the table's columns
+			// The size of the keystore table's alias column - determines the size of all of the table's
+			// columns
 			PREFS.putInt(RB.getString("AppPrefs.AliasWidth"),
 			    m_jtKeyStore.getColumnModel().getColumn(1).getWidth());
 
@@ -6661,11 +6638,6 @@ public class FPortecle
 				return false;
 			}
 
-			/*
-			 * (non-Javadoc)
-			 * @see javax.swing.TransferHandler#importData(javax.swing.JComponent,
-			 * java.awt.datatransfer.Transferable)
-			 */
 			@Override
 			public boolean importData(JComponent comp, Transferable t)
 			{

@@ -128,8 +128,7 @@ public class DChangePassword
 
 		JLabel jlOld = new JLabel(RB.getString("DChangePassword.jlOld.text"));
 
-		// Old password was supplied - just disable the old password
-		// field after filling it with junk
+		// Old password was supplied - just disable the old password field after filling it with junk
 		if (m_cOldPassword != null)
 		{
 			m_jpfOld = new JPasswordField("1234567890", 15);

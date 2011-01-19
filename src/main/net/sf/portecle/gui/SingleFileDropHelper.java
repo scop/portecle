@@ -96,14 +96,14 @@ public class SingleFileDropHelper
 		}
 		catch (IOException e)
 		{
-			// Ignore this because getTransferable thinks we're going to use this object for
-			// something, we really just want to check and show the user as soon as possible that
-			// the file (most likely a directory) is not handled.
+			// Ignore this because getTransferable thinks we're going to use this object for something, we
+			// really just want to check and show the user as soon as possible that the file (most likely a
+			// directory) is not handled.
 		}
 		catch (UnsupportedFlavorException e)
 		{
-			// Ignore this because we've already explicitly defined which file types we'll
-			// support, it shouldn't get here.
+			// Ignore this because we've already explicitly defined which file types we'll support, it
+			// shouldn't get here.
 		}
 
 		return false;

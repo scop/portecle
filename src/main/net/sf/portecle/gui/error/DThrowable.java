@@ -42,16 +42,16 @@ import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * Modal dialog for displaying a throwable message with the option to display the stack trace.
+ * Modal dialog for displaying a Throwable message with the option to display the stack trace.
  */
 public class DThrowable
     extends PortecleJDialog
 {
-	/** Stores throwable to display */
+	/** Stores Throwable to display */
 	private Throwable m_throwable;
 
 	/**
-	 * Exception message parts that may indicate that the culprit for the throwable is lack of unrestricted
+	 * Exception message parts that may indicate that the culprit for the Throwable is lack of unrestricted
 	 * JCE policy files.
 	 */
 	private final static String[] POLICY_PROBLEM_HINTS = { "unsupported keysize", "illegal key size", };
@@ -114,9 +114,8 @@ public class DThrowable
 
 		String text = m_throwable.toString();
 
-		// Find out if this problem maybe due to missing unrestricted JCE
-		// policy files. Ugly? Definitely. Better ways to detect this
-		// are welcome...
+		// Find out if this problem maybe due to missing unrestricted JCE policy files. Ugly? Definitely.
+		// Better ways to detect this are welcome...
 
 		boolean maybePolicyProblem = false;
 		Throwable t = m_throwable;

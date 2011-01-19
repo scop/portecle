@@ -125,10 +125,8 @@ class DViewExtensions
 			column.setCellRenderer(new ExtensionsTableCellRend());
 		}
 
-		/*
-		 * Make the first column small and not resizable (it holds an icon to represent the criticality of an
-		 * extension)
-		 */
+		// Make the first column small and not resizable (it holds an icon to represent the criticality of an
+		// extension)
 		TableColumn criticalCol = m_jtExtensions.getColumnModel().getColumn(0);
 		criticalCol.setResizable(false);
 		criticalCol.setMinWidth(20);
@@ -323,8 +321,7 @@ class DViewExtensions
 		// Put text area panel into Extension Value controls panel
 		jpExtensionValue.add(jpExtensionValueTextArea, BorderLayout.CENTER);
 
-		// Put Extensions table and Extension Value text area together in
-		// extensions panel
+		// Put Extensions table and Extension Value text area together in extensions panel
 		JPanel jpExtensions = new JPanel(new GridLayout(2, 1, 5, 5));
 		jpExtensions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new CompoundBorder(
 		    new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));

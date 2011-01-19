@@ -56,8 +56,7 @@ class ExtensionsTableCellRend
 		    (JLabel) super.getTableCellRendererComponent(jtExtensions, value, bIsSelected, bHasFocus, iRow,
 		        iCol);
 
-		// Critical column - display an icon representing criticality
-		// and tool-tip text
+		// Critical column - display an icon representing criticality and tool tip text
 		if (iCol == 0)
 		{
 			ImageIcon icon = null;

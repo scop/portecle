@@ -158,9 +158,8 @@ public final class X509CertUtil
 			if (OPENSSL_PEM_ENCODING.equals(encoding))
 			{
 				// Special case; this is not a real JCE supported encoding.
-				// Note: let PEMReader use its default provider (BC as of BC
-				// 1.40) internally; for example the default "SUN" provider
-				// may not contain an RSA implementation
+				// Note: let PEMReader use its default provider (BC as of BC 1.40) internally; for example the
+				// default "SUN" provider may not contain an RSA implementation
 				PEMReader pr = new PEMReader(new InputStreamReader(in));
 
 				// These beasts can contain just about anything, and unfortunately the PEMReader API (as of BC
@@ -220,9 +219,8 @@ public final class X509CertUtil
 				// containing nulls.
 			}
 		}
-		// Some RuntimeExceptions which really should be
-		// CertificateExceptions may be thrown from cf.generateCert* above,
-		// for example Oracle's PKCS #7 parser tends to throw them... :P
+		// Some RuntimeExceptions which really should be CertificateExceptions may be thrown from
+		// cf.generateCert* above, for example Oracle's PKCS #7 parser tends to throw them... :P
 		catch (Exception ex)
 		{
 			// TODO: don't throw if vCerts non-empty (eg. OpenSSL PEM above)?
@@ -398,8 +396,8 @@ public final class X509CertUtil
 			return certs;
 		}
 
-		// Keep making passes through the array of certificates looking for the
-		// next certificate in the chain until the links run out
+		// Keep making passes through the array of certificates looking for the next certificate in the chain
+		// until the links run out
 		while (true)
 		{
 			boolean bFoundNext = false;
@@ -774,8 +772,8 @@ public final class X509CertUtil
 
 	/**
 	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied
-	 * keystores based on the trusted certificates contained therein, ie that a chain of trust exists between
-	 * the supplied certificate and a self-signed trusted certificate in the keystores.
+	 * keystores based on the trusted certificates contained therein, i.e. that a chain of trust exists
+	 * between the supplied certificate and a self-signed trusted certificate in the keystores.
 	 * 
 	 * @return The trust chain, or null if trust could not be established
 	 * @param cert The certificate
@@ -812,23 +810,20 @@ public final class X509CertUtil
 		// For each comparison certificate...
 		for (X509Certificate compCert : vCompCerts)
 		{
-			// Check if the Comparison certificate's subject is the same as the
-			// certificate's issuer
+			// Check if the Comparison certificate's subject is the same as the certificate's issuer
 			if (cert.getIssuerDN().equals(compCert.getSubjectDN()))
 			{
-				// If so verify with the comparison certificate's corresponding
-				// private key was used to sign the certificate
+				// If so verify with the comparison certificate's corresponding private key was used to sign
+				// the certificate
 				if (X509CertUtil.verifyCertificate(cert, compCert))
 				{
-					// If the keystore certificate is self-signed then a
-					// chain of trust exists
+					// If the keystore certificate is self-signed then a chain of trust exists
 					if (compCert.getSubjectDN().equals(compCert.getIssuerDN()))
 					{
 						return new X509Certificate[] { cert, compCert };
 					}
-					// Otherwise try and establish a chain of trust for
-					// the comparison certificate against the other comparison
-					// certificates
+					// Otherwise try and establish a chain of trust for the comparison certificate against the
+					// other comparison certificates
 					X509Certificate[] tmpChain = establishTrust(vCompCerts, compCert);
 					if (tmpChain != null)
 					{

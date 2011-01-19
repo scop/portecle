@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import javax.swing.JMenu;
 
 /**
- * Menu with Recent File List capability, ie a list of files where the most recently accessed file is set as
+ * Menu with Recent File List capability, i.e. a list of files where the most recently accessed file is set as
  * the first item shifting other files down and the list contains no duplicates. Note: only call the
  * add(JMenuItemRecentFile) to add recent file menu items when the menu is completely populated with standard
  * menu items and separators.
@@ -168,8 +168,7 @@ public class JMenuRecentFiles
 		// Item already exists outside of first position
 		if (iIndex != -1)
 		{
-			// Introduce it to the first position and move the others
-			// up over its old position
+			// Introduce it to the first position and move the others up over its old position
 			for (int iCnt = 0; iCnt <= iIndex; iCnt++)
 			{
 				JMenuItemRecentFile jmirfTmp = m_jmirf[iCnt];
@@ -181,8 +180,7 @@ public class JMenuRecentFiles
 		// Item does not exist in the menu
 		else
 		{
-			// Introduce new item to the start of the list and shift
-			// the others up one
+			// Introduce new item to the start of the list and shift the others up one
 			for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++)
 			{
 				JMenuItemRecentFile jmirfTmp = m_jmirf[iCnt];

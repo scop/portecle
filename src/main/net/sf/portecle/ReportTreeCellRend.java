@@ -63,8 +63,7 @@ class ReportTreeCellRend
 		// Sanity check of value
 		if (value instanceof DefaultMutableTreeNode)
 		{
-			// Set the cell's icon and tool tip text - depends on
-			// nodes depth and index
+			// Set the cell's icon and tool tip text - depends on nodes depth and index
 
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 

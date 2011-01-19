@@ -138,8 +138,7 @@ public class DProviderInfo
 		// For each provider...
 		for (Provider provider : Security.getProviders())
 		{
-			// Create a node with the provider name and add it as a
-			// child of the top node
+			// Create a node with the provider name and add it as a child of the top node
 			DefaultMutableTreeNode providerNode = new DefaultMutableTreeNode(provider.getName());
 			topNode.add(providerNode);
 
@@ -152,8 +151,7 @@ public class DProviderInfo
 			    new DefaultMutableTreeNode(RB.getString("DProviderInfo.ProviderProperties"));
 			providerNode.add(providerPropertiesNode);
 
-			// ...add property child nodes to it.
-			// Use a TreeSet for sorting the properties.
+			// ...add property child nodes to it. Use a TreeSet for sorting the properties.
 			for (Object o : new TreeSet<Object>(provider.keySet()))
 			{
 				String sKey = String.valueOf(o);
@@ -195,8 +193,7 @@ public class DProviderInfo
 			strBuff.append(RB.getString("DProviderInfo.Copy.ProviderProperties"));
 			strBuff.append('\n');
 
-			// ...and it's properties
-			// Use a TreeSet for sorting the properties.
+			// ...and it's properties. Use a TreeSet for sorting the properties.
 			for (Object o : new TreeSet<Object>(provider.keySet()))
 			{
 				String sKey = String.valueOf(o);
