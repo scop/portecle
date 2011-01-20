@@ -9,6 +9,10 @@ Bug fixes:
 - Unknown key sizes no longer prevent viewing certificates or generating
   key store reports.
 
+Miscellaneous:
+- Portecle is now available through Java Web Start at
+  http://portecle.sourceforge.net/webstart/portecle.jnlp
+
 New in Portecle 1.6 (2011-01-15):
 ---------------------------------
 

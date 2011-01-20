@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jnlp PUBLIC "-//Sun Microsystems, Inc//DTD JNLP Descriptor 6.0//EN" "http://java.sun.com/dtd/JNLP-6.0.dtd">
+<jnlp spec="6.0+" version="@VERSION@" codebase="@CODEBASE@" href="portecle.jnlp">
+	<information>
+		<title>Portecle</title>
+		<vendor>The Portecle Project</vendor>
+		<homepage href="http://portecle.sourceforge.net/"/>
+		<description>Multipurpose keystore and certificate tool</description>
+		<description kind="short">User friendly GUI application for creating,
+			managing and examining key stores, keys, certificates, certificate
+			requests, certificate revocation lists and more.</description>
+		<icon href="portecle.png" width="32" height="32"/>
+		<icon href="splash.png" width="258" height="300" kind="splash"/>
+		<offline-allowed/>
+		<shortcut online="false">
+			<desktop/>
+		</shortcut>
+		<association extensions="jks ks" mime-type="application/x-java-keystore"/>
+		<association extensions="jceks" mime-type="application/x-java-jce-keystore"/>
+		<association extensions="bks" mime-type="application/x-java-bc-keystore"/>
+		<association extensions="ubr" mime-type="application/x-java-bc-uber-keystore"/>
+		<association extensions="p12 pfx" mime-type="application/x-pkcs12"/>
+		<association extensions="cer" mime-type="application/pkix-cert"/>
+		<association extensions="cert crt pem der" mime-type="application/x-x509-ca-cert"/>
+		<association extensions="p7b spc" mime-type="application/x-pkcs7-certificates"/>
+		<association extensions="pkipath" mime-type="application/pkix-pkipath"/>
+		<association extensions="p10 csr" mime-type="application/pkcs10"/>
+		<association extensions="crl" mime-type="application/pkix-crl"/>
+	</information>
+	<security>
+		<all-permissions/>
+	</security>
+	<resources>
+		<java version="1.6+"/>
+		<property name="jnlp.packEnabled" value="true"/>
+		<jar href="portecle.jar" main="true" size="@JARSIZE@"/>
+		<jar href="bcprov.jar" size="@BCJARSIZE@"/>
+	</resources>
+	<application-desc main-class="net.sf.portecle.FPortecle"/>
+</jnlp>

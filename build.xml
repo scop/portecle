@@ -36,6 +36,8 @@
   <property name="apiurl.java" value="http://download.oracle.com/javase/6/docs/api/"/>
   <property name="apiurl.bc" value="http://www.bouncycastle.org/docs/docs1.6/"/>
 
+  <property name="jnlp.codebase" value="http://portecle.sourceforge.net/webstart/"/>
+
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
   </path>
@@ -103,24 +105,6 @@
       </and>
     </condition>
     <antcall target="jar-classpath" />
-
-    <!-- Required for signing pack200 version later, decreases size a bit -->
-    <pack200 file="${build}/${jar}" tofile="${build}/${jar}tmp" repack="true"/>
-    <move file="${build}/${jar}tmp" tofile="${build}/${jar}"/>
-
-    <condition property="do.signjar">
-      <and>
-        <isset property="signjar.keystore" />
-        <not><equals arg1="${signjar.keystore}" arg2="" trim="true" /></not>
-        <isset property="signjar.storepass" />
-        <not><equals arg1="${signjar.storepass}" arg2="" trim="true" /></not>
-        <isset property="signjar.alias" />
-        <not><equals arg1="${signjar.alias}" arg2="" trim="true" /></not>
-        <isset property="signjar.keypass" />
-        <not><equals arg1="${signjar.keypass}" arg2="" trim="true" /></not>
-      </and>
-    </condition>
-    <antcall target="jar-sign" />
   </target>
 
   <!-- Internal: updates jar's Class-Path. -->
@@ -132,16 +116,39 @@
     </jar>
   </target>
 
-  <!-- Internal: signs the jar. -->
-  <target name="jar-sign" if="do.signjar">
+  <target name="webstart" depends="jar" description="Builds Java Web Start dir">
+    <mkdir dir="${build}/webstart"/>
+    <copy todir="${build}/webstart" flatten="true">
+      <fileset dir="${src}">
+        <include name="main/net/sf/portecle/images/splash.png"/>
+        <include name="icons/portecle.png"/>
+      </fileset>
+    </copy>
+    <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
+    <pack200 file="${build}/${jar}" todir="${build}/webstart" repack="true"/>
     <signjar
       keystore="${signjar.keystore}"
       storepass="${signjar.storepass}"
       alias="${signjar.alias}"
       keypass="${signjar.keypass}"
-      jar="${build}/${jar}"
-      sigfile="PORTECLE"
-      />
+      sigfile="PORTECLE">
+      <fileset dir="${build}/webstart" includes="*.jar"/>
+    </signjar>
+    <pack200 todir="${build}/webstart">
+      <fileset dir="${build}/webstart" includes="*.jar"/>
+      <mapper type="glob" from="*.jar" to="*.jar.pack.gz"/>
+    </pack200>
+    <length property="jarsize" file="${build}/webstart/portecle.jar" />
+    <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
+    <copy file="${src}/etc/portecle.jnlp" todir="${build}/webstart">
+      <filterset>
+        <filter token="VERSION" value="${version}" />
+        <filter token="CODEBASE" value="${jnlp.codebase}" />
+        <filter token="JARSIZE" value="${jarsize}" />
+        <filter token="BCJARSIZE" value="${bcjarsize}" />
+      </filterset>
+    </copy>
+    <xmlvalidate file="${build}/webstart/portecle.jnlp"/>
   </target>
 
   <target name="javadoc">
@@ -216,6 +223,7 @@
   <target name="clean">
     <delete dir="${build}/api" />
     <delete dir="${build}/classes" />
+    <delete dir="${build}/webstart" />
     <delete file="${build}/${jar}" />
     <delete file="${build}/bcprov.jar" />
   </target>
