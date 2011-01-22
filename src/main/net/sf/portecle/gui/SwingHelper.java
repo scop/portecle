@@ -2,7 +2,7 @@
  * SwingHelper.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2007 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2007-2011 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,6 +28,8 @@ import java.awt.Window;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
@@ -83,9 +85,25 @@ public final class SwingHelper
 	 * 
 	 * @param component the text component
 	 */
-	public static void selectAndFocus(JTextComponent component)
+	public static void selectAndFocus(JComponent component)
 	{
-		component.select(0, component.getText().length());
+		JTextComponent textComponent = null;
+		if (component instanceof JTextComponent)
+		{
+			textComponent = (JTextComponent) component;
+		}
+		if (component instanceof JComboBox)
+		{
+			Component editorComponent = ((JComboBox) component).getEditor().getEditorComponent();
+			if (editorComponent instanceof JTextComponent)
+			{
+				textComponent = (JTextComponent) editorComponent;
+			}
+		}
+		if (textComponent != null)
+		{
+			textComponent.select(0, textComponent.getText().length());
+		}
 		component.requestFocusInWindow();
 	}
 
