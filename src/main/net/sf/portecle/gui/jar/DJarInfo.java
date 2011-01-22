@@ -43,7 +43,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.PortecleJDialog;
 
@@ -102,10 +101,9 @@ public class DJarInfo
 		}
 
 		// Make the table sortable
-		TableRowSorter<JarInfoTableModel> sorter = new TableRowSorter<JarInfoTableModel>(jiModel);
-		jtJarInfo.setRowSorter(sorter);
+		jtJarInfo.setAutoCreateRowSorter(true);
 		// ...and sort it by jar file by default
-		sorter.toggleSortOrder(0);
+		jtJarInfo.getRowSorter().toggleSortOrder(0);
 
 		// Put the table into a scroll pane
 		JScrollPane jspJarInfoTable =

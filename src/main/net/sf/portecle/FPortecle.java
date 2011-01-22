@@ -113,7 +113,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
@@ -1228,10 +1227,9 @@ public class FPortecle
 		}
 
 		// Make the table sortable
-		TableRowSorter<KeyStoreTableModel> sorter = new TableRowSorter<KeyStoreTableModel>(ksModel);
-		m_jtKeyStore.setRowSorter(sorter);
+		m_jtKeyStore.setAutoCreateRowSorter(true);
 		// ...and sort it by alias by default
-		sorter.toggleSortOrder(1);
+		m_jtKeyStore.getRowSorter().toggleSortOrder(1);
 
 		// Get usual double click edit start out of the way - we want double click to show the
 		// entry, even in editable columns. In-place edit can be invoked with F2.

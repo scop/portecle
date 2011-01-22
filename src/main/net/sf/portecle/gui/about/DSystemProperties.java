@@ -36,7 +36,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.PortecleJDialog;
 
@@ -99,11 +98,9 @@ public class DSystemProperties
 		}
 
 		// Make the table sortable
-		TableRowSorter<SystemPropertiesTableModel> sorter =
-		    new TableRowSorter<SystemPropertiesTableModel>(spModel);
-		jtSystemProperties.setRowSorter(sorter);
+		jtSystemProperties.setAutoCreateRowSorter(true);
 		// ...and sort it by property name by default
-		sorter.toggleSortOrder(0);
+		jtSystemProperties.getRowSorter().toggleSortOrder(0);
 
 		// Put the table into a scroll pane
 		JScrollPane jspSystemPropertiesTable =

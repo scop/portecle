@@ -60,7 +60,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableRowSorter;
 
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.SwingHelper;
@@ -295,10 +294,9 @@ final class DViewCRL
 		});
 
 		// Make the table sortable
-		TableRowSorter<RevokedCertsTableModel> sorter = new TableRowSorter<RevokedCertsTableModel>(rcModel);
-		m_jtRevokedCerts.setRowSorter(sorter);
+		m_jtRevokedCerts.setAutoCreateRowSorter(true);
 		// ...and sort it by serial number by default
-		sorter.toggleSortOrder(0);
+		m_jtRevokedCerts.getRowSorter().toggleSortOrder(0);
 
 		// Put the table into a scroll pane
 		JScrollPane jspRevokedCertsTable =
