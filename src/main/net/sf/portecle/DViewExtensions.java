@@ -59,6 +59,7 @@ import javax.swing.text.Element;
 import javax.swing.text.html.HTML;
 
 import net.sf.portecle.crypto.CryptoException;
+import net.sf.portecle.crypto.OidComparator;
 import net.sf.portecle.crypto.X509Ext;
 import net.sf.portecle.crypto.X509Ext.LinkClass;
 import net.sf.portecle.gui.DesktopUtil;
@@ -151,6 +152,7 @@ class DViewExtensions
 		// Make the table sortable
 		TableRowSorter<ExtensionsTableModel> sorter =
 		    new TableRowSorter<ExtensionsTableModel>(extensionsTableModel);
+		sorter.setComparator(2, new OidComparator());
 		m_jtExtensions.setRowSorter(sorter);
 		// ...and sort it by extension name by default
 		sorter.toggleSortOrder(1);
