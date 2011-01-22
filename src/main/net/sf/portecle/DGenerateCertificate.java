@@ -34,6 +34,8 @@ import java.security.KeyPair;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -69,6 +71,22 @@ class DGenerateCertificate
 
 	/** Required country code length in characters */
 	private static final int COUNTRY_CODE_LENGTH = 2;
+
+	/** Regular expression for checking RFC 5321 (subset) "Mailbox" addresses */
+	private static final Pattern MAILBOX_RE;
+	static
+	{
+		String atom = "[A-Za-z!#$%&'*+/=?^_`{|}~-]+";
+		String subDomain = "[A-Za-z]+(?:-[A-Za-z]+)*";
+		String ipv4 = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
+		String ipv6 = "IPV6:[0-9A-Fa-f]{0,4}(:[0-9A-Fa-f]{0,4})+";
+
+		String localPart = atom + "(?:\\." + atom + ")*";
+		String domain = subDomain + "(?:\\." + subDomain + ")*";
+		String addrLiteral = "\\[(?:" + ipv4 + "|" + ipv6 + ")\\]";
+
+		MAILBOX_RE = Pattern.compile("(" + localPart + ")@(" + domain + "|" + addrLiteral + ")");
+	}
 
 	/** Default validity period */
 	private static final String DEFAULT_VALIDITY = RB.getString("DGenerateCertificate.defaultValidityPeriod");
@@ -384,6 +402,20 @@ class DGenerateCertificate
 			    getTitle(), JOptionPane.WARNING_MESSAGE);
 			SwingHelper.selectAndFocus(m_jtfCountryCode);
 			return false;
+		}
+
+		// Check e-mail address RFC 5321 validity
+		if (m_sEmailAddress != null)
+		{
+			Matcher m = MAILBOX_RE.matcher(m_sEmailAddress);
+			if (!m.matches() || (m.group(1).length() > 64 || m.group(2).length() > 255))
+			{
+				JOptionPane.showMessageDialog(this,
+				    RB.getString("DGenerateCertificate.EmailAddressSyntax.message"), getTitle(),
+				    JOptionPane.WARNING_MESSAGE);
+				SwingHelper.selectAndFocus(m_jtfEmailAddress);
+				return false;
+			}
 		}
 
 		m_bSuccess = true;
