@@ -4,6 +4,7 @@ New in Portecle x.x (201x-xx-xx):
 Enhancements:
 - Certificate extension rendering improvements.
 - Recognition for some additional certificate extension values.
+- Documentation updates.
 
 Bug fixes:
 - Unknown key sizes no longer prevent viewing certificates or generating
