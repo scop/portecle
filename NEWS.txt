@@ -14,6 +14,7 @@ Bug fixes:
 Miscellaneous:
 - Portecle is now available through Java Web Start at
   http://portecle.sourceforge.net/webstart/portecle.jnlp
+- Default for newly generated RSA keys is now 2048 bits.
 
 New in Portecle 1.6 (2011-01-15):
 ---------------------------------
