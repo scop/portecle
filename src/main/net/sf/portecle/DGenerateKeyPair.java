@@ -27,7 +27,9 @@ import static net.sf.portecle.FPortecle.RB;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Window;
 
 import javax.swing.ButtonGroup;
@@ -101,7 +103,6 @@ class DGenerateKeyPair
 		buttonGroup.add(m_jrbRSA);
 
 		JPanel jpKeyAlg = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpKeyAlg.add(jlKeyAlg);
 		jpKeyAlg.add(m_jrbDSA);
 		jpKeyAlg.add(m_jrbRSA);
 
@@ -154,15 +155,39 @@ class DGenerateKeyPair
 		m_jrbRSA.addChangeListener(keyAlgListener);
 		m_jrbRSA.setSelected(true);
 
-		JPanel jpKeySize = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jpKeySize.add(jlKeySize);
-		jpKeySize.add(m_jcbKeySize);
-
-		JPanel jpOptions = new JPanel(new GridLayout(2, 1, 5, 5));
-		jpOptions.add(jpKeyAlg);
-		jpOptions.add(jpKeySize);
-
+		JPanel jpOptions = new JPanel(new GridBagLayout());
 		jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()));
+		int gridy = 0;
+
+		GridBagConstraints gbcLabel = new GridBagConstraints();
+		gbcLabel.gridx = 0;
+		gbcLabel.gridwidth = 1;
+		gbcLabel.gridheight = 1;
+		gbcLabel.insets = new Insets(5, 5, 5, 5);
+		gbcLabel.anchor = GridBagConstraints.EAST;
+
+		GridBagConstraints gbcField = new GridBagConstraints();
+		gbcField.gridx = 1;
+		gbcField.gridwidth = 1;
+		gbcField.gridheight = 1;
+		gbcField.insets = new Insets(5, 5, 5, 5);
+		gbcField.anchor = GridBagConstraints.WEST;
+
+		GridBagConstraints gbc = (GridBagConstraints) gbcLabel.clone();
+		gbc.gridy = gridy;
+		jpOptions.add(jlKeyAlg, gbc);
+
+		gbc = (GridBagConstraints) gbcField.clone();
+		gbc.gridy = gridy++;
+		jpOptions.add(jpKeyAlg, gbc);
+
+		gbc = (GridBagConstraints) gbcLabel.clone();
+		gbc.gridy = gridy;
+		jpOptions.add(jlKeySize, gbc);
+
+		gbc = (GridBagConstraints) gbcField.clone();
+		gbc.gridy = gridy++;
+		jpOptions.add(m_jcbKeySize, gbc);
 
 		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
