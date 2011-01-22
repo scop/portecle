@@ -25,22 +25,26 @@ package net.sf.portecle;
 import static net.sf.portecle.FPortecle.RB;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Window;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
+import javax.swing.text.JTextComponent;
 
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.gui.IntegerDocumentFilter;
@@ -56,17 +60,14 @@ class DGenerateKeyPair
 	/** Indicator for an invalid key size */
 	private static final int BAD_KEYSIZE = -1;
 
-	/** Default key size for the dialog */
-	private static String DEFAULT_KEYSIZE = RB.getString("DGenerateKeyPair.DefaultKeySize");
-
 	/** Radio button for the DSA key algorithm */
 	private JRadioButton m_jrbDSA;
 
 	/** Radio button for the RSA key algorithm */
 	private JRadioButton m_jrbRSA;
 
-	/** Key size text field */
-	private JTextField m_jtfKeySize;
+	/** Key size combo box */
+	private JComboBox m_jcbKeySize;
 
 	/** Key pair type chosen for generation */
 	private KeyPairType m_keyPairType;
@@ -93,7 +94,7 @@ class DGenerateKeyPair
 		JLabel jlKeyAlg = new JLabel(RB.getString("DGenerateKeyPair.jlKeyAlg.text"));
 		m_jrbDSA = new JRadioButton(RB.getString("DGenerateKeyPair.m_jrbDSA.text"), false);
 		m_jrbDSA.setToolTipText(RB.getString("DGenerateKeyPair.m_jrbDSA.tooltip"));
-		m_jrbRSA = new JRadioButton(RB.getString("DGenerateKeyPair.m_jrbRSA.text"), true);
+		m_jrbRSA = new JRadioButton(RB.getString("DGenerateKeyPair.m_jrbRSA.text"), false);
 		m_jrbRSA.setToolTipText(RB.getString("DGenerateKeyPair.m_jrbRSA.tooltip"));
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(m_jrbDSA);
@@ -105,18 +106,57 @@ class DGenerateKeyPair
 		jpKeyAlg.add(m_jrbRSA);
 
 		JLabel jlKeySize = new JLabel(RB.getString("DGenerateKeyPair.jlKeySize.text"));
-		m_jtfKeySize = new JTextField(DEFAULT_KEYSIZE, 5);
-		m_jtfKeySize.setToolTipText(RB.getString("DGenerateKeyPair.m_jtfKeySize.tooltip"));
-		jlKeySize.setLabelFor(m_jtfKeySize);
-		Document doc = m_jtfKeySize.getDocument();
-		if (doc instanceof AbstractDocument)
+		m_jcbKeySize = new JComboBox();
+		m_jcbKeySize.setToolTipText(RB.getString("DGenerateKeyPair.m_jcbKeySize.tooltip"));
+		m_jcbKeySize.setEditable(true);
+		Component editor = m_jcbKeySize.getEditor().getEditorComponent();
+		if (editor instanceof JTextComponent)
 		{
-			((AbstractDocument) doc).setDocumentFilter(new IntegerDocumentFilter(m_jtfKeySize.getColumns()));
+			Document doc = ((JTextComponent) editor).getDocument();
+			if (doc instanceof AbstractDocument)
+			{
+				((AbstractDocument) doc).setDocumentFilter(new IntegerDocumentFilter(5));
+			}
 		}
+		jlKeySize.setLabelFor(m_jcbKeySize);
+
+		ChangeListener keyAlgListener = new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent evt)
+			{
+				String keySizesKey = "DGenerateKeyPair.RsaKeySizes";
+				String defaultSizeKey = "DGenerateKeyPair.DefaultRsaKeySize";
+				if (m_jrbDSA.isSelected())
+				{
+					keySizesKey = "DGenerateKeyPair.DsaKeySizes";
+					defaultSizeKey = "DGenerateKeyPair.DefaultDsaKeySize";
+				}
+				Object oldItem = m_jcbKeySize.getSelectedItem();
+				boolean selectionKept = false;
+				m_jcbKeySize.removeAllItems();
+				for (String item : RB.getString(keySizesKey).split(",+"))
+				{
+					m_jcbKeySize.addItem(item);
+					if (item.equals(oldItem))
+					{
+						m_jcbKeySize.setSelectedItem(item);
+						selectionKept = true;
+					}
+				}
+				if (!selectionKept)
+				{
+					m_jcbKeySize.setSelectedItem(RB.getString(defaultSizeKey));
+				}
+			}
+		};
+		m_jrbDSA.addChangeListener(keyAlgListener);
+		m_jrbRSA.addChangeListener(keyAlgListener);
+		m_jrbRSA.setSelected(true);
 
 		JPanel jpKeySize = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpKeySize.add(jlKeySize);
-		jpKeySize.add(m_jtfKeySize);
+		jpKeySize.add(m_jcbKeySize);
 
 		JPanel jpOptions = new JPanel(new GridLayout(2, 1, 5, 5));
 		jpOptions.add(jpKeyAlg);
@@ -140,7 +180,7 @@ class DGenerateKeyPair
 
 		initDialog();
 
-		SwingHelper.selectAndFocus(m_jtfKeySize);
+		SwingHelper.selectAndFocus(m_jcbKeySize);
 	}
 
 	/**
@@ -154,7 +194,7 @@ class DGenerateKeyPair
 		int iKeySize = validateKeySize();
 		if (iKeySize == BAD_KEYSIZE)
 		{
-			SwingHelper.selectAndFocus(m_jtfKeySize);
+			SwingHelper.selectAndFocus(m_jcbKeySize);
 			return false; // Invalid
 		}
 		m_iKeySize = iKeySize;
@@ -183,7 +223,7 @@ class DGenerateKeyPair
 	 */
 	private int validateKeySize()
 	{
-		String sKeySize = m_jtfKeySize.getText().trim();
+		String sKeySize = m_jcbKeySize.getSelectedItem().toString();
 		int iKeySize;
 
 		if (sKeySize.isEmpty())
