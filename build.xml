@@ -118,7 +118,7 @@
 
   <target name="webstart" depends="jar" description="Builds Java Web Start dir">
     <mkdir dir="${build}/webstart"/>
-    <copy todir="${build}/webstart" flatten="true">
+    <copy todir="${build}/webstart" flatten="true" preservelastmodified="true">
       <fileset dir="${src}">
         <include name="main/net/sf/portecle/images/splash.png"/>
         <include name="icons/portecle.png"/>
