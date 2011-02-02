@@ -80,10 +80,21 @@
     </p>
  
     <p>
-      Portecle can be launched directly with Java Web Start at
-      <a href="http://portecle.sourceforge.net/webstart/portecle.jnlp">http://portecle.sourceforge.net/webstart/portecle.jnlp</a>
-      (requires Java 1.6 with Web Start installed).
+      Portecle can be launched directly with Java Web Start
+      (Java 1.6 or later with Web Start required):
     </p>
+
+    <p>
+      <script type="text/javascript"
+              src="http://www.java.com/js/deployJava.js"></script>
+      <script type="text/javascript">
+        var url = "http://portecle.sourceforge.net/webstart/portecle.jnlp";
+        deployJava.createWebStartLaunchButton(url, '1.6.0');
+      </script>
+    </p>
+    <noscript>
+      <p><a href="http://portecle.sourceforge.net/webstart/portecle.jnlp">http://portecle.sourceforge.net/webstart/portecle.jnlp</a></p>
+    </noscript>
 
     <h2 id="ack">Acknowledgments</h2>
 
