@@ -52,12 +52,12 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
+import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
-import org.bouncycastle.jce.PKCS10CertificationRequest;
 
 /**
  * Modal dialog to display the details of a certification request.
@@ -78,7 +78,7 @@ class DViewCSR
 	private JTextField m_jtfSignatureAlgorithm;
 
 	/** Stores request to display */
-	private PKCS10CertificationRequest m_req;
+	private CertificationRequest m_req;
 
 	/** Default filename for saving */
 	private String m_basename;
@@ -91,7 +91,7 @@ class DViewCSR
 	 * @param req Certification request to display
 	 * @throws CryptoException A problem was encountered getting the certification request details
 	 */
-	public DViewCSR(Window parent, String sTitle, PKCS10CertificationRequest req)
+	public DViewCSR(Window parent, String sTitle, CertificationRequest req)
 	    throws CryptoException
 	{
 		super(parent, sTitle, true);
@@ -261,7 +261,7 @@ class DViewCSR
 			throw new CryptoException(RB.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
 		}
 
-		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithmId().getObjectId().toString()));
+		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithmId().getAlgorithm().toString()));
 
 		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
 		if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
@@ -272,7 +272,7 @@ class DViewCSR
 		m_jtfPublicKey.setCaretPosition(0);
 
 		// Signature Algorithm
-		String sigAlgName = SignatureType.toString(m_req.getSignatureAlgorithm().getObjectId().toString());
+		String sigAlgName = SignatureType.toString(m_req.getSignatureAlgorithm().getAlgorithm().toString());
 		m_jtfSignatureAlgorithm.setText(sigAlgName);
 		m_jtfSignatureAlgorithm.setCaretPosition(0);
 

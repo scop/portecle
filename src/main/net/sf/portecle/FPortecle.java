@@ -139,7 +139,7 @@ import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
 import net.sf.portecle.version.JavaVersion;
 import net.sf.portecle.version.VersionException;
 
-import org.bouncycastle.jce.PKCS10CertificationRequest;
+import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.openssl.PEMReader;
 import org.bouncycastle.openssl.PEMWriter;
 import org.bouncycastle.openssl.PasswordFinder;
@@ -167,7 +167,7 @@ public class FPortecle
 	private static final String REQ_JRE_VERSION = "1.6.0";
 
 	/** Minimum required BC version */
-	private static final Double REQ_BC_VERSION = new Double(1.43);
+	private static final Double REQ_BC_VERSION = new Double(1.46);
 
 	/** Enable experimental features? */
 	private static final boolean EXPERIMENTAL = Boolean.getBoolean("portecle.experimental");
@@ -2500,7 +2500,7 @@ public class FPortecle
 		}
 
 		// Get the CSR contained within the file
-		PKCS10CertificationRequest csr = openCSR(fCSRFile);
+		CertificationRequest csr = openCSR(fCSRFile);
 
 		m_lastDir.updateLastDir(fCSRFile);
 
@@ -2806,7 +2806,7 @@ public class FPortecle
 	 * @param fCSRFile The CSR file
 	 * @return The CSR found in the file or null if there wasn't one
 	 */
-	private PKCS10CertificationRequest openCSR(File fCSRFile)
+	private CertificationRequest openCSR(File fCSRFile)
 	{
 		try
 		{

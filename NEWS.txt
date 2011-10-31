@@ -2,7 +2,8 @@ New in Portecle x.x (201x-xx-xx):
 ---------------------------------
 
 Miscellaneous:
-- Bundled Bouncy Castle provider jar upgraded to version 1.46.
+- Bundled Bouncy Castle provider jar upgraded to version 1.46, which
+  is also the new minimum required version.
 
 New in Portecle 1.7 (2011-01-23):
 ---------------------------------
