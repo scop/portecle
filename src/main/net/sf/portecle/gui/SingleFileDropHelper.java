@@ -53,7 +53,7 @@ public class SingleFileDropHelper
 	private static final DataFlavor URILIST_FLAVOR;
 	static
 	{
-		DataFlavor flavor = null;
+		DataFlavor flavor;
 		try
 		{
 			flavor = new DataFlavor("text/uri-list;class=java.lang.String");
