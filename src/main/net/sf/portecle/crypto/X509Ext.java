@@ -78,7 +78,7 @@ import org.bouncycastle.asn1.x509.PolicyQualifierId;
 import org.bouncycastle.asn1.x509.PrivateKeyUsagePeriod;
 import org.bouncycastle.asn1.x509.ReasonFlags;
 import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
-import org.bouncycastle.asn1.x509.X509Extensions;
+import org.bouncycastle.asn1.x509.X509Extension;
 import org.bouncycastle.asn1.x509.X509Name;
 
 /**
@@ -153,6 +153,7 @@ public class X509Ext
 	/** Delta Information OID */
 	// No info available
 	// private static final String DELTA_INFORMATION_OID = "2.5.29.53";
+
 	/** Extension name or OID if unknown */
 	private final String m_sName;
 
@@ -244,68 +245,68 @@ public class X509Ext
 		{
 			return getCommonNameStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.SubjectKeyIdentifier))
+		else if (m_Oid.equals(X509Extension.subjectKeyIdentifier))
 		{
 			return getSubjectKeyIdentifierStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.KeyUsage))
+		else if (m_Oid.equals(X509Extension.keyUsage))
 		{
 			return getKeyUsageStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.PrivateKeyUsagePeriod))
+		else if (m_Oid.equals(X509Extension.privateKeyUsagePeriod))
 		{
 			return getPrivateKeyUsagePeriod(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.IssuerAlternativeName) ||
-		    m_Oid.equals(X509Extensions.SubjectAlternativeName))
+		else if (m_Oid.equals(X509Extension.issuerAlternativeName) ||
+		    m_Oid.equals(X509Extension.subjectAlternativeName))
 		{
 			return getAlternativeName(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.BasicConstraints))
+		else if (m_Oid.equals(X509Extension.basicConstraints))
 		{
 			return getBasicConstraintsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.CRLNumber))
+		else if (m_Oid.equals(X509Extension.cRLNumber))
 		{
 			return getCrlNumberStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.ReasonCode))
+		else if (m_Oid.equals(X509Extension.reasonCode))
 		{
 			return getReasonCodeStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.InstructionCode))
+		else if (m_Oid.equals(X509Extension.instructionCode))
 		{
 			return getHoldInstructionCodeStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.InvalidityDate))
+		else if (m_Oid.equals(X509Extension.invalidityDate))
 		{
 			return getInvalidityDateStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.DeltaCRLIndicator))
+		else if (m_Oid.equals(X509Extension.deltaCRLIndicator))
 		{
 			return getDeltaCrlIndicatorStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.CertificateIssuer))
+		else if (m_Oid.equals(X509Extension.certificateIssuer))
 		{
 			return getCertificateIssuerStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.PolicyMappings))
+		else if (m_Oid.equals(X509Extension.policyMappings))
 		{
 			return getPolicyMappingsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.AuthorityKeyIdentifier))
+		else if (m_Oid.equals(X509Extension.authorityKeyIdentifier))
 		{
 			return getAuthorityKeyIdentifierStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.PolicyConstraints))
+		else if (m_Oid.equals(X509Extension.policyConstraints))
 		{
 			return getPolicyConstraintsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.ExtendedKeyUsage))
+		else if (m_Oid.equals(X509Extension.extendedKeyUsage))
 		{
 			return getExtendedKeyUsageStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.InhibitAnyPolicy))
+		else if (m_Oid.equals(X509Extension.inhibitAnyPolicy))
 		{
 			return getInhibitAnyPolicyStringValue(bOctets);
 		}
@@ -337,12 +338,12 @@ public class X509Ext
 		{
 			return getMicrosoftCrlNextPublish(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.AuthorityInfoAccess) ||
-		    m_Oid.equals(X509Extensions.SubjectInfoAccess))
+		else if (m_Oid.equals(X509Extension.authorityInfoAccess) ||
+		    m_Oid.equals(X509Extension.subjectInfoAccess))
 		{
 			return getInformationAccessStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.LogoType))
+		else if (m_Oid.equals(X509Extension.logoType))
 		{
 			return getLogotypeStringValue(bOctets);
 		}
@@ -372,11 +373,11 @@ public class X509Ext
 		{
 			return getNetscapeExtensionURLValue(bOctets, LinkClass.CRL);
 		}
-		else if (m_Oid.equals(X509Extensions.CRLDistributionPoints))
+		else if (m_Oid.equals(X509Extension.cRLDistributionPoints))
 		{
 			return getCrlDistributionPointsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extensions.CertificatePolicies))
+		else if (m_Oid.equals(X509Extension.certificatePolicies))
 		{
 			return getCertificatePoliciesStringValue(bOctets);
 		}
