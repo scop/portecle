@@ -136,8 +136,6 @@ import net.sf.portecle.gui.password.DGetNewPassword;
 import net.sf.portecle.gui.password.DGetPassword;
 import net.sf.portecle.gui.statusbar.StatusBar;
 import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
-import net.sf.portecle.version.JavaVersion;
-import net.sf.portecle.version.VersionException;
 
 import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.openssl.PEMReader;
@@ -162,9 +160,6 @@ public class FPortecle
 
 	/** Application preferences */
 	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
-
-	/** Minimum required JRE version */
-	private static final String REQ_JRE_VERSION = "1.6.0";
 
 	/** Minimum required BC version */
 	private static final Double REQ_BC_VERSION = new Double(1.46);
@@ -5850,69 +5845,6 @@ public class FPortecle
 	}
 
 	/**
-	 * Check that a recent enough JRE is being used.
-	 * 
-	 * @return True if this is the case, false otherwise
-	 */
-	private static boolean checkJRE()
-	{
-		// Get the current Java Runtime Environment version
-		String sJreVersion = System.getProperty("java.version");
-
-		assert sJreVersion != null;
-
-		JavaVersion actualJreVersion;
-
-		try
-		{
-			actualJreVersion = new JavaVersion(sJreVersion);
-		}
-		catch (VersionException ex)
-		{
-			// Could not parse actual JRE version
-			String sMessage =
-			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
-			LOG.warning(sMessage);
-			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
-			    JOptionPane.WARNING_MESSAGE);
-			return true;
-		}
-
-		// Get the required Java Runtime Environment version
-		JavaVersion reqJreVersion;
-
-		try
-		{
-			reqJreVersion = new JavaVersion(REQ_JRE_VERSION);
-		}
-		catch (VersionException ex)
-		{
-			// Could not parse required JRE version
-			String sMessage =
-			    MessageFormat.format(RB.getString("FPortecle.NoParseJreVersion.message"), sJreVersion);
-			LOG.warning(sMessage);
-			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
-			    JOptionPane.WARNING_MESSAGE);
-			return true;
-		}
-
-		// Recent enough JRE?
-		if (actualJreVersion.compareTo(reqJreVersion) < 0)
-		{
-			// It isn't - warn the user and exit
-			String sMessage =
-			    MessageFormat.format(RB.getString("FPortecle.MinJreVersionReq.message"), actualJreVersion,
-			        reqJreVersion);
-			LOG.severe(sMessage);
-			JOptionPane.showMessageDialog(new JFrame(), sMessage, RB.getString("FPortecle.Title"),
-			    JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-		// else OK.
-		return true;
-	}
-
-	/**
 	 * Exit the application.
 	 */
 	private void exitApplication()
@@ -6742,12 +6674,6 @@ public class FPortecle
 	 */
 	public static void main(String[] args)
 	{
-		// Check that the correct JRE is being used
-		if (!checkJRE())
-		{
-			System.exit(1);
-		}
-
 		// Make Metal theme use non-bold fonts (see javax.swing.plaf.metal.MetalLookAndFeel javadoc)
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
 
