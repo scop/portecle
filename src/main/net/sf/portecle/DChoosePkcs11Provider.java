@@ -45,7 +45,7 @@ import net.sf.portecle.crypto.ProviderUtil;
  * 
  * @author Ville Skyttä
  */
-public class DChoosePkcs11Provider
+/* package private */class DChoosePkcs11Provider
     extends PortecleJDialog
 {
 	/** Provider drop-down box */

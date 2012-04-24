@@ -42,7 +42,7 @@ import net.sf.portecle.PortecleJDialog;
 /**
  * Modal dialog that displays the Java System Properties.
  */
-public class DSystemProperties
+/* package private */class DSystemProperties
     extends PortecleJDialog
 {
 	/**

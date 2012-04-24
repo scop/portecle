@@ -26,7 +26,7 @@ import java.util.EventObject;
 /**
  * Defines an event for reporting status changes in a History.
  */
-public class HistoryEvent
+/* package private */class HistoryEvent
     extends EventObject
 {
 	/** Is history back navigable? */

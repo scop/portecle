@@ -46,7 +46,7 @@ import net.sf.portecle.gui.FileExtFilter;
  * Simple factory that returns JFileChooser objects for the requested security file types. Basically just
  * supplies a JFileChooser object with the file filter box completed appropriately.
  */
-public class FileChooserFactory
+/* package private */class FileChooserFactory
 {
 	/** File extension for keystore files */
 	private static final String KEYSTORE_EXT = "ks";
@@ -120,7 +120,7 @@ public class FileChooserFactory
 	private static final String FILELIST_SEPARATOR = ";";
 
 	/** Filename of the default CA certificates keystore. */
-	public static final String CACERTS_FILENAME = "cacerts";
+	/* package private */static final String CACERTS_FILENAME = "cacerts";
 
 	/** Private to prevent construction */
 	private FileChooserFactory()

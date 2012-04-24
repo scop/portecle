@@ -28,7 +28,7 @@ import java.util.Vector;
 /**
  * Implements a navigation history for help.
  */
-public class History
+/* package private */class History
 {
 	/** Visited pages */
 	private Vector<URL> m_vHistory = new Vector<URL>();

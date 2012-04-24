@@ -49,7 +49,7 @@ import net.sf.portecle.PortecleJDialog;
  * Modal dialog to display a throwable's stack trace. Cause throwable's stack trace will be show recursively
  * also.
  */
-public class DThrowableDetail
+/* package private */class DThrowableDetail
     extends PortecleJDialog
 {
 	/** Stores throwable to display */
