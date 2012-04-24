@@ -53,16 +53,6 @@ public class LastDir
 	}
 
 	/**
-	 * Construct a LastDir object based on the supplied file.
-	 * 
-	 * @param file Used to set last directory
-	 */
-	public LastDir(File file)
-	{
-		m_fLastDir = new File(file.toString());
-	}
-
-	/**
 	 * Update the LastDir object based on the supplied file. If the file exists and is a directory it is used,
 	 * if it exists and is a regular file then its parent is used.
 	 * 
