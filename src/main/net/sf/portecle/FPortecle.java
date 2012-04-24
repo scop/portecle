@@ -2014,7 +2014,7 @@ public class FPortecle
 	 * @param sPkcs11Provider The PKCS #11 provider
 	 * @return True if a keystore is opened, false otherwise
 	 */
-	/* package private */boolean openKeyStorePkcs11(String sPkcs11Provider)
+	private boolean openKeyStorePkcs11(String sPkcs11Provider)
 	{
 		// Get the user to enter the keystore's password
 		DGetPassword dGetPassword =
@@ -6599,7 +6599,7 @@ public class FPortecle
 	 * @param file the file to open
 	 * @return true if the file can be opened, false otherwise
 	 */
-	public boolean openFile(File file)
+	private boolean openFile(File file)
 	{
 		if (file != null)
 		{

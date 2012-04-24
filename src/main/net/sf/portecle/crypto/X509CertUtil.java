@@ -745,7 +745,7 @@ public final class X509CertUtil
 	 * @param signingCert The signing certificate
 	 * @throws CryptoException If there was a problem verifying the signature.
 	 */
-	public static boolean verifyCertificate(X509Certificate signedCert, X509Certificate signingCert)
+	private static boolean verifyCertificate(X509Certificate signedCert, X509Certificate signingCert)
 	    throws CryptoException
 	{
 		try

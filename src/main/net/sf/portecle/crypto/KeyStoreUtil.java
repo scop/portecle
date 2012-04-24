@@ -424,7 +424,7 @@ public final class KeyStoreUtil
 	 * @return alias that is not in use in the keystore
 	 * @throws KeyStoreException
 	 */
-	public static String findUnusedAlias(KeyStore keyStore, String alias)
+	private static String findUnusedAlias(KeyStore keyStore, String alias)
 	    throws KeyStoreException
 	{
 		if (keyStore.containsAlias(alias))

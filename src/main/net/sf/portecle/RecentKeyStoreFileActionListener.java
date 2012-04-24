@@ -35,10 +35,10 @@ class RecentKeyStoreFileActionListener
     implements ActionListener
 {
 	/** Recent keystore file */
-	File m_fRecentFile;
+	private final File m_fRecentFile;
 
 	/** FPortecle object that contains the recent files menu */
-	FPortecle m_fPortecle;
+	private final FPortecle m_fPortecle;
 
 	/**
 	 * Create an RecentKeyStoreFileActionListener for the supplied keystore file and fPortecle frame.
