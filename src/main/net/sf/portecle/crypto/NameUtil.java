@@ -2,7 +2,7 @@
  * NameUtil.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2006-2008 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2006-2012 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,11 +21,11 @@
 
 package net.sf.portecle.crypto;
 
-import java.util.Vector;
-
 import javax.security.auth.x500.X500Principal;
 
-import org.bouncycastle.asn1.x509.X509Name;
+import org.bouncycastle.asn1.x500.RDN;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.style.BCStyle;
 
 /**
  * Provides utility methods relating to X50* names.
@@ -41,25 +41,25 @@ public final class NameUtil
 	}
 
 	/**
-	 * Gets the common name from the given X509Name.
+	 * Gets the common name from the given X500Name.
 	 * 
-	 * @param name the X.509 name
+	 * @param name the X.500 name
 	 * @return the common name, null if not found
 	 */
-	public static String getCommonName(X509Name name)
+	public static String getCommonName(X500Name name)
 	{
 		if (name == null)
 		{
 			return null;
 		}
 
-		Vector<?> values = name.getValues(X509Name.CN);
-		if (values == null || values.isEmpty())
+		RDN[] rdns = name.getRDNs(BCStyle.CN);
+		if (rdns.length == 0)
 		{
 			return null;
 		}
 
-		return values.get(0).toString();
+		return rdns[0].getFirst().getValue().toString();
 	}
 
 	/**
@@ -75,6 +75,6 @@ public final class NameUtil
 			return null;
 		}
 
-		return getCommonName(new X509Name(name.getName()));
+		return getCommonName(new X500Name(name.getName()));
 	}
 }

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2012 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,25 +36,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.MissingResourceException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sf.portecle.StringUtil;
 
-import org.bouncycastle.asn1.ASN1Object;
+import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.ASN1String;
 import org.bouncycastle.asn1.ASN1TaggedObject;
 import org.bouncycastle.asn1.DERBitString;
 import org.bouncycastle.asn1.DERBoolean;
-import org.bouncycastle.asn1.DEREncodable;
-import org.bouncycastle.asn1.DEREnumerated;
 import org.bouncycastle.asn1.DERGeneralString;
 import org.bouncycastle.asn1.DERGeneralizedTime;
 import org.bouncycastle.asn1.DERInteger;
 import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.DERString;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.DERUTCTime;
 import org.bouncycastle.asn1.microsoft.MicrosoftObjectIdentifiers;
@@ -68,8 +68,10 @@ import org.bouncycastle.asn1.x509.AuthorityInformationAccess;
 import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.CRLDistPoint;
+import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.DistributionPoint;
 import org.bouncycastle.asn1.x509.DistributionPointName;
+import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyUsage;
@@ -238,7 +240,7 @@ public class X509Ext
 	    throws IOException, ParseException
 	{
 		// Get octet string from extension
-		byte[] bOctets = ((ASN1OctetString) ASN1Object.fromByteArray(m_bValue)).getOctets();
+		byte[] bOctets = ((ASN1OctetString) ASN1Primitive.fromByteArray(m_bValue)).getOctets();
 
 		// Octet string processed differently depending on extension type
 		if (m_Oid.equals(X509Name.CN))
@@ -452,7 +454,7 @@ public class X509Ext
 	private String getCommonNameStringValue(byte[] bValue)
 	    throws IOException
 	{
-		return stringify(ASN1Object.fromByteArray(bValue));
+		return stringify(ASN1Primitive.fromByteArray(bValue));
 	}
 
 	/**
@@ -470,7 +472,7 @@ public class X509Ext
 	private String getSubjectKeyIdentifierStringValue(byte[] bValue)
 	    throws IOException
 	{
-		SubjectKeyIdentifier ski = SubjectKeyIdentifier.getInstance(ASN1Object.fromByteArray(bValue));
+		SubjectKeyIdentifier ski = SubjectKeyIdentifier.getInstance(bValue);
 		byte[] bKeyIdent = ski.getKeyIdentifier();
 
 		// Output as a hex string
@@ -505,7 +507,7 @@ public class X509Ext
 	private String getKeyUsageStringValue(byte[] bValue)
 	    throws IOException
 	{
-		int val = KeyUsage.getInstance(ASN1Object.fromByteArray(bValue)).intValue();
+		int val = KeyUsage.getInstance(ASN1Primitive.fromByteArray(bValue)).intValue();
 		StringBuilder strBuff = new StringBuilder();
 		for (int type : KEY_USAGES)
 		{
@@ -538,7 +540,7 @@ public class X509Ext
 	private String getPrivateKeyUsagePeriod(byte[] bValue)
 	    throws IOException, ParseException
 	{
-		PrivateKeyUsagePeriod pkup = PrivateKeyUsagePeriod.getInstance(ASN1Object.fromByteArray(bValue));
+		PrivateKeyUsagePeriod pkup = PrivateKeyUsagePeriod.getInstance(bValue);
 
 		StringBuilder strBuff = new StringBuilder();
 		DERGeneralizedTime dTime;
@@ -579,8 +581,7 @@ public class X509Ext
 	private String getAlternativeName(byte[] bValue)
 	    throws IOException
 	{
-		return getGeneralNamesString(GeneralNames.getInstance(ASN1Object.fromByteArray(bValue)),
-		    LinkClass.BROWSER);
+		return getGeneralNamesString(GeneralNames.getInstance(bValue), LinkClass.BROWSER);
 	}
 
 	/**
@@ -599,7 +600,7 @@ public class X509Ext
 	private String getBasicConstraintsStringValue(byte[] bValue)
 	    throws IOException
 	{
-		BasicConstraints bc = BasicConstraints.getInstance(ASN1Object.fromByteArray(bValue));
+		BasicConstraints bc = BasicConstraints.getInstance(bValue);
 		StringBuilder strBuff = new StringBuilder();
 
 		strBuff.append(RB.getString(bc.isCA() ? "SubjectIsCa" : "SubjectIsNotCa"));
@@ -628,7 +629,8 @@ public class X509Ext
 	private String getCrlNumberStringValue(byte[] bValue)
 	    throws IOException
 	{
-		return NumberFormat.getInstance().format(((DERInteger) ASN1Object.fromByteArray(bValue)).getValue());
+		return NumberFormat.getInstance().format(
+		    ((DERInteger) ASN1Primitive.fromByteArray(bValue)).getValue());
 	}
 
 	/**
@@ -656,7 +658,7 @@ public class X509Ext
 	private String getReasonCodeStringValue(byte[] bValue)
 	    throws IOException
 	{
-		int iRc = ((DEREnumerated) ASN1Object.fromByteArray(bValue)).getValue().intValue();
+		int iRc = CRLReason.getInstance(ASN1Primitive.fromByteArray(bValue)).getValue().intValue();
 		String sRc = getRes("CrlReason." + iRc, "UnrecognisedCrlReasonString");
 		return MessageFormat.format(sRc, iRc);
 	}
@@ -675,7 +677,7 @@ public class X509Ext
 	private String getHoldInstructionCodeStringValue(byte[] bValue)
 	    throws IOException
 	{
-		String sHoldIns = ASN1Object.fromByteArray(bValue).toString();
+		String sHoldIns = ASN1Primitive.fromByteArray(bValue).toString();
 		String res = getRes(sHoldIns, "UnrecognisedHoldInstructionCode");
 		return MessageFormat.format(res, escapeHtml(sHoldIns));
 	}
@@ -696,7 +698,7 @@ public class X509Ext
 	    throws IOException, ParseException
 	{
 		// Get invalidity date
-		DERGeneralizedTime invalidityDate = (DERGeneralizedTime) ASN1Object.fromByteArray(bValue);
+		DERGeneralizedTime invalidityDate = (DERGeneralizedTime) ASN1Primitive.fromByteArray(bValue);
 
 		// Format invalidity date for display
 		return formatGeneralizedTime(invalidityDate);
@@ -718,7 +720,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// Get CRL number
-		DERInteger derInt = (DERInteger) ASN1Object.fromByteArray(bValue);
+		DERInteger derInt = (DERInteger) ASN1Primitive.fromByteArray(bValue);
 
 		// Convert to and return hex string representation of number
 		// TODO: why not just a number
@@ -740,7 +742,7 @@ public class X509Ext
 	private String getCertificateIssuerStringValue(byte[] bValue)
 	    throws IOException
 	{
-		return getGeneralNamesString(GeneralNames.getInstance(ASN1Object.fromByteArray(bValue)),
+		return getGeneralNamesString(GeneralNames.getInstance(ASN1Primitive.fromByteArray(bValue)),
 		    LinkClass.BROWSER);
 	}
 
@@ -762,7 +764,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// Get sequence of policy mappings
-		ASN1Sequence policyMappings = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence policyMappings = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 
 		StringBuilder strBuff = new StringBuilder("<ul>");
 
@@ -822,7 +824,7 @@ public class X509Ext
 	private String getAuthorityKeyIdentifierStringValue(byte[] bValue)
 	    throws IOException
 	{
-		AuthorityKeyIdentifier aki = AuthorityKeyIdentifier.getInstance(ASN1Object.fromByteArray(bValue));
+		AuthorityKeyIdentifier aki = AuthorityKeyIdentifier.getInstance(bValue);
 
 		StringBuilder strBuff = new StringBuilder();
 
@@ -880,7 +882,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// Get sequence of policy constraint
-		ASN1Sequence policyConstraints = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence policyConstraints = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 
 		StringBuilder strBuff = new StringBuilder();
 
@@ -929,20 +931,20 @@ public class X509Ext
 	private String getExtendedKeyUsageStringValue(byte[] bValue)
 	    throws IOException
 	{
-		// Get sequence of OIDs and return appropriate strings
-		ASN1Sequence asn1Seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
-
 		StringBuilder strBuff = new StringBuilder();
 
-		for (int i = 0, len = asn1Seq.size(); i < len; i++)
+		ExtendedKeyUsage eku = ExtendedKeyUsage.getInstance(bValue);
+		Vector<DERObjectIdentifier> usages = eku.getUsages();
+
+		for (DERObjectIdentifier usage : usages)
 		{
-			String sOid = ((DERObjectIdentifier) asn1Seq.getObjectAt(i)).getId();
-			String sEku = getRes(sOid, "UnrecognisedExtKeyUsageString");
-			strBuff.append(MessageFormat.format(sEku, sOid));
-			if (i != len - 1)
+			if (strBuff.length() != 0)
 			{
 				strBuff.append("<br><br>");
 			}
+			String sOid = usage.getId();
+			String sEku = getRes(sOid, "UnrecognisedExtKeyUsageString");
+			strBuff.append(MessageFormat.format(sEku, sOid));
 		}
 
 		return strBuff.toString();
@@ -964,7 +966,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// Get skip certs integer
-		DERInteger skipCerts = (DERInteger) ASN1Object.fromByteArray(bValue);
+		DERInteger skipCerts = (DERInteger) ASN1Primitive.fromByteArray(bValue);
 
 		int iSkipCerts = skipCerts.getValue().intValue();
 
@@ -983,7 +985,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// SEQUENCE encapsulated in a OCTET STRING
-		ASN1Sequence as = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence as = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 		// Also has BIT STRING, ignored here
 		// http://www.mail-archive.com/openssl-dev@openssl.org/msg06546.html
 		return escapeHtml(((DERGeneralString) as.getObjectAt(0)).getString());
@@ -1012,7 +1014,7 @@ public class X509Ext
 	private String getMicrosoftCertificateTemplateV2StringValue(byte[] bValue)
 	    throws IOException
 	{
-		ASN1Sequence seq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence seq = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(RB.getString("MsftCertTemplateId"));
@@ -1044,7 +1046,7 @@ public class X509Ext
 	private String getMicrosoftCAVersionStringValue(byte[] bValue)
 	    throws IOException
 	{
-		int ver = ((DERInteger) ASN1Object.fromByteArray(bValue)).getValue().intValue();
+		int ver = ((DERInteger) ASN1Primitive.fromByteArray(bValue)).getValue().intValue();
 		String certIx = String.valueOf(ver & 0xffff); // low 16 bits
 		String keyIx = String.valueOf(ver >> 16); // high 16 bits
 		StringBuilder sb = new StringBuilder();
@@ -1065,7 +1067,7 @@ public class X509Ext
 	private String getMicrosoftPreviousCACertificateHashStringValue(byte[] bValue)
 	    throws IOException
 	{
-		DEROctetString derOctetStr = (DEROctetString) ASN1Object.fromByteArray(bValue);
+		DEROctetString derOctetStr = (DEROctetString) ASN1Primitive.fromByteArray(bValue);
 		byte[] bKeyIdent = derOctetStr.getOctets();
 
 		return convertToHexString(bKeyIdent);
@@ -1081,7 +1083,7 @@ public class X509Ext
 	private String getMicrosoftCrlNextPublish(byte[] bValue)
 	    throws IOException
 	{
-		DERUTCTime time = (DERUTCTime) ASN1Object.fromByteArray(bValue);
+		DERUTCTime time = (DERUTCTime) ASN1Primitive.fromByteArray(bValue);
 		String date = time.getAdjustedTime();
 		try
 		{
@@ -1114,7 +1116,7 @@ public class X509Ext
 	private String getSmimeCapabilitiesStringValue(byte[] bValue)
 	    throws IOException
 	{
-		SMIMECapabilities caps = SMIMECapabilities.getInstance(ASN1Object.fromByteArray(bValue));
+		SMIMECapabilities caps = SMIMECapabilities.getInstance(ASN1Primitive.fromByteArray(bValue));
 
 		String sParams = RB.getString("SmimeParameters");
 
@@ -1135,7 +1137,7 @@ public class X509Ext
 			sb.append("<ul><li>");
 			sb.append(MessageFormat.format(sCap, sCapId));
 
-			DEREncodable params;
+			ASN1Encodable params;
 			if ((params = cap.getParameters()) != null)
 			{
 				sb.append("<ul><li>");
@@ -1162,8 +1164,7 @@ public class X509Ext
 	private String getInformationAccessStringValue(byte[] bValue)
 	    throws IOException
 	{
-		AuthorityInformationAccess access =
-		    AuthorityInformationAccess.getInstance(ASN1Object.fromByteArray(bValue));
+		AuthorityInformationAccess access = AuthorityInformationAccess.getInstance(bValue);
 
 		StringBuilder sb = new StringBuilder();
 
@@ -1211,7 +1212,7 @@ public class X509Ext
 	{
 		// TODO: work-in-progress (localization, test certificates for stuff...)
 
-		ASN1Sequence logos = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence logos = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0, len = logos.size(); i < len; i++)
@@ -1246,7 +1247,7 @@ public class X509Ext
 								sb.append("Details");
 								sb.append("<ul>");
 
-								String sMediaType = ((DERString) ltDetails.getObjectAt(0)).getString();
+								String sMediaType = ((ASN1String) ltDetails.getObjectAt(0)).getString();
 								sb.append("<li>Media type: ").append(escapeHtml(sMediaType)).append("</li>");
 
 								ASN1Sequence ltHash = (ASN1Sequence) ltDetails.getObjectAt(1);
@@ -1268,7 +1269,7 @@ public class X509Ext
 								ASN1Sequence ltURI = (ASN1Sequence) ltDetails.getObjectAt(2);
 								for (int j = 0, jlen = ltURI.size(); j < jlen; j++)
 								{
-									String sUri = ((DERString) ltURI.getObjectAt(j)).getString();
+									String sUri = ((ASN1String) ltURI.getObjectAt(j)).getString();
 									String eUri = escapeHtml(sUri);
 									sb.append("<li>URI: ");
 									sb.append(getLink(sUri, eUri, LinkClass.BROWSER));
@@ -1342,11 +1343,11 @@ public class X509Ext
 	{
 		// TODO...
 
-		ASN1Sequence attrs = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence attrs = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 		StringBuilder sb = new StringBuilder();
 
 		// "Novell Security Attribute(tm)"
-		String sTM = ((DERString) attrs.getObjectAt(2)).getString();
+		String sTM = ((ASN1String) attrs.getObjectAt(2)).getString();
 		sb.append(escapeHtml(sTM));
 		sb.append("<br>");
 
@@ -1362,7 +1363,7 @@ public class X509Ext
 		sb.append("<br>");
 
 		// URI reference
-		String sUri = ((DERString) attrs.getObjectAt(3)).getString();
+		String sUri = ((ASN1String) attrs.getObjectAt(3)).getString();
 		sb.append("URI: ");
 		sb.append(getLink(sUri, escapeHtml(sUri), LinkClass.BROWSER));
 
@@ -1509,7 +1510,7 @@ public class X509Ext
 	private String getNetscapeCertificateTypeStringValue(byte[] bValue)
 	    throws IOException
 	{
-		int val = new NetscapeCertType((DERBitString) ASN1Object.fromByteArray(bValue)).intValue();
+		int val = new NetscapeCertType((DERBitString) ASN1Primitive.fromByteArray(bValue)).intValue();
 		StringBuilder strBuff = new StringBuilder();
 		for (int type : NETSCAPE_CERT_TYPES)
 		{
@@ -1536,7 +1537,7 @@ public class X509Ext
 	private String getNetscapeExtensionURLValue(byte[] bValue, LinkClass linkClass)
 	    throws IOException
 	{
-		String sUrl = ASN1Object.fromByteArray(bValue).toString();
+		String sUrl = ASN1Primitive.fromByteArray(bValue).toString();
 		return getLink(sUrl, escapeHtml(sUrl), linkClass).toString();
 	}
 
@@ -1550,7 +1551,7 @@ public class X509Ext
 	private String getCrlDistributionPointsStringValue(byte[] bValue)
 	    throws IOException
 	{
-		CRLDistPoint dps = CRLDistPoint.getInstance(ASN1Object.fromByteArray(bValue));
+		CRLDistPoint dps = CRLDistPoint.getInstance(bValue);
 		DistributionPoint[] points = dps.getDistributionPoints();
 
 		StringBuilder sb = new StringBuilder();
@@ -1621,7 +1622,7 @@ public class X509Ext
 	private String getCertificatePoliciesStringValue(byte[] bValue)
 	    throws IOException
 	{
-		ASN1Sequence pSeq = (ASN1Sequence) ASN1Object.fromByteArray(bValue);
+		ASN1Sequence pSeq = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0, len = pSeq.size(); i < len; i++)
@@ -1649,12 +1650,12 @@ public class X509Ext
 					sb.append(MessageFormat.format(getRes(spqId, "UnrecognisedPolicyQualifier"), spqId));
 					sb.append(": ");
 
-					DEREncodable d = pqi.getObjectAt(1);
+					ASN1Encodable d = pqi.getObjectAt(1);
 					sb.append("<ul>");
 					if (pqId.equals(PolicyQualifierId.id_qt_cps))
 					{
 						// cPSuri
-						String sUri = ((DERString) d).getString();
+						String sUri = ((ASN1String) d).getString();
 
 						sb.append("<li>");
 						sb.append(RB.getString("CpsUri"));
@@ -1669,12 +1670,12 @@ public class X509Ext
 
 						for (int k = 0, dlen = un.size(); k < dlen; k++)
 						{
-							DEREncodable de = un.getObjectAt(k);
+							ASN1Encodable de = un.getObjectAt(k);
 
 							// TODO: is it possible to use something
 							// smarter than instanceof here?
 
-							if (de instanceof DERString)
+							if (de instanceof ASN1String)
 							{
 								// explicitText
 								sb.append("<li>");
@@ -1806,7 +1807,7 @@ public class X509Ext
 				break;
 
 			case GeneralName.directoryName:
-				X509Name name = (X509Name) generalName.getName();
+				ASN1Encodable name = generalName.getName();
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				// TODO: make E=foo@bar.com mail links
@@ -1887,7 +1888,7 @@ public class X509Ext
 	private String getASN1ObjectString(byte[] bValue)
 	    throws IOException
 	{
-		return escapeHtml(ASN1Object.fromByteArray(bValue));
+		return escapeHtml(ASN1Primitive.fromByteArray(bValue));
 	}
 
 	/**
@@ -2001,9 +2002,9 @@ public class X509Ext
 	 */
 	private static String stringify(Object obj)
 	{
-		if (obj instanceof DERString)
+		if (obj instanceof ASN1String)
 		{
-			return escapeHtml(((DERString) obj).getString());
+			return escapeHtml(((ASN1String) obj).getString());
 		}
 		// TODO: why not DERInteger as number?
 		else if (obj instanceof DERInteger || obj instanceof byte[])

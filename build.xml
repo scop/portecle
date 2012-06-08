@@ -11,7 +11,7 @@
   To build portecle.jar with no Class-Path MANIFEST.MF attribute,
   set jar.classpath to an empty value in build.properties or command line.
   -->
-  <property name="jar.classpath" value="bcprov.jar" />
+  <property name="jar.classpath" value="bcprov.jar bcpkix.jar" />
 
   <property name="helpbaseurl" value="${helpbaseurl.default}" />
 
@@ -24,7 +24,8 @@
   <property name="jar" value="portecle.jar" />
   <property name="doc" value="${root}/doc" />
 
-  <property name="bcprov.jar" value="${lib}/bcprov-jdk16-146.jar" />
+  <property name="bcprov.jar" value="${lib}/bcprov-jdk15on-147.jar" />
+  <property name="bcpkix.jar" value="${lib}/bcpkix-jdk15on-147.jar" />
   <property name="pack200.jar" value="${lib}/deployment-ant-pack200-1.0-rc1.jar"/>
 
   <property name="build.debug" value="true" />
@@ -40,6 +41,7 @@
 
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
+    <pathelement location="${bcpkix.jar}" />
   </path>
 
   <typedef resource="org/jdesktop/deployment/ant/pack200/antlib.xml"
@@ -125,6 +127,7 @@
       </fileset>
     </copy>
     <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
+    <copy file="${bcpkix.jar}" tofile="${build}/webstart/bcpkix.jar"/>
     <pack200 file="${build}/${jar}" todir="${build}/webstart" repack="true"/>
     <signjar
       keystore="${signjar.keystore}"
@@ -140,12 +143,14 @@
     </pack200>
     <length property="jarsize" file="${build}/webstart/portecle.jar" />
     <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
+    <length property="bcxjarsize" file="${build}/webstart/bcpkix.jar" />
     <copy file="${src}/etc/portecle.jnlp" todir="${build}/webstart">
       <filterset>
         <filter token="VERSION" value="${version}" />
         <filter token="CODEBASE" value="${jnlp.codebase}" />
         <filter token="JARSIZE" value="${jarsize}" />
         <filter token="BCJARSIZE" value="${bcjarsize}" />
+        <filter token="BCXJARSIZE" value="${bcxjarsize}" />
       </filterset>
     </copy>
     <xmlvalidate file="${build}/webstart/portecle.jnlp"/>
@@ -170,6 +175,7 @@
 
   <target name="run" depends="jar" description="Runs Portecle">
     <copy file="${bcprov.jar}" tofile="${build}/bcprov.jar" />
+    <copy file="${bcpkix.jar}" tofile="${build}/bcpkix.jar" />
     <!-- TODO: command line args -->
     <java fork="true" jar="build/${jar}">
       <sysproperty key="portecle.experimental" value="true" />
@@ -183,7 +189,7 @@
       <zipfileset prefix="portecle-${version}"
         dir="${root}" includes="README.txt,LICENSE.txt,NEWS.txt" />
       <zipfileset prefix="portecle-${version}"
-        dir="${lib}" includes="LICENSE.bcprov.txt" />
+        dir="${lib}" includes="LICENSE.bouncycastle.txt" />
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
       <zipfileset prefix="portecle-${version}"
         dir="${src}/icons" includes="portecle.*" />
@@ -191,6 +197,8 @@
         dir="${src}/etc" includes="portecle.desktop" />
       <zipfileset file="${bcprov.jar}"
         fullpath="portecle-${version}/bcprov.jar" />
+      <zipfileset file="${bcpkix.jar}"
+        fullpath="portecle-${version}/bcpkix.jar" />
     </zip>
   </target>
 
@@ -226,6 +234,7 @@
     <delete dir="${build}/webstart" />
     <delete file="${build}/${jar}" />
     <delete file="${build}/bcprov.jar" />
+    <delete file="${build}/bcpkix.jar" />
   </target>
 
   <target name="distclean" depends="clean">

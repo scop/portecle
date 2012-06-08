@@ -54,8 +54,8 @@ import net.sf.portecle.gui.error.DThrowable;
 
 import org.bouncycastle.asn1.pkcs.CertificationRequest;
 import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
+import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
 
@@ -242,7 +242,7 @@ class DViewCSR
 		m_jtfVersion.setCaretPosition(0);
 
 		// Subject
-		X509Name subject = info.getSubject();
+		X500Name subject = info.getSubject();
 		m_jtfSubject.setText(subject.toString());
 		m_jtfSubject.setCaretPosition(0);
 
