@@ -75,6 +75,6 @@ public final class NameUtil
 			return null;
 		}
 
-		return getCommonName(new X500Name(name.getName()));
+		return getCommonName(X500Name.getInstance(name.getEncoded()));
 	}
 }
