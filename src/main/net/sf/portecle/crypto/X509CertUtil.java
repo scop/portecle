@@ -60,6 +60,7 @@ import javax.security.auth.x500.X500Principal;
 import net.sf.portecle.NetUtil;
 
 import org.bouncycastle.asn1.DERObjectIdentifier;
+import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.jce.PKCS10CertificationRequest;
 import org.bouncycastle.jce.PrincipalUtil;
@@ -559,44 +560,44 @@ public final class X509CertUtil
 		// Load certificate attributes
 		if (sCommonName != null)
 		{
-			attrs.put(X509Name.CN, sCommonName);
-			vOrder.add(0, X509Name.CN);
+			attrs.put(BCStyle.CN, sCommonName);
+			vOrder.add(0, BCStyle.CN);
 		}
 
 		if (sOrganisationUnit != null)
 		{
-			attrs.put(X509Name.OU, sOrganisationUnit);
-			vOrder.add(0, X509Name.OU);
+			attrs.put(BCStyle.OU, sOrganisationUnit);
+			vOrder.add(0, BCStyle.OU);
 		}
 
 		if (sOrganisation != null)
 		{
-			attrs.put(X509Name.O, sOrganisation);
-			vOrder.add(0, X509Name.O);
+			attrs.put(BCStyle.O, sOrganisation);
+			vOrder.add(0, BCStyle.O);
 		}
 
 		if (sLocality != null)
 		{
-			attrs.put(X509Name.L, sLocality);
-			vOrder.add(0, X509Name.L);
+			attrs.put(BCStyle.L, sLocality);
+			vOrder.add(0, BCStyle.L);
 		}
 
 		if (sState != null)
 		{
-			attrs.put(X509Name.ST, sState);
-			vOrder.add(0, X509Name.ST);
+			attrs.put(BCStyle.ST, sState);
+			vOrder.add(0, BCStyle.ST);
 		}
 
 		if (sCountryCode != null)
 		{
-			attrs.put(X509Name.C, sCountryCode);
-			vOrder.add(0, X509Name.C);
+			attrs.put(BCStyle.C, sCountryCode);
+			vOrder.add(0, BCStyle.C);
 		}
 
 		if (sEmailAddress != null)
 		{
-			attrs.put(X509Name.E, sEmailAddress);
-			vOrder.add(0, X509Name.E);
+			attrs.put(BCStyle.E, sEmailAddress);
+			vOrder.add(0, BCStyle.E);
 		}
 
 		// Get an X509 Version 1 Certificate generator

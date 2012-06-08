@@ -261,7 +261,7 @@ class DViewCSR
 			throw new CryptoException(RB.getString("DViewCSR.NoGetKeyInfo.exception.message"), e);
 		}
 
-		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithmId().getAlgorithm().toString()));
+		m_jtfPublicKey.setText(AlgorithmType.toString(keyInfo.getAlgorithm().getAlgorithm().toString()));
 
 		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
 		if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
