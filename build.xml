@@ -56,7 +56,8 @@
       target="${build.targetver}"
       debug="${build.debug}"
       debuglevel="${build.debuglevel}"
-      encoding="${build.encoding}">
+      encoding="${build.encoding}"
+      includeAntRuntime="false">
       <classpath refid="build.classpath" />
       <compilerarg compiler="javac1.6" value="-Xlint:all,-serial" />
     </javac>
