@@ -184,6 +184,7 @@ public final class X509CertUtil
 							// http://www.bouncycastle.org/jira/browse/BJA-182
 							continue;
 						}
+						pr.close();
 						throw e;
 					}
 
