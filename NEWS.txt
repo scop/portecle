@@ -4,6 +4,9 @@ New in Portecle x.x (201x-xx-xx):
 Enhancements:
 - Finnish translation (incomplete).
 
+Bug fixes:
+- E-mail address validation no longer rejects certain addresses (#3609743).
+
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.47, which is also
   the new minimum required version.

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2011 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2013 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -76,8 +76,8 @@ class DGenerateCertificate
 	private static final Pattern MAILBOX_RE;
 	static
 	{
-		String atom = "[A-Za-z!#$%&'*+/=?^_`{|}~-]+";
-		String subDomain = "[A-Za-z]+(?:-[A-Za-z]+)*";
+		String atom = "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+";
+		String subDomain = "[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?";
 		String ipv4 = "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}";
 		String ipv6 = "IPV6:[0-9A-Fa-f]{0,4}(:[0-9A-Fa-f]{0,4})+";
 
