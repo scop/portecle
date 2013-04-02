@@ -8,7 +8,7 @@ Bug fixes:
 - E-mail address validation no longer rejects certain addresses (#3609743).
 
 Miscellaneous:
-- Bundled Bouncy Castle jars upgraded to version 1.47, which is also
+- Bundled Bouncy Castle jars upgraded to version 1.48, which is also
   the new minimum required version.
 
 New in Portecle 1.7 (2011-01-23):

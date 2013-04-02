@@ -36,7 +36,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.MissingResourceException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,6 +73,7 @@ import org.bouncycastle.asn1.x509.DistributionPointName;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
 import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.asn1.x509.KeyPurposeId;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.asn1.x509.PolicyInformation;
 import org.bouncycastle.asn1.x509.PolicyQualifierId;
@@ -507,7 +507,7 @@ public class X509Ext
 	private String getKeyUsageStringValue(byte[] bValue)
 	    throws IOException
 	{
-		int val = KeyUsage.getInstance(ASN1Primitive.fromByteArray(bValue)).intValue();
+		int val = ((DERBitString) ASN1Primitive.fromByteArray(bValue)).intValue();
 		StringBuilder strBuff = new StringBuilder();
 		for (int type : KEY_USAGES)
 		{
@@ -934,9 +934,9 @@ public class X509Ext
 		StringBuilder strBuff = new StringBuilder();
 
 		ExtendedKeyUsage eku = ExtendedKeyUsage.getInstance(bValue);
-		Vector<DERObjectIdentifier> usages = eku.getUsages();
+		KeyPurposeId[] usages = eku.getUsages();
 
-		for (DERObjectIdentifier usage : usages)
+		for (KeyPurposeId usage : usages)
 		{
 			if (strBuff.length() != 0)
 			{
