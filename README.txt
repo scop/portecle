@@ -111,7 +111,7 @@ enabled by default.  These have known limitations or incomplete
 implementations that make them unsuitable for production use, but they
 may be valuable for early adopters.  To enable these features, use
 "-Dportecle.experimental=true" in your Portecle invocation command
-line.  See the file NEWS for information about status of current
+line.  See the file NEWS.txt for information about status of current
 experimental features.
 
 2 Copyright and License
