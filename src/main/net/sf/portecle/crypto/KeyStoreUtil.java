@@ -89,7 +89,7 @@ public final class KeyStoreUtil
 			// Checked with BC 1.{29,40}, SunJSSE 1.5.0_0{3,4,14}, 1.6.0 (OpenJDK)
 			try
 			{
-				keyStore = KeyStore.getInstance(keyStoreType.name(), "BC");
+				keyStore = KeyStore.getInstance(keyStoreType.getTypeName(), "BC");
 			}
 			catch (NoSuchProviderException ex)
 			{
@@ -100,7 +100,7 @@ public final class KeyStoreUtil
 		{
 			try
 			{
-				keyStore = KeyStore.getInstance(keyStoreType.name());
+				keyStore = KeyStore.getInstance(keyStoreType.getTypeName());
 			}
 			catch (KeyStoreException e)
 			{
@@ -408,7 +408,7 @@ public final class KeyStoreUtil
 		// As of GNU classpath 0.92, we need to reload GKR keystores after storing them, otherwise
 		// "masked envelope" IllegalStateExceptions occur when trying to access things in the stored keystore
 		// again.
-		if (KeyStoreType.valueOf(keyStore.getType()) == KeyStoreType.GKR)
+		if (KeyStoreType.valueOfType(keyStore.getType()) == KeyStoreType.GKR)
 		{
 			keyStore = loadKeyStore(fKeyStoreFile, cPassword, KeyStoreType.GKR);
 		}

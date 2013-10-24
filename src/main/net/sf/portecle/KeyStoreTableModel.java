@@ -79,7 +79,7 @@ class KeyStoreTableModel
 	    throws KeyStoreException
 	{
 		// Does the keystore support creation dates?
-		boolean cdSupport = KeyStoreType.valueOf(keyStore.getType()).isEntryCreationDateUseful();
+		boolean cdSupport = KeyStoreType.valueOfType(keyStore.getType()).isEntryCreationDateUseful();
 
 		// Create one table row for each keystore entry
 		m_data = new Object[keyStore.size()][getColumnCount()];

@@ -65,6 +65,9 @@ class DNewKeyStoreType
 	/** BKS keystore type radio button */
 	private JRadioButton m_jrbBksKeyStore;
 
+	/** BKS-V1 keystore type radio button */
+	private JRadioButton m_jrbBksV1KeyStore;
+
 	/** UBER keystore type radio button */
 	private JRadioButton m_jrbUberKeyStore;
 
@@ -117,6 +120,10 @@ class DNewKeyStoreType
 		m_jrbBksKeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbBksKeyStore.mnemonic").charAt(0));
 		m_jrbBksKeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbBksKeyStore.tooltip"));
 
+		m_jrbBksV1KeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbBksV1KeyStore.text"));
+		m_jrbBksV1KeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbBksV1KeyStore.mnemonic").charAt(0));
+		m_jrbBksV1KeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbBksV1KeyStore.tooltip"));
+
 		m_jrbUberKeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbUberKeyStore.text"));
 		m_jrbUberKeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbUberKeyStore.mnemonic").charAt(0));
 		m_jrbUberKeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbUberKeyStore.tooltip"));
@@ -133,6 +140,7 @@ class DNewKeyStoreType
 		keyStoreTypes.add(m_jrbJceksKeyStore);
 		keyStoreTypes.add(m_jrbCaseExactJksKeyStore);
 		keyStoreTypes.add(m_jrbBksKeyStore);
+		keyStoreTypes.add(m_jrbBksV1KeyStore);
 		keyStoreTypes.add(m_jrbUberKeyStore);
 		keyStoreTypes.add(m_jrbGkrKeyStore);
 
@@ -155,6 +163,7 @@ class DNewKeyStoreType
 		jpKeyStoreType.add(m_jrbJceksKeyStore);
 		jpKeyStoreType.add(m_jrbCaseExactJksKeyStore);
 		jpKeyStoreType.add(m_jrbBksKeyStore);
+		jpKeyStoreType.add(m_jrbBksV1KeyStore);
 		jpKeyStoreType.add(m_jrbUberKeyStore);
 		jpKeyStoreType.add(m_jrbGkrKeyStore);
 
@@ -210,6 +219,10 @@ class DNewKeyStoreType
 		else if (m_jrbBksKeyStore.isSelected())
 		{
 			m_keyStoreType = KeyStoreType.BKS;
+		}
+		else if (m_jrbBksV1KeyStore.isSelected())
+		{
+			m_keyStoreType = KeyStoreType.BKS_V1;
 		}
 		else if (m_jrbUberKeyStore.isSelected())
 		{

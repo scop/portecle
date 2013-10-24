@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2011 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2013 Ville Skyttä, ville.skytta@iki.fi
  *             2010 Lam Chau, lamchau@gmail.com
  *
  * This program is free software; you can redistribute it and/or
@@ -244,6 +244,9 @@ public class FPortecle
 
 	/** BKS menu item in Change Keystore Type menu */
 	private JMenuItem m_jmiChangeKeyStoreTypeBks;
+
+	/** BKS-V1 menu item in Change Keystore Type menu */
+	private JMenuItem m_jmiChangeKeyStoreTypeBksV1;
 
 	/** UBER menu item in Change Keystore Type menu */
 	private JMenuItem m_jmiChangeKeyStoreTypeUber;
@@ -622,6 +625,21 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeBks.addChangeListener(new StatusBarChangeHandler(
 		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBks.statusbar"), this));
 
+		m_jmiChangeKeyStoreTypeBksV1 =
+		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBksV1.text"), RB.getString(
+		        "FPortecle.m_jmiChangeKeyStoreTypeBksV1.mnemonic").charAt(0));
+		m_jmiChangeKeyStoreTypeBksV1.setEnabled(false);
+		m_jmiChangeKeyStoreTypeBksV1.addActionListener(new ActionListener()
+		{
+			@Override
+			protected void act()
+			{
+				changeKeyStoreType(KeyStoreType.BKS_V1);
+			}
+		});
+		m_jmiChangeKeyStoreTypeBksV1.addChangeListener(new StatusBarChangeHandler(
+		    RB.getString("FPortecle.m_jmiChangeKeyStoreTypeBksV1.statusbar"), this));
+
 		m_jmiChangeKeyStoreTypeUber =
 		    new JMenuItem(RB.getString("FPortecle.m_jmiChangeKeyStoreTypeUber.text"), RB.getString(
 		        "FPortecle.m_jmiChangeKeyStoreTypeUber.mnemonic").charAt(0));
@@ -657,6 +675,7 @@ public class FPortecle
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeJceks);
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeCaseExactJks);
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeBks);
+		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeBksV1);
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeUber);
 		m_jmChangeKeyStoreType.add(m_jmiChangeKeyStoreTypeGkr);
 
@@ -5635,6 +5654,7 @@ public class FPortecle
 		m_jmiChangeKeyStoreTypeJceks.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JCEKS));
 		m_jmiChangeKeyStoreTypePkcs12.setEnabled(true);
 		m_jmiChangeKeyStoreTypeBks.setEnabled(true);
+		m_jmiChangeKeyStoreTypeBksV1.setEnabled(true);
 		m_jmiChangeKeyStoreTypeUber.setEnabled(true);
 		m_jmiChangeKeyStoreTypeGkr.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.GKR));
 
@@ -5655,6 +5675,9 @@ public class FPortecle
 				break;
 			case BKS:
 				m_jmiChangeKeyStoreTypeBks.setEnabled(false);
+				break;
+			case BKS_V1:
+				m_jmiChangeKeyStoreTypeBksV1.setEnabled(false);
 				break;
 			case UBER:
 				m_jmiChangeKeyStoreTypeUber.setEnabled(false);
@@ -5751,7 +5774,7 @@ public class FPortecle
 				return;
 			}
 
-			String sType = KeyStoreType.valueOf(ksLoaded.getType()).toString();
+			String sType = KeyStoreType.valueOfType(ksLoaded.getType()).toString();
 			String sProv = ksLoaded.getProvider().getName();
 
 			if (iSize == 1)

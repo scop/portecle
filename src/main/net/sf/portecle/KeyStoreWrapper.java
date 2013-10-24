@@ -149,7 +149,7 @@ class KeyStoreWrapper
 	public void setKeyStore(KeyStore keyStore)
 	{
 		m_keyStore = keyStore;
-		m_keyStoreType = KeyStoreType.valueOf(keyStore.getType());
+		m_keyStoreType = KeyStoreType.valueOfType(keyStore.getType());
 	}
 
 	/**

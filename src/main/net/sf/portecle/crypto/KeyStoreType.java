@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2013 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,21 +36,26 @@ import java.util.Set;
 public enum KeyStoreType
 {
 	/** JKS keystore Type */
-	JKS("JKS", true, true, new String[] { "jks" }),
+	JKS(null, "JKS", true, true, new String[] { "jks" }),
 	/** PKCS #12 keystore Type */
-	PKCS12("PKCS #12", false, false, new String[] { "p12", "pfx" }),
+	PKCS12(null, "PKCS #12", false, false, new String[] { "p12", "pfx" }),
 	/** JCEKS keystore Type */
-	JCEKS("JCEKS", true, true, new String[] { "jceks" }),
+	JCEKS(null, "JCEKS", true, true, new String[] { "jceks" }),
 	/** Case sensitive JKS keystore Type */
-	CaseExactJKS("JKS (case sensitive)", true, true, new String[] { "jks" }),
+	CaseExactJKS(null, "JKS (case sensitive)", true, true, new String[] { "jks" }),
 	/** BKS keystore Type */
-	BKS("BKS", true, true, new String[] { "bks" }),
+	BKS(null, "BKS", true, true, new String[] { "bks" }),
+	/** BKS-V1 keystore Type */
+	BKS_V1("BKS-V1", "BKS-V1", true, true, new String[] { "bks" }),
 	/** UBER keystore Type */
-	UBER("UBER", true, true, new String[] { "ubr" }),
+	UBER(null, "UBER", true, true, new String[] { "ubr" }),
 	/** GKR keystore Type */
-	GKR("GKR", true, true, new String[] { "gkr" }),
+	GKR(null, "GKR", true, true, new String[] { "gkr" }),
 	/** PKCS #11 keystore Type */
-	PKCS11("PKCS #11", false, true, new String[0]);
+	PKCS11(null, "PKCS #11", false, true, new String[0]);
+
+	/** Keystore type name */
+	private final String typeName;
 
 	/** Keystore "pretty" name */
 	private final String prettyName;
@@ -67,13 +72,15 @@ public enum KeyStoreType
 	/**
 	 * Construct a KeyStoreType. Private to prevent construction from outside this class.
 	 * 
-	 * @param sType Keystore type
+	 * @param typeName
+	 * @param prettyName
 	 * @param supportsCreationDates Whether the keystore supports creation dates
 	 * @param filenameExtensions associated filename extensions
 	 */
-	private KeyStoreType(String prettyName, boolean entryCreationDateUseful, boolean entryPasswordSupported,
-	    String[] filenameExtensions)
+	private KeyStoreType(String typeName, String prettyName, boolean entryCreationDateUseful,
+	    boolean entryPasswordSupported, String[] filenameExtensions)
 	{
+		this.typeName = (typeName == null) ? name() : typeName;
 		this.prettyName = prettyName;
 		this.entryCreationDateUseful = entryCreationDateUseful;
 		this.entryPasswordSupported = entryPasswordSupported;
@@ -90,6 +97,14 @@ public enum KeyStoreType
 				Collections.addAll(exts, filenameExtensions);
 				this.filenameExtensions = Collections.unmodifiableSet(exts);
 		}
+	}
+
+	/**
+	 * Name of the keystore type used for creating a new instance.
+	 */
+	public String getTypeName()
+	{
+		return typeName;
 	}
 
 	/**
@@ -132,6 +147,14 @@ public enum KeyStoreType
 	public String toString()
 	{
 		return prettyName;
+	}
+
+	/**
+	 *
+	 */
+	public static KeyStoreType valueOfType(String typeName)
+	{
+		return valueOf(typeName.replaceAll("-", "_"));
 	}
 
 	/**

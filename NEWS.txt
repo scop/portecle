@@ -2,6 +2,7 @@ New in Portecle x.x (201x-xx-xx):
 ---------------------------------
 
 Enhancements:
+- Add support for BKS-V1 keystores (thanks to Jan Peter Stotz, #3).
 - Command line arg that looks like host:port opens SSL/TLS connection dialog.
 - Finnish translation (incomplete).
 
