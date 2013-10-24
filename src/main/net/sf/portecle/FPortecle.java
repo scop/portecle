@@ -2365,9 +2365,12 @@ public class FPortecle
 	 * 
 	 * @return True if the user was able to examine the certificate, false otherwise
 	 */
-	private boolean examineCertSSL()
+	private boolean examineCertSSL(InetSocketAddress ia)
 	{
-		InetSocketAddress ia = chooseExamineCertSSL();
+		if (ia == null)
+		{
+			ia = chooseExamineCertSSL();
+		}
 		if (ia == null)
 		{
 			return false;
@@ -6366,7 +6369,7 @@ public class FPortecle
 		@Override
 		public void act()
 		{
-			examineCertSSL();
+			examineCertSSL(null);
 		}
 	}
 
@@ -6640,17 +6643,17 @@ public class FPortecle
 	    implements Runnable
 	{
 
-		/** Keystore file to open initially */
-		private final File m_file;
+		/** File or host:port to open initially */
+		private final Object m_obj;
 
 		/**
 		 * Construct CreateAndShowGui.
 		 * 
-		 * @param file Keystore file to open initially (supply null if none)
+		 * @param file File or host:port to open initially (supply null if none)
 		 */
-		public CreateAndShowGui(File file)
+		public CreateAndShowGui(Object obj)
 		{
-			m_file = file;
+			m_obj = obj;
 		}
 
 		/**
@@ -6662,7 +6665,14 @@ public class FPortecle
 			initLookAndFeel();
 			FPortecle fPortecle = new FPortecle();
 			fPortecle.setVisible(true);
-			fPortecle.openFile(m_file);
+			if (m_obj instanceof File)
+			{
+				fPortecle.openFile((File) m_obj);
+			}
+			else if (m_obj instanceof InetSocketAddress)
+			{
+				fPortecle.examineCertSSL((InetSocketAddress) m_obj);
+			}
 		}
 	}
 
@@ -6732,17 +6742,26 @@ public class FPortecle
 
 		// If arguments have been supplied, treat the first one that's not "-open" (web start passes that when
 		// opening associated files) as a keystore/certificate etc file
-		File file = null;
+		Object toOpen = null;
 		for (String arg : args)
 		{
 			if (!arg.equals("-open"))
 			{
-				file = new File(arg);
+				if (arg.matches("^[\\w.]+:\\d+$"))
+				{
+					String host = arg.substring(0, arg.indexOf(":"));
+					int port = Integer.parseInt(arg.substring(arg.indexOf(":") + 1));
+					toOpen = new InetSocketAddress(host, port);
+				}
+				else
+				{
+					toOpen = new File(arg);
+				}
 				break;
 			}
 		}
 
 		// Create and show GUI on the event handler thread
-		SwingUtilities.invokeLater(new CreateAndShowGui(file));
+		SwingUtilities.invokeLater(new CreateAndShowGui(toOpen));
 	}
 }
