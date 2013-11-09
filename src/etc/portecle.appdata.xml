@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 Ville Skyttä <ville.skytta@iki.fi> -->
+<application>
+    <id type="desktop">portecle.desktop</id>
+    <licence>CC0</licence>
+    <description>
+        <p>
+            Portecle is a user friendly GUI application for creating,
+            managing and examining keystores, keys, certificates, certificate
+            requests, certificate revocation lists and more.
+        </p>
+        <p>
+            It makes many common operations with supported cryptographic files
+            easy and intuitive compared to for example command line tools with
+            hard to remember command syntax.
+        </p>
+    </description>
+    <screenshots>
+        <screenshot type="default" width="624" height="351">http://a.fsdn.com/con/app/proj/portecle/screenshots/portecle.png</screenshot>
+    </screenshots>
+    <url type="homepage">http://portecle.sourceforge.net/</url>
+    <updatecontact>ville.skytta@iki.fi</updatecontact>
+</application>
