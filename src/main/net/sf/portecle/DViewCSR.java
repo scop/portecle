@@ -2,7 +2,7 @@
  * DViewCSR.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2006-2008 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2006-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -52,12 +52,11 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
-import org.bouncycastle.asn1.pkcs.CertificationRequest;
-import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
 import org.bouncycastle.crypto.util.PublicKeyFactory;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
 /**
  * Modal dialog to display the details of a certification request.
@@ -78,7 +77,7 @@ class DViewCSR
 	private JTextField m_jtfSignatureAlgorithm;
 
 	/** Stores request to display */
-	private CertificationRequest m_req;
+	private PKCS10CertificationRequest m_req;
 
 	/** Default filename for saving */
 	private String m_basename;
@@ -91,7 +90,7 @@ class DViewCSR
 	 * @param req Certification request to display
 	 * @throws CryptoException A problem was encountered getting the certification request details
 	 */
-	public DViewCSR(Window parent, String sTitle, CertificationRequest req)
+	public DViewCSR(Window parent, String sTitle, PKCS10CertificationRequest req)
 	    throws CryptoException
 	{
 		super(parent, sTitle, true);
@@ -235,21 +234,19 @@ class DViewCSR
 	private void populateDialog()
 	    throws CryptoException
 	{
-		CertificationRequestInfo info = m_req.getCertificationRequestInfo();
-
 		// Version
-		m_jtfVersion.setText(info.getVersion().getValue().toString());
+		m_jtfVersion.setText(m_req.toASN1Structure().getCertificationRequestInfo().getVersion().getValue().toString());
 		m_jtfVersion.setCaretPosition(0);
 
 		// Subject
-		X500Name subject = info.getSubject();
+		X500Name subject = m_req.getSubject();
 		m_jtfSubject.setText(subject.toString());
 		m_jtfSubject.setCaretPosition(0);
 
 		m_basename = NameUtil.getCommonName(subject);
 
 		// Public Key (algorithm and keysize)
-		SubjectPublicKeyInfo keyInfo = info.getSubjectPublicKeyInfo();
+		SubjectPublicKeyInfo keyInfo = m_req.getSubjectPublicKeyInfo();
 
 		AsymmetricKeyParameter keyParams = null;
 		try

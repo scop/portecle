@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2009 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -60,13 +60,19 @@ import javax.security.auth.x500.X500Principal;
 import net.sf.portecle.NetUtil;
 
 import org.bouncycastle.asn1.DERObjectIdentifier;
+import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.style.BCStyle;
-import org.bouncycastle.asn1.x509.X509Name;
-import org.bouncycastle.jce.PKCS10CertificationRequest;
+import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.jce.PrincipalUtil;
 import org.bouncycastle.jce.X509Principal;
-import org.bouncycastle.openssl.PEMReader;
-import org.bouncycastle.openssl.PasswordException;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.operator.ContentVerifierProvider;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
+import org.bouncycastle.pkcs.PKCSException;
+import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 import org.bouncycastle.x509.X509V1CertificateGenerator;
 
 /**
@@ -87,7 +93,7 @@ public final class X509CertUtil
 	private static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
 
 	/** Type name for X.509 certificates */
-	private static final String X509_CERT_TYPE = "X.509";
+	public static final String X509_CERT_TYPE = "X.509";
 
 	/**
 	 * Private to prevent construction.
@@ -159,16 +165,12 @@ public final class X509CertUtil
 			if (OPENSSL_PEM_ENCODING.equals(encoding))
 			{
 				// Special case; this is not a real JCE supported encoding.
-				// Note: let PEMReader use its default provider (BC as of BC 1.40) internally; for example the
-				// default "SUN" provider may not contain an RSA implementation
-				PEMReader pr = new PEMReader(new InputStreamReader(in));
-
-				// These beasts can contain just about anything, and unfortunately the PEMReader API (as of BC
-				// 1.25 to at least 1.43) won't allow us to really skip things we're not interested in; stuff
-				// happens already in readObject().
+				PEMParser pr = new PEMParser(new InputStreamReader(in));
 
 				certs = new ArrayList<X509Certificate>();
 				Object cert;
+
+				CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
 
 				while (true)
 				{
@@ -178,12 +180,6 @@ public final class X509CertUtil
 					}
 					catch (IOException e)
 					{
-						if (e instanceof PasswordException)
-						{
-							// Some kind of a password protected item (BC >= 1.44): carry on, see
-							// http://www.bouncycastle.org/jira/browse/BJA-182
-							continue;
-						}
 						pr.close();
 						throw e;
 					}
@@ -193,9 +189,11 @@ public final class X509CertUtil
 						break;
 					}
 
-					if (cert instanceof X509Certificate)
+					if (cert instanceof X509CertificateHolder)
 					{
-						certs.add(cert);
+						ByteArrayInputStream bais =
+						    new ByteArrayInputStream(((X509CertificateHolder) cert).getEncoded());
+						certs.add(cf.generateCertificate(bais));
 					}
 					// Skip other stuff, at least for now.
 				}
@@ -294,21 +292,29 @@ public final class X509CertUtil
 	    throws CryptoException, IOException
 	{
 		// TODO: handle DER encoded requests too?
-		PEMReader pr = new PEMReader(new InputStreamReader(NetUtil.openGetStream(url)));
+		PEMParser pr = new PEMParser(new InputStreamReader(NetUtil.openGetStream(url)));
 		try
 		{
 			PKCS10CertificationRequest csr = (PKCS10CertificationRequest) pr.readObject();
-			if (!csr.verify())
+			ContentVerifierProvider prov =
+			    new JcaContentVerifierProviderBuilder().build(csr.getSubjectPublicKeyInfo());
+
+			if (!csr.isSignatureValid(prov))
 			{
 				throw new CryptoException(RB.getString("NoVerifyCsr.exception.message"));
 			}
+
 			return csr;
 		}
 		catch (ClassCastException ex)
 		{
 			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
 		}
-		catch (GeneralSecurityException ex)
+		catch (OperatorCreationException ex)
+		{
+			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
+		}
+		catch (PKCSException ex)
 		{
 			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
 		}
@@ -718,21 +724,29 @@ public final class X509CertUtil
 	public static PKCS10CertificationRequest generatePKCS10CSR(X509Certificate cert, PrivateKey privateKey)
 	    throws CryptoException
 	{
-		X509Name subject = new X509Name(cert.getSubjectDN().toString());
+		X500Name subject = new X500Name(cert.getSubjectDN().toString());
+
+		JcaPKCS10CertificationRequestBuilder csrBuilder =
+		    new JcaPKCS10CertificationRequestBuilder(subject, cert.getPublicKey());
+		JcaContentSignerBuilder signerBuilder = new JcaContentSignerBuilder(cert.getSigAlgName());
 
 		try
 		{
-			PKCS10CertificationRequest csr =
-			    new PKCS10CertificationRequest(cert.getSigAlgName(), subject, cert.getPublicKey(), null,
-			        privateKey);
-			if (!csr.verify())
+			ContentVerifierProvider prov = new JcaContentVerifierProviderBuilder().build(cert);
+			PKCS10CertificationRequest csr = csrBuilder.build(signerBuilder.build(privateKey));
+
+			if (!csr.isSignatureValid(prov))
 			{
 				throw new CryptoException(RB.getString("NoVerifyGenCsr.exception.message"));
 			}
 
 			return csr;
 		}
-		catch (GeneralSecurityException ex)
+		catch (OperatorCreationException ex)
+		{
+			throw new CryptoException(RB.getString("NoGenerateCsr.exception.message"), ex);
+		}
+		catch (PKCSException ex)
 		{
 			throw new CryptoException(RB.getString("NoGenerateCsr.exception.message"), ex);
 		}

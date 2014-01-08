@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,6 +24,7 @@ package net.sf.portecle.crypto;
 
 import static net.sf.portecle.FPortecle.RB;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,6 +37,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Security;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -43,7 +46,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import org.bouncycastle.openssl.PEMReader;
+import org.bouncycastle.cert.X509CertificateHolder;
+import org.bouncycastle.openssl.PEMDecryptorProvider;
+import org.bouncycastle.openssl.PEMEncryptedKeyPair;
+import org.bouncycastle.openssl.PEMKeyPair;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.openssl.PasswordFinder;
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 
 /**
  * Provides utility methods for loading/saving keystores. The Bouncy Castle provider must be registered before
@@ -141,27 +151,39 @@ public final class KeyStoreUtil
 	 * Load keystore entries from PEM reader into a new PKCS #12 keystore. The reader is not closed.
 	 * 
 	 * @param reader reader to read entries from
+	 * @param pwFinder object to get passwords from on demand
 	 * @return new PKCS #12 keystore containing read entries, possibly empty
 	 * @throws CryptoException Problem encountered creating the keystore
 	 * @throws IOException An I/O error occurred
 	 */
-	public static KeyStore loadEntries(PEMReader reader)
-	    throws CryptoException, IOException
+	public static KeyStore loadEntries(PEMParser reader, PasswordFinder pwFinder)
+	    throws CertificateException, CryptoException, IOException
 	{
 		LinkedHashSet<KeyPair> keyPairs = new LinkedHashSet<KeyPair>();
 		LinkedHashSet<Certificate> certs = new LinkedHashSet<Certificate>();
 		KeyStore keyStore = createKeyStore(KeyStoreType.PKCS12);
 
+		CertificateFactory cf = CertificateFactory.getInstance(X509CertUtil.X509_CERT_TYPE);
+		JcaPEMKeyConverter keyConverter = new JcaPEMKeyConverter();
+
 		Object obj;
 		while ((obj = reader.readObject()) != null)
 		{
-			if (obj instanceof KeyPair)
+			if (obj instanceof PEMEncryptedKeyPair)
 			{
-				keyPairs.add((KeyPair) obj);
+				PEMDecryptorProvider decryptor =
+				    new JcePEMDecryptorProviderBuilder().build(pwFinder.getPassword());
+				obj = ((PEMEncryptedKeyPair) obj).decryptKeyPair(decryptor);
 			}
-			else if (obj instanceof Certificate)
+			if (obj instanceof PEMKeyPair)
 			{
-				certs.add((Certificate) obj);
+				keyPairs.add(keyConverter.getKeyPair((PEMKeyPair) obj));
+			}
+			else if (obj instanceof X509CertificateHolder)
+			{
+				ByteArrayInputStream bais =
+				    new ByteArrayInputStream(((X509CertificateHolder) obj).getEncoded());
+				certs.add(cf.generateCertificate(bais));
 			}
 		}
 

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2013 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
  *             2010 Lam Chau, lamchau@gmail.com
  *
  * This program is free software; you can redistribute it and/or
@@ -137,10 +137,12 @@ import net.sf.portecle.gui.password.DGetPassword;
 import net.sf.portecle.gui.statusbar.StatusBar;
 import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
 
-import org.bouncycastle.asn1.pkcs.CertificationRequest;
-import org.bouncycastle.openssl.PEMReader;
+import org.bouncycastle.openssl.PEMEncryptor;
+import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.PEMWriter;
 import org.bouncycastle.openssl.PasswordFinder;
+import org.bouncycastle.openssl.jcajce.JcePEMEncryptorBuilder;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
 /**
  * Start class and main frame of Portecle.
@@ -2517,7 +2519,7 @@ public class FPortecle
 		}
 
 		// Get the CSR contained within the file
-		CertificationRequest csr = openCSR(fCSRFile);
+		PKCS10CertificationRequest csr = openCSR(fCSRFile);
 
 		m_lastDir.updateLastDir(fCSRFile);
 
@@ -2823,7 +2825,7 @@ public class FPortecle
 	 * @param fCSRFile The CSR file
 	 * @return The CSR found in the file or null if there wasn't one
 	 */
-	private CertificationRequest openCSR(File fCSRFile)
+	private PKCS10CertificationRequest openCSR(File fCSRFile)
 	{
 		try
 		{
@@ -3301,7 +3303,7 @@ public class FPortecle
 		ArrayList<Exception> exceptions = new ArrayList<Exception>();
 
 		KeyStore tempStore = null;
-		PEMReader reader = null;
+		PEMParser reader = null;
 		try
 		{
 			PasswordFinder passwordFinder = new PasswordFinder()
@@ -3324,9 +3326,9 @@ public class FPortecle
 				}
 			};
 
-			reader = new PEMReader(new FileReader(fKeyPairFile.getPath()), passwordFinder);
+			reader = new PEMParser(new FileReader(fKeyPairFile.getPath()));
 
-			tempStore = KeyStoreUtil.loadEntries(reader);
+			tempStore = KeyStoreUtil.loadEntries(reader, passwordFinder);
 			if (tempStore.size() == 0)
 			{
 				tempStore = null;
@@ -4760,7 +4762,9 @@ public class FPortecle
 				// TODO: make algorithm configurable/ask user?
 				String algorithm = "DES-EDE3-CBC";
 				SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
-				pw.writeObject(privKey, algorithm, password, rand);
+				PEMEncryptor encryptor =
+				    new JcePEMEncryptorBuilder(algorithm).setSecureRandom(rand).build(password);
+				pw.writeObject(privKey, encryptor);
 			}
 
 			for (Certificate cert : certs)
