@@ -164,7 +164,7 @@ public class FPortecle
 	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
 
 	/** Minimum required BC version */
-	private static final Double REQ_BC_VERSION = new Double(1.48);
+	private static final Double REQ_BC_VERSION = new Double(1.50);
 
 	/** Enable experimental features? */
 	private static final boolean EXPERIMENTAL = Boolean.getBoolean("portecle.experimental");
