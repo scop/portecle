@@ -105,14 +105,9 @@ public final class NetUtil
 
 		conn.setRequestProperty("Content-Length", String.valueOf(content.length));
 
-		OutputStream out = conn.getOutputStream();
-		try
+		try (OutputStream out = conn.getOutputStream())
 		{
 			out.write(content);
-		}
-		finally
-		{
-			out.close();
 		}
 
 		return conn.getInputStream();
@@ -133,44 +128,28 @@ public final class NetUtil
 			return url;
 		}
 
-		InputStream in = openGetStream(url);
 		File tempFile = null;
-		OutputStream out = null;
 
-		try
+		try (InputStream in = openGetStream(url))
 		{
 			tempFile = File.createTempFile("portecle", null);
-			out = new BufferedOutputStream(new FileOutputStream(tempFile));
-			byte[] buf = new byte[2048];
-			int n;
-			while ((n = in.read(buf)) != -1)
+			try (OutputStream out = new BufferedOutputStream(new FileOutputStream(tempFile)))
 			{
-				out.write(buf, 0, n);
+				byte[] buf = new byte[2048];
+				int n;
+				while ((n = in.read(buf)) != -1)
+				{
+					out.write(buf, 0, n);
+				}
 			}
-			out.flush();
-			out.close();
 		}
 		catch (IOException e)
 		{
-			try
+			if (tempFile != null && !tempFile.delete())
 			{
-				if (out != null)
-				{
-					out.close();
-				}
-			}
-			finally
-			{
-				if (tempFile != null && !tempFile.delete())
-				{
-					LOG.log(Level.WARNING, "Could not delete temporary file " + tempFile);
-				}
+				LOG.log(Level.WARNING, "Could not delete temporary file " + tempFile);
 			}
 			throw e;
-		}
-		finally
-		{
-			in.close();
 		}
 
 		tempFile.deleteOnExit();

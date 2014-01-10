@@ -318,8 +318,7 @@ public final class KeyStoreUtil
 			    RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 
-		FileInputStream fis = new FileInputStream(fKeyStore);
-		try
+		try (FileInputStream fis = new FileInputStream(fKeyStore))
 		{
 			keyStore.load(fis, cPassword);
 		}
@@ -336,17 +335,6 @@ public final class KeyStoreUtil
 		{
 			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
 			    keyStoreType), ex);
-		}
-		finally
-		{
-			try
-			{
-				fis.close();
-			}
-			catch (IOException ex)
-			{
-				// Ignore
-			}
 		}
 
 		return keyStore;
@@ -408,8 +396,7 @@ public final class KeyStoreUtil
 	public static KeyStore saveKeyStore(KeyStore keyStore, File fKeyStoreFile, char[] cPassword)
 	    throws CryptoException, IOException
 	{
-		FileOutputStream fos = new FileOutputStream(fKeyStoreFile);
-		try
+		try (FileOutputStream fos = new FileOutputStream(fKeyStoreFile))
 		{
 			keyStore.store(fos, cPassword);
 		}
@@ -420,10 +407,6 @@ public final class KeyStoreUtil
 		catch (GeneralSecurityException ex)
 		{
 			throw new CryptoException(RB.getString("NoSaveKeystore.exception.message"), ex);
-		}
-		finally
-		{
-			fos.close();
 		}
 
 		// As of GNU classpath 0.92, we need to reload GKR keystores after storing them, otherwise

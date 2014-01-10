@@ -3302,32 +3302,29 @@ public class FPortecle
 
 		ArrayList<Exception> exceptions = new ArrayList<>();
 
-		KeyStore tempStore = null;
-		PEMParser reader = null;
-		try
+		PasswordFinder passwordFinder = new PasswordFinder()
 		{
-			PasswordFinder passwordFinder = new PasswordFinder()
+			private int passwordNumber = 1;
+
+			@Override
+			public char[] getPassword()
 			{
-				private int passwordNumber = 1;
+				// Get the user to enter the private key password
+				DGetPassword dGetPassword =
+				    new DGetPassword(FPortecle.this, MessageFormat.format(
+				        RB.getString("FPortecle.PrivateKeyPassword.Title"),
+				        new Object[] { String.valueOf(passwordNumber) }));
+				dGetPassword.setLocationRelativeTo(FPortecle.this);
+				SwingHelper.showAndWait(dGetPassword);
+				char[] cPassword = dGetPassword.getPassword();
+				passwordNumber++;
+				return cPassword;
+			}
+		};
 
-				@Override
-				public char[] getPassword()
-				{
-					// Get the user to enter the private key password
-					DGetPassword dGetPassword =
-					    new DGetPassword(FPortecle.this, MessageFormat.format(
-					        RB.getString("FPortecle.PrivateKeyPassword.Title"),
-					        new Object[] { String.valueOf(passwordNumber) }));
-					dGetPassword.setLocationRelativeTo(FPortecle.this);
-					SwingHelper.showAndWait(dGetPassword);
-					char[] cPassword = dGetPassword.getPassword();
-					passwordNumber++;
-					return cPassword;
-				}
-			};
-
-			reader = new PEMParser(new FileReader(fKeyPairFile.getPath()));
-
+		KeyStore tempStore = null;
+		try (PEMParser reader = new PEMParser(new FileReader(fKeyPairFile.getPath())))
+		{
 			tempStore = KeyStoreUtil.loadEntries(reader, passwordFinder);
 			if (tempStore.size() == 0)
 			{
@@ -3337,20 +3334,6 @@ public class FPortecle
 		catch (Exception e)
 		{
 			exceptions.add(e);
-		}
-		finally
-		{
-			if (reader != null)
-			{
-				try
-				{
-					reader.close();
-				}
-				catch (IOException e)
-				{
-					// TODO: log it?
-				}
-			}
 		}
 
 		// Treat as PKCS #12 keystore
@@ -4167,10 +4150,8 @@ public class FPortecle
 			return false;
 		}
 
-		PEMWriter pw = null;
-		try
+		try (PEMWriter pw = new PEMWriter(new FileWriter(fExportFile)))
 		{
-			pw = new PEMWriter(new FileWriter(fExportFile));
 			pw.writeObject(cert);
 			m_lastDir.updateLastDir(fExportFile);
 			return true;
@@ -4186,20 +4167,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		finally
-		{
-			if (pw != null)
-			{
-				try
-				{
-					pw.close();
-				}
-				catch (IOException ex)
-				{
-					DThrowable.showAndWait(this, null, ex);
-				}
-			}
 		}
 	}
 
@@ -4241,16 +4208,23 @@ public class FPortecle
 			return false;
 		}
 
-		FileOutputStream fos = null;
+		// Do the export
+
+		byte[] bEncoded;
 		try
 		{
-			// Do the export
-			byte[] bEncoded = X509CertUtil.getCertEncodedDer(cert);
-			fos = new FileOutputStream(fExportFile);
+			bEncoded = X509CertUtil.getCertEncodedDer(cert);
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+
+		try (FileOutputStream fos = new FileOutputStream(fExportFile))
+		{
 			fos.write(bEncoded);
-
 			m_lastDir.updateLastDir(fExportFile);
-
 			return true;
 		}
 		catch (FileNotFoundException ex)
@@ -4264,25 +4238,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		finally
-		{
-			if (fos != null)
-			{
-				try
-				{
-					fos.close();
-				}
-				catch (IOException ex)
-				{
-					DThrowable.showAndWait(this, null, ex);
-				}
-			}
 		}
 	}
 
@@ -4324,16 +4279,23 @@ public class FPortecle
 			return false;
 		}
 
-		FileOutputStream fos = null;
+		// Do the export
+
+		byte[] bEncoded;
 		try
 		{
-			// Do the export
-			byte[] bEncoded = X509CertUtil.getCertEncodedPkcs7(cert);
-			fos = new FileOutputStream(fExportFile);
+			bEncoded = X509CertUtil.getCertEncodedPkcs7(cert);
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+
+		try (FileOutputStream fos = new FileOutputStream(fExportFile))
+		{
 			fos.write(bEncoded);
-
 			m_lastDir.updateLastDir(fExportFile);
-
 			return true;
 		}
 		catch (FileNotFoundException ex)
@@ -4347,25 +4309,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		finally
-		{
-			if (fos != null)
-			{
-				try
-				{
-					fos.close();
-				}
-				catch (IOException e)
-				{
-					DThrowable.showAndWait(this, null, e);
-				}
-			}
 		}
 	}
 
@@ -4407,16 +4350,23 @@ public class FPortecle
 			return false;
 		}
 
-		FileOutputStream fos = null;
+		// Do the export
+
+		byte[] bEncoded;
 		try
 		{
-			// Do the export
-			byte[] bEncoded = X509CertUtil.getCertEncodedPkiPath(cert);
-			fos = new FileOutputStream(fExportFile);
+			bEncoded = X509CertUtil.getCertEncodedPkiPath(cert);
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+
+		try (FileOutputStream fos = new FileOutputStream(fExportFile))
+		{
 			fos.write(bEncoded);
-
 			m_lastDir.updateLastDir(fExportFile);
-
 			return true;
 		}
 		catch (FileNotFoundException ex)
@@ -4430,25 +4380,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		finally
-		{
-			if (fos != null)
-			{
-				try
-				{
-					fos.close();
-				}
-				catch (IOException e)
-				{
-					DThrowable.showAndWait(this, null, e);
-				}
-			}
 		}
 	}
 
@@ -4500,16 +4431,23 @@ public class FPortecle
 			return false;
 		}
 
-		FileOutputStream fos = null;
+		// Do the export
+
+		byte[] bEncoded;
 		try
 		{
-			// Do the export
-			byte[] bEncoded = X509CertUtil.getCertsEncodedPkcs7(certChain);
-			fos = new FileOutputStream(fExportFile);
+			bEncoded = X509CertUtil.getCertsEncodedPkcs7(certChain);
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+
+		try (FileOutputStream fos = new FileOutputStream(fExportFile))
+		{
 			fos.write(bEncoded);
-
 			m_lastDir.updateLastDir(fExportFile);
-
 			return true;
 		}
 		catch (FileNotFoundException ex)
@@ -4523,25 +4461,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		finally
-		{
-			if (fos != null)
-			{
-				try
-				{
-					fos.close();
-				}
-				catch (IOException e)
-				{
-					DThrowable.showAndWait(this, null, e);
-				}
-			}
 		}
 	}
 
@@ -4593,16 +4512,23 @@ public class FPortecle
 			return false;
 		}
 
-		FileOutputStream fos = null;
+		// Do the export
+
+		byte[] bEncoded;
 		try
 		{
-			// Do the export
-			byte[] bEncoded = X509CertUtil.getCertsEncodedPkiPath(certChain);
-			fos = new FileOutputStream(fExportFile);
+			bEncoded = X509CertUtil.getCertsEncodedPkiPath(certChain);
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable.showAndWait(this, null, ex);
+			return false;
+		}
+
+		try (FileOutputStream fos = new FileOutputStream(fExportFile))
+		{
 			fos.write(bEncoded);
-
 			m_lastDir.updateLastDir(fExportFile);
-
 			return true;
 		}
 		catch (FileNotFoundException ex)
@@ -4616,25 +4542,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		finally
-		{
-			if (fos != null)
-			{
-				try
-				{
-					fos.close();
-				}
-				catch (IOException e)
-				{
-					DThrowable.showAndWait(this, null, e);
-				}
-			}
 		}
 	}
 
@@ -4708,7 +4615,6 @@ public class FPortecle
 		}
 
 		File fExportFile = null;
-		PEMWriter pw = null;
 
 		try
 		{
@@ -4751,27 +4657,28 @@ public class FPortecle
 			}
 
 			// Do the export
-			pw = new PEMWriter(new FileWriter(fExportFile));
 
-			if (password.length == 0)
+			try (PEMWriter pw = new PEMWriter(new FileWriter(fExportFile)))
 			{
-				pw.writeObject(privKey);
-			}
-			else
-			{
-				// TODO: make algorithm configurable/ask user?
-				String algorithm = "DES-EDE3-CBC";
-				SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
-				PEMEncryptor encryptor =
-				    new JcePEMEncryptorBuilder(algorithm).setSecureRandom(rand).build(password);
-				pw.writeObject(privKey, encryptor);
-			}
+				if (password.length == 0)
+				{
+					pw.writeObject(privKey);
+				}
+				else
+				{
+					// TODO: make algorithm configurable/ask user?
+					String algorithm = "DES-EDE3-CBC";
+					SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
+					PEMEncryptor encryptor =
+					    new JcePEMEncryptorBuilder(algorithm).setSecureRandom(rand).build(password);
+					pw.writeObject(privKey, encryptor);
+				}
 
-			for (Certificate cert : certs)
-			{
-				pw.writeObject(cert);
+				for (Certificate cert : certs)
+				{
+					pw.writeObject(cert);
+				}
 			}
-			pw.flush();
 
 			m_lastDir.updateLastDir(fExportFile);
 
@@ -4793,20 +4700,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		finally
-		{
-			if (pw != null)
-			{
-				try
-				{
-					pw.close();
-				}
-				catch (IOException ex)
-				{
-					DThrowable.showAndWait(this, null, ex);
-				}
-			}
 		}
 	}
 
@@ -5081,7 +4974,6 @@ public class FPortecle
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
 
 		File fCsrFile = null;
-		PEMWriter pw = null;
 
 		try
 		{
@@ -5130,8 +5022,10 @@ public class FPortecle
 			}
 
 			// Generate CSR and write it out to file
-			pw = new PEMWriter(new FileWriter(fCsrFile));
-			pw.writeObject(X509CertUtil.generatePKCS10CSR(cert, privKey));
+			try (PEMWriter pw = new PEMWriter(new FileWriter(fCsrFile)))
+			{
+				pw.writeObject(X509CertUtil.generatePKCS10CSR(cert, privKey));
+			}
 
 			// Display success message
 			JOptionPane.showMessageDialog(this, RB.getString("FPortecle.CsrGenerationSuccessful.message"),
@@ -5152,20 +5046,6 @@ public class FPortecle
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
-		}
-		finally
-		{
-			if (pw != null)
-			{
-				try
-				{
-					pw.close();
-				}
-				catch (IOException ex)
-				{
-					DThrowable.showAndWait(this, null, ex);
-				}
-			}
 		}
 	}
 

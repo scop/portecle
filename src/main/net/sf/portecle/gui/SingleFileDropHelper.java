@@ -135,27 +135,28 @@ public class SingleFileDropHelper
 		else if (URILIST_FLAVOR != null && support.isDataFlavorSupported(URILIST_FLAVOR))
 		{
 			String data = (String) support.getTransferable().getTransferData(URILIST_FLAVOR);
-			BufferedReader reader = new BufferedReader(new StringReader(data));
-			String line;
-			while ((line = reader.readLine()) != null)
+			try (BufferedReader reader = new BufferedReader(new StringReader(data)))
 			{
-				if (!line.startsWith("#"))
+				String line;
+				while ((line = reader.readLine()) != null)
 				{
-					try
+					if (!line.startsWith("#"))
 					{
-						files.add(new File(new URI(line)));
-					}
-					catch (URISyntaxException e)
-					{
-						// Ignored
-					}
-					catch (IllegalArgumentException e)
-					{
-						// Ignored
+						try
+						{
+							files.add(new File(new URI(line)));
+						}
+						catch (URISyntaxException e)
+						{
+							// Ignored
+						}
+						catch (IllegalArgumentException e)
+						{
+							// Ignored
+						}
 					}
 				}
 			}
-			reader.close();
 		}
 		return files;
 	}

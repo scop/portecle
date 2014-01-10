@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -103,29 +103,13 @@ class DKeyStoreReport
 	private static final Properties TF_PROPS = new Properties();
 	static
 	{
-		InputStream in = null;
-		try
+		try (InputStream in = DKeyStoreReport.class.getResourceAsStream("keystore-report-xml.properties"))
 		{
-			in = DKeyStoreReport.class.getResourceAsStream("keystore-report-xml.properties");
 			TF_PROPS.load(in);
 		}
 		catch (IOException e)
 		{
 			throw new ExceptionInInitializerError(e);
-		}
-		finally
-		{
-			if (in != null)
-			{
-				try
-				{
-					in.close();
-				}
-				catch (IOException e)
-				{
-					throw new ExceptionInInitializerError(e);
-				}
-			}
 		}
 	}
 

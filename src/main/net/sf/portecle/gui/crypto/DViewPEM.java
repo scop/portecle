@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2006-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2006-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -97,8 +97,7 @@ public class DViewPEM
 		if (m_pem == null)
 		{
 			StringWriter encoded = new StringWriter();
-			PEMWriter pw = new PEMWriter(encoded);
-			try
+			try (PEMWriter pw = new PEMWriter(encoded))
 			{
 				pw.writeObject(m_object);
 			}
@@ -106,17 +105,7 @@ public class DViewPEM
 			{
 				throw new CryptoException(RB.getString("DViewPEM.exception.message"), e);
 			}
-			finally
-			{
-				try
-				{
-					pw.close();
-				}
-				catch (IOException e)
-				{ /* Ignore */
-				}
-				m_pem = encoded.toString();
-			}
+			m_pem = encoded.toString();
 		}
 
 		JPanel jpButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -191,10 +180,8 @@ public class DViewPEM
 					return;
 			}
 
-			FileWriter fw = null;
-			try
+			try (FileWriter fw = new FileWriter(fExportFile))
 			{
-				fw = new FileWriter(fExportFile);
 				fw.write(m_pem);
 			}
 			catch (FileNotFoundException ex)
@@ -206,18 +193,6 @@ public class DViewPEM
 			catch (IOException e)
 			{
 				DThrowable.showAndWait(this, null, e);
-			}
-			finally
-			{
-				if (fw != null)
-					try
-					{
-						fw.close();
-					}
-					catch (IOException e)
-					{
-						DThrowable.showAndWait(this, null, e);
-					}
 			}
 		}
 	}

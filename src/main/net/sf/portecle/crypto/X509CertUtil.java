@@ -52,8 +52,6 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.security.auth.x500.X500Principal;
 
@@ -80,9 +78,6 @@ import org.bouncycastle.x509.X509V1CertificateGenerator;
  */
 public final class X509CertUtil
 {
-	/** Logger */
-	private static final Logger LOG = Logger.getLogger(X509CertUtil.class.getCanonicalName());
-
 	/** PKCS #7 encoding name */
 	private static final String PKCS7_ENCODING = "PKCS7";
 
@@ -157,48 +152,38 @@ public final class X509CertUtil
 	{
 		// TODO: connect/read timeouts
 
-		InputStream in = NetUtil.openGetStream(url);
 		Collection certs;
 
-		try
+		try (InputStream in = NetUtil.openGetStream(url))
 		{
 			if (OPENSSL_PEM_ENCODING.equals(encoding))
 			{
 				// Special case; this is not a real JCE supported encoding.
-				PEMParser pr = new PEMParser(new InputStreamReader(in));
-
-				certs = new ArrayList<X509Certificate>();
-				Object cert;
-
-				CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-
-				while (true)
+				try (PEMParser pr = new PEMParser(new InputStreamReader(in)))
 				{
-					try
+					certs = new ArrayList<X509Certificate>();
+					Object cert;
+
+					CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
+
+					while (true)
 					{
 						cert = pr.readObject();
-					}
-					catch (IOException e)
-					{
-						pr.close();
-						throw e;
-					}
 
-					if (cert == null)
-					{
-						break;
-					}
+						if (cert == null)
+						{
+							break;
+						}
 
-					if (cert instanceof X509CertificateHolder)
-					{
-						ByteArrayInputStream bais =
-						    new ByteArrayInputStream(((X509CertificateHolder) cert).getEncoded());
-						certs.add(cf.generateCertificate(bais));
+						if (cert instanceof X509CertificateHolder)
+						{
+							ByteArrayInputStream bais =
+							    new ByteArrayInputStream(((X509CertificateHolder) cert).getEncoded());
+							certs.add(cf.generateCertificate(bais));
+						}
+						// Skip other stuff, at least for now.
 					}
-					// Skip other stuff, at least for now.
 				}
-
-				pr.close();
 			}
 			else
 			{
@@ -226,17 +211,6 @@ public final class X509CertUtil
 			// TODO: don't throw if vCerts non-empty (eg. OpenSSL PEM above)?
 			throw new CryptoException(RB.getString("NoLoadCertificate.exception.message"), ex);
 		}
-		finally
-		{
-			try
-			{
-				in.close();
-			}
-			catch (IOException e)
-			{
-				LOG.log(Level.WARNING, "Could not close input stream from " + url, e);
-			}
-		}
 
 		return (X509Certificate[]) certs.toArray(new X509Certificate[certs.size()]);
 	}
@@ -254,8 +228,7 @@ public final class X509CertUtil
 	public static X509CRL loadCRL(URL url)
 	    throws CryptoException, IOException
 	{
-		InputStream in = NetUtil.openGetStream(url);
-		try
+		try (InputStream in = NetUtil.openGetStream(url))
 		{
 			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
 			X509CRL crl = (X509CRL) cf.generateCRL(in);
@@ -264,17 +237,6 @@ public final class X509CertUtil
 		catch (GeneralSecurityException ex)
 		{
 			throw new CryptoException(RB.getString("NoLoadCrl.exception.message"), ex);
-		}
-		finally
-		{
-			try
-			{
-				in.close();
-			}
-			catch (IOException e)
-			{
-				LOG.log(Level.WARNING, "Could not close input stream from " + url, e);
-			}
 		}
 	}
 
@@ -292,8 +254,7 @@ public final class X509CertUtil
 	    throws CryptoException, IOException
 	{
 		// TODO: handle DER encoded requests too?
-		PEMParser pr = new PEMParser(new InputStreamReader(NetUtil.openGetStream(url)));
-		try
+		try (PEMParser pr = new PEMParser(new InputStreamReader(NetUtil.openGetStream(url))))
 		{
 			PKCS10CertificationRequest csr = (PKCS10CertificationRequest) pr.readObject();
 			ContentVerifierProvider prov =
@@ -317,17 +278,6 @@ public final class X509CertUtil
 		catch (PKCSException ex)
 		{
 			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
-		}
-		finally
-		{
-			try
-			{
-				pr.close();
-			}
-			catch (IOException e)
-			{
-				LOG.log(Level.WARNING, "Could not close input stream from " + url, e);
-			}
 		}
 	}
 
