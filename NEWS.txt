@@ -10,6 +10,7 @@ Bug fixes:
 - E-mail address validation no longer rejects certain addresses (#3609743).
 
 Miscellaneous:
+- Java SE 7 or later is now required.
 - Bundled Bouncy Castle jars upgraded to version 1.50 which is also the
   new minimum required version.
 

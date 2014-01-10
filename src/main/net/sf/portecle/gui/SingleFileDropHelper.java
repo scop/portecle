@@ -120,7 +120,7 @@ public class SingleFileDropHelper
 	private List<File> getTransferFiles(TransferSupport support)
 	    throws IOException, UnsupportedFlavorException
 	{
-		ArrayList<File> files = new ArrayList<File>();
+		ArrayList<File> files = new ArrayList<>();
 		if (support.isDataFlavorSupported(FILE_FLAVOR))
 		{
 			Object data = support.getTransferable().getTransferData(FILE_FLAVOR);

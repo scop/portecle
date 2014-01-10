@@ -174,7 +174,7 @@ class DViewCertificate
 	 */
 	public static boolean showAndWait(Window parent, Object url)
 	{
-		ArrayList<Exception> exs = new ArrayList<Exception>();
+		ArrayList<Exception> exs = new ArrayList<>();
 		X509Certificate[] certs;
 
 		try

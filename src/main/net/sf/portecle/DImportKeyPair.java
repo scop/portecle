@@ -222,7 +222,7 @@ class DImportKeyPair
 	{
 		try
 		{
-			Vector<String> vKeyPairAliases = new Vector<String>();
+			Vector<String> vKeyPairAliases = new Vector<>();
 
 			// For each entry in the keystore...
 			for (Enumeration<String> aliases = m_pkcs12.aliases(); aliases.hasMoreElements();)

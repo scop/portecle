@@ -152,7 +152,7 @@ public class DProviderInfo
 			providerNode.add(providerPropertiesNode);
 
 			// ...add property child nodes to it. Use a TreeSet for sorting the properties.
-			for (Object o : new TreeSet<Object>(provider.keySet()))
+			for (Object o : new TreeSet<>(provider.keySet()))
 			{
 				String sKey = String.valueOf(o);
 				String sValue = provider.getProperty(sKey);
@@ -194,7 +194,7 @@ public class DProviderInfo
 			strBuff.append('\n');
 
 			// ...and it's properties. Use a TreeSet for sorting the properties.
-			for (Object o : new TreeSet<Object>(provider.keySet()))
+			for (Object o : new TreeSet<>(provider.keySet()))
 			{
 				String sKey = String.valueOf(o);
 				String sValue = provider.getProperty(sKey);

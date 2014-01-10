@@ -93,7 +93,7 @@ import net.sf.portecle.gui.FileExtFilter;
 	private static final String KEYPAIR_FILE_DESC;
 	static
 	{
-		LinkedHashSet<String> exts = new LinkedHashSet<String>();
+		LinkedHashSet<String> exts = new LinkedHashSet<>();
 		exts.addAll(KeyStoreType.PKCS12.getFilenameExtensions());
 		exts.add(PEM_EXT);
 		KEYPAIR_FILE_DESC =
@@ -145,7 +145,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 		if (ksType == null)
 		{
-			ArrayList<String> exts = new ArrayList<String>();
+			ArrayList<String> exts = new ArrayList<>();
 			exts.add(KEYSTORE_EXT);
 			if (KeyStoreUtil.isAvailable(KeyStoreType.JKS))
 			{
@@ -313,7 +313,7 @@ import net.sf.portecle.gui.FileExtFilter;
 	public static JFileChooser getKeyPairFileChooser(String basename)
 	{
 		JFileChooser chooser = new JFileChooser();
-		LinkedHashSet<String> exts = new LinkedHashSet<String>();
+		LinkedHashSet<String> exts = new LinkedHashSet<>();
 		exts.addAll(KeyStoreType.PKCS12.getFilenameExtensions());
 		exts.add(PEM_EXT);
 		FileExtFilter extFilter = new FileExtFilter(exts.toArray(new String[exts.size()]), KEYPAIR_FILE_DESC);

@@ -206,7 +206,7 @@ public class JMenuRecentFiles
 	 */
 	public File[] getRecentFiles()
 	{
-		ArrayList<File> arrList = new ArrayList<File>();
+		ArrayList<File> arrList = new ArrayList<>();
 
 		for (JMenuItemRecentFile rf : m_jmirf)
 		{

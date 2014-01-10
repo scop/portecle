@@ -46,7 +46,7 @@ public final class ProviderUtil
 	 */
 	public static Collection<Provider> getPkcs11Providers()
 	{
-		ArrayList<Provider> p11s = new ArrayList<Provider>();
+		ArrayList<Provider> p11s = new ArrayList<>();
 		for (Provider prov : Security.getProviders())
 		{
 			String pName = prov.getName();

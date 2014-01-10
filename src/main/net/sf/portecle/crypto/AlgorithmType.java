@@ -35,7 +35,7 @@ public enum AlgorithmType
 	RSA("1.2.840.113549.1.1.1");
 
 	/** OID-to-type map */
-	private static final HashMap<String, AlgorithmType> OID_MAP = new HashMap<String, AlgorithmType>();
+	private static final HashMap<String, AlgorithmType> OID_MAP = new HashMap<>();
 	static
 	{
 		for (AlgorithmType at : values())

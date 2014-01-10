@@ -31,7 +31,7 @@ import java.util.Vector;
 /* package private */class History
 {
 	/** Visited pages */
-	private Vector<URL> m_vHistory = new Vector<URL>();
+	private Vector<URL> m_vHistory = new Vector<>();
 
 	/** Current navigation location */
 	private int m_iCurrent;
@@ -184,7 +184,7 @@ import java.util.Vector;
 	{
 		if (listeners == null)
 		{
-			listeners = new LinkedList<HistoryEventListener>();
+			listeners = new LinkedList<>();
 		}
 
 		listeners.add(listener);
@@ -199,7 +199,7 @@ import java.util.Vector;
 	{
 		if (listeners == null)
 		{
-			listeners = new LinkedList<HistoryEventListener>();
+			listeners = new LinkedList<>();
 		}
 		else
 		{

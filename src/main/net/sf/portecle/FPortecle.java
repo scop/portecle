@@ -2785,7 +2785,7 @@ public class FPortecle
 		{
 			URL url = fCertFile.toURI().toURL();
 
-			ArrayList<Exception> exs = new ArrayList<Exception>();
+			ArrayList<Exception> exs = new ArrayList<>();
 			X509Certificate[] certs = X509CertUtil.loadCertificates(url, exs);
 
 			if (certs == null)
@@ -3300,7 +3300,7 @@ public class FPortecle
 			return false;
 		}
 
-		ArrayList<Exception> exceptions = new ArrayList<Exception>();
+		ArrayList<Exception> exceptions = new ArrayList<>();
 
 		KeyStore tempStore = null;
 		PEMParser reader = null;

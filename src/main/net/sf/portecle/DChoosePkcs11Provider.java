@@ -91,7 +91,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 		m_jcbProvider.setToolTipText(RB.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 		jlProvider.setLabelFor(m_jcbProvider);
 
-		TreeSet<Provider> pSet = new TreeSet<Provider>(ProviderUtil.getPkcs11Providers());
+		TreeSet<Provider> pSet = new TreeSet<>(ProviderUtil.getPkcs11Providers());
 
 		boolean providersAvailable = !pSet.isEmpty();
 

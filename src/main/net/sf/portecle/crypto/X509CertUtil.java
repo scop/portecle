@@ -561,8 +561,8 @@ public final class X509CertUtil
 	    throws CryptoException
 	{
 		// Holds certificate attributes
-		Hashtable<DERObjectIdentifier, String> attrs = new Hashtable<DERObjectIdentifier, String>();
-		Vector<DERObjectIdentifier> vOrder = new Vector<DERObjectIdentifier>();
+		Hashtable<DERObjectIdentifier, String> attrs = new Hashtable<>();
+		Vector<DERObjectIdentifier> vOrder = new Vector<>();
 
 		// Load certificate attributes
 		if (sCommonName != null)
@@ -800,7 +800,7 @@ public final class X509CertUtil
 	    throws CryptoException
 	{
 		// Extract all certificates from the Keystores creating
-		ArrayList<X509Certificate> ksCerts = new ArrayList<X509Certificate>();
+		ArrayList<X509Certificate> ksCerts = new ArrayList<>();
 		for (KeyStore ks : keyStores)
 		{
 			ksCerts.addAll(extractCertificates(ks));
@@ -868,7 +868,7 @@ public final class X509CertUtil
 	{
 		try
 		{
-			ArrayList<X509Certificate> vCerts = new ArrayList<X509Certificate>();
+			ArrayList<X509Certificate> vCerts = new ArrayList<>();
 
 			for (Enumeration<String> en = keyStore.aliases(); en.hasMoreElements();)
 			{

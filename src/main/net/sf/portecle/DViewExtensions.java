@@ -150,8 +150,7 @@ class DViewExtensions
 		});
 
 		// Make the table sortable
-		TableRowSorter<ExtensionsTableModel> sorter =
-		    new TableRowSorter<ExtensionsTableModel>(extensionsTableModel);
+		TableRowSorter<ExtensionsTableModel> sorter = new TableRowSorter<>(extensionsTableModel);
 		sorter.setComparator(2, new OidComparator());
 		m_jtExtensions.setRowSorter(sorter);
 		// ...and sort it by extension name by default

@@ -85,7 +85,7 @@ public enum SignatureType
 	private static final Map<String, SignatureType> OID_MAP;
 	static
 	{
-		HashMap<String, SignatureType> oidMap = new HashMap<String, SignatureType>();
+		HashMap<String, SignatureType> oidMap = new HashMap<>();
 		for (SignatureType st : values())
 		{
 			oidMap.put(st.oid, st);
@@ -96,8 +96,7 @@ public enum SignatureType
 	private static final Map<KeyPairType, Collection<SignatureType>> KEYPAIR_MAP;
 	static
 	{
-		HashMap<KeyPairType, Collection<SignatureType>> kpMap =
-		    new HashMap<KeyPairType, Collection<SignatureType>>();
+		HashMap<KeyPairType, Collection<SignatureType>> kpMap = new HashMap<>();
 
 		// X509V1CertificateGenerator doesn't like SHA384withDSA and SHA512withDSA as of BC 1.44
 		kpMap.put(KeyPairType.DSA,

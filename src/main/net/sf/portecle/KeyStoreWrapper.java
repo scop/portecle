@@ -45,7 +45,7 @@ class KeyStoreWrapper
 	private char[] m_cPassword;
 
 	/** Keystore entry passwords */
-	private HashMap<String, char[]> m_mPasswords = new HashMap<String, char[]>();
+	private HashMap<String, char[]> m_mPasswords = new HashMap<>();
 
 	/** File the keystore was loaded from/saved to */
 	private File m_fKeyStore;

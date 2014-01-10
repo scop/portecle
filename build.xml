@@ -30,11 +30,11 @@
 
   <property name="build.debug" value="true" />
   <property name="build.debuglevel" value="lines,source" />
-  <property name="build.srcver" value="1.6" />
-  <property name="build.targetver" value="1.6" />
+  <property name="build.srcver" value="1.7" />
+  <property name="build.targetver" value="1.7" />
   <property name="build.encoding" value="UTF-8" />
 
-  <property name="apiurl.java" value="http://download.oracle.com/javase/6/docs/api/"/>
+  <property name="apiurl.java" value="http://download.oracle.com/javase/7/docs/api/"/>
   <property name="apiurl.bcprov" value="http://www.bouncycastle.org/docs/docs1.5on/"/>
   <property name="apiurl.bcpkix" value="http://www.bouncycastle.org/docs/pkixdocs1.5on/"/>
 
@@ -60,7 +60,7 @@
       encoding="${build.encoding}"
       includeAntRuntime="false">
       <classpath refid="build.classpath" />
-      <compilerarg compiler="javac1.6" value="-Xlint:all,-serial" />
+      <compilerarg compiler="javac1.7" value="-Xlint:all,-serial" />
     </javac>
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.properties" />

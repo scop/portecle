@@ -68,8 +68,7 @@ public final class KeyStoreUtil
 	public static final char[] DUMMY_PASSWORD = "password".toCharArray();
 
 	/** Map of available keystore types */
-	private static final HashMap<KeyStoreType, Boolean> AVAILABLE_TYPES =
-	    new HashMap<KeyStoreType, Boolean>();
+	private static final HashMap<KeyStoreType, Boolean> AVAILABLE_TYPES = new HashMap<>();
 
 	/**
 	 * Private to prevent construction.
@@ -159,8 +158,8 @@ public final class KeyStoreUtil
 	public static KeyStore loadEntries(PEMParser reader, PasswordFinder pwFinder)
 	    throws CertificateException, CryptoException, IOException
 	{
-		LinkedHashSet<KeyPair> keyPairs = new LinkedHashSet<KeyPair>();
-		LinkedHashSet<Certificate> certs = new LinkedHashSet<Certificate>();
+		LinkedHashSet<KeyPair> keyPairs = new LinkedHashSet<>();
+		LinkedHashSet<Certificate> certs = new LinkedHashSet<>();
 		KeyStore keyStore = createKeyStore(KeyStoreType.PKCS12);
 
 		CertificateFactory cf = CertificateFactory.getInstance(X509CertUtil.X509_CERT_TYPE);
@@ -283,7 +282,7 @@ public final class KeyStoreUtil
 	{
 		// TODO: populate only once
 		KeyStoreType[] known = KeyStoreType.values();
-		ArrayList<KeyStoreType> available = new ArrayList<KeyStoreType>();
+		ArrayList<KeyStoreType> available = new ArrayList<>();
 		for (KeyStoreType type : known)
 		{
 			if (isAvailable(type))

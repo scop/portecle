@@ -141,7 +141,7 @@ public class DJarInfo
 	    throws IOException
 	{
 		// Store JARs
-		ArrayList<JarFile> vJars = new ArrayList<JarFile>();
+		ArrayList<JarFile> vJars = new ArrayList<>();
 
 		// Split class path into it's components using the path separator
 		String sClassPath = System.getProperty("java.class.path");

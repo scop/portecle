@@ -93,7 +93,7 @@ public enum KeyStoreType
 				this.filenameExtensions = Collections.singleton(filenameExtensions[0]);
 				break;
 			default:
-				LinkedHashSet<String> exts = new LinkedHashSet<String>(filenameExtensions.length);
+				LinkedHashSet<String> exts = new LinkedHashSet<>(filenameExtensions.length);
 				Collections.addAll(exts, filenameExtensions);
 				this.filenameExtensions = Collections.unmodifiableSet(exts);
 		}
@@ -164,7 +164,7 @@ public enum KeyStoreType
 	 */
 	public static Set<String> getKeyStoreFilenameExtensions()
 	{
-		HashSet<String> exts = new HashSet<String>();
+		HashSet<String> exts = new HashSet<>();
 		for (KeyStoreType ksType : values())
 		{
 			for (String ext : ksType.getFilenameExtensions())
