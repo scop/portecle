@@ -322,16 +322,11 @@ public final class KeyStoreUtil
 		{
 			keyStore.load(fis, cPassword);
 		}
-		catch (GeneralSecurityException ex)
-		{
-			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
-			    keyStoreType), ex);
-		}
 		catch (FileNotFoundException ex)
 		{
 			throw ex;
 		}
-		catch (IOException ex)
+		catch (GeneralSecurityException | IOException ex)
 		{
 			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
 			    keyStoreType), ex);
@@ -400,11 +395,7 @@ public final class KeyStoreUtil
 		{
 			keyStore.store(fos, cPassword);
 		}
-		catch (IOException ex)
-		{
-			throw new CryptoException(RB.getString("NoSaveKeystore.exception.message"), ex);
-		}
-		catch (GeneralSecurityException ex)
+		catch (GeneralSecurityException | IOException ex)
 		{
 			throw new CryptoException(RB.getString("NoSaveKeystore.exception.message"), ex);
 		}

@@ -304,12 +304,7 @@ class DImportKeyPair
 			}
 			m_jtfAlgorithm.setCaretPosition(0);
 		}
-		catch (KeyStoreException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			closeDialog();
-		}
-		catch (CryptoException ex)
+		catch (CryptoException | KeyStoreException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
@@ -335,12 +330,7 @@ class DImportKeyPair
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 		}
-		catch (KeyStoreException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			closeDialog();
-		}
-		catch (CryptoException ex)
+		catch (CryptoException | KeyStoreException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			closeDialog();
@@ -394,17 +384,7 @@ class DImportKeyPair
 			m_certificateChain = m_pkcs12.getCertificateChain(sAlias);
 			m_alias = sAlias;
 		}
-		catch (KeyStoreException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			closeDialog();
-		}
-		catch (NoSuchAlgorithmException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			closeDialog();
-		}
-		catch (UnrecoverableKeyException ex)
+		catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			closeDialog();

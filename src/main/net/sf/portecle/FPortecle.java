@@ -4398,12 +4398,7 @@ public class FPortecle
 		{
 			certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
 		}
-		catch (KeyStoreException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		catch (CryptoException ex)
+		catch (CryptoException | KeyStoreException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
@@ -4479,12 +4474,7 @@ public class FPortecle
 		{
 			certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
 		}
-		catch (KeyStoreException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		catch (CryptoException ex)
+		catch (CryptoException | KeyStoreException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
@@ -4691,12 +4681,7 @@ public class FPortecle
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-		catch (IOException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		catch (GeneralSecurityException ex)
+		catch (GeneralSecurityException | IOException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
@@ -4802,17 +4787,7 @@ public class FPortecle
 			JOptionPane.showMessageDialog(this, sMessage, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-		catch (IOException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		catch (GeneralSecurityException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-			return false;
-		}
-		catch (CryptoException ex)
+		catch (CryptoException | GeneralSecurityException | IOException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 			return false;
@@ -5791,19 +5766,8 @@ public class FPortecle
 			UIManager.setLookAndFeel(PREFS.get(RB.getString("AppPrefs.LookFeel"), FPortecle.DEFAULT_LOOK_FEEL));
 		}
 		// Didn't work - no matter
-		catch (UnsupportedLookAndFeelException e)
-		{
-			// Ignored
-		}
-		catch (ClassNotFoundException e)
-		{
-			// Ignored
-		}
-		catch (InstantiationException e)
-		{
-			// Ignored
-		}
-		catch (IllegalAccessException e)
+		catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+		    | UnsupportedLookAndFeelException e)
 		{
 			// Ignored
 		}

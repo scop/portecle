@@ -262,15 +262,7 @@ class DKeyStoreReport
 			StringSelection copy = new StringSelection(sKeyStoreReport);
 			clipboard.setContents(copy, copy);
 		}
-		catch (CryptoException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-		}
-		catch (ParserConfigurationException ex)
-		{
-			DThrowable.showAndWait(this, null, ex);
-		}
-		catch (TransformerException ex)
+		catch (CryptoException | ParserConfigurationException | TransformerException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
 		}

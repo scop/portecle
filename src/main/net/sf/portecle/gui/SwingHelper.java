@@ -69,11 +69,7 @@ public final class SwingHelper
 					}
 				});
 			}
-			catch (InterruptedException e)
-			{
-				LOG.log(Level.WARNING, "Error setting window visible", e); // TODO?
-			}
-			catch (InvocationTargetException e)
+			catch (InterruptedException | InvocationTargetException e)
 			{
 				LOG.log(Level.WARNING, "Error setting window visible", e); // TODO?
 			}

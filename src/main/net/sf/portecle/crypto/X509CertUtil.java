@@ -267,15 +267,7 @@ public final class X509CertUtil
 
 			return csr;
 		}
-		catch (ClassCastException ex)
-		{
-			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
-		}
-		catch (OperatorCreationException ex)
-		{
-			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
-		}
-		catch (PKCSException ex)
+		catch (ClassCastException | OperatorCreationException | PKCSException ex)
 		{
 			throw new CryptoException(RB.getString("NoLoadCsr.exception.message"), ex);
 		}
@@ -692,11 +684,7 @@ public final class X509CertUtil
 
 			return csr;
 		}
-		catch (OperatorCreationException ex)
-		{
-			throw new CryptoException(RB.getString("NoGenerateCsr.exception.message"), ex);
-		}
-		catch (PKCSException ex)
+		catch (OperatorCreationException | PKCSException ex)
 		{
 			throw new CryptoException(RB.getString("NoGenerateCsr.exception.message"), ex);
 		}
@@ -719,12 +707,7 @@ public final class X509CertUtil
 			signedCert.verify(signingCert.getPublicKey());
 		}
 		// Verification failed
-		catch (InvalidKeyException ex)
-		{
-			return false;
-		}
-		// Verification failed
-		catch (SignatureException ex)
+		catch (InvalidKeyException | SignatureException ex)
 		{
 			return false;
 		}

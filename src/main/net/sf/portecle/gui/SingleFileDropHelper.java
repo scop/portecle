@@ -146,11 +146,7 @@ public class SingleFileDropHelper
 						{
 							files.add(new File(new URI(line)));
 						}
-						catch (URISyntaxException e)
-						{
-							// Ignored
-						}
-						catch (IllegalArgumentException e)
+						catch (IllegalArgumentException | URISyntaxException e)
 						{
 							// Ignored
 						}
