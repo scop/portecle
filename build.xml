@@ -50,6 +50,7 @@
 
   <presetdef name="signjar" uri="urn:net.sf.portecle">
     <signjar
+      strict="true"
       keystore="${signjar.keystore}"
       storepass="${signjar.storepass}"
       alias="${signjar.alias}"
