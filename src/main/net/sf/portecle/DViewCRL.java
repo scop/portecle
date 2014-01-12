@@ -96,7 +96,7 @@ final class DViewCRL
 	private JButton m_jbCrlEntryExtensions;
 
 	/** Stores CRL to display */
-	private X509CRL m_crl;
+	private final X509CRL m_crl;
 
 	/**
 	 * Creates new DViewCRL dialog.

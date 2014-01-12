@@ -73,7 +73,7 @@ class DOptions
 	private File m_fCaCertsFile;
 
 	/** Available Look and Feel information - reflects what is in choice box */
-	private TreeMap<String, UIManager.LookAndFeelInfo> lookFeelInfos = new TreeMap<>();
+	private final TreeMap<String, UIManager.LookAndFeelInfo> lookFeelInfos = new TreeMap<>();
 
 	/** Chosen look &amp; feel information */
 	private String lookFeelClassName;

@@ -31,7 +31,7 @@ import java.util.Vector;
 /* package private */class History
 {
 	/** Visited pages */
-	private Vector<URL> m_vHistory = new Vector<>();
+	private final Vector<URL> m_vHistory = new Vector<>();
 
 	/** Current navigation location */
 	private int m_iCurrent;
@@ -210,7 +210,7 @@ import java.util.Vector;
 	/**
 	 * Fires a HistoryEvent to registered listeners notifying them of a change in the History's status.
 	 */
-	protected synchronized void fireHistoryEvent()
+	private synchronized void fireHistoryEvent()
 	{
 		if (listeners != null && !listeners.isEmpty())
 		{

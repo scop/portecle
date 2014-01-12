@@ -68,7 +68,7 @@ public final class NameUtil
 	 * @param name the X.500 principal
 	 * @return the common name, null if not found
 	 */
-	public static String getCommonName(X500Principal name)
+	/* default */static String getCommonName(X500Principal name)
 	{
 		if (name == null)
 		{

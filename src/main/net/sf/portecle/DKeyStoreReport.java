@@ -114,7 +114,7 @@ class DKeyStoreReport
 	}
 
 	/** Stores keystore to report on */
-	private KeyStore m_keystore;
+	private final KeyStore m_keystore;
 
 	/**
 	 * Creates new DKeyStoreReport dialog.

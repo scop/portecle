@@ -28,19 +28,11 @@ public class CryptoException
     extends Exception
 {
 	/**
-	 * Creates a new CryptoException.
-	 */
-	public CryptoException()
-	{
-		super();
-	}
-
-	/**
 	 * Creates a new CryptoException with the specified message.
 	 * 
 	 * @param sMessage Exception message
 	 */
-	public CryptoException(String sMessage)
+	/* default */CryptoException(String sMessage)
 	{
 		super(sMessage);
 	}
@@ -61,7 +53,7 @@ public class CryptoException
 	 * 
 	 * @param causeThrowable The throwable that caused this exception to be thrown
 	 */
-	public CryptoException(Throwable causeThrowable)
+	/* default */CryptoException(Throwable causeThrowable)
 	{
 		super(causeThrowable);
 	}

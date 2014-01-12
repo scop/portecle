@@ -53,7 +53,7 @@ import net.sf.portecle.PortecleJDialog;
     extends PortecleJDialog
 {
 	/** Stores throwable to display */
-	private Throwable m_throwable;
+	private final Throwable m_throwable;
 
 	/**
 	 * Creates new DThrowableDetail dialog.

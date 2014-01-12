@@ -36,7 +36,7 @@ public class JMenuItemRecentFile
     extends JMenuItem
 {
 	/** Recent file */
-	private File m_fRecentFile;
+	private final File m_fRecentFile;
 
 	/**
 	 * Menu's position in its recent file list (maintained by JMenuRecentFiles)

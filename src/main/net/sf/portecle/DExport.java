@@ -77,10 +77,10 @@ class DExport
 	private JRadioButton m_jrbPKCS12;
 
 	/** The keystore to to export from */
-	private KeyStoreWrapper m_keyStoreWrap;
+	private final KeyStoreWrapper m_keyStoreWrap;
 
 	/** The keystore entry to export */
-	private String m_sEntryAlias;
+	private final String m_sEntryAlias;
 
 	/** Records whether or not the an export is selected */
 	private boolean m_bExportSelected;

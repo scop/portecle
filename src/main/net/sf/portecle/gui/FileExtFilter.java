@@ -32,10 +32,10 @@ public class FileExtFilter
     extends FileFilter
 {
 	/** File extensions to filter against */
-	private String[] m_sExts;
+	private final String[] m_sExts;
 
 	/** Collective description of the set of extensions */
-	private String m_sDescription;
+	private final String m_sDescription;
 
 	/**
 	 * Construct a FileExtFilter for a single file extension.

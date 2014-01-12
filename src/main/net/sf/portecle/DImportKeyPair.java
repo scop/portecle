@@ -76,7 +76,7 @@ class DImportKeyPair
 	private JTextField m_jtfAlgorithm;
 
 	/** PKCS #12 keystore */
-	private KeyStore m_pkcs12;
+	private final KeyStore m_pkcs12;
 
 	/** Private key part of key pair chosen by the user for import */
 	private Key m_privateKey;

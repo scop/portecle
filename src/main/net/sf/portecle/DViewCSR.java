@@ -77,7 +77,7 @@ class DViewCSR
 	private JTextField m_jtfSignatureAlgorithm;
 
 	/** Stores request to display */
-	private PKCS10CertificationRequest m_req;
+	private final PKCS10CertificationRequest m_req;
 
 	/** Default filename for saving */
 	private String m_basename;

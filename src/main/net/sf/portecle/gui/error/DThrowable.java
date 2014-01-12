@@ -48,7 +48,7 @@ public class DThrowable
     extends PortecleJDialog
 {
 	/** Stores Throwable to display */
-	private Throwable m_throwable;
+	private final Throwable m_throwable;
 
 	/**
 	 * Exception message parts that may indicate that the culprit for the Throwable is lack of unrestricted

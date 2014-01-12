@@ -88,7 +88,7 @@ public final class X509CertUtil
 	private static final String OPENSSL_PEM_ENCODING = "OpenSSL_PEM";
 
 	/** Type name for X.509 certificates */
-	public static final String X509_CERT_TYPE = "X.509";
+	/* default */static final String X509_CERT_TYPE = "X.509";
 
 	/**
 	 * Private to prevent construction.

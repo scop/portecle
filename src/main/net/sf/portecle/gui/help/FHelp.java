@@ -58,19 +58,19 @@ public class FHelp
     implements HistoryEventListener
 {
 	/** Help frame's title */
-	private String m_sTitle;
+	private final String m_sTitle;
 
 	/** History home page */
 	private URL m_home;
 
 	/** Back toolbar button */
-	private JButton m_jbBack;
+	private final JButton m_jbBack;
 
 	/** Forward toolbar button */
-	private JButton m_jbForward;
+	private final JButton m_jbForward;
 
 	/** Help navigation history */
-	private History m_history;
+	private final History m_history;
 
 	/**
 	 * Constructs a new help window with the specified title, icon, home page, and contents page.
@@ -196,6 +196,10 @@ public class FHelp
 			}
 		});
 
+		// Initialize navigation history
+		m_history = new History(home);
+		m_history.addHistoryEventListener(this);
+
 		// Put buttons in tool bar
 		JToolBar jtbTools = new JToolBar(m_sTitle);
 		jtbTools.setFloatable(false);
@@ -243,7 +247,6 @@ public class FHelp
 			return;
 		}
 
-		// Initialize navigation history
 		try
 		{
 			m_home = home;
@@ -256,9 +259,6 @@ public class FHelp
 			    JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-
-		m_history = new History(home);
-		m_history.addHistoryEventListener(this);
 
 		// Make panes scrollable
 		JScrollPane jspTopic = new JScrollPane(jepTopic);

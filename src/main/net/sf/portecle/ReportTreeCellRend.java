@@ -233,10 +233,10 @@ class ReportTreeCellRend
 		private static final int TRUSTED_CERTIFICATE = 2;
 
 		/** Entry type */
-		private int m_iType;
+		private final int m_iType;
 
 		/** Entry alias */
-		private String m_sAlias;
+		private final String m_sAlias;
 
 		/**
 		 * Construct an entry.

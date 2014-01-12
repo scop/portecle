@@ -165,7 +165,7 @@ public final class NetUtil
 	 * @throws ClassCastException if obj is not a supported object
 	 * @throws MalformedURLException if converting obj to a URL fails
 	 */
-	public static URL toURL(Object obj)
+	/* default */static URL toURL(Object obj)
 	    throws MalformedURLException
 	{
 		if (obj instanceof File)

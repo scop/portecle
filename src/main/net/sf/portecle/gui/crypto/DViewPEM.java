@@ -60,13 +60,13 @@ public class DViewPEM
     extends PortecleJDialog
 {
 	/** Stores object to display */
-	private Object m_object;
+	private final Object m_object;
 
 	/** Stores PEM encoding */
 	private String m_pem;
 
 	/** File chooser for saving the PEM encoded object */
-	private JFileChooser m_chooser;
+	private final JFileChooser m_chooser;
 
 	/**
 	 * Creates new DViewPEM dialog.

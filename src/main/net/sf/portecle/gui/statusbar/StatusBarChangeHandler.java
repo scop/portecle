@@ -34,10 +34,10 @@ public class StatusBarChangeHandler
     implements ChangeListener
 {
 	/** Help text for the menu item */
-	private String m_sHelpText;
+	private final String m_sHelpText;
 
 	/** The status bar */
-	private StatusBar m_statusBar;
+	private final StatusBar m_statusBar;
 
 	/**
 	 * Construct a StatusBarChangeHandler.

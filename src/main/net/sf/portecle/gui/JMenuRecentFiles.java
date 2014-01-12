@@ -36,7 +36,7 @@ public class JMenuRecentFiles
     extends JMenu
 {
 	/** Maximum length of list */
-	public static final int MAX_LENGTH = 9;
+	private static final int MAX_LENGTH = 9;
 
 	/** Recent file list menu items */
 	private final JMenuItemRecentFile[] m_jmirf;
