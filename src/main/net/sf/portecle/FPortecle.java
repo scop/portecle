@@ -6520,7 +6520,7 @@ public class FPortecle
 		/**
 		 * Construct CreateAndShowGui.
 		 * 
-		 * @param file File or host:port to open initially (supply null if none)
+		 * @param obj File or host:port to open initially (supply null if none)
 		 */
 		public CreateAndShowGui(Object obj)
 		{

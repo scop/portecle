@@ -159,8 +159,6 @@ public enum KeyStoreType
 
 	/**
 	 * Get set of all known keystore filename extensions.
-	 * 
-	 * @return
 	 */
 	public static Set<String> getKeyStoreFilenameExtensions()
 	{

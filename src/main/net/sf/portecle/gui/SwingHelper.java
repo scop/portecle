@@ -111,7 +111,6 @@ public final class SwingHelper
 	 * @param parentComponent
 	 * @param message
 	 * @param title
-	 * @return
 	 * @see JOptionPane#showConfirmDialog(Component, Object, String, int)
 	 */
 	public static int showConfirmDialog(Component parentComponent, Object message, String title)

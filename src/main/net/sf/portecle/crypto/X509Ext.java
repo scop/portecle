@@ -1882,7 +1882,6 @@ public class X509Ext
 	 * Get basic ASN.1 object as string.
 	 * 
 	 * @param bValue
-	 * @return
 	 * @throws IOException
 	 */
 	private String getASN1ObjectString(byte[] bValue)
@@ -2089,7 +2088,6 @@ public class X509Ext
 	 * @param href link URL, HTML unescaped
 	 * @param content link content, HTML escaped
 	 * @param linkClass link class
-	 * @return
 	 */
 	private static CharSequence getLink(String href, String content, LinkClass linkClass)
 	{
