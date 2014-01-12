@@ -143,7 +143,7 @@
       <fileset dir="${build}/webstart" includes="*.jar"/>
       <mapper type="glob" from="*.jar" to="*.jar.pack.gz"/>
     </pack200>
-    <length property="jarsize" file="${build}/webstart/portecle.jar" />
+    <length property="jarsize" file="${build}/webstart/${jar}" />
     <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
     <length property="bcxjarsize" file="${build}/webstart/bcpkix.jar" />
     <copy file="${src}/etc/portecle.jnlp" todir="${build}/webstart">
