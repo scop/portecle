@@ -136,8 +136,17 @@
       storepass="${signjar.storepass}"
       alias="${signjar.alias}"
       keypass="${signjar.keypass}"
-      sigfile="PORTECLE">
-      <fileset dir="${build}/webstart" includes="*.jar"/>
+      sigfile="PORTECLE"
+      digestalg="SHA-1">
+      <fileset dir="${build}/webstart" includes="bc*.jar"/>
+    </signjar>
+    <signjar
+      keystore="${signjar.keystore}"
+      storepass="${signjar.storepass}"
+      alias="${signjar.alias}"
+      keypass="${signjar.keypass}"
+      sigfile="PORTECLE"
+      jar="${build}/webstart/${jar}">
     </signjar>
     <pack200 todir="${build}/webstart">
       <fileset dir="${build}/webstart" includes="*.jar"/>
