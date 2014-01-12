@@ -58,6 +58,10 @@
       sigfile="PORTECLE"/>
   </presetdef>
 
+  <presetdef name="pack200" uri="urn:net.sf.portecle">
+    <pack200 effort="9"/>
+  </presetdef>
+
   <target name="build">
     <mkdir dir="${build}/classes" />
     <javac
@@ -140,15 +144,15 @@
     </copy>
     <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
     <copy file="${bcpkix.jar}" tofile="${build}/webstart/bcpkix.jar"/>
-    <pack200 file="${build}/${jar}" todir="${build}/webstart" repack="true"/>
+    <p:pack200 file="${build}/${jar}" todir="${build}/webstart" repack="true"/>
     <p:signjar digestalg="SHA-1">
       <fileset dir="${build}/webstart" includes="bc*.jar"/>
     </p:signjar>
     <p:signjar jar="${build}/webstart/${jar}"/>
-    <pack200 todir="${build}/webstart">
+    <p:pack200 todir="${build}/webstart">
       <fileset dir="${build}/webstart" includes="*.jar"/>
       <mapper type="glob" from="*.jar" to="*.jar.pack.gz"/>
-    </pack200>
+    </p:pack200>
     <length property="jarsize" file="${build}/webstart/${jar}" />
     <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
     <length property="bcxjarsize" file="${build}/webstart/bcpkix.jar" />
