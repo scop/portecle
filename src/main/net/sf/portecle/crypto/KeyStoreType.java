@@ -165,10 +165,7 @@ public enum KeyStoreType
 		HashSet<String> exts = new HashSet<>();
 		for (KeyStoreType ksType : values())
 		{
-			for (String ext : ksType.getFilenameExtensions())
-			{
-				exts.add(ext);
-			}
+			exts.addAll(ksType.getFilenameExtensions());
 		}
 		return exts;
 	}
