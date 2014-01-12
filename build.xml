@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="portecle" basedir="." default="jar">
+<project name="portecle" basedir="." default="jar" xmlns:p="urn:net.sf.portecle">
 
   <property name="version" value="1.7" />
   <property name="helpbaseurl.default" value="/doc" />
@@ -47,6 +47,15 @@
 
   <typedef resource="org/jdesktop/deployment/ant/pack200/antlib.xml"
            classpath="${pack200.jar}"/>
+
+  <presetdef name="signjar" uri="urn:net.sf.portecle">
+    <signjar
+      keystore="${signjar.keystore}"
+      storepass="${signjar.storepass}"
+      alias="${signjar.alias}"
+      keypass="${signjar.keypass}"
+      sigfile="PORTECLE"/>
+  </presetdef>
 
   <target name="build">
     <mkdir dir="${build}/classes" />
@@ -131,23 +140,10 @@
     <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
     <copy file="${bcpkix.jar}" tofile="${build}/webstart/bcpkix.jar"/>
     <pack200 file="${build}/${jar}" todir="${build}/webstart" repack="true"/>
-    <signjar
-      keystore="${signjar.keystore}"
-      storepass="${signjar.storepass}"
-      alias="${signjar.alias}"
-      keypass="${signjar.keypass}"
-      sigfile="PORTECLE"
-      digestalg="SHA-1">
+    <p:signjar digestalg="SHA-1">
       <fileset dir="${build}/webstart" includes="bc*.jar"/>
-    </signjar>
-    <signjar
-      keystore="${signjar.keystore}"
-      storepass="${signjar.storepass}"
-      alias="${signjar.alias}"
-      keypass="${signjar.keypass}"
-      sigfile="PORTECLE"
-      jar="${build}/webstart/${jar}">
-    </signjar>
+    </p:signjar>
+    <p:signjar jar="${build}/webstart/${jar}"/>
     <pack200 todir="${build}/webstart">
       <fileset dir="${build}/webstart" includes="*.jar"/>
       <mapper type="glob" from="*.jar" to="*.jar.pack.gz"/>
