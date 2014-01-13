@@ -1,4 +1,4 @@
-New in Portecle x.x (201x-xx-xx):
+New in Portecle 1.8 (2014-01-14):
 ---------------------------------
 
 Enhancements:
