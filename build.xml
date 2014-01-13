@@ -140,27 +140,48 @@
 
   <target name="webstart" depends="jar" description="Builds Java Web Start dir">
     <mkdir dir="${build}/webstart"/>
+
     <copy todir="${build}/webstart" flatten="true" preservelastmodified="true">
       <fileset dir="${src}">
         <include name="main/net/sf/portecle/images/splash.png"/>
         <include name="icons/portecle.png"/>
       </fileset>
     </copy>
+
     <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
     <copy file="${bcpkix.jar}" tofile="${build}/webstart/bcpkix.jar"/>
-    <p:pack200 file="${build}/${jar}" todir="${build}/webstart" repack="true"/>
     <p:signjar digestalg="SHA-1">
       <fileset dir="${build}/webstart" includes="bc*.jar"/>
     </p:signjar>
+    <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
+    <length property="bcxjarsize" file="${build}/webstart/bcpkix.jar" />
+
+    <copy file="${src}/etc/portecle.jnlp" tofile="${build}/webstart/APPLICATION_TEMPLATE.JNLP" overwrite="true">
+      <filterset>
+        <filter token="VERSION" value="${version}" />
+        <filter token="CODEBASE" value="${jnlp.codebase}" />
+        <filter token="JARSIZE" value="*" />
+        <filter token="BCJARSIZE" value="${bcjarsize}" />
+        <filter token="BCXJARSIZE" value="${bcxjarsize}" />
+      </filterset>
+    </copy>
+    <xmlvalidate file="${build}/webstart/APPLICATION_TEMPLATE.JNLP"/>
+
+    <copy file="${build}/${jar}" todir="${build}/webstart"/>
+    <jar jarfile="${build}/webstart/${jar}" update="true">
+      <zipfileset file="${build}/webstart/APPLICATION_TEMPLATE.JNLP" prefix="JNLP-INF"/>
+    </jar>
+    <p:pack200 file="${build}/webstart/${jar}" todir="${build}/webstart" repack="true" overwrite="true"/>
+
     <p:signjar jar="${build}/webstart/${jar}"/>
+    <length property="jarsize" file="${build}/webstart/${jar}" />
+
     <p:pack200 todir="${build}/webstart">
       <fileset dir="${build}/webstart" includes="*.jar"/>
       <mapper type="glob" from="*.jar" to="*.jar.pack.gz"/>
     </p:pack200>
-    <length property="jarsize" file="${build}/webstart/${jar}" />
-    <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
-    <length property="bcxjarsize" file="${build}/webstart/bcpkix.jar" />
-    <copy file="${src}/etc/portecle.jnlp" todir="${build}/webstart">
+
+    <copy file="${src}/etc/portecle.jnlp" todir="${build}/webstart" overwrite="true">
       <filterset>
         <filter token="VERSION" value="${version}" />
         <filter token="CODEBASE" value="${jnlp.codebase}" />
@@ -170,6 +191,7 @@
       </filterset>
     </copy>
     <xmlvalidate file="${build}/webstart/portecle.jnlp"/>
+
   </target>
 
   <target name="javadoc">
