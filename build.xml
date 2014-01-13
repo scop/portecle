@@ -147,6 +147,8 @@
         <include name="icons/portecle.png"/>
       </fileset>
     </copy>
+    <length property="iconsize" file="${build}/webstart/portecle.png"/>
+    <length property="splashsize" file="${build}/webstart/splash.png"/>
 
     <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
     <copy file="${bcpkix.jar}" tofile="${build}/webstart/bcpkix.jar"/>
@@ -163,6 +165,8 @@
         <filter token="JARSIZE" value="*" />
         <filter token="BCJARSIZE" value="${bcjarsize}" />
         <filter token="BCXJARSIZE" value="${bcxjarsize}" />
+        <filter token="ICONSIZE" value="${iconsize}" />
+        <filter token="SPLASHSIZE" value="${splashsize}" />
       </filterset>
     </copy>
     <xmlvalidate file="${build}/webstart/APPLICATION_TEMPLATE.JNLP"/>
@@ -188,6 +192,8 @@
         <filter token="JARSIZE" value="${jarsize}" />
         <filter token="BCJARSIZE" value="${bcjarsize}" />
         <filter token="BCXJARSIZE" value="${bcxjarsize}" />
+        <filter token="ICONSIZE" value="${iconsize}" />
+        <filter token="SPLASHSIZE" value="${splashsize}" />
       </filterset>
     </copy>
     <xmlvalidate file="${build}/webstart/portecle.jnlp"/>

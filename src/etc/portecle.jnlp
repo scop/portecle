@@ -9,8 +9,8 @@
 		<description kind="short">User friendly GUI application for creating,
 			managing and examining key stores, keys, certificates, certificate
 			requests, certificate revocation lists and more.</description>
-		<icon href="portecle.png" width="32" height="32"/>
-		<icon href="splash.png" width="258" height="300" kind="splash"/>
+		<icon href="portecle.png" width="32" height="32" size="@ICONSIZE@"/>
+		<icon href="splash.png" width="258" height="300" size="@SPLASHSIZE@" kind="splash"/>
 		<offline-allowed/>
 		<shortcut online="false">
 			<desktop/>
