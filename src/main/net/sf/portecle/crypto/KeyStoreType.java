@@ -74,7 +74,8 @@ public enum KeyStoreType
 	 * 
 	 * @param typeName
 	 * @param prettyName
-	 * @param supportsCreationDates Whether the keystore supports creation dates
+	 * @param entryCreationDateUseful Whether the keystore's creation dates have useful data
+	 * @param entryPasswordSupported Whether entry passwords are supported
 	 * @param filenameExtensions associated filename extensions
 	 */
 	private KeyStoreType(String typeName, String prettyName, boolean entryCreationDateUseful,

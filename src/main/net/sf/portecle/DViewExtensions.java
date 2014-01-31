@@ -58,7 +58,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.Element;
 import javax.swing.text.html.HTML;
 
-import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.OidComparator;
 import net.sf.portecle.crypto.X509Ext;
 import net.sf.portecle.crypto.X509Ext.LinkClass;
@@ -87,7 +86,6 @@ class DViewExtensions
 	 * @param sTitle The dialog title
 	 * @param modal Is dialog modal?
 	 * @param extensions Extensions to display
-	 * @throws CryptoException A problem was encountered getting the extension details
 	 */
 	public DViewExtensions(Window parent, String sTitle, boolean modal, X509Extension extensions)
 	{
