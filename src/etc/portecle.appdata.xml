@@ -16,7 +16,7 @@
         </p>
     </description>
     <screenshots>
-        <screenshot type="default" width="624" height="351">http://a.fsdn.com/con/app/proj/portecle/screenshots/portecle.png</screenshot>
+        <screenshot type="default" width="624" height="351">https://sourceforge.net/p/portecle/screenshot/portecle.png</screenshot>
     </screenshots>
     <url type="homepage">http://portecle.sourceforge.net/</url>
     <updatecontact>ville.skytta@iki.fi</updatecontact>
