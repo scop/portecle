@@ -61,7 +61,7 @@ class DOptions
 	private JTextField m_jtfCaCertsFile;
 
 	/** Look &amp; feel combo box */
-	private JComboBox m_jcbLookFeel;
+	private JComboBox<String> m_jcbLookFeel;
 
 	/** Look &amp; feel decorated check box */
 	private JCheckBox m_jcbLookFeelDecorated;
@@ -150,7 +150,7 @@ class DOptions
 		// Look & feel tabbed options tab panel
 
 		// Create and populate combo box with available look & feels
-		m_jcbLookFeel = new JComboBox();
+		m_jcbLookFeel = new JComboBox<>();
 		m_jcbLookFeel.setToolTipText(RB.getString("DOptions.m_jcbLookFeel.tooltip"));
 
 		// Current Look and Feel

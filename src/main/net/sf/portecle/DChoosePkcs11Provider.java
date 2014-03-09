@@ -49,7 +49,7 @@ import net.sf.portecle.crypto.ProviderUtil;
     extends PortecleJDialog
 {
 	/** Provider drop-down box */
-	private JComboBox m_jcbProvider;
+	private JComboBox<String> m_jcbProvider;
 
 	/** Stores the provider chosen by the user */
 	private String m_sProvider;
@@ -87,7 +87,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 		getContentPane().setLayout(new BorderLayout());
 
 		JLabel jlProvider = new JLabel(RB.getString("DChoosePkcs11Provider.jlProvider.text"));
-		m_jcbProvider = new JComboBox();
+		m_jcbProvider = new JComboBox<>();
 		m_jcbProvider.setToolTipText(RB.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 		jlProvider.setLabelFor(m_jcbProvider);
 

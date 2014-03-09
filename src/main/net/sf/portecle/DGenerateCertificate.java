@@ -92,7 +92,7 @@ class DGenerateCertificate
 	private static final String DEFAULT_VALIDITY = RB.getString("DGenerateCertificate.defaultValidityPeriod");
 
 	/** Signature Algorithm combo box */
-	private JComboBox m_jcbSigAlg;
+	private JComboBox<SignatureType> m_jcbSigAlg;
 
 	/** Validity text field */
 	private JTextField m_jtfValidity;
@@ -191,7 +191,7 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jlSigAlg = (GridBagConstraints) gbcLbl.clone();
 		gbc_jlSigAlg.gridy = gridy++;
 
-		m_jcbSigAlg = new JComboBox();
+		m_jcbSigAlg = new JComboBox<>();
 		populateSigAlgs(m_keyPairType, m_jcbSigAlg);
 		m_jcbSigAlg.setToolTipText(RB.getString("DGenerateCertificate.m_jcbSigAlg.tooltip"));
 		jlSigAlg.setLabelFor(m_jcbSigAlg);
@@ -349,7 +349,7 @@ class DGenerateCertificate
 	 * @param type key pair type
 	 * @param combo the combo box to populate
 	 */
-	private static void populateSigAlgs(KeyPairType type, JComboBox combo)
+	private static void populateSigAlgs(KeyPairType type, JComboBox<SignatureType> combo)
 	{
 		combo.removeAllItems();
 		for (SignatureType st : SignatureType.valuesFor(type))

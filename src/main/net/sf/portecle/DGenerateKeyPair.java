@@ -69,7 +69,7 @@ class DGenerateKeyPair
 	private JRadioButton m_jrbRSA;
 
 	/** Key size combo box */
-	private JComboBox m_jcbKeySize;
+	private JComboBox<String> m_jcbKeySize;
 
 	/** Key pair type chosen for generation */
 	private KeyPairType m_keyPairType;
@@ -107,7 +107,7 @@ class DGenerateKeyPair
 		jpKeyAlg.add(m_jrbRSA);
 
 		JLabel jlKeySize = new JLabel(RB.getString("DGenerateKeyPair.jlKeySize.text"));
-		m_jcbKeySize = new JComboBox();
+		m_jcbKeySize = new JComboBox<>();
 		m_jcbKeySize.setToolTipText(RB.getString("DGenerateKeyPair.m_jcbKeySize.tooltip"));
 		m_jcbKeySize.setEditable(true);
 		Component editor = m_jcbKeySize.getEditor().getEditorComponent();
