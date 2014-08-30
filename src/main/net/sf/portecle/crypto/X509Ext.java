@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2012 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -41,18 +41,18 @@ import java.util.logging.Logger;
 
 import net.sf.portecle.StringUtil;
 
+import org.bouncycastle.asn1.ASN1Boolean;
 import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1GeneralizedTime;
+import org.bouncycastle.asn1.ASN1Integer;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.ASN1String;
 import org.bouncycastle.asn1.ASN1TaggedObject;
 import org.bouncycastle.asn1.DERBitString;
-import org.bouncycastle.asn1.DERBoolean;
 import org.bouncycastle.asn1.DERGeneralString;
-import org.bouncycastle.asn1.DERGeneralizedTime;
-import org.bouncycastle.asn1.DERInteger;
-import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.DERUTCTime;
@@ -71,6 +71,7 @@ import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.DistributionPoint;
 import org.bouncycastle.asn1.x509.DistributionPointName;
 import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
+import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyPurposeId;
@@ -80,8 +81,7 @@ import org.bouncycastle.asn1.x509.PolicyQualifierId;
 import org.bouncycastle.asn1.x509.PrivateKeyUsagePeriod;
 import org.bouncycastle.asn1.x509.ReasonFlags;
 import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
-import org.bouncycastle.asn1.x509.X509Extension;
-import org.bouncycastle.asn1.x509.X509Name;
+import org.bouncycastle.asn1.x509.X509ObjectIdentifiers;
 
 /**
  * Holds the information of an X.509 extension and provides the ability to get the extension's name and value
@@ -160,7 +160,7 @@ public class X509Ext
 	private final String m_sName;
 
 	/** Extension object identifier */
-	private final DERObjectIdentifier m_Oid;
+	private final ASN1ObjectIdentifier m_Oid;
 
 	/** Extension value as a DER-encoded OCTET string */
 	private final byte[] m_bValue;
@@ -177,7 +177,7 @@ public class X509Ext
 	 */
 	public X509Ext(String sOid, byte[] bValue, boolean bCritical)
 	{
-		m_Oid = new DERObjectIdentifier(sOid);
+		m_Oid = new ASN1ObjectIdentifier(sOid);
 
 		m_bValue = new byte[bValue.length];
 		System.arraycopy(bValue, 0, m_bValue, 0, bValue.length);
@@ -243,72 +243,72 @@ public class X509Ext
 		byte[] bOctets = ((ASN1OctetString) ASN1Primitive.fromByteArray(m_bValue)).getOctets();
 
 		// Octet string processed differently depending on extension type
-		if (m_Oid.equals(X509Name.CN))
+		if (m_Oid.equals(X509ObjectIdentifiers.commonName))
 		{
 			return getCommonNameStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.subjectKeyIdentifier))
+		else if (m_Oid.equals(Extension.subjectKeyIdentifier))
 		{
 			return getSubjectKeyIdentifierStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.keyUsage))
+		else if (m_Oid.equals(Extension.keyUsage))
 		{
 			return getKeyUsageStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.privateKeyUsagePeriod))
+		else if (m_Oid.equals(Extension.privateKeyUsagePeriod))
 		{
 			return getPrivateKeyUsagePeriod(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.issuerAlternativeName) ||
-		    m_Oid.equals(X509Extension.subjectAlternativeName))
+		else if (m_Oid.equals(Extension.issuerAlternativeName) ||
+		    m_Oid.equals(Extension.subjectAlternativeName))
 		{
 			return getAlternativeName(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.basicConstraints))
+		else if (m_Oid.equals(Extension.basicConstraints))
 		{
 			return getBasicConstraintsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.cRLNumber))
+		else if (m_Oid.equals(Extension.cRLNumber))
 		{
 			return getCrlNumberStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.reasonCode))
+		else if (m_Oid.equals(Extension.reasonCode))
 		{
 			return getReasonCodeStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.instructionCode))
+		else if (m_Oid.equals(Extension.instructionCode))
 		{
 			return getHoldInstructionCodeStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.invalidityDate))
+		else if (m_Oid.equals(Extension.invalidityDate))
 		{
 			return getInvalidityDateStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.deltaCRLIndicator))
+		else if (m_Oid.equals(Extension.deltaCRLIndicator))
 		{
 			return getDeltaCrlIndicatorStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.certificateIssuer))
+		else if (m_Oid.equals(Extension.certificateIssuer))
 		{
 			return getCertificateIssuerStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.policyMappings))
+		else if (m_Oid.equals(Extension.policyMappings))
 		{
 			return getPolicyMappingsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.authorityKeyIdentifier))
+		else if (m_Oid.equals(Extension.authorityKeyIdentifier))
 		{
 			return getAuthorityKeyIdentifierStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.policyConstraints))
+		else if (m_Oid.equals(Extension.policyConstraints))
 		{
 			return getPolicyConstraintsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.extendedKeyUsage))
+		else if (m_Oid.equals(Extension.extendedKeyUsage))
 		{
 			return getExtendedKeyUsageStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.inhibitAnyPolicy))
+		else if (m_Oid.equals(Extension.inhibitAnyPolicy))
 		{
 			return getInhibitAnyPolicyStringValue(bOctets);
 		}
@@ -336,16 +336,16 @@ public class X509Ext
 		{
 			return getUnknownOidStringValue(bOctets); // TODO
 		}
+		// TODO: https://github.com/bcgit/bc-java/pull/92
 		else if (m_Oid.toString().equals("1.3.6.1.4.1.311.21.4"))
 		{
 			return getMicrosoftCrlNextPublish(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.authorityInfoAccess) ||
-		    m_Oid.equals(X509Extension.subjectInfoAccess))
+		else if (m_Oid.equals(Extension.authorityInfoAccess) || m_Oid.equals(Extension.subjectInfoAccess))
 		{
 			return getInformationAccessStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.logoType))
+		else if (m_Oid.equals(Extension.logoType))
 		{
 			return getLogotypeStringValue(bOctets);
 		}
@@ -375,11 +375,11 @@ public class X509Ext
 		{
 			return getNetscapeExtensionURLValue(bOctets, LinkClass.CRL);
 		}
-		else if (m_Oid.equals(X509Extension.cRLDistributionPoints))
+		else if (m_Oid.equals(Extension.cRLDistributionPoints))
 		{
 			return getCrlDistributionPointsStringValue(bOctets);
 		}
-		else if (m_Oid.equals(X509Extension.certificatePolicies))
+		else if (m_Oid.equals(Extension.certificatePolicies))
 		{
 			return getCertificatePoliciesStringValue(bOctets);
 		}
@@ -543,7 +543,7 @@ public class X509Ext
 		PrivateKeyUsagePeriod pkup = PrivateKeyUsagePeriod.getInstance(bValue);
 
 		StringBuilder strBuff = new StringBuilder();
-		DERGeneralizedTime dTime;
+		ASN1GeneralizedTime dTime;
 
 		if ((dTime = pkup.getNotBefore()) != null)
 		{
@@ -630,7 +630,7 @@ public class X509Ext
 	    throws IOException
 	{
 		return NumberFormat.getInstance().format(
-		    ((DERInteger) ASN1Primitive.fromByteArray(bValue)).getValue());
+		    ((ASN1Integer) ASN1Primitive.fromByteArray(bValue)).getValue());
 	}
 
 	/**
@@ -698,7 +698,7 @@ public class X509Ext
 	    throws IOException, ParseException
 	{
 		// Get invalidity date
-		DERGeneralizedTime invalidityDate = (DERGeneralizedTime) ASN1Primitive.fromByteArray(bValue);
+		ASN1GeneralizedTime invalidityDate = (ASN1GeneralizedTime) ASN1Primitive.fromByteArray(bValue);
 
 		// Format invalidity date for display
 		return formatGeneralizedTime(invalidityDate);
@@ -720,7 +720,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// Get CRL number
-		DERInteger derInt = (DERInteger) ASN1Primitive.fromByteArray(bValue);
+		ASN1Integer derInt = (ASN1Integer) ASN1Primitive.fromByteArray(bValue);
 
 		// Convert to and return hex string representation of number
 		// TODO: why not just a number
@@ -779,7 +779,7 @@ public class X509Ext
 
 			if (pmLen > 0)
 			{
-				DERObjectIdentifier issuerDomainPolicy = (DERObjectIdentifier) policyMapping.getObjectAt(0);
+				ASN1ObjectIdentifier issuerDomainPolicy = (ASN1ObjectIdentifier) policyMapping.getObjectAt(0);
 
 				strBuff.append("<ul><li>");
 				strBuff.append(MessageFormat.format(RB.getString("IssuerDomainPolicy"),
@@ -789,7 +789,8 @@ public class X509Ext
 
 			if (pmLen > 1)
 			{
-				DERObjectIdentifier subjectDomainPolicy = (DERObjectIdentifier) policyMapping.getObjectAt(1);
+				ASN1ObjectIdentifier subjectDomainPolicy =
+				    (ASN1ObjectIdentifier) policyMapping.getObjectAt(1);
 
 				strBuff.append("<ul><li>");
 				strBuff.append(MessageFormat.format(RB.getString("SubjectDomainPolicy"),
@@ -889,8 +890,8 @@ public class X509Ext
 		for (int i = 0, len = policyConstraints.size(); i < len; i++)
 		{
 			DERTaggedObject policyConstraint = (DERTaggedObject) policyConstraints.getObjectAt(i);
-			DERInteger skipCerts =
-			    new DERInteger(((DEROctetString) policyConstraint.getObject()).getOctets());
+			ASN1Integer skipCerts =
+			    new ASN1Integer(((DEROctetString) policyConstraint.getObject()).getOctets());
 			int iSkipCerts = skipCerts.getValue().intValue();
 
 			switch (policyConstraint.getTagNo())
@@ -966,7 +967,7 @@ public class X509Ext
 	    throws IOException
 	{
 		// Get skip certs integer
-		DERInteger skipCerts = (DERInteger) ASN1Primitive.fromByteArray(bValue);
+		ASN1Integer skipCerts = (ASN1Integer) ASN1Primitive.fromByteArray(bValue);
 
 		int iSkipCerts = skipCerts.getValue().intValue();
 
@@ -1019,13 +1020,13 @@ public class X509Ext
 
 		sb.append(RB.getString("MsftCertTemplateId"));
 		sb.append(": ");
-		sb.append(((DERObjectIdentifier) seq.getObjectAt(0)).getId());
+		sb.append(((ASN1ObjectIdentifier) seq.getObjectAt(0)).getId());
 		sb.append("<br><br>");
 
-		DERInteger derInt = (DERInteger) seq.getObjectAt(1);
+		ASN1Integer derInt = (ASN1Integer) seq.getObjectAt(1);
 		sb.append(MessageFormat.format(RB.getString("MsftCertTemplateMajorVer"), derInt.getValue()));
 
-		if ((derInt = (DERInteger) seq.getObjectAt(2)) != null)
+		if ((derInt = (ASN1Integer) seq.getObjectAt(2)) != null)
 		{
 			sb.append("<br><br>");
 			sb.append(MessageFormat.format(RB.getString("MsftCertTemplateMinorVer"), derInt.getValue()));
@@ -1046,7 +1047,7 @@ public class X509Ext
 	private String getMicrosoftCAVersionStringValue(byte[] bValue)
 	    throws IOException
 	{
-		int ver = ((DERInteger) ASN1Primitive.fromByteArray(bValue)).getValue().intValue();
+		int ver = ((ASN1Integer) ASN1Primitive.fromByteArray(bValue)).getValue().intValue();
 		String certIx = String.valueOf(ver & 0xffff); // low 16 bits
 		String keyIx = String.valueOf(ver >> 16); // high 16 bits
 		StringBuilder sb = new StringBuilder();
@@ -1358,7 +1359,7 @@ public class X509Ext
 		sb.append("<br>");
 
 		// Nonverified Subscriber Information
-		boolean bNSI = ((DERBoolean) attrs.getObjectAt(1)).isTrue();
+		boolean bNSI = ((ASN1Boolean) attrs.getObjectAt(1)).isTrue();
 		sb.append("Nonverified Subscriber Information: ").append(bNSI);
 		sb.append("<br>");
 
@@ -1392,7 +1393,7 @@ public class X509Ext
 		ASN1Sequence cclass = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(2)).getObject();
 		sb.append("<li>").append(RB.getString("NovellCertClass"));
 		sb.append(": ");
-		BigInteger sv = ((DERInteger) cclass.getObjectAt(0)).getValue();
+		BigInteger sv = ((ASN1Integer) cclass.getObjectAt(0)).getValue();
 		String sc = getRes("NovellCertClass." + sv, "UnregocnisedNovellCertClass");
 		sb.append(MessageFormat.format(sc, sv));
 		sb.append("</li>");
@@ -1400,7 +1401,7 @@ public class X509Ext
 		boolean valid = true;
 		if (cclass.size() > 1)
 		{
-			valid = ((DERBoolean) cclass.getObjectAt(1)).isTrue();
+			valid = ((ASN1Boolean) cclass.getObjectAt(1)).isTrue();
 		}
 		sb.append("<li>");
 		sb.append(RB.getString("NovellCertClassValid." + valid));
@@ -1432,7 +1433,7 @@ public class X509Ext
 	{
 		StringBuilder res = new StringBuilder();
 
-		boolean enforceQuality = ((DERBoolean) seq.getObjectAt(0)).isTrue();
+		boolean enforceQuality = ((ASN1Boolean) seq.getObjectAt(0)).isTrue();
 		res.append("<li>").append(RB.getString("NovellQualityEnforce"));
 		res.append(' ').append(enforceQuality).append("</li>");
 
@@ -1448,14 +1449,14 @@ public class X509Ext
 			{
 				ASN1Sequence cqPair = (ASN1Sequence) compusecQ.getObjectAt(i);
 
-				DERInteger tmp = (DERInteger) cqPair.getObjectAt(0);
+				ASN1Integer tmp = (ASN1Integer) cqPair.getObjectAt(0);
 				long type = tmp.getValue().longValue();
 				String csecCriteria =
 				    getRes("NovellCompusecQuality." + type, "UnrecognisedNovellCompusecQuality");
 				csecCriteria = MessageFormat.format(csecCriteria, tmp.getValue());
 				res.append("<li>").append(csecCriteria);
 
-				tmp = (DERInteger) cqPair.getObjectAt(1);
+				tmp = (ASN1Integer) cqPair.getObjectAt(1);
 				String csecRating;
 				if (type == 1L)
 				{ // TCSEC
@@ -1481,11 +1482,11 @@ public class X509Ext
 		res.append("</li>");
 		/*
 		 * TODO for (int i = 0, len = cryptoQ.size(); i < len; i++) { ASN1Sequence cqPair = (ASN1Sequence)
-		 * cryptoQ.getObjectAt(i); DERInteger cryptoModuleCriteria = (DERInteger) cqPair.getObjectAt(0);
-		 * DERInteger cryptoModuleRating = (DERInteger) cqPair.getObjectAt(1); }
+		 * cryptoQ.getObjectAt(i); ASN1Integer cryptoModuleCriteria = (ASN1Integer) cqPair.getObjectAt(0);
+		 * ASN1Integer cryptoModuleRating = (ASN1Integer) cqPair.getObjectAt(1); }
 		 */
 
-		BigInteger ksqv = ((DERInteger) seq.getObjectAt(3)).getValue();
+		BigInteger ksqv = ((ASN1Integer) seq.getObjectAt(3)).getValue();
 		String ksq = getRes("NovellKeyStorageQuality." + ksqv, "UnrecognisedNovellKeyStorageQuality");
 		res.append("<li>").append(RB.getString("NovellKeyStorageQuality"));
 		res.append(": ").append(MessageFormat.format(ksq, ksqv));
@@ -1643,7 +1644,7 @@ public class X509Ext
 				for (int j = 0, plen = pQuals.size(); j < plen; j++)
 				{
 					ASN1Sequence pqi = (ASN1Sequence) pQuals.getObjectAt(j);
-					DERObjectIdentifier pqId = (DERObjectIdentifier) pqi.getObjectAt(0);
+					ASN1Encodable pqId = pqi.getObjectAt(0);
 					String spqId = pqId.toString();
 
 					sb.append("<li>");
@@ -1775,7 +1776,7 @@ public class X509Ext
 		{
 			case GeneralName.otherName:
 				ASN1Sequence other = (ASN1Sequence) generalName.getName();
-				String sOid = ((DERObjectIdentifier) other.getObjectAt(0)).getId();
+				String sOid = ((ASN1ObjectIdentifier) other.getObjectAt(0)).getId();
 				String sVal = stringify(other.getObjectAt(1));
 				try
 				{
@@ -1897,7 +1898,7 @@ public class X509Ext
 	 * @return Formatted string
 	 * @throws ParseException If there is a problem formatting the generalized time
 	 */
-	private String formatGeneralizedTime(DERGeneralizedTime time)
+	private String formatGeneralizedTime(ASN1GeneralizedTime time)
 	    throws ParseException
 	{
 		// Get generalized time as a string
@@ -1982,7 +1983,7 @@ public class X509Ext
 	/**
 	 * Convert the supplied object to a hex string sub-divided by spaces every four characters.
 	 * 
-	 * @param obj Object (byte array, BigInteger, DERInteger)
+	 * @param obj Object (byte array, BigInteger, ASN1Integer)
 	 * @return Hex string
 	 */
 	private static String convertToHexString(Object obj)
@@ -2005,8 +2006,8 @@ public class X509Ext
 		{
 			return escapeHtml(((ASN1String) obj).getString());
 		}
-		// TODO: why not DERInteger as number?
-		else if (obj instanceof DERInteger || obj instanceof byte[])
+		// TODO: why not ASN1Integer as number?
+		else if (obj instanceof ASN1Integer || obj instanceof byte[])
 		{
 			return convertToHexString(obj);
 		}

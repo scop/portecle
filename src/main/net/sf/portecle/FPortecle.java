@@ -139,8 +139,8 @@ import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
 
 import org.bouncycastle.openssl.PEMEncryptor;
 import org.bouncycastle.openssl.PEMParser;
-import org.bouncycastle.openssl.PEMWriter;
 import org.bouncycastle.openssl.PasswordFinder;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import org.bouncycastle.openssl.jcajce.JcePEMEncryptorBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
@@ -4150,7 +4150,7 @@ public class FPortecle
 			return false;
 		}
 
-		try (PEMWriter pw = new PEMWriter(new FileWriter(fExportFile)))
+		try (JcaPEMWriter pw = new JcaPEMWriter(new FileWriter(fExportFile)))
 		{
 			pw.writeObject(cert);
 			m_lastDir.updateLastDir(fExportFile);
@@ -4648,7 +4648,7 @@ public class FPortecle
 
 			// Do the export
 
-			try (PEMWriter pw = new PEMWriter(new FileWriter(fExportFile)))
+			try (JcaPEMWriter pw = new JcaPEMWriter(new FileWriter(fExportFile)))
 			{
 				if (password.length == 0)
 				{
@@ -4997,7 +4997,7 @@ public class FPortecle
 			}
 
 			// Generate CSR and write it out to file
-			try (PEMWriter pw = new PEMWriter(new FileWriter(fCsrFile)))
+			try (JcaPEMWriter pw = new JcaPEMWriter(new FileWriter(fCsrFile)))
 			{
 				pw.writeObject(X509CertUtil.generatePKCS10CSR(cert, privKey));
 			}

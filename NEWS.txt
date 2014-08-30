@@ -11,7 +11,7 @@ Bug fixes:
 
 Miscellaneous:
 - Java SE 7 or later is now required.
-- Bundled Bouncy Castle jars upgraded to version 1.50 which is also the
+- Bundled Bouncy Castle jars upgraded to version 1.51 which is also the
   new minimum required version.
 
 New in Portecle 1.7 (2011-01-23):

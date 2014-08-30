@@ -51,7 +51,7 @@ import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.error.DThrowable;
 
-import org.bouncycastle.openssl.PEMWriter;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 
 /**
  * Modal dialog to display an X.509 object's PEM encoding.
@@ -97,7 +97,7 @@ public class DViewPEM
 		if (m_pem == null)
 		{
 			StringWriter encoded = new StringWriter();
-			try (PEMWriter pw = new PEMWriter(encoded))
+			try (JcaPEMWriter pw = new JcaPEMWriter(encoded))
 			{
 				pw.writeObject(m_object);
 			}

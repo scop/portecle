@@ -2,7 +2,7 @@
  * StringUtil.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2011 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2011-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,7 +24,7 @@ package net.sf.portecle;
 import java.math.BigInteger;
 import java.util.Locale;
 
-import org.bouncycastle.asn1.DERInteger;
+import org.bouncycastle.asn1.ASN1Integer;
 
 /**
  * String utilities.
@@ -37,12 +37,12 @@ public class StringUtil
 	 * Convert the supplied object to hex characters sub-divided by spaces every given number of characters,
 	 * and left-padded with zeros to fill group size.
 	 * 
-	 * @param obj Object (byte array, BigInteger, DERInteger)
+	 * @param obj Object (byte array, BigInteger, ASN1Integer)
 	 * @param groupSize number of characters to group hex characters by
 	 * @param separator grouping separator
 	 * @return Hex string
-	 * @throws IllegalArgumentException if obj is not a BigInteger, byte array, or a DERInteger, or groupSize
-	 *             &lt; 0
+	 * @throws IllegalArgumentException if obj is not a BigInteger, byte array, or an ASN1Integer, or
+	 *             groupSize &lt; 0
 	 */
 	public static StringBuilder toHex(Object obj, int groupSize, String separator)
 	{
@@ -59,9 +59,9 @@ public class StringUtil
 		{
 			bigInt = new BigInteger(1, (byte[]) obj);
 		}
-		else if (obj instanceof DERInteger)
+		else if (obj instanceof ASN1Integer)
 		{
-			bigInt = ((DERInteger) obj).getValue();
+			bigInt = ((ASN1Integer) obj).getValue();
 		}
 		else
 		{

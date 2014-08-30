@@ -57,7 +57,7 @@ import javax.security.auth.x500.X500Principal;
 
 import net.sf.portecle.NetUtil;
 
-import org.bouncycastle.asn1.DERObjectIdentifier;
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -503,8 +503,8 @@ public final class X509CertUtil
 	    throws CryptoException
 	{
 		// Holds certificate attributes
-		Hashtable<DERObjectIdentifier, String> attrs = new Hashtable<>();
-		Vector<DERObjectIdentifier> vOrder = new Vector<>();
+		Hashtable<ASN1ObjectIdentifier, String> attrs = new Hashtable<>();
+		Vector<ASN1ObjectIdentifier> vOrder = new Vector<>();
 
 		// Load certificate attributes
 		if (sCommonName != null)
