@@ -9,12 +9,12 @@ New in Portecle 1.8 (2014-01-14):
 ---------------------------------
 
 Enhancements:
-- Add support for BKS-V1 keystores (thanks to Jan Peter Stotz, #3).
+- Add support for BKS-V1 keystores (thanks to Jan Peter Stotz, patch #3).
 - Command line arg that looks like host:port opens SSL/TLS connection dialog.
 - Finnish translation (incomplete).
 
 Bug fixes:
-- E-mail address validation no longer rejects certain addresses (#3609743).
+- E-mail address validation no longer rejects certain addresses (bug #18).
 
 Miscellaneous:
 - Java SE 7 or later is now required.
