@@ -3,6 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
+ *             2006-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -70,7 +71,7 @@ class DImportKeyPair
     extends PortecleJDialog
 {
 	/** List of key pairs available for import */
-	private JList m_jltKeyPairs;
+	private JList<String> m_jltKeyPairs;
 
 	/** Selected key pair's algorithm text field */
 	private JTextField m_jtfAlgorithm;
@@ -135,7 +136,7 @@ class DImportKeyPair
 		});
 
 		// List to hold keystore's key pair aliases
-		m_jltKeyPairs = new JList();
+		m_jltKeyPairs = new JList<>();
 		m_jltKeyPairs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		m_jltKeyPairs.addListSelectionListener(new ListSelectionListener()
 		{
@@ -270,7 +271,7 @@ class DImportKeyPair
 	{
 		try
 		{
-			String sAlias = (String) m_jltKeyPairs.getSelectedValue();
+			String sAlias = m_jltKeyPairs.getSelectedValue();
 
 			if (sAlias == null)
 			{
@@ -318,7 +319,7 @@ class DImportKeyPair
 	{
 		try
 		{
-			String sAlias = (String) m_jltKeyPairs.getSelectedValue();
+			String sAlias = m_jltKeyPairs.getSelectedValue();
 
 			assert sAlias != null;
 
@@ -374,7 +375,7 @@ class DImportKeyPair
 	@Override
 	protected void okPressed()
 	{
-		String sAlias = (String) m_jltKeyPairs.getSelectedValue();
+		String sAlias = m_jltKeyPairs.getSelectedValue();
 
 		assert sAlias != null;
 

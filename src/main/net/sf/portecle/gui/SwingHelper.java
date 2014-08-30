@@ -2,7 +2,7 @@
  * SwingHelper.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2007-2011 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2007-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -90,7 +90,7 @@ public final class SwingHelper
 		}
 		if (component instanceof JComboBox)
 		{
-			Component editorComponent = ((JComboBox) component).getEditor().getEditorComponent();
+			Component editorComponent = ((JComboBox<?>) component).getEditor().getEditorComponent();
 			if (editorComponent instanceof JTextComponent)
 			{
 				textComponent = (JTextComponent) editorComponent;
