@@ -2,7 +2,7 @@
  * SignatureType.java
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
- * Copyright © 2004-2009 Ville Skyttä, ville.skytta@iki.fi
+ * Copyright © 2004-2014 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -98,9 +98,8 @@ public enum SignatureType
 	{
 		HashMap<KeyPairType, Collection<SignatureType>> kpMap = new HashMap<>();
 
-		// X509V1CertificateGenerator doesn't like SHA384withDSA and SHA512withDSA as of BC 1.44
-		kpMap.put(KeyPairType.DSA,
-		    Collections.unmodifiableSet(EnumSet.of(SHA1withDSA, SHA224withDSA, SHA256withDSA)));
+		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(EnumSet.of(SHA1withDSA, SHA224withDSA,
+		    SHA256withDSA, SHA384withDSA, SHA512withDSA)));
 
 		kpMap.put(KeyPairType.RSA, Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA,
 		    SHA1withRSA, SHA224withRSA, SHA256withRSA, SHA384withRSA, SHA512withRSA, RIPEMD128withRSA,
