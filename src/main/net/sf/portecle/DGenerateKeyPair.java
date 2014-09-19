@@ -269,7 +269,7 @@ class DGenerateKeyPair
 			return BAD_KEYSIZE;
 		}
 
-		if (m_jrbDSA.isSelected() && (iKeySize < 512 || iKeySize > 1024 || iKeySize % 64 != 0))
+		if (m_jrbDSA.isSelected() && (iKeySize < 512 || iKeySize % 64 != 0))
 		{
 			JOptionPane.showMessageDialog(this,
 			    RB.getString("DGenerateKeyPair.UnsupportedDsaKeySize.message"), getTitle(),

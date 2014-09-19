@@ -1,6 +1,9 @@
 New in Portecle x.x (201x-xx-xx):
 ---------------------------------
 
+Enhancements:
+- Drop hardwired upper key size limit for generated DSA keys.
+
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.51 which is also the
   new minimum required version.
