@@ -145,7 +145,7 @@ public enum SignatureType
 		switch (keyPairType)
 		{
 			case RSA:
-				return SHA1withRSA;
+				return SHA256withRSA;
 			case DSA:
 				return SHA1withDSA;
 			case ECDSA:
