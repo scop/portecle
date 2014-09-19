@@ -49,21 +49,20 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Vector;
 
 import javax.security.auth.x500.X500Principal;
 
 import net.sf.portecle.NetUtil;
 
-import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.cert.X509CertificateHolder;
-import org.bouncycastle.jce.PrincipalUtil;
-import org.bouncycastle.jce.X509Principal;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
 import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.ContentVerifierProvider;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
@@ -71,7 +70,6 @@ import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCSException;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
-import org.bouncycastle.x509.X509V1CertificateGenerator;
 
 /**
  * Provides utility methods relating to X509 Certificates, CRLs and CSRs.
@@ -502,84 +500,53 @@ public final class X509CertUtil
 	    int iValidity, PublicKey publicKey, PrivateKey privateKey, SignatureType signatureType)
 	    throws CryptoException
 	{
-		// Holds certificate attributes
-		Hashtable<ASN1ObjectIdentifier, String> attrs = new Hashtable<>();
-		Vector<ASN1ObjectIdentifier> vOrder = new Vector<>();
-
-		// Load certificate attributes
-		if (sCommonName != null)
-		{
-			attrs.put(BCStyle.CN, sCommonName);
-			vOrder.add(0, BCStyle.CN);
-		}
-
-		if (sOrganisationUnit != null)
-		{
-			attrs.put(BCStyle.OU, sOrganisationUnit);
-			vOrder.add(0, BCStyle.OU);
-		}
-
-		if (sOrganisation != null)
-		{
-			attrs.put(BCStyle.O, sOrganisation);
-			vOrder.add(0, BCStyle.O);
-		}
-
-		if (sLocality != null)
-		{
-			attrs.put(BCStyle.L, sLocality);
-			vOrder.add(0, BCStyle.L);
-		}
-
-		if (sState != null)
-		{
-			attrs.put(BCStyle.ST, sState);
-			vOrder.add(0, BCStyle.ST);
-		}
-
-		if (sCountryCode != null)
-		{
-			attrs.put(BCStyle.C, sCountryCode);
-			vOrder.add(0, BCStyle.C);
-		}
-
+		X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
 		if (sEmailAddress != null)
 		{
-			attrs.put(BCStyle.E, sEmailAddress);
-			vOrder.add(0, BCStyle.E);
+			nameBuilder.addRDN(BCStyle.E, sEmailAddress);
+		}
+		if (sCountryCode != null)
+		{
+			nameBuilder.addRDN(BCStyle.C, sCountryCode);
+		}
+		if (sState != null)
+		{
+			nameBuilder.addRDN(BCStyle.ST, sState);
+		}
+		if (sLocality != null)
+		{
+			nameBuilder.addRDN(BCStyle.L, sLocality);
+		}
+		if (sOrganisation != null)
+		{
+			nameBuilder.addRDN(BCStyle.O, sOrganisation);
+		}
+		if (sOrganisationUnit != null)
+		{
+			nameBuilder.addRDN(BCStyle.OU, sOrganisationUnit);
+		}
+		if (sCommonName != null)
+		{
+			nameBuilder.addRDN(BCStyle.CN, sCommonName);
 		}
 
-		// Get an X509 Version 1 Certificate generator
-		X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
+		BigInteger serial = generateX509SerialNumber();
 
-		// Load the generator with generation parameters
+		Date notBefore = new Date(System.currentTimeMillis());
+		Date notAfter = new Date(notBefore.getTime() + ((long) iValidity * 24 * 60 * 60 * 1000));
 
-		// Set the issuer distinguished name
-		certGen.setIssuerDN(new X509Principal(vOrder, attrs));
-
-		// Valid before and after dates now to iValidity days in the future
-		certGen.setNotBefore(new Date(System.currentTimeMillis()));
-		certGen.setNotAfter(new Date(System.currentTimeMillis() + ((long) iValidity * 24 * 60 * 60 * 1000)));
-
-		// Set the subject distinguished name (same as issuer for our purposes)
-		certGen.setSubjectDN(new X509Principal(vOrder, attrs));
-
-		// Set the public key
-		certGen.setPublicKey(publicKey);
-
-		// Set the algorithm
-		certGen.setSignatureAlgorithm(signatureType.name());
-
-		// Set the serial number
-		certGen.setSerialNumber(generateX509SerialNumber());
+		JcaX509v1CertificateBuilder certBuilder =
+		    new JcaX509v1CertificateBuilder(nameBuilder.build(), serial, notBefore, notAfter,
+		        nameBuilder.build(), publicKey);
 
 		try
 		{
-			// Generate an X.509 certificate, based on the current issuer and subject
-			return certGen.generate(privateKey, "BC");
+			ContentSigner signer = new JcaContentSignerBuilder(signatureType.name()).build(privateKey);
+			X509CertificateHolder certHolder = certBuilder.build(signer);
+
+			return new JcaX509CertificateConverter().getCertificate(certHolder);
 		}
-		// Something went wrong
-		catch (GeneralSecurityException ex)
+		catch (CertificateException | OperatorCreationException ex)
 		{
 			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
 		}
@@ -600,45 +567,31 @@ public final class X509CertUtil
 	    PrivateKey privateKey)
 	    throws CryptoException
 	{
-		// Get an X509 Version 1 Certificate generator
-		X509V1CertificateGenerator certGen = new X509V1CertificateGenerator();
-
-		// Load the generator with generation parameters
+		BigInteger serial = generateX509SerialNumber();
 
 		// Valid before and after dates now to iValidity days in the future from now or existing expiry date
-		Date now = new Date();
+		Date notBefore = new Date();
 		Date oldExpiry = oldCert.getNotAfter();
-		if (oldExpiry == null || oldExpiry.before(now))
+		if (oldExpiry == null || oldExpiry.before(notBefore))
 		{
-			oldExpiry = now;
+			oldExpiry = notBefore;
 		}
+		Date notAfter = new Date(oldExpiry.getTime() + ((long) iValidity * 24 * 60 * 60 * 1000));
 
-		certGen.setNotBefore(now);
-		certGen.setNotAfter(new Date(oldExpiry.getTime() + ((long) iValidity * 24 * 60 * 60 * 1000)));
+		// TODO: verify/force self-signedness
 
-		// Set the public key
-		certGen.setPublicKey(publicKey);
-
-		// Set the algorithm
-		certGen.setSignatureAlgorithm(oldCert.getSigAlgName());
-
-		// Set the serial number
-		certGen.setSerialNumber(generateX509SerialNumber());
+		JcaX509v1CertificateBuilder certBuilder =
+		    new JcaX509v1CertificateBuilder(oldCert.getIssuerX500Principal(), serial, notBefore, notAfter,
+		        oldCert.getSubjectX500Principal(), publicKey);
 
 		try
 		{
-			// Set the issuer distinguished name
-			// TODO: verify/force self-signedness
-			certGen.setIssuerDN(PrincipalUtil.getIssuerX509Principal(oldCert));
+			ContentSigner signer = new JcaContentSignerBuilder(oldCert.getSigAlgName()).build(privateKey);
+			X509CertificateHolder certHolder = certBuilder.build(signer);
 
-			// Set the subject distinguished name (same as issuer for our purposes)
-			certGen.setSubjectDN(PrincipalUtil.getSubjectX509Principal(oldCert));
-
-			// Generate an X.509 certificate, based on the current issuer and subject
-			return certGen.generate(privateKey, "BC");
+			return new JcaX509CertificateConverter().getCertificate(certHolder);
 		}
-		// Something went wrong
-		catch (GeneralSecurityException ex)
+		catch (CertificateException | OperatorCreationException ex)
 		{
 			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
 		}
