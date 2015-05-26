@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2013 Ville Skyttä <ville.skytta@iki.fi> -->
+<!-- Copyright 2013-2015 Ville Skyttä <ville.skytta@iki.fi> -->
 <application>
     <id type="desktop">portecle.desktop</id>
-    <licence>CC0</licence>
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-2.0+</project_license>
+    <name>Portecle</name>
+    <summary>Multipurpose keystore and certificate tool</summary>
     <description>
         <p>
             Portecle is a user friendly GUI application for creating,
