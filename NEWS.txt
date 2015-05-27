@@ -5,7 +5,7 @@ Enhancements:
 - Make SHA256withRSA the default for new RSA key pairs.
 - Drop hardwired upper key size limit for generated DSA keys.
 - Allow key pair generation using SHA384withDSA and SHA512withDSA.
-- Update AppData XML.
+- AppData XML and desktop entry updates.
 
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.51 which is also the

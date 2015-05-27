@@ -9,4 +9,6 @@ Type=Application
 MimeType=application/x-pkcs12;application/x-java-keystore;application/x-java-jce-keystore;application/pkcs10;application/pkix-pkipath;application/pkix-cert;application/pkix-crl;application/x-x509-ca-cert;application/x-pkcs7-certificates;
 StartupWMClass=net-sf-portecle-FPortecle
 Categories=Utility;Security;System;Java;
+Keywords=pki;keystore;pkcs;certificate;security;encryption;
+Keywords[fi]=pki;avainvarasto;pkcs;varmenne;tietoturva;salaus;
 Version=1.0
