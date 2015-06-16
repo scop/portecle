@@ -7,6 +7,9 @@ Enhancements:
 - Allow key pair generation using SHA384withDSA and SHA512withDSA.
 - AppData XML and desktop entry updates.
 
+Bug fixes:
+- Fix MissingResourceException saving BKS-V1 keystores (bug #20).
+
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.51 which is also the
   new minimum required version.
