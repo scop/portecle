@@ -24,8 +24,8 @@
   <property name="jar" value="portecle.jar" />
   <property name="doc" value="${root}/doc" />
 
-  <property name="bcprov.jar" value="${lib}/bcprov-jdk15on-151.jar" />
-  <property name="bcpkix.jar" value="${lib}/bcpkix-jdk15on-151.jar" />
+  <property name="bcprov.jar" value="${lib}/bcprov-jdk15on-152.jar" />
+  <property name="bcpkix.jar" value="${lib}/bcpkix-jdk15on-152.jar" />
   <property name="pack200.jar" value="${lib}/deployment-ant-pack200-1.0.jar"/>
 
   <property name="build.debug" value="true" />

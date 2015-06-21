@@ -11,7 +11,7 @@ Bug fixes:
 - Fix MissingResourceException saving BKS-V1 keystores (bug #20).
 
 Miscellaneous:
-- Bundled Bouncy Castle jars upgraded to version 1.51 which is also the
+- Bundled Bouncy Castle jars upgraded to version 1.52; 1.51 is the
   new minimum required version.
 
 New in Portecle 1.8 (2014-01-14):
