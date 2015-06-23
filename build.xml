@@ -116,6 +116,7 @@
         <attribute name="Implementation-Vendor" value="The Portecle Project" />
         <attribute name="Implementation-Vendor-Id" value="net.sf.portecle" />
         <attribute name="Implementation-URL" value="http://portecle.sourceforge.net/" />
+        <attribute name="Permissions" value="all-permissions" />
       </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
     </jar>
