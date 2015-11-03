@@ -67,8 +67,7 @@ class RevokedCertsTableCellRend
 	    boolean bHasFocus, int iRow, int iCol)
 	{
 		JLabel cell =
-		    (JLabel) super.getTableCellRendererComponent(jtRevokedCerts, value, bIsSelected, bHasFocus, iRow,
-		        iCol);
+		    (JLabel) super.getTableCellRendererComponent(jtRevokedCerts, value, bIsSelected, bHasFocus, iRow, iCol);
 
 		// Serial Number column - format to a hex string
 		if (iCol == 0)
@@ -80,8 +79,7 @@ class RevokedCertsTableCellRend
 		else
 		{
 			// Include time zone
-			cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-			    (Date) value));
+			cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format((Date) value));
 		}
 
 		cell.setBorder(new EmptyBorder(0, 5, 0, 5));

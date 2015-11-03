@@ -24,12 +24,12 @@ package net.sf.portecle.crypto;
 /**
  * Key pair type. Enum constant names are compatible with JCA standard names.
  * 
- * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA
- *      Standard Names</a>
+ * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
 public enum KeyPairType
 {
-	/** RSA key pair type. */
+    /** RSA key pair type. */
 	RSA,
 	/** DSA key pair type. */
 	DSA,

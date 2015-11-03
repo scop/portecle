@@ -35,8 +35,7 @@ class RevokedCertsTableModel
     extends AbstractTableModel
 {
 	/** Column names */
-	private static final String[] COLUMN_NAMES = {
-	    FPortecle.RB.getString("RevokedCertsTableModel.SerialNumberColumn"),
+	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("RevokedCertsTableModel.SerialNumberColumn"),
 	    FPortecle.RB.getString("RevokedCertsTableModel.RevocationDateColumn") };
 
 	/** Column classes */

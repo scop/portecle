@@ -52,8 +52,8 @@ public final class ProviderUtil
 			String pName = prov.getName();
 			// Is it a PKCS #11 provider?
 			/*
-			 * TODO: is there a better way to find out? Could try instanceof sun.security.pkcs11.SunPKCS11 but
-			 * that would require the class to be available?
+			 * TODO: is there a better way to find out? Could try instanceof sun.security.pkcs11.SunPKCS11 but that
+			 * would require the class to be available?
 			 */
 			if (pName.startsWith("SunPKCS11-"))
 			{

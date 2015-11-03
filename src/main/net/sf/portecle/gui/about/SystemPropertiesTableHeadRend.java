@@ -48,8 +48,8 @@ class SystemPropertiesTableHeadRend
 	 * @return The rendered cell
 	 */
 	@Override
-	public Component getTableCellRendererComponent(JTable jtSystemProperties, Object value,
-	    boolean bIsSelected, boolean bHasFocus, int iRow, int iCol)
+	public Component getTableCellRendererComponent(JTable jtSystemProperties, Object value, boolean bIsSelected,
+	    boolean bHasFocus, int iRow, int iCol)
 	{
 		// Get header renderer
 		JLabel header = (JLabel) jtSystemProperties.getColumnModel().getColumn(iCol).getHeaderRenderer();

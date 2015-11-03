@@ -39,8 +39,8 @@ import javax.swing.border.EmptyBorder;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Modal dialog used for entering and confirming a password and checking it against an old password which may
- * or may not have been supplied to the dialog.
+ * Modal dialog used for entering and confirming a password and checking it against an old password which may or may not
+ * have been supplied to the dialog.
  */
 public class DChangePassword
     extends PortecleJDialog

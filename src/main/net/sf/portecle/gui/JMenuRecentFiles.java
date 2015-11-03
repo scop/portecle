@@ -27,10 +27,9 @@ import java.util.ArrayList;
 import javax.swing.JMenu;
 
 /**
- * Menu with Recent File List capability, i.e. a list of files where the most recently accessed file is set as
- * the first item shifting other files down and the list contains no duplicates. Note: only call the
- * add(JMenuItemRecentFile) to add recent file menu items when the menu is completely populated with standard
- * menu items and separators.
+ * Menu with Recent File List capability, i.e. a list of files where the most recently accessed file is set as the first
+ * item shifting other files down and the list contains no duplicates. Note: only call the add(JMenuItemRecentFile) to
+ * add recent file menu items when the menu is completely populated with standard menu items and separators.
  */
 public class JMenuRecentFiles
     extends JMenu
@@ -137,8 +136,8 @@ public class JMenuRecentFiles
 	}
 
 	/**
-	 * Add a recent file menu item to the menu. Only call when the menu is completely populated with standard
-	 * menu items and separators.
+	 * Add a recent file menu item to the menu. Only call when the menu is completely populated with standard menu items
+	 * and separators.
 	 * 
 	 * @param jmirfNew The new recent file menu item
 	 */

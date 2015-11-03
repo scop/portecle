@@ -105,9 +105,8 @@ public class DProviderInfo
 		// Custom tree node renderer
 		jtrProviders.setCellRenderer(new ProviderTreeCellRend());
 
-		JScrollPane jspProviders =
-		    new JScrollPane(jtrProviders, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane jspProviders = new JScrollPane(jtrProviders, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspProviders.setPreferredSize(new Dimension(350, 200));
 		jpProviders.add(jspProviders, BorderLayout.CENTER);
 
@@ -132,8 +131,7 @@ public class DProviderInfo
 	private DefaultMutableTreeNode createProviderNodes()
 	{
 		// Top node
-		DefaultMutableTreeNode topNode =
-		    new DefaultMutableTreeNode(RB.getString("DProviderInfo.TopNodeName"));
+		DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(RB.getString("DProviderInfo.TopNodeName"));
 
 		// For each provider...
 		for (Provider provider : Security.getProviders())
@@ -156,8 +154,8 @@ public class DProviderInfo
 			{
 				String sKey = String.valueOf(o);
 				String sValue = provider.getProperty(sKey);
-				providerPropertiesNode.add(new DefaultMutableTreeNode(MessageFormat.format(
-				    RB.getString("DProviderInfo.ProviderProperty"), sKey, sValue)));
+				providerPropertiesNode.add(new DefaultMutableTreeNode(
+				    MessageFormat.format(RB.getString("DProviderInfo.ProviderProperty"), sKey, sValue)));
 			}
 		}
 
@@ -181,14 +179,13 @@ public class DProviderInfo
 			}
 
 			// ...write out the provider name, description and version...
-			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderName"),
-			    provider.getName()));
+			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderName"), provider.getName()));
 			strBuff.append('\n');
-			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderVersion"),
-			    provider.getVersion()));
+			strBuff.append(
+			    MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderVersion"), provider.getVersion()));
 			strBuff.append('\n');
-			strBuff.append(MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderDescription"),
-			    provider.getInfo()));
+			strBuff.append(
+			    MessageFormat.format(RB.getString("DProviderInfo.Copy.ProviderDescription"), provider.getInfo()));
 			strBuff.append('\n');
 			strBuff.append(RB.getString("DProviderInfo.Copy.ProviderProperties"));
 			strBuff.append('\n');

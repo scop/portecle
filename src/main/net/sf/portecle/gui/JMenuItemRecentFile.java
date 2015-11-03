@@ -27,10 +27,10 @@ import java.io.File;
 import javax.swing.JMenuItem;
 
 /**
- * A recent file menu item. Used in recent file menus (JMenuRecentFiles) to open files directly by activating
- * a menu item either through normal means or the mnemonic that reflects the menu items position in the list
- * of recent files. An action listener should be added to actually open the file. Other listeners can be added
- * as required to respond to other types of event.
+ * A recent file menu item. Used in recent file menus (JMenuRecentFiles) to open files directly by activating a menu
+ * item either through normal means or the mnemonic that reflects the menu items position in the list of recent files.
+ * An action listener should be added to actually open the file. Other listeners can be added as required to respond to
+ * other types of event.
  */
 public class JMenuItemRecentFile
     extends JMenuItem

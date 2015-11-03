@@ -28,8 +28,8 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
- * ActionListener intended for use with the net.sf.portecle.gui.JMenuItemRecentFile class. The ActionListener
- * is used to open a keystore file from the menu item.
+ * ActionListener intended for use with the net.sf.portecle.gui.JMenuItemRecentFile class. The ActionListener is used to
+ * open a keystore file from the menu item.
  */
 class RecentKeyStoreFileActionListener
     implements ActionListener

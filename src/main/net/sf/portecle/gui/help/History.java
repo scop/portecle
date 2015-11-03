@@ -117,8 +117,7 @@ import java.util.Vector;
 	}
 
 	/**
-	 * Returns the previous URL in the History and fires a HistoryEvent if the History status has perhaps
-	 * changed.
+	 * Returns the previous URL in the History and fires a HistoryEvent if the History status has perhaps changed.
 	 * 
 	 * @return The previous URL in the History or null if there is none
 	 */

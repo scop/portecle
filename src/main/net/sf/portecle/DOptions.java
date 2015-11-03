@@ -48,8 +48,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 /**
- * Modal dialog to allow the users to configure Portecle options, CA certificates keystore, and look &amp;
- * feel.
+ * Modal dialog to allow the users to configure Portecle options, CA certificates keystore, and look &amp; feel.
  */
 class DOptions
     extends PortecleJDialog
@@ -191,8 +190,7 @@ class DOptions
 
 			// Pre-select current look and feel. UIManager.LookAndFeelInfo.getName() and LookAndFeel.getName()
 			// can return different strings for the same look and feel, so we compare class names.
-			if (currentLookAndFeel != null &&
-			    currentLookAndFeel.getClass().getName().equals(info.getClassName()))
+			if (currentLookAndFeel != null && currentLookAndFeel.getClass().getName().equals(info.getClassName()))
 			{
 				m_jcbLookFeel.setSelectedIndex(m_jcbLookFeel.getItemCount() - 1);
 			}
@@ -204,8 +202,7 @@ class DOptions
 
 		// Create and populate check box with look & feel decorated setting
 		m_jcbLookFeelDecorated =
-		    new JCheckBox(RB.getString("DOptions.m_jcbLookFeelDecorated.text"),
-		        JFrame.isDefaultLookAndFeelDecorated());
+		    new JCheckBox(RB.getString("DOptions.m_jcbLookFeelDecorated.text"), JFrame.isDefaultLookAndFeelDecorated());
 		m_jcbLookFeelDecorated.setToolTipText(RB.getString("DOptions.m_jcbLookFeelDecorated.tooltip"));
 
 		JPanel jpLookFeelDecoratedControls = new JPanel(new FlowLayout(FlowLayout.LEFT));

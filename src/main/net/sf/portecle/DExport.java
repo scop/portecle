@@ -46,8 +46,8 @@ import javax.swing.border.TitledBorder;
 import net.sf.portecle.crypto.CryptoException;
 
 /**
- * Modal dialog used to export keystore entries. A number of export types and formats are available depending
- * on the entries content.
+ * Modal dialog used to export keystore entries. A number of export types and formats are available depending on the
+ * entries content.
  */
 class DExport
     extends PortecleJDialog
@@ -215,15 +215,14 @@ class DExport
 		}
 		catch (KeyStoreException ex)
 		{
-			String sMessage =
-			    MessageFormat.format(RB.getString("DExport.NoAccessEntry.message"), m_sEntryAlias);
+			String sMessage = MessageFormat.format(RB.getString("DExport.NoAccessEntry.message"), m_sEntryAlias);
 			throw new CryptoException(sMessage, ex);
 		}
 
 		// Put all export option controls together in one panel
 		JPanel jpOptions = new JPanel(new BorderLayout(10, 0));
-		jpOptions.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-		    new EtchedBorder()), new EmptyBorder(5, 5, 5, 5)));
+		jpOptions.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()),
+		    new EmptyBorder(5, 5, 5, 5)));
 
 		jpOptions.add(jpExportType, BorderLayout.NORTH);
 		jpOptions.add(jpExportFormat, BorderLayout.SOUTH);

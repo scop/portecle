@@ -53,8 +53,8 @@ import net.sf.portecle.gui.IntegerDocumentFilter;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * Modal dialog used to choose the parameters required for key pair generation. The user may select an
- * asymmetric key generation algorithm of DSA or RSA and enter a key size in bits.
+ * Modal dialog used to choose the parameters required for key pair generation. The user may select an asymmetric key
+ * generation algorithm of DSA or RSA and enter a key size in bits.
  */
 class DGenerateKeyPair
     extends PortecleJDialog
@@ -241,8 +241,8 @@ class DGenerateKeyPair
 	}
 
 	/**
-	 * Validate the key size value the user has entered as a string and convert it to an integer. Validate the
-	 * key size is supported for the particular key pair generation algorithm they have chosen.
+	 * Validate the key size value the user has entered as a string and convert it to an integer. Validate the key size
+	 * is supported for the particular key pair generation algorithm they have chosen.
 	 * 
 	 * @return The Validity value or BAD_KEYSIZE if it is not valid
 	 */
@@ -253,8 +253,8 @@ class DGenerateKeyPair
 
 		if (sKeySize.isEmpty())
 		{
-			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.KeySizeReq.message"),
-			    getTitle(), JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.KeySizeReq.message"), getTitle(),
+			    JOptionPane.WARNING_MESSAGE);
 			return BAD_KEYSIZE;
 		}
 
@@ -264,23 +264,21 @@ class DGenerateKeyPair
 		}
 		catch (NumberFormatException ex)
 		{
-			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.KeySizeIntegerReq.message"),
-			    getTitle(), JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.KeySizeIntegerReq.message"), getTitle(),
+			    JOptionPane.WARNING_MESSAGE);
 			return BAD_KEYSIZE;
 		}
 
 		if (m_jrbDSA.isSelected() && (iKeySize < 512 || iKeySize % 64 != 0))
 		{
-			JOptionPane.showMessageDialog(this,
-			    RB.getString("DGenerateKeyPair.UnsupportedDsaKeySize.message"), getTitle(),
-			    JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.UnsupportedDsaKeySize.message"),
+			    getTitle(), JOptionPane.WARNING_MESSAGE);
 			return BAD_KEYSIZE;
 		}
 		else if (iKeySize < 512)
 		{
-			JOptionPane.showMessageDialog(this,
-			    RB.getString("DGenerateKeyPair.UnsupportedRsaKeySize.message"), getTitle(),
-			    JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("DGenerateKeyPair.UnsupportedRsaKeySize.message"),
+			    getTitle(), JOptionPane.WARNING_MESSAGE);
 			return BAD_KEYSIZE;
 		}
 

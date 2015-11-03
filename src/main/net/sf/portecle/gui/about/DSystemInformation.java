@@ -48,8 +48,8 @@ import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.gui.SwingHelper;
 
 /**
- * Modal dialog which displays general system information: OS, locale, Java version, Java vendor, Java vendor
- * URL, JVM total memory and JVM free memory.
+ * Modal dialog which displays general system information: OS, locale, Java version, Java vendor, Java vendor URL, JVM
+ * total memory and JVM free memory.
  */
 /* package private */class DSystemInformation
     extends PortecleJDialog
@@ -137,8 +137,7 @@ import net.sf.portecle.gui.SwingHelper;
 		jpSystemInformation.add(jtfLocale, gbc_jtfLocale);
 
 		// Java Version
-		JLabel jlJavaVersion =
-		    new JLabel(RB.getString("DSystemInformation.jlJavaVersion.text"), SwingConstants.RIGHT);
+		JLabel jlJavaVersion = new JLabel(RB.getString("DSystemInformation.jlJavaVersion.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJavaVersion = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJavaVersion.gridy = 2;
@@ -154,8 +153,7 @@ import net.sf.portecle.gui.SwingHelper;
 		jpSystemInformation.add(jtfJavaVersion, gbc_jtfJavaVersion);
 
 		// Java Vendor
-		JLabel jlJavaVendor =
-		    new JLabel(RB.getString("DSystemInformation.jlJavaVendor.text"), SwingConstants.RIGHT);
+		JLabel jlJavaVendor = new JLabel(RB.getString("DSystemInformation.jlJavaVendor.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJavaVendor = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJavaVendor.gridy = 3;
@@ -163,8 +161,7 @@ import net.sf.portecle.gui.SwingHelper;
 
 		JTextField jtfJavaVendor =
 		    new JTextField(MessageFormat.format(RB.getString("DSystemInformation.jtfJavaVendor.text"),
-		        sysProps.getProperty("java.vendor", ""), sysProps.getProperty("java.vendor.url", "")),
-		        VALUE_WIDTH);
+		        sysProps.getProperty("java.vendor", ""), sysProps.getProperty("java.vendor.url", "")), VALUE_WIDTH);
 		jtfJavaVendor.setEditable(false);
 		jtfJavaVendor.setCaretPosition(0);
 		jlJavaVendor.setLabelFor(jtfJavaVendor);
@@ -174,8 +171,7 @@ import net.sf.portecle.gui.SwingHelper;
 		jpSystemInformation.add(jtfJavaVendor, gbc_jtfJavaVendor);
 
 		// Java Home
-		JLabel jlJavaHome =
-		    new JLabel(RB.getString("DSystemInformation.jlJavaHome.text"), SwingConstants.RIGHT);
+		JLabel jlJavaHome = new JLabel(RB.getString("DSystemInformation.jlJavaHome.text"), SwingConstants.RIGHT);
 
 		GridBagConstraints gbc_jlJavaHome = (GridBagConstraints) gbcLabel.clone();
 		gbc_jlJavaHome.gridy = 4;
@@ -249,8 +245,7 @@ import net.sf.portecle.gui.SwingHelper;
 
 		// SystemProperties button
 		JButton jbSystemProperties = new JButton(RB.getString("DSystemInformation.jbSystemProperties.text"));
-		jbSystemProperties.setMnemonic(RB.getString("DSystemInformation.jbSystemProperties.mnemonic").charAt(
-		    0));
+		jbSystemProperties.setMnemonic(RB.getString("DSystemInformation.jbSystemProperties.mnemonic").charAt(0));
 		jbSystemProperties.addActionListener(new ActionListener()
 		{
 			@Override

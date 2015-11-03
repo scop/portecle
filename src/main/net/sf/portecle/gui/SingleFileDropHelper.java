@@ -51,6 +51,7 @@ public class SingleFileDropHelper
 	 * @see <a href="http://tools.ietf.org/html/rfc2483#section-5">RFC 2483</a>
 	 */
 	private static final DataFlavor URILIST_FLAVOR;
+
 	static
 	{
 		DataFlavor flavor;

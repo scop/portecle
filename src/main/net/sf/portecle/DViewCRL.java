@@ -130,9 +130,8 @@ final class DViewCRL
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(parent,
-			    MessageFormat.format(RB.getString("FPortecle.NoRead.message"), url), title,
-			    JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(parent, MessageFormat.format(RB.getString("FPortecle.NoRead.message"), url),
+			    title, JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		catch (Exception ex)
@@ -299,9 +298,8 @@ final class DViewCRL
 		m_jtRevokedCerts.getRowSorter().toggleSortOrder(0);
 
 		// Put the table into a scroll pane
-		JScrollPane jspRevokedCertsTable =
-		    new JScrollPane(m_jtRevokedCerts, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jspRevokedCertsTable = new JScrollPane(m_jtRevokedCerts,
+		    ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspRevokedCertsTable.getViewport().setBackground(m_jtRevokedCerts.getBackground());
 
 		// Put the scroll pane into a panel
@@ -360,8 +358,9 @@ final class DViewCRL
 		populateDialog();
 
 		// Add border with number of entries in CRL
-		jpRevokedCertsTable.setBorder(new CompoundBorder(new TitledBorder(new EtchedBorder(),
-		    MessageFormat.format(RB.getString("DViewCRL.TableTitle"), m_jtRevokedCerts.getRowCount())),
+		jpRevokedCertsTable.setBorder(new CompoundBorder(
+		    new TitledBorder(new EtchedBorder(),
+		        MessageFormat.format(RB.getString("DViewCRL.TableTitle"), m_jtRevokedCerts.getRowCount())),
 		    new EmptyBorder(5, 5, 5, 5)));
 
 		// OK button
@@ -403,8 +402,8 @@ final class DViewCRL
 		m_jtfIssuer.setCaretPosition(0);
 
 		// Effective Date (include time zone)
-		m_jtfEffectiveDate.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-		    effectiveDate));
+		m_jtfEffectiveDate.setText(
+		    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(effectiveDate));
 
 		if (bEffective)
 		{
@@ -422,8 +421,8 @@ final class DViewCRL
 		Date updateDate = m_crl.getNextUpdate();
 		if (updateDate != null)
 		{
-			m_jtfNextUpdate.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-			    updateDate));
+			m_jtfNextUpdate.setText(
+			    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(updateDate));
 
 			if (currentDate.after(updateDate))
 			{
@@ -482,8 +481,8 @@ final class DViewCRL
 	}
 
 	/**
-	 * CRL entry selected or deselected. Enable/disable the "CRL Extensions" button accordingly (i.e. enable
-	 * it if only one extension is selected and it has extensions.
+	 * CRL entry selected or deselected. Enable/disable the "CRL Extensions" button accordingly (i.e. enable it if only
+	 * one extension is selected and it has extensions.
 	 */
 	private void crlEntrySelection()
 	{
@@ -535,8 +534,7 @@ final class DViewCRL
 	}
 
 	/**
-	 * CRL entry extensions button pressed or otherwise activated. Show the extensions of the selected CRL
-	 * entry.
+	 * CRL entry extensions button pressed or otherwise activated. Show the extensions of the selected CRL entry.
 	 */
 	private void crlEntryExtensionsPressed()
 	{
@@ -567,8 +565,7 @@ final class DViewCRL
 				if (x509CrlEntry != null && x509CrlEntry.hasExtensions())
 				{
 					DViewExtensions dViewExtensions =
-					    new DViewExtensions(this, RB.getString("DViewCRL.EntryExtensions.Title"), true,
-					        x509CrlEntry);
+					    new DViewExtensions(this, RB.getString("DViewCRL.EntryExtensions.Title"), true, x509CrlEntry);
 					dViewExtensions.setLocationRelativeTo(this);
 					SwingHelper.showAndWait(dViewExtensions);
 				}

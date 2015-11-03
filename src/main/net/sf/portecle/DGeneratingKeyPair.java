@@ -66,8 +66,7 @@ class DGeneratingKeyPair
 	{
 		// Generate key Pair label
 		JLabel jlGenKeyPair = new JLabel(RB.getString("DGeneratingKeypair.jlGenKeyPair.text"));
-		ImageIcon icon =
-		    new ImageIcon(getClass().getResource(RB.getString("DGeneratingKeypair.Generating.image")));
+		ImageIcon icon = new ImageIcon(getClass().getResource(RB.getString("DGeneratingKeypair.Generating.image")));
 		jlGenKeyPair.setIcon(icon);
 		JPanel jpGenKeyPair = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpGenKeyPair.add(jlGenKeyPair);
@@ -99,7 +98,7 @@ class DGeneratingKeyPair
 		{
 			@Override
 			protected KeyPair doInBackground()
-			    throws Exception
+		        throws Exception
 			{
 				return KeyPairUtil.generateKeyPair(keyPairType, keySize);
 			}

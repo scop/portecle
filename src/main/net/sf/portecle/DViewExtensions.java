@@ -100,8 +100,10 @@ class DViewExtensions
 	private void initComponents()
 	{
 		// There must be extensions to display
-		assert (m_extensions.getCriticalExtensionOIDs() != null && !m_extensions.getCriticalExtensionOIDs().isEmpty()) ||
-		    (m_extensions.getNonCriticalExtensionOIDs() != null && !m_extensions.getNonCriticalExtensionOIDs().isEmpty());
+		assert (m_extensions.getCriticalExtensionOIDs() != null &&
+		    !m_extensions.getCriticalExtensionOIDs().isEmpty()) ||
+		    (m_extensions.getNonCriticalExtensionOIDs() != null &&
+		        !m_extensions.getNonCriticalExtensionOIDs().isEmpty());
 
 		// Extensions table
 
@@ -155,9 +157,8 @@ class DViewExtensions
 		sorter.toggleSortOrder(1);
 
 		// Put the table into a scroll pane
-		JScrollPane jspExtensionsTable =
-		    new JScrollPane(m_jtExtensions, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jspExtensionsTable = new JScrollPane(m_jtExtensions,
+		    ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspExtensionsTable.getViewport().setBackground(m_jtExtensions.getBackground());
 
 		// Put the scroll pane into a panel
@@ -204,8 +205,7 @@ class DViewExtensions
 						{
 							try
 							{
-								linkClass =
-								    LinkClass.valueOf((String) attrs.getAttribute(HTML.Attribute.CLASS));
+								linkClass = LinkClass.valueOf((String) attrs.getAttribute(HTML.Attribute.CLASS));
 							}
 							catch (RuntimeException e)
 							{
@@ -250,11 +250,10 @@ class DViewExtensions
 								if (!DViewCRL.showAndWait(DViewExtensions.this, url))
 								{
 									// Ask to view in a browser if it failed
-									int iSelected =
-									    JOptionPane.showConfirmDialog(DViewExtensions.this,
-									        RB.getString("FPortecle.CrlViewFailed.message"),
-									        MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"),
-									            url), JOptionPane.YES_NO_OPTION);
+									int iSelected = JOptionPane.showConfirmDialog(DViewExtensions.this,
+		                                RB.getString("FPortecle.CrlViewFailed.message"),
+		                                MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"), url),
+		                                JOptionPane.YES_NO_OPTION);
 									if (iSelected == JOptionPane.YES_OPTION)
 									{
 										tryBrowser = true;
@@ -268,11 +267,10 @@ class DViewExtensions
 								if (!DViewCertificate.showAndWait(DViewExtensions.this, url))
 								{
 									// Ask to view in a browser if it failed
-									int iSelected =
-									    JOptionPane.showConfirmDialog(DViewExtensions.this,
-									        RB.getString("FPortecle.CertViewFailed.message"),
-									        MessageFormat.format(RB.getString("FPortecle.CertDetails.Title"),
-									            url), JOptionPane.YES_NO_OPTION);
+									int iSelected = JOptionPane.showConfirmDialog(DViewExtensions.this,
+		                                RB.getString("FPortecle.CertViewFailed.message"),
+		                                MessageFormat.format(RB.getString("FPortecle.CertDetails.Title"), url),
+		                                JOptionPane.YES_NO_OPTION);
 									if (iSelected == JOptionPane.YES_OPTION)
 									{
 										tryBrowser = true;
@@ -308,9 +306,8 @@ class DViewExtensions
 		});
 
 		// Put the text area into a scroll pane
-		JScrollPane jspExtensionValue =
-		    new JScrollPane(m_jtaExtensionValue, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jspExtensionValue = new JScrollPane(m_jtaExtensionValue,
+		    ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		// Put the scroll pane into a panel
 		JPanel jpExtensionValueTextArea = new JPanel(new BorderLayout(10, 10));
@@ -322,8 +319,8 @@ class DViewExtensions
 
 		// Put Extensions table and Extension Value text area together in extensions panel
 		JPanel jpExtensions = new JPanel(new GridLayout(2, 1, 5, 5));
-		jpExtensions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new CompoundBorder(
-		    new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
+		jpExtensions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+		    new CompoundBorder(new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
 
 		jpExtensions.add(jpExtensionsTable);
 		jpExtensions.add(jpExtensionValue);
@@ -354,8 +351,8 @@ class DViewExtensions
 	}
 
 	/**
-	 * Update the value of the Extension Value text area depending on whether or not an extension has been
-	 * selected in the table.
+	 * Update the value of the Extension Value text area depending on whether or not an extension has been selected in
+	 * the table.
 	 */
 	private void updateExtensionValue()
 	{
@@ -376,9 +373,8 @@ class DViewExtensions
 			// Don't care about criticality
 			X509Ext ext = new X509Ext(sOid, bValue, false);
 
-			final String HEADER =
-			    "<html><head><style type=\"text/css\">ul { list-style-type: none; margin: 0; }\n"
-			        + "li ul { margin-left: 10px; }\n</style></head><body>";
+			final String HEADER = "<html><head><style type=\"text/css\">ul { list-style-type: none; margin: 0; }\n" +
+			    "li ul { margin-left: 10px; }\n</style></head><body>";
 			final String FOOTER = "</body></html>";
 
 			try

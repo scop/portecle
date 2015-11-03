@@ -54,9 +54,8 @@ class ProviderTreeCellRend
 	public Component getTreeCellRendererComponent(JTree jtrProvider, Object value, boolean bIsSelected,
 	    boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
 	{
-		JLabel cell =
-		    (JLabel) super.getTreeCellRendererComponent(jtrProvider, value, bIsSelected, bIsExpanded, bLeaf,
-		        iRow, bHasFocus);
+		JLabel cell = (JLabel) super.getTreeCellRendererComponent(jtrProvider, value, bIsSelected, bIsExpanded, bLeaf,
+		    iRow, bHasFocus);
 		cell.setText(value.toString());
 
 		// Sanity check of value
@@ -76,8 +75,7 @@ class ProviderTreeCellRend
 			else if (node.getLevel() == 1)
 			{
 				// Provider node
-				icon =
-				    new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Provider.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Provider.image")));
 				cell.setToolTipText(RB.getString("ProviderTreeCellRend.Provider.tooltip"));
 			}
 			else if (node.getLevel() == 2)
@@ -89,32 +87,26 @@ class ProviderTreeCellRend
 				{
 					// Provider description node
 					icon =
-					    new ImageIcon(getClass().getResource(
-					        RB.getString("ProviderTreeCellRend.Description.image")));
+					    new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Description.image")));
 					cell.setToolTipText(RB.getString("ProviderTreeCellRend.Description.tooltip"));
 				}
 				else if (iIndex == 1)
 				{
 					// Provider version node
-					icon =
-					    new ImageIcon(getClass().getResource(
-					        RB.getString("ProviderTreeCellRend.Version.image")));
+					icon = new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Version.image")));
 					cell.setToolTipText(RB.getString("ProviderTreeCellRend.Version.tooltip"));
 				}
 				else
 				{
 					// Provider properties node
-					icon =
-					    new ImageIcon(getClass().getResource(
-					        RB.getString("ProviderTreeCellRend.Properties.image")));
+					icon = new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Properties.image")));
 					cell.setToolTipText(RB.getString("ProviderTreeCellRend.Properties.tooltip"));
 				}
 			}
 			else
 			{
 				// Provider property node
-				icon =
-				    new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Property.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("ProviderTreeCellRend.Property.image")));
 				cell.setToolTipText(RB.getString("ProviderTreeCellRend.Property.tooltip"));
 			}
 

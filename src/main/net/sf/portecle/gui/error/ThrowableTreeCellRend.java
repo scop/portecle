@@ -53,9 +53,8 @@ class ThrowableTreeCellRend
 	public Component getTreeCellRendererComponent(JTree jtrThrowable, Object value, boolean bIsSelected,
 	    boolean bIsExpanded, boolean bLeaf, int iRow, boolean bHasFocus)
 	{
-		JLabel cell =
-		    (JLabel) super.getTreeCellRendererComponent(jtrThrowable, value, bIsSelected, bIsExpanded, bLeaf,
-		        iRow, bHasFocus);
+		JLabel cell = (JLabel) super.getTreeCellRendererComponent(jtrThrowable, value, bIsSelected, bIsExpanded, bLeaf,
+		    iRow, bHasFocus);
 		cell.setText(value.toString());
 
 		// Sanity check of value
@@ -69,24 +68,19 @@ class ThrowableTreeCellRend
 			if (userValue instanceof Throwable)
 			{
 				// Throwable
-				icon =
-				    new ImageIcon(getClass().getResource(
-				        RB.getString("ThrowableTreeCellRend.Throwable.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("ThrowableTreeCellRend.Throwable.image")));
 				cell.setToolTipText(RB.getString("ThrowableTreeCellRend.Throwable.tooltip"));
 			}
 			else if (userValue instanceof StackTraceElement)
 			{
 				// Stack trace element
-				icon =
-				    new ImageIcon(getClass().getResource(
-				        RB.getString("ThrowableTreeCellRend.StackTrace.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("ThrowableTreeCellRend.StackTrace.image")));
 				cell.setToolTipText(RB.getString("ThrowableTreeCellRend.StackTrace.tooltip"));
 			}
 			else
 			{
 				// Root node
-				icon =
-				    new ImageIcon(getClass().getResource(RB.getString("ThrowableTreeCellRend.Root.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("ThrowableTreeCellRend.Root.image")));
 				cell.setToolTipText(RB.getString("ThrowableTreeCellRend.Root.tooltip"));
 			}
 

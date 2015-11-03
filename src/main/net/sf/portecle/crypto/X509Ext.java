@@ -84,8 +84,8 @@ import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
 import org.bouncycastle.asn1.x509.X509ObjectIdentifiers;
 
 /**
- * Holds the information of an X.509 extension and provides the ability to get the extension's name and value
- * as a string.
+ * Holds the information of an X.509 extension and provides the ability to get the extension's name and value as a
+ * string.
  */
 public class X509Ext
 {
@@ -259,8 +259,7 @@ public class X509Ext
 		{
 			return getPrivateKeyUsagePeriod(bOctets);
 		}
-		else if (m_Oid.equals(Extension.issuerAlternativeName) ||
-		    m_Oid.equals(Extension.subjectAlternativeName))
+		else if (m_Oid.equals(Extension.issuerAlternativeName) || m_Oid.equals(Extension.subjectAlternativeName))
 		{
 			return getAlternativeName(bOctets);
 		}
@@ -547,8 +546,8 @@ public class X509Ext
 
 		if ((dTime = pkup.getNotBefore()) != null)
 		{
-			strBuff.append(MessageFormat.format(RB.getString("PrivateKeyUsagePeriodNotBefore"),
-			    formatGeneralizedTime(dTime)));
+			strBuff.append(
+			    MessageFormat.format(RB.getString("PrivateKeyUsagePeriodNotBefore"), formatGeneralizedTime(dTime)));
 		}
 
 		if ((dTime = pkup.getNotAfter()) != null)
@@ -557,16 +556,15 @@ public class X509Ext
 			{
 				strBuff.append("<br><br>");
 			}
-			strBuff.append(MessageFormat.format(RB.getString("PrivateKeyUsagePeriodNotAfter"),
-			    formatGeneralizedTime(dTime)));
+			strBuff.append(
+			    MessageFormat.format(RB.getString("PrivateKeyUsagePeriodNotAfter"), formatGeneralizedTime(dTime)));
 		}
 
 		return strBuff.toString();
 	}
 
 	/**
-	 * Get Subject Alternative Name (2.5.29.17) or Issuer Alternative Name (2.5.29.18) extension value as a
-	 * string.
+	 * Get Subject Alternative Name (2.5.29.17) or Issuer Alternative Name (2.5.29.18) extension value as a string.
 	 * 
 	 * <pre>
 	 * SubjectAltName ::= GeneralNames
@@ -629,8 +627,7 @@ public class X509Ext
 	private String getCrlNumberStringValue(byte[] bValue)
 	    throws IOException
 	{
-		return NumberFormat.getInstance().format(
-		    ((ASN1Integer) ASN1Primitive.fromByteArray(bValue)).getValue());
+		return NumberFormat.getInstance().format(((ASN1Integer) ASN1Primitive.fromByteArray(bValue)).getValue());
 	}
 
 	/**
@@ -742,8 +739,7 @@ public class X509Ext
 	private String getCertificateIssuerStringValue(byte[] bValue)
 	    throws IOException
 	{
-		return getGeneralNamesString(GeneralNames.getInstance(ASN1Primitive.fromByteArray(bValue)),
-		    LinkClass.BROWSER);
+		return getGeneralNamesString(GeneralNames.getInstance(ASN1Primitive.fromByteArray(bValue)), LinkClass.BROWSER);
 	}
 
 	/**
@@ -782,19 +778,16 @@ public class X509Ext
 				ASN1ObjectIdentifier issuerDomainPolicy = (ASN1ObjectIdentifier) policyMapping.getObjectAt(0);
 
 				strBuff.append("<ul><li>");
-				strBuff.append(MessageFormat.format(RB.getString("IssuerDomainPolicy"),
-				    issuerDomainPolicy.getId()));
+				strBuff.append(MessageFormat.format(RB.getString("IssuerDomainPolicy"), issuerDomainPolicy.getId()));
 				strBuff.append("</li></ul>");
 			}
 
 			if (pmLen > 1)
 			{
-				ASN1ObjectIdentifier subjectDomainPolicy =
-				    (ASN1ObjectIdentifier) policyMapping.getObjectAt(1);
+				ASN1ObjectIdentifier subjectDomainPolicy = (ASN1ObjectIdentifier) policyMapping.getObjectAt(1);
 
 				strBuff.append("<ul><li>");
-				strBuff.append(MessageFormat.format(RB.getString("SubjectDomainPolicy"),
-				    subjectDomainPolicy.getId()));
+				strBuff.append(MessageFormat.format(RB.getString("SubjectDomainPolicy"), subjectDomainPolicy.getId()));
 				strBuff.append("</li></ul>");
 			}
 
@@ -890,8 +883,7 @@ public class X509Ext
 		for (int i = 0, len = policyConstraints.size(); i < len; i++)
 		{
 			DERTaggedObject policyConstraint = (DERTaggedObject) policyConstraints.getObjectAt(i);
-			ASN1Integer skipCerts =
-			    new ASN1Integer(((DEROctetString) policyConstraint.getObject()).getOctets());
+			ASN1Integer skipCerts = new ASN1Integer(((DEROctetString) policyConstraint.getObject()).getOctets());
 			int iSkipCerts = skipCerts.getValue().intValue();
 
 			switch (policyConstraint.getTagNo())
@@ -1004,9 +996,7 @@ public class X509Ext
 	 * TemplateVersion ::= INTEGER (0..4294967295)
 	 * </pre>
 	 * 
-	 * @see <a
-	 *      href="http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">http://groups
-
+	 * @see <a href="http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">http://groups
 	 *      .google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1038,8 +1028,8 @@ public class X509Ext
 	/**
 	 * Get Microsoft CA Version (1.3.6.1.4.1.311.21.1) extension value as a string.
 	 * 
-	 * @see <a
-	 *      href="http://msdn.microsoft.com/library/en-us/security/security/certification_authority_renewal.asp">MSDN</a>
+	 * @see <a href="http://msdn.microsoft.com/library/en-us/security/security/certification_authority_renewal.asp">MSDN
+	 *      </a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1088,9 +1078,7 @@ public class X509Ext
 		String date = time.getAdjustedTime();
 		try
 		{
-			date =
-			    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-			        time.getAdjustedDate());
+			date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(time.getAdjustedDate());
 		}
 		catch (ParseException e)
 		{
@@ -1155,8 +1143,8 @@ public class X509Ext
 	}
 
 	/**
-	 * Get Authority Information Access (1.3.6.1.5.5.7.1.1) or Subject Information Access (1.3.6.1.5.5.7.1.11)
-	 * extension value as a string.
+	 * Get Authority Information Access (1.3.6.1.5.5.7.1.1) or Subject Information Access (1.3.6.1.5.5.7.1.11) extension
+	 * value as a string.
 	 * 
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1333,8 +1321,7 @@ public class X509Ext
 	/**
 	 * Get Novell Security Attributes (2.16.840.1.113719.1.9.4.1) extension value as a string.
 	 * 
-	 * @see <a href="http://developer.novell.com/repository/attributes/">Novell Certificate Extension
-	 *      Attributes</a>
+	 * @see <a href="http://developer.novell.com/repository/attributes/">Novell Certificate Extension Attributes</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1375,8 +1362,7 @@ public class X509Ext
 		sb.append("<li>GLB extensions:<ul>");
 
 		/*
-		 * TODO: verify that we can do getObjectAt(n) or if we need to examine tag numbers of the tagged
-		 * objects
+		 * TODO: verify that we can do getObjectAt(n) or if we need to examine tag numbers of the tagged objects
 		 */
 
 		// Key quality
@@ -1409,13 +1395,12 @@ public class X509Ext
 
 		// Enterprise ID
 		/*
-		 * ASN1Sequence eid = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject();
-		 * ASN1Sequence rootLabel = (ASN1Sequence) ((ASN1TaggedObject) eid.getObjectAt(0)).getObject();
-		 * ASN1Sequence registryLabel = (ASN1Sequence) ((ASN1TaggedObject) eid.getObjectAt(1)).getObject();
-		 * ASN1Sequence eLabels = (ASN1Sequence) ((ASN1TaggedObject) eid.getObjectAt(2)).getObject(); for (int
-		 * i = 0, len = eLabels.size(); i < len; i++) { // Hmm... I thought this would be a sequence of
-		 * sequences, // but the following throws a ClassCastException...? // ASN1Sequence eLabel =
-		 * (ASN1Sequence) eLabels.getObjectAt(i); }
+		 * ASN1Sequence eid = (ASN1Sequence) ((ASN1TaggedObject) glbs.getObjectAt(3)).getObject(); ASN1Sequence
+		 * rootLabel = (ASN1Sequence) ((ASN1TaggedObject) eid.getObjectAt(0)).getObject(); ASN1Sequence registryLabel =
+		 * (ASN1Sequence) ((ASN1TaggedObject) eid.getObjectAt(1)).getObject(); ASN1Sequence eLabels = (ASN1Sequence)
+		 * ((ASN1TaggedObject) eid.getObjectAt(2)).getObject(); for (int i = 0, len = eLabels.size(); i < len; i++) { //
+		 * Hmm... I thought this would be a sequence of sequences, // but the following throws a ClassCastException...?
+		 * // ASN1Sequence eLabel = (ASN1Sequence) eLabels.getObjectAt(i); }
 		 */
 		sb.append(RB.getString("NovellEnterpriseID"));
 		sb.append(' ').append(RB.getString("DecodeNotImplemented")); // TODO
@@ -1451,8 +1436,7 @@ public class X509Ext
 
 				ASN1Integer tmp = (ASN1Integer) cqPair.getObjectAt(0);
 				long type = tmp.getValue().longValue();
-				String csecCriteria =
-				    getRes("NovellCompusecQuality." + type, "UnrecognisedNovellCompusecQuality");
+				String csecCriteria = getRes("NovellCompusecQuality." + type, "UnrecognisedNovellCompusecQuality");
 				csecCriteria = MessageFormat.format(csecCriteria, tmp.getValue());
 				res.append("<li>").append(csecCriteria);
 
@@ -1482,8 +1466,8 @@ public class X509Ext
 		res.append("</li>");
 		/*
 		 * TODO for (int i = 0, len = cryptoQ.size(); i < len; i++) { ASN1Sequence cqPair = (ASN1Sequence)
-		 * cryptoQ.getObjectAt(i); ASN1Integer cryptoModuleCriteria = (ASN1Integer) cqPair.getObjectAt(0);
-		 * ASN1Integer cryptoModuleRating = (ASN1Integer) cqPair.getObjectAt(1); }
+		 * cryptoQ.getObjectAt(i); ASN1Integer cryptoModuleCriteria = (ASN1Integer) cqPair.getObjectAt(0); ASN1Integer
+		 * cryptoModuleRating = (ASN1Integer) cqPair.getObjectAt(1); }
 		 */
 
 		BigInteger ksqv = ((ASN1Integer) seq.getObjectAt(3)).getValue();
@@ -1496,10 +1480,9 @@ public class X509Ext
 	}
 
 	/** Netscape certificate types */
-	private static final int[] NETSCAPE_CERT_TYPES = { NetscapeCertType.sslClient,
-	    NetscapeCertType.sslServer, NetscapeCertType.smime, NetscapeCertType.objectSigning,
-	    NetscapeCertType.reserved, NetscapeCertType.sslCA, NetscapeCertType.smimeCA,
-	    NetscapeCertType.objectSigningCA };
+	private static final int[] NETSCAPE_CERT_TYPES = { NetscapeCertType.sslClient, NetscapeCertType.sslServer,
+	    NetscapeCertType.smime, NetscapeCertType.objectSigning, NetscapeCertType.reserved, NetscapeCertType.sslCA,
+	    NetscapeCertType.smimeCA, NetscapeCertType.objectSigningCA };
 
 	/**
 	 * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value as a string.
@@ -1846,8 +1829,8 @@ public class X509Ext
 				break;
 
 			default: // Unsupported general name type
-				strBuff.append(MessageFormat.format(RB.getString("UnrecognizedGeneralNameType"),
-				    generalName.getTagNo()));
+				strBuff.append(
+				    MessageFormat.format(RB.getString("UnrecognizedGeneralNameType"), generalName.getTagNo()));
 				strBuff.append(": ");
 				strBuff.append(escapeHtml(generalName.getName()));
 				break;
@@ -1960,8 +1943,8 @@ public class X509Ext
 		}
 
 		/*
-		 * Put both dumps together in one string (hex, clear) with appropriate padding between them (pad to
-		 * array length)
+		 * Put both dumps together in one string (hex, clear) with appropriate padding between them (pad to array
+		 * length)
 		 */
 		StringBuilder strBuff = new StringBuilder(sbHex.length() + sbClr.length() + 4);
 

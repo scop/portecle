@@ -34,15 +34,14 @@ import org.bouncycastle.asn1.ASN1Integer;
 public class StringUtil
 {
 	/**
-	 * Convert the supplied object to hex characters sub-divided by spaces every given number of characters,
-	 * and left-padded with zeros to fill group size.
+	 * Convert the supplied object to hex characters sub-divided by spaces every given number of characters, and
+	 * left-padded with zeros to fill group size.
 	 * 
 	 * @param obj Object (byte array, BigInteger, ASN1Integer)
 	 * @param groupSize number of characters to group hex characters by
 	 * @param separator grouping separator
 	 * @return Hex string
-	 * @throws IllegalArgumentException if obj is not a BigInteger, byte array, or an ASN1Integer, or
-	 *             groupSize &lt; 0
+	 * @throws IllegalArgumentException if obj is not a BigInteger, byte array, or an ASN1Integer, or groupSize &lt; 0
 	 */
 	public static StringBuilder toHex(Object obj, int groupSize, String separator)
 	{
@@ -65,8 +64,8 @@ public class StringUtil
 		}
 		else
 		{
-			throw new IllegalArgumentException("Don't know how to convert " + obj.getClass().getName() +
-			    " to a hex string");
+			throw new IllegalArgumentException(
+			    "Don't know how to convert " + obj.getClass().getName() + " to a hex string");
 		}
 
 		// Convert to hex

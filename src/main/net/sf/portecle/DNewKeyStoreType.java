@@ -101,8 +101,8 @@ class DNewKeyStoreType
 
 		m_jrbCaseExactJksKeyStore =
 		    new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbCaseExactJksKeyStore.text"), true);
-		m_jrbCaseExactJksKeyStore.setMnemonic(RB.getString(
-		    "DNewKeyStoreType.m_jrbCaseExactJksKeyStore.mnemonic").charAt(0));
+		m_jrbCaseExactJksKeyStore.setMnemonic(
+		    RB.getString("DNewKeyStoreType.m_jrbCaseExactJksKeyStore.mnemonic").charAt(0));
 		m_jrbCaseExactJksKeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbCaseExactJksKeyStore.tooltip"));
 		m_jrbCaseExactJksKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.CaseExactJKS));
 
@@ -112,8 +112,7 @@ class DNewKeyStoreType
 		m_jrbJceksKeyStore.setEnabled(KeyStoreUtil.isAvailable(KeyStoreType.JCEKS));
 
 		m_jrbPkcs12KeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.text"));
-		m_jrbPkcs12KeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.mnemonic").charAt(
-		    0));
+		m_jrbPkcs12KeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.mnemonic").charAt(0));
 		m_jrbPkcs12KeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbPkcs12KeyStore.tooltip"));
 
 		m_jrbBksKeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbBksKeyStore.text"));
@@ -154,8 +153,8 @@ class DNewKeyStoreType
 		}
 
 		JPanel jpKeyStoreType = new JPanel(new GridLayout(keyStoreTypes.getButtonCount() + 1, 1));
-		jpKeyStoreType.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new CompoundBorder(
-		    new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
+		jpKeyStoreType.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+		    new CompoundBorder(new EtchedBorder(), new EmptyBorder(5, 5, 5, 5))));
 
 		jpKeyStoreType.add(jlKeyStoreType);
 		jpKeyStoreType.add(m_jrbJksKeyStore);

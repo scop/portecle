@@ -56,14 +56,13 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 
 /**
- * Provides utility methods for loading/saving keystores. The Bouncy Castle provider must be registered before
- * using this class to create or load BKS or UBER type keystores.
+ * Provides utility methods for loading/saving keystores. The Bouncy Castle provider must be registered before using
+ * this class to create or load BKS or UBER type keystores.
  */
 public final class KeyStoreUtil
 {
 	/**
-	 * Dummy password to use for keystore entries in various contexts of keystores that do not support entry
-	 * passwords.
+	 * Dummy password to use for keystore entries in various contexts of keystores that do not support entry passwords.
 	 */
 	public static final char[] DUMMY_PASSWORD = "password".toCharArray();
 
@@ -140,8 +139,8 @@ public final class KeyStoreUtil
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 		return keyStore;
 	}
@@ -170,8 +169,7 @@ public final class KeyStoreUtil
 		{
 			if (obj instanceof PEMEncryptedKeyPair)
 			{
-				PEMDecryptorProvider decryptor =
-				    new JcePEMDecryptorProviderBuilder().build(pwFinder.getPassword());
+				PEMDecryptorProvider decryptor = new JcePEMDecryptorProviderBuilder().build(pwFinder.getPassword());
 				obj = ((PEMEncryptedKeyPair) obj).decryptKeyPair(decryptor);
 			}
 			if (obj instanceof PEMKeyPair)
@@ -180,8 +178,7 @@ public final class KeyStoreUtil
 			}
 			else if (obj instanceof X509CertificateHolder)
 			{
-				ByteArrayInputStream bais =
-				    new ByteArrayInputStream(((X509CertificateHolder) obj).getEncoded());
+				ByteArrayInputStream bais = new ByteArrayInputStream(((X509CertificateHolder) obj).getEncoded());
 				certs.add(cf.generateCertificate(bais));
 			}
 		}
@@ -301,8 +298,8 @@ public final class KeyStoreUtil
 	 * @param cPassword Password of the keystore
 	 * @return The keystore
 	 * @throws CryptoException Problem encountered loading the keystore
-	 * @throws FileNotFoundException If the keystore file does not exist, is a directory rather than a regular
-	 *             file, or for some other reason cannot be opened for reading
+	 * @throws FileNotFoundException If the keystore file does not exist, is a directory rather than a regular file, or
+	 *             for some other reason cannot be opened for reading
 	 */
 	public static KeyStore loadKeyStore(File fKeyStore, char[] cPassword, KeyStoreType keyStoreType)
 	    throws CryptoException, FileNotFoundException
@@ -314,8 +311,8 @@ public final class KeyStoreUtil
 		}
 		catch (KeyStoreException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoCreateKeystore.exception.message"), keyStoreType), ex);
 		}
 
 		try (FileInputStream fis = new FileInputStream(fKeyStore))
@@ -328,8 +325,8 @@ public final class KeyStoreUtil
 		}
 		catch (GeneralSecurityException | IOException ex)
 		{
-			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
-			    keyStoreType), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"), keyStoreType), ex);
 		}
 
 		return keyStore;
@@ -352,15 +349,15 @@ public final class KeyStoreUtil
 		{
 			if (Security.getProvider(sPkcs11Provider) == null)
 			{
-				throw new CryptoException(MessageFormat.format(
-				    RB.getString("NoSuchProvider.exception.message"), sPkcs11Provider));
+				throw new CryptoException(
+				    MessageFormat.format(RB.getString("NoSuchProvider.exception.message"), sPkcs11Provider));
 			}
 			keyStore = KeyStore.getInstance(KeyStoreType.PKCS11.name(), sPkcs11Provider);
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    RB.getString("NoCreateKeystore.exception.message"), KeyStoreType.PKCS11), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoCreateKeystore.exception.message"), KeyStoreType.PKCS11), ex);
 		}
 
 		try
@@ -369,8 +366,8 @@ public final class KeyStoreUtil
 		}
 		catch (Exception ex)
 		{
-			throw new CryptoException(MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"),
-			    KeyStoreType.PKCS11), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"), KeyStoreType.PKCS11), ex);
 		}
 
 		return keyStore;
@@ -384,8 +381,8 @@ public final class KeyStoreUtil
 	 * @param cPassword The password to protect the keystore with
 	 * @return the saved keystore ready for further use
 	 * @throws CryptoException Problem encountered saving the keystore
-	 * @throws FileNotFoundException If the keystore file exists but is a directory rather than a regular
-	 *             file, does not exist but cannot be created, or cannot be opened for any other reason
+	 * @throws FileNotFoundException If the keystore file exists but is a directory rather than a regular file, does not
+	 *             exist but cannot be created, or cannot be opened for any other reason
 	 * @throws IOException An I/O error occurred
 	 */
 	public static KeyStore saveKeyStore(KeyStore keyStore, File fKeyStoreFile, char[] cPassword)

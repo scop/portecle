@@ -53,8 +53,8 @@ public class LastDir
 	}
 
 	/**
-	 * Update the LastDir object based on the supplied file. If the file exists and is a directory it is used,
-	 * if it exists and is a regular file then its parent is used.
+	 * Update the LastDir object based on the supplied file. If the file exists and is a directory it is used, if it
+	 * exists and is a regular file then its parent is used.
 	 * 
 	 * @param file Used to set last directory
 	 */

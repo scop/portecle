@@ -46,12 +46,11 @@ class SystemPropertiesTableCellRend
 	 * @return The rendered cell
 	 */
 	@Override
-	public Component getTableCellRendererComponent(JTable jtSystemProperties, Object value,
-	    boolean bIsSelected, boolean bHasFocus, int iRow, int iCol)
+	public Component getTableCellRendererComponent(JTable jtSystemProperties, Object value, boolean bIsSelected,
+	    boolean bHasFocus, int iRow, int iCol)
 	{
 		JLabel cell =
-		    (JLabel) super.getTableCellRendererComponent(jtSystemProperties, value, bIsSelected, bHasFocus,
-		        iRow, iCol);
+		    (JLabel) super.getTableCellRendererComponent(jtSystemProperties, value, bIsSelected, bHasFocus, iRow, iCol);
 		cell.setHorizontalAlignment(LEFT);
 
 		cell.setBorder(new EmptyBorder(0, 5, 0, 5));

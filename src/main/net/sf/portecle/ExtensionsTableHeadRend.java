@@ -62,8 +62,7 @@ class ExtensionsTableHeadRend
 		{
 			header.setText("");
 			ImageIcon icon =
-			    new ImageIcon(getClass().getResource(
-			        RB.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
+			    new ImageIcon(getClass().getResource(RB.getString("ExtensionsTableHeadRend.CriticalColumn.image")));
 			header.setIcon(icon);
 			header.setHorizontalAlignment(CENTER);
 			header.setVerticalAlignment(CENTER);

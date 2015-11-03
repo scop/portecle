@@ -58,10 +58,10 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Modal dialog used to generate a certificate based on a supplied key pair and signature algorithm for
- * inclusion in a keystore. Allows the user to enter the signature algorithm and validity period of the
- * certificate in days as well as all of the certificate attributes of a version 1 X.509 certificate. The
- * choice of available signature algorithms depends on the key pair generation algorithm selected.
+ * Modal dialog used to generate a certificate based on a supplied key pair and signature algorithm for inclusion in a
+ * keystore. Allows the user to enter the signature algorithm and validity period of the certificate in days as well as
+ * all of the certificate attributes of a version 1 X.509 certificate. The choice of available signature algorithms
+ * depends on the key pair generation algorithm selected.
  */
 class DGenerateCertificate
     extends PortecleJDialog
@@ -74,6 +74,7 @@ class DGenerateCertificate
 
 	/** Regular expression for checking RFC 5321 (subset) "Mailbox" addresses */
 	private static final Pattern MAILBOX_RE;
+
 	static
 	{
 		String atom = "[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+";
@@ -278,8 +279,7 @@ class DGenerateCertificate
 		doc = m_jtfCountryCode.getDocument();
 		if (doc instanceof AbstractDocument)
 		{
-			((AbstractDocument) doc).setDocumentFilter(new DocumentMaxLengthFilter(
-			    m_jtfCountryCode.getColumns()));
+			((AbstractDocument) doc).setDocumentFilter(new DocumentMaxLengthFilter(m_jtfCountryCode.getColumns()));
 		}
 		m_jtfCountryCode.setToolTipText(RB.getString("DGenerateCertificate.m_jtfCountryCode.tooltip"));
 		jlCountryCode.setLabelFor(m_jtfCountryCode);
@@ -342,9 +342,8 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Populate the signature algorithm combo box with the signature algorithms applicable to the key pair
-	 * algorithm. Also set a sane default selected item, and disable the combo box if it has less than 2
-	 * items.
+	 * Populate the signature algorithm combo box with the signature algorithms applicable to the key pair algorithm.
+	 * Also set a sane default selected item, and disable the combo box if it has less than 2 items.
 	 * 
 	 * @param type key pair type
 	 * @param combo the combo box to populate
@@ -385,20 +384,19 @@ class DGenerateCertificate
 		m_sEmailAddress = validateEmailAddress(m_jtfEmailAddress.getText());
 
 		if (m_sCommonName == null && m_sOrganizationUnit == null && m_sOrganizationName == null &&
-		    m_sLocalityName == null && m_sStateName == null && m_sCountryCode == null &&
-		    m_sEmailAddress == null)
+		    m_sLocalityName == null && m_sStateName == null && m_sCountryCode == null && m_sEmailAddress == null)
 		{
-			JOptionPane.showMessageDialog(this,
-			    RB.getString("DGenerateCertificate.ValueReqCertAttr.message"), getTitle(),
-			    JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("DGenerateCertificate.ValueReqCertAttr.message"),
+			    getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
 		// Country code must be two characters long
 		if (m_sCountryCode != null && m_sCountryCode.length() != COUNTRY_CODE_LENGTH)
 		{
-			JOptionPane.showMessageDialog(this, MessageFormat.format(
-			    RB.getString("DGenerateCertificate.CountryCodeLength.message"), COUNTRY_CODE_LENGTH),
+			JOptionPane.showMessageDialog(this,
+			    MessageFormat.format(RB.getString("DGenerateCertificate.CountryCodeLength.message"),
+			        COUNTRY_CODE_LENGTH),
 			    getTitle(), JOptionPane.WARNING_MESSAGE);
 			SwingHelper.selectAndFocus(m_jtfCountryCode);
 			return false;
@@ -410,9 +408,8 @@ class DGenerateCertificate
 			Matcher m = MAILBOX_RE.matcher(m_sEmailAddress);
 			if (!m.matches() || (m.group(1).length() > 64 || m.group(2).length() > 255))
 			{
-				JOptionPane.showMessageDialog(this,
-				    RB.getString("DGenerateCertificate.EmailAddressSyntax.message"), getTitle(),
-				    JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, RB.getString("DGenerateCertificate.EmailAddressSyntax.message"),
+				    getTitle(), JOptionPane.WARNING_MESSAGE);
 				SwingHelper.selectAndFocus(m_jtfEmailAddress);
 				return false;
 			}
@@ -435,8 +432,8 @@ class DGenerateCertificate
 
 		if (sValidity.isEmpty())
 		{
-			JOptionPane.showMessageDialog(this, RB.getString("DGenerateCertificate.ValReqValidity.message"),
-			    getTitle(), JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, RB.getString("DGenerateCertificate.ValReqValidity.message"), getTitle(),
+			    JOptionPane.WARNING_MESSAGE);
 			return BAD_VALIDITY;
 		}
 
@@ -600,10 +597,9 @@ class DGenerateCertificate
 		try
 		{
 			SignatureType signatureType = (SignatureType) m_jcbSigAlg.getSelectedItem();
-			cert =
-			    X509CertUtil.generateCert(m_sCommonName, m_sOrganizationUnit, m_sOrganizationName,
-			        m_sLocalityName, m_sStateName, m_sCountryCode, m_sEmailAddress, m_iValidity,
-			        keyPair.getPublic(), keyPair.getPrivate(), signatureType);
+			cert = X509CertUtil.generateCert(m_sCommonName, m_sOrganizationUnit, m_sOrganizationName, m_sLocalityName,
+			    m_sStateName, m_sCountryCode, m_sEmailAddress, m_iValidity, keyPair.getPublic(), keyPair.getPrivate(),
+			    signatureType);
 		}
 		catch (Exception ex)
 		{

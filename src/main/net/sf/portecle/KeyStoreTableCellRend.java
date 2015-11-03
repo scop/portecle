@@ -56,8 +56,7 @@ class KeyStoreTableCellRend
 	    boolean bHasFocus, int iRow, int iCol)
 	{
 		JLabel cell =
-		    (JLabel) super.getTableCellRendererComponent(jtKeyStore, value, bIsSelected, bHasFocus, iRow,
-		        iCol);
+		    (JLabel) super.getTableCellRendererComponent(jtKeyStore, value, bIsSelected, bHasFocus, iRow, iCol);
 
 		// Entry column - display an icon representing the type and tool tip text
 		if (iCol == 0)
@@ -66,23 +65,18 @@ class KeyStoreTableCellRend
 
 			if (KeyStoreTableModel.KEY_PAIR_ENTRY.equals(value))
 			{
-				icon =
-				    new ImageIcon(getClass().getResource(
-				        RB.getString("KeyStoreTableCellRend.KeyPairEntry.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableCellRend.KeyPairEntry.image")));
 				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.KeyPairEntry.tooltip"));
 			}
 			else if (KeyStoreTableModel.TRUST_CERT_ENTRY.equals(value))
 			{
 				icon =
-				    new ImageIcon(getClass().getResource(
-				        RB.getString("KeyStoreTableCellRend.TrustCertEntry.image")));
+				    new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableCellRend.TrustCertEntry.image")));
 				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.TrustCertEntry.tooltip"));
 			}
 			else
 			{
-				icon =
-				    new ImageIcon(
-				        getClass().getResource(RB.getString("KeyStoreTableCellRend.KeyEntry.image")));
+				icon = new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableCellRend.KeyEntry.image")));
 				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.KeyEntry.tooltip"));
 			}
 
@@ -99,8 +93,8 @@ class KeyStoreTableCellRend
 				if (value instanceof Date)
 				{
 					// Include time zone
-					cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-					    (Date) value));
+					cell.setText(
+					    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format((Date) value));
 				}
 				else
 				{

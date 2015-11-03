@@ -78,8 +78,7 @@ public class PortecleJDialog
 	/**
 	 * Get OK button.
 	 * 
-	 * @param escPresses whether hitting Esc should press the button (usually only for dialogs without a
-	 *            cancel button)
+	 * @param escPresses whether hitting Esc should press the button (usually only for dialogs without a cancel button)
 	 */
 	protected JButton getOkButton(boolean escPresses)
 	{
@@ -98,8 +97,8 @@ public class PortecleJDialog
 
 		if (escPresses)
 		{
-			jbOK.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-			    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_KEY);
+			jbOK.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+			    ESC_KEY);
 			jbOK.getActionMap().put(ESC_KEY, okAction);
 		}
 
@@ -124,8 +123,8 @@ public class PortecleJDialog
 
 		jbCancel.addActionListener(cancelAction);
 
-		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-		    KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESC_KEY);
+		jbCancel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+		    ESC_KEY);
 		jbCancel.getActionMap().put(ESC_KEY, cancelAction);
 
 		return jbCancel;

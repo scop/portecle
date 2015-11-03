@@ -97,8 +97,7 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Load one or more certificates from the specified URL, trying a built in list of certification
-	 * encodings.
+	 * Load one or more certificates from the specified URL, trying a built in list of certification encodings.
 	 * 
 	 * @param url The URL to load certificates from
 	 * @param exceptions Collection where exceptions occurred will be added
@@ -137,12 +136,12 @@ public final class X509CertUtil
 	 * Load one or more certificates from the specified URL.
 	 * 
 	 * @param url The URL to load certificates from
-	 * @param encoding The certification path encoding. If null, treat as a normal certificate, not
-	 *            certification path. Use one of the <code>*_ENCODING</code> constants here.
+	 * @param encoding The certification path encoding. If null, treat as a normal certificate, not certification path.
+	 *            Use one of the <code>*_ENCODING</code> constants here.
 	 * @return The certificates
 	 * @throws CryptoException Problem encountered while loading the certificate(s)
-	 * @throws FileNotFoundException If the certificate file does not exist, is a directory rather than a
-	 *             regular file, or for some other reason cannot be opened for reading
+	 * @throws FileNotFoundException If the certificate file does not exist, is a directory rather than a regular file,
+	 *             or for some other reason cannot be opened for reading
 	 * @throws IOException An I/O error occurred
 	 */
 	private static X509Certificate[] loadCertificates(URL url, String encoding)
@@ -219,8 +218,8 @@ public final class X509CertUtil
 	 * @param url The URL to load CRL from
 	 * @return The CRL
 	 * @throws CryptoException Problem encountered while loading the CRL
-	 * @throws FileNotFoundException If the CRL file does not exist, is a directory rather than a regular
-	 *             file, or for some other reason cannot be opened for reading
+	 * @throws FileNotFoundException If the CRL file does not exist, is a directory rather than a regular file, or for
+	 *             some other reason cannot be opened for reading
 	 * @throws IOException An I/O error occurred
 	 */
 	public static X509CRL loadCRL(URL url)
@@ -244,8 +243,8 @@ public final class X509CertUtil
 	 * @param url The URL to load CSR from
 	 * @return The CSR
 	 * @throws CryptoException Problem encountered while loading the CSR
-	 * @throws FileNotFoundException If the CSR file does not exist, is a directory rather than a regular
-	 *             file, or for some other reason cannot be opened for reading
+	 * @throws FileNotFoundException If the CSR file does not exist, is a directory rather than a regular file, or for
+	 *             some other reason cannot be opened for reading
 	 * @throws IOException An I/O error occurred
 	 */
 	public static PKCS10CertificationRequest loadCSR(URL url)
@@ -255,8 +254,7 @@ public final class X509CertUtil
 		try (PEMParser pr = new PEMParser(new InputStreamReader(NetUtil.openGetStream(url))))
 		{
 			PKCS10CertificationRequest csr = (PKCS10CertificationRequest) pr.readObject();
-			ContentVerifierProvider prov =
-			    new JcaContentVerifierProviderBuilder().build(csr.getSubjectPublicKeyInfo());
+			ContentVerifierProvider prov = new JcaContentVerifierProviderBuilder().build(csr.getSubjectPublicKeyInfo());
 
 			if (!csr.isSignatureValid(prov))
 			{
@@ -495,10 +493,10 @@ public final class X509CertUtil
 	 * @param signatureType Signature Type
 	 * @throws CryptoException If there was a problem generating the certificate
 	 */
-	public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit,
-	    String sOrganisation, String sLocality, String sState, String sCountryCode, String sEmailAddress,
-	    int iValidity, PublicKey publicKey, PrivateKey privateKey, SignatureType signatureType)
-	    throws CryptoException
+	public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit, String sOrganisation,
+	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity, PublicKey publicKey,
+	    PrivateKey privateKey, SignatureType signatureType)
+	        throws CryptoException
 	{
 		X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
 		if (sEmailAddress != null)
@@ -535,9 +533,8 @@ public final class X509CertUtil
 		Date notBefore = new Date(System.currentTimeMillis());
 		Date notAfter = new Date(notBefore.getTime() + ((long) iValidity * 24 * 60 * 60 * 1000));
 
-		JcaX509v1CertificateBuilder certBuilder =
-		    new JcaX509v1CertificateBuilder(nameBuilder.build(), serial, notBefore, notAfter,
-		        nameBuilder.build(), publicKey);
+		JcaX509v1CertificateBuilder certBuilder = new JcaX509v1CertificateBuilder(nameBuilder.build(), serial,
+		    notBefore, notAfter, nameBuilder.build(), publicKey);
 
 		try
 		{
@@ -557,15 +554,15 @@ public final class X509CertUtil
 	 * 
 	 * @return The renewed certificate
 	 * @param oldCert old certificate
-	 * @param iValidity Validity period of certificate in days to add to the old cert's expiry date, or
-	 *            current time if the certificate has expired
+	 * @param iValidity Validity period of certificate in days to add to the old cert's expiry date, or current time if
+	 *            the certificate has expired
 	 * @param publicKey Public part of key pair
 	 * @param privateKey Private part of key pair
 	 * @throws CryptoException If there was a problem generating the certificate
 	 */
 	public static X509Certificate renewCert(X509Certificate oldCert, int iValidity, PublicKey publicKey,
 	    PrivateKey privateKey)
-	    throws CryptoException
+	        throws CryptoException
 	{
 		BigInteger serial = generateX509SerialNumber();
 
@@ -580,9 +577,8 @@ public final class X509CertUtil
 
 		// TODO: verify/force self-signedness
 
-		JcaX509v1CertificateBuilder certBuilder =
-		    new JcaX509v1CertificateBuilder(oldCert.getIssuerX500Principal(), serial, notBefore, notAfter,
-		        oldCert.getSubjectX500Principal(), publicKey);
+		JcaX509v1CertificateBuilder certBuilder = new JcaX509v1CertificateBuilder(oldCert.getIssuerX500Principal(),
+		    serial, notBefore, notAfter, oldCert.getSubjectX500Principal(), publicKey);
 
 		try
 		{
@@ -644,8 +640,8 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Verify that one X.509 certificate was signed using the private key that corresponds to the public key
-	 * of a second certificate.
+	 * Verify that one X.509 certificate was signed using the private key that corresponds to the public key of a second
+	 * certificate.
 	 * 
 	 * @return True if the first certificate was signed by private key corresponding to the second signature
 	 * @param signedCert The signed certificate
@@ -673,9 +669,9 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied
-	 * keystores based on the trusted certificates contained therein, i.e. that a chain of trust exists
-	 * between the supplied certificate and a self-signed trusted certificate in the keystores.
+	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied keystores
+	 * based on the trusted certificates contained therein, i.e. that a chain of trust exists between the supplied
+	 * certificate and a self-signed trusted certificate in the keystores.
 	 * 
 	 * @return The trust chain, or null if trust could not be established
 	 * @param cert The certificate
@@ -697,9 +693,9 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied
-	 * comparison certificates based on the trusted certificates contained therein, i.e. that a chain of trust
-	 * exists between the supplied certificate and a self-signed trusted certificate in the comparison set.
+	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied comparison
+	 * certificates based on the trusted certificates contained therein, i.e. that a chain of trust exists between the
+	 * supplied certificate and a self-signed trusted certificate in the comparison set.
 	 * 
 	 * @return The trust chain, or null if trust could not be established
 	 * @param cert The certificate
@@ -774,8 +770,7 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Check whether or not a trusted certificate in the supplied keystore matches the the supplied X.509
-	 * certificate.
+	 * Check whether or not a trusted certificate in the supplied keystore matches the the supplied X.509 certificate.
 	 * 
 	 * @return The alias of the matching certificate in the keystore or null if there is no match
 	 * @param cert The certificate
@@ -792,8 +787,7 @@ public final class X509CertUtil
 				String sAlias = en.nextElement();
 				if (keyStore.isCertificateEntry(sAlias))
 				{
-					X509Certificate compCert =
-					    X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias));
+					X509Certificate compCert = X509CertUtil.convertCertificate(keyStore.getCertificate(sAlias));
 
 					if (cert.equals(compCert))
 					{
@@ -810,9 +804,9 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * For a given X.509 certificate get a representative alias for it in a keystore. For a self-signed
-	 * certificate this will be the subject's common name (if any). For a non-self-signed certificate it will
-	 * be the subject's common name followed by the issuer's common name in parenthesis.
+	 * For a given X.509 certificate get a representative alias for it in a keystore. For a self-signed certificate this
+	 * will be the subject's common name (if any). For a non-self-signed certificate it will be the subject's common
+	 * name followed by the issuer's common name in parenthesis.
 	 * 
 	 * @param cert The certificate
 	 * @return The alias or a blank string if none could be worked out

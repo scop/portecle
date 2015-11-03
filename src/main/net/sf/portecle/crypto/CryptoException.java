@@ -32,7 +32,7 @@ public class CryptoException
 	 * 
 	 * @param sMessage Exception message
 	 */
-	/* default */CryptoException(String sMessage)
+	/* default */ CryptoException(String sMessage)
 	{
 		super(sMessage);
 	}
@@ -53,7 +53,7 @@ public class CryptoException
 	 * 
 	 * @param causeThrowable The throwable that caused this exception to be thrown
 	 */
-	/* default */CryptoException(Throwable causeThrowable)
+	/* default */ CryptoException(Throwable causeThrowable)
 	{
 		super(causeThrowable);
 	}

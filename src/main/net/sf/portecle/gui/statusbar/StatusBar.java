@@ -22,8 +22,8 @@
 package net.sf.portecle.gui.statusbar;
 
 /**
- * Interface for a status bar. Used with the StatusBarChangeHandler to support the placing and removal of help
- * messages into the status bar as menu items are selected/de-selected.
+ * Interface for a status bar. Used with the StatusBarChangeHandler to support the placing and removal of help messages
+ * into the status bar as menu items are selected/de-selected.
  */
 public interface StatusBar
 {

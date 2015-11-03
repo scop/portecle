@@ -142,9 +142,8 @@ public class DViewPEM
 		jtaPEM.setEditable(false);
 		jtaPEM.setFont(new Font(Font.MONOSPACED, Font.PLAIN, jtaPEM.getFont().getSize()));
 
-		JScrollPane jspPEM =
-		    new JScrollPane(jtaPEM, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane jspPEM = new JScrollPane(jtaPEM, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspPEM.setPreferredSize(new Dimension(500, 300));
 		jpPEM.add(jspPEM, BorderLayout.CENTER);
 
@@ -172,10 +171,8 @@ public class DViewPEM
 			if (fExportFile.isFile())
 			{
 				String sMessage =
-				    MessageFormat.format(RB.getString("DViewPEM.OverWriteFile.message"),
-				        fExportFile.getName());
-				int iSelected =
-				    JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
+				    MessageFormat.format(RB.getString("DViewPEM.OverWriteFile.message"), fExportFile.getName());
+				int iSelected = JOptionPane.showConfirmDialog(this, sMessage, getTitle(), JOptionPane.YES_NO_OPTION);
 				if (iSelected == JOptionPane.NO_OPTION)
 					return;
 			}

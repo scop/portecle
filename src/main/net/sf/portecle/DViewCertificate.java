@@ -65,8 +65,8 @@ import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Modal dialog to display the details of one or more X.509 certificates. The details of one certificate are
- * displayed at a time with selector buttons allowing the movement to another of the certificates.
+ * Modal dialog to display the details of one or more X.509 certificates. The details of one certificate are displayed
+ * at a time with selector buttons allowing the movement to another of the certificates.
  */
 class DViewCertificate
     extends PortecleJDialog
@@ -157,7 +157,7 @@ class DViewCertificate
 	 */
 	public DViewCertificate(Window parent, String sTitle, X509Certificate[] certs, String connectionProtocol,
 	    String connectionCipherSuite)
-	    throws CryptoException
+	        throws CryptoException
 	{
 		super(parent, sTitle, true);
 		m_certs = certs;
@@ -184,10 +184,9 @@ class DViewCertificate
 			if (certs == null)
 			{
 				// None of the types worked - show each of the errors?
-				int iSelected =
-				    SwingHelper.showConfirmDialog(parent,
-				        MessageFormat.format(RB.getString("FPortecle.NoOpenCertificate.message"), url),
-				        RB.getString("FPortecle.OpenCertificate.Title"));
+				int iSelected = SwingHelper.showConfirmDialog(parent,
+				    MessageFormat.format(RB.getString("FPortecle.NoOpenCertificate.message"), url),
+				    RB.getString("FPortecle.OpenCertificate.Title"));
 				if (iSelected == JOptionPane.YES_OPTION)
 				{
 					for (Exception e : exs)
@@ -205,9 +204,8 @@ class DViewCertificate
 				return false;
 			}
 
-			DViewCertificate dialog =
-			    new DViewCertificate(parent, MessageFormat.format(
-			        RB.getString("FPortecle.CertDetails.Title"), url), certs);
+			DViewCertificate dialog = new DViewCertificate(parent,
+			    MessageFormat.format(RB.getString("FPortecle.CertDetails.Title"), url), certs);
 			dialog.setLocationRelativeTo(parent);
 			SwingHelper.showAndWait(dialog);
 		}
@@ -550,14 +548,13 @@ class DViewCertificate
 		{
 			m_jbLeft.setEnabled(false);
 			m_jbRight.setEnabled(false);
-			m_jlSelector.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jlSelector.text"), 0,
-			    0));
+			m_jlSelector.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jlSelector.text"), 0, 0));
 			return;
 		}
 
 		// Set selection label and buttons
-		m_jlSelector.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jlSelector.text"),
-		    m_iSelCert + 1, m_certs.length));
+		m_jlSelector.setText(
+		    MessageFormat.format(RB.getString("DViewCertificate.m_jlSelector.text"), m_iSelCert + 1, m_certs.length));
 
 		if (m_iSelCert == 0)
 		{
@@ -608,8 +605,7 @@ class DViewCertificate
 		m_jtfSerialNumber.setCaretPosition(0);
 
 		// Valid From (include timezone)
-		m_jtfValidFrom.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-		    startDate));
+		m_jtfValidFrom.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(startDate));
 
 		if (bNotYetValid)
 		{
@@ -624,13 +620,12 @@ class DViewCertificate
 		m_jtfValidFrom.setCaretPosition(0);
 
 		// Valid Until (include time zone)
-		m_jtfValidUntil.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(
-		    endDate));
+		m_jtfValidUntil.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format(endDate));
 
 		if (bNoLongerValid)
 		{
-			m_jtfValidUntil.setText(MessageFormat.format(
-			    RB.getString("DViewCertificate.m_jtfValidUntil.expired.text"), m_jtfValidUntil.getText()));
+			m_jtfValidUntil.setText(MessageFormat.format(RB.getString("DViewCertificate.m_jtfValidUntil.expired.text"),
+			    m_jtfValidUntil.getText()));
 			m_jtfValidUntil.setForeground(Color.red);
 		}
 		else
@@ -737,8 +732,7 @@ class DViewCertificate
 	}
 
 	/**
-	 * Extensions button pressed or otherwise activated. Show the extensions of the currently selected
-	 * certificate.
+	 * Extensions button pressed or otherwise activated. Show the extensions of the currently selected certificate.
 	 */
 	private void extensionsPressed()
 	{
@@ -749,16 +743,16 @@ class DViewCertificate
 
 		X509Certificate cert = m_certs[m_iSelCert];
 
-		DViewExtensions dViewExtensions =
-		    new DViewExtensions(this, MessageFormat.format(RB.getString("DViewCertificate.Extensions.Title"),
-		        m_iSelCert + 1, m_certs.length), true, cert);
+		DViewExtensions dViewExtensions = new DViewExtensions(this,
+		    MessageFormat.format(RB.getString("DViewCertificate.Extensions.Title"), m_iSelCert + 1, m_certs.length),
+		    true, cert);
 		dViewExtensions.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dViewExtensions);
 	}
 
 	/**
-	 * PEM Encoding Encoding button pressed or otherwise activated. Show the PEM encoding for the currently
-	 * selected certificate.
+	 * PEM Encoding Encoding button pressed or otherwise activated. Show the PEM encoding for the currently selected
+	 * certificate.
 	 */
 	private void pemEncodingPressed()
 	{

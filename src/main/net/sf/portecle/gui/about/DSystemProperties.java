@@ -103,9 +103,8 @@ import net.sf.portecle.PortecleJDialog;
 		jtSystemProperties.getRowSorter().toggleSortOrder(0);
 
 		// Put the table into a scroll pane
-		JScrollPane jspSystemPropertiesTable =
-		    new JScrollPane(jtSystemProperties, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jspSystemPropertiesTable = new JScrollPane(jtSystemProperties,
+		    ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspSystemPropertiesTable.getViewport().setBackground(jtSystemProperties.getBackground());
 
 		// Put the scroll pane into a panel

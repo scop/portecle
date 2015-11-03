@@ -60,8 +60,8 @@ public final class DigestUtil
 		}
 		catch (NoSuchAlgorithmException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    FPortecle.RB.getString("NoCreateDigest.exception.message"), digestType), ex);
+			throw new CryptoException(
+			    MessageFormat.format(FPortecle.RB.getString("NoCreateDigest.exception.message"), digestType), ex);
 		}
 
 		// Create raw message digest

@@ -145,8 +145,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 
 		if (sProvider == null || Security.getProvider(sProvider) == null)
 		{
-			String msg =
-			    MessageFormat.format(RB.getString("DChoosePkcs11Provider.InvalidProvider.message"), sProvider);
+			String msg = MessageFormat.format(RB.getString("DChoosePkcs11Provider.InvalidProvider.message"), sProvider);
 			JOptionPane.showMessageDialog(this, msg, getTitle(), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}

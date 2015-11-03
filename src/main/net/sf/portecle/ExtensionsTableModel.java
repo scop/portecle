@@ -36,8 +36,7 @@ class ExtensionsTableModel
     extends AbstractTableModel
 {
 	/** Column names */
-	private static final String[] COLUMN_NAMES = {
-	    FPortecle.RB.getString("ExtensionsTableModel.CriticalColumn"),
+	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("ExtensionsTableModel.CriticalColumn"),
 	    FPortecle.RB.getString("ExtensionsTableModel.NameColumn"),
 	    FPortecle.RB.getString("ExtensionsTableModel.OidColumn") };
 

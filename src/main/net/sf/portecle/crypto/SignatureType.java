@@ -35,12 +35,12 @@ import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
 /**
  * Signature type. Enum constant names are compatible with JCA standard names.
  * 
- * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA
- *      Standard Names</a>
+ * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
 public enum SignatureType
 {
-	/** MD2 with RSA Signature Type */
+    /** MD2 with RSA Signature Type */
 	MD2withRSA(PKCSObjectIdentifiers.md2WithRSAEncryption.getId()),
 	/** MD5 with RSA Signature Type */
 	MD5withRSA(PKCSObjectIdentifiers.md5WithRSAEncryption.getId()),
@@ -83,6 +83,7 @@ public enum SignatureType
 
 	/** OID-to-type map */
 	private static final Map<String, SignatureType> OID_MAP;
+
 	static
 	{
 		HashMap<String, SignatureType> oidMap = new HashMap<>();
@@ -94,19 +95,20 @@ public enum SignatureType
 	}
 
 	private static final Map<KeyPairType, Collection<SignatureType>> KEYPAIR_MAP;
+
 	static
 	{
 		HashMap<KeyPairType, Collection<SignatureType>> kpMap = new HashMap<>();
 
-		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(EnumSet.of(SHA1withDSA, SHA224withDSA,
-		    SHA256withDSA, SHA384withDSA, SHA512withDSA)));
+		kpMap.put(KeyPairType.DSA, Collections.unmodifiableSet(
+		    EnumSet.of(SHA1withDSA, SHA224withDSA, SHA256withDSA, SHA384withDSA, SHA512withDSA)));
 
-		kpMap.put(KeyPairType.RSA, Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA,
-		    SHA1withRSA, SHA224withRSA, SHA256withRSA, SHA384withRSA, SHA512withRSA, RIPEMD128withRSA,
-		    RIPEMD160withRSA, RIPEMD256withRSA)));
+		kpMap.put(KeyPairType.RSA,
+		    Collections.unmodifiableSet(EnumSet.of(MD2withRSA, MD5withRSA, SHA1withRSA, SHA224withRSA, SHA256withRSA,
+		        SHA384withRSA, SHA512withRSA, RIPEMD128withRSA, RIPEMD160withRSA, RIPEMD256withRSA)));
 
-		kpMap.put(KeyPairType.ECDSA, Collections.unmodifiableSet(EnumSet.of(SHA1withECDSA, SHA224withECDSA,
-		    SHA256withECDSA, SHA384withECDSA, SHA512withECDSA)));
+		kpMap.put(KeyPairType.ECDSA, Collections.unmodifiableSet(
+		    EnumSet.of(SHA1withECDSA, SHA224withECDSA, SHA256withECDSA, SHA384withECDSA, SHA512withECDSA)));
 
 		KEYPAIR_MAP = Collections.unmodifiableMap(kpMap);
 	}

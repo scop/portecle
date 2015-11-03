@@ -51,8 +51,8 @@ public class DThrowable
 	private final Throwable m_throwable;
 
 	/**
-	 * Exception message parts that may indicate that the culprit for the Throwable is lack of unrestricted
-	 * JCE policy files.
+	 * Exception message parts that may indicate that the culprit for the Throwable is lack of unrestricted JCE policy
+	 * files.
 	 */
 	private final static String[] POLICY_PROBLEM_HINTS = { "unsupported keysize", "illegal key size", };
 
@@ -138,11 +138,8 @@ public class DThrowable
 		}
 		if (maybePolicyProblem)
 		{
-			text =
-			    "<html>" +
-			        text +
-			        MessageFormat.format(RB.getString("DThrowable.jpThrowable.policy.text"),
-			            new File(System.getProperty("java.home"), "lib" + File.separator + "security"));
+			text = "<html>" + text + MessageFormat.format(RB.getString("DThrowable.jpThrowable.policy.text"),
+			    new File(System.getProperty("java.home"), "lib" + File.separator + "security"));
 		}
 
 		jpThrowable.add(new JLabel(text));

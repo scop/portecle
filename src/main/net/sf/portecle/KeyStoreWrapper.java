@@ -29,9 +29,8 @@ import java.util.HashMap;
 import net.sf.portecle.crypto.KeyStoreType;
 
 /**
- * Wrapper class for a keystore. Used to keep a track of the keystore's physical file, its password, the
- * password's of its protected entries and whether or not the keystore has been changed since it was last
- * saved.
+ * Wrapper class for a keystore. Used to keep a track of the keystore's physical file, its password, the password's of
+ * its protected entries and whether or not the keystore has been changed since it was last saved.
  */
 class KeyStoreWrapper
 {

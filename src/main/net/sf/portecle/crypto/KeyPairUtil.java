@@ -89,13 +89,13 @@ public final class KeyPairUtil
 		}
 		catch (NoSuchAlgorithmException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    RB.getString("NoGenerateKeypair.exception.message"), keyPairType), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoGenerateKeypair.exception.message"), keyPairType), ex);
 		}
 		catch (InvalidParameterException ex)
 		{
-			throw new CryptoException(MessageFormat.format(
-			    RB.getString("NoGenerateKeypairParm.exception.message"), keyPairType), ex);
+			throw new CryptoException(
+			    MessageFormat.format(RB.getString("NoGenerateKeypairParm.exception.message"), keyPairType), ex);
 		}
 	}
 

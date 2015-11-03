@@ -106,9 +106,8 @@ public class DJarInfo
 		jtJarInfo.getRowSorter().toggleSortOrder(0);
 
 		// Put the table into a scroll pane
-		JScrollPane jspJarInfoTable =
-		    new JScrollPane(jtJarInfo, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jspJarInfoTable = new JScrollPane(jtJarInfo, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspJarInfoTable.getViewport().setBackground(jtJarInfo.getBackground());
 
 		// Put the scroll pane into a panel
@@ -163,8 +162,8 @@ public class DJarInfo
 		}
 
 		/*
-		 * If only one JAR was found assume that application was started using "jar" option - look in JAR
-		 * manifest's Class-Path entry for the rest of the JARs
+		 * If only one JAR was found assume that application was started using "jar" option - look in JAR manifest's
+		 * Class-Path entry for the rest of the JARs
 		 */
 		if (vJars.size() == 1)
 		{

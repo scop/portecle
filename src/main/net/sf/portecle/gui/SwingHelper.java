@@ -104,9 +104,8 @@ public final class SwingHelper
 	}
 
 	/**
-	 * Shows a simple yes/no confirmation dialog, with the "no" option selected by default. This method exists
-	 * only because there's apparently no easy way to accomplish that with JOptionPane's static helper
-	 * methods.
+	 * Shows a simple yes/no confirmation dialog, with the "no" option selected by default. This method exists only
+	 * because there's apparently no easy way to accomplish that with JOptionPane's static helper methods.
 	 * 
 	 * @param parentComponent
 	 * @param message

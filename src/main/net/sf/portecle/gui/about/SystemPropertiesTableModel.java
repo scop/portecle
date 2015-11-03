@@ -36,8 +36,7 @@ class SystemPropertiesTableModel
     extends AbstractTableModel
 {
 	/** Column names */
-	private static final String[] COLUMN_NAMES = {
-	    FPortecle.RB.getString("SystemPropertiesTableModel.NameColumn"),
+	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("SystemPropertiesTableModel.NameColumn"),
 	    FPortecle.RB.getString("SystemPropertiesTableModel.ValueColumn") };
 
 	/** Column classes */

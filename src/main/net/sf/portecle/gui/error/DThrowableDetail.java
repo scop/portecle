@@ -46,8 +46,7 @@ import javax.swing.tree.TreeSelectionModel;
 import net.sf.portecle.PortecleJDialog;
 
 /**
- * Modal dialog to display a throwable's stack trace. Cause throwable's stack trace will be show recursively
- * also.
+ * Modal dialog to display a throwable's stack trace. Cause throwable's stack trace will be show recursively also.
  */
 /* package private */class DThrowableDetail
     extends PortecleJDialog
@@ -107,13 +106,12 @@ import net.sf.portecle.PortecleJDialog;
 
 		// Expand all nodes in tree
 		/*
-		 * ...then again, not. Too much scary detail. TreeNode topNode =
-		 * (TreeNode)jtrThrowable.getModel().getRoot(); expandTree(jtrThrowable, new TreePath(topNode));
+		 * ...then again, not. Too much scary detail. TreeNode topNode = (TreeNode)jtrThrowable.getModel().getRoot();
+		 * expandTree(jtrThrowable, new TreePath(topNode));
 		 */
 
-		JScrollPane jspThrowable =
-		    new JScrollPane(jtrThrowable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane jspThrowable = new JScrollPane(jtrThrowable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+		    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		jspThrowable.setPreferredSize(new Dimension(500, 250));
 		jpThrowable.add(jspThrowable, BorderLayout.CENTER);
 
@@ -138,8 +136,7 @@ import net.sf.portecle.PortecleJDialog;
 	private DefaultMutableTreeNode createThrowableNodes()
 	{
 		// Top node
-		DefaultMutableTreeNode topNode =
-		    new DefaultMutableTreeNode(RB.getString("DThrowableDetail.RootNode.text"));
+		DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(RB.getString("DThrowableDetail.RootNode.text"));
 
 		Throwable throwable = m_throwable;
 
@@ -170,10 +167,10 @@ import net.sf.portecle.PortecleJDialog;
 	 * @param parent Path to node to expand
 	 */
 	/*
-	 * private void expandTree(JTree tree, TreePath parent) { // Traverse children expending nodes TreeNode
-	 * node = (TreeNode) parent.getLastPathComponent(); if (node.getChildCount() >= 0) { for (Enumeration en =
-	 * node.children(); en.hasMoreElements();) { TreeNode subNode = (TreeNode) en.nextElement(); TreePath path
-	 * = parent.pathByAddingChild(subNode); expandTree(tree, path); } } tree.expandPath(parent); }
+	 * private void expandTree(JTree tree, TreePath parent) { // Traverse children expending nodes TreeNode node =
+	 * (TreeNode) parent.getLastPathComponent(); if (node.getChildCount() >= 0) { for (Enumeration en = node.children();
+	 * en.hasMoreElements();) { TreeNode subNode = (TreeNode) en.nextElement(); TreePath path =
+	 * parent.pathByAddingChild(subNode); expandTree(tree, path); } } tree.expandPath(parent); }
 	 */
 
 	/**

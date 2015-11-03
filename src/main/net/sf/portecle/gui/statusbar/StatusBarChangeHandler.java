@@ -27,8 +27,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Handles change events on a menu item that causes the status bar text to show or hide help text for the menu
- * item.
+ * Handles change events on a menu item that causes the status bar text to show or hide help text for the menu item.
  */
 public class StatusBarChangeHandler
     implements ChangeListener

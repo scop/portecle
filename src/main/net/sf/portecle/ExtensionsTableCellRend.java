@@ -53,8 +53,7 @@ class ExtensionsTableCellRend
 	    boolean bHasFocus, int iRow, int iCol)
 	{
 		JLabel cell =
-		    (JLabel) super.getTableCellRendererComponent(jtExtensions, value, bIsSelected, bHasFocus, iRow,
-		        iCol);
+		    (JLabel) super.getTableCellRendererComponent(jtExtensions, value, bIsSelected, bHasFocus, iRow, iCol);
 
 		// Critical column - display an icon representing criticality and tool tip text
 		if (iCol == 0)
@@ -63,16 +62,14 @@ class ExtensionsTableCellRend
 
 			if (((Boolean) value))
 			{
-				icon =
-				    new ImageIcon(getClass().getResource(
-				        RB.getString("ExtensionsTableCellRend.CriticalExtension.image")));
+				icon = new ImageIcon(
+				    getClass().getResource(RB.getString("ExtensionsTableCellRend.CriticalExtension.image")));
 				cell.setToolTipText(RB.getString("ExtensionsTableCellRend.CriticalExtension.tooltip"));
 			}
 			else
 			{
-				icon =
-				    new ImageIcon(getClass().getResource(
-				        RB.getString("ExtensionsTableCellRend." + "NonCriticalExtension.image")));
+				icon = new ImageIcon(
+				    getClass().getResource(RB.getString("ExtensionsTableCellRend." + "NonCriticalExtension.image")));
 				cell.setToolTipText(RB.getString("ExtensionsTableCellRend." + "NonCriticalExtension.tooltip"));
 			}
 

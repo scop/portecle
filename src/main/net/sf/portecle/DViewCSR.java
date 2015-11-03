@@ -263,8 +263,8 @@ class DViewCSR
 		int iKeySize = KeyPairUtil.getKeyLength(keyParams);
 		if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
 		{
-			m_jtfPublicKey.setText(MessageFormat.format(RB.getString("DViewCSR.m_jtfPublicKey.text"),
-			    m_jtfPublicKey.getText(), iKeySize));
+			m_jtfPublicKey.setText(
+			    MessageFormat.format(RB.getString("DViewCSR.m_jtfPublicKey.text"), m_jtfPublicKey.getText(), iKeySize));
 		}
 		m_jtfPublicKey.setCaretPosition(0);
 
@@ -277,8 +277,7 @@ class DViewCSR
 	}
 
 	/**
-	 * PEM Encoding Encoding button pressed or otherwise activated. Show the PEM encoding for the
-	 * certification request.
+	 * PEM Encoding Encoding button pressed or otherwise activated. Show the PEM encoding for the certification request.
 	 */
 	private void pemEncodingPressed()
 	{
@@ -288,8 +287,7 @@ class DViewCSR
 		chooser.setMultiSelectionEnabled(false);
 		try
 		{
-			DViewPEM dViewCertPem =
-			    new DViewPEM(this, RB.getString("DViewCSR.PemEncoding.Title"), m_req, chooser);
+			DViewPEM dViewCertPem = new DViewPEM(this, RB.getString("DViewCSR.PemEncoding.Title"), m_req, chooser);
 			dViewCertPem.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertPem);
 		}

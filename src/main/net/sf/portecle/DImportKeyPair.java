@@ -64,8 +64,8 @@ import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.error.DThrowable;
 
 /**
- * Modal dialog that displays the details of all key pairs from a PKCS #12 keystore allowing the user to pick
- * one for import.
+ * Modal dialog that displays the details of all key pairs from a PKCS #12 keystore allowing the user to pick one for
+ * import.
  */
 class DImportKeyPair
     extends PortecleJDialog
@@ -120,10 +120,8 @@ class DImportKeyPair
 		jbImport.setToolTipText(RB.getString("DImportKeyPair.jbImport.tooltip"));
 
 		// Certificate details button
-		final JButton jbCertificateDetails =
-		    new JButton(RB.getString("DImportKeyPair.jbCertificateDetails.text"));
-		jbCertificateDetails.setMnemonic(RB.getString("DImportKeyPair.jbCertificateDetails.mnemonic").charAt(
-		    0));
+		final JButton jbCertificateDetails = new JButton(RB.getString("DImportKeyPair.jbCertificateDetails.text"));
+		jbCertificateDetails.setMnemonic(RB.getString("DImportKeyPair.jbCertificateDetails.mnemonic").charAt(0));
 		jbCertificateDetails.setToolTipText(RB.getString("DImportKeyPair.jbCertificateDetails.tooltip"));
 		jbCertificateDetails.setEnabled(false);
 		jbCertificateDetails.addActionListener(new ActionListener()
@@ -159,9 +157,8 @@ class DImportKeyPair
 		jlInstructions.setLabelFor(m_jltKeyPairs);
 
 		// Put the list into a scroll pane
-		JScrollPane jspKeyPairs =
-		    new JScrollPane(m_jltKeyPairs, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-		        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jspKeyPairs = new JScrollPane(m_jltKeyPairs, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jspKeyPairs.getViewport().setBackground(m_jltKeyPairs.getBackground());
 
 		// Key pair details (algorithm and button to access
@@ -182,8 +179,8 @@ class DImportKeyPair
 		// Put all the key pair components together
 		JPanel jpKeyPairs = new JPanel(new BorderLayout(10, 10));
 		jpKeyPairs.setPreferredSize(new Dimension(400, 200));
-		jpKeyPairs.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-		    new EtchedBorder()), new EmptyBorder(5, 5, 5, 5)));
+		jpKeyPairs.setBorder(new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()),
+		    new EmptyBorder(5, 5, 5, 5)));
 
 		jpKeyPairs.add(jlInstructions, BorderLayout.NORTH);
 		jpKeyPairs.add(jspKeyPairs, BorderLayout.CENTER);
@@ -258,14 +255,13 @@ class DImportKeyPair
 		}
 		catch (GeneralSecurityException ex)
 		{
-			throw new CryptoException(
-			    RB.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
+			throw new CryptoException(RB.getString("DImportKeyPair.ProblemAccessingPkcs12.exception.message"), ex);
 		}
 	}
 
 	/**
-	 * Populate the algorithm text field. If a key pair is selected then the field will contain the key pairs
-	 * algorithm name and key size. Otherwise the field will be blanked.
+	 * Populate the algorithm text field. If a key pair is selected then the field will contain the key pairs algorithm
+	 * name and key size. Otherwise the field will be blanked.
 	 */
 	private void populateAlgorithm()
 	{
@@ -300,8 +296,8 @@ class DImportKeyPair
 
 			if (iKeySize != KeyPairUtil.UNKNOWN_KEY_SIZE)
 			{
-				m_jtfAlgorithm.setText(MessageFormat.format(
-				    RB.getString("DImportKeyPair.m_jtfAlgorithm.text"), m_jtfAlgorithm.getText(), iKeySize));
+				m_jtfAlgorithm.setText(MessageFormat.format(RB.getString("DImportKeyPair.m_jtfAlgorithm.text"),
+				    m_jtfAlgorithm.getText(), iKeySize));
 			}
 			m_jtfAlgorithm.setCaretPosition(0);
 		}
@@ -325,9 +321,8 @@ class DImportKeyPair
 
 			X509Certificate[] certs = X509CertUtil.convertCertificates(m_pkcs12.getCertificateChain(sAlias));
 
-			DViewCertificate dViewCertificate =
-			    new DViewCertificate(this, MessageFormat.format(
-			        RB.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), certs);
+			DViewCertificate dViewCertificate = new DViewCertificate(this,
+			    MessageFormat.format(RB.getString("DImportKeyPair.ViewCertificateDetails.Title"), sAlias), certs);
 			dViewCertificate.setLocationRelativeTo(this);
 			SwingHelper.showAndWait(dViewCertificate);
 		}
@@ -369,8 +364,7 @@ class DImportKeyPair
 	}
 
 	/**
-	 * Import button pressed by user. Store the selected key pair's private and public parts and close the
-	 * dialog.
+	 * Import button pressed by user. Store the selected key pair's private and public parts and close the dialog.
 	 */
 	@Override
 	protected void okPressed()

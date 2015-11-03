@@ -30,12 +30,12 @@ import java.util.Set;
 /**
  * KeyStore type. Enum constant names are compatible with JCA names.
  * 
- * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA
- *      Standard Names</a>
+ * @see <a href="http://download.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html">JCA Standard
+ *      Names</a>
  */
 public enum KeyStoreType
 {
-	/** JKS keystore Type */
+    /** JKS keystore Type */
 	JKS(null, "JKS", true, true, new String[] { "jks" }),
 	/** PKCS #12 keystore Type */
 	PKCS12(null, "PKCS #12", false, false, new String[] { "p12", "pfx" }),
@@ -109,8 +109,8 @@ public enum KeyStoreType
 	}
 
 	/**
-	 * Does the keystore type provide useful values for entry creation dates? Some keystores return the
-	 * keystore load time as creation date for all entries, this is not considered useful by this class.
+	 * Does the keystore type provide useful values for entry creation dates? Some keystores return the keystore load
+	 * time as creation date for all entries, this is not considered useful by this class.
 	 * 
 	 * @return true if creation dates are useful, false otherwise
 	 */
