@@ -1,3 +1,9 @@
+New in Portecle x.x (201x-xx-xx):
+---------------------------------
+
+Enhancements:
+- Recognition for some additional certificate extension values.
+
 New in Portecle 1.9 (2015-06-23):
 ---------------------------------
 
