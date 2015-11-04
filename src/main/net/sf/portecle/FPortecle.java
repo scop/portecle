@@ -47,6 +47,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.security.GeneralSecurityException;
@@ -72,6 +73,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 
+import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
@@ -2350,6 +2352,7 @@ public class FPortecle
 		String protocol = null;
 		String cipherSuite = null;
 		SSLSocket ss = null;
+		Socket socket = null;
 
 		try
 		{
@@ -2391,9 +2394,15 @@ public class FPortecle
 				sf = sc.getSocketFactory();
 			}
 
-			ss = (SSLSocket) sf.createSocket();
-			ss.setSoTimeout(timeOut);
-			ss.connect(ia, timeOut);
+			// Go through a regular SocketFactory in order to be able to:
+			// - control connection timeouts before connecting, and
+			// - be able to use a host(String), port based method; otherwise apparently no SNI
+
+			socket = SocketFactory.getDefault().createSocket();
+			socket.setSoTimeout(timeOut);
+			socket.connect(ia, timeOut);
+			ss = (SSLSocket) sf.createSocket(socket, ia.getHostString(), ia.getPort(), false);
+
 			SSLSession sess = ss.getSession();
 			// TODO: fails with GNU Classpath: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=29692
 			certs = (X509Certificate[]) sess.getPeerCertificates();
@@ -2413,6 +2422,17 @@ public class FPortecle
 				try
 				{
 					ss.close();
+				}
+				catch (IOException e)
+				{
+					DThrowable.showAndWait(this, null, e);
+				}
+			}
+			if (socket != null && !socket.isClosed())
+			{
+				try
+				{
+					socket.close();
 				}
 				catch (IOException e)
 				{
