@@ -116,6 +116,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
+import org.bouncycastle.openssl.PEMEncryptor;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.openssl.PasswordFinder;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+import org.bouncycastle.openssl.jcajce.JcePEMEncryptorBuilder;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
+
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.KeyStoreType;
@@ -138,13 +145,6 @@ import net.sf.portecle.gui.password.DGetNewPassword;
 import net.sf.portecle.gui.password.DGetPassword;
 import net.sf.portecle.gui.statusbar.StatusBar;
 import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
-
-import org.bouncycastle.openssl.PEMEncryptor;
-import org.bouncycastle.openssl.PEMParser;
-import org.bouncycastle.openssl.PasswordFinder;
-import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
-import org.bouncycastle.openssl.jcajce.JcePEMEncryptorBuilder;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
 /**
  * Start class and main frame of Portecle.

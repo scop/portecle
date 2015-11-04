@@ -43,6 +43,12 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
+import org.bouncycastle.crypto.util.PublicKeyFactory;
+import org.bouncycastle.pkcs.PKCS10CertificationRequest;
+
 import net.sf.portecle.crypto.AlgorithmType;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairUtil;
@@ -51,12 +57,6 @@ import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.gui.SwingHelper;
 import net.sf.portecle.gui.crypto.DViewPEM;
 import net.sf.portecle.gui.error.DThrowable;
-
-import org.bouncycastle.asn1.x500.X500Name;
-import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.crypto.params.AsymmetricKeyParameter;
-import org.bouncycastle.crypto.util.PublicKeyFactory;
-import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
 /**
  * Modal dialog to display the details of a certification request.

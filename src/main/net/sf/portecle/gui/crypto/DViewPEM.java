@@ -47,11 +47,11 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
+
 import net.sf.portecle.PortecleJDialog;
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.gui.error.DThrowable;
-
-import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 
 /**
  * Modal dialog to display an X.509 object's PEM encoding.

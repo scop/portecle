@@ -66,6 +66,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.DigestType;
 import net.sf.portecle.crypto.DigestUtil;
@@ -73,9 +76,6 @@ import net.sf.portecle.crypto.KeyPairUtil;
 import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.X509CertUtil;
 import net.sf.portecle.gui.error.DThrowable;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * Modal dialog to display a report on the contents of a supplied keystore.

@@ -34,9 +34,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import net.sf.portecle.PortecleJDialog;
-
 import org.bouncycastle.openssl.PasswordFinder;
+
+import net.sf.portecle.PortecleJDialog;
 
 /**
  * Modal dialog used for entering a masked password.
