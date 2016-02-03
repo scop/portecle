@@ -1689,10 +1689,13 @@ public class X509Ext
 								sb.append(RB.getString("NoticeRefOrganization"));
 								sb.append(": ");
 								sb.append(orgstr);
-								sb.append(", ");
-								sb.append(RB.getString("NoticeRefNumber"));
-								sb.append(": ");
-								sb.append(nrstr);
+								if (nrstr.length() != 0)
+								{
+									sb.append(", ");
+									sb.append(RB.getString("NoticeRefNumber"));
+									sb.append(": ");
+									sb.append(nrstr);
+								}
 								sb.append("</li>");
 							}
 							// else TODO
