@@ -53,8 +53,6 @@ import java.util.List;
 
 import javax.security.auth.x500.X500Principal;
 
-import net.sf.portecle.NetUtil;
-
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
@@ -70,6 +68,8 @@ import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCSException;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
+
+import net.sf.portecle.NetUtil;
 
 /**
  * Provides utility methods relating to X509 Certificates, CRLs and CSRs.
