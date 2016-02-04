@@ -1,5 +1,5 @@
-New in Portecle x.x (201x-xx-xx):
----------------------------------
+New in Portecle 1.10 (2016-02-04):
+----------------------------------
 
 Enhancements:
 - Support SNI in SSL/TLS connections.
