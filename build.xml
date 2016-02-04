@@ -153,7 +153,12 @@
 
     <copy file="${bcprov.jar}" tofile="${build}/webstart/bcprov.jar"/>
     <copy file="${bcpkix.jar}" tofile="${build}/webstart/bcpkix.jar"/>
-    <p:signjar digestalg="SHA-1">
+    <!--
+        Note: digestalg needs to stay the same as it already is in these
+        jars to avoid verification errors:
+        https://bugs.openjdk.java.net/browse/JDK-6848277
+    -->
+    <p:signjar digestalg="SHA-256">
       <fileset dir="${build}/webstart" includes="bc*.jar"/>
     </p:signjar>
     <length property="bcjarsize" file="${build}/webstart/bcprov.jar" />
