@@ -38,6 +38,7 @@
   <property name="apiurl.bcprov" value="http://www.bouncycastle.org/docs/docs1.5on/"/>
   <property name="apiurl.bcpkix" value="http://www.bouncycastle.org/docs/pkixdocs1.5on/"/>
 
+  <property name="manifest.codebase" value="portecle.sourceforge.net"/>
   <property name="jnlp.codebase" value="http://portecle.sourceforge.net/webstart/"/>
 
   <property name="signjar.tsaurl" value="http://timestamp.comodoca.com/rfc3161"/>
@@ -120,6 +121,8 @@
         <attribute name="Implementation-Vendor-Id" value="net.sf.portecle" />
         <attribute name="Implementation-URL" value="http://portecle.sourceforge.net/" />
         <attribute name="Permissions" value="all-permissions" />
+        <attribute name="Application-Name" value="Portecle" />
+        <attribute name="Codebase" value="${manifest.codebase}" />
       </manifest>
       <fileset dir="${build}/classes" includes="*/**" />
     </jar>
