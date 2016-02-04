@@ -40,6 +40,8 @@
 
   <property name="jnlp.codebase" value="http://portecle.sourceforge.net/webstart/"/>
 
+  <property name="signjar.tsaurl" value="http://timestamp.comodoca.com/rfc3161"/>
+
   <path id="build.classpath">
     <pathelement location="${bcprov.jar}" />
     <pathelement location="${bcpkix.jar}" />
@@ -55,6 +57,7 @@
       storepass="${signjar.storepass}"
       alias="${signjar.alias}"
       keypass="${signjar.keypass}"
+      tsaurl="${signjar.tsaurl}"
       sigfile="PORTECLE"/>
   </presetdef>
 
