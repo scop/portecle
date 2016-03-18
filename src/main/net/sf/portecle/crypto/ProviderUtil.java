@@ -23,8 +23,8 @@ package net.sf.portecle.crypto;
 
 import java.security.Provider;
 import java.security.Security;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.TreeMap;
 
 /**
  * Provides security provider utility methods.
@@ -42,11 +42,11 @@ public final class ProviderUtil
 	/**
 	 * Get the PKCS #11 <code>Provider</code>s available on the system.
 	 * 
-	 * @return the (possibly empty) collection of available PKCS #11 <code>Provider</code>s
+	 * @return the (possibly empty) collection of available PKCS #11 <code>Provider</code>s, sorted by name
 	 */
 	public static Collection<Provider> getPkcs11Providers()
 	{
-		ArrayList<Provider> p11s = new ArrayList<>();
+		TreeMap<String, Provider> p11s = new TreeMap<>();
 		for (Provider prov : Security.getProviders())
 		{
 			String pName = prov.getName();
@@ -57,9 +57,9 @@ public final class ProviderUtil
 			 */
 			if (pName.startsWith("SunPKCS11-"))
 			{
-				p11s.add(prov);
+				p11s.put(pName, prov);
 			}
 		}
-		return p11s;
+		return p11s.values();
 	}
 }

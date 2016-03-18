@@ -29,7 +29,7 @@ import java.awt.Window;
 import java.security.Provider;
 import java.security.Security;
 import java.text.MessageFormat;
-import java.util.TreeSet;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -91,13 +91,13 @@ import net.sf.portecle.crypto.ProviderUtil;
 		m_jcbProvider.setToolTipText(RB.getString("DChoosePkcs11Provider.m_jcbProvider.tooltip"));
 		jlProvider.setLabelFor(m_jcbProvider);
 
-		TreeSet<Provider> pSet = new TreeSet<>(ProviderUtil.getPkcs11Providers());
+		Collection<Provider> p11s = ProviderUtil.getPkcs11Providers();
 
-		boolean providersAvailable = !pSet.isEmpty();
+		boolean providersAvailable = !p11s.isEmpty();
 
-		if (providersAvailable)
+		if (!p11s.isEmpty())
 		{
-			for (Provider prov : pSet)
+			for (Provider prov : p11s)
 			{
 				String pName = prov.getName();
 				m_jcbProvider.addItem(pName);
