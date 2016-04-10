@@ -245,7 +245,7 @@ class DKeyStoreReport
 		try
 		{
 			// Get report...
-			String sKeyStoreReport = null;
+			String sKeyStoreReport;
 
 			if (!bXml)
 			{
@@ -519,7 +519,7 @@ class DKeyStoreReport
 					sCreation = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM).format(dCreation);
 				}
 
-				String sEntryType = null;
+				String sEntryType;
 				Certificate[] certChain = null;
 
 				// Get entry type and certificates
@@ -562,12 +562,8 @@ class DKeyStoreReport
 				{
 					X509Certificate[] x509CertChain = X509CertUtil.convertCertificates(certChain);
 
-					int iChainLen = x509CertChain.length;
-
-					for (int iCnt = 0; iCnt < iChainLen; iCnt++)
+					for (X509Certificate x509Cert : x509CertChain)
 					{
-						X509Certificate x509Cert = x509CertChain[iCnt];
-
 						Element certificateElement = xmlDoc.createElement("certificate");
 						entryElement.appendChild(certificateElement);
 
@@ -684,7 +680,7 @@ class DKeyStoreReport
 				String sAlias = aliases.nextElement();
 
 				Certificate[] certChain = null;
-				DefaultMutableTreeNode entryNode = null;
+				DefaultMutableTreeNode entryNode;
 
 				// Entry type
 				if (m_keystore.isKeyEntry(sAlias))

@@ -248,7 +248,7 @@ class DViewCSR
 		// Public Key (algorithm and keysize)
 		SubjectPublicKeyInfo keyInfo = m_req.getSubjectPublicKeyInfo();
 
-		AsymmetricKeyParameter keyParams = null;
+		AsymmetricKeyParameter keyParams;
 		try
 		{
 			keyParams = PublicKeyFactory.createKey(keyInfo);
@@ -294,7 +294,6 @@ class DViewCSR
 		catch (CryptoException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
-			return;
 		}
 	}
 }

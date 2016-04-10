@@ -117,12 +117,6 @@ public final class X509CertUtil
 				certs = loadCertificates(downloadedUrl, certType);
 				break; // Success!
 			}
-			catch (FileNotFoundException e)
-			{
-				// Don't bother with rest of the types, just show the exception once
-				exceptions.add(e);
-				break;
-			}
 			catch (Exception e)
 			{
 				exceptions.add(e);
@@ -142,10 +136,9 @@ public final class X509CertUtil
 	 * @throws CryptoException Problem encountered while loading the certificate(s)
 	 * @throws FileNotFoundException If the certificate file does not exist, is a directory rather than a regular file,
 	 *             or for some other reason cannot be opened for reading
-	 * @throws IOException An I/O error occurred
 	 */
 	private static X509Certificate[] loadCertificates(URL url, String encoding)
-	    throws CryptoException, IOException
+	    throws CryptoException
 	{
 		// TODO: connect/read timeouts
 
@@ -228,8 +221,7 @@ public final class X509CertUtil
 		try (InputStream in = NetUtil.openGetStream(url))
 		{
 			CertificateFactory cf = CertificateFactory.getInstance(X509_CERT_TYPE);
-			X509CRL crl = (X509CRL) cf.generateCRL(in);
-			return crl;
+			return (X509CRL) cf.generateCRL(in);
 		}
 		catch (GeneralSecurityException ex)
 		{

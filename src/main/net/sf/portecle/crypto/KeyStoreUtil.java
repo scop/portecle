@@ -131,7 +131,7 @@ public final class KeyStoreUtil
 	public static KeyStore createKeyStore(KeyStoreType keyStoreType)
 	    throws CryptoException, IOException
 	{
-		KeyStore keyStore = null;
+		KeyStore keyStore;
 		try
 		{
 			keyStore = getKeyStoreImpl(keyStoreType);
@@ -304,7 +304,7 @@ public final class KeyStoreUtil
 	public static KeyStore loadKeyStore(File fKeyStore, char[] cPassword, KeyStoreType keyStoreType)
 	    throws CryptoException, FileNotFoundException
 	{
-		KeyStore keyStore = null;
+		KeyStore keyStore;
 		try
 		{
 			keyStore = getKeyStoreImpl(keyStoreType);
@@ -343,7 +343,7 @@ public final class KeyStoreUtil
 	public static KeyStore loadKeyStore(String sPkcs11Provider, char[] cPassword)
 	    throws CryptoException
 	{
-		KeyStore keyStore = null;
+		KeyStore keyStore;
 
 		try
 		{

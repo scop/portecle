@@ -63,14 +63,14 @@ public class JMenuRecentFiles
 	 */
 	private void removeAllRecentFiles()
 	{
-		for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++)
+		for (JMenuItemRecentFile jmirf : m_jmirf)
 		{
-			if (m_jmirf[iCnt] == null)
+			if (jmirf == null)
 			{
 				break;
 			}
 
-			remove(m_jmirf[iCnt]);
+			remove(jmirf);
 		}
 	}
 
@@ -98,9 +98,9 @@ public class JMenuRecentFiles
 	{
 		boolean bNoRecentFiles = true;
 
-		for (int iCnt = 0; iCnt < m_jmirf.length; iCnt++)
+		for (JMenuItemRecentFile jmirf : m_jmirf)
 		{
-			if (m_jmirf[iCnt] != null)
+			if (jmirf != null)
 			{
 				bNoRecentFiles = false;
 				break;

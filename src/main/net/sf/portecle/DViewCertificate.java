@@ -779,7 +779,6 @@ class DViewCertificate
 		catch (CryptoException ex)
 		{
 			DThrowable.showAndWait(this, null, ex);
-			return;
 		}
 	}
 }

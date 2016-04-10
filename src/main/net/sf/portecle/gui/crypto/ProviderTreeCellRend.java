@@ -64,7 +64,7 @@ class ProviderTreeCellRend
 			// Get the correct icon for the node and set any tool tip text
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 
-			ImageIcon icon = null;
+			ImageIcon icon;
 
 			if (node.getLevel() == 0)
 			{

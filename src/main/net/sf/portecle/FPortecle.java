@@ -166,7 +166,7 @@ public class FPortecle
 	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
 
 	/** Minimum required BC version */
-	private static final Double REQ_BC_VERSION = new Double(1.51);
+	private static final Double REQ_BC_VERSION = 1.51;
 
 	/** Enable experimental features? */
 	private static final boolean EXPERIMENTAL = Boolean.getBoolean("portecle.experimental");
@@ -1978,7 +1978,7 @@ public class FPortecle
 		SwingHelper.showAndWait(chooser);
 
 		String provider = chooser.getProvider();
-		return (provider == null) ? false : openKeyStorePkcs11(provider);
+		return provider != null && openKeyStorePkcs11(provider);
 	}
 
 	/**
@@ -2002,11 +2002,9 @@ public class FPortecle
 		}
 
 		// Load the keystore
-		KeyStore openedKeyStore = null;
-
 		try
 		{
-			openedKeyStore = KeyStoreUtil.loadKeyStore(sPkcs11Provider, cPassword);
+			KeyStore openedKeyStore = KeyStoreUtil.loadKeyStore(sPkcs11Provider, cPassword);
 			m_keyStoreWrap = new KeyStoreWrapper(openedKeyStore, null, cPassword);
 		}
 		catch (CryptoException e)
@@ -2871,7 +2869,7 @@ public class FPortecle
 			}
 
 			// Holds the new certificate chain for the entry should the import succeed
-			X509Certificate[] newCertChain = null;
+			X509Certificate[] newCertChain;
 
 			/*
 			 * PKCS #7 reply - try and match the self-signed root with any of the certificates in the CA certificates or
@@ -2924,7 +2922,7 @@ public class FPortecle
 			// ending with a root CA self-signed certificate
 			else
 			{
-				KeyStore[] compKeyStores = null;
+				KeyStore[] compKeyStores;
 
 				// Establish against CA certificates keystore and current keystore
 				if (m_bUseCaCerts)
@@ -3149,7 +3147,7 @@ public class FPortecle
 
 			// If we cannot establish trust for the certificate against the CA certificates keystore or the
 			// current keystore then, display the certificate to the user for confirmation
-			KeyStore[] compKeyStores = null;
+			KeyStore[] compKeyStores;
 
 			// Establish against CA certificates keystore and current keystore
 			if (m_bUseCaCerts)
@@ -3265,7 +3263,7 @@ public class FPortecle
 				// Get the user to enter the private key password
 				DGetPassword dGetPassword = new DGetPassword(FPortecle.this,
 		            MessageFormat.format(RB.getString("FPortecle.PrivateKeyPassword.Title"),
-		                new Object[] { String.valueOf(passwordNumber) }));
+		                String.valueOf(passwordNumber)));
 				dGetPassword.setLocationRelativeTo(FPortecle.this);
 				SwingHelper.showAndWait(dGetPassword);
 				char[] cPassword = dGetPassword.getPassword();
@@ -3983,7 +3981,7 @@ public class FPortecle
 			}
 
 			// Do export
-			boolean bSuccess = false;
+			boolean bSuccess;
 
 			// Export head certificate only
 			if (dExport.exportHead())
@@ -4061,7 +4059,7 @@ public class FPortecle
 	 */
 	private boolean exportHeadCertOnlyPem(String sEntryAlias)
 	{
-		X509Certificate cert = null;
+		X509Certificate cert;
 		try
 		{
 			cert = getHeadCert(sEntryAlias);
@@ -4118,7 +4116,7 @@ public class FPortecle
 	 */
 	private boolean exportHeadCertOnlyDER(String sEntryAlias)
 	{
-		X509Certificate cert = null;
+		X509Certificate cert;
 		try
 		{
 			// Get the head certificate
@@ -4189,7 +4187,7 @@ public class FPortecle
 	 */
 	private boolean exportHeadCertOnlyPkcs7(String sEntryAlias)
 	{
-		X509Certificate cert = null;
+		X509Certificate cert;
 		try
 		{
 			// Get the head certificate
@@ -4260,7 +4258,7 @@ public class FPortecle
 	 */
 	private boolean exportHeadCertOnlyPkiPath(String sEntryAlias)
 	{
-		X509Certificate cert = null;
+		X509Certificate cert;
 		try
 		{
 			// Get the head certificate
@@ -4333,7 +4331,7 @@ public class FPortecle
 	{
 		// Get the certificates
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
-		X509Certificate[] certChain = null;
+		X509Certificate[] certChain;
 		try
 		{
 			certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
@@ -4409,7 +4407,7 @@ public class FPortecle
 	{
 		// Get the certificates
 		KeyStore keyStore = m_keyStoreWrap.getKeyStore();
-		X509Certificate[] certChain = null;
+		X509Certificate[] certChain;
 		try
 		{
 			certChain = X509CertUtil.convertCertificates(keyStore.getCertificateChain(sEntryAlias));
@@ -6481,7 +6479,7 @@ public class FPortecle
 			}
 
 			// Check BC version
-			Double bcVer = new Double(bcProv.getVersion());
+			Double bcVer = bcProv.getVersion();
 			if (REQ_BC_VERSION.compareTo(bcVer) > 0)
 			{
 				JOptionPane.showMessageDialog(new JFrame(),

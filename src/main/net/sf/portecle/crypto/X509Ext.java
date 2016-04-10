@@ -417,7 +417,7 @@ public class X509Ext
 
 			bais = new ByteArrayInputStream(bValue);
 			byte[] bLine = new byte[nBytes];
-			int iRead = -1;
+			int iRead;
 
 			while ((iRead = bais.read(bLine)) != -1)
 			{
@@ -466,10 +466,8 @@ public class X509Ext
 	 * 
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getSubjectKeyIdentifierStringValue(byte[] bValue)
-	    throws IOException
 	{
 		SubjectKeyIdentifier ski = SubjectKeyIdentifier.getInstance(bValue);
 		byte[] bKeyIdent = ski.getKeyIdentifier();
@@ -533,11 +531,10 @@ public class X509Ext
 	 * 
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If an I/O problem occurs
 	 * @throws ParseException If a date formatting problem occurs
 	 */
 	private String getPrivateKeyUsagePeriod(byte[] bValue)
-	    throws IOException, ParseException
+	    throws ParseException
 	{
 		PrivateKeyUsagePeriod pkup = PrivateKeyUsagePeriod.getInstance(bValue);
 
@@ -593,10 +590,8 @@ public class X509Ext
 	 * 
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getBasicConstraintsStringValue(byte[] bValue)
-	    throws IOException
 	{
 		BasicConstraints bc = BasicConstraints.getInstance(bValue);
 		StringBuilder strBuff = new StringBuilder();
@@ -919,10 +914,8 @@ public class X509Ext
 	 * 
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
-	 * @throws IOException If an I/O problem occurs
 	 */
 	private String getExtendedKeyUsageStringValue(byte[] bValue)
-	    throws IOException
 	{
 		StringBuilder strBuff = new StringBuilder();
 
@@ -1711,7 +1704,7 @@ public class X509Ext
 			}
 
 			sb.append("</ul>");
-			if (i != len)
+			if (i != len - 1)
 			{
 				sb.append("<br>");
 			}

@@ -62,7 +62,7 @@ class ThrowableTreeCellRend
 		{
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 			Object userValue = node.getUserObject();
-			ImageIcon icon = null;
+			ImageIcon icon;
 
 			// Each node type has a different icon and tool tip text
 			if (userValue instanceof Throwable)

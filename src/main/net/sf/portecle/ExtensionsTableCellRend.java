@@ -58,7 +58,7 @@ class ExtensionsTableCellRend
 		// Critical column - display an icon representing criticality and tool tip text
 		if (iCol == 0)
 		{
-			ImageIcon icon = null;
+			ImageIcon icon;
 
 			if (((Boolean) value))
 			{

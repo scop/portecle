@@ -65,9 +65,6 @@ class DGenerateKeyPair
 	/** Radio button for the DSA key algorithm */
 	private JRadioButton m_jrbDSA;
 
-	/** Radio button for the RSA key algorithm */
-	private JRadioButton m_jrbRSA;
-
 	/** Key size combo box */
 	private JComboBox<String> m_jcbKeySize;
 
@@ -96,15 +93,15 @@ class DGenerateKeyPair
 		JLabel jlKeyAlg = new JLabel(RB.getString("DGenerateKeyPair.jlKeyAlg.text"));
 		m_jrbDSA = new JRadioButton(RB.getString("DGenerateKeyPair.m_jrbDSA.text"), false);
 		m_jrbDSA.setToolTipText(RB.getString("DGenerateKeyPair.m_jrbDSA.tooltip"));
-		m_jrbRSA = new JRadioButton(RB.getString("DGenerateKeyPair.m_jrbRSA.text"), false);
-		m_jrbRSA.setToolTipText(RB.getString("DGenerateKeyPair.m_jrbRSA.tooltip"));
+		JRadioButton jrbRSA = new JRadioButton(RB.getString("DGenerateKeyPair.m_jrbRSA.text"), false);
+		jrbRSA.setToolTipText(RB.getString("DGenerateKeyPair.m_jrbRSA.tooltip"));
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(m_jrbDSA);
-		buttonGroup.add(m_jrbRSA);
+		buttonGroup.add(jrbRSA);
 
 		JPanel jpKeyAlg = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		jpKeyAlg.add(m_jrbDSA);
-		jpKeyAlg.add(m_jrbRSA);
+		jpKeyAlg.add(jrbRSA);
 
 		JLabel jlKeySize = new JLabel(RB.getString("DGenerateKeyPair.jlKeySize.text"));
 		m_jcbKeySize = new JComboBox<>();
@@ -152,8 +149,8 @@ class DGenerateKeyPair
 			}
 		};
 		m_jrbDSA.addChangeListener(keyAlgListener);
-		m_jrbRSA.addChangeListener(keyAlgListener);
-		m_jrbRSA.setSelected(true);
+		jrbRSA.addChangeListener(keyAlgListener);
+		jrbRSA.setSelected(true);
 
 		JPanel jpOptions = new JPanel(new GridBagLayout());
 		jpOptions.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new EtchedBorder()));

@@ -170,7 +170,8 @@ import net.sf.portecle.gui.FileExtFilter;
 		}
 		else
 		{
-			extensions = ksType.getFilenameExtensions().toArray(new String[0]);
+			Set<String> filenameExtensions = ksType.getFilenameExtensions();
+			extensions = filenameExtensions.toArray(new String[filenameExtensions.size()]);
 			String info = toWildcards(extensions);
 			if (ksType == KeyStoreType.JKS)
 			{

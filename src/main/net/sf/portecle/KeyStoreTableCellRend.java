@@ -61,7 +61,7 @@ class KeyStoreTableCellRend
 		// Entry column - display an icon representing the type and tool tip text
 		if (iCol == 0)
 		{
-			ImageIcon icon = null;
+			ImageIcon icon;
 
 			if (KeyStoreTableModel.KEY_PAIR_ENTRY.equals(value))
 			{
