@@ -27,6 +27,7 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 
 import javax.swing.JOptionPane;
@@ -86,7 +87,7 @@ public final class DesktopUtil
 		{
 			try
 			{
-				DESKTOP.mail(new URI("mailto:" + URLEncoder.encode(address, "ISO-8859-1")));
+				DESKTOP.mail(new URI("mailto:" + URLEncoder.encode(address, StandardCharsets.ISO_8859_1.name())));
 				return;
 			}
 			catch (Exception e)

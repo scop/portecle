@@ -1893,7 +1893,7 @@ public class FPortecle
 
 			for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++)
 			{
-				tried.append(", ").append(keyStoreTypes[iCnt].toString());
+				tried.append(", ").append(keyStoreTypes[iCnt]);
 				try
 				{
 					openedKeyStore = KeyStoreUtil.loadKeyStore(fKeyStore, cPassword, keyStoreTypes[iCnt]);
@@ -3436,7 +3436,7 @@ public class FPortecle
 
 			for (int iCnt = 0; iCnt < keyStoreTypes.length; iCnt++)
 			{
-				tried.append(", ").append(keyStoreTypes[iCnt].toString());
+				tried.append(", ").append(keyStoreTypes[iCnt]);
 				try
 				{
 					caCertsKeyStore = KeyStoreUtil.loadKeyStore(m_fCaCertsFile, cPassword, keyStoreTypes[iCnt]);

@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
@@ -1771,7 +1772,7 @@ public class X509Ext
 
 			case GeneralName.rfc822Name:
 				String sRfc822 = generalName.getName().toString();
-				String urlEnc = URLEncoder.encode(sRfc822, "UTF-8");
+				String urlEnc = URLEncoder.encode(sRfc822, StandardCharsets.UTF_8.name());
 				strBuff.append(RB.getString("GeneralName." + tagNo));
 				strBuff.append(": ");
 				strBuff.append(getLink("mailto:" + urlEnc, escapeHtml(sRfc822), null));
