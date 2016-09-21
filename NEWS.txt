@@ -4,6 +4,9 @@ New in Portecle x.xx (201x-xx-xx):
 Bug fixes:
 - Fix exception when opening the PKCS#11 provider selection dialog.
 
+Miscellaneous:
+- Bundled Bouncy Castle jars upgraded to version 1.55.
+
 New in Portecle 1.10 (2016-02-04):
 ----------------------------------
 
