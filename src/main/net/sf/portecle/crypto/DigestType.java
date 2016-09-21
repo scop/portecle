@@ -29,7 +29,7 @@ package net.sf.portecle.crypto;
  */
 public enum DigestType
 {
-    /** MD5 Digest Type */
+	/** MD5 Digest Type */
 	MD5,
 	/** SHA-1 Digest Type */
 	SHA1;

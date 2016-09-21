@@ -251,9 +251,9 @@ class DViewExtensions
 								{
 									// Ask to view in a browser if it failed
 									int iSelected = JOptionPane.showConfirmDialog(DViewExtensions.this,
-		                                RB.getString("FPortecle.CrlViewFailed.message"),
-		                                MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"), url),
-		                                JOptionPane.YES_NO_OPTION);
+									    RB.getString("FPortecle.CrlViewFailed.message"),
+									    MessageFormat.format(RB.getString("FPortecle.CrlDetails.Title"), url),
+									    JOptionPane.YES_NO_OPTION);
 									if (iSelected == JOptionPane.YES_OPTION)
 									{
 										tryBrowser = true;
@@ -268,9 +268,9 @@ class DViewExtensions
 								{
 									// Ask to view in a browser if it failed
 									int iSelected = JOptionPane.showConfirmDialog(DViewExtensions.this,
-		                                RB.getString("FPortecle.CertViewFailed.message"),
-		                                MessageFormat.format(RB.getString("FPortecle.CertDetails.Title"), url),
-		                                JOptionPane.YES_NO_OPTION);
+									    RB.getString("FPortecle.CertViewFailed.message"),
+									    MessageFormat.format(RB.getString("FPortecle.CertDetails.Title"), url),
+									    JOptionPane.YES_NO_OPTION);
 									if (iSelected == JOptionPane.YES_OPTION)
 									{
 										tryBrowser = true;

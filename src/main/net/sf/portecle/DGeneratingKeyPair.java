@@ -98,7 +98,7 @@ class DGeneratingKeyPair
 		{
 			@Override
 			protected KeyPair doInBackground()
-		        throws Exception
+			    throws Exception
 			{
 				return KeyPairUtil.generateKeyPair(keyPairType, keySize);
 			}

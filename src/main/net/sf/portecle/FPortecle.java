@@ -3261,9 +3261,8 @@ public class FPortecle
 			public char[] getPassword()
 			{
 				// Get the user to enter the private key password
-				DGetPassword dGetPassword = new DGetPassword(FPortecle.this,
-		            MessageFormat.format(RB.getString("FPortecle.PrivateKeyPassword.Title"),
-		                String.valueOf(passwordNumber)));
+				DGetPassword dGetPassword = new DGetPassword(FPortecle.this, MessageFormat.format(
+				    RB.getString("FPortecle.PrivateKeyPassword.Title"), String.valueOf(passwordNumber)));
 				dGetPassword.setLocationRelativeTo(FPortecle.this);
 				SwingHelper.showAndWait(dGetPassword);
 				char[] cPassword = dGetPassword.getPassword();

@@ -157,7 +157,7 @@ class DViewCertificate
 	 */
 	public DViewCertificate(Window parent, String sTitle, X509Certificate[] certs, String connectionProtocol,
 	    String connectionCipherSuite)
-	        throws CryptoException
+	    throws CryptoException
 	{
 		super(parent, sTitle, true);
 		m_certs = certs;

@@ -40,7 +40,7 @@ import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
  */
 public enum SignatureType
 {
-    /** MD2 with RSA Signature Type */
+	/** MD2 with RSA Signature Type */
 	MD2withRSA(PKCSObjectIdentifiers.md2WithRSAEncryption.getId()),
 	/** MD5 with RSA Signature Type */
 	MD5withRSA(PKCSObjectIdentifiers.md5WithRSAEncryption.getId()),

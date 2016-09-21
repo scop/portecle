@@ -488,7 +488,7 @@ public final class X509CertUtil
 	public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit, String sOrganisation,
 	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity, PublicKey publicKey,
 	    PrivateKey privateKey, SignatureType signatureType)
-	        throws CryptoException
+	    throws CryptoException
 	{
 		X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
 		if (sEmailAddress != null)
@@ -554,7 +554,7 @@ public final class X509CertUtil
 	 */
 	public static X509Certificate renewCert(X509Certificate oldCert, int iValidity, PublicKey publicKey,
 	    PrivateKey privateKey)
-	        throws CryptoException
+	    throws CryptoException
 	{
 		BigInteger serial = generateX509SerialNumber();
 

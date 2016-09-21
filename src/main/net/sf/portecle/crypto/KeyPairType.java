@@ -29,7 +29,7 @@ package net.sf.portecle.crypto;
  */
 public enum KeyPairType
 {
-    /** RSA key pair type. */
+	/** RSA key pair type. */
 	RSA,
 	/** DSA key pair type. */
 	DSA,
