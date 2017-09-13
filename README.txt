@@ -9,8 +9,8 @@ certificate revocation lists and more.
 Currently, Portecle can be used to, for example:
 
 * Create, load, save, and convert keystores.
-* Generate DSA and RSA key pair entries with self-signed version 1
-  X.509 certificates.
+* Generate DSA and RSA key pair entries with self-signed X.509
+  certificates.
 * Import X.509 certificate files as trusted certificates.
 * Import key pairs from PKCS #12 files.
 * Clone and change the password of key pair entries and keystores.

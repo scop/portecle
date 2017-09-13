@@ -60,7 +60,7 @@ import net.sf.portecle.gui.error.DThrowable;
 /**
  * Modal dialog used to generate a certificate based on a supplied key pair and signature algorithm for inclusion in a
  * keystore. Allows the user to enter the signature algorithm and validity period of the certificate in days as well as
- * all of the certificate attributes of a version 1 X.509 certificate. The choice of available signature algorithms
+ * all of the certificate attributes of an X.509 certificate. The choice of available signature algorithms
  * depends on the key pair generation algorithm selected.
  */
 class DGenerateCertificate

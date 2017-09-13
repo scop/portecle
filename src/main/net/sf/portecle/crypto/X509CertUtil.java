@@ -58,7 +58,7 @@ import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
+import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.ContentVerifierProvider;
@@ -469,7 +469,7 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Generate a self-signed X509 Version 1 certificate for the supplied key pair and signature algorithm.
+	 * Generate a self-signed X509 certificate for the supplied key pair and signature algorithm.
 	 *
 	 * @return The generated certificate
 	 * @param sCommonName Common name certificate attribute
@@ -525,7 +525,7 @@ public final class X509CertUtil
 		Date notBefore = new Date(System.currentTimeMillis());
 		Date notAfter = new Date(notBefore.getTime() + ((long) iValidity * 24 * 60 * 60 * 1000));
 
-		JcaX509v1CertificateBuilder certBuilder = new JcaX509v1CertificateBuilder(nameBuilder.build(), serial,
+		JcaX509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(nameBuilder.build(), serial,
 		    notBefore, notAfter, nameBuilder.build(), publicKey);
 
 		try
@@ -542,7 +542,7 @@ public final class X509CertUtil
 	}
 
 	/**
-	 * Renew a self-signed X509 Version 1 certificate.
+	 * Renew a self-signed X509 certificate.
 	 *
 	 * @return The renewed certificate
 	 * @param oldCert old certificate
@@ -569,7 +569,7 @@ public final class X509CertUtil
 
 		// TODO: verify/force self-signedness
 
-		JcaX509v1CertificateBuilder certBuilder = new JcaX509v1CertificateBuilder(oldCert.getIssuerX500Principal(),
+		JcaX509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(oldCert.getIssuerX500Principal(),
 		    serial, notBefore, notAfter, oldCert.getSubjectX500Principal(), publicKey);
 
 		try

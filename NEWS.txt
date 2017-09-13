@@ -8,6 +8,7 @@ Enhancements:
 - Recognition for some additional certificate extension values.
 
 Miscellaneous:
+- Generated X.509 certificates are now version 3 ones.
 - Bundled Bouncy Castle jars upgraded to version 1.58.
 
 New in Portecle 1.10 (2016-02-04):
