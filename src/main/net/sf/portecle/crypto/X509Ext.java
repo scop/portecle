@@ -180,8 +180,7 @@ public class X509Ext
 	{
 		m_Oid = new ASN1ObjectIdentifier(sOid);
 
-		m_bValue = new byte[bValue.length];
-		System.arraycopy(bValue, 0, m_bValue, 0, bValue.length);
+		m_bValue = bValue.clone();
 
 		m_bCritical = bCritical;
 
@@ -205,9 +204,7 @@ public class X509Ext
 	 */
 	public byte[] getValue()
 	{
-		byte[] bValue = new byte[m_bValue.length];
-		System.arraycopy(m_bValue, 0, bValue, 0, m_bValue.length);
-		return bValue;
+		return m_bValue.clone();
 	}
 
 	/**

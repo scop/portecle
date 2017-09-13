@@ -57,8 +57,7 @@ public class FileExtFilter
 	 */
 	public FileExtFilter(String[] sExts, String sDescription)
 	{
-		m_sExts = new String[sExts.length];
-		System.arraycopy(sExts, 0, m_sExts, 0, m_sExts.length);
+		m_sExts = sExts.clone();
 		m_sDescription = sDescription;
 	}
 

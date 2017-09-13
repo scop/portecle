@@ -102,13 +102,7 @@ public class DChangePassword
 	 */
 	private static final char[] arrayCopy(char[] original)
 	{
-		char[] copy = null;
-		if (original != null)
-		{
-			copy = new char[original.length];
-			System.arraycopy(original, 0, copy, 0, copy.length);
-		}
-		return copy;
+		return (original == null) ? null : original.clone();
 	}
 
 	/**

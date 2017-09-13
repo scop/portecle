@@ -72,13 +72,7 @@ public class DGetNewPassword
 	 */
 	public char[] getPassword()
 	{
-		if (m_cPassword == null)
-		{
-			return null;
-		}
-		char[] copy = new char[m_cPassword.length];
-		System.arraycopy(m_cPassword, 0, copy, 0, copy.length);
-		return copy;
+		return (m_cPassword == null) ? null : m_cPassword.clone();
 	}
 
 	/**
