@@ -8,7 +8,7 @@ Enhancements:
 - Recognition for some additional certificate extension values.
 
 Miscellaneous:
-- Bundled Bouncy Castle jars upgraded to version 1.55.
+- Bundled Bouncy Castle jars upgraded to version 1.58.
 
 New in Portecle 1.10 (2016-02-04):
 ----------------------------------
