@@ -5,6 +5,8 @@ Bug fixes:
 - Fix exception when opening the PKCS#11 provider selection dialog.
 
 Enhancements:
+- Support setting Subject Alternative (DNS) Name when generating
+  certificates (feature request #22).
 - Recognition for some additional certificate extension values.
 
 Miscellaneous:

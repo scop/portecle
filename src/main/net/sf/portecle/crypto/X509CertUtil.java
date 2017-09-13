@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2017 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -56,6 +56,9 @@ import javax.security.auth.x500.X500Principal;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.GeneralName;
+import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
@@ -480,14 +483,15 @@ public final class X509CertUtil
 	 * @param sEmailAddress Email Address certificate attribute
 	 * @param sCountryCode Country Code certificate attribute
 	 * @param iValidity Validity period of certificate in days
+	 * @param sDnsName Subject alternative DNS name certificate extension value
 	 * @param publicKey Public part of key pair
 	 * @param privateKey Private part of key pair
 	 * @param signatureType Signature Type
 	 * @throws CryptoException If there was a problem generating the certificate
 	 */
 	public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit, String sOrganisation,
-	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity, PublicKey publicKey,
-	    PrivateKey privateKey, SignatureType signatureType)
+	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity, String sDnsName,
+	    PublicKey publicKey, PrivateKey privateKey, SignatureType signatureType)
 	    throws CryptoException
 	{
 		X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
@@ -530,12 +534,19 @@ public final class X509CertUtil
 
 		try
 		{
+			if (sDnsName != null)
+			{
+				GeneralNames generalnames =
+				    new GeneralNames(new GeneralName[] { new GeneralName(GeneralName.dNSName, sDnsName) });
+				certBuilder.addExtension(Extension.subjectAlternativeName, false, generalnames);
+			}
+
 			ContentSigner signer = new JcaContentSignerBuilder(signatureType.name()).build(privateKey);
 			X509CertificateHolder certHolder = certBuilder.build(signer);
 
 			return new JcaX509CertificateConverter().getCertificate(certHolder);
 		}
-		catch (CertificateException | OperatorCreationException ex)
+		catch (CertificateException | IOException | OperatorCreationException ex)
 		{
 			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
 		}
