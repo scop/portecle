@@ -50,9 +50,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
@@ -585,6 +587,23 @@ public final class X509CertUtil
 
 		try
 		{
+			Set<String> oids = oldCert.getCriticalExtensionOIDs();
+			if (oids != null)
+			{
+				for (String oid : oids)
+				{
+					certBuilder.copyAndAddExtension(new ASN1ObjectIdentifier(oid), true, oldCert);
+				}
+			}
+			oids = oldCert.getNonCriticalExtensionOIDs();
+			if (oids != null)
+			{
+				for (String oid : oids)
+				{
+					certBuilder.copyAndAddExtension(new ASN1ObjectIdentifier(oid), false, oldCert);
+				}
+			}
+
 			ContentSigner signer = new JcaContentSignerBuilder(oldCert.getSigAlgName()).build(privateKey);
 			X509CertificateHolder certHolder = certBuilder.build(signer);
 
