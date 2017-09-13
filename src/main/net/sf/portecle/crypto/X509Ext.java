@@ -35,6 +35,7 @@ import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.MissingResourceException;
 import java.util.logging.Level;
@@ -1910,8 +1911,7 @@ public class X509Ext
 		}
 		else
 		{
-			byte[] tmp = new byte[iLen];
-			System.arraycopy(bytes, 0, tmp, 0, iLen);
+			byte[] tmp = Arrays.copyOfRange(bytes, 0, iLen);
 			sbHex = StringUtil.toHex(tmp, 2, " ");
 		}
 
