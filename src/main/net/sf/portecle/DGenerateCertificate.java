@@ -151,7 +151,7 @@ class DGenerateCertificate
 
 	/**
 	 * Creates new DGenerateCertificate dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
 	 * @param keyPairType The key pair type
@@ -165,7 +165,7 @@ class DGenerateCertificate
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @param sTitle The dialog's title
 	 */
 	private void initComponents(String sTitle)
@@ -344,7 +344,7 @@ class DGenerateCertificate
 	/**
 	 * Populate the signature algorithm combo box with the signature algorithms applicable to the key pair algorithm.
 	 * Also set a sane default selected item, and disable the combo box if it has less than 2 items.
-	 * 
+	 *
 	 * @param type key pair type
 	 * @param combo the combo box to populate
 	 */
@@ -363,7 +363,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate dialog values entered by user.
-	 * 
+	 *
 	 * @return True if the values are valid for certificate creation, false otherwise
 	 */
 	private boolean validateValues()
@@ -421,7 +421,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the Validity value supplied as a string and convert it to an integer.
-	 * 
+	 *
 	 * @param sValidity The Validity value
 	 * @return The Validity value or BAD_VALIDITY if it is not valid
 	 */
@@ -460,7 +460,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied Common Name value.
-	 * 
+	 *
 	 * @param sCommonName The Validity value
 	 * @return The Common Name value or null if it is not valid
 	 */
@@ -479,7 +479,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied Organization Unit value.
-	 * 
+	 *
 	 * @param sOrganisationUnit The Organization Unit value
 	 * @return The Organization Unit value or null if it is not valid
 	 */
@@ -497,7 +497,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied Organization Name value.
-	 * 
+	 *
 	 * @param sOrganisationName The Organization Unit value
 	 * @return The Organization Name value or null if it is not valid
 	 */
@@ -515,7 +515,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied Locality Name value.
-	 * 
+	 *
 	 * @param sLocalityName The Locality Name value
 	 * @return The Locality Name value or null if it is not valid
 	 */
@@ -533,7 +533,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied State Name value.
-	 * 
+	 *
 	 * @param sStateName The State Name value
 	 * @return The State Name value or null if it is not valid
 	 */
@@ -551,7 +551,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied Country Code value.
-	 * 
+	 *
 	 * @param sCountryCode The Country Code value
 	 * @return The Country Code value or null if it is not valid
 	 */
@@ -569,7 +569,7 @@ class DGenerateCertificate
 
 	/**
 	 * Validate the supplied Email Address value.
-	 * 
+	 *
 	 * @param sEmailAddress The Email Address value
 	 * @return The Email Address value or null if it is not valid
 	 */
@@ -587,7 +587,7 @@ class DGenerateCertificate
 
 	/**
 	 * Generate certificate from key pair and the dialog's values.
-	 * 
+	 *
 	 * @param keyPair The key pair
 	 * @return Generated certificate, null on error
 	 */
@@ -613,7 +613,7 @@ class DGenerateCertificate
 
 	/**
 	 * Have the parameters been entered correctly?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean isSuccessful()

@@ -98,7 +98,7 @@ public final class X509CertUtil
 
 	/**
 	 * Load one or more certificates from the specified URL, trying a built in list of certification encodings.
-	 * 
+	 *
 	 * @param url The URL to load certificates from
 	 * @param exceptions Collection where exceptions occurred will be added
 	 * @return The certificates
@@ -128,7 +128,7 @@ public final class X509CertUtil
 
 	/**
 	 * Load one or more certificates from the specified URL.
-	 * 
+	 *
 	 * @param url The URL to load certificates from
 	 * @param encoding The certification path encoding. If null, treat as a normal certificate, not certification path.
 	 *            Use one of the <code>*_ENCODING</code> constants here.
@@ -207,7 +207,7 @@ public final class X509CertUtil
 
 	/**
 	 * Load a CRL from the specified URL.
-	 * 
+	 *
 	 * @param url The URL to load CRL from
 	 * @return The CRL
 	 * @throws CryptoException Problem encountered while loading the CRL
@@ -231,7 +231,7 @@ public final class X509CertUtil
 
 	/**
 	 * Load a CSR from the specified URL.
-	 * 
+	 *
 	 * @param url The URL to load CSR from
 	 * @return The CSR
 	 * @throws CryptoException Problem encountered while loading the CSR
@@ -263,7 +263,7 @@ public final class X509CertUtil
 
 	/**
 	 * Convert the supplied array of certificate objects into X509Certificate objects.
-	 * 
+	 *
 	 * @param certsIn The Certificate objects
 	 * @return The converted X509Certificate objects
 	 * @throws CryptoException A problem occurred during the conversion
@@ -283,7 +283,7 @@ public final class X509CertUtil
 
 	/**
 	 * Convert the supplied certificate object into an X509Certificate object.
-	 * 
+	 *
 	 * @param certIn The Certificate object
 	 * @return The converted X509Certificate object
 	 * @throws CryptoException A problem occurred during the conversion
@@ -305,7 +305,7 @@ public final class X509CertUtil
 
 	/**
 	 * Attempt to order the supplied array of X.509 certificates in issued to to issued from order.
-	 * 
+	 *
 	 * @param certs The X.509 certificates in order
 	 * @return The ordered X.509 certificates
 	 */
@@ -375,7 +375,7 @@ public final class X509CertUtil
 
 	/**
 	 * DER encode a certificate.
-	 * 
+	 *
 	 * @return The binary encoding
 	 * @param cert The certificate
 	 * @throws CryptoException If there was a problem encoding the certificate
@@ -395,7 +395,7 @@ public final class X509CertUtil
 
 	/**
 	 * PKCS #7 encode a certificate.
-	 * 
+	 *
 	 * @return The PKCS #7 encoded certificate
 	 * @param cert The certificate
 	 * @throws CryptoException If there was a problem encoding the certificate
@@ -408,7 +408,7 @@ public final class X509CertUtil
 
 	/**
 	 * PKCS #7 encode a number of certificates.
-	 * 
+	 *
 	 * @return The PKCS #7 encoded certificates
 	 * @param certs The certificates
 	 * @throws CryptoException If there was a problem encoding the certificates
@@ -421,7 +421,7 @@ public final class X509CertUtil
 
 	/**
 	 * PkiPath encode a certificate.
-	 * 
+	 *
 	 * @return The PkiPath encoded certificate
 	 * @param cert The certificate
 	 * @throws CryptoException If there was a problem encoding the certificate
@@ -434,7 +434,7 @@ public final class X509CertUtil
 
 	/**
 	 * PkiPath encode a number of certificates.
-	 * 
+	 *
 	 * @return The PkiPath encoded certificates
 	 * @param certs The certificates
 	 * @throws CryptoException If there was a problem encoding the certificates
@@ -447,7 +447,7 @@ public final class X509CertUtil
 
 	/**
 	 * Encode a number of certificates using the given encoding.
-	 * 
+	 *
 	 * @return The encoded certificates
 	 * @param certs The certificates
 	 * @param encoding The encoding
@@ -470,7 +470,7 @@ public final class X509CertUtil
 
 	/**
 	 * Generate a self-signed X509 Version 1 certificate for the supplied key pair and signature algorithm.
-	 * 
+	 *
 	 * @return The generated certificate
 	 * @param sCommonName Common name certificate attribute
 	 * @param sOrganisationUnit Organization Unit certificate attribute
@@ -543,7 +543,7 @@ public final class X509CertUtil
 
 	/**
 	 * Renew a self-signed X509 Version 1 certificate.
-	 * 
+	 *
 	 * @return The renewed certificate
 	 * @param oldCert old certificate
 	 * @param iValidity Validity period of certificate in days to add to the old cert's expiry date, or current time if
@@ -587,7 +587,7 @@ public final class X509CertUtil
 
 	/**
 	 * Generate a unique serial number for use as an X509 serial number.
-	 * 
+	 *
 	 * @return The unique serial number
 	 */
 	private static BigInteger generateX509SerialNumber()
@@ -598,7 +598,7 @@ public final class X509CertUtil
 
 	/**
 	 * Create a PKCS #10 certification request (CSR) using the supplied certificate and private key.
-	 * 
+	 *
 	 * @param cert The certificate
 	 * @param privateKey The private key
 	 * @throws CryptoException If there was a problem generating the CSR
@@ -634,7 +634,7 @@ public final class X509CertUtil
 	/**
 	 * Verify that one X.509 certificate was signed using the private key that corresponds to the public key of a second
 	 * certificate.
-	 * 
+	 *
 	 * @return True if the first certificate was signed by private key corresponding to the second signature
 	 * @param signedCert The signed certificate
 	 * @param signingCert The signing certificate
@@ -664,7 +664,7 @@ public final class X509CertUtil
 	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied keystores
 	 * based on the trusted certificates contained therein, i.e. that a chain of trust exists between the supplied
 	 * certificate and a self-signed trusted certificate in the keystores.
-	 * 
+	 *
 	 * @return The trust chain, or null if trust could not be established
 	 * @param cert The certificate
 	 * @param keyStores The keystores
@@ -688,7 +688,7 @@ public final class X509CertUtil
 	 * Check whether or not a trust path exists between the supplied X.509 certificate and and the supplied comparison
 	 * certificates based on the trusted certificates contained therein, i.e. that a chain of trust exists between the
 	 * supplied certificate and a self-signed trusted certificate in the comparison set.
-	 * 
+	 *
 	 * @return The trust chain, or null if trust could not be established
 	 * @param cert The certificate
 	 * @param vCompCerts The comparison set of certificates
@@ -732,7 +732,7 @@ public final class X509CertUtil
 
 	/**
 	 * Extract a copy of all trusted certificates contained within the supplied keystore.
-	 * 
+	 *
 	 * @param keyStore The keystore
 	 * @return The extracted certificates
 	 * @throws CryptoException If a problem is encountered extracting the certificates
@@ -763,7 +763,7 @@ public final class X509CertUtil
 
 	/**
 	 * Check whether or not a trusted certificate in the supplied keystore matches the the supplied X.509 certificate.
-	 * 
+	 *
 	 * @return The alias of the matching certificate in the keystore or null if there is no match
 	 * @param cert The certificate
 	 * @param keyStore The keystore
@@ -799,7 +799,7 @@ public final class X509CertUtil
 	 * For a given X.509 certificate get a representative alias for it in a keystore. For a self-signed certificate this
 	 * will be the subject's common name (if any). For a non-self-signed certificate it will be the subject's common
 	 * name followed by the issuer's common name in parenthesis.
-	 * 
+	 *
 	 * @param cert The certificate
 	 * @return The alias or a blank string if none could be worked out
 	 */
