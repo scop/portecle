@@ -10,6 +10,7 @@ Enhancements:
 - Preserve extensions when renewing self-signed certificates.
 - Recognition for some additional certificate extension values.
 - Link fixes and updates to use HTTPS in documentation and UI.
+- Remove link to decommissioned project mailing lists.
 
 Miscellaneous:
 - Generated X.509 certificates are now version 3 ones.

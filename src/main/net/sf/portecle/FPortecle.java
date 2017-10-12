@@ -768,21 +768,6 @@ public class FPortecle
 		jmiSFNetProject.addChangeListener(
 		    new StatusBarChangeHandler(RB.getString("FPortecle.jmiSFNetProject.statusbar"), this));
 
-		JMenuItem jmiMailList = new JMenuItem(RB.getString("FPortecle.jmiMailList.text"),
-		    RB.getString("FPortecle.jmiMailList.mnemonic").charAt(0));
-		jmiMailList.setIcon(new ImageIcon(getResImage("FPortecle.jmiMailList.image")));
-		jmOnlineResources.add(jmiMailList);
-		jmiMailList.addActionListener(new ActionListener()
-		{
-			@Override
-			protected void act()
-			{
-				visitMailListSignup();
-			}
-		});
-		jmiMailList.addChangeListener(
-		    new StatusBarChangeHandler(RB.getString("FPortecle.jmiMailList.statusbar"), this));
-
 		/*
 		 * Update check disabled for now... JMenuItem jmiCheckUpdate = new JMenuItem(
 		 * m_res.getString("FPortecle.jmiCheckUpdate.text"),
@@ -3552,14 +3537,6 @@ public class FPortecle
 	private void visitSFNetProject()
 	{
 		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.SFNetProjectAddress")));
-	}
-
-	/**
-	 * Display Portecle mailing lists' sign up page at SourceForge.net.
-	 */
-	private void visitMailListSignup()
-	{
-		DesktopUtil.browse(this, URI.create(RB.getString("FPortecle.MailListSignupAddress")));
 	}
 
 	/**
