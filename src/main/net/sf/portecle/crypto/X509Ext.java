@@ -972,7 +972,7 @@ public class X509Ext
 		// SEQUENCE encapsulated in a OCTET STRING
 		ASN1Sequence as = (ASN1Sequence) ASN1Primitive.fromByteArray(bValue);
 		// Also has BIT STRING, ignored here
-		// http://www.mail-archive.com/openssl-dev@openssl.org/msg06546.html
+		// https://www.mail-archive.com/openssl-dev@openssl.org/msg06546.html
 		return escapeHtml(((DERGeneralString) as.getObjectAt(0)).getString());
 	}
 
@@ -988,7 +988,7 @@ public class X509Ext
 	 * TemplateVersion ::= INTEGER (0..4294967295)
 	 * </pre>
 	 * 
-	 * @see <a href="http://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">http://groups
+	 * @see <a href="https://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">https://groups
 	 *      .google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1020,8 +1020,7 @@ public class X509Ext
 	/**
 	 * Get Microsoft CA Version (1.3.6.1.4.1.311.21.1) extension value as a string.
 	 * 
-	 * @see <a href="http://msdn.microsoft.com/library/en-us/security/security/certification_authority_renewal.asp">MSDN
-	 *      </a>
+	 * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa376550.aspx">MSDN </a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1042,7 +1041,7 @@ public class X509Ext
 	/**
 	 * Get Microsoft Previous CA Certificate Hash (1.3.6.1.4.1.311.21.2) extension value as a string.
 	 * 
-	 * @see <a href="http://support.microsoft.com/?id=287547">Microsoft support</a>
+	 * @see <a href="https://support.microsoft.com/help/287547">Microsoft support</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1089,7 +1088,7 @@ public class X509Ext
 	 * SMIMECapabilities ::= SEQUENCE OF SMIMECapability
 	 * </pre>
 	 * 
-	 * @see <a href="http://tools.ietf.org/html/rfc2633">RFC 2633</a>
+	 * @see <a href="https://tools.ietf.org/html/rfc2633">RFC 2633</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1183,7 +1182,7 @@ public class X509Ext
 	/**
 	 * Get Logotype (1.3.6.1.5.5.7.1.12) extension value as a string.
 	 * 
-	 * @see <a href="http://tools.ietf.org/html/rfc3709">RFC 3709</a>
+	 * @see <a href="https://tools.ietf.org/html/rfc3709">RFC 3709</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1313,7 +1312,8 @@ public class X509Ext
 	/**
 	 * Get Novell Security Attributes (2.16.840.1.113719.1.9.4.1) extension value as a string.
 	 * 
-	 * @see <a href="http://developer.novell.com/repository/attributes/">Novell Certificate Extension Attributes</a>
+	 * @see <a href="https://www.novell.com/documentation/developer/ncslib/npki_enu/data/a2uetmm.html">Novell Security
+	 *      Attributes Extension</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1590,7 +1590,7 @@ public class X509Ext
 	/**
 	 * Get extension value for Certificate Policies as a string.
 	 * 
-	 * @see <a href="http://tools.ietf.org/html/rfc3280">RFC 3280</a>
+	 * @see <a href="https://tools.ietf.org/html/rfc3280">RFC 3280</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs

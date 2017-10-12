@@ -28,7 +28,7 @@ you need to know is detailed below.  Being written in Java, Portecle
 will run on any machine that has a suitable Java runtime environment
 installed.  Note that a prerequisite is that you must have Java SE 7
 or later on your machine.  The latest version of the Java SE is
-available from http://www.oracle.com/technetwork/java/index.html
+available from https://www.oracle.com/technetwork/java/index.html
 
 You can access the online help of Portecle from within the Portecle
 GUI, or on the Internet at http://portecle.sourceforge.net/#docs
@@ -46,7 +46,7 @@ as well as Bouncy Castle provider and PKIX jars (bcprov.jar,
 bcpkix.jar) for Java SE 7.  If you wish to run Portecle with a later
 Java version, or update the bundled Bouncy Castle jars for some other
 reason, simply download an update for your version of Java from
-http://www.bouncycastle.org/ and place the jars into the same
+https://www.bouncycastle.org/ and place the jars into the same
 directory as portecle.jar with the names bcprov.jar and bcpkix.jar,
 overwriting the existing one already there (if any).  The binary
 distribution also contains icons for use with Portecle (portecle.ico,
@@ -55,12 +55,12 @@ portecle.png).
 Portecle can additionally use the GNU Classpath (version 0.90 or later)
 security providers if they are installed.  Support for GNU Keyring (GKR)
 keystores requires these providers.  For more information about GNU
-Classpath, see http://www.gnu.org/software/classpath/
+Classpath, see https://www.gnu.org/software/classpath/
 
 Depending on your Portecle usage patterns, the Bouncy Castle provider
 may require the JCE unlimited strength jurisdiction policy files
 installed to function properly.  See "IMPORTANT NOTES" at
-http://www.bouncycastle.org/documentation.html .  Failures related
+https://www.bouncycastle.org/documentation.html .  Failures related
 to lack of these policy files usually manifest themselves as errors
 loading keystores with an error message like "Unsupported keysize or
 algorithm parameters" or "Illegal key size" when trying to import keys.
@@ -141,4 +141,4 @@ MA 02110-1301 USA
 
 For contact information, mailing lists and issue tracking facilities,
 see Portecle's SourceForge.net project page at
-http://sourceforge.net/projects/portecle/
+https://sourceforge.net/projects/portecle/

@@ -48,7 +48,7 @@ public class SingleFileDropHelper
 	/**
 	 * text/uri-list flavor, used for example in Unix platforms
 	 * 
-	 * @see <a href="http://tools.ietf.org/html/rfc2483#section-5">RFC 2483</a>
+	 * @see <a href="https://tools.ietf.org/html/rfc2483#section-5">RFC 2483</a>
 	 */
 	private static final DataFlavor URILIST_FLAVOR;
 
@@ -92,7 +92,7 @@ public class SingleFileDropHelper
 		catch (InvalidDnDOperationException e)
 		{
 			// Workaround for known bug:
-			// http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6759788
+			// http://bugs.java.com/bugdatabase/view_bug.do?bug_id=6759788
 			return file != null;
 		}
 		catch (IOException e)

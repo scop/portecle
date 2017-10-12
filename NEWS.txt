@@ -9,6 +9,7 @@ Enhancements:
   certificates (feature request #22).
 - Preserve extensions when renewing self-signed certificates.
 - Recognition for some additional certificate extension values.
+- Link fixes and updates to use HTTPS in documentation and UI.
 
 Miscellaneous:
 - Generated X.509 certificates are now version 3 ones.
@@ -165,7 +166,7 @@ Enhancements:
 - Add "cacerts" to list of filenames to accept when selecting JKS
   keystores.
 - Use xdg-open for opening URLs on non-Windows/Mac platforms.
-  http://portland.freedesktop.org/wiki/XdgUtils
+  https://www.freedesktop.org/wiki/Software/xdg-utils/
 - Include Freedesktop.org menu entry.
 - Allow per entry selection of overwritten entries in keystore conversion.
 - Spelling fixes.

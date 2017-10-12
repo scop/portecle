@@ -34,9 +34,9 @@
   <property name="build.targetver" value="1.7" />
   <property name="build.encoding" value="UTF-8" />
 
-  <property name="apiurl.java" value="http://download.oracle.com/javase/7/docs/api/"/>
-  <property name="apiurl.bcprov" value="http://www.bouncycastle.org/docs/docs1.5on/"/>
-  <property name="apiurl.bcpkix" value="http://www.bouncycastle.org/docs/pkixdocs1.5on/"/>
+  <property name="apiurl.java" value="https://docs.oracle.com/javase/7/docs/api/"/>
+  <property name="apiurl.bcprov" value="https://www.bouncycastle.org/docs/docs1.5on/"/>
+  <property name="apiurl.bcpkix" value="https://www.bouncycastle.org/docs/pkixdocs1.5on/"/>
 
   <property name="manifest.codebase" value="portecle.sourceforge.net"/>
   <property name="jnlp.codebase" value="http://portecle.sourceforge.net/webstart/"/>

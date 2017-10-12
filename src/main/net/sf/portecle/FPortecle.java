@@ -2402,7 +2402,7 @@ public class FPortecle
 			ss = (SSLSocket) sf.createSocket(socket, ia.getHostString(), ia.getPort(), false);
 
 			SSLSession sess = ss.getSession();
-			// TODO: fails with GNU Classpath: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=29692
+			// TODO: fails with GNU Classpath: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=29692
 			certs = (X509Certificate[]) sess.getPeerCertificates();
 			protocol = sess.getProtocol();
 			cipherSuite = sess.getCipherSuite();

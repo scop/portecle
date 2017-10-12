@@ -15,7 +15,7 @@ TODO for later:
   examining SSL/TLS connections.
 - Improve exception show dialog to display multiple exceptions
 - java 1.6 better iconimage etc PNG (transparent?) support
-  but but... http://www.javalobby.org/java/forums/t91501.html
+  but but... https://www.javalobby.org/java/forums/t91501.html
 - Configurable URLConnection timeouts
 - Check JCE keystores created with IBM's Java ("JCEKS", "IBMJCE")
 - Direct import from cert view dialog if a keystore is open (CA certs only?)
