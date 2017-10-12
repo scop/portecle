@@ -29,5 +29,6 @@ TODO for later:
 - Show used handshake stuff in SSL examine dialog
 - Support typing URLs to file choosers
 - OCSP client
+- Upgrade appdata XML to metainfo
 
 See also stuff at the sourceforge.net tracker.
