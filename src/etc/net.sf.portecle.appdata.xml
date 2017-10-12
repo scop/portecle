@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2013-2015 Ville Skyttä <ville.skytta@iki.fi> -->
-<application>
-    <id type="desktop">portecle.desktop</id>
+<!-- Copyright 2013-2017 Ville Skyttä <ville.skytta@iki.fi> -->
+<component type="desktop">
+    <id>net.sf.portecle</id>
     <metadata_license>CC0-1.0</metadata_license>
-    <project_license>GPL-2.0+</project_license>
     <name>Portecle</name>
     <summary>Multipurpose keystore and certificate tool</summary>
     <description>
@@ -18,9 +17,17 @@
             hard to remember command syntax.
         </p>
     </description>
-    <screenshots>
-        <screenshot type="default" width="624" height="351">https://sourceforge.net/p/portecle/screenshot/portecle.png</screenshot>
-    </screenshots>
     <url type="homepage">http://portecle.sourceforge.net/</url>
+    <url type="bugtracker">https://sourceforge.net/p/portecle/bugs/</url>
+    <url type="help">http://portecle.sourceforge.net/howtos.html</url>
+    <url type="donation">https://sourceforge.net/p/portecle/donate/</url>
+    <launchable type="desktop-id">net.sf.portecle.desktop</launchable>
+    <project_license>GPL-2.0+</project_license>
+    <developer_name>Ville Skyttä</developer_name>
+    <screenshots>
+        <screenshot type="default">
+            <image type="source" width="624" height="351">https://sourceforge.net/p/portecle/screenshot/portecle.png</image>
+        </screenshot>
+    </screenshots>
     <update_contact>ville.skytta@iki.fi</update_contact>
-</application>
+</component>
