@@ -334,8 +334,7 @@ public class X509Ext
 		{
 			return getUnknownOidStringValue(bOctets); // TODO
 		}
-		// TODO: https://github.com/bcgit/bc-java/pull/92
-		else if (m_Oid.toString().equals("1.3.6.1.4.1.311.21.4"))
+		else if (m_Oid.equals(MicrosoftObjectIdentifiers.microsoftCrlNextPublish))
 		{
 			return getMicrosoftCrlNextPublish(bOctets);
 		}
