@@ -62,7 +62,7 @@ public class DChangePassword
 
 	/**
 	 * Creates new DChangePassword dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle Is dialog modal?
 	 * @param cOldPassword The password to be changed
@@ -76,7 +76,7 @@ public class DChangePassword
 
 	/**
 	 * Get the new password set in the dialog.
-	 * 
+	 *
 	 * @return The new password or null if none was set
 	 */
 	public char[] getNewPassword()
@@ -86,7 +86,7 @@ public class DChangePassword
 
 	/**
 	 * Get the old password set in the dialog.
-	 * 
+	 *
 	 * @return The old password or null if none was set/supplied
 	 */
 	public char[] getOldPassword()
@@ -96,7 +96,7 @@ public class DChangePassword
 
 	/**
 	 * Copies a char array.
-	 * 
+	 *
 	 * @param original
 	 * @return a copy of the given char array
 	 */
@@ -166,7 +166,7 @@ public class DChangePassword
 	 * <li>That the old password was supplied or set by the user.
 	 * </ul>
 	 * Store the old and changed password in this object.
-	 * 
+	 *
 	 * @return True, if the user's dialog entry matches the above criteria, false otherwise
 	 */
 	private boolean checkPassword()

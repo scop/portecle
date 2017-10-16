@@ -41,7 +41,7 @@ class ExtensionsTableHeadRend
 {
 	/**
 	 * Returns the rendered header cell for the supplied value and column.
-	 * 
+	 *
 	 * @param jtExtensions The JTable
 	 * @param value The value to assign to the cell
 	 * @param bIsSelected True if cell is selected

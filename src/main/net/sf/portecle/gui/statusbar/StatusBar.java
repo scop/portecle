@@ -29,7 +29,7 @@ public interface StatusBar
 {
 	/**
 	 * Display the supplied text in the status bar.
-	 * 
+	 *
 	 * @param sStatus Text to display
 	 */
 	void setStatusBarText(String sStatus);

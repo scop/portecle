@@ -120,7 +120,7 @@ class DKeyStoreReport
 
 	/**
 	 * Creates new DKeyStoreReport dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param keystore Keystore to display report on
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
@@ -135,7 +135,7 @@ class DKeyStoreReport
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 */
 	private void initComponents()
@@ -214,7 +214,7 @@ class DKeyStoreReport
 
 	/**
 	 * Expand node and all sub-nodes in a JTree.
-	 * 
+	 *
 	 * @param tree The tree.
 	 * @param parent Path to node to expand
 	 */
@@ -237,7 +237,7 @@ class DKeyStoreReport
 
 	/**
 	 * Copy the keystore report to the clipboard.
-	 * 
+	 *
 	 * @param bXml Copy as XML?
 	 */
 	private void copyPressed(boolean bXml)
@@ -271,7 +271,7 @@ class DKeyStoreReport
 
 	/**
 	 * Get the KeyStoreReport as XML.
-	 * 
+	 *
 	 * @return Keystore report in XML
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 * @throws ParserConfigurationException There was a serious problem creating the XML report
@@ -289,7 +289,7 @@ class DKeyStoreReport
 
 	/**
 	 * Get the KeyStoreReport as plain text.
-	 * 
+	 *
 	 * @return Keystore report
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 */
@@ -481,7 +481,7 @@ class DKeyStoreReport
 
 	/**
 	 * Generate the keystore report as an XML Document.
-	 * 
+	 *
 	 * @return The KeyStiore report as an XML Document
 	 * @throws CryptoException A crypto related problem was encountered generating the keystore report
 	 * @throws ParserConfigurationException There was a serious problem creating the XML report
@@ -651,7 +651,7 @@ class DKeyStoreReport
 
 	/**
 	 * Create tree node with keystore report.
-	 * 
+	 *
 	 * @throws CryptoException A crypto related problem was encountered creating the tree node
 	 * @return The tree node
 	 */

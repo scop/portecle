@@ -42,7 +42,7 @@ class RecentKeyStoreFileActionListener
 
 	/**
 	 * Create an RecentKeyStoreFileActionListener for the supplied keystore file and fPortecle frame.
-	 * 
+	 *
 	 * @param fRecentFile Recent keystore file
 	 * @param fPortecle FPortecle frame
 	 */
@@ -54,7 +54,7 @@ class RecentKeyStoreFileActionListener
 
 	/**
 	 * Action to perform to open the keystore file in response to an ActionEvent.
-	 * 
+	 *
 	 * @param evt Action event
 	 */
 	@Override

@@ -37,7 +37,7 @@ import java.util.EventObject;
 
 	/**
 	 * Constructs a new HistoryEvent.
-	 * 
+	 *
 	 * @param eventSource The source of the event
 	 * @param bBackAvailable Whether there is a document in the history before the current document
 	 * @param bForwardAvailable Whether there is a document in the history after the current document
@@ -51,7 +51,7 @@ import java.util.EventObject;
 
 	/**
 	 * Is there is a document in the history before the current document?
-	 * 
+	 *
 	 * @return True if there is a document in the history before the current document
 	 */
 	public boolean isBackAvailable()
@@ -61,7 +61,7 @@ import java.util.EventObject;
 
 	/**
 	 * Is there is a document in the history after the current document?
-	 * 
+	 *
 	 * @return True if there is a document in the history after the current document
 	 */
 	public boolean isForwardAvailable()

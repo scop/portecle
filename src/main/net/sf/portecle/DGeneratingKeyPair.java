@@ -50,7 +50,7 @@ class DGeneratingKeyPair
 
 	/**
 	 * Creates new DGeneratingKeyPair dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 */
 	public DGeneratingKeyPair(Window parent)
@@ -87,7 +87,7 @@ class DGeneratingKeyPair
 
 	/**
 	 * Get key pair worker.
-	 * 
+	 *
 	 * @param keyPairType key pair type
 	 * @param keySize key size
 	 * @return Swing worker that creates a key pair
@@ -115,7 +115,7 @@ class DGeneratingKeyPair
 
 	/**
 	 * Get whether the dialog was closed by a key pair worker.
-	 * 
+	 *
 	 * @return True if the dialog was closed by a key pair worker, false otherwise
 	 */
 	public boolean isClosedByWorker()

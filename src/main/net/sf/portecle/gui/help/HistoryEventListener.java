@@ -31,7 +31,7 @@ import java.util.EventListener;
 {
 	/**
 	 * Fired when history changes.
-	 * 
+	 *
 	 * @param evt Event which caused the change
 	 */
 	void historyStatusChanged(HistoryEvent evt);

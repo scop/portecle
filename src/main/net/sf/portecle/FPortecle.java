@@ -851,7 +851,7 @@ public class FPortecle
 
 	/**
 	 * Create a recent file menu item for the supplied file.
-	 * 
+	 *
 	 * @param fRecentFile Recent file
 	 * @return Recent file menu item
 	 */
@@ -1537,7 +1537,7 @@ public class FPortecle
 	/**
 	 * Show the appropriate pop-up menu if the originating mouse event indicates that the user clicked upon a keystore
 	 * entry in the UI table and the entry is of type key pair or trusted certificate.
-	 * 
+	 *
 	 * @param evt The mouse event
 	 */
 	private void maybeShowPopup(MouseEvent evt)
@@ -1581,7 +1581,7 @@ public class FPortecle
 	/**
 	 * Check if a double click occurred on the keystore table. If it has show the certificate details of the entry
 	 * clicked upon.
-	 * 
+	 *
 	 * @param evt The mouse event
 	 */
 	private void keyStoreTableDoubleClick(MouseEvent evt)
@@ -1607,7 +1607,7 @@ public class FPortecle
 
 	/**
 	 * Generate a key pair (with certificate) in the currently opened keystore.
-	 * 
+	 *
 	 * @return True if a key pair is generated, false otherwise
 	 */
 	private boolean generateKeyPair()
@@ -1753,7 +1753,7 @@ public class FPortecle
 
 	/**
 	 * Open a keystore file from disk.
-	 * 
+	 *
 	 * @return True if a keystore is opened, false otherwise
 	 */
 	private boolean openKeyStoreFile()
@@ -1798,7 +1798,7 @@ public class FPortecle
 
 	/**
 	 * Open a CA certificates keystore file from disk.
-	 * 
+	 *
 	 * @return True if a keystore is opened, false otherwise
 	 */
 	private boolean openCaCertsKeyStoreFile()
@@ -1820,7 +1820,7 @@ public class FPortecle
 
 	/**
 	 * Open the supplied keystore file from disk.
-	 * 
+	 *
 	 * @param fKeyStore The keystore file
 	 * @param updateLastDir Whether to update the last accessed directory
 	 * @return True if a keystore is opened, false otherwise
@@ -1940,7 +1940,7 @@ public class FPortecle
 
 	/**
 	 * Open a PKCS #11 keystore.
-	 * 
+	 *
 	 * @return True if a keystore is opened, false otherwise
 	 */
 	private boolean openKeyStorePkcs11()
@@ -1968,7 +1968,7 @@ public class FPortecle
 
 	/**
 	 * Open the supplied PKCS #11 keystore.
-	 * 
+	 *
 	 * @param sPkcs11Provider The PKCS #11 provider
 	 * @return True if a keystore is opened, false otherwise
 	 */
@@ -2014,7 +2014,7 @@ public class FPortecle
 
 	/**
 	 * Save the currently opened keystore back to the file it was originally opened from.
-	 * 
+	 *
 	 * @return True if the keystore is saved to disk, false otherwise
 	 */
 	/* package private */boolean saveKeyStore()
@@ -2078,7 +2078,7 @@ public class FPortecle
 
 	/**
 	 * Get a new keystore password.
-	 * 
+	 *
 	 * @return The new keystore password
 	 */
 	private char[] getNewKeyStorePassword()
@@ -2099,7 +2099,7 @@ public class FPortecle
 	/**
 	 * Save the currently opened keystore to disk to what may be a different file from the one it was opened from (if
 	 * any).
-	 * 
+	 *
 	 * @return True if the keystore is saved to disk, false otherwise
 	 */
 	private boolean saveKeyStoreAs()
@@ -2184,7 +2184,7 @@ public class FPortecle
 
 	/**
 	 * Check if the currently opened keystore requires to be saved.
-	 * 
+	 *
 	 * @return True if the keystore has been changed since the last open/save, false otherwise
 	 */
 	/* package private */boolean needSave()
@@ -2194,7 +2194,7 @@ public class FPortecle
 
 	/**
 	 * Ask the user if they want to save the current keystore file.
-	 * 
+	 *
 	 * @return JOptionPane.YES_OPTION, JOptionPane.NO_OPTION or JOptionPane.CANCEL_OPTION; JOptionPane.CLOSED_OPTION is
 	 *         reported as JOptionPane.CANCEL_OPTION
 	 */
@@ -2228,7 +2228,7 @@ public class FPortecle
 
 	/**
 	 * Create a new keystore file.
-	 * 
+	 *
 	 * @return True is a new keystore file is created, false otherwise
 	 */
 	private boolean newKeyStore()
@@ -2290,7 +2290,7 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a certificate file.
-	 * 
+	 *
 	 * @param fCertFile File to load the certificate from; if <code>null</code>, prompt user
 	 */
 	private void examineCert(File fCertFile)
@@ -2312,7 +2312,7 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a certificate file from a SSL connection.
-	 * 
+	 *
 	 * @param ia socket address for the SSL connection to examine
 	 * @return True if the user was able to examine the certificate, false otherwise
 	 */
@@ -2450,7 +2450,7 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a CSR file.
-	 * 
+	 *
 	 * @param fCSRFile File to load the CSR from; if <code>null</code>, prompt user
 	 * @return True if the user was able to examine the CSR file, false otherwise
 	 */
@@ -2491,7 +2491,7 @@ public class FPortecle
 
 	/**
 	 * Let the user examine the contents of a CRL file.
-	 * 
+	 *
 	 * @param fCRLFile File to load the CRL from; if <code>null</code>, prompt user
 	 */
 	private void examineCRL(File fCRLFile)
@@ -2513,7 +2513,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a CA reply file to import.
-	 * 
+	 *
 	 * @return The chosen file or null if none was chosen
 	 */
 	private File chooseImportCAFile()
@@ -2542,7 +2542,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a certificate file to examine.
-	 * 
+	 *
 	 * @return The chosen file or null if none was chosen
 	 */
 	private File chooseExamineCertFile()
@@ -2568,7 +2568,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a certificate to examine from a SSL connection.
-	 * 
+	 *
 	 * @return The chosen inet address or null if none was chosen
 	 */
 	private InetSocketAddress chooseExamineCertSSL()
@@ -2581,7 +2581,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a CSR file to examine.
-	 * 
+	 *
 	 * @return The chosen file or null if none was chosen
 	 */
 	private File chooseExamineCSRFile()
@@ -2607,7 +2607,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a CRL file to examine.
-	 * 
+	 *
 	 * @return The chosen file or null if none was chosen
 	 */
 	private File chooseExamineCRLFile()
@@ -2633,7 +2633,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a trusted certificate file to import.
-	 * 
+	 *
 	 * @return The chosen file or null if none was chosen
 	 */
 	private File chooseTrustCertFile()
@@ -2662,7 +2662,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a file to import from.
-	 * 
+	 *
 	 * @return The chosen file or null if none was chosen
 	 */
 	private File chooseImportFile()
@@ -2691,7 +2691,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a file to generate a CSR in.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return The chosen file or null if none was chosen
 	 */
@@ -2721,7 +2721,7 @@ public class FPortecle
 
 	/**
 	 * Open a certificate file.
-	 * 
+	 *
 	 * @param fCertFile The certificate file
 	 * @return The certificates found in the file or null if there were none
 	 */
@@ -2766,7 +2766,7 @@ public class FPortecle
 
 	/**
 	 * Open a CSR file.
-	 * 
+	 *
 	 * @param fCSRFile The CSR file
 	 * @return The CSR found in the file or null if there wasn't one
 	 */
@@ -2793,7 +2793,7 @@ public class FPortecle
 
 	/**
 	 * Let the user import a CA reply into the selected key pair entry.
-	 * 
+	 *
 	 * @return True if the import is successful, false otherwise
 	 */
 	private boolean importCAReplySelectedEntry()
@@ -2985,7 +2985,7 @@ public class FPortecle
 
 	/**
 	 * Let the user renew a self-signed certificate for the selected key pair entry.
-	 * 
+	 *
 	 * @return True if the renewal is successful, false otherwise
 	 */
 	private boolean renewSelectedEntry()
@@ -3069,7 +3069,7 @@ public class FPortecle
 
 	/**
 	 * Let the user import a trusted certificate.
-	 * 
+	 *
 	 * @return True if the import is successful, false otherwise
 	 */
 	private boolean importTrustedCert()
@@ -3209,7 +3209,7 @@ public class FPortecle
 
 	/**
 	 * Let the user import a key pair a PKCS #12 keystore or a PEM bundle.
-	 * 
+	 *
 	 * @return True if the import is successful, false otherwise
 	 */
 	private boolean importKeyPair()
@@ -3388,7 +3388,7 @@ public class FPortecle
 
 	/**
 	 * Open the CA certificates keystore from disk.
-	 * 
+	 *
 	 * @return The keystore if it could be opened or null otherwise
 	 */
 	private KeyStore openCaCertsKeyStore()
@@ -3636,7 +3636,7 @@ public class FPortecle
 
 	/**
 	 * Convert the loaded keystore's type to that supplied.
-	 * 
+	 *
 	 * @param keyStoreType New keystore type
 	 * @return True if the keystore's type was changed, false otherwise
 	 */
@@ -3828,7 +3828,7 @@ public class FPortecle
 
 	/**
 	 * Let the user set the keystore's password.
-	 * 
+	 *
 	 * @return True if the password was set, false otherwise
 	 */
 	private boolean setKeyStorePassword()
@@ -3857,7 +3857,7 @@ public class FPortecle
 
 	/**
 	 * Let the user set the password for the selected key pair entry.
-	 * 
+	 *
 	 * @return True if the password is set, false otherwise
 	 */
 	private boolean setPasswordSelectedEntry()
@@ -3927,7 +3927,7 @@ public class FPortecle
 
 	/**
 	 * Let the user export the selected entry.
-	 * 
+	 *
 	 * @return True if the export is successful, false otherwise
 	 */
 	private boolean exportSelectedEntry()
@@ -4030,7 +4030,7 @@ public class FPortecle
 
 	/**
 	 * Export the head certificate of the keystore entry in a PEM encoding.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4087,7 +4087,7 @@ public class FPortecle
 
 	/**
 	 * Export the head certificate of the keystore entry in a DER encoding.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4158,7 +4158,7 @@ public class FPortecle
 
 	/**
 	 * Export the head certificate of the keystore entry to a PKCS #7 file.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4229,7 +4229,7 @@ public class FPortecle
 
 	/**
 	 * Export the head certificate of the keystore entry to a PkiPath file.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4300,7 +4300,7 @@ public class FPortecle
 
 	/**
 	 * Export all of the certificates of the keystore entry to a PKCS #7 file.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4376,7 +4376,7 @@ public class FPortecle
 
 	/**
 	 * Export all of the certificates of the keystore entry to a PkiPath file.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4452,7 +4452,7 @@ public class FPortecle
 
 	/**
 	 * Get the keystore entry's head certificate.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return The keystore entry's head certificate
 	 * @throws CryptoException Problem getting head certificate
@@ -4488,7 +4488,7 @@ public class FPortecle
 
 	/**
 	 * Export the private key and certificates of the keystore entry to a PEM encoded "OpenSSL" format bundle.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4603,7 +4603,7 @@ public class FPortecle
 
 	/**
 	 * Export the private key and certificates of the keystore entry to a PKCS #12 keystore file.
-	 * 
+	 *
 	 * @param sEntryAlias Entry alias
 	 * @return True if the export is successful, false otherwise
 	 */
@@ -4707,7 +4707,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a certificate file to export to.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return The chosen file or null if none was chosen
 	 */
@@ -4734,7 +4734,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a PKCS #7 file to export to.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return The chosen file or null if none was chosen
 	 */
@@ -4761,7 +4761,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a PkiPath file to export to.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return The chosen file or null if none was chosen
 	 */
@@ -4788,7 +4788,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a PKCS #12 file to export to.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return The chosen file or null if none was chosen
 	 */
@@ -4815,7 +4815,7 @@ public class FPortecle
 
 	/**
 	 * Let the user choose a PEM file to export to.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return The chosen file or null if none was chosen
 	 */
@@ -4842,7 +4842,7 @@ public class FPortecle
 
 	/**
 	 * Let the user generate a CSR for the selected key pair entry.
-	 * 
+	 *
 	 * @return True if the generation is successful, false otherwise
 	 */
 	private boolean generateCsrSelectedEntry()
@@ -4937,7 +4937,7 @@ public class FPortecle
 
 	/**
 	 * Let the user clone the selected key entry.
-	 * 
+	 *
 	 * @return True if the clone is successful, false otherwise
 	 */
 	private boolean cloneSelectedKeyEntry()
@@ -5045,7 +5045,7 @@ public class FPortecle
 
 	/**
 	 * Let the user clone the selected certificate entry.
-	 * 
+	 *
 	 * @return True if the clone is successful, false otherwise
 	 */
 	private boolean cloneSelectedCertificateEntry()
@@ -5106,7 +5106,7 @@ public class FPortecle
 
 	/**
 	 * Display a report on the currently loaded keystore.
-	 * 
+	 *
 	 * @return True if the keystore report was displayed successfully, false otherwise
 	 */
 	private boolean keyStoreReport()
@@ -5130,7 +5130,7 @@ public class FPortecle
 
 	/**
 	 * Let the user see the certificate details of the selected keystore entry.
-	 * 
+	 *
 	 * @return True if the certificate details were viewed successfully, false otherwise
 	 */
 	private boolean showSelectedEntry()
@@ -5180,7 +5180,7 @@ public class FPortecle
 
 	/**
 	 * Let the user delete the selected keystore entry.
-	 * 
+	 *
 	 * @return True if the deletion is successful, false otherwise
 	 */
 	private boolean deleteSelectedEntry()
@@ -5229,7 +5229,7 @@ public class FPortecle
 
 	/**
 	 * Let the user rename the selected keystore entry.
-	 * 
+	 *
 	 * @return True if the rename is successful, false otherwise
 	 */
 	private boolean renameSelectedEntry()
@@ -5257,7 +5257,7 @@ public class FPortecle
 
 	/**
 	 * Let the user rename the selected keystore entry.
-	 * 
+	 *
 	 * @param oldAlias old entry alias
 	 * @param newAlias new entry alias
 	 * @param silent if true, attempt to rename to same name will be ignored without popping up an error dialog
@@ -5499,7 +5499,7 @@ public class FPortecle
 
 	/**
 	 * Display the supplied text in the status bar.
-	 * 
+	 *
 	 * @param sStatus Text to display
 	 */
 	@Override
@@ -5713,7 +5713,7 @@ public class FPortecle
 
 	/**
 	 * Gets a resource image.
-	 * 
+	 *
 	 * @param key the image's key
 	 * @return the Image corresponding to the key
 	 */
@@ -5724,7 +5724,7 @@ public class FPortecle
 
 	/**
 	 * File overwrite confirmation dialog.
-	 * 
+	 *
 	 * @param file the file possibly being overwritten
 	 * @param title window title
 	 * @return true if the write operation should continue
@@ -5742,7 +5742,7 @@ public class FPortecle
 
 	/**
 	 * Gets a new entry alias from user, handling overwrite issues.
-	 * 
+	 *
 	 * @param keyStore target keystore
 	 * @param sAlias suggested alias
 	 * @param dialogTitleKey message key for dialog titles
@@ -6355,7 +6355,7 @@ public class FPortecle
 
 	/**
 	 * Method to determine and open generic files dropped into Portecle.
-	 * 
+	 *
 	 * @param file the file to open
 	 * @return true if the file can be opened, false otherwise
 	 */
@@ -6405,7 +6405,7 @@ public class FPortecle
 
 		/**
 		 * Construct CreateAndShowGui.
-		 * 
+		 *
 		 * @param obj File or host:port to open initially (supply null if none)
 		 */
 		public CreateAndShowGui(Object obj)
@@ -6436,7 +6436,7 @@ public class FPortecle
 	/**
 	 * Start the Portecle application. Takes one optional argument - the location of a keystore file to open upon
 	 * startup.
-	 * 
+	 *
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args)

@@ -56,7 +56,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Load the ExtensionsTableModel with X.509 extensions.
-	 * 
+	 *
 	 * @param extensions The X.509 extensions
 	 */
 	public void load(X509Extension extensions)
@@ -92,7 +92,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Load the ExtensionsTableModel with an X.509 extension.
-	 * 
+	 *
 	 * @param extension The X.509 extension
 	 * @param iRow The row to add extension to
 	 */
@@ -112,7 +112,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Get the number of columns in the table.
-	 * 
+	 *
 	 * @return The number of columns
 	 */
 	@Override
@@ -123,7 +123,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Get the number of rows in the table.
-	 * 
+	 *
 	 * @return The number of rows
 	 */
 	@Override
@@ -134,7 +134,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Get the name of the column at the given position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column name
 	 */
@@ -146,7 +146,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Get the cell value at the given row and column position.
-	 * 
+	 *
 	 * @param iRow The row position
 	 * @param iCol The column position
 	 * @return The cell value
@@ -159,7 +159,7 @@ class ExtensionsTableModel
 
 	/**
 	 * Get the class at of the cells at the given column position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */

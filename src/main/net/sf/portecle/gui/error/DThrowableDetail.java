@@ -56,7 +56,7 @@ import net.sf.portecle.PortecleJDialog;
 
 	/**
 	 * Creates new DThrowableDetail dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param throwable Throwable to display
 	 */
@@ -130,7 +130,7 @@ import net.sf.portecle.PortecleJDialog;
 
 	/**
 	 * Create tree node with information on the throwable and its cause throwables.
-	 * 
+	 *
 	 * @return The tree node
 	 */
 	private DefaultMutableTreeNode createThrowableNodes()
@@ -162,7 +162,7 @@ import net.sf.portecle.PortecleJDialog;
 
 	/**
 	 * Expand node and all sub-nodes in a JTree.
-	 * 
+	 *
 	 * @param tree The tree.
 	 * @param parent Path to node to expand
 	 */

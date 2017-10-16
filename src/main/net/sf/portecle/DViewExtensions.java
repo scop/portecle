@@ -81,7 +81,7 @@ class DViewExtensions
 
 	/**
 	 * Creates new DViewExtensions dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param modal Is dialog modal?

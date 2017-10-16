@@ -41,7 +41,7 @@ public final class ProviderUtil
 
 	/**
 	 * Get the PKCS #11 <code>Provider</code>s available on the system.
-	 * 
+	 *
 	 * @return the (possibly empty) collection of available PKCS #11 <code>Provider</code>s, sorted by name
 	 */
 	public static Collection<Provider> getPkcs11Providers()

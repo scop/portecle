@@ -40,7 +40,7 @@ class ReportTreeCellRend
 {
 	/**
 	 * Returns the rendered cell for the supplied value.
-	 * 
+	 *
 	 * @param jtrReport The JTree
 	 * @param value The value to assign to the cell
 	 * @param bIsSelected True if cell is selected
@@ -213,7 +213,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Construct an entry.
-		 * 
+		 *
 		 * @param iType Entry type
 		 * @param sAlias Entry alias
 		 */
@@ -225,7 +225,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Get a key entry.
-		 * 
+		 *
 		 * @param sAlias Entry alias
 		 * @return Key entry
 		 */
@@ -236,7 +236,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Get a key pair entry.
-		 * 
+		 *
 		 * @param sAlias Entry alias
 		 * @return Key pair entry
 		 */
@@ -247,7 +247,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Get a trusted certificate entry.
-		 * 
+		 *
 		 * @param sAlias Entry alias
 		 * @return Trusted certificate entry
 		 */
@@ -258,7 +258,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Is entry of type key?
-		 * 
+		 *
 		 * @return True if it is, false otherwise.
 		 */
 		public boolean isKey()
@@ -268,7 +268,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Is entry of type key pair?
-		 * 
+		 *
 		 * @return True if it is, false otherwise.
 		 */
 		public boolean isKeyPair()
@@ -278,7 +278,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Is entry of type trusted certificate?
-		 * 
+		 *
 		 * @return True if it is, false otherwise.
 		 */
 		public boolean isTrustedCertificate()
@@ -288,7 +288,7 @@ class ReportTreeCellRend
 
 		/**
 		 * Returns the entry alias. Value displayed by renderer.
-		 * 
+		 *
 		 * @return Entry alias
 		 */
 		@Override

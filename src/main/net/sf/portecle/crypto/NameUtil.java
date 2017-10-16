@@ -42,7 +42,7 @@ public final class NameUtil
 
 	/**
 	 * Gets the common name from the given X500Name.
-	 * 
+	 *
 	 * @param name the X.500 name
 	 * @return the common name, null if not found
 	 */
@@ -64,7 +64,7 @@ public final class NameUtil
 
 	/**
 	 * Gets the common name from the given X500Principal.
-	 * 
+	 *
 	 * @param name the X.500 principal
 	 * @return the common name, null if not found
 	 */

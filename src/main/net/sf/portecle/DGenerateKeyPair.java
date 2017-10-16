@@ -79,7 +79,7 @@ class DGenerateKeyPair
 
 	/**
 	 * Creates new DGenerateKeyPair dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 */
 	public DGenerateKeyPair(Window parent)
@@ -207,7 +207,7 @@ class DGenerateKeyPair
 
 	/**
 	 * Validate the chosen key pair generation parameters.
-	 * 
+	 *
 	 * @return True if the key pair generation parameters are valid, false otherwise
 	 */
 	private boolean validateKeyGenParameters()
@@ -240,7 +240,7 @@ class DGenerateKeyPair
 	/**
 	 * Validate the key size value the user has entered as a string and convert it to an integer. Validate the key size
 	 * is supported for the particular key pair generation algorithm they have chosen.
-	 * 
+	 *
 	 * @return The Validity value or BAD_KEYSIZE if it is not valid
 	 */
 	private int validateKeySize()
@@ -284,7 +284,7 @@ class DGenerateKeyPair
 
 	/**
 	 * Get the key pair size chosen.
-	 * 
+	 *
 	 * @return The key pair size
 	 */
 	public int getKeySize()
@@ -294,7 +294,7 @@ class DGenerateKeyPair
 
 	/**
 	 * Get the key pair type chosen.
-	 * 
+	 *
 	 * @return The key pair generation type
 	 */
 	public KeyPairType getKeyPairType()
@@ -304,7 +304,7 @@ class DGenerateKeyPair
 
 	/**
 	 * Have the parameters been entered correctly?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean isSuccessful()

@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 
 /**
  * Networking utilities.
- * 
+ *
  * @author Ville Skyttä
  */
 public final class NetUtil
@@ -60,7 +60,7 @@ public final class NetUtil
 
 	/**
 	 * Open an input stream to a GET(-like) operation on an URL.
-	 * 
+	 *
 	 * @param url The URL
 	 * @return Input stream to the URL connection
 	 * @throws IOException If an I/O error occurs
@@ -80,7 +80,7 @@ public final class NetUtil
 
 	/**
 	 * Open an input stream to a POST(-like) operation on an URL.
-	 * 
+	 *
 	 * @param url The URL
 	 * @param content Content to POST
 	 * @param contentType Content type
@@ -115,7 +115,7 @@ public final class NetUtil
 
 	/**
 	 * Download the given URL to a temporary local file. The temporary file is marked for deletion at exit.
-	 * 
+	 *
 	 * @param url
 	 * @return URL pointing to the temporary file, <code>url</code> itself if it's a file: one.
 	 * @throws IOException
@@ -159,7 +159,7 @@ public final class NetUtil
 
 	/**
 	 * Creates a URL pointing to a URL, URI or a File object.
-	 * 
+	 *
 	 * @param obj Object to create a URI to
 	 * @return URL
 	 * @throws ClassCastException if obj is not a supported object

@@ -47,7 +47,7 @@ public class SingleFileDropHelper
 
 	/**
 	 * text/uri-list flavor, used for example in Unix platforms
-	 * 
+	 *
 	 * @see <a href="https://tools.ietf.org/html/rfc2483#section-5">RFC 2483</a>
 	 */
 	private static final DataFlavor URILIST_FLAVOR;
@@ -112,7 +112,7 @@ public class SingleFileDropHelper
 
 	/**
 	 * Get list of files from the given TransferSupport.
-	 * 
+	 *
 	 * @param support the TransferSupport
 	 * @return list of files
 	 * @throws IOException

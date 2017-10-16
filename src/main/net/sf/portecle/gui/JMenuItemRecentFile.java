@@ -45,7 +45,7 @@ public class JMenuItemRecentFile
 
 	/**
 	 * Construct a JMenuItemRecentFile.
-	 * 
+	 *
 	 * @param fRecentFile The recent file
 	 */
 	public JMenuItemRecentFile(File fRecentFile)
@@ -58,7 +58,7 @@ public class JMenuItemRecentFile
 
 	/**
 	 * Get the recent file.
-	 * 
+	 *
 	 * @return The recent file
 	 */
 	public File getFile()
@@ -68,7 +68,7 @@ public class JMenuItemRecentFile
 
 	/**
 	 * Get the menu item's position in its recent file list (maintained by JMenuRecentFiles).
-	 * 
+	 *
 	 * @return Position
 	 */
 	public int getPosition()
@@ -78,7 +78,7 @@ public class JMenuItemRecentFile
 
 	/**
 	 * Set the menu item's position in its recent file list (maintained by JMenuRecentFiles).
-	 * 
+	 *
 	 * @param iPosition Position
 	 */
 	void setPosition(int iPosition)

@@ -48,7 +48,7 @@ public final class DesktopUtil
 
 	/**
 	 * Open URI in system default browser.
-	 * 
+	 *
 	 * @param parentComponent
 	 * @param uri URI to open
 	 * @see Desktop#browse(URI)
@@ -76,7 +76,7 @@ public final class DesktopUtil
 
 	/**
 	 * Open mail compose window in system default mail client.
-	 * 
+	 *
 	 * @param parentComponent
 	 * @param address E-mail address to mail to
 	 * @see Desktop#mail(URI)

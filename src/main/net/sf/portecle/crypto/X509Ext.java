@@ -172,7 +172,7 @@ public class X509Ext
 
 	/**
 	 * Construct a new immutable X509Ext.
-	 * 
+	 *
 	 * @param sOid Extension object identifier
 	 * @param bValue Extension value as a DER-encoded OCTET string
 	 * @param bCritical Critical extension?
@@ -190,7 +190,7 @@ public class X509Ext
 
 	/**
 	 * Get extension object identifier.
-	 * 
+	 *
 	 * @return Extension object identifier
 	 */
 	public String getOid()
@@ -200,7 +200,7 @@ public class X509Ext
 
 	/**
 	 * Get extension value as a DER-encoded OCTET string.
-	 * 
+	 *
 	 * @return Extension value
 	 */
 	public byte[] getValue()
@@ -210,7 +210,7 @@ public class X509Ext
 
 	/**
 	 * Is extension critical?
-	 * 
+	 *
 	 * @return True if is, false otherwise
 	 */
 	public boolean isCriticalExtension()
@@ -220,7 +220,7 @@ public class X509Ext
 
 	/**
 	 * Get extension name.
-	 * 
+	 *
 	 * @return Extension name or null if unknown
 	 */
 	public String getName()
@@ -230,7 +230,7 @@ public class X509Ext
 
 	/**
 	 * Get extension value as a string.
-	 * 
+	 *
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
 	 * @throws ParseException If a date formatting problem occurs
@@ -396,7 +396,7 @@ public class X509Ext
 
 	/**
 	 * Get unknown OID extension value as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string (hex/clear text dump)
 	 * @throws IOException If an I/O error occurs
@@ -443,7 +443,7 @@ public class X509Ext
 
 	/**
 	 * Get Common Name (2.5.4.3) extension value as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -456,12 +456,12 @@ public class X509Ext
 
 	/**
 	 * Get Subject Key Identifier (2.5.29.14) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * SubjectKeyIdentifier ::= KeyIdentifier
 	 * KeyIdentifier ::= OCTET STRING
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 */
@@ -481,7 +481,7 @@ public class X509Ext
 
 	/**
 	 * Get Key Usage (2.5.29.15) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * KeyUsage ::= BIT STRING {
 	 *     digitalSignature        (0),
@@ -494,7 +494,7 @@ public class X509Ext
 	 *     encipherOnly            (7),
 	 *     decipherOnly            (8) }
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -520,13 +520,13 @@ public class X509Ext
 
 	/**
 	 * Get Private Key Usage Period (2.5.29.16) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * PrivateKeyUsagePeriod ::= SEQUENCE {
 	 *       notBefore       [0]     GeneralizedTime OPTIONAL,
 	 *       notAfter        [1]     GeneralizedTime OPTIONAL }
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws ParseException If a date formatting problem occurs
@@ -560,13 +560,13 @@ public class X509Ext
 
 	/**
 	 * Get Subject Alternative Name (2.5.29.17) or Issuer Alternative Name (2.5.29.18) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * SubjectAltName ::= GeneralNames
 	 * IssuerAltName ::= GeneralNames
 	 * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -579,13 +579,13 @@ public class X509Ext
 
 	/**
 	 * Get Basic Constraints (2.5.29.19) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * BasicConstraints ::= SEQUENCE {
 	 *     cA                      BOOLEAN DEFAULT FALSE,
 	 *     pathLenConstraint       INTEGER (0..MAX) OPTIONAL }
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 */
@@ -608,11 +608,11 @@ public class X509Ext
 
 	/**
 	 * Get CRL Number (2.5.29.20) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * CRLNumber ::= INTEGER (0..MAX)
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -625,7 +625,7 @@ public class X509Ext
 
 	/**
 	 * Get Reason Code (2.5.29.21) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * ReasonCode ::= { CRLReason }
 	 * CRLReason ::= ENUMERATED {
@@ -640,7 +640,7 @@ public class X509Ext
 	 *     privilegeWithdrawn      (9),
 	 *     aACompromise           (10) }
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -655,11 +655,11 @@ public class X509Ext
 
 	/**
 	 * Get Hold Instruction Code (2.5.29.23) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * HoldInstructionCode ::= OBJECT IDENTIFER
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -674,11 +674,11 @@ public class X509Ext
 
 	/**
 	 * Get Invalidity Date (2.5.29.24) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * InvalidityDate ::=  GeneralizedTime
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -696,12 +696,12 @@ public class X509Ext
 
 	/**
 	 * Get Delta CRL Indicator (2.5.29.27) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * BaseCRLNumber ::= CRLNumber
 	 * CRLNumber ::= INTEGER (0..MAX)
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -719,12 +719,12 @@ public class X509Ext
 
 	/**
 	 * Get Certificate Issuer (2.5.29.29) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * certificateIssuer ::= GeneralNames
 	 * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -737,14 +737,14 @@ public class X509Ext
 
 	/**
 	 * Get Policy Mappings (2.5.29.33) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * PolicyMappings ::= SEQUENCE SIZE (1..MAX) OF SEQUENCE {
 	 *     issuerDomainPolicy      CertPolicyId,
 	 *      subjectDomainPolicy     CertPolicyId }
 	 * CertPolicyId ::= OBJECT IDENTIFIER
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -793,7 +793,7 @@ public class X509Ext
 
 	/**
 	 * Get Authority Key Identifier (2.5.29.35) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * AuthorityKeyIdentifier ::= SEQUENCE {
 	 *     keyIdentifier             [0] KeyIdentifier           OPTIONAL,
@@ -803,7 +803,7 @@ public class X509Ext
 	 * GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
 	 * CertificateSerialNumber  ::=  INTEGER
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -853,14 +853,14 @@ public class X509Ext
 
 	/**
 	 * Get Policy Constraints (2.5.29.36) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * PolicyConstraints ::= SEQUENCE {
 	 *     requireExplicitPolicy           [0] SkipCerts OPTIONAL,
 	 *     inhibitPolicyMapping            [1] SkipCerts OPTIONAL }
 	 * SkipCerts ::= INTEGER (0..MAX)
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -904,12 +904,12 @@ public class X509Ext
 
 	/**
 	 * Get Extended Key Usage (2.5.29.37) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * ExtendedKeyUsage ::= SEQUENCE SIZE (1..MAX) OF KeyPurposeId
 	 * KeyPurposeId ::= OBJECT IDENTIFIER
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 */
@@ -936,12 +936,12 @@ public class X509Ext
 
 	/**
 	 * Get Inhibit Any Policy (2.5.29.54) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * InhibitAnyPolicy ::= SkipCerts
 	 * SkipCerts ::= INTEGER (0..MAX)
 	 * </pre>
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -960,7 +960,7 @@ public class X509Ext
 
 	/**
 	 * Get Entrust Version Extension (1.2.840.113533.7.65.0) extension value as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -977,7 +977,7 @@ public class X509Ext
 
 	/**
 	 * Get Microsoft certificate template name V2 (1.3.6.1.4.1.311.20.7) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * CertificateTemplate ::= SEQUENCE {
 	 *   templateID OBJECT IDENTIFIER,
@@ -986,7 +986,7 @@ public class X509Ext
 	 * }
 	 * TemplateVersion ::= INTEGER (0..4294967295)
 	 * </pre>
-	 * 
+	 *
 	 * @see <a href="https://groups.google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl">https://groups
 	 *      .google.com/groups?selm=OXFILYELDHA.1908%40TK2MSFTNGP11.phx.gbl</a>
 	 * @param bValue The octet string value
@@ -1018,7 +1018,7 @@ public class X509Ext
 
 	/**
 	 * Get Microsoft CA Version (1.3.6.1.4.1.311.21.1) extension value as a string.
-	 * 
+	 *
 	 * @see <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa376550.aspx">MSDN </a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1039,7 +1039,7 @@ public class X509Ext
 
 	/**
 	 * Get Microsoft Previous CA Certificate Hash (1.3.6.1.4.1.311.21.2) extension value as a string.
-	 * 
+	 *
 	 * @see <a href="https://support.microsoft.com/help/287547">Microsoft support</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1056,7 +1056,7 @@ public class X509Ext
 
 	/**
 	 * Get Microsoft CRL Next Publish (1.3.6.1.4.1.311.21.4) extension value as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1079,14 +1079,14 @@ public class X509Ext
 
 	/**
 	 * Get S/MIME capabilities (1.2.840.113549.1.9.15) extension value as a string.
-	 * 
+	 *
 	 * <pre>
 	 * SMIMECapability ::= SEQUENCE {
 	 *   capabilityID OBJECT IDENTIFIER,
 	 *   parameters ANY DEFINED BY capabilityID OPTIONAL }
 	 * SMIMECapabilities ::= SEQUENCE OF SMIMECapability
 	 * </pre>
-	 * 
+	 *
 	 * @see <a href="https://tools.ietf.org/html/rfc2633">RFC 2633</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1135,7 +1135,7 @@ public class X509Ext
 	/**
 	 * Get Authority Information Access (1.3.6.1.5.5.7.1.1) or Subject Information Access (1.3.6.1.5.5.7.1.11) extension
 	 * value as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1180,7 +1180,7 @@ public class X509Ext
 
 	/**
 	 * Get Logotype (1.3.6.1.5.5.7.1.12) extension value as a string.
-	 * 
+	 *
 	 * @see <a href="https://tools.ietf.org/html/rfc3709">RFC 3709</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1310,7 +1310,7 @@ public class X509Ext
 
 	/**
 	 * Get Novell Security Attributes (2.16.840.1.113719.1.9.4.1) extension value as a string.
-	 * 
+	 *
 	 * @see <a href="https://www.novell.com/documentation/developer/ncslib/npki_enu/data/a2uetmm.html">Novell Security
 	 *      Attributes Extension</a>
 	 * @param bValue The octet string value
@@ -1401,7 +1401,7 @@ public class X509Ext
 
 	/**
 	 * Gets a Novell quality attribute in a decoded, human readable form.
-	 * 
+	 *
 	 * @param seq the quality attribute
 	 * @return the decoded quality attribute
 	 */
@@ -1477,7 +1477,7 @@ public class X509Ext
 
 	/**
 	 * Get Netscape Certificate Type (2.16.840.1.113730.1.1) extension value as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1503,7 +1503,7 @@ public class X509Ext
 
 	/**
 	 * Get extension value for any Netscape certificate extension URL value.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @param linkClass link class
 	 * @return Extension value as a string
@@ -1518,7 +1518,7 @@ public class X509Ext
 
 	/**
 	 * Get extension value for CRL Distribution Points as a string.
-	 * 
+	 *
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
 	 * @throws IOException If an I/O problem occurs
@@ -1588,7 +1588,7 @@ public class X509Ext
 
 	/**
 	 * Get extension value for Certificate Policies as a string.
-	 * 
+	 *
 	 * @see <a href="https://tools.ietf.org/html/rfc3280">RFC 3280</a>
 	 * @param bValue The octet string value
 	 * @return Extension value as a string
@@ -1713,7 +1713,7 @@ public class X509Ext
 
 	/**
 	 * Get the supplied general name as a string ([general name type]=[general name]).
-	 * 
+	 *
 	 * <pre>
 	 * GeneralName ::= CHOICE {
 	 *     otherName                       [0]     OtherName,
@@ -1738,7 +1738,7 @@ public class X509Ext
 	 *     utf8String              UTF8String (SIZE (1.. MAX)),
 	 *     bmpString               BMPString (SIZE(1..maxSIZE)) }
 	 * </pre>
-	 * 
+	 *
 	 * @param generalName The general name
 	 * @param linkClass
 	 * @return General name string
@@ -1836,7 +1836,7 @@ public class X509Ext
 
 	/**
 	 * Get a formatted string value for the supplied general names object.
-	 * 
+	 *
 	 * @param generalNames General names
 	 * @param linkClass
 	 * @return Formatted string
@@ -1860,7 +1860,7 @@ public class X509Ext
 
 	/**
 	 * Get basic ASN.1 object as string.
-	 * 
+	 *
 	 * @param bValue
 	 * @throws IOException
 	 * @return
@@ -1873,7 +1873,7 @@ public class X509Ext
 
 	/**
 	 * Get a formatted string value for the supplied generalized time object.
-	 * 
+	 *
 	 * @param time Generalized time
 	 * @return Formatted string
 	 * @throws ParseException If there is a problem formatting the generalized time
@@ -1898,7 +1898,7 @@ public class X509Ext
 
 	/**
 	 * Get hex and clear text dump of byte array.
-	 * 
+	 *
 	 * @param bytes Array of bytes
 	 * @param iLen Bytes in array
 	 * @return Hex dump
@@ -1961,7 +1961,7 @@ public class X509Ext
 
 	/**
 	 * Convert the supplied object to a hex string sub-divided by spaces every four characters.
-	 * 
+	 *
 	 * @param obj Object (byte array, BigInteger, ASN1Integer)
 	 * @return Hex string
 	 */
@@ -1975,7 +1975,7 @@ public class X509Ext
 
 	/**
 	 * Gets a HTML escaped string representation of the given object.
-	 * 
+	 *
 	 * @param obj Object
 	 * @return String representation of <code>obj</code>
 	 */
@@ -2032,7 +2032,7 @@ public class X509Ext
 
 	/**
 	 * Gets a resource string, with fall back.
-	 * 
+	 *
 	 * @param key the key
 	 * @param fallback the fall back key
 	 * @return a resource string
@@ -2064,7 +2064,7 @@ public class X509Ext
 
 	/**
 	 * Get hyperlink.
-	 * 
+	 *
 	 * @param href link URL, HTML unescaped
 	 * @param content link content, HTML escaped
 	 * @param linkClass link class

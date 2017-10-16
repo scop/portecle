@@ -73,7 +73,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Load the KeyStoreTableModel with the entries from a keystore.
-	 * 
+	 *
 	 * @param keyStore The keystore
 	 * @throws KeyStoreException A problem is encountered accessing the keystore's entries
 	 */
@@ -125,7 +125,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Get the number of columns in the table.
-	 * 
+	 *
 	 * @return The number of columns
 	 */
 	@Override
@@ -136,7 +136,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Get the number of rows in the table.
-	 * 
+	 *
 	 * @return The number of rows
 	 */
 	@Override
@@ -147,7 +147,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Get the name of the column at the given position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column name
 	 */
@@ -159,7 +159,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Get the cell value at the given row and column position.
-	 * 
+	 *
 	 * @param iRow The row position
 	 * @param iCol The column position
 	 * @return The cell value
@@ -181,7 +181,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Get the class at of the cells at the given column position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */
@@ -193,7 +193,7 @@ class KeyStoreTableModel
 
 	/**
 	 * Is the cell at the given row and column position editable?
-	 * 
+	 *
 	 * @param iRow The row position
 	 * @param iCol The column position
 	 * @return True if the cell is editable, false otherwise

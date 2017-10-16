@@ -28,7 +28,7 @@ import org.bouncycastle.asn1.ASN1Integer;
 
 /**
  * String utilities.
- * 
+ *
  * @author Ville Skyttä
  */
 public class StringUtil
@@ -36,7 +36,7 @@ public class StringUtil
 	/**
 	 * Convert the supplied object to hex characters sub-divided by spaces every given number of characters, and
 	 * left-padded with zeros to fill group size.
-	 * 
+	 *
 	 * @param obj Object (byte array, BigInteger, ASN1Integer)
 	 * @param groupSize number of characters to group hex characters by
 	 * @param separator grouping separator

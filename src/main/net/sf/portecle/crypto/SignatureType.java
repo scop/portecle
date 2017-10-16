@@ -34,7 +34,7 @@ import org.bouncycastle.asn1.x9.X9ObjectIdentifiers;
 
 /**
  * Signature type. Enum constant names are compatible with JCA standard names.
- * 
+ *
  * @see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html">JCA Standard
  *      Names</a>
  */
@@ -122,7 +122,7 @@ public enum SignatureType
 
 	/**
 	 * Gets supported signature types for given key pair type.
-	 * 
+	 *
 	 * @param keyPairType
 	 * @return signature types for key pair type
 	 */
@@ -138,7 +138,7 @@ public enum SignatureType
 
 	/**
 	 * Gets a default signature type for given key pair type.
-	 * 
+	 *
 	 * @param keyPairType
 	 * @return default signature type for key pair type
 	 */
@@ -159,7 +159,7 @@ public enum SignatureType
 
 	/**
 	 * Gets a SignatureType corresponding to the given object identifier.
-	 * 
+	 *
 	 * @param oid the object identifier
 	 * @return the corresponding SignatureType, <code>null</code> if unknown
 	 */
@@ -170,7 +170,7 @@ public enum SignatureType
 
 	/**
 	 * Gets a string representation of signature type corresponding to the given object identifier.
-	 * 
+	 *
 	 * @param oid the object identifier
 	 * @return the corresponding signature type as string, <code>oid</code> itself if unknown
 	 */

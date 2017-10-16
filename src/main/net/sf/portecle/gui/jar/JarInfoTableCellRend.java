@@ -43,7 +43,7 @@ class JarInfoTableCellRend
 
 	/**
 	 * Returns the rendered cell for the supplied value and column.
-	 * 
+	 *
 	 * @param jtJarInfo The JTable
 	 * @param value The value to assign to the cell
 	 * @param bIsSelected True if cell is selected

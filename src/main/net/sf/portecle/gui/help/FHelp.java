@@ -74,7 +74,7 @@ public class FHelp
 
 	/**
 	 * Constructs a new help window with the specified title, icon, home page, and contents page.
-	 * 
+	 *
 	 * @param sTitle A title for the window
 	 * @param home URL of the help home page
 	 * @param toc URL of the help contents page
@@ -291,7 +291,7 @@ public class FHelp
 
 	/**
 	 * Show the help window?
-	 * 
+	 *
 	 * @param bShow If true show the help window otherwise hide it
 	 */
 	@Override
@@ -308,7 +308,7 @@ public class FHelp
 
 	/**
 	 * Notifies the help that the history status has changed and it should adjust its buttons accordingly.
-	 * 
+	 *
 	 * @param evt The HistoryEvent
 	 */
 	@Override

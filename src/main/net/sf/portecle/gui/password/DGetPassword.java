@@ -53,7 +53,7 @@ public class DGetPassword
 
 	/**
 	 * Creates new DGetPassword dialog.
-	 * 
+	 *
 	 * @param parent Parent frame
 	 * @param sTitle The dialog's title
 	 */
@@ -65,7 +65,7 @@ public class DGetPassword
 
 	/**
 	 * Get the password set in the dialog.
-	 * 
+	 *
 	 * @return The password or null if none was set
 	 */
 	@Override

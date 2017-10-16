@@ -84,7 +84,7 @@ class DViewCSR
 
 	/**
 	 * Creates new DViewCSR dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param req Certification request to display
@@ -100,7 +100,7 @@ class DViewCSR
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws CryptoException A problem was encountered getting the request details
 	 */
 	private void initComponents()
@@ -228,7 +228,7 @@ class DViewCSR
 
 	/**
 	 * Populate the dialog with the currently selected certificate request's details.
-	 * 
+	 *
 	 * @throws CryptoException A problem was encountered getting the certificate request's details
 	 */
 	private void populateDialog()

@@ -76,7 +76,7 @@ class DNewKeyStoreType
 
 	/**
 	 * Creates new DNewKeyStoreType dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 */
 	public DNewKeyStoreType(Window parent)
@@ -187,7 +187,7 @@ class DNewKeyStoreType
 
 	/**
 	 * Get the selected keystore type.
-	 * 
+	 *
 	 * @return The selected keystore type or null if none was selected
 	 */
 	public KeyStoreType getKeyStoreType()

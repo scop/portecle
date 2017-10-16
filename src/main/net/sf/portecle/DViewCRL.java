@@ -100,7 +100,7 @@ final class DViewCRL
 
 	/**
 	 * Creates new DViewCRL dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param crl CRL to display
@@ -114,7 +114,7 @@ final class DViewCRL
 
 	/**
 	 * Create, show, and wait for a new DViewCRL dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param url URL, URI or file to load CRL from
 	 * @return whether the dialog was successfully opened

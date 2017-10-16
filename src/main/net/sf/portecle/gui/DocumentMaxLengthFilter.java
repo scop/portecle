@@ -38,7 +38,7 @@ public class DocumentMaxLengthFilter
 
 	/**
 	 * Create a new document max length filter.
-	 * 
+	 *
 	 * @param maxLength maximum accepted document length
 	 */
 	public DocumentMaxLengthFilter(int maxLength)

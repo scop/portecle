@@ -90,7 +90,7 @@ class DImportKeyPair
 
 	/**
 	 * Creates new DImportKeyPair dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param pkcs12 The PKCS #12 keystore to list key pairs from
 	 * @throws CryptoException A problem was encountered importing a key pair.
@@ -105,7 +105,7 @@ class DImportKeyPair
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws CryptoException A problem was encountered importing a key pair
 	 */
 	private void initComponents()
@@ -212,7 +212,7 @@ class DImportKeyPair
 
 	/**
 	 * Populate the key pair list with the PKCS #12 keystore's key pair aliases.
-	 * 
+	 *
 	 * @throws CryptoException Problem accessing the keystore's entries
 	 */
 	private void populateList()
@@ -335,7 +335,7 @@ class DImportKeyPair
 
 	/**
 	 * Get the private part of the key pair chosen by the user for import.
-	 * 
+	 *
 	 * @return The private key or null if the user has not chosen a key pair
 	 */
 	public Key getPrivateKey()
@@ -345,7 +345,7 @@ class DImportKeyPair
 
 	/**
 	 * Get the certificate chain part of the key pair chosen by the user for import.
-	 * 
+	 *
 	 * @return The certificate chain or null if the user has not chosen a key pair
 	 */
 	public Certificate[] getCertificateChain()
@@ -355,7 +355,7 @@ class DImportKeyPair
 
 	/**
 	 * Get the alias of the key pair chosen by the user for import.
-	 * 
+	 *
 	 * @return the alias
 	 */
 	public String getAlias()

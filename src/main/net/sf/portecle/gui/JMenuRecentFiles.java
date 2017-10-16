@@ -45,7 +45,7 @@ public class JMenuRecentFiles
 
 	/**
 	 * Construct a JMenuRecentFiles.
-	 * 
+	 *
 	 * @param sTitle Title of menu
 	 * @param iLength Length of recent files list to maintain
 	 * @param iIndex Index in menu to show recent file menu items
@@ -91,7 +91,7 @@ public class JMenuRecentFiles
 
 	/**
 	 * Does the menu have any recent files?
-	 * 
+	 *
 	 * @return True if the menu has recent files, false otherwise
 	 */
 	private boolean recentFiles()
@@ -111,7 +111,7 @@ public class JMenuRecentFiles
 
 	/**
 	 * Find the recent files array index of the supplied file.
-	 * 
+	 *
 	 * @param fRecent Recent file to find
 	 * @return The array index of the recent file of -1 if there is none
 	 */
@@ -138,7 +138,7 @@ public class JMenuRecentFiles
 	/**
 	 * Add a recent file menu item to the menu. Only call when the menu is completely populated with standard menu items
 	 * and separators.
-	 * 
+	 *
 	 * @param jmirfNew The new recent file menu item
 	 */
 	public void add(JMenuItemRecentFile jmirfNew)
@@ -200,7 +200,7 @@ public class JMenuRecentFiles
 
 	/**
 	 * Get the set of recent files currently maintained by the menu in order.
-	 * 
+	 *
 	 * @return The recent files
 	 */
 	public File[] getRecentFiles()

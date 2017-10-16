@@ -65,7 +65,7 @@ class JarInfoTableModel
 
 	/**
 	 * Load the JarInfoTableModel with an array of JAR files.
-	 * 
+	 *
 	 * @param jarFiles The JAR files
 	 * @throws IOException Problem occurred getting JAR information
 	 */
@@ -168,7 +168,7 @@ class JarInfoTableModel
 
 	/**
 	 * Get the number of columns in the table.
-	 * 
+	 *
 	 * @return The number of columns
 	 */
 	@Override
@@ -179,7 +179,7 @@ class JarInfoTableModel
 
 	/**
 	 * Get the number of rows in the table.
-	 * 
+	 *
 	 * @return The number of rows
 	 */
 	@Override
@@ -190,7 +190,7 @@ class JarInfoTableModel
 
 	/**
 	 * Get the name of the column at the given position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column name
 	 */
@@ -202,7 +202,7 @@ class JarInfoTableModel
 
 	/**
 	 * Get the cell value at the given row and column position.
-	 * 
+	 *
 	 * @param iRow The row position
 	 * @param iCol The column position
 	 * @return The cell value
@@ -215,7 +215,7 @@ class JarInfoTableModel
 
 	/**
 	 * Get the class at of the cells at the given column position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */

@@ -59,7 +59,7 @@ import net.sf.portecle.gui.SwingHelper;
 
 	/**
 	 * Creates new DSystemInformation dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 */
 	public DSystemInformation(JDialog parent)

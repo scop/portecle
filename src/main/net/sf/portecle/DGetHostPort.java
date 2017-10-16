@@ -63,7 +63,7 @@ class DGetHostPort
 
 	/**
 	 * Creates new DGetHostPort dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
 	 * @param iOldHostPort The address to display initially
@@ -76,7 +76,7 @@ class DGetHostPort
 
 	/**
 	 * Get the host+port entered by the user.
-	 * 
+	 *
 	 * @return The host+port, or null if none was entered
 	 */
 	public InetSocketAddress getHostPort()
@@ -86,7 +86,7 @@ class DGetHostPort
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @param iOldHostPort The host+port to display initially
 	 */
 	private void initComponents(InetSocketAddress iOldHostPort)
@@ -135,7 +135,7 @@ class DGetHostPort
 
 	/**
 	 * Check that the host+port entered is valid.
-	 * 
+	 *
 	 * @return True if the host+port is valid, false otherwise
 	 */
 	private boolean checkHostPort()

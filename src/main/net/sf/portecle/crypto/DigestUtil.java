@@ -43,7 +43,7 @@ public final class DigestUtil
 
 	/**
 	 * Get the digest of a message as a formatted String.
-	 * 
+	 *
 	 * @param bMessage The message to digest
 	 * @param digestType The message digest algorithm
 	 * @return The message digest

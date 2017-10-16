@@ -46,7 +46,7 @@ public class DAbout
 {
 	/**
 	 * Creates new DAbout dialog.
-	 * 
+	 *
 	 * @param parent Parent frame
 	 */
 	public DAbout(Window parent)

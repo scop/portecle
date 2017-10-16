@@ -40,7 +40,7 @@ public class StatusBarChangeHandler
 
 	/**
 	 * Construct a StatusBarChangeHandler.
-	 * 
+	 *
 	 * @param sHelpText Help text for the menu item
 	 * @param statusBar The status bar
 	 */
@@ -52,7 +52,7 @@ public class StatusBarChangeHandler
 
 	/**
 	 * Menu item's state has changed - if armed show its help text, otherwise hide any help text.
-	 * 
+	 *
 	 * @param evt The change event
 	 */
 	@Override

@@ -133,7 +133,7 @@ class DViewCertificate
 
 	/**
 	 * Creates new DViewCertificate dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param certs Certificate(s) chain to display
@@ -147,7 +147,7 @@ class DViewCertificate
 
 	/**
 	 * Creates new DViewCertificate dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param certs Certificate(s) chain to display
@@ -168,7 +168,7 @@ class DViewCertificate
 
 	/**
 	 * Create, show, and wait for a new DViewCertificate dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param url URL, URI or file to load CRL from
 	 * @return whether the dialog was successfully opened
@@ -221,7 +221,7 @@ class DViewCertificate
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws CryptoException A problem was encountered getting the certificates' details
 	 */
 	private void initComponents()
@@ -538,7 +538,7 @@ class DViewCertificate
 
 	/**
 	 * Populate the dialog with the currently selected certificate's details.
-	 * 
+	 *
 	 * @throws CryptoException A problem was encountered getting the certificate's details
 	 */
 	private void populateDialog()

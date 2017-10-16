@@ -34,7 +34,7 @@ public class IntegerDocumentFilter
 {
 	/**
 	 * Create a new integer document filter.
-	 * 
+	 *
 	 * @param maxLength maximum accepted document length
 	 */
 	public IntegerDocumentFilter(int maxLength)

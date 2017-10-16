@@ -79,7 +79,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Gets the preferred (by us) KeyStore instance for the given keystore type.
-	 * 
+	 *
 	 * @param keyStoreType The keystore type
 	 * @return The keystore
 	 * @throws KeyStoreException No implementation found
@@ -122,7 +122,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Create a new, empty keystore.
-	 * 
+	 *
 	 * @param keyStoreType The keystore type to create
 	 * @return The keystore
 	 * @throws CryptoException Problem encountered creating the keystore
@@ -147,7 +147,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Load keystore entries from PEM reader into a new PKCS #12 keystore. The reader is not closed.
-	 * 
+	 *
 	 * @param reader reader to read entries from
 	 * @param pwFinder object to get passwords from on demand
 	 * @return new PKCS #12 keystore containing read entries, possibly empty
@@ -248,7 +248,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Check if a keystore type is available.
-	 * 
+	 *
 	 * @param keyStoreType the keystore type
 	 * @return true if the keystore type is available, false otherwise
 	 */
@@ -273,7 +273,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Get available keystore types.
-	 * 
+	 *
 	 * @return available keystore types
 	 */
 	public static KeyStoreType[] getAvailableTypes()
@@ -293,7 +293,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Load a Keystore from a file accessed by a password.
-	 * 
+	 *
 	 * @param keyStoreType The type of the keystore to open
 	 * @param fKeyStore File to load keystore from
 	 * @param cPassword Password of the keystore
@@ -335,7 +335,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Load a PKCS #11 keystore accessed by a password.
-	 * 
+	 *
 	 * @param sPkcs11Provider The name of the PKCS #11 provider
 	 * @param cPassword Password of the keystore
 	 * @return The keystore
@@ -376,7 +376,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Save a keystore to a file protected by a password.
-	 * 
+	 *
 	 * @param keyStore The keystore
 	 * @param fKeyStoreFile The file to save the keystore to
 	 * @param cPassword The password to protect the keystore with
@@ -411,7 +411,7 @@ public final class KeyStoreUtil
 
 	/**
 	 * Find an unused alias in the keystore based on the given alias.
-	 * 
+	 *
 	 * @param keyStore the keystore
 	 * @param alias the alias
 	 * @return alias that is not in use in the keystore

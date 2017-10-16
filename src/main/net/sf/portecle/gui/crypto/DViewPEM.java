@@ -70,7 +70,7 @@ public class DViewPEM
 
 	/**
 	 * Creates new DViewPEM dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog title
 	 * @param obj Object to display encoding for
@@ -88,7 +88,7 @@ public class DViewPEM
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws CryptoException A problem was encountered getting the object's PEM encoding
 	 */
 	private void initComponents()

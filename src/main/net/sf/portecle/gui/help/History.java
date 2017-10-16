@@ -47,7 +47,7 @@ import java.util.Vector;
 
 	/**
 	 * Constructs a new History specifying the first URL.
-	 * 
+	 *
 	 * @param start the first page in the m_vHistory
 	 */
 	public History(URL start)
@@ -75,7 +75,7 @@ import java.util.Vector;
 
 	/**
 	 * Adds a new page to the history and fires a HistoryEvent if the History's status has changed.
-	 * 
+	 *
 	 * @param newPage the new page to add to the history
 	 */
 	public void visit(URL newPage)
@@ -118,7 +118,7 @@ import java.util.Vector;
 
 	/**
 	 * Returns the previous URL in the History and fires a HistoryEvent if the History status has perhaps changed.
-	 * 
+	 *
 	 * @return The previous URL in the History or null if there is none
 	 */
 	public URL goBack()
@@ -147,7 +147,7 @@ import java.util.Vector;
 
 	/**
 	 * Returns the next URL in the History and fires a HistoryEvent if the History status has perhaps changed.
-	 * 
+	 *
 	 * @return The next URL in the History or null if there is none
 	 */
 	public URL goForward()
@@ -176,7 +176,7 @@ import java.util.Vector;
 
 	/**
 	 * Adds a HistoryEventListener to the History.
-	 * 
+	 *
 	 * @param listener The HistoryEventListener to add
 	 */
 	public synchronized void addHistoryEventListener(HistoryEventListener listener)
@@ -191,7 +191,7 @@ import java.util.Vector;
 
 	/**
 	 * Removes a HistoryEventListener from the History.
-	 * 
+	 *
 	 * @param listener The HistoryEventListener to remove
 	 */
 	public synchronized void removeHistoryEventListener(HistoryEventListener listener)

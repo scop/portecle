@@ -65,7 +65,7 @@ public final class KeyPairUtil
 
 	/**
 	 * Generate a key pair.
-	 * 
+	 *
 	 * @param keyPairType Key pair type to generate
 	 * @param iKeySize Key size of key pair
 	 * @return A key pair
@@ -101,7 +101,7 @@ public final class KeyPairUtil
 
 	/**
 	 * Get the key size of a public key.
-	 * 
+	 *
 	 * @param pubKey The public key
 	 * @return The key size, {@link #UNKNOWN_KEY_SIZE} if not known
 	 */
@@ -131,7 +131,7 @@ public final class KeyPairUtil
 
 	/**
 	 * Get the key size of a key represented by key parameters.
-	 * 
+	 *
 	 * @param keyParams The key parameters
 	 * @return The key size, {@link #UNKNOWN_KEY_SIZE} if not known
 	 */

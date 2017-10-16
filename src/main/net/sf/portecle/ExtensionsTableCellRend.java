@@ -39,7 +39,7 @@ class ExtensionsTableCellRend
 {
 	/**
 	 * Returns the rendered cell for the supplied entry type and column.
-	 * 
+	 *
 	 * @param jtExtensions The JTable
 	 * @param value The value to assign to the cell
 	 * @param bIsSelected True if cell is selected

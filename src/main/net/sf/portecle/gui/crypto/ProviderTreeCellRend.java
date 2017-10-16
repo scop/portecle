@@ -40,7 +40,7 @@ class ProviderTreeCellRend
 {
 	/**
 	 * Returns the rendered cell for the supplied value.
-	 * 
+	 *
 	 * @param jtrProvider The JTree
 	 * @param value The value to assign to the cell
 	 * @param bIsSelected True if cell is selected

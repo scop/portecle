@@ -87,7 +87,7 @@ class DExport
 
 	/**
 	 * Creates new DExport dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param keyStore The keystore to export from
 	 * @param sEntryAlias The keystore entry to export
@@ -104,7 +104,7 @@ class DExport
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws CryptoException Problem accessing the keystore entry
 	 */
 	private void initComponents()
@@ -249,7 +249,7 @@ class DExport
 
 	/**
 	 * Has an export been selected?
-	 * 
+	 *
 	 * @return True if it has, false otherwise
 	 */
 	public boolean exportSelected()
@@ -259,7 +259,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export only head certificate?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportHead()
@@ -269,7 +269,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export the entire chain of certificates?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportChain()
@@ -279,7 +279,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export the entire chain of certificates and the private key?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportKeyChain()
@@ -289,7 +289,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export as DER?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportDer()
@@ -299,7 +299,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export as PEM?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportPem()
@@ -309,7 +309,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export as PKCS #7?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportPkcs7()
@@ -319,7 +319,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export as PkiPath?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportPkiPath()
@@ -329,7 +329,7 @@ class DExport
 
 	/**
 	 * Has the user chosen to export as PKCS #12?
-	 * 
+	 *
 	 * @return True if they have, false otherwise
 	 */
 	public boolean exportPkcs12()

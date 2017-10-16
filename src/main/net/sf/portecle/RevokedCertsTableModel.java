@@ -54,7 +54,7 @@ class RevokedCertsTableModel
 
 	/**
 	 * Load the RevokedCertsTableModel with an array of X.509 CRL entries.
-	 * 
+	 *
 	 * @param revokedCerts The X.509 CRL entries
 	 */
 	public void load(X509CRLEntry[] revokedCerts)
@@ -82,7 +82,7 @@ class RevokedCertsTableModel
 
 	/**
 	 * Get the number of columns in the table.
-	 * 
+	 *
 	 * @return The number of columns
 	 */
 	@Override
@@ -93,7 +93,7 @@ class RevokedCertsTableModel
 
 	/**
 	 * Get the number of rows in the table.
-	 * 
+	 *
 	 * @return The number of rows
 	 */
 	@Override
@@ -104,7 +104,7 @@ class RevokedCertsTableModel
 
 	/**
 	 * Get the name of the column at the given position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column name
 	 */
@@ -116,7 +116,7 @@ class RevokedCertsTableModel
 
 	/**
 	 * Get the cell value at the given row and column position.
-	 * 
+	 *
 	 * @param iRow The row position
 	 * @param iCol The column position
 	 * @return The cell value
@@ -129,7 +129,7 @@ class RevokedCertsTableModel
 
 	/**
 	 * Get the class at of the cells at the given column position.
-	 * 
+	 *
 	 * @param iCol The column position
 	 * @return The column cells' class
 	 */

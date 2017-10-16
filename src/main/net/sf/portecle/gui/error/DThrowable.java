@@ -58,7 +58,7 @@ public class DThrowable
 
 	/**
 	 * Creates new DThrowable dialog with the given title.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param title Dialog title; if null, application default for DThrowables is used
 	 * @param throwable Throwable to display
@@ -73,7 +73,7 @@ public class DThrowable
 
 	/**
 	 * Create, show, and wait for a new DThrowable dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param title Dialog title; if null, application default for DThrowables is used
 	 * @param throwable Throwable to display

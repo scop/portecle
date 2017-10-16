@@ -42,7 +42,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 
 /**
  * Modal dialog used for choosing a PKCS #11 provider.
- * 
+ *
  * @author Ville Skyttä
  */
 /* package private */class DChoosePkcs11Provider
@@ -56,7 +56,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 
 	/**
 	 * Creates new DChoosePkcs11Provider dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
 	 * @param sOldProvider The provider to display initially
@@ -69,7 +69,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 
 	/**
 	 * Get the provider chosen by the user.
-	 * 
+	 *
 	 * @return The provider, or null if none was entered
 	 */
 	public String getProvider()
@@ -79,7 +79,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @param sOldProvider The provider to display initially
 	 */
 	private void initComponents(String sOldProvider)
@@ -136,7 +136,7 @@ import net.sf.portecle.crypto.ProviderUtil;
 
 	/**
 	 * Check that the chosen provider is valid.
-	 * 
+	 *
 	 * @return True if the provider is valid, false otherwise
 	 */
 	private boolean checkProvider()

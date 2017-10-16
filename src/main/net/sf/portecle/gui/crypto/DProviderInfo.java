@@ -58,7 +58,7 @@ public class DProviderInfo
 {
 	/**
 	 * Creates new DProviderInfo dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 */
 	public DProviderInfo(Window parent)
@@ -125,7 +125,7 @@ public class DProviderInfo
 
 	/**
 	 * Create tree node with information on all loaded providers.
-	 * 
+	 *
 	 * @return The tree node
 	 */
 	private DefaultMutableTreeNode createProviderNodes()

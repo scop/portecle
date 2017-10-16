@@ -56,7 +56,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Construct a new KeyStoreWrapper for the supplied keystore.
-	 * 
+	 *
 	 * @param keyStore The keystore
 	 */
 	public KeyStoreWrapper(KeyStore keyStore)
@@ -66,7 +66,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Construct a new KeyStoreWrapper for the supplied keystore, keystore file and keystore password.
-	 * 
+	 *
 	 * @param keyStore The keystore
 	 * @param fKeyStore The keystore file
 	 * @param cPassword The keystore password
@@ -80,7 +80,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Set the password for a particular keystore entry in the wrapper.
-	 * 
+	 *
 	 * @param sAlias The keystore entry's alias
 	 * @param cPassword The keystore entry's password
 	 */
@@ -91,7 +91,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Remove a particular keystore entry from the wrapper.
-	 * 
+	 *
 	 * @param sAlias The keystore entry's alias
 	 */
 	public void removeEntryPassword(String sAlias)
@@ -101,7 +101,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Get the password for a particular keystore entry.
-	 * 
+	 *
 	 * @param sAlias The keystore entry's alias
 	 * @return The keystore entry's password or null if none is set
 	 */
@@ -112,7 +112,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Get the keystore's physical file.
-	 * 
+	 *
 	 * @return The keystore entry's physical file or null if none is set
 	 */
 	public File getKeyStoreFile()
@@ -122,7 +122,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Set the keystore's physical file in the wrapper.
-	 * 
+	 *
 	 * @param fKeyStore The keystore entry's physical file
 	 */
 	public void setKeyStoreFile(File fKeyStore)
@@ -132,7 +132,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Get the keystore.
-	 * 
+	 *
 	 * @return The keystore
 	 */
 	public KeyStore getKeyStore()
@@ -142,7 +142,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Set the keystore.
-	 * 
+	 *
 	 * @param keyStore The keystore
 	 */
 	public void setKeyStore(KeyStore keyStore)
@@ -153,7 +153,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Get type of wrapped keystore.
-	 * 
+	 *
 	 * @return type of wrapped keystore
 	 */
 	public KeyStoreType getKeyStoreType()
@@ -163,7 +163,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Get the keystore password
-	 * 
+	 *
 	 * @return The keystore password
 	 */
 	public char[] getPassword()
@@ -173,7 +173,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Set the keystore password in the wrapper.
-	 * 
+	 *
 	 * @param cPassword The keystore password
 	 */
 	public void setPassword(char[] cPassword)
@@ -183,7 +183,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Register with the wrapper whether the keystore has been changed since its last save.
-	 * 
+	 *
 	 * @param bChanged Has the keystore been changed?
 	 */
 	public void setChanged(boolean bChanged)
@@ -193,7 +193,7 @@ class KeyStoreWrapper
 
 	/**
 	 * Has the keystore been changed since its last save?
-	 * 
+	 *
 	 * @return True if it has been changed, false otherwise
 	 */
 	public boolean isChanged()

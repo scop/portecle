@@ -130,7 +130,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for keystore files.
-	 * 
+	 *
 	 * @param ksType Type to filter for, all supported if null
 	 * @return JFileChooser object
 	 */
@@ -207,7 +207,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for X.509 Certificate files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -224,7 +224,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for PKCS #7 Certificate files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -241,7 +241,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for PkiPath Certificate files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -258,7 +258,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for X.509, PKCS #7, and PkiPath Certificate files.
-	 * 
+	 *
 	 * @return JFileChooser object
 	 */
 	public static JFileChooser getCertFileChooser()
@@ -273,7 +273,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for PKCS #12 files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -289,7 +289,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for PEM files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -306,7 +306,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for PKCS #12 and PEM files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -326,7 +326,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for CSR files.
-	 * 
+	 *
 	 * @param basename default filename (without extension)
 	 * @return JFileChooser object
 	 */
@@ -343,7 +343,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Get a JFileChooser filtered for CRL files.
-	 * 
+	 *
 	 * @return JFileChooser object
 	 */
 	public static JFileChooser getCrlFileChooser()
@@ -358,7 +358,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Gets a default file based on the base name and extension, filtering uncomfortable characters.
-	 * 
+	 *
 	 * @param basename base filename (without extension)
 	 * @param extension the extension
 	 * @return a file named by deriving from base name, null if a sane name can't be worked out
@@ -382,7 +382,7 @@ import net.sf.portecle.gui.FileExtFilter;
 
 	/**
 	 * Converts an array of filename extensions into a (informational) filename match pattern.
-	 * 
+	 *
 	 * @param exts
 	 * @return informational filename match pattern
 	 */

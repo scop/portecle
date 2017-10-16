@@ -55,7 +55,7 @@ public class DGetNewPassword
 
 	/**
 	 * Creates new DGetNewPassword dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @param sTitle The dialog's title
 	 */
@@ -67,7 +67,7 @@ public class DGetNewPassword
 
 	/**
 	 * Get the password set in the dialog.
-	 * 
+	 *
 	 * @return The password or null if none was set
 	 */
 	public char[] getPassword()
@@ -118,7 +118,7 @@ public class DGetNewPassword
 	 * <li>That the passwords match.
 	 * </ul>
 	 * Store the new password in this object.
-	 * 
+	 *
 	 * @return True, if the user's dialog entry matches the above criteria, false otherwise
 	 */
 	private boolean checkPassword()

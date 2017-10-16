@@ -29,7 +29,7 @@ public class CryptoException
 {
 	/**
 	 * Creates a new CryptoException with the specified message.
-	 * 
+	 *
 	 * @param sMessage Exception message
 	 */
 	/* default */ CryptoException(String sMessage)
@@ -39,7 +39,7 @@ public class CryptoException
 
 	/**
 	 * Creates a new CryptoException with the specified message and cause throwable.
-	 * 
+	 *
 	 * @param causeThrowable The throwable that caused this exception to be thrown
 	 * @param sMessage Exception message
 	 */
@@ -50,7 +50,7 @@ public class CryptoException
 
 	/**
 	 * Creates a new CryptoException with the specified cause throwable.
-	 * 
+	 *
 	 * @param causeThrowable The throwable that caused this exception to be thrown
 	 */
 	/* default */ CryptoException(Throwable causeThrowable)

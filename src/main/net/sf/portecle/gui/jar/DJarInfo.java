@@ -54,7 +54,7 @@ public class DJarInfo
 {
 	/**
 	 * Creates new DJarInfo dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 * @throws IOException Problem occurred getting JAR information
 	 */
@@ -67,7 +67,7 @@ public class DJarInfo
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @throws IOException Problem occurred getting JAR information
 	 */
 	private void initComponents()
@@ -132,7 +132,7 @@ public class DJarInfo
 
 	/**
 	 * Get JARs on class path.
-	 * 
+	 *
 	 * @return JARs on class path
 	 * @throws IOException Problem occurred getting JARs
 	 */
@@ -204,7 +204,7 @@ public class DJarInfo
 
 	/**
 	 * Is supplied file a JAR file? That is, is it a regular file that it has an extension of "ZIP" or "JAR".
-	 * 
+	 *
 	 * @param file The file
 	 * @return True if it is, false otherwise
 	 */

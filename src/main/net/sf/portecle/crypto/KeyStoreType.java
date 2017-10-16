@@ -29,7 +29,7 @@ import java.util.Set;
 
 /**
  * KeyStore type. Enum constant names are compatible with JCA names.
- * 
+ *
  * @see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html">JCA Standard
  *      Names</a>
  */
@@ -71,7 +71,7 @@ public enum KeyStoreType
 
 	/**
 	 * Construct a KeyStoreType. Private to prevent construction from outside this class.
-	 * 
+	 *
 	 * @param typeName
 	 * @param prettyName
 	 * @param entryCreationDateUseful Whether the keystore's creation dates have useful data
@@ -113,7 +113,7 @@ public enum KeyStoreType
 	/**
 	 * Does the keystore type provide useful values for entry creation dates? Some keystores return the keystore load
 	 * time as creation date for all entries, this is not considered useful by this class.
-	 * 
+	 *
 	 * @return true if creation dates are useful, false otherwise
 	 */
 	public boolean isEntryCreationDateUseful()
@@ -123,7 +123,7 @@ public enum KeyStoreType
 
 	/**
 	 * Does the keystore type support passwords for entries?
-	 * 
+	 *
 	 * @return true if entry passwords are supported, false otherwise
 	 */
 	public boolean isEntryPasswordSupported()
@@ -133,7 +133,7 @@ public enum KeyStoreType
 
 	/**
 	 * Common filename extensions associated with this type.
-	 * 
+	 *
 	 * @return filename extensions (without leading dot, in lower case), empty if not applicable
 	 */
 	public Set<String> getFilenameExtensions()
@@ -143,7 +143,7 @@ public enum KeyStoreType
 
 	/**
 	 * Return string representation of keystore type.
-	 * 
+	 *
 	 * @return String representation of a keystore type
 	 */
 	@Override

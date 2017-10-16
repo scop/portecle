@@ -47,7 +47,7 @@ import net.sf.portecle.PortecleJDialog;
 {
 	/**
 	 * Creates new DSystemProperties dialog.
-	 * 
+	 *
 	 * @param parent Parent window
 	 */
 	public DSystemProperties(JDialog parent)

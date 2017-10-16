@@ -82,7 +82,7 @@ class DOptions
 
 	/**
 	 * Creates new DOptions dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param bUseCaCerts Use CA certificates keystore file?
 	 * @param fCaCertsFile CA certificates keystore file
@@ -265,7 +265,7 @@ class DOptions
 
 	/**
 	 * Get the chosen CA certificates keystore file.
-	 * 
+	 *
 	 * @return The chosen CA certificates keystore file
 	 */
 	public File getCaCertsFile()
@@ -275,7 +275,7 @@ class DOptions
 
 	/**
 	 * Get whether or not the usage of CA certificates has been chosen.
-	 * 
+	 *
 	 * @return True if it has, false otherwise
 	 */
 	public boolean isUseCaCerts()
@@ -285,7 +285,7 @@ class DOptions
 
 	/**
 	 * Get the chosen look &amp; feel class name.
-	 * 
+	 *
 	 * @return The chosen look &amp; feel class name
 	 */
 	public String getLookFeelClassName()
@@ -295,7 +295,7 @@ class DOptions
 
 	/**
 	 * Get whether or not the look &amp; feel should be used for window decoration.
-	 * 
+	 *
 	 * @return True id it should, false otherwise.
 	 */
 	public boolean isLookFeelDecoration()

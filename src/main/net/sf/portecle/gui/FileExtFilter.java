@@ -39,7 +39,7 @@ public class FileExtFilter
 
 	/**
 	 * Construct a FileExtFilter for a single file extension.
-	 * 
+	 *
 	 * @param sExt The file extension (e.g. "exe" for a Windows executable)
 	 * @param sDescription Short description of the file extension
 	 */
@@ -51,7 +51,7 @@ public class FileExtFilter
 
 	/**
 	 * Construct a FileExtFilter for a set of related file extension.
-	 * 
+	 *
 	 * @param sExts The file extension (e.g. "exe" for a Windows executable)
 	 * @param sDescription Short collective description for the file extensions
 	 */
@@ -63,7 +63,7 @@ public class FileExtFilter
 
 	/**
 	 * Does the supplied file match the filter?
-	 * 
+	 *
 	 * @param file The file to filter
 	 * @return True if the file matches the filter, false otherwise
 	 */
@@ -94,7 +94,7 @@ public class FileExtFilter
 
 	/**
 	 * Get the description.
-	 * 
+	 *
 	 * @return The description
 	 */
 	@Override
@@ -105,7 +105,7 @@ public class FileExtFilter
 
 	/**
 	 * Get the supplied file's extension.
-	 * 
+	 *
 	 * @param file The file
 	 * @return The file's extension
 	 */

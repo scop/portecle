@@ -51,7 +51,7 @@ class DGetAlias
 
 	/**
 	 * Creates new DGetAlias dialog.
-	 * 
+	 *
 	 * @param parent The parent window
 	 * @param sTitle The dialog's title
 	 * @param sOldAlias The alias to display initially
@@ -65,7 +65,7 @@ class DGetAlias
 
 	/**
 	 * Get the alias entered by the user.
-	 * 
+	 *
 	 * @return The alias, or null if none was entered
 	 */
 	public String getAlias()
@@ -75,7 +75,7 @@ class DGetAlias
 
 	/**
 	 * Initialize the dialog's GUI components.
-	 * 
+	 *
 	 * @param sOldAlias The alias to display initially
 	 * @param select Whether to pre-select the initially displayed alias
 	 */
@@ -115,7 +115,7 @@ class DGetAlias
 
 	/**
 	 * Check that the alias is valid, i.e. that it is not blank.
-	 * 
+	 *
 	 * @return True if the alias is valid, false otherwise
 	 */
 	private boolean checkAlias()

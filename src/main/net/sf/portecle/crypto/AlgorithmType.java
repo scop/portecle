@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 /**
  * Algorithm type. Enum constant names are compatible with JCA standard names.
- * 
+ *
  * @see <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html">JCA Standard
  *      Names</a>
  */
@@ -54,7 +54,7 @@ public enum AlgorithmType
 
 	/**
 	 * Gets an AlgorithmType corresponding to the given object identifier.
-	 * 
+	 *
 	 * @param oid the object identifier
 	 * @return the corresponding AlgorithmType, <code>null</code> if unknown
 	 */
@@ -65,7 +65,7 @@ public enum AlgorithmType
 
 	/**
 	 * Gets a string representation of algorithm type corresponding to the given object identifier.
-	 * 
+	 *
 	 * @param oid the object identifier
 	 * @return the corresponding algorithm type as string, <code>oid</code> itself if unknown
 	 */

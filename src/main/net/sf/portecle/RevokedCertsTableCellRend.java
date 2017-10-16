@@ -43,7 +43,7 @@ class RevokedCertsTableCellRend
 
 	/**
 	 * Creates a new revoked certificates table cell renderer.
-	 * 
+	 *
 	 * @param table Parent table
 	 */
 	public RevokedCertsTableCellRend(JTable table)
@@ -53,7 +53,7 @@ class RevokedCertsTableCellRend
 
 	/**
 	 * Returns the rendered cell for the supplied entry type and column.
-	 * 
+	 *
 	 * @param jtRevokedCerts The JTable
 	 * @param value The value to assign to the cell
 	 * @param bIsSelected True if cell is selected
