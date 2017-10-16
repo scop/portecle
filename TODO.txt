@@ -29,5 +29,7 @@ TODO for later:
 - Show used handshake stuff in SSL examine dialog
 - Support typing URLs to file choosers
 - OCSP client
+- Show if examined TLS/SSL connection would be trusted?
+- 1.3.6.1.4.1.44947.1.1.1
 
 See also stuff at the sourceforge.net tracker.
