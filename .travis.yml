@@ -1,0 +1,19 @@
+language: java
+
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - appstream
+      - desktop-file-utils
+
+jdk:
+  - openjdk7
+  - openjdk8
+  - oraclejdk9
+
+script:
+  - ant all
+  - appstreamcli validate --pedantic src/etc/net.sf.portecle.appdata.xml
+  - desktop-file-validate src/etc/net.sf.portecle.desktop
