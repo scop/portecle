@@ -139,8 +139,6 @@ public final class X509CertUtil
 	 *            Use one of the <code>*_ENCODING</code> constants here.
 	 * @return The certificates
 	 * @throws CryptoException Problem encountered while loading the certificate(s)
-	 * @throws FileNotFoundException If the certificate file does not exist, is a directory rather than a regular file,
-	 *             or for some other reason cannot be opened for reading
 	 */
 	private static X509Certificate[] loadCertificates(URL url, String encoding)
 	    throws CryptoException
