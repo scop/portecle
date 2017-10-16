@@ -1,4 +1,4 @@
-# Portecle [![Build Status](https://travis-ci.org/scop/portecle.svg)](https://travis-ci.org/scop/portecle)
+# Portecle [![Build Status](https://travis-ci.org/scop/portecle.svg)](https://travis-ci.org/scop/portecle) [![Download](https://img.shields.io/sourceforge/dt/portecle.svg)](https://sourceforge.net/projects/portecle/files/latest/download)
 
 Portecle is a user friendly GUI application for creating, managing and
 examining keystores, keys, certificates, certificate requests,
