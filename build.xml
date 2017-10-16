@@ -244,7 +244,7 @@
     <mkdir dir="${dist}" />
     <p:zip destfile="${dist}/portecle-${version}.zip">
       <zipfileset prefix="portecle-${version}"
-        dir="${root}" includes="README.txt,LICENSE.txt,NEWS.txt" />
+        dir="${root}" includes="README.md,LICENSE.txt,NEWS.txt" />
       <zipfileset prefix="portecle-${version}"
         dir="${lib}" includes="LICENSE.bouncycastle.txt" />
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
