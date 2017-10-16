@@ -215,6 +215,7 @@
   <target name="javadoc">
     <mkdir dir="${build}/api" />
     <javadoc
+      failonerror="true"
       destdir="${build}/api"
       source="${build.srcver}"
       classpathref="build.classpath"
