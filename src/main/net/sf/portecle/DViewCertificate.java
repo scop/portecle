@@ -171,6 +171,7 @@ class DViewCertificate
 	 * 
 	 * @param parent Parent window
 	 * @param url URL, URI or file to load CRL from
+	 * @return whether the dialog was successfully opened
 	 */
 	public static boolean showAndWait(Window parent, Object url)
 	{

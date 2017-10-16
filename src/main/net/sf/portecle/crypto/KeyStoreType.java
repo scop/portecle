@@ -102,6 +102,8 @@ public enum KeyStoreType
 
 	/**
 	 * Name of the keystore type used for creating a new instance.
+	 *
+	 * @return
 	 */
 	public String getTypeName()
 	{
@@ -151,7 +153,8 @@ public enum KeyStoreType
 	}
 
 	/**
-	 *
+	 * @param typeName
+	 * @return
 	 */
 	public static KeyStoreType valueOfType(String typeName)
 	{
@@ -160,6 +163,8 @@ public enum KeyStoreType
 
 	/**
 	 * Get set of all known keystore filename extensions.
+	 *
+	 * @return set of all known keystore filename extensions
 	 */
 	public static Set<String> getKeyStoreFilenameExtensions()
 	{

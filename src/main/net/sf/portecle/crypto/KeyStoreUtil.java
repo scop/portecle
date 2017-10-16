@@ -151,6 +151,7 @@ public final class KeyStoreUtil
 	 * @param reader reader to read entries from
 	 * @param pwFinder object to get passwords from on demand
 	 * @return new PKCS #12 keystore containing read entries, possibly empty
+	 * @throws CertificateException
 	 * @throws CryptoException Problem encountered creating the keystore
 	 * @throws IOException An I/O error occurred
 	 */

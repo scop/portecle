@@ -2313,6 +2313,7 @@ public class FPortecle
 	/**
 	 * Let the user examine the contents of a certificate file from a SSL connection.
 	 * 
+	 * @param ia socket address for the SSL connection to examine
 	 * @return True if the user was able to examine the certificate, false otherwise
 	 */
 	private boolean examineCertSSL(InetSocketAddress ia)
@@ -5257,6 +5258,8 @@ public class FPortecle
 	/**
 	 * Let the user rename the selected keystore entry.
 	 * 
+	 * @param oldAlias old entry alias
+	 * @param newAlias new entry alias
 	 * @param silent if true, attempt to rename to same name will be ignored without popping up an error dialog
 	 * @return True if the rename is successful, false otherwise
 	 */
@@ -5745,6 +5748,7 @@ public class FPortecle
 	 * @param dialogTitleKey message key for dialog titles
 	 * @param selectAlias whether to pre-select alias text in text field
 	 * @return alias for new entry, null if user cancels the operation
+	 * @throws KeyStoreException
 	 */
 	private String getNewEntryAlias(KeyStore keyStore, String sAlias, String dialogTitleKey, boolean selectAlias)
 	    throws KeyStoreException

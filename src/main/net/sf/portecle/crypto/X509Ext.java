@@ -1740,6 +1740,7 @@ public class X509Ext
 	 * </pre>
 	 * 
 	 * @param generalName The general name
+	 * @param linkClass
 	 * @return General name string
 	 * @throws IOException
 	 */
@@ -1837,6 +1838,7 @@ public class X509Ext
 	 * Get a formatted string value for the supplied general names object.
 	 * 
 	 * @param generalNames General names
+	 * @param linkClass
 	 * @return Formatted string
 	 * @throws IOException
 	 */
@@ -1861,6 +1863,7 @@ public class X509Ext
 	 * 
 	 * @param bValue
 	 * @throws IOException
+	 * @return
 	 */
 	private String getASN1ObjectString(byte[] bValue)
 	    throws IOException
@@ -2065,6 +2068,7 @@ public class X509Ext
 	 * @param href link URL, HTML unescaped
 	 * @param content link content, HTML escaped
 	 * @param linkClass link class
+	 * @return
 	 */
 	private static CharSequence getLink(String href, String content, LinkClass linkClass)
 	{

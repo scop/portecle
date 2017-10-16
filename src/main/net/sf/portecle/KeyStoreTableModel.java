@@ -62,6 +62,8 @@ class KeyStoreTableModel
 
 	/**
 	 * Construct a new KeyStoreTableModel.
+	 *
+	 * @param portecle The parent Portecle frame
 	 */
 	public KeyStoreTableModel(FPortecle portecle)
 	{

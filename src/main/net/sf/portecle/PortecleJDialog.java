@@ -79,6 +79,7 @@ public class PortecleJDialog
 	 * Get OK button.
 	 * 
 	 * @param escPresses whether hitting Esc should press the button (usually only for dialogs without a cancel button)
+	 * @return
 	 */
 	protected JButton getOkButton(boolean escPresses)
 	{
@@ -107,6 +108,8 @@ public class PortecleJDialog
 
 	/**
 	 * Get cancel button.
+	 *
+	 * @return
 	 */
 	protected JButton getCancelButton()
 	{
