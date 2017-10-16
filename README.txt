@@ -140,5 +140,6 @@ MA 02110-1301 USA
 ---------
 
 For contact information and issue tracking facilities,
-see Portecle's SourceForge.net project page at
+see Portecle's project pages at:
+https://github.com/scop/portecle
 https://sourceforge.net/projects/portecle/

@@ -18,7 +18,7 @@
         </p>
     </description>
     <url type="homepage">http://portecle.sourceforge.net/</url>
-    <url type="bugtracker">https://sourceforge.net/p/portecle/bugs/</url>
+    <url type="bugtracker">https://github.com/scop/portecle/issues</url>
     <url type="help">http://portecle.sourceforge.net/howtos.html</url>
     <url type="donation">https://sourceforge.net/p/portecle/donate/</url>
     <launchable type="desktop-id">net.sf.portecle.desktop</launchable>
