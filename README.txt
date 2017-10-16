@@ -139,6 +139,6 @@ MA 02110-1301 USA
 3 Contact
 ---------
 
-For contact information, mailing lists and issue tracking facilities,
+For contact information and issue tracking facilities,
 see Portecle's SourceForge.net project page at
 https://sourceforge.net/projects/portecle/
