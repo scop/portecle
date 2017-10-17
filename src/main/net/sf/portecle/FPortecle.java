@@ -63,11 +63,7 @@ import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -146,6 +142,8 @@ import net.sf.portecle.gui.password.DGetNewPassword;
 import net.sf.portecle.gui.password.DGetPassword;
 import net.sf.portecle.gui.statusbar.StatusBar;
 import net.sf.portecle.gui.statusbar.StatusBarChangeHandler;
+
+import static java.util.Arrays.asList;
 
 /**
  * Start class and main frame of Portecle.
@@ -406,12 +404,15 @@ public class FPortecle
 
 	private void setApplicationIcon()
 	{
-		Image iconImage = getResImage("FPortecle.Icon.image");
-		setIconImage(iconImage);
+		setIconImages(asList(getResImage("FPortecle.Icon.image.16"),
+				getResImage("FPortecle.Icon.image.32"),
+				getResImage("FPortecle.Icon.image.64"),
+				getResImage("FPortecle.Icon.image.96"),
+				getResImage("FPortecle.Icon.image.128")));
 		AppleApplicationHelper appleApplicationHelper = new AppleApplicationHelper();
 		if (appleApplicationHelper.isAppleEnvironment())
 		{
-			appleApplicationHelper.setDockIconImage(iconImage);
+			appleApplicationHelper.setDockIconImage(getResImage("FPortecle.Icon.image.64"));
 		}
 	}
 
