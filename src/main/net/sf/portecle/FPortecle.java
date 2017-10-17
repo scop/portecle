@@ -129,6 +129,7 @@ import net.sf.portecle.crypto.KeyStoreType;
 import net.sf.portecle.crypto.KeyStoreUtil;
 import net.sf.portecle.crypto.ProviderUtil;
 import net.sf.portecle.crypto.X509CertUtil;
+import net.sf.portecle.gui.AppleApplicationHelper;
 import net.sf.portecle.gui.DesktopUtil;
 import net.sf.portecle.gui.JMenuItemRecentFile;
 import net.sf.portecle.gui.JMenuRecentFiles;
@@ -400,8 +401,18 @@ public class FPortecle
 			setLocationRelativeTo(null);
 		}
 
-		// Set its icon
-		setIconImage(getResImage("FPortecle.Icon.image"));
+		setApplicationIcon();
+	}
+
+	private void setApplicationIcon()
+	{
+		Image iconImage = getResImage("FPortecle.Icon.image");
+		setIconImage(iconImage);
+		AppleApplicationHelper appleApplicationHelper = new AppleApplicationHelper();
+		if (appleApplicationHelper.isAppleEnvironment())
+		{
+			appleApplicationHelper.setDockIconImage(iconImage);
+		}
 	}
 
 	/**
