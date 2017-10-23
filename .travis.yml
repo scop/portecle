@@ -2,10 +2,7 @@ language: java
 
 addons:
   apt:
-    sources:
-      - debian-sid
     packages:
-      - appstream
       - desktop-file-utils
 
 jdk:
@@ -15,5 +12,4 @@ jdk:
 
 script:
   - ant all
-  - appstreamcli validate --pedantic src/etc/net.sf.portecle.appdata.xml
   - desktop-file-validate src/etc/net.sf.portecle.desktop
