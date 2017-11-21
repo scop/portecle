@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2008-2017 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -85,24 +85,11 @@ class KeyStoreTableCellRend
 			cell.setVerticalAlignment(CENTER);
 			cell.setHorizontalAlignment(CENTER);
 		}
-		// Last Modified column - format date (if date supplied)
-		else if (iCol == 2)
+		else if (value instanceof Date)
 		{
-			if (value != null)
-			{
-				if (value instanceof Date)
-				{
-					// Include time zone
-					cell.setText(
-					    DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format((Date) value));
-				}
-				else
-				{
-					cell.setText(value.toString());
-				}
-			}
+			// Include time zone
+			cell.setText(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.LONG).format((Date) value));
 		}
-		// Alias column - just use alias text
 		else if (value != null)
 		{
 			cell.setText(value.toString());
