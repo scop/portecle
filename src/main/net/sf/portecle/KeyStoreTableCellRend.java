@@ -103,7 +103,7 @@ class KeyStoreTableCellRend
 			}
 		}
 		// Alias column - just use alias text
-		else
+		else if (value != null)
 		{
 			cell.setText(value.toString());
 		}
