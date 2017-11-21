@@ -6,6 +6,7 @@ Bug fixes:
 - Fix exception with null alias values when rendering key store table.
 
 Enhancements:
+- Add support for BCFKS keystores (#48).
 - Support setting Subject Alternative (DNS) Name when generating
   certificates (feature request #22).
 - Preserve extensions when renewing self-signed certificates.
@@ -17,7 +18,8 @@ Enhancements:
 
 Miscellaneous:
 - Generated X.509 certificates are now version 3 ones.
-- Bundled Bouncy Castle jars upgraded to version 1.58.
+- Bundled Bouncy Castle jars upgraded to version 1.58; 1.56 is the new
+  minimum required version.
 
 New in Portecle 1.10 (2016-02-04):
 ----------------------------------

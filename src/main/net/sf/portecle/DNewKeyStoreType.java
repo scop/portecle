@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2005-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2005-2017 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -71,6 +71,9 @@ class DNewKeyStoreType
 	/** UBER keystore type radio button */
 	private JRadioButton m_jrbUberKeyStore;
 
+	/** BCFKS keystore type radio button */
+	private JRadioButton m_jrbBcfksKeyStore;
+
 	/** GKR keystore type radio button */
 	private JRadioButton m_jrbGkrKeyStore;
 
@@ -127,6 +130,10 @@ class DNewKeyStoreType
 		m_jrbUberKeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbUberKeyStore.mnemonic").charAt(0));
 		m_jrbUberKeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbUberKeyStore.tooltip"));
 
+		m_jrbBcfksKeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbBcfksKeyStore.text"));
+		m_jrbBcfksKeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbBcfksKeyStore.mnemonic").charAt(0));
+		m_jrbBcfksKeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbBcfksKeyStore.tooltip"));
+
 		m_jrbGkrKeyStore = new JRadioButton(RB.getString("DNewKeyStoreType.m_jrbGkrKeyStore.text"));
 		m_jrbGkrKeyStore.setMnemonic(RB.getString("DNewKeyStoreType.m_jrbGkrKeyStore.mnemonic").charAt(0));
 		m_jrbGkrKeyStore.setToolTipText(RB.getString("DNewKeyStoreType.m_jrbGkrKeyStore.tooltip"));
@@ -141,6 +148,7 @@ class DNewKeyStoreType
 		keyStoreTypes.add(m_jrbBksKeyStore);
 		keyStoreTypes.add(m_jrbBksV1KeyStore);
 		keyStoreTypes.add(m_jrbUberKeyStore);
+		keyStoreTypes.add(m_jrbBcfksKeyStore);
 		keyStoreTypes.add(m_jrbGkrKeyStore);
 
 		if (m_jrbJksKeyStore.isEnabled())
@@ -164,6 +172,7 @@ class DNewKeyStoreType
 		jpKeyStoreType.add(m_jrbBksKeyStore);
 		jpKeyStoreType.add(m_jrbBksV1KeyStore);
 		jpKeyStoreType.add(m_jrbUberKeyStore);
+		jpKeyStoreType.add(m_jrbBcfksKeyStore);
 		jpKeyStoreType.add(m_jrbGkrKeyStore);
 
 		// Create confirmation buttons and place them in a panel
@@ -226,6 +235,10 @@ class DNewKeyStoreType
 		else if (m_jrbUberKeyStore.isSelected())
 		{
 			m_keyStoreType = KeyStoreType.UBER;
+		}
+		else if (m_jrbBcfksKeyStore.isSelected())
+		{
+			m_keyStoreType = KeyStoreType.BCFKS;
 		}
 		else if (m_jrbGkrKeyStore.isSelected())
 		{

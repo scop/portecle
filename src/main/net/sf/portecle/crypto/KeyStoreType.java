@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2013 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2017 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -49,6 +49,8 @@ public enum KeyStoreType
 	BKS_V1("BKS-V1", "BKS-V1", true, true, new String[] { "bks" }),
 	/** UBER keystore Type */
 	UBER(null, "UBER", true, true, new String[] { "ubr" }),
+	/** BCFKS keystore Type */
+	BCFKS(null, "BCFKS", true, true, new String[] { "bcfks" }),
 	/** GKR keystore Type */
 	GKR(null, "GKR", true, true, new String[] { "gkr" }),
 	/** PKCS #11 keystore Type */

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2014 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2017 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -57,7 +57,7 @@ import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
 
 /**
  * Provides utility methods for loading/saving keystores. The Bouncy Castle provider must be registered before using
- * this class to create or load BKS or UBER type keystores.
+ * this class to create or load BKS, UBER, or BCFKS type keystores.
  */
 public final class KeyStoreUtil
 {
@@ -324,7 +324,10 @@ public final class KeyStoreUtil
 		{
 			throw ex;
 		}
-		catch (GeneralSecurityException | IOException ex)
+		// BC 1.58 workarounds for https://www.bouncycastle.org/jira/browse/BJA-691
+		// * ClassCastException: trying to open PKCS #12 as BCFKS
+		// * IllegalArgumentException: trying to open BCFKS as PKCS #12
+		catch (GeneralSecurityException | IOException | ClassCastException | IllegalArgumentException ex)
 		{
 			throw new CryptoException(
 			    MessageFormat.format(RB.getString("NoLoadKeystore.exception.message"), keyStoreType), ex);

@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2017 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -159,6 +159,7 @@ import net.sf.portecle.gui.FileExtFilter;
 			exts.addAll(KeyStoreType.PKCS12.getFilenameExtensions());
 			exts.addAll(KeyStoreType.BKS.getFilenameExtensions());
 			exts.addAll(KeyStoreType.UBER.getFilenameExtensions());
+			exts.addAll(KeyStoreType.BCFKS.getFilenameExtensions());
 			if (KeyStoreUtil.isAvailable(KeyStoreType.GKR))
 			{
 				exts.addAll(KeyStoreType.GKR.getFilenameExtensions());
