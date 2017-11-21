@@ -1,10 +1,6 @@
 New in Portecle x.xx (201x-xx-xx):
 ----------------------------------
 
-Bug fixes:
-- Fix exception when opening the PKCS#11 provider selection dialog.
-- Fix exception with null alias values when rendering key store table.
-
 Enhancements:
 - Add support for BCFKS keystores (#48).
 - Support setting Subject Alternative (DNS) Name when generating
@@ -15,6 +11,10 @@ Enhancements:
 - Remove link to decommissioned project mailing lists.
 - Update AppStream metadata and desktop entry files to current standards.
 - New icons and OS X icon image support (Martin W. Kirst, #47).
+
+Bug fixes:
+- Fix exception when opening the PKCS#11 provider selection dialog.
+- Fix exception with null alias values when rendering key store table.
 
 Miscellaneous:
 - Generated X.509 certificates are now version 3 ones.
