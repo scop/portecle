@@ -161,7 +161,7 @@
     <copy todir="${build}/webstart" flatten="true" preservelastmodified="true">
       <fileset dir="${src}">
         <include name="main/net/sf/portecle/images/splash.png"/>
-        <include name="icons/32x32/portecle.png"/>
+        <include name="icons/64x64/portecle.png"/>
       </fileset>
     </copy>
     <length property="iconsize" file="${build}/webstart/portecle.png"/>
