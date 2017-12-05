@@ -96,6 +96,16 @@
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.gif,**/*.png" />
     </copy>
+    <copy file="${src}/icons/16x16/portecle.png"
+      tofile="${build}/classes/net/sf/portecle/images/portecle-16.png"/>
+    <copy file="${src}/icons/32x32/portecle.png"
+      tofile="${build}/classes/net/sf/portecle/images/portecle-32.png"/>
+    <copy file="${src}/icons/64x64/portecle.png"
+      tofile="${build}/classes/net/sf/portecle/images/portecle-64.png"/>
+    <copy file="${src}/icons/96x96/portecle.png"
+      tofile="${build}/classes/net/sf/portecle/images/portecle-96.png"/>
+    <copy file="${src}/icons/128x128/portecle.png"
+      tofile="${build}/classes/net/sf/portecle/images/portecle-128.png"/>
     <condition property="jar.bundle.docs">
       <equals arg1="${helpbaseurl}" arg2="${helpbaseurl.default}" />
     </condition>
@@ -151,7 +161,7 @@
     <copy todir="${build}/webstart" flatten="true" preservelastmodified="true">
       <fileset dir="${src}">
         <include name="main/net/sf/portecle/images/splash.png"/>
-        <include name="icons/portecle.png"/>
+        <include name="icons/32x32/portecle.png"/>
       </fileset>
     </copy>
     <length property="iconsize" file="${build}/webstart/portecle.png"/>
@@ -249,8 +259,8 @@
       <zipfileset prefix="portecle-${version}"
         dir="${lib}" includes="LICENSE.bouncycastle.txt" />
       <zipfileset prefix="portecle-${version}" file="${build}/${jar}" />
-      <zipfileset prefix="portecle-${version}"
-        dir="${src}/icons" includes="portecle.*" />
+      <zipfileset prefix="portecle-${version}/icons"
+        dir="${src}/icons" includes="*??x??*/portecle*.*,ico/portecle*.*,svg/portecle*.*" />
       <zipfileset prefix="portecle-${version}"
         dir="${src}/etc" includes="net.sf.portecle.desktop,net.sf.portecle.appdata.xml" />
       <zipfileset file="${bcprov.jar}"

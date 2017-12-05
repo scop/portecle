@@ -46,8 +46,7 @@ Castle jars for some other reason, simply download an update for your
 version of Java from https://www.bouncycastle.org/ and place the jars
 into the same directory as `portecle.jar` with the names `bcprov.jar`
 and `bcpkix.jar`, overwriting the existing one already there (if any).
-The binary distribution also contains icons for use with Portecle
-(`portecle.ico`, `portecle.png`).
+The binary distribution also contains icons for use with Portecle.
 
 Portecle can additionally use the GNU Classpath (version 0.90 or
 later) security providers if they are installed. Support for GNU

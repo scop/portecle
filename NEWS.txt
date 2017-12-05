@@ -11,6 +11,7 @@ Enhancements:
 - Remove link to decommissioned project mailing lists.
 - Update AppStream metadata and desktop entry files to current standards.
 - New icons and OS X icon image support (Martin W. Kirst, #47).
+- New alt[1-3] icon sets (Luya Tshimbalanga).
 
 Bug fixes:
 - Fix exception when opening the PKCS#11 provider selection dialog.
