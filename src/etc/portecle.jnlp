@@ -19,6 +19,7 @@
 		<association extensions="jceks" mime-type="application/x-java-jce-keystore"/>
 		<association extensions="bks" mime-type="application/x-java-bc-keystore"/>
 		<association extensions="ubr" mime-type="application/x-java-bc-uber-keystore"/>
+		<association extensions="bcfks" mime-type="application/x-java-bc-fips-keystore"/>
 		<association extensions="p12 pfx" mime-type="application/x-pkcs12"/>
 		<association extensions="cer" mime-type="application/pkix-cert"/>
 		<association extensions="cert crt pem der" mime-type="application/x-x509-ca-cert"/>
