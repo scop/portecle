@@ -15,7 +15,7 @@ Enhancements:
 
 Bug fixes:
 - Fix exception when opening the PKCS#11 provider selection dialog.
-- Fix exception with null alias values when rendering key store table.
+- Fix exception with nulls when rendering key store and extensions tables.
 
 Miscellaneous:
 - Generated X.509 certificates are now version 3 ones.

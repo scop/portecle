@@ -60,7 +60,7 @@ class ExtensionsTableCellRend
 		{
 			ImageIcon icon;
 
-			if (((Boolean) value))
+			if (value != null && (Boolean) value)
 			{
 				icon = new ImageIcon(
 				    getClass().getResource(RB.getString("ExtensionsTableCellRend.CriticalExtension.image")));
@@ -78,7 +78,7 @@ class ExtensionsTableCellRend
 			cell.setVerticalAlignment(CENTER);
 			cell.setHorizontalAlignment(CENTER);
 		}
-		else
+		else if (value != null)
 		{
 			// Just use toString of object as text
 			cell.setText(value.toString());
