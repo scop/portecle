@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+
+    <key>CFBundleExecutable</key>
+    <string>JavaAppLauncher</string>
+
+    <key>CFBundleIconFile</key>
+    <string>icns/portecle.icns</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>net.sf.portecle</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>Portecle</string>
+
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+
+    <key>CFBundleName</key>
+    <string>Portecle</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+
+    <key>NSHighResolutionCapable</key>
+    <string>True</string>
+
+    <key>CFBundleSignature</key>
+    <string>????</string>
+
+    <key>CFBundleVersion</key>
+    <string>1.11</string>
+
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright © 2004 Wayne Grant, 2004 Mark Majczyk,
+    2004-2017 Ville Skyttä
+    
+    Portecle is licensed under GNU GPLv2 and comes with ABSOLUTELY NO WARRANTY.
+    
+    </string>
+
+	<key>JVMVersion</key>
+	<string>1.7+</string>
+  
+    <key>JVMMainClassName</key>
+    <string>net.sf.portecle.FPortecle</string>
+
+    <key>JVMOptions</key>
+    <array>
+        <string>-Dapple.laf.useScreenMenuBar=true</string>
+        <string>-Duser.dir=$APP_ROOT/Contents</string>
+        <string>-Xdock:name=Portecle</string>
+    </array>
+
+    <key>JVMArguments</key>
+    <array/>
+
+    </dict>
+</plist>
