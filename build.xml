@@ -270,16 +270,14 @@
     </p:zip>
   </target>
   
-  <target name="appdist" depends="jar"
-    description="Builds the Portecle application for macOS">
+  <target name="macdist" depends="jar"
+    description="Builds the Portecle application bundle for macOS">
     <mkdir dir="${dist}" />
     <p:zip destfile="${dist}/portecle-${version}.app.zip">
       <zipfileset prefix="Portecle.app"
         dir="${root}" includes="README.md,LICENSE.txt,NEWS.txt" />
       <zipfileset prefix="Portecle.app/Contents"
         dir="${src}/etc" includes="Info.plist" />
-      <zipfileset prefix="Portecle.app/Contents/PlugIns"
-        dir="${src}/etc" includes="dummy" />
       <zipfileset prefix="Portecle.app/Contents/MacOS"
         dir="${src}/etc" filemode="755" includes="JavaAppLauncher" />
       <zipfileset prefix="Portecle.app/Contents/Resources"
@@ -313,7 +311,7 @@
     </p:zip>
   </target>
 
-  <target name="dist" depends="srcdist,bindist,appdist"
+  <target name="dist" depends="srcdist,bindist,macdist"
     description="Builds Portecle distributions" />
 
   <target name="all" depends="dist,javadoc"
