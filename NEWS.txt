@@ -1,3 +1,9 @@
+New in Portecle x.xx (201x-xx-xx):
+----------------------------------
+
+Miscellaneous:
+- Bundled Bouncy Castle jars upgraded to version 1.59.
+
 New in Portecle 1.11 (2017-12-12):
 ----------------------------------
 
