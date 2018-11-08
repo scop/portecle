@@ -35,10 +35,13 @@ import java.util.Set;
  */
 public enum KeyStoreType
 {
-	/** JKS keystore Type */
-	JKS(null, "JKS", true, true, new String[] { "jks" }),
+	// Note: Java 8+ succeeds at least sometimes opening PKCS#12 as JKS, causing confusion and reduced functionality.
+	// Therefore, list PKCS12 before JKS here; opening is attempted in the order of this enum's entries.
+
 	/** PKCS #12 keystore Type */
 	PKCS12(null, "PKCS #12", false, false, new String[] { "p12", "pfx" }),
+	/** JKS keystore Type */
+	JKS(null, "JKS", true, true, new String[] { "jks" }),
 	/** JCEKS keystore Type */
 	JCEKS(null, "JCEKS", true, true, new String[] { "jceks" }),
 	/** Case sensitive JKS keystore Type */

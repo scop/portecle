@@ -5,6 +5,9 @@ Enhancements:
 - Support setting multiple and different types of Subject Alternative Names
   when generating certificates (#55).
 
+Bug fixes:
+- Work around Java 8+ possibly opening PKCS#12 keystores as JKS (#57).
+
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.60.
 
