@@ -35,10 +35,10 @@ import java.util.Set;
  */
 public enum KeyStoreType
 {
+	/** PKCS #12 keystore Type */
+	PKCS12(null, "PKCS #12", false, false, new String[] { "p12", "pfx" }),	
 	/** JKS keystore Type */
 	JKS(null, "JKS", true, true, new String[] { "jks" }),
-	/** PKCS #12 keystore Type */
-	PKCS12(null, "PKCS #12", false, false, new String[] { "p12", "pfx" }),
 	/** JCEKS keystore Type */
 	JCEKS(null, "JCEKS", true, true, new String[] { "jceks" }),
 	/** Case sensitive JKS keystore Type */
