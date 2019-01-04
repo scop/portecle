@@ -22,38 +22,7 @@
 
 package net.sf.portecle.crypto;
 
-import static net.sf.portecle.FPortecle.RB;
-
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.net.URL;
-import java.security.GeneralSecurityException;
-import java.security.InvalidKeyException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SignatureException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509CRL;
-import java.security.cert.X509Certificate;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Set;
-
-import javax.security.auth.x500.X500Principal;
-
+import net.sf.portecle.NetUtil;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
@@ -61,6 +30,7 @@ import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.cert.CertIOException;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
@@ -73,8 +43,19 @@ import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCSException;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
+import sf.portecle.crypto.GeneralNameUtil;
 
-import net.sf.portecle.NetUtil;
+import javax.security.auth.x500.X500Principal;
+import java.io.*;
+import java.math.BigInteger;
+import java.net.URL;
+import java.security.*;
+import java.security.cert.Certificate;
+import java.security.cert.*;
+import java.text.MessageFormat;
+import java.util.*;
+
+import static net.sf.portecle.FPortecle.RB;
 
 /**
  * Provides utility methods relating to X509 Certificates, CRLs and CSRs.
@@ -491,7 +472,7 @@ public final class X509CertUtil
 	 */
 	public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit, String sOrganisation,
 	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity, String sDnsName,
-	    PublicKey publicKey, PrivateKey privateKey, SignatureType signatureType)
+	    PublicKey publicKey, PrivateKey privateKey, net.sf.portecle.crypto.SignatureType signatureType)
 	    throws CryptoException
 	{
 		X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
@@ -534,12 +515,7 @@ public final class X509CertUtil
 
 		try
 		{
-			if (sDnsName != null)
-			{
-				GeneralNames generalnames =
-				    new GeneralNames(new GeneralName[] { new GeneralName(GeneralName.dNSName, sDnsName) });
-				certBuilder.addExtension(Extension.subjectAlternativeName, false, generalnames);
-			}
+			GeneralNameUtil.generateGeneralName(sDnsName, certBuilder);
 
 			ContentSigner signer = new JcaContentSignerBuilder(signatureType.name()).build(privateKey);
 			X509CertificateHolder certHolder = certBuilder.build(signer);
@@ -551,6 +527,8 @@ public final class X509CertUtil
 			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
 		}
 	}
+
+
 
 	/**
 	 * Renew a self-signed X509 certificate.
@@ -836,7 +814,7 @@ public final class X509CertUtil
 		X500Principal subject = cert.getSubjectX500Principal();
 		X500Principal issuer = cert.getIssuerX500Principal();
 
-		String sSubjectCN = NameUtil.getCommonName(subject);
+		String sSubjectCN = net.sf.portecle.crypto.NameUtil.getCommonName(subject);
 
 		// Could not get a subject CN - return blank
 		if (sSubjectCN == null)
@@ -844,7 +822,7 @@ public final class X509CertUtil
 			return "";
 		}
 
-		String sIssuerCN = NameUtil.getCommonName(issuer);
+		String sIssuerCN = net.sf.portecle.crypto.NameUtil.getCommonName(issuer);
 
 		// Self-signed certificate or could not get an issuer CN
 		if (subject.equals(issuer) || sIssuerCN == null)
