@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2008 Ville Skyttä, ville.skytta@iki.fi
+ *             2008-2019 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -50,6 +50,9 @@ public class DThrowable
 	/** Stores Throwable to display */
 	private final Throwable m_throwable;
 
+	/** Text template to use */
+	private final String m_textTemplate;
+
 	/**
 	 * Exception message parts that may indicate that the culprit for the Throwable is lack of unrestricted JCE policy
 	 * files.
@@ -65,9 +68,23 @@ public class DThrowable
 	 */
 	public DThrowable(Window parent, String title, Throwable throwable)
 	{
+		this(parent, title, throwable, "{0}");
+	}
+
+	/**
+	 * Creates new DThrowable dialog with the given title and text template.
+	 *
+	 * @param parent Parent window
+	 * @param title Dialog title; if null, application default for DThrowables is used
+	 * @param throwable Throwable to display
+	 * @param textTemplate text template to use for message formatting
+	 */
+	public DThrowable(Window parent, String title, Throwable throwable, String textTemplate)
+	{
 		super(parent, true);
 		setTitle((title == null) ? RB.getString("DThrowable.Title") : title);
 		m_throwable = throwable;
+		m_textTemplate = textTemplate;
 		initComponents();
 	}
 
@@ -142,7 +159,7 @@ public class DThrowable
 			    new File(System.getProperty("java.home"), "lib" + File.separator + "security"));
 		}
 
-		jpThrowable.add(new JLabel(text));
+		jpThrowable.add(new JLabel(MessageFormat.format(m_textTemplate, text)));
 
 		getContentPane().add(jpThrowable, BorderLayout.CENTER);
 		getContentPane().add(jpButtons, BorderLayout.SOUTH);
