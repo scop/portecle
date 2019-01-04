@@ -119,7 +119,7 @@ of current experimental features.
 
 ## Copyright and License
 
-Copyright © 2004 Wayne Grant, 2004 Mark Majczyk, 2004-2017 Ville Skyttä
+Copyright © 2004 Wayne Grant, 2004 Mark Majczyk, 2004-2019 Ville Skyttä
 
 Portecle is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
