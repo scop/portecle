@@ -1,6 +1,10 @@
 New in Portecle x.xx (201x-xx-xx):
 ----------------------------------
 
+Enhancements:
+- Support setting multiple and different types of Subject Alternative Names
+  when generating certificates (#55).
+
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.60.
 

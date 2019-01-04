@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2017 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2019 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -33,6 +33,7 @@ import java.awt.Window;
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,6 +50,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.Document;
 
+import org.bouncycastle.asn1.x509.GeneralName;
+
+import net.sf.portecle.crypto.CryptoException;
 import net.sf.portecle.crypto.KeyPairType;
 import net.sf.portecle.crypto.SignatureType;
 import net.sf.portecle.crypto.X509CertUtil;
@@ -119,8 +123,8 @@ class DGenerateCertificate
 	/** Email Address text field */
 	private JTextField m_jtfEmailAddress;
 
-	/** Subject Alternative (DNS) Name text field */
-	private JTextField m_jtfDnsName;
+	/** Subject Alternative Names text field */
+	private JTextField m_jtfSans;
 
 	/** The key pair type */
 	private final KeyPairType m_keyPairType;
@@ -149,8 +153,8 @@ class DGenerateCertificate
 	/** Entered validity period */
 	private int m_iValidity = BAD_VALIDITY;
 
-	/** Entered DNS name */
-	private String m_sDnsName;
+	/** Entered subject alternative names */
+	private Collection<GeneralName> m_sans;
 
 	/** Records whether or not correct parameters are entered */
 	private boolean m_bSuccess;
@@ -303,16 +307,16 @@ class DGenerateCertificate
 		GridBagConstraints gbc_jtfEmailAddress = (GridBagConstraints) gbcEdCtrl.clone();
 		gbc_jtfEmailAddress.gridy = gbc_jlEmailAddress.gridy;
 
-		// DNS Name
-		JLabel jlDnsName = new JLabel(RB.getString("DGenerateCertificate.jlDnsName.text"));
-		GridBagConstraints gbc_jlDnsName = (GridBagConstraints) gbcLbl.clone();
-		gbc_jlDnsName.gridy = gridy++;
+		// Subject Alternative Name
+		JLabel jlSans = new JLabel(RB.getString("DGenerateCertificate.jlSans.text"));
+		GridBagConstraints gbc_jlSans = (GridBagConstraints) gbcLbl.clone();
+		gbc_jlSans.gridy = gridy++;
 
-		m_jtfDnsName = new JTextField(15);
-		m_jtfDnsName.setToolTipText(RB.getString("DGenerateCertificate.m_jtfDnsName.tooltip"));
-		jlDnsName.setLabelFor(m_jtfDnsName);
-		GridBagConstraints gbc_jtfDnsName = (GridBagConstraints) gbcEdCtrl.clone();
-		gbc_jtfDnsName.gridy = gbc_jlDnsName.gridy;
+		m_jtfSans = new JTextField(15);
+		m_jtfSans.setToolTipText(RB.getString("DGenerateCertificate.m_jtfSans.tooltip"));
+		jlSans.setLabelFor(m_jtfSans);
+		GridBagConstraints gbc_jtfSans = (GridBagConstraints) gbcEdCtrl.clone();
+		gbc_jtfSans.gridy = gbc_jlSans.gridy;
 
 		// Put it all together
 		JPanel jpOptions = new JPanel(new GridBagLayout());
@@ -336,8 +340,8 @@ class DGenerateCertificate
 		jpOptions.add(m_jtfCountryCode, gbc_jtfCountryCode);
 		jpOptions.add(jlEmailAddress, gbc_jlEmailAddress);
 		jpOptions.add(m_jtfEmailAddress, gbc_jtfEmailAddress);
-		jpOptions.add(jlDnsName, gbc_jlDnsName);
-		jpOptions.add(m_jtfDnsName, gbc_jtfDnsName);
+		jpOptions.add(jlSans, gbc_jlSans);
+		jpOptions.add(m_jtfSans, gbc_jtfSans);
 
 		JButton jbOK = getOkButton(false);
 		JButton jbCancel = getCancelButton();
@@ -401,7 +405,6 @@ class DGenerateCertificate
 		m_sStateName = validateStateName(m_jtfStateName.getText());
 		m_sCountryCode = validateCountryCode(m_jtfCountryCode.getText());
 		m_sEmailAddress = validateEmailAddress(m_jtfEmailAddress.getText());
-		m_sDnsName = validateDnsName(m_jtfDnsName.getText());
 
 		if (m_sCommonName == null && m_sOrganizationUnit == null && m_sOrganizationName == null &&
 		    m_sLocalityName == null && m_sStateName == null && m_sCountryCode == null && m_sEmailAddress == null)
@@ -435,7 +438,26 @@ class DGenerateCertificate
 			}
 		}
 
-		// TODO check DNS Name validity
+		try
+		{
+			m_sans = X509CertUtil.parseGeneralNames(m_jtfSans.getText());
+		}
+		catch (CryptoException ex)
+		{
+			DThrowable dThrowable;
+			if (ex.getCause() instanceof IllegalArgumentException)
+			{
+				dThrowable = new DThrowable(this, null, ex);
+			}
+			else
+			{
+				dThrowable = new DThrowable(this, null, ex, RB.getString("SupportedGeneralNames.textTemplate"));
+			}
+			dThrowable.setLocationRelativeTo(getParent());
+			SwingHelper.showAndWait(dThrowable);
+			SwingHelper.selectAndFocus(m_jtfSans);
+			return false;
+		}
 
 		m_bSuccess = true;
 		return true;
@@ -608,24 +630,6 @@ class DGenerateCertificate
 	}
 
 	/**
-	 * Validate the supplied DNS Name value.
-	 *
-	 * @param sDnsName The DNS Name value
-	 * @return The DNS Name value or null if it is not valid
-	 */
-	private String validateDnsName(String sDnsName)
-	{
-		sDnsName = sDnsName.trim();
-
-		if (sDnsName.isEmpty())
-		{
-			return null;
-		}
-
-		return sDnsName;
-	}
-
-	/**
 	 * Generate certificate from key pair and the dialog's values.
 	 *
 	 * @param keyPair The key pair
@@ -638,7 +642,7 @@ class DGenerateCertificate
 		{
 			SignatureType signatureType = (SignatureType) m_jcbSigAlg.getSelectedItem();
 			cert = X509CertUtil.generateCert(m_sCommonName, m_sOrganizationUnit, m_sOrganizationName, m_sLocalityName,
-			    m_sStateName, m_sCountryCode, m_sEmailAddress, m_iValidity, m_sDnsName, keyPair.getPublic(),
+			    m_sStateName, m_sCountryCode, m_sEmailAddress, m_iValidity, m_sans, keyPair.getPublic(),
 			    keyPair.getPrivate(), signatureType);
 		}
 		catch (Exception ex)

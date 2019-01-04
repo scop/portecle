@@ -3,7 +3,7 @@
  * This file is part of Portecle, a multipurpose keystore and certificate tool.
  *
  * Copyright © 2004 Wayne Grant, waynedgrant@hotmail.com
- *             2004-2017 Ville Skyttä, ville.skytta@iki.fi
+ *             2004-2019 Ville Skyttä, ville.skytta@iki.fi
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -483,15 +483,15 @@ public final class X509CertUtil
 	 * @param sEmailAddress Email Address certificate attribute
 	 * @param sCountryCode Country Code certificate attribute
 	 * @param iValidity Validity period of certificate in days
-	 * @param sDnsName Subject alternative DNS name certificate extension value
+	 * @param sans Subject alternative names certificate extension value
 	 * @param publicKey Public part of key pair
 	 * @param privateKey Private part of key pair
 	 * @param signatureType Signature Type
 	 * @throws CryptoException If there was a problem generating the certificate
 	 */
 	public static X509Certificate generateCert(String sCommonName, String sOrganisationUnit, String sOrganisation,
-	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity, String sDnsName,
-	    PublicKey publicKey, PrivateKey privateKey, SignatureType signatureType)
+	    String sLocality, String sState, String sCountryCode, String sEmailAddress, int iValidity,
+	    Collection<GeneralName> sans, PublicKey publicKey, PrivateKey privateKey, SignatureType signatureType)
 	    throws CryptoException
 	{
 		X500NameBuilder nameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
@@ -534,11 +534,10 @@ public final class X509CertUtil
 
 		try
 		{
-			if (sDnsName != null)
+			if (sans != null && !sans.isEmpty())
 			{
-				GeneralNames generalnames =
-				    new GeneralNames(new GeneralName[] { new GeneralName(GeneralName.dNSName, sDnsName) });
-				certBuilder.addExtension(Extension.subjectAlternativeName, false, generalnames);
+				certBuilder.addExtension(Extension.subjectAlternativeName, false,
+				    new GeneralNames(sans.toArray(new GeneralName[sans.size()])));
 			}
 
 			ContentSigner signer = new JcaContentSignerBuilder(signatureType.name()).build(privateKey);
@@ -550,6 +549,92 @@ public final class X509CertUtil
 		{
 			throw new CryptoException(RB.getString("CertificateGenFailed.exception.message"), ex);
 		}
+	}
+
+	/**
+	 * Parse general names from a string.
+	 *
+	 * @param text string containing general names
+	 * @return parsed general names
+	 * @throws CryptoException on parse failure
+	 */
+	public static Collection<GeneralName> parseGeneralNames(String text)
+	    throws CryptoException
+	{
+		ArrayList<GeneralName> generalNames = new ArrayList<>();
+		if (text != null)
+		{
+			for (String token : text.split("\\s*,+\\s*"))
+			{
+				token = token.trim();
+				if (token.isEmpty())
+				{
+					continue;
+				}
+				String[] keyVal = token.split("\\s*:+\\s*", 2);
+				if (keyVal.length != 2)
+				{
+					throw new CryptoException(
+					    MessageFormat.format(RB.getString("InvalidGeneralNamesString.exception.message"), token));
+				}
+				String key = keyVal[0];
+				int nameType;
+				if (key.startsWith("other"))
+				{
+					nameType = GeneralName.otherName;
+				}
+				else if (key.startsWith("rfc822") || key.startsWith("email"))
+				{
+					nameType = GeneralName.rfc822Name;
+				}
+				else if (key.startsWith("dns"))
+				{
+					nameType = GeneralName.dNSName;
+				}
+				else if (key.startsWith("x400") || key.startsWith("x.400"))
+				{
+					nameType = GeneralName.x400Address;
+				}
+				else if (key.startsWith("dir"))
+				{
+					nameType = GeneralName.directoryName;
+				}
+				else if (key.startsWith("edi"))
+				{
+					nameType = GeneralName.ediPartyName;
+				}
+				else if (key.startsWith("uri") || key.startsWith("uniformresourceid"))
+				{
+					nameType = GeneralName.uniformResourceIdentifier;
+				}
+				else if (key.startsWith("ip"))
+				{
+					nameType = GeneralName.iPAddress;
+				}
+				else if (key.startsWith("rid") || key.startsWith("registeredid"))
+				{
+					nameType = GeneralName.registeredID;
+				}
+				else
+				{
+					throw new CryptoException(
+					    MessageFormat.format(RB.getString("UnknownGeneralNameKey.exception.message"), key));
+				}
+				GeneralName generalName;
+				try
+				{
+					generalName = new GeneralName(nameType, keyVal[1].trim());
+				}
+				catch (IllegalArgumentException e)
+				{
+					throw new CryptoException(RB.getString("NoParseGeneralNames.exception.message"), e);
+				}
+				generalNames.add(generalName);
+			}
+		}
+
+		return generalNames;
+
 	}
 
 	/**
