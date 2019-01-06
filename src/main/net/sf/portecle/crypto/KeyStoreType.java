@@ -35,6 +35,11 @@ import java.util.Set;
  */
 public enum KeyStoreType
 {
+	/** 
+	    FPortecle.openKeyStoreFile() tries to load a keystore as a keystore of a given type until it succeeds without exceptions or null store.
+	    Java 8+ succeeds in loading PKCS#12 stores as JKS but lacks the features a PKCS#12 store needs. Trying to load as a PKCS#12 type first avoids this problem.
+            FPortecle.openKeyStoreFile() uses the order given in this KeyStoreType enum, so make sure to have PKSC12 before JKS.    
+        */
 	/** PKCS #12 keystore Type */
 	PKCS12(null, "PKCS #12", false, false, new String[] { "p12", "pfx" }),	
 	/** JKS keystore Type */
