@@ -1218,7 +1218,7 @@ public class FPortecle
 
 		// Make the type column small and not resizable (it holds icons to represent the different entry
 		// types)
-		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(0);
+		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(COLUMN_TYPE);
 		typeCol.setResizable(false);
 		typeCol.setMinWidth(20);
 		typeCol.setMaxWidth(20);
@@ -1226,21 +1226,21 @@ public class FPortecle
 
 		// Make the expires column small and not resizable (it holds icons to represent the different entry
 		// expiration states)
-		TableColumn expiryCol = m_jtKeyStore.getColumnModel().getColumn(1);
+		TableColumn expiryCol = m_jtKeyStore.getColumnModel().getColumn(COLUMN_EXPIRATION);
 		expiryCol.setResizable(false);
 		expiryCol.setMinWidth(20);
 		expiryCol.setMaxWidth(20);
 		expiryCol.setPreferredWidth(20);
-
+		
 		// Set alias columns width according to the relevant application property unless the property is not
 		// present or is invalid.
 		int iAliasWidth = PREFS.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
 
-		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(2);
+		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(COLUMN_ALIAS);
 		aliasCol.setMinWidth(20);
 		aliasCol.setMaxWidth(10000);
 
-		if (iAliasWidth <= 20)
+		if (iAliasWidth <= 0)
 		{
 			aliasCol.setPreferredWidth(350);
 		}
