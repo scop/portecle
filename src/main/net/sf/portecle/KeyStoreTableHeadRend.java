@@ -69,17 +69,30 @@ class KeyStoreTableHeadRend
 
 			header.setToolTipText(RB.getString("KeyStoreTableHeadRend.TypeColumn.tooltip"));
 		}
+		// The expiration header contains an icon
+		else if (iCol == FPortecle.COLUMN_EXPIRATION)
+		{
+			header.setText("");
+			ImageIcon icon =
+			    new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableHeadRend.CertExpirationColumn.image")));
+			header.setIcon(icon);
+			header.setHorizontalAlignment(CENTER);
+			header.setVerticalAlignment(CENTER);
+			
+			header.setToolTipText(RB.getString("KeyStoreTableHeadRend.ExpiredColumn.tooltip"));
+		}
 		// The other headers contain text
 		else
 		{
 			header.setText((String) value);
 			header.setHorizontalAlignment(LEFT);
 
-			if (iCol == 1)
+			if (iCol == FPortecle.COLUMN_ALIAS)
 			{
 				header.setToolTipText(RB.getString("KeyStoreTableHeadRend.AliasColumn.tooltip"));
 			}
-			else
+			else if (iCol == 5)
+
 			{
 				header.setToolTipText(RB.getString("KeyStoreTableHeadRend.LastModifiedDateColumn.tooltip"));
 			}

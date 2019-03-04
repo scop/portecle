@@ -24,6 +24,9 @@ package net.sf.portecle;
 
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Enumeration;
 
@@ -39,7 +42,11 @@ class KeyStoreTableModel
 {
 	/** Column names */
 	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("KeyStoreTableModel.TypeColumn"),
+	    FPortecle.RB.getString("KeyStoreTableModel.ExpiredColumn"),
 	    FPortecle.RB.getString("KeyStoreTableModel.AliasColumn"),
+	    FPortecle.RB.getString("KeyStoreTableModel.FromDateColumn"),
+	    FPortecle.RB.getString("KeyStoreTableModel.ExpiryDateColumn"),
+	    
 	    FPortecle.RB.getString("KeyStoreTableModel.LastModifiedDateColumn") };
 
 	/** Value to place in the type column for a key pair entry */
@@ -50,9 +57,17 @@ class KeyStoreTableModel
 
 	/** Value to place in the type column for a key entry */
 	public static final String KEY_ENTRY = FPortecle.RB.getString("KeyStoreTableModel.KeyEntry");
+	
+	/** Value to place in the expired column for a good certificate */
+	public static final String CERT_VALID_OK = FPortecle.RB.getString("KeyStoreTableModel.CertValidOK");
+	/** Value to place in the expired column for a certificate that is close to expiration date */
+	public static final String CERT_VALID_EXPIRES = FPortecle.RB.getString("KeyStoreTableModel.CertExpires");
+	/** Value to place in the expired column for a certificate that has expired */
+	public static final String CERT_VALID_EXPIRED = FPortecle.RB.getString("KeyStoreTableModel.CertExpired");
+	
 
 	/** Column classes */
-	private static final Class<?>[] COLUMN_CLASSES = { String.class, String.class, Date.class };
+	private static final Class<?>[] COLUMN_CLASSES = { String.class, String.class, String.class, Date.class, Date.class, Date.class };
 
 	/** Holds the table data */
 	private Object[][] m_data;
@@ -109,12 +124,42 @@ class KeyStoreTableModel
 			}
 
 			// Populate the alias column
-			m_data[iCnt][1] = sAlias;
+			m_data[iCnt][FPortecle.COLUMN_ALIAS] = sAlias;
+
+			// Populate the from date and expiry date column for X509Certificates
+			try {
+				java.security.cert.X509Certificate cert =(X509Certificate) keyStore.getCertificate(sAlias);
+				
+				if(cert!=null)
+				{
+					m_data[iCnt][3] = cert.getNotBefore();
+					m_data[iCnt][4] = cert.getNotAfter();
+					
+					// Populate the expired column - it is set with a string but a custom cell renderer will cause a
+					// suitable icon to be displayed
+					// Using JSR-310 to do validity calculations
+					LocalDateTime ldt =LocalDateTime.now();
+					boolean expired =ldt.isAfter(  LocalDateTime.ofInstant(cert.getNotAfter().toInstant(),ZoneId.systemDefault()));
+					if(expired)
+						m_data[iCnt][FPortecle.COLUMN_EXPIRATION] =  CERT_VALID_EXPIRED;
+					else 
+					{
+						if(
+						ldt.isAfter(  LocalDateTime.ofInstant(cert.getNotAfter().toInstant(), ZoneId.systemDefault()).plusDays(60) )
+						)
+							m_data[iCnt][FPortecle.COLUMN_EXPIRATION] =  CERT_VALID_EXPIRES;
+						
+						m_data[iCnt][FPortecle.COLUMN_EXPIRATION] =  CERT_VALID_OK;
+					}
+				}
+				
+			}
+			catch(Exception any) { }
 
 			// Populate the modified date column
 			if (cdSupport)
 			{
-				m_data[iCnt][2] = keyStore.getCreationDate(sAlias);
+				m_data[iCnt][5] = keyStore.getCreationDate(sAlias);
 			}
 
 			iCnt++;
