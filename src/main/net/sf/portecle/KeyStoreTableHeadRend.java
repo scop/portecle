@@ -58,7 +58,7 @@ class KeyStoreTableHeadRend
 		JLabel header = (JLabel) jtKeyStore.getColumnModel().getColumn(iCol).getHeaderRenderer();
 
 		// The entry type header contains an icon
-		if (iCol == 0)
+		if (iCol == KeyStoreTableModel.COLUMN_TYPE)
 		{
 			header.setText("");
 			ImageIcon icon =
@@ -70,7 +70,7 @@ class KeyStoreTableHeadRend
 			header.setToolTipText(RB.getString("KeyStoreTableHeadRend.TypeColumn.tooltip"));
 		}
 		// The expiration header contains an icon
-		else if (iCol == FPortecle.COLUMN_EXPIRATION)
+		else if (iCol == KeyStoreTableModel.COLUMN_EXPIRATION)
 		{
 			header.setText("");
 			ImageIcon icon =
@@ -87,12 +87,11 @@ class KeyStoreTableHeadRend
 			header.setText((String) value);
 			header.setHorizontalAlignment(LEFT);
 
-			if (iCol == FPortecle.COLUMN_ALIAS)
+			if (iCol == KeyStoreTableModel.COLUMN_ALIAS)
 			{
 				header.setToolTipText(RB.getString("KeyStoreTableHeadRend.AliasColumn.tooltip"));
 			}
-			else if (iCol == 5)
-
+			else if (iCol == KeyStoreTableModel.COLUMN_DATELASTMODIFIED)
 			{
 				header.setToolTipText(RB.getString("KeyStoreTableHeadRend.LastModifiedDateColumn.tooltip"));
 			}

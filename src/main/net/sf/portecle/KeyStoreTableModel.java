@@ -40,13 +40,20 @@ import net.sf.portecle.crypto.KeyStoreType;
 class KeyStoreTableModel
     extends AbstractTableModel
 {
+	/** main view columns */
+	public  static final int COLUMN_TYPE = 0;
+	public  static final int COLUMN_EXPIRATION = 1;
+	public  static final int COLUMN_ALIAS = 2;
+	public  static final int COLUMN_DATESTART = 3;
+	public  static final int COLUMN_DATEEND = 4;
+	public  static final int COLUMN_DATELASTMODIFIED = 5;
+	
 	/** Column names */
 	private static final String[] COLUMN_NAMES = { FPortecle.RB.getString("KeyStoreTableModel.TypeColumn"),
 	    FPortecle.RB.getString("KeyStoreTableModel.ExpiredColumn"),
 	    FPortecle.RB.getString("KeyStoreTableModel.AliasColumn"),
 	    FPortecle.RB.getString("KeyStoreTableModel.FromDateColumn"),
 	    FPortecle.RB.getString("KeyStoreTableModel.ExpiryDateColumn"),
-	    
 	    FPortecle.RB.getString("KeyStoreTableModel.LastModifiedDateColumn") };
 
 	/** Value to place in the type column for a key pair entry */
@@ -111,20 +118,20 @@ class KeyStoreTableModel
 			// suitable icon to be displayed
 			if (keyStore.isCertificateEntry(sAlias))
 			{
-				m_data[iCnt][0] = TRUST_CERT_ENTRY;
+				m_data[iCnt][COLUMN_TYPE] = TRUST_CERT_ENTRY;
 			}
 			else if (keyStore.isKeyEntry(sAlias) && keyStore.getCertificateChain(sAlias) != null &&
 			    keyStore.getCertificateChain(sAlias).length != 0)
 			{
-				m_data[iCnt][0] = KEY_PAIR_ENTRY;
+				m_data[iCnt][COLUMN_TYPE] = KEY_PAIR_ENTRY;
 			}
 			else
 			{
-				m_data[iCnt][0] = KEY_ENTRY;
+				m_data[iCnt][COLUMN_TYPE] = KEY_ENTRY;
 			}
 
 			// Populate the alias column
-			m_data[iCnt][FPortecle.COLUMN_ALIAS] = sAlias;
+			m_data[iCnt][COLUMN_ALIAS] = sAlias;
 
 			// Populate the from date and expiry date column for X509Certificates
 			try {
@@ -132,8 +139,8 @@ class KeyStoreTableModel
 				
 				if(cert!=null)
 				{
-					m_data[iCnt][3] = cert.getNotBefore();
-					m_data[iCnt][4] = cert.getNotAfter();
+					m_data[iCnt][COLUMN_DATESTART] = cert.getNotBefore();
+					m_data[iCnt][COLUMN_DATEEND] = cert.getNotAfter();
 					
 					// Populate the expired column - it is set with a string but a custom cell renderer will cause a
 					// suitable icon to be displayed
@@ -141,15 +148,15 @@ class KeyStoreTableModel
 					LocalDateTime ldt =LocalDateTime.now();
 					boolean expired =ldt.isAfter(  LocalDateTime.ofInstant(cert.getNotAfter().toInstant(),ZoneId.systemDefault()));
 					if(expired)
-						m_data[iCnt][FPortecle.COLUMN_EXPIRATION] =  CERT_VALID_EXPIRED;
+						m_data[iCnt][COLUMN_EXPIRATION] =  CERT_VALID_EXPIRED;
 					else 
 					{
 						if(
 						ldt.isAfter(  LocalDateTime.ofInstant(cert.getNotAfter().toInstant(), ZoneId.systemDefault()).plusDays(60) )
 						)
-							m_data[iCnt][FPortecle.COLUMN_EXPIRATION] =  CERT_VALID_EXPIRES;
+							m_data[iCnt][COLUMN_EXPIRATION] =  CERT_VALID_EXPIRES;
 						
-						m_data[iCnt][FPortecle.COLUMN_EXPIRATION] =  CERT_VALID_OK;
+						m_data[iCnt][COLUMN_EXPIRATION] =  CERT_VALID_OK;
 					}
 				}
 				
@@ -159,7 +166,7 @@ class KeyStoreTableModel
 			// Populate the modified date column
 			if (cdSupport)
 			{
-				m_data[iCnt][5] = keyStore.getCreationDate(sAlias);
+				m_data[iCnt][COLUMN_DATELASTMODIFIED] = keyStore.getCreationDate(sAlias);
 			}
 
 			iCnt++;
@@ -246,7 +253,7 @@ class KeyStoreTableModel
 	@Override
 	public boolean isCellEditable(int iRow, int iCol)
 	{
-		if (iCol != 1)
+		if (iCol != COLUMN_ALIAS)
 		{
 			return false;
 		}
@@ -254,6 +261,6 @@ class KeyStoreTableModel
 		// Key-only entries are not renameable - we do a remove-store operation but the KeyStore API won't
 		// allow us to store a PrivateKey without associated certificate chain.
 		// TODO: Maybe it'd work for other Key types? Need testing material.
-		return !KEY_ENTRY.equals(m_data[iRow][0]);
+		return !KEY_ENTRY.equals(m_data[iRow][COLUMN_TYPE]);
 	}
 }

@@ -168,9 +168,7 @@ public class FPortecle
 	/** Application preferences */
 	private static final Preferences PREFS = Preferences.userNodeForPackage(FPortecle.class);
 	
-	public  static final int COLUMN_TYPE =0;
-	public  static final int COLUMN_EXPIRATION =1;
-	public  static final int COLUMN_ALIAS =2;
+
 
 	/** Minimum required BC version */
 	private static final Double REQ_BC_VERSION = 1.56;
@@ -1218,7 +1216,7 @@ public class FPortecle
 
 		// Make the type column small and not resizable (it holds icons to represent the different entry
 		// types)
-		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(COLUMN_TYPE);
+		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_TYPE);
 		typeCol.setResizable(false);
 		typeCol.setMinWidth(20);
 		typeCol.setMaxWidth(20);
@@ -1226,7 +1224,7 @@ public class FPortecle
 
 		// Make the expires column small and not resizable (it holds icons to represent the different entry
 		// expiration states)
-		TableColumn expiryCol = m_jtKeyStore.getColumnModel().getColumn(COLUMN_EXPIRATION);
+		TableColumn expiryCol = m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_EXPIRATION);
 		expiryCol.setResizable(false);
 		expiryCol.setMinWidth(20);
 		expiryCol.setMaxWidth(20);
@@ -1236,7 +1234,7 @@ public class FPortecle
 		// present or is invalid.
 		int iAliasWidth = PREFS.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
 
-		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(COLUMN_ALIAS);
+		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_ALIAS);
 		aliasCol.setMinWidth(20);
 		aliasCol.setMaxWidth(10000);
 
@@ -1252,7 +1250,7 @@ public class FPortecle
 		// Make the table sortable
 		m_jtKeyStore.setAutoCreateRowSorter(true);
 		// ...and sort it by alias by default
-		m_jtKeyStore.getRowSorter().toggleSortOrder(COLUMN_ALIAS);
+		m_jtKeyStore.getRowSorter().toggleSortOrder(KeyStoreTableModel.COLUMN_ALIAS);
 
 		// Get usual double click edit start out of the way - we want double click to show the
 		// entry, even in editable columns. In-place edit can be invoked with F2.
@@ -5615,7 +5613,7 @@ public class FPortecle
 
 			// The size of the keystore table's alias column - determines the size of all of the table's
 			// columns
-			PREFS.putInt(RB.getString("AppPrefs.AliasWidth"), m_jtKeyStore.getColumnModel().getColumn(COLUMN_ALIAS).getWidth());
+			PREFS.putInt(RB.getString("AppPrefs.AliasWidth"), m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_ALIAS).getWidth());
 
 			// Application's position on the desktop
 			PREFS.putInt(RB.getString("AppPrefs.XPos"), this.getX());
@@ -6355,13 +6353,13 @@ public class FPortecle
 		private String getSelectedType()
 		{
 			int selectedRow = getSelectedRow();
-			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, FPortecle.COLUMN_TYPE) : null;
+			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, KeyStoreTableModel.COLUMN_TYPE) : null;
 		}
 
 		private String getSelectedAlias()
 		{
 			int selectedRow = getSelectedRow();
-			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, FPortecle.COLUMN_ALIAS) : null;
+			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, KeyStoreTableModel.COLUMN_ALIAS) : null;
 		}
 
 		private class FileTransferHander

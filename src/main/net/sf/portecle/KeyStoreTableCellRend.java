@@ -59,7 +59,7 @@ class KeyStoreTableCellRend
 		    (JLabel) super.getTableCellRendererComponent(jtKeyStore, value, bIsSelected, bHasFocus, iRow, iCol);
 
 		// Entry column - display an icon representing the type and tool tip text
-		if (iCol == FPortecle.COLUMN_TYPE)
+		if (iCol == KeyStoreTableModel.COLUMN_TYPE)
 		{
 			ImageIcon icon;
 
@@ -85,7 +85,7 @@ class KeyStoreTableCellRend
 			cell.setVerticalAlignment(CENTER);
 			cell.setHorizontalAlignment(CENTER);
 		}
-		else if (iCol == FPortecle.COLUMN_EXPIRATION)
+		else if (iCol == KeyStoreTableModel.COLUMN_EXPIRATION)
 		{
 			ImageIcon icon;
 
