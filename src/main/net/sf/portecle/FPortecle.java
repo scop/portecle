@@ -221,6 +221,10 @@ public class FPortecle
 	/** Look &amp; Feel setting made in options (picked up by saveAppPrefs) */
 	private Boolean m_bLookFeelDecorationOptions;
 
+	/** Preference: allowed to set BC org.bouncycastle.asn1.allow_unsafe_integer  
+            made in options (picked up by saveAppPrefs) */
+	private Boolean m_bBouncyCastleAllowUnsafeInteger;
+
 	/** Currently selected alias */
 	private String selectedAlias;
 
@@ -352,6 +356,12 @@ public class FPortecle
 		m_bUseCaCerts = PREFS.getBoolean(RB.getString("AppPrefs.UseCaCerts"), false);
 		m_fCaCertsFile =
 		    new File(PREFS.get(RB.getString("AppPrefs.CaCertsFile"), DEFAULT_CA_CERTS_FILE.getAbsolutePath()));
+		
+		m_bBouncyCastleAllowUnsafeInteger = PREFS.getBoolean(RB.getString("AppPrefs.BouncyCastleAllowUnsafeInteger"), false);
+		if(m_bBouncyCastleAllowUnsafeInteger)
+		{
+			System.getProperties().setProperty(RB.getString("AppPrefs.BouncyCastleAllowUnsafeIntegerOption"), "true");
+		}
 
 		// Initialize GUI components
 		initComponents();
@@ -3614,7 +3624,7 @@ public class FPortecle
 	 */
 	private void showOptions()
 	{
-		DOptions dOptions = new DOptions(this, m_bUseCaCerts, m_fCaCertsFile);
+		DOptions dOptions = new DOptions(this, m_bUseCaCerts, m_fCaCertsFile, m_bBouncyCastleAllowUnsafeInteger);
 		dOptions.setLocationRelativeTo(this);
 		SwingHelper.showAndWait(dOptions);
 
@@ -3633,6 +3643,18 @@ public class FPortecle
 
 		// Use CA certificates?
 		m_bUseCaCerts = dOptions.isUseCaCerts();
+		
+		// Allowed to set option for BC
+		m_bBouncyCastleAllowUnsafeInteger =dOptions.isBcAllowUnsafeInteger();
+		if(m_bBouncyCastleAllowUnsafeInteger)
+		{
+			System.getProperties().setProperty(RB.getString("AppPrefs.BouncyCastleAllowUnsafeIntegerOption"), "true");
+		}
+		else
+		{
+			System.getProperties().remove(RB.getString("AppPrefs.BouncyCastleAllowUnsafeIntegerOption"));
+		}
+
 
 		// Look & feel
 		String newLookFeelClassName = dOptions.getLookFeelClassName();
@@ -5659,6 +5681,12 @@ public class FPortecle
 			{
 				// Current setting
 				PREFS.putBoolean(RB.getString("AppPrefs.LookFeelDecor"), JFrame.isDefaultLookAndFeelDecorated());
+			}
+			
+			if (m_bBouncyCastleAllowUnsafeInteger != null)
+			{
+				// Setting made in options
+				PREFS.putBoolean(RB.getString("AppPrefs.BouncyCastleAllowUnsafeInteger"), m_bBouncyCastleAllowUnsafeInteger);
 			}
 
 			PREFS.sync();

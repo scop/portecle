@@ -79,6 +79,12 @@ class DOptions
 
 	/** Use look &amp; feel for window decoration? */
 	private boolean m_bLookFeelDecorated;
+	
+	/** Look &amp; feel decorated check box */
+	private JCheckBox m_jcbBcAllowUnsafeInteger;
+
+	/** Bouncy Castle Option Allow Unsafe Integer? */
+	private boolean m_bBcAllowUnsafeInteger;
 
 	/**
 	 * Creates new DOptions dialog.
@@ -86,12 +92,14 @@ class DOptions
 	 * @param parent The parent window
 	 * @param bUseCaCerts Use CA certificates keystore file?
 	 * @param fCaCertsFile CA certificates keystore file
+	 * @param bBcAllowUnsafeInteger BC Option AllowUnsafeInteger
 	 */
-	public DOptions(Window parent, boolean bUseCaCerts, File fCaCertsFile)
+	public DOptions(Window parent, boolean bUseCaCerts, File fCaCertsFile, boolean bBcAllowUnsafeInteger)
 	{
 		super(parent, true);
 		m_bUseCaCerts = bUseCaCerts;
 		m_fCaCertsFile = fCaCertsFile;
+		m_bBcAllowUnsafeInteger =bBcAllowUnsafeInteger;
 		initComponents();
 	}
 
@@ -215,6 +223,14 @@ class DOptions
 		jpLookFeel.add(jpLookFeelControls, BorderLayout.NORTH);
 		jpLookFeel.add(jpLookFeelDecoratedControls, BorderLayout.CENTER);
 		jpLookFeel.add(jpDecorationNote, BorderLayout.SOUTH);
+		
+		// Setup a BouncyCastle Options tab
+		JPanel jpBcOptions = new JPanel(new GridLayout(2, 1));
+		m_jcbBcAllowUnsafeInteger = new JCheckBox(RB.getString("DOptions.jpBCoptions.allowunsafeinteger.text"), m_bBcAllowUnsafeInteger);
+		m_jcbBcAllowUnsafeInteger.setToolTipText(RB.getString("DOptions.jpBCoptions.allowunsafeinteger.tooltip"));
+		jpBcOptions.add(m_jcbBcAllowUnsafeInteger, BorderLayout.NORTH);
+
+		
 
 		// Add the panels to a tabbed pane
 		JTabbedPane jtpOptions = new JTabbedPane();
@@ -222,6 +238,8 @@ class DOptions
 		    RB.getString("DOptions.jpCaCerts.tooltip"));
 		jtpOptions.addTab(RB.getString("DOptions.jpLookFeel.text"), null, jpLookFeel,
 		    RB.getString("DOptions.jpLookFeel.tooltip"));
+		jtpOptions.addTab(RB.getString("DOptions.jpBCoptions.text"), null, jpBcOptions,
+			RB.getString("DOptions.jpBCoptions.tooltip"));
 		jtpOptions.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// OK and Cancel buttons
@@ -261,6 +279,8 @@ class DOptions
 
 		// Store whether or not look & feel decoration should be used
 		m_bLookFeelDecorated = m_jcbLookFeelDecorated.isSelected();
+		
+		m_bBcAllowUnsafeInteger =m_jcbBcAllowUnsafeInteger.isSelected();
 	}
 
 	/**
@@ -342,5 +362,19 @@ class DOptions
 	{
 		storeOptions();
 		super.okPressed();
+	}
+
+	/** 
+	 * Preference: is option enabled to allow BC do relaxed integer parsing?
+	 * @return True if option may be enabled, false otherwise.
+	 */
+	public boolean isBcAllowUnsafeInteger()
+	{
+		return m_bBcAllowUnsafeInteger;
+	}
+
+	public void setBcAllowUnsafeInteger(boolean m_bBcAllowUnsafeInteger)
+	{
+		this.m_bBcAllowUnsafeInteger =m_bBcAllowUnsafeInteger;
 	}
 }
