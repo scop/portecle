@@ -82,7 +82,7 @@
       encoding="${build.encoding}"
       includeAntRuntime="false">
       <classpath refid="build.classpath" />
-      <compilerarg compiler="javac1.7" value="-Xlint:all,-serial" />
+      <compilerarg compiler="modern" value="-Xlint:all,-serial" />
     </javac>
     <copy todir="${build}/classes">
       <fileset dir="${src}/main" includes="**/*.properties" />
