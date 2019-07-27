@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>Portecle: How to use proxy servers</title>
+    <link rel="stylesheet" href="help.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+
+  <body>
+
+    <h1>How to use proxy servers</h1>
+    <hr>
+
+    <p>
+      Portecle may access the network when fetching certificates or
+      CRL's, or when <a href="examine-tls.html">examining an SSL/TLS
+      connection</a>. If your environment requires using a
+      nontransparent proxy server to access these destinations,
+      Portecle needs to be configured to use it.
+    </p>
+
+    <p>
+      Portecle does not implement any proxy support itself, but the
+      standard Java proxy mechanisms are available for use with it;
+      refer to the
+      <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/net/proxies.html">Java
+        Networking and Proxies</a> and
+      <a href="https://docs.oracle.com/javase/7/docs/api/java/net/doc-files/net-properties.html#Proxies">Networking
+        Properties</a> documents for details on configuring HTTP,
+      HTTPS, SOCKS, and system default proxy details using system
+      properties. Add the mentioned properties as arguments to Java
+      (not Portecle), i.e. before <code>portecle.jar</code>
+      or <code>FPortecle</code>, to the command used to start
+      Portecle. For example:
+      <kbd>java -Djava.net.useSystemProxies=true -jar portecle.jar</kbd>
+    </p>
+
+    <p>
+      Note that the examine SSL/TLS connection functionality does not
+      use HTTPS even when checking the connection to an HTTPS
+      service. Therefore the HTTPS proxy settings have no effect on
+      it, but the SOCKS proxy applies. The SOCKS proxy also applies to
+      other network accesses, see the above mentioned documents for
+      more details.
+    </p>
+
+    <hr>
+  </body>
+</html>

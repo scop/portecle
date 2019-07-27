@@ -10,6 +10,7 @@ Bug fixes:
 
 Miscellaneous:
 - Bundled Bouncy Castle jars upgraded to version 1.60.
+- Document use of proxy servers, see doc/use-proxies.html (#44).
 
 New in Portecle 1.11 (2017-12-12):
 ----------------------------------
