@@ -9,7 +9,7 @@ Bug fixes:
 - Work around Java 8+ possibly opening PKCS#12 keystores as JKS (#57).
 
 Miscellaneous:
-- Bundled Bouncy Castle jars upgraded to version 1.60.
+- Bundled Bouncy Castle jars upgraded to version 1.62.
 - Document use of proxy servers, see doc/use-proxies.html (#44).
 
 New in Portecle 1.11 (2017-12-12):
