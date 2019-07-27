@@ -32,8 +32,10 @@ GUI, or on the Internet at http://portecle.sourceforge.net/#docs
 ## Installing
 
 First, you'll need a suitable Java runtime environment installed.
-Java SE version 7 or later is required; the latest version is
-available from https://www.oracle.com/technetwork/java/index.html
+Java SE version 7 or later is required; see for example
+https://www.oracle.com/technetwork/java/index.html and
+https://openjdk.java.net/ for available versions and install
+instructions.
 
 Apart from Java, the default binary distribution of Portecle contains
 everything you'll need to run it. The easiest way to install it is to
