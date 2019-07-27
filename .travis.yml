@@ -6,6 +6,7 @@ addons:
   apt:
     packages:
       - desktop-file-utils
+      - libxml2-utils
 
 jdk:
   - openjdk7
@@ -19,3 +20,4 @@ jdk:
 script:
   - ant all
   - desktop-file-validate src/etc/net.sf.portecle.desktop
+  - xmllint --html --noout doc/*.html
