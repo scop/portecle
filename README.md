@@ -27,7 +27,7 @@ will run on any machine that has a suitable Java runtime environment
 installed. 
 
 You can access the online help of Portecle from within the Portecle
-GUI, or on the Internet at http://portecle.sourceforge.net/#docs
+GUI, or online at http://portecle.sourceforge.net/#docs
 
 ## Installing
 
