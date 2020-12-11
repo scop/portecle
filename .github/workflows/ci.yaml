@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          set -x
+          sudo apt-get -yq update
+          sudo apt-get -yq --no-install-recommends install \
+               desktop-file-utils libxml2-utils
+          desktop-file-validate src/etc/net.sf.portecle.desktop
+          xmllint --html --noout doc/*.html
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # TODO: 7; ant is built with 8 and won't run with it
+        java-version: [8, 9, 10, 11, 12, 13, 14, 15]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{matrix.java-version}}
+      - run: ant all
