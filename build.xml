@@ -269,6 +269,30 @@
         fullpath="portecle-${version}/bcpkix.jar" />
     </p:zip>
   </target>
+  
+  <target name="macdist" depends="jar"
+    description="Builds the Portecle application bundle for macOS">
+    <mkdir dir="${dist}" />
+    <p:zip destfile="${dist}/portecle-${version}.app.zip">
+      <zipfileset prefix="Portecle.app"
+        dir="${root}" includes="README.md,LICENSE.txt,NEWS.txt" />
+      <zipfileset prefix="Portecle.app/Contents"
+        dir="${src}/etc" includes="Info.plist" />
+      <zipfileset prefix="Portecle.app/Contents/MacOS"
+        dir="${src}/etc" filemode="755" includes="JavaAppLauncher" />
+      <zipfileset prefix="Portecle.app/Contents/Resources"
+        dir="${lib}" includes="LICENSE.bouncycastle.txt" />
+      <zipfileset prefix="Portecle.app/Contents/Resources/en.lproj"
+        dir="${src}/etc" includes="Localizable.strings" />
+      <zipfileset prefix="Portecle.app/Contents/Resources"
+        dir="${src}/icons" includes="icns/portecle*.*" />
+      <zipfileset prefix="Portecle.app/Contents/Java" file="${build}/${jar}" />
+      <zipfileset file="${bcprov.jar}"
+        fullpath="Portecle.app/Contents/Java/bcprov.jar" />
+      <zipfileset file="${bcpkix.jar}"
+        fullpath="Portecle.app/Contents/Java/bcpkix.jar" />
+    </p:zip>
+  </target>
 
   <target name="srcdist"
     description="Builds the Portecle source distribution">
@@ -287,7 +311,7 @@
     </p:zip>
   </target>
 
-  <target name="dist" depends="srcdist,bindist"
+  <target name="dist" depends="srcdist,bindist,macdist"
     description="Builds Portecle distributions" />
 
   <target name="all" depends="dist,javadoc"

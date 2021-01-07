@@ -109,6 +109,14 @@ If you wish to manage the jar locations yourself, use Java's `-cp`
 option for that, and `net.sf.portecle.FPortecle` as the class to
 launch.
 
+### macOS Application Bundle
+
+As of v1.11 a macOS application bundle is available and provides an
+alternative way to run Portecle on your Mac. Unzip `portecle.app.zip` and
+CTRL-Right-Click on the extracted Portecle.app bundle. macOS will warn you 
+about the fact that the bundle is not signed but allows you to run it
+anyway (this procedure is only required the first time you run Protecle). 
+
 ### Experimental Features
 
 Portecle releases may contain experimental features that are not

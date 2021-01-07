@@ -35,6 +35,7 @@ Miscellaneous:
 - Generated X.509 certificates are now version 3 ones.
 - Bundled Bouncy Castle jars upgraded to version 1.58; 1.56 is the new
   minimum required version.
+- Portecle is now also distributed as unsigned macOS application bundle
 
 New in Portecle 1.10 (2016-02-04):
 ----------------------------------
