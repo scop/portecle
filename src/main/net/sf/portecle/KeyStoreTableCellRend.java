@@ -59,7 +59,7 @@ class KeyStoreTableCellRend
 		    (JLabel) super.getTableCellRendererComponent(jtKeyStore, value, bIsSelected, bHasFocus, iRow, iCol);
 
 		// Entry column - display an icon representing the type and tool tip text
-		if (iCol == 0)
+		if (iCol == KeyStoreTableModel.COLUMN_TYPE)
 		{
 			ImageIcon icon;
 
@@ -85,6 +85,34 @@ class KeyStoreTableCellRend
 			cell.setVerticalAlignment(CENTER);
 			cell.setHorizontalAlignment(CENTER);
 		}
+		else if (iCol == KeyStoreTableModel.COLUMN_EXPIRATION)
+		{
+			ImageIcon icon;
+
+			if (KeyStoreTableModel.CERT_VALID_EXPIRES.equals(value))
+			{
+				icon =
+				    new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableCellRend.CertValidExpires.image")));
+				cell.setToolTipText(RB.getString("KeyStoreTableCellRend.CertValidExpires.tooltip"));
+			}
+			else if (KeyStoreTableModel.CERT_VALID_EXPIRED.equals(value))
+			{
+				icon =
+					    new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableCellRend.CertValidExpired.image")));
+					cell.setToolTipText(RB.getString("KeyStoreTableCellRend.CertValidExpired.tooltip"));
+			}
+			else // if (KeyStoreTableModel.CERT_VALID_OK.equals(value))
+			{
+				icon =
+					    new ImageIcon(getClass().getResource(RB.getString("KeyStoreTableCellRend.CertValidOK.image")));
+					cell.setToolTipText(RB.getString("KeyStoreTableCellRend.CertValidOK.tooltip"));
+			}
+
+			cell.setIcon(icon);
+			cell.setText("");
+			cell.setVerticalAlignment(CENTER);
+			cell.setHorizontalAlignment(CENTER);
+		}		
 		else if (value instanceof Date)
 		{
 			// Include time zone

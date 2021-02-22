@@ -1212,19 +1212,27 @@ public class FPortecle
 			column.setCellRenderer(new KeyStoreTableCellRend());
 		}
 
-		// Make the first column small and not resizable (it holds icons to represent the different entry
+		// Make the type column small and not resizable (it holds icons to represent the different entry
 		// types)
-		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(0);
+		TableColumn typeCol = m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_TYPE);
 		typeCol.setResizable(false);
 		typeCol.setMinWidth(20);
 		typeCol.setMaxWidth(20);
 		typeCol.setPreferredWidth(20);
 
+		// Make the expires column small and not resizable (it holds icons to represent the different entry
+		// expiration states)
+		TableColumn expiryCol = m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_EXPIRATION);
+		expiryCol.setResizable(false);
+		expiryCol.setMinWidth(20);
+		expiryCol.setMaxWidth(20);
+		expiryCol.setPreferredWidth(20);
+		
 		// Set alias columns width according to the relevant application property unless the property is not
 		// present or is invalid.
 		int iAliasWidth = PREFS.getInt(RB.getString("AppPrefs.AliasWidth"), 0);
 
-		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(1);
+		TableColumn aliasCol = m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_ALIAS);
 		aliasCol.setMinWidth(20);
 		aliasCol.setMaxWidth(10000);
 
@@ -1240,7 +1248,7 @@ public class FPortecle
 		// Make the table sortable
 		m_jtKeyStore.setAutoCreateRowSorter(true);
 		// ...and sort it by alias by default
-		m_jtKeyStore.getRowSorter().toggleSortOrder(1);
+		m_jtKeyStore.getRowSorter().toggleSortOrder(KeyStoreTableModel.COLUMN_ALIAS);
 
 		// Get usual double click edit start out of the way - we want double click to show the
 		// entry, even in editable columns. In-place edit can be invoked with F2.
@@ -5603,7 +5611,7 @@ public class FPortecle
 
 			// The size of the keystore table's alias column - determines the size of all of the table's
 			// columns
-			PREFS.putInt(RB.getString("AppPrefs.AliasWidth"), m_jtKeyStore.getColumnModel().getColumn(1).getWidth());
+			PREFS.putInt(RB.getString("AppPrefs.AliasWidth"), m_jtKeyStore.getColumnModel().getColumn(KeyStoreTableModel.COLUMN_ALIAS).getWidth());
 
 			// Application's position on the desktop
 			PREFS.putInt(RB.getString("AppPrefs.XPos"), this.getX());
@@ -6343,13 +6351,13 @@ public class FPortecle
 		private String getSelectedType()
 		{
 			int selectedRow = getSelectedRow();
-			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, 0) : null;
+			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, KeyStoreTableModel.COLUMN_TYPE) : null;
 		}
 
 		private String getSelectedAlias()
 		{
 			int selectedRow = getSelectedRow();
-			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, 1) : null;
+			return (selectedRow >= 0) ? (String) getValueAt(selectedRow, KeyStoreTableModel.COLUMN_ALIAS) : null;
 		}
 
 		private class FileTransferHander
