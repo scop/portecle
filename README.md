@@ -144,3 +144,6 @@ For contact information and issue tracking facilities,
 see Portecle's project pages at:
 - https://github.com/scop/portecle
 - https://sourceforge.net/projects/portecle/
+
+## Alternatives
+* [KeyStore Explorer](https://keystore-explorer.org/) - a GUI tool to work with cryptogtaphy
